@@ -32,3 +32,10 @@ Neutral. Factual. Clean.
   No sports/podcasts/newsletter/comments at launch. Max 2 embeds per
   bulletin. No AI-disclosure footer on bulletins; the About page carries
   the disclosure. Eleventy + GitHub Pages.
+- 2026-08-23: The daily run is a Claude Code cloud routine,
+  "austin-bulletin-daily" (cron 0 11 * * * UTC ≈ 6:07 a.m. Central,
+  model claude-opus-5, environment "Default" env_01DhnuLgA3G72Zm18AVxJDHh —
+  the environment with network egress; the "Default Cloud Environment"
+  blocks outbound fetches). Manage or run it at
+  https://claude.ai/code/routines. Manual catch-up: run /daily-bulletin in
+  any session in this repo.

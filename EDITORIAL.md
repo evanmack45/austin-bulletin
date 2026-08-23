@@ -64,7 +64,8 @@ Do not push unless every check passes:
 1. Every story has a working source link.
 2. Every summary matches what its source actually says.
 3. Date, title, and permalink are correct and consistent.
-4. Every image follows the image rules; embed cap respected.
+4. Every image loads (HTTP 200) and follows the image rules; embed cap
+   respected.
 5. No empty sections; `npm run build` succeeds with no errors.
 6. The full page reads clean top to bottom — no leftover notes, no
    sample text, no broken markdown.
