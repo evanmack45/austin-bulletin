@@ -2,6 +2,7 @@
   "name": "austin-bulletin",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "description": "The Austin Bulletin — a daily AI-produced news bulletin for Austin and Texas.",
   "scripts": {
     "build": "eleventy",
