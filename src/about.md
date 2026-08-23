@@ -40,4 +40,5 @@ reader and each morning's bulletin will arrive on its own.
 
 ## Contact
 
-Feedback is welcome. Reach the publisher on the site's social accounts.
+Feedback and corrections are welcome. Email the publisher at
+<contact@theaustinbulletin.com>.
