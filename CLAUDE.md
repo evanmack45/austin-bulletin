@@ -32,6 +32,12 @@ Neutral. Factual. Clean.
   No sports/podcasts/newsletter/comments at launch. Max 2 embeds per
   bulletin. No AI-disclosure footer on bulletins; the About page carries
   the disclosure. Eleventy + GitHub Pages.
+- 2026-08-23: Visual identity (Evan's pick): "Broadsheet" — blackletter
+  nameplate (UnifrakturMaguntia), Source Serif 4 text, oxblood accent
+  #7a1f1f, on limestone paper #f6efe2. Centered masthead with kicker line
+  and double-rule folio; the page heading is the edition date, not the
+  full title. Design reference canvas:
+  https://claude.ai/code/artifact/5be54bfb-313a-44d8-b139-c6ddbcc4aa2c
 - 2026-08-23: The daily run is a Claude Code cloud routine,
   "austin-bulletin-daily" (cron 0 11 * * * UTC ≈ 6:07 a.m. Central,
   model claude-opus-5, environment "Default" env_01DhnuLgA3G72Zm18AVxJDHh —
