@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title }} · The Austin Bulletin</title>
+  <meta name="description" content="A daily, neutral news bulletin for Austin and Texas.">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="wordmark" href="/">The Austin Bulletin</a>
+    <nav>
+      <a href="/archive/">Archive</a>
+      <a href="/about/">About</a>
+    </nav>
+  </header>
+  <main>
+    {{ content | safe }}
+  </main>
+  <footer class="site-footer">
+    <p>© The Austin Bulletin · <a href="/about/">About this site</a></p>
+  </footer>
+</body>
+</html>
