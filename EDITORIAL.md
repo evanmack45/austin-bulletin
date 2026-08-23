@@ -16,6 +16,10 @@ suggestions. Every rule binds the writing.
 1. Report what happened and who said what. Never state whether a policy
    is good or bad.
 2. Political stories present each side's own words, each with a link.
+   One trusted article that itself carries each side's own words satisfies
+   this rule: "each with a link" means each side's words trace to a linked
+   source, not that each side needs a separate URL. (Ruling approved by the
+   publisher, 2026-08-23.)
 3. Use neutral verbs: "said" — never "claimed", "admitted", "slammed".
 4. No loaded labels for people or groups.
 5. The morning note may have personality, never political opinion.
