@@ -33,6 +33,11 @@ When we get something wrong, we fix it with a visible note in the
 bulletin: "Correction: an earlier version said X. The correct fact is Y."
 We never silently erase errors.
 
+## Follow
+
+Subscribe by RSS: add <https://theaustinbulletin.com/feed.xml> to any feed
+reader and each morning's bulletin will arrive on its own.
+
 ## Contact
 
 Feedback is welcome. Reach the publisher on the site's social accounts.

@@ -6,6 +6,6 @@ permalink: "/"
 {% set latest = collections.bulletins | first %}
 <article class="bulletin">
   <h1 class="edition-date">{{ latest.date | readableDate }}</h1>
-  <p class="edition-permalink"><a href="{{ latest.url }}">Permanent link</a></p>
+  <p class="edition-links"><a href="#weather">Skip to weather</a> · <a href="{{ latest.url }}">Permanent link</a></p>
   {{ latest.templateContent | safe }}
 </article>

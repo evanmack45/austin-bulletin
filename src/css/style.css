@@ -69,7 +69,7 @@ img { width: 100%; height: auto; display: block; }
   text-transform: uppercase;
   color: var(--ink);
 }
-.edition-permalink {
+.edition-links {
   margin: 0;
   text-align: center;
   font-size: 0.8rem;
@@ -113,11 +113,12 @@ h2::after { content: ""; flex: 1; border-top: 1px solid var(--ink); }
 h3 { font-size: 1.7rem; font-weight: 800; letter-spacing: -0.01em; margin: 2.2rem 0 0.5rem; }
 
 .source-line {
-  font-size: 0.78rem;
+  font-size: 0.86rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--muted);
 }
+.source-line a { text-decoration: underline; text-underline-offset: 0.15em; }
 .correction { background: #efe3cd; border: 1px solid #cdb98f; padding: 0.75rem 1rem; }
 figcaption { font-size: 0.85rem; color: var(--muted); }
 
@@ -134,3 +135,4 @@ figcaption { font-size: 0.85rem; color: var(--muted); }
 .archive-list li { padding: 0.65rem 0; border-bottom: 1px solid var(--rule); }
 .archive-list a { text-decoration: none; }
 .archive-list a:hover { text-decoration: underline; }
+.archive-note { margin: 0 0 1.5rem; color: var(--muted); font-style: italic; }

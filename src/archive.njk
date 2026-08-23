@@ -4,6 +4,8 @@ title: "Archive"
 permalink: "/archive/"
 ---
 <h1>Archive</h1>
+{% set first = collections.bulletins | last %}
+<p class="archive-note">Publishing every morning since {{ first.date | readableDate }}.</p>
 <ul class="archive-list">
 {% for b in collections.bulletins %}
   <li><a href="{{ b.url }}">{{ b.data.title }}</a></li>
