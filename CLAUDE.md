@@ -38,6 +38,11 @@ Neutral. Factual. Clean.
   and double-rule folio; the page heading is the edition date, not the
   full title. Design reference canvas:
   https://claude.ai/code/artifact/5be54bfb-313a-44d8-b139-c6ddbcc4aa2c
+- 2026-08-23: The site lives at https://theaustinbulletin.com (GitHub
+  Pages custom domain; DNS on Cloudflare, DNS-only records; HTTPS
+  enforced). www and the old evanmack45.github.io/austin-bulletin URL
+  redirect there. The deploy workflow detects the domain and builds with
+  no path prefix automatically.
 - 2026-08-23: The daily run is a Claude Code cloud routine,
   "austin-bulletin-daily" (cron 0 11 * * * UTC ≈ 6:07 a.m. Central,
   model claude-opus-5, environment "Default" env_01DhnuLgA3G72Zm18AVxJDHh —
