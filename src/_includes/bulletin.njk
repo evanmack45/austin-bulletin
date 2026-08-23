@@ -2,7 +2,6 @@
 layout: layout.njk
 ---
 <article class="bulletin">
-  <h1>{{ title }}</h1>
-  <p class="bulletin-date">{{ page.date | readableDate }}</p>
+  <h1 class="edition-date">{{ page.date | readableDate }}</h1>
   {{ content | safe }}
 </article>
