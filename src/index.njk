@@ -1,0 +1,11 @@
+---
+layout: layout.njk
+title: "Today"
+permalink: "/"
+---
+{% set latest = collections.bulletins | first %}
+<article class="bulletin">
+  <h1>{{ latest.data.title }}</h1>
+  <p class="bulletin-date">{{ latest.date | readableDate }} · <a href="{{ latest.url }}">Permanent link</a></p>
+  {{ latest.templateContent | safe }}
+</article>
