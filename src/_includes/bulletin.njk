@@ -2,7 +2,9 @@
 layout: layout.njk
 ---
 <article class="bulletin">
-  <h1 class="edition-date">{{ page.date | readableDate }}</h1>
-  <p class="edition-links"><a href="#weather">Skip to weather</a></p>
+  {% set editionDate = page.date %}
+  {% set editionUrl = page.url %}
+  {% set showPermalink = false %}
+  {% include "edition-head.njk" %}
   {{ content | safe }}
 </article>

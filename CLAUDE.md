@@ -28,7 +28,7 @@ Neutral. Factual. Clean.
 ## Standing decisions
 
 - 2026-08-23: Plain date titles, no puns. Morning note = warm local
-  voice, zero politics. Top stories (6–8) + Weather + optional In brief.
+  voice, zero politics. Top stories (5, cut from 6–8 the same evening) + Weather + optional In brief.
   No sports/podcasts/newsletter/comments at launch. Max 2 embeds per
   bulletin. No AI-disclosure footer on bulletins; the About page carries
   the disclosure. Eleventy + GitHub Pages.
@@ -55,3 +55,9 @@ Neutral. Factual. Clean.
   plugin), a styled 404 page, a "Today" nav link, a "Skip to weather" jump
   link (headings get ids via markdown-it-anchor), external links open in a
   new tab (build transform), and the Archive shows the first publish date.
+- 2026-08-23 (evening notes from Evan): masthead kicker is "Every morning ·
+  Neutral · Factual"; each edition opens with a boxed date plate (weekday,
+  date, edition number); the morning note sits in a boxed panel; summaries
+  are capped at 100 words; In brief items carry a bold one-word category
+  label. Image strategy (better selection and/or Nano Banana generation) is
+  an open decision.

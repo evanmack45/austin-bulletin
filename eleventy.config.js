@@ -34,6 +34,19 @@ export default function (eleventyConfig) {
       weekday: "long", year: "numeric", month: "long", day: "numeric", timeZone: "UTC"
     })
   );
+  eleventyConfig.addFilter("weekday", (d) =>
+    new Date(d).toLocaleDateString("en-US", { weekday: "long", timeZone: "UTC" })
+  );
+  eleventyConfig.addFilter("longDate", (d) =>
+    new Date(d).toLocaleDateString("en-US", {
+      year: "numeric", month: "long", day: "numeric", timeZone: "UTC"
+    })
+  );
+  // Edition number: 1 for the oldest bulletin, counting up. `bulletins` is newest-first.
+  eleventyConfig.addFilter("editionNumber", (url, bulletins) => {
+    const i = bulletins.findIndex((b) => b.url === url);
+    return i === -1 ? bulletins.length : bulletins.length - i;
+  });
 
   // Links that leave the site open in a new tab, so readers keep their place.
   // Runs on our own generated HTML only; the pattern matches <a href="http…"> exactly as

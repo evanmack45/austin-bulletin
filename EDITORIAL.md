@@ -7,7 +7,10 @@ suggestions. Every rule binds the writing.
 
 - The morning note is warm and local — a friendly Austinite. It may
   mention heat, traffic, city mood. It never carries political opinion.
-- Story summaries are flat, clear, and neutral. 2–4 sentences.
+- Story summaries are flat, clear, and neutral. 2–4 sentences, 100 words
+  maximum. Count them.
+- In brief items are one sentence each and start with a bold one-word
+  category label and a colon: `**Outage:**`, `**Politics:**`, `**Border:**`.
 - Bulletin titles are plain: "The Austin Bulletin — {Weekday, Month D, YYYY}".
   Never puns or jokes.
 

@@ -1,0 +1,6 @@
+{# Expects editionDate, editionUrl, showPermalink to be set by the including template. #}
+<header class="edition-head">
+  <p class="edition-weekday">{{ editionDate | weekday }}</p>
+  <h1 class="edition-date">{{ editionDate | longDate }}</h1>
+  <p class="edition-meta">No. {{ editionUrl | editionNumber(collections.bulletins) }} &middot; <a href="#weather">Skip to weather</a>{% if showPermalink %} &middot; <a href="{{ editionUrl }}">Permanent link</a>{% endif %}</p>
+</header>

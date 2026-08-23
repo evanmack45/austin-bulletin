@@ -4,6 +4,7 @@
   --accent: #7a1f1f;
   --rule: #d9d2c4;
   --bg: #f6efe2;
+  --tint: #f1e8d6;
 }
 * { box-sizing: border-box; }
 body {
@@ -60,42 +61,66 @@ img { width: 100%; height: auto; display: block; }
 .folio-nav a { color: var(--accent); text-decoration: none; }
 .folio-nav a:hover { text-decoration: underline; }
 
-.edition-date {
-  margin: 2rem 0 0.25rem;
+.edition-head {
+  position: relative;
+  max-width: 30rem;
+  margin: 1.75rem auto 0;
+  padding: 0.9rem 1.25rem 0.95rem;
+  border: 1px solid var(--ink);
+  box-shadow: inset 0 0 0 4px var(--bg), inset 0 0 0 5px var(--ink);
+  background: var(--tint);
   text-align: center;
-  font-size: 0.95rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--ink);
 }
-.edition-links {
+.edition-weekday {
   margin: 0;
-  text-align: center;
-  font-size: 0.8rem;
-  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
+  color: var(--accent);
 }
+.edition-date {
+  margin: 0.15rem 0 0.25rem;
+  font-size: clamp(1.6rem, 5vw, 2.2rem);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+.edition-meta {
+  margin: 0;
+  font-size: 0.74rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.edition-meta a { color: var(--accent); }
 
 .morning-note {
+  position: relative;
   margin: 2rem auto 2.25rem;
-  padding: 0 1.5rem 1.9rem;
-  border-bottom: 1px solid var(--rule);
+  padding: 1.9rem 1.75rem 1.5rem;
+  border: 1px solid var(--ink);
+  background: var(--tint);
   text-align: center;
   font-style: italic;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   line-height: 1.65;
 }
 .morning-note::before {
   content: "The Morning Note";
-  display: block;
-  margin-bottom: 0.6rem;
+  position: absolute;
+  top: -0.55rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0 0.7rem;
+  background: var(--bg);
   font-style: normal;
-  font-size: 0.72rem;
-  font-weight: 600;
+  font-size: 0.7rem;
+  font-weight: 700;
   letter-spacing: 0.24em;
   text-transform: uppercase;
   color: var(--accent);
+  white-space: nowrap;
 }
 
 h1 { font-size: 1.9rem; margin: 1rem 0 0.25rem; }
@@ -121,6 +146,13 @@ h3 { font-size: 1.7rem; font-weight: 800; letter-spacing: -0.01em; margin: 2.2re
 .source-line a { text-decoration: underline; text-underline-offset: 0.15em; }
 .correction { background: #efe3cd; border: 1px solid #cdb98f; padding: 0.75rem 1rem; }
 figcaption { font-size: 0.85rem; color: var(--muted); }
+#in-brief + ul li { margin-bottom: 0.5rem; }
+#in-brief + ul strong {
+  font-size: 0.82em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
 
 .site-footer {
   max-width: 44rem;

@@ -25,7 +25,7 @@ https://api.weather.gov/alerts/active?zone=TXZ192.
 
 ## Step 2 — Select
 
-Pick 6–8 stories. Priority: impact on daily life in Austin (safety,
+Pick exactly 5 stories. Priority: impact on daily life in Austin (safety,
 schools, transportation, cost of living, weather, city government), then
 major Texas news. Order by importance. Check recent bulletins in
 `src/bulletins/` to avoid repeating a story with no new development.
@@ -35,9 +35,10 @@ major Texas news. Order by importance. Check recent bulletins in
 Create `src/bulletins/YYYY-MM-DD.md` for today, copying the exact front
 matter and section structure of the newest existing bulletin file:
 morning note, "## Top stories" (### headline + summary + image + source
-line per story), "## Weather", optional "## In brief" (3–5 one-line
-items). Set `permalink: "/YYYY/MM/DD/"`. Every rule in EDITORIAL.md
-applies to every sentence. "Today" means the date in America/Chicago (`TZ='America/Chicago' date`),
+line per story), "## Weather", optional "## In brief" (3–5 one-line items,
+each opening with a bold one-word category label). Set
+`permalink: "/YYYY/MM/DD/"`. Every rule in EDITORIAL.md applies to every
+sentence. "Today" means the date in America/Chicago (`TZ='America/Chicago' date`),
 never UTC.
 
 ## Step 4 — Illustrate
