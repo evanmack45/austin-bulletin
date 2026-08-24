@@ -51,19 +51,20 @@ second source. Add outlets here only after discussion with the publisher.
 1. Official embed — the source's own X/Facebook post, when one exists.
    Hard cap: 2 embeds per bulletin, total.
 2. A real photo of the story's actual subject — the specific place,
-   building, event, or thing named in the story. Reuse-licensed only
-   (Wikimedia Commons or another free-license source); credit the
-   photographer and license in the caption. A generic stand-in (a water
-   tower for a fire-station story, a supermarket for a candle maker)
-   does not qualify — use rule 3 instead.
-3. House-style illustration, generated with `npm run illustrate` (see
-   PIPELINE.md Step 4). The caption must read exactly "AI-generated
-   illustration". Illustrations never depict real or recognizable
-   people, never imitate photographs, and never stand in for a record of
-   what happened — they set the subject, not the scene.
+   building, event, or thing named in the story — and only after you have
+   verified it: open the photo's own description page and confirm it
+   names the same place or thing the story does. Reuse-licensed only;
+   credit the photographer and license in the caption. A generic
+   stand-in, or a photo you cannot verify, does not qualify — use rule 3.
+3. Photorealistic AI image, generated with `npm run illustrate`
+   (PIPELINE.md Step 4), when no verified photo exists. The caption must
+   read exactly "AI-generated image". Generated images never show real or
+   recognizable people and never pose as a photograph of the actual
+   event — they show the kind of place or thing the story is about.
 
 Never: hotlinked copyrighted news photos; screenshots of other outlets'
-pages or social feeds; AI images captioned as photographs.
+pages or social feeds; AI images captioned as photographs; photos you
+could not verify.
 
 ## Corrections
 

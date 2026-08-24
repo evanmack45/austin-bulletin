@@ -1,4 +1,4 @@
-// Generate one house-style editorial illustration with Google's Nano Banana 2
+// Generate one photorealistic editorial image with Google's Nano Banana 2
 // (gemini-3.1-flash-image) and save it as a web-ready JPEG.
 //
 // Usage:  node scripts/illustrate.mjs YYYY-MM-DD <slug> "<one-sentence subject>"
@@ -16,14 +16,12 @@ const ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${MODE
 // The house style: every illustration on the site shares this look so the
 // bulletin reads as one publication. Keep edits here, not in per-story prompts.
 const HOUSE_STYLE = [
-  "An editorial illustration for a broadsheet newspaper, in the style of a",
-  "19th-century wood engraving: black ink line work with fine cross-hatching on",
-  "warm cream paper (#f6efe2), with one restrained accent of deep oxblood red",
-  "(#7a1f1f) used sparingly. Landscape composition. A clear, simple, iconic",
-  "subject with generous negative space and no clutter.",
-  "No text, no letters, no numbers, no captions, no signature, no watermark,",
-  "no border or frame. No real or recognizable people; any human figures are",
-  "small, generic, and seen from a distance."
+  "A photorealistic editorial photograph for a news website. Documentary style,",
+  "natural light, true-to-life color, shot on a full-frame camera with a 35mm",
+  "lens, sharp focus on the subject, a believable Central Texas setting.",
+  "No text, no letters, no numbers, no readable signs, no logos, no watermark,",
+  "no border. No real or recognizable people; any people are generic,",
+  "unidentifiable, seen from behind or at a distance."
 ].join(" ");
 
 function usage(msg) {
@@ -76,4 +74,4 @@ await writeFile(outFile, jpeg);
 
 console.error(`Wrote ${outFile} (${Math.round(jpeg.length / 1024)} KB)`);
 console.log(`![${subject}](/images/${date}/${slug}.jpg)`);
-console.log(`<figcaption>AI-generated illustration</figcaption>`);
+console.log(`<figcaption>AI-generated image</figcaption>`);
