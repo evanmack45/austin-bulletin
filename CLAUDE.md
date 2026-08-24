@@ -86,6 +86,17 @@ Neutral. Factual. Clean.
   at its project quota), key restricted to the Pollen API, stored in the
   1Password item "Google Pollen API Key" (vault Personal). The cloud
   routine's environment needs it as POLLEN_API_KEY.
+- 2026-08-24 (Evan, approved): gather identifies itself honestly —
+  `TheAustinBulletin/1.0 (+https://theaustinbulletin.com)` on every fetch,
+  never a browser UA we are not, never posing as a named crawler; read an
+  outlet's robots.txt before adding a fetch path. KXAN is gathered through
+  its WordPress REST API (`/wp-json/wp/v2/posts`), which is open to an
+  honest UA, carries the full article body, filters to the window in one
+  request, and is more complete than its RSS; reader proxy is the
+  documented fallback only. Details in PIPELINE.md Step 1. Still open for
+  decision: KVUE (unreadable by every path), the Austin Monitor (defunct
+  since Oct. 2025, successor Austin Current), and KUT (cited but not on the
+  trusted list).
 - 2026-08-23 (Evan): images must add value. New priority: original
   graphics (bar chart, timeline, Google static map via `npm run graphic`)
   built from verified facts; then official embeds; then verified real

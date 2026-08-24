@@ -9,15 +9,58 @@ Web-search the last 24 hours of Austin and Texas news from the trusted
 outlets listed in EDITORIAL.md. Also fetch today's forecast and any
 active alerts from weather.gov/ewx. Collect candidate stories with URLs.
 
-Gather mechanics (verified 2026-08-23): check the outlets' RSS feeds first,
-filter items by pubDate to the last 24 hours, then fetch the article text of
-anything you might use. Known-good feeds: KXAN https://www.kxan.com/feed/,
-FOX 7 https://www.fox7austin.com/rss/category/news, KVUE
-https://www.kvue.com/feeds/syndication/rss/news/local, CBS Austin
+Identify yourself honestly on every fetch. The standard User-Agent for all
+gathering is:
+
+    TheAustinBulletin/1.0 (+https://theaustinbulletin.com)
+
+Never send a browser User-Agent we are not, and never present as a named
+crawler. Several outlets disallow AI training crawlers (GPTBot, CCBot,
+PerplexityBot, Google-Extended, Applebot-Extended, FacebookBot) in
+robots.txt; we are none of those and must not imitate one. Read an outlet's
+robots.txt before adding a new fetch path, and respect it.
+
+Gather mechanics (verified 2026-08-23, revised 2026-08-24): check the
+outlets' RSS feeds first, filter items by pubDate to the last 24 hours, then
+fetch the article text of anything you might use. Known-good feeds:
+FOX 7 https://www.fox7austin.com/rss/category/news, CBS Austin
 https://cbsaustin.com/news/local.rss, Texas Tribune
-https://feeds.texastribune.org/feeds/main/. KXAN and KVUE article pages
-return HTTP 403 to curl and most fetchers (bot filter) — try WebFetch, then
-a reader proxy; if an article's text still cannot be read, the story is
+https://feeds.texastribune.org/feeds/main/, Community Impact
+https://communityimpact.com/rss/austin/. Those four read fine over plain
+curl, feed and article text alike.
+
+**KXAN — use the WordPress REST API, not RSS.** It is open to an honest
+User-Agent, returns the full article body, filters to the window in one
+request, and is more complete than the RSS feeds (20 posts against 16 across
+three feeds on 2026-08-24):
+
+    https://www.kxan.com/wp-json/wp/v2/posts?per_page=100&orderby=date
+      &after=YYYY-MM-DDTHH:MM:SS
+      &_fields=date_gmt,link,title,content,excerpt
+
+`content.rendered` is the full body — strip tags and decode entities. The
+`X-WP-Total` and `X-WP-TotalPages` response headers confirm you have the
+whole window; page through if `TotalPages` is above 1. Times in `after` are
+site-local; `date_gmt` on each post is UTC. To pull one known article, use
+`?slug=<the-url-slug>`. KXAN's robots.txt permits `/wp-json/`, `/amp/` and
+article paths; it disallows `/wp-admin/`, site search, `/tag/` and `/page/`,
+which we do not need. If the API is ever closed off, fall back to a reader
+proxy (`https://r.jina.ai/<url>`) — that works but truncates long articles,
+so prefer the API. Plain curl and WebFetch both get 403 on KXAN article
+pages; do not waste a run retrying them.
+
+**KVUE is unreadable** as of 2026-08-24: 403 to curl, to WebFetch, to a
+reader proxy and to the `/amp/` path alike. Only its RSS headlines are
+reachable, which is not enough to verify a story. Status pending a
+publisher decision; until then, KVUE stories are unverifiable and get
+dropped and logged.
+
+**Austin American-Statesman** has no working RSS feed (all
+`/arc/outboundfeeds/` paths 404). Article pages read fine; section pages
+read through a reader proxy but are cached and mix in week-old stories, so
+check each article's `datePublished` in the page JSON before using it.
+
+If an article's text cannot be read by any permitted path, the story is
 unverifiable: drop it and record the drop in the log. Weather comes from the
 NWS API with a User-Agent header: forecast
 https://api.weather.gov/gridpoints/EWX/156,91/forecast and active alerts
