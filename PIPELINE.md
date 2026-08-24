@@ -52,16 +52,25 @@ never UTC.
 
 ## Step 4 — Illustrate
 
-One image per story, chosen by the image rules in EDITORIAL.md. When a
-story falls to rule 3, generate its illustration:
+One image per story, chosen by the image rules in EDITORIAL.md. Reach for
+an original graphic first:
+
+    npm run graphic -- <spec.json>
+
+Write the spec to `src/_data/graphics/YYYY-MM-DD-<slug>.json` (types:
+`bars` for a short series of numbers, `timeline` for a sequence of dated
+events, `map` for a place — see `scripts/graphic.mjs` for the fields).
+Every number and date in a spec must come from a linked source. The
+script writes `src/images/YYYY-MM-DD/<slug>.png` and prints the markdown
+to paste. Maps need `GOOGLE_MAPS_API_KEY` (or the same key as
+`POLLEN_API_KEY`).
+
+When no graphic fits, fall to rules 2–4. For rule 4:
 
     npm run illustrate -- YYYY-MM-DD <slug> "<one-sentence subject>"
 
-The subject is a plain description of what to draw (for example "a
-high-voltage transmission tower crossing dry Texas hill country"), never
-a real person. The script needs `GEMINI_API_KEY` in the environment; it
-writes `src/images/YYYY-MM-DD/<slug>.jpg` and prints the exact markdown
-to paste under the story. The image is committed with the bulletin. If
+The subject is a plain description of what to draw, never a real person.
+Needs `GEMINI_API_KEY`. Commit images and specs with the bulletin. If
 generation fails (no key, network error, or a refusal), run the story
 without an image and say so in the log.
 
@@ -73,7 +82,7 @@ EDITORIAL.md. When every check passes:
 
 Write today's log (Step 6) first — the commit below stages `logs/`.
 
-    git add src/bulletins/ src/images/ src/_data/glance/ logs/
+    git add src/bulletins/ src/images/ src/_data/glance/ src/_data/graphics/ logs/
     git commit -m "bulletin: YYYY-MM-DD"
     git push
 

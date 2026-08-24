@@ -59,23 +59,28 @@ second source. Add outlets here only after discussion with the publisher.
 
 ## Image rules (per story, in priority order)
 
-1. Official embed — the source's own X/Facebook post, when one exists.
-   Hard cap: 2 embeds per bulletin, total.
-2. A real photo of the story's actual subject — the specific place,
-   building, event, or thing named in the story — and only after you have
-   verified it: open the photo's own description page and confirm it
-   names the same place or thing the story does. Reuse-licensed only;
-   credit the photographer and license in the caption. A generic
-   stand-in, or a photo you cannot verify, does not qualify — use rule 3.
-3. Photorealistic AI image, generated with `npm run illustrate`
-   (PIPELINE.md Step 4), when no verified photo exists. The caption must
-   read exactly "AI-generated image". Generated images never show real or
-   recognizable people and never pose as a photograph of the actual
-   event — they show the kind of place or thing the story is about.
+1. An original graphic built from the story's own verified facts —
+   a chart, a map, or a timeline — made with `npm run graphic` (see
+   PIPELINE.md Step 4). Use it whenever the story has a number that
+   changes, a place, or a sequence of dates. Every figure in it must
+   trace to a linked source; the caption names the source.
+2. Official embed — the source's own X/Facebook post, when one exists.
+   Hard cap: 2 embeds per bulletin, total. This is the only way to show
+   another outlet's photograph.
+3. A real photo of the story's actual subject, verified: open the
+   photo's own description page and confirm it names the same place or
+   thing the story does. Allowed sources: free-licensed archives
+   (Wikimedia Commons, Flickr CC), and photos that government agencies
+   release with their statements (city, county, state, federal),
+   credited to the agency. A generic stand-in, or a photo you cannot
+   verify, does not qualify.
+4. Photorealistic AI image, generated with `npm run illustrate`, when
+   none of the above exists. Caption exactly "AI-generated image". Never
+   real or recognizable people; never posed as a photo of the event.
 
-Never: hotlinked copyrighted news photos; screenshots of other outlets'
-pages or social feeds; AI images captioned as photographs; photos you
-could not verify.
+Never: photos copied out of another outlet's article (copyright);
+screenshots of other outlets' pages or feeds; AI images captioned as
+photographs; photos you could not verify.
 
 ## Corrections
 

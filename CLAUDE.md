@@ -79,3 +79,9 @@ Neutral. Factual. Clean.
   at its project quota), key restricted to the Pollen API, stored in the
   1Password item "Google Pollen API Key" (vault Personal). The cloud
   routine's environment needs it as POLLEN_API_KEY.
+- 2026-08-23 (Evan): images must add value. New priority: original
+  graphics (bar chart, timeline, Google static map via `npm run graphic`)
+  built from verified facts; then official embeds; then verified real
+  photos including agency-released ones; AI images last. Never copy
+  photos out of other outlets' articles. Maps use the austin-bulletin
+  Google key (Maps Static API enabled, same key as the Pollen API).
