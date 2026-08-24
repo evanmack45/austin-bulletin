@@ -1,6 +1,6 @@
 {
   "date": "2026-08-23",
-  "fetchedAt": "2026-08-24T01:01:25.147Z",
+  "fetchedAt": "2026-08-24T01:35:49.392Z",
   "weather": {
     "high": 106,
     "low": 81,
@@ -24,10 +24,18 @@
     "weekNote": "−0.9 pts vs. last week",
     "source": "https://www.waterdatafortexas.org/reservoirs/individual/travis"
   },
-  "springs": {
-    "tempC": 22.1,
-    "tempF": 71.8,
-    "source": "https://waterdata.usgs.gov/monitoring-location/08155500/"
+  "pollen": {
+    "index": 2,
+    "category": "Low",
+    "tree": 1,
+    "grass": 2,
+    "weed": 2,
+    "plants": [
+      "Grasses",
+      "Ragweed"
+    ],
+    "note": "Tree 1 · Grass 2 · Weed 2 · Grasses, Ragweed",
+    "source": "https://developers.google.com/maps/documentation/pollen"
   },
   "grid": {
     "forecastPeakMw": 90100,

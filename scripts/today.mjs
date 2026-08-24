@@ -7,10 +7,11 @@
 // If no date is given, defaults to today in America/Chicago, computed with
 // new Intl.DateTimeFormat("en-CA", { timeZone: "America/Chicago" }).format(new Date()).
 //
-// Each of the six modules (weather, air, lake, springs, grid, sun) is
+// Each of the six modules (weather, air, lake, pollen, grid, sun) is
 // independent: a failure leaves that module `null` in the output and
 // records the reason in `errors`. The script exits 0 unless ALL six
-// modules fail, in which case it exits 1.
+// modules fail, in which case it exits 1. The pollen module requires
+// POLLEN_API_KEY in the environment.
 
 import { fileURLToPath } from "node:url";
 import path from "node:path";
@@ -214,21 +215,82 @@ async function fetchLake(date) {
   };
 }
 
-// --- springs -----------------------------------------------------------
+// --- pollen ----------------------------------------------------------------
 
-async function fetchSprings() {
+const POLLEN_CATEGORIES = ["None", "Very Low", "Low", "Moderate", "High", "Very High"];
+
+const PLANT_NAMES = {
+  RAGWEED: "Ragweed",
+  GRAMINALES: "Grasses",
+  JUNIPER: "Juniper (cedar)",
+  ASH: "Ash",
+  ELM: "Elm",
+  OAK: "Oak",
+  PINE: "Pine",
+  COTTONWOOD: "Cottonwood",
+  MAPLE: "Maple",
+  ALDER: "Alder",
+  BIRCH: "Birch",
+  CYPRESS_PINE: "Cypress",
+  HAZEL: "Hazel",
+  OLIVE: "Olive",
+  MUGWORT: "Mugwort",
+  CHENOPOD: "Chenopods",
+};
+
+function titleCasePlant(code) {
+  if (PLANT_NAMES[code]) return PLANT_NAMES[code];
+  const lower = code.toLowerCase();
+  return lower.charAt(0).toUpperCase() + lower.slice(1);
+}
+
+async function fetchPollen(date) {
+  const key = process.env.POLLEN_API_KEY;
+  if (!key) {
+    throw new Error("POLLEN_API_KEY is not set");
+  }
   const data = await fetchJson(
-    "https://waterservices.usgs.gov/nwis/iv/?format=json&sites=08155500&parameterCd=00010&siteStatus=all",
+    `https://pollen.googleapis.com/v1/forecast:lookup?key=${key}&location.latitude=30.2672&location.longitude=-97.7431&days=2&plantsDescription=false`,
   );
-  const timeSeries = data.value.timeSeries[0];
-  const values = timeSeries.values[0].value;
-  const last = values[values.length - 1];
-  const tempC = parseFloat(last.value);
-  const tempF = Math.round((tempC * 9 / 5 + 32) * 10) / 10;
+  const dailyInfo = data.dailyInfo || [];
+  const [year, month, day] = date.split("-").map(Number);
+  const dayInfo =
+    dailyInfo.find(
+      (d) => d.date && d.date.year === year && d.date.month === month && d.date.day === day,
+    ) || dailyInfo[0];
+  if (!dayInfo) {
+    throw new Error("no dailyInfo entries in pollen response");
+  }
+
+  const typeValue = (code) => {
+    const t = (dayInfo.pollenTypeInfo || []).find((x) => x.code === code);
+    return t && t.indexInfo ? t.indexInfo.value : 0;
+  };
+  const tree = typeValue("TREE");
+  const grass = typeValue("GRASS");
+  const weed = typeValue("WEED");
+  const index = Math.max(tree, grass, weed);
+  const category = POLLEN_CATEGORIES[index];
+
+  const plants = (dayInfo.plantInfo || [])
+    .filter((p) => p.indexInfo && p.indexInfo.value >= 2)
+    .map((p) => ({ code: p.code, value: p.indexInfo.value }))
+    .sort((a, b) => b.value - a.value)
+    .slice(0, 3)
+    .map((p) => titleCasePlant(p.code));
+
+  const note =
+    `Tree ${tree} · Grass ${grass} · Weed ${weed}` + (plants.length ? ` · ${plants.join(", ")}` : "");
+
   return {
-    tempC,
-    tempF,
-    source: "https://waterdata.usgs.gov/monitoring-location/08155500/",
+    index,
+    category,
+    tree,
+    grass,
+    weed,
+    plants,
+    note,
+    source: "https://developers.google.com/maps/documentation/pollen",
   };
 }
 
@@ -299,8 +361,8 @@ function logSummary(name, value) {
       return `${value.aqi} (${value.category})`;
     case "lake":
       return `${value.percentFull}% full`;
-    case "springs":
-      return `${value.tempF}°F`;
+    case "pollen":
+      return `${value.category} (${value.tree}/${value.grass}/${value.weed})`;
     case "grid":
       return `${value.forecastPeakMw} MW`;
     case "sun":
@@ -319,7 +381,7 @@ async function main() {
     ["weather", fetchWeather],
     ["air", fetchAir],
     ["lake", fetchLake],
-    ["springs", fetchSprings],
+    ["pollen", fetchPollen],
     ["grid", fetchGrid],
     ["sun", fetchSun],
   ];

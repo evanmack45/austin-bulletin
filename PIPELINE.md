@@ -25,8 +25,9 @@ https://api.weather.gov/alerts/active?zone=TXZ192.
 
 Then fetch the day's glance numbers: `npm run today` (writes
 `src/_data/glance/YYYY-MM-DD.json` from NWS, Open-Meteo, Water Data for
-Texas, USGS, and ERCOT). A module that fails is left out of the strip and
-noted in the log; the run continues.
+Texas, Google's Pollen API, and ERCOT; the pollen module needs
+`POLLEN_API_KEY` in the environment). A module that fails is left out of
+the strip and noted in the log; the run continues.
 
 ## Step 2 — Select
 

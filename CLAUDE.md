@@ -51,8 +51,10 @@ Neutral. Factual. Clean.
   https://claude.ai/code/routines. Manual catch-up: run /daily-bulletin in
   any session in this repo.
 - 2026-08-23 (site plan, Evan's decisions): "Today at a glance" strip
-  with all six modules (weather, air, Lake Travis, Barton Springs, power
-  grid, sun) via `npm run today`; a factual "What's next" line on every
+  with all six modules (weather, air, Lake Travis, allergies, power grid,
+  sun; Barton Springs was dropped 2026-08-23 because its temperature
+  barely moves — 71.2–72.5 °F over a year) via `npm run today`; a factual
+  "What's next" line on every
   top story; Evan McMillan named as publisher on About and in the footer;
   NO email edition (reaffirmed — do not propose it again). Plan:
   docs/2026-08-23-site-plan.md.
@@ -72,3 +74,8 @@ Neutral. Factual. Clean.
   generated files live in src/images/. The Gemini key is the 1Password
   item "Gemini API Credential"; the cloud routine's environment "Default"
   carries it as GEMINI_API_KEY.
+- 2026-08-23: Allergy data comes from Google's Pollen API. Google Cloud
+  project "austin-bulletin" (billing: My Billing Account 2 — Account 1 is
+  at its project quota), key restricted to the Pollen API, stored in the
+  1Password item "Google Pollen API Key" (vault Personal). The cloud
+  routine's environment needs it as POLLEN_API_KEY.

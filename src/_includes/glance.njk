@@ -6,10 +6,10 @@
     {% if glanceData.weather %}<li><span class="g-label">Weather</span><span class="g-value">{% if glanceData.weather.high %}{{ glanceData.weather.high }}°{% endif %}{% if glanceData.weather.high and glanceData.weather.low %} / {% endif %}{% if glanceData.weather.low %}{{ glanceData.weather.low }}°{% endif %}</span><span class="g-note">{{ glanceData.weather.summary }}{% for a in glanceData.weather.alerts %} · {{ a }}{% endfor %}</span></li>{% endif %}
     {% if glanceData.air %}<li><span class="g-label">Air quality</span><span class="g-value">{{ glanceData.air.aqi }}</span><span class="g-note">{{ glanceData.air.category }} · US AQI</span></li>{% endif %}
     {% if glanceData.lake %}<li><span class="g-label">Lake Travis</span><span class="g-value">{{ glanceData.lake.percentFull }}% full</span><span class="g-note">{{ glanceData.lake.elevationFt }} ft{% if glanceData.lake.weekNote %} · {{ glanceData.lake.weekNote }}{% endif %}</span></li>{% endif %}
-    {% if glanceData.springs %}<li><span class="g-label">Barton Springs</span><span class="g-value">{{ glanceData.springs.tempF }}°</span><span class="g-note">water temperature</span></li>{% endif %}
+    {% if glanceData.pollen %}<li><span class="g-label">Allergies</span><span class="g-value">{{ glanceData.pollen.category }}</span><span class="g-note">{{ glanceData.pollen.note }}</span></li>{% endif %}
     {% if glanceData.grid %}<li><span class="g-label">Power grid</span><span class="g-value">{{ glanceData.grid.forecastPeakMw | commas }} MW</span><span class="g-note">forecast peak · {{ glanceData.grid.availableMw | commas }} MW available</span></li>{% endif %}
     {% if glanceData.sun %}<li><span class="g-label">Sunrise</span><span class="g-value">{{ glanceData.sun.sunrise }}</span><span class="g-note">sunset {{ glanceData.sun.sunset }}</span></li>{% endif %}
   </ul>
-  <p class="glance-sources">Sources: National Weather Service · Open-Meteo · Water Data for Texas · USGS · ERCOT</p>
+  <p class="glance-sources">Sources: National Weather Service · Open-Meteo · Water Data for Texas · Google Pollen API · ERCOT</p>
 </section>
 {% endif %}
