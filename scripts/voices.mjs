@@ -17,10 +17,12 @@
 //    password. Free, so it runs a spread of Austin queries.
 //
 // 3. X search, when X_BEARER_TOKEN is set — an app-only bearer token from
-//    the X developer portal. X bills per request, so this is deliberately
-//    two calls a morning: the queries use OR to cover many terms at once.
-//    Widen a query rather than adding one. On a rejected token or a rate
-//    limit it stops immediately instead of spending another billed call.
+//    the X developer portal. X bills $0.005 per post *returned*, not per
+//    request, so the queries are many and narrow and each asks for only ten
+//    posts: about $0.25 a day at worst. Filtering is pushed into the query
+//    because X applies it before billing, unlike our filters. The run
+//    prints how many posts it paid for. See X_QUERIES before changing any
+//    of it.
 //
 // Nothing is written to disk: the point is a shortlist to read, from which
 // you run `npm run card -- <post-url>` on the ones worth carrying.
@@ -49,14 +51,30 @@ const DEFAULT_QUERIES = [
   "Austin traffic", "Austin heat", "Austin ISD", "Travis County"
 ];
 
-// X charges per call, so the same ground is covered in two requests using
-// OR rather than one request per term. Two calls a morning, every morning.
-// Adding a term here is free; adding a query costs a call on every run.
+// X bills $0.005 per post *returned*, not per request (docs.x.com/x-api/
+// getting-started/pricing). Requests are free; posts are the meter. So the
+// shape here is many narrow queries each asking for very few posts, rather
+// than a couple of broad ones asking for many — extra queries cost nothing
+// and buy coverage, while every post we fetch and then discard is money
+// spent on nothing.
+//
+// That is also why the filtering lives in the query: -is:retweet, lang:en
+// and min_likes: are applied by X before billing, unlike our own noise and
+// locality filters, which run after we have already paid.
+//
+// Self-serve access caps a query at 512 characters.
 const X_API = "https://api.x.com/2";
+const X_POST_COST_USD = 0.005;
+const X_MAX_PER_QUERY = 10;          // the API minimum, and the cheapest unit
+const X_COMMON = "-is:retweet -is:reply lang:en";
 const X_QUERIES = [
-  '(ATX OR "Austin Texas" OR "Austin, TX") -is:retweet -is:reply lang:en',
-  '(CapMetro OR "Barton Springs" OR "Travis County" OR "Austin ISD" OR ' +
-    '"Lady Bird Lake" OR "Zilker" OR "Austin City Council") -is:retweet -is:reply lang:en'
+  // Actually geotagged in Austin. Few posts carry geo, so this returns
+  // little — which is exactly what we want when we pay per post.
+  `point_radius:[-97.7431 30.2672 25mi] ${X_COMMON}`,
+  `(ATX OR "Austin Texas" OR "Austin, TX") ${X_COMMON} min_likes:5`,
+  `(CapMetro OR "Austin ISD" OR "Austin City Council" OR "Travis County") ${X_COMMON} min_likes:2`,
+  `("Barton Springs" OR "Lady Bird Lake" OR Zilker OR "South Congress" OR "Rainey Street") ${X_COMMON} min_likes:2`,
+  `("Austin traffic" OR "Austin weather" OR "Austin heat" OR MoPac OR "I-35") ${X_COMMON} min_likes:2`
 ];
 
 // Feeds whose subject is a beat we do not cover, or that are reliably noise.
@@ -176,7 +194,7 @@ async function searchPosts(token, query, limit) {
 // X search. Needs X_BEARER_TOKEN — an app-only bearer token from the X
 // developer portal. Returns items in the same shape as the Bluesky paths so
 // everything downstream treats them alike.
-async function searchX(query, limit, sinceIso) {
+async function searchX(query, limit, sinceIso, retried = false) {
   const url = new URL(`${X_API}/tweets/search/recent`);
   url.searchParams.set("query", query);
   url.searchParams.set("max_results", String(Math.min(Math.max(limit, 10), 100)));
@@ -196,6 +214,21 @@ async function searchX(query, limit, sinceIso) {
   if (res.status === 429) throw new Error("X rate limit reached");
   if (!res.ok) {
     const body = await res.text().catch(() => "");
+    // min_likes:/point_radius: are documented but access levels vary. A 400
+    // is how X reports an operator we may not use, so drop the fancy parts
+    // once and retry rather than losing the query entirely. This costs
+    // nothing: a rejected request returns no posts, and posts are the meter.
+    const fancy = /min_likes:|min_reposts:|point_radius:|bounding_box:|place:/;
+    if (res.status === 400 && !retried && fancy.test(query)) {
+      const plain = query
+        .replace(/\s*(min_likes|min_reposts):\d+/g, "")
+        .replace(/\s*point_radius:\[[^\]]*\]/g, "")
+        .replace(/\s*bounding_box:\[[^\]]*\]/g, "")
+        .trim();
+      if (plain && plain !== query && !/^-/.test(plain)) {
+        return searchX(plain, limit, sinceIso, true);
+      }
+    }
     throw new Error(`HTTP ${res.status} ${res.statusText} ${body.slice(0, 120)}`.trim());
   }
   const body = await res.json();
@@ -234,6 +267,7 @@ async function main() {
   const candidates = [];
   const skipped = [];
   const sources = [];
+  let xPostsBilled = 0;
 
   // --- search, when we have a session -------------------------------------
   let token = null;
@@ -268,22 +302,28 @@ async function main() {
   // when chasing a story with --search). Widen X_QUERIES, not their number.
   if (process.env.X_BEARER_TOKEN) {
     const sinceIso = new Date(now - hours * 3600000).toISOString();
+    const xMax = arg("x-max", X_MAX_PER_QUERY);
     const xQueries = searchTerm
-      ? [`"${searchTerm}" (Austin OR ATX OR Texas) -is:retweet -is:reply lang:en`]
+      ? [`"${searchTerm}" (Austin OR ATX OR Texas) ${X_COMMON}`]
       : X_QUERIES;
     let ok = 0;
     for (const q of xQueries) {
       try {
-        searchGroups.push({ label: "X", items: await searchX(q, perFeed, sinceIso) });
+        const items = await searchX(q, xMax, sinceIso);
+        xPostsBilled += items.length;
+        searchGroups.push({ label: "X", items });
         ok++;
       } catch (err) {
         skipped.push(`X search (${err.message})`);
         // A rejected token or a rate limit will not fix itself on the next
-        // query — stop rather than spend another billed call to be told so.
+        // query — stop rather than make another pointless call.
         if (/rejected|rate limit/.test(err.message)) break;
       }
     }
-    if (ok) sources.push(`X on ${ok} ${ok === 1 ? "query" : "queries"}`);
+    if (ok) {
+      sources.push(`X on ${ok} ${ok === 1 ? "query" : "queries"} ` +
+                   `(${xPostsBilled} posts, ~$${(xPostsBilled * X_POST_COST_USD).toFixed(2)})`);
+    }
   }
 
   // --- the public Austin feeds --------------------------------------------

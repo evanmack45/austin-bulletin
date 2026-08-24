@@ -210,12 +210,28 @@ environment alongside `GEMINI_API_KEY` and `POLLEN_API_KEY`. It is free, so
 it runs a spread of Austin queries every morning.
 
 X search runs when `X_BEARER_TOKEN` is set — an app-only bearer token from
-the X developer portal. **X bills per request**, so it is deliberately two
-calls a morning: the queries in `X_QUERIES` use `OR` to cover many terms in
-one request. To widen X coverage, add terms to an existing query rather than
-adding a query, because a new query costs a call on every run forever. On a
-rejected token or a rate limit it stops rather than spending another billed
-call. `--search` costs one X call.
+the X developer portal.
+
+**X bills $0.005 per post returned, not per request.** Requests are free;
+posts are the meter. So `X_QUERIES` holds several narrow queries each asking
+for only ten posts, rather than a couple of broad ones asking for many: extra
+queries cost nothing and buy coverage, while every post fetched and then
+discarded is money spent on nothing. At five queries that is about $0.25 a
+day, and less in practice because the geo query returns few. Every run prints
+the posts billed and the estimated spend.
+
+Two consequences worth keeping in mind before editing a query. Put filters
+*inside* it — `-is:retweet`, `lang:en`, `min_likes:` are applied by X before
+billing, unlike our own noise and locality filters, which run after we have
+paid. And raising `--x-max` multiplies the bill directly: ten posts a query
+is the API minimum and the cheapest useful unit.
+
+Self-serve access caps a query at 512 characters. On a rejected token or a
+rate limit the run stops rather than making more pointless calls. If X
+rejects a query for using `min_likes:` or `point_radius:` — access levels
+vary and this is untested against a live token — the script strips those
+operators once and retries, which costs nothing because a rejected request
+returns no posts.
 
 None of these can fail the run. With no credentials the script says so and
 uses what it has; with bad ones it names the rejection and still returns the

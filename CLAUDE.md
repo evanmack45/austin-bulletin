@@ -148,14 +148,19 @@ Neutral. Factual. Clean.
   path was confirmed working against live credentials on 2026-08-24.
 - 2026-08-24 (Evan): X is a daily source. `npm run voices` searches X when
   `X_BEARER_TOKEN` is set — an app-only bearer token from the X developer
-  portal, in the routine's environment with the other keys. X moved to
-  pay-per-usage pricing (no subscription tiers), so **every call costs
-  money**: the script makes exactly two a morning, using `OR` queries that
-  cover many terms per request, and stops on a rejected token or rate limit
-  rather than spending another call. Widen a query in `X_QUERIES`; never add
-  one without meaning to pay for it daily. Evan chose daily over opt-in.
-  Untested against a live token — the code path is written and its failure
-  modes are tested, but no real X credential has run through it yet.
+  portal, in the routine's environment with the other keys. X is now
+  pay-per-usage (no subscription tiers; the free tier is gone) and bills
+  **$0.005 per post returned, not per request** — verified at
+  docs.x.com/x-api/getting-started/pricing, along with a 3M-post monthly cap
+  and no minimum spend. Requests are free, so `X_QUERIES` is five narrow
+  queries asking for ten posts each (~$0.25/day worst case) rather than two
+  broad ones asking for sixty (~$0.60/day) — and filters live inside the
+  query, because X applies `-is:retweet`, `lang:en` and `min_likes:` before
+  billing while our noise and locality filters run after we have paid.
+  Raising `--x-max` multiplies the bill directly. Every run prints posts
+  billed and estimated spend. Untested against a live token: `min_likes:`
+  and `point_radius:` are documented but access levels vary, so a 400 makes
+  the script strip them once and retry. Evan chose daily over opt-in.
 - 2026-08-24 (Evan): the `last30days` skill is installed (MIT, v3.21.1,
   github.com/mvanhorn/last30days-skill) via `npx skills add`, living in
   `.agents/skills/last30days` with a symlink at `.claude/skills/last30days`;
