@@ -143,8 +143,8 @@ Primary and secondary sources (all verified 2026-08-24):
 Checked and not worth using: Spectrum News Austin (per-section feeds work but
 carry stale wire copy), CapMetro (no feed; alerts exist only as a GTFS
 protobuf on data.texas.gov), Axios Austin (blocks us), Texas Standard (feed
-is stale). No source was found for the Standings or This Weekend rituals —
-see the note in EDITORIAL.md.
+is stale). No source was found for the This Weekend ritual — see the note in
+EDITORIAL.md.
 
 Widen the gather beyond outlet RSS: the outlets' YouTube channels
 (`https://www.youtube.com/feeds/videos.xml?channel_id=…`), agency newsrooms
@@ -181,8 +181,8 @@ morning note; `## The Big Story` inside `{% bigstory %}…{% endbigstory %}`
 optional `{% voice %}` cards, a Sources line); `## The River` inside
 `{% river %}…{% endriver %}` (`#### Beat` labels in the fixed order,
 one paragraph per item ending in `<span class="src">OUTLET</span>`,
-`{% voice %}` cards and a `<div class="standings">` table where they
-earn it); `## Weather`; then `<aside class="the-number">`, a
+`{% voice %}` cards where they earn it); `## Weather`; then
+`<aside class="the-number">`, a
 `<p class="countdown">`, and a `<p class="good-thing">`. Set
 `permalink: "/YYYY/MM/DD/"`. Every rule in EDITORIAL.md applies to every
 sentence. "Today" means the date in America/Chicago

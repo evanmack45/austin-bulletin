@@ -55,7 +55,7 @@ Neutral. Factual. Clean.
   mockup docs/mockup-2026-08-24-alive.html — Evan approved the shape):
   Big Story + River (25–40 items by beat) + Voice cards (public posts,
   including ordinary people's community commentary) + outlet video +
-  rituals (The Number, Countdown, Standings, This Weekend, Sunday Paper,
+  rituals (The Number, Countdown, This Weekend, Sunday Paper,
   One Good Thing). Cards via `npm run card`, video via `npm run video`.
 - 2026-08-23 (site plan, Evan's decisions): "Today at a glance" strip
   with all six modules (weather, air, Lake Travis, allergies, power grid,
@@ -128,8 +128,12 @@ Neutral. Factual. Clean.
   endpoints 403 and Node's HTTP client is blocked whatever headers it sends;
   retries on 429. Rejected: Spectrum News (stale wire copy), CapMetro (alerts
   only as a GTFS protobuf), Axios Austin (blocked), Travis County (no dates,
-  under ten posts a year). Standings and This Weekend still have NO source —
+  under ten posts a year). This Weekend still has NO source —
   EDITORIAL now says skip and log rather than invent.
+- 2026-08-24 (Evan): the Standings ritual is cut — "we don't need any sports
+  news." Removed from EDITORIAL, PIPELINE and CLAUDE. Do not reinstate it or
+  propose a replacement. This Weekend is parked, not cut: Evan wants to build
+  its sources as a separate project later.
 - 2026-08-23 (Evan): images must add value. New priority: original
   graphics (bar chart, timeline, Google static map via `npm run graphic`)
   built from verified facts; then official embeds; then verified real

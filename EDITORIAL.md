@@ -37,18 +37,19 @@ suggestions. Every rule binds the writing.
    Schools · Health · Business & tech · Around town · Texas · Sports ·
    Weather. Every
    item ends with a source tag. Missing beats are omitted, never padded.
-4. Rituals: The Number (daily), Countdown (daily), Standings (in season),
-   This Weekend in Austin (Thursday and Friday), Sunday Paper (Sunday),
-   One Good Thing (daily closer, Morning Note voice).
+4. Rituals: The Number (daily), Countdown (daily), This Weekend in Austin
+   (Thursday and Friday), Sunday Paper (Sunday), One Good Thing (daily
+   closer, Morning Note voice).
 
-**Standings and This Weekend have no source behind them** (checked
-2026-08-24). ESPN and the MLS stats API both refuse us, and every events
-listing tried — the Chronicle's calendar, Do512 — blocks us or has no feed.
-Do not invent either one to fill the slot: a made-up standings table or an
-event whose time and price we cannot verify is worse than an absent ritual.
-Run them only when a readable source is found, and say in the log that the
-slot was skipped and why. r/Austin's weekly events thread is a tip sheet
-only; a commenter saying a show is free at 7 is not a source for that.
+Standings was cut 2026-08-24 at the publisher's direction. Do not reinstate
+it or propose a replacement.
+
+**This Weekend has no source behind it** (checked 2026-08-24). Every events
+listing tried — the Chronicle's calendar, Do512 — blocks us or has no feed,
+and r/Austin's weekly thread is a tip sheet only: a commenter saying a show
+is free at 7 is not a source for that. Until a readable source is in place,
+skip the slot and say in the log that it was skipped and why. An event whose
+time or price we cannot verify is worse than an absent ritual.
 
 ## Voice cards and video
 
