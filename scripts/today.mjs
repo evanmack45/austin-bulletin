@@ -24,10 +24,20 @@ function computeDefaultDate() {
   return new Intl.DateTimeFormat("en-CA", { timeZone: "America/Chicago" }).format(new Date());
 }
 
+// URL without its query string, for error messages (never echo API keys).
+function safeUrl(url) {
+  try {
+    const u = new URL(url);
+    return `${u.origin}${u.pathname}`;
+  } catch {
+    return "<url>";
+  }
+}
+
 async function fetchJson(url, options = {}) {
   const res = await fetch(url, { ...options, signal: AbortSignal.timeout(TIMEOUT_MS) });
   if (!res.ok) {
-    throw new Error(`HTTP ${res.status} ${res.statusText} for ${url}`);
+    throw new Error(`HTTP ${res.status} ${res.statusText} for ${safeUrl(url)}`);
   }
   return res.json();
 }
@@ -35,7 +45,7 @@ async function fetchJson(url, options = {}) {
 async function fetchText(url, options = {}) {
   const res = await fetch(url, { ...options, signal: AbortSignal.timeout(TIMEOUT_MS) });
   if (!res.ok) {
-    throw new Error(`HTTP ${res.status} ${res.statusText} for ${url}`);
+    throw new Error(`HTTP ${res.status} ${res.statusText} for ${safeUrl(url)}`);
   }
   return res.text();
 }
@@ -250,7 +260,8 @@ async function fetchPollen(date) {
     throw new Error("POLLEN_API_KEY is not set");
   }
   const data = await fetchJson(
-    `https://pollen.googleapis.com/v1/forecast:lookup?key=${key}&location.latitude=30.2672&location.longitude=-97.7431&days=2&plantsDescription=false`,
+    "https://pollen.googleapis.com/v1/forecast:lookup?location.latitude=30.2672&location.longitude=-97.7431&days=2&plantsDescription=false",
+    { headers: { "X-Goog-Api-Key": key } },
   );
   const dailyInfo = data.dailyInfo || [];
   const [year, month, day] = date.split("-").map(Number);
