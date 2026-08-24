@@ -1,0 +1,18 @@
+---
+permalink: /site.webmanifest
+eleventyExcludeFromCollections: true
+---
+{
+  "name": "The Austin Bulletin",
+  "short_name": "Bulletin",
+  "description": "A daily, neutral news bulletin for Austin and Texas.",
+  "start_url": "{{ "/" | url }}",
+  "display": "browser",
+  "background_color": "#f6efe2",
+  "theme_color": "#7a1f1f",
+  "icons": [
+    { "src": "{{ "/icon-192.png" | url }}", "sizes": "192x192", "type": "image/png" },
+    { "src": "{{ "/icon-512.png" | url }}", "sizes": "512x512", "type": "image/png" },
+    { "src": "{{ "/favicon.svg" | url }}", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

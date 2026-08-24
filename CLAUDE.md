@@ -192,6 +192,16 @@ Neutral. Factual. Clean.
   the masthead's "Skip to weather" link targets. River counts are now
   non-weather items only. Published editions are not restructured after the
   fact, so 2026-08-23 keeps Weather inside its River.
+- 2026-08-24: the site has a favicon. Master art is `src/favicon.svg` — the
+  oxblood plate (#7a1f1f) with a limestone keyline and a Source Serif 4 Bold
+  "A"; the blackletter "A" of the wordmark is illegible below ~32px and reads
+  as "21", so the icon uses the text face. `npm run favicon` re-renders
+  `src/favicon.ico` (16/32/48), `apple-touch-icon.png` (180) and
+  `icon-192/512.png` from that SVG; run it after any edit to the master.
+  `src/site.webmanifest.njk` and the head links in `_includes/layout.njk`
+  route the icons through Eleventy's `url` filter / HtmlBasePlugin, so a
+  path-prefix build still finds them.
+
 - 2026-08-24 (Evan): a day may be re-issued. When Evan asks for a day to be
   regathered and republished, overwrite that date's bulletin in place — same
   permalink, same edition number — and record every run of the day in one log
