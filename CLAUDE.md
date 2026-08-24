@@ -137,9 +137,16 @@ Neutral. Factual. Clean.
   pulls recent posts, drops reposts/replies/spam, ranks local ones first,
   prints a shortlist. Two known hazards, flagged in the output: one feed
   matches the word "Austin" so it surfaces people with that name, and one is
-  dominated by Democratic officeholders. Evan is setting up a Bluesky account
-  and app password so real search can be added — store it in the routine's
-  environment like GEMINI_API_KEY and POLLEN_API_KEY.
+  dominated by Democratic officeholders. Search is now wired in too: set
+  `BLUESKY_HANDLE` and `BLUESKY_APP_PASSWORD` in the routine's environment
+  (env_01DhnuLgA3G72Zm18AVxJDHh "Default", alongside GEMINI_API_KEY and
+  POLLEN_API_KEY) and `npm run voices` searches as well as reading feeds;
+  `--search "<term>"` chases one story. The app password is the 1Password
+  item "Bluesky austinbulletin App Password" — it belongs in the environment,
+  never in the repo. Without credentials, or with stale ones, the script
+  reports it and falls back to feeds rather than failing the run. The search
+  path is written against Bluesky's documented endpoints but has not been run
+  against live credentials yet — the first real run should confirm it.
 - 2026-08-24 (Evan): the Standings ritual is cut — "we don't need any sports
   news." Removed from EDITORIAL, PIPELINE and CLAUDE. Do not reinstate it or
   propose a replacement. This Weekend is parked, not cut: Evan wants to build

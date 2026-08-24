@@ -42,7 +42,8 @@ suggestions. Every rule binds the writing.
    closer, Morning Note voice).
 
 Standings was cut 2026-08-24 at the publisher's direction. Do not reinstate
-it or propose a replacement.
+it or propose a replacement. Only the ritual was cut: the Sports beat in the
+River stays exactly as it is.
 
 **This Weekend has no source behind it** (checked 2026-08-24). Every events
 listing tried — the Chronicle's calendar, Do512 — blocks us or has no feed,

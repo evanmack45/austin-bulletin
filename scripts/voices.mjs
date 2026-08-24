@@ -2,12 +2,23 @@
 //
 // Usage:
 //   node scripts/voices.mjs [--hours 30] [--limit 60] [--min-likes 0]
+//   node scripts/voices.mjs --search "barton springs"      (needs login)
 //
-// Bluesky's post search needs a logged-in session, but its custom feeds are
-// open to anyone. Several are Austin-specific, so this script finds them by
-// name, reads each one, and prints recent posts as candidates for a Voice
-// card. Nothing is written to disk: the point is a shortlist to read, from
-// which you run `npm run card -- <post-url>` on the ones worth carrying.
+// Two sources, and the script uses whichever are available.
+//
+// Austin's public custom feeds are open to anyone, so those always run. The
+// script finds them by name, reads each one, and prints recent posts as
+// candidates for a Voice card.
+//
+// Bluesky's post search needs a logged-in session. Set BLUESKY_HANDLE and
+// BLUESKY_APP_PASSWORD in the environment (an app password generated in
+// Bluesky's settings, never the account password) and the script also
+// searches — either the default Austin queries or whatever --search asks
+// for. Without those variables it says so once and carries on with the
+// feeds, so a missing credential never fails the morning run.
+//
+// Nothing is written to disk: the point is a shortlist to read, from which
+// you run `npm run card -- <post-url>` on the ones worth carrying.
 //
 // The feeds are run by individuals and go down without warning. Discovery is
 // therefore dynamic rather than a hard-coded list, and a feed that errors is
@@ -22,8 +33,16 @@
 // See PIPELINE.md Step 4.
 
 const API = "https://public.api.bsky.app/xrpc";
+const AUTH_API = "https://bsky.social/xrpc";
 const USER_AGENT = "TheAustinBulletin/1.0 (+https://theaustinbulletin.com)";
 const TIMEOUT_MS = 45000;
+
+// Searched when logged in and --search was not given. Kept narrow: these are
+// looking for Austinites talking about Austin, not for national news.
+const DEFAULT_QUERIES = [
+  "Austin Texas", "ATX", "Barton Springs", "CapMetro",
+  "Austin traffic", "Austin heat", "Austin ISD", "Travis County"
+];
 
 // Feeds whose subject is a beat we do not cover, or that are reliably noise.
 const SKIP_FEED = /\b(fc|soccer|football|tattoo|shooting)\b/i;
@@ -86,6 +105,50 @@ async function api(method, params, attempts = 2) {
   throw lastErr;
 }
 
+function strArg(name) {
+  const i = process.argv.indexOf(`--${name}`);
+  if (i === -1 || i === process.argv.length - 1) return null;
+  const value = process.argv[i + 1];
+  return value.startsWith("--") ? null : value;
+}
+
+// Trade the app password for a short-lived token. The password itself is
+// never logged, and neither is the token.
+async function login() {
+  const identifier = process.env.BLUESKY_HANDLE;
+  const password = process.env.BLUESKY_APP_PASSWORD;
+  if (!identifier || !password) return null;
+  const res = await fetch(`${AUTH_API}/com.atproto.server.createSession`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "User-Agent": USER_AGENT },
+    body: JSON.stringify({ identifier, password }),
+    signal: AbortSignal.timeout(TIMEOUT_MS)
+  });
+  const body = await res.json().catch(() => ({}));
+  if (!res.ok || !body.accessJwt) {
+    const why = body.error === "AuthenticationRequired"
+      ? "handle or app password rejected — check BLUESKY_HANDLE and that the app password is current"
+      : `${body.error || res.status}: ${body.message || res.statusText}`;
+    throw new Error(why);
+  }
+  return body.accessJwt;
+}
+
+async function searchPosts(token, query, limit) {
+  const url = new URL(`${AUTH_API}/app.bsky.feed.searchPosts`);
+  url.searchParams.set("q", query);
+  url.searchParams.set("limit", String(limit));
+  url.searchParams.set("sort", "latest");
+  const res = await fetch(url, {
+    headers: { Authorization: `Bearer ${token}`, "User-Agent": USER_AGENT },
+    signal: AbortSignal.timeout(TIMEOUT_MS)
+  });
+  if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
+  const body = await res.json();
+  if (body.error) throw new Error(`${body.error}: ${body.message || ""}`.trim());
+  return (body.posts || []).map((post) => ({ post }));
+}
+
 function isNoise(text) {
   return NOISE.some((re) => re.test(text));
 }
@@ -98,43 +161,78 @@ async function main() {
   const hours = arg("hours", 30);
   const perFeed = arg("limit", 60);
   const minLikes = arg("min-likes", 0);
+  const searchTerm = strArg("search");
   const now = Date.now();
-
-  let discovered;
-  try {
-    discovered = await api("app.bsky.unspecced.getPopularFeedGenerators", {
-      query: "austin",
-      limit: 25
-    });
-  } catch (err) {
-    console.error(`voices: could not list Austin feeds — ${err.message}`);
-    process.exit(1);
-  }
-
-  const feeds = (discovered.feeds || [])
-    .filter((f) => /austin/i.test(f.displayName || ""))
-    .filter((f) => !SKIP_FEED.test(f.displayName || ""))
-    .sort((a, b) => (b.likeCount || 0) - (a.likeCount || 0))
-    .slice(0, 6);
-
-  if (!feeds.length) {
-    console.error("voices: no Austin feeds found");
-    process.exit(1);
-  }
 
   const seen = new Set();
   const candidates = [];
   const skipped = [];
+  const sources = [];
 
-  for (const feed of feeds) {
-    let page;
-    try {
-      page = await api("app.bsky.feed.getFeed", { feed: feed.uri, limit: perFeed });
-    } catch (err) {
-      skipped.push(`${feed.displayName} (${err.message})`);
-      continue;
+  // --- search, when we have a session -------------------------------------
+  let token = null;
+  try {
+    token = await login();
+  } catch (err) {
+    skipped.push(`search login failed (${err.message})`);
+  }
+  if (!token && !process.env.BLUESKY_HANDLE) {
+    sources.push("feeds only — set BLUESKY_HANDLE and BLUESKY_APP_PASSWORD to add search");
+  }
+  if (!token && searchTerm) {
+    console.error("voices: --search needs BLUESKY_HANDLE and BLUESKY_APP_PASSWORD");
+    process.exit(1);
+  }
+
+  const searchGroups = [];
+  if (token) {
+    const queries = searchTerm ? [searchTerm] : DEFAULT_QUERIES;
+    for (const q of queries) {
+      try {
+        searchGroups.push({ label: `search:${q}`, items: await searchPosts(token, q, perFeed) });
+      } catch (err) {
+        skipped.push(`search "${q}" (${err.message})`);
+      }
     }
-    for (const item of page.feed || []) {
+    sources.push(`search on ${queries.length} ${queries.length === 1 ? "query" : "queries"}`);
+  }
+
+  // --- the public Austin feeds --------------------------------------------
+  const feedGroups = [];
+  if (!searchTerm) {
+    let discovered = null;
+    try {
+      discovered = await api("app.bsky.unspecced.getPopularFeedGenerators", {
+        query: "austin",
+        limit: 25
+      });
+    } catch (err) {
+      skipped.push(`feed discovery (${err.message})`);
+    }
+    const feeds = (discovered?.feeds || [])
+      .filter((f) => /austin/i.test(f.displayName || ""))
+      .filter((f) => !SKIP_FEED.test(f.displayName || ""))
+      .sort((a, b) => (b.likeCount || 0) - (a.likeCount || 0))
+      .slice(0, 6);
+    for (const feed of feeds) {
+      try {
+        const page = await api("app.bsky.feed.getFeed", { feed: feed.uri, limit: perFeed });
+        feedGroups.push({ label: feed.displayName, items: page.feed || [] });
+      } catch (err) {
+        skipped.push(`${feed.displayName} (${err.message})`);
+      }
+    }
+    sources.push(`${feedGroups.length} of ${feeds.length} Austin feeds`);
+  }
+
+  if (!searchGroups.length && !feedGroups.length) {
+    console.error("voices: no sources available — nothing to show");
+    process.exit(1);
+  }
+
+  for (const group of [...searchGroups, ...feedGroups]) {
+    const feed = { displayName: group.label };
+    for (const item of group.items) {
       const post = item.post;
       if (!post?.record?.createdAt) continue;
       if (item.reason) continue;                      // reposts, not the author's words
@@ -157,8 +255,8 @@ async function main() {
   // sinks to the bottom rather than being dropped — the call is the writer's.
   candidates.sort((a, b) => b.local - a.local || a.ageHours - b.ageHours);
 
-  console.log(`Austin Bluesky voices — ${candidates.length} candidates from ` +
-              `${feeds.length - skipped.length} of ${feeds.length} feeds, last ${hours}h`);
+  console.log(`Austin Bluesky voices — ${candidates.length} candidates, last ${hours}h`);
+  console.log(`Sources: ${sources.join(" · ")}`);
   console.log("These are candidates, not cleared copy. Some Austin feeds are");
   console.log("dominated by politicians of one party: a card on a contested");
   console.log("public question runs paired with the other side, or not at all.");
@@ -171,7 +269,7 @@ async function main() {
     console.log(`${c.url}\n`);
   }
   if (skipped.length) {
-    console.log(`Feeds unavailable this run: ${skipped.join("; ")}`);
+    console.log(`Unavailable this run: ${skipped.join("; ")}`);
   }
   if (!candidates.length) {
     console.log("No candidates. Widen with --hours, or lower --min-likes.");

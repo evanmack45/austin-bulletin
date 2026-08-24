@@ -192,15 +192,25 @@ sentence. "Today" means the date in America/Chicago
 
 Find the voices first:
 
-    npm run voices                      # last 30h, all candidates
-    npm run voices -- --min-likes 2     # fewer, better-read posts
-    npm run voices -- --hours 48        # quiet morning, widen it
+    npm run voices                          # last 30h, all candidates
+    npm run voices -- --min-likes 2         # fewer, better-read posts
+    npm run voices -- --hours 48            # quiet morning, widen it
+    npm run voices -- --search "cap metro"  # chase one story (needs login)
 
-Bluesky's post search needs a logged-in session, so we read Austin's public
-custom feeds instead. The script finds them by name each run (they are run by
+Two sources, and the script uses whichever are available. Austin's public
+custom feeds always run: it finds them by name each morning (they are run by
 individuals and come and go), pulls recent posts, drops reposts, replies and
 hashtag spam, and prints a shortlist with each post's URL. Nothing is
 written; you choose from the list.
+
+Bluesky's post search additionally runs when `BLUESKY_HANDLE` and
+`BLUESKY_APP_PASSWORD` are set in the environment — an app password from
+Bluesky's settings, never the account password, and kept in the routine's
+environment alongside `GEMINI_API_KEY` and `POLLEN_API_KEY`. With no
+credentials the script says so and carries on with the feeds; with bad ones
+it reports the rejection and still returns the feed candidates, so a stale
+password never costs you the morning. Use `--search` to chase a specific
+story; without it, search runs a standing set of Austin queries.
 
 Read the flags on each candidate. One popular feed matches the *word* Austin,
 so it surfaces people named Austin — those are marked and sorted to the
