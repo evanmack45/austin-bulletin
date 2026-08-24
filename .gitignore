@@ -1,3 +1,6 @@
 node_modules/
 _site/
 .DS_Store
+
+# last30days skill: demo media, excluded by the skill's own .skillignore
+.agents/skills/last30days/assets/

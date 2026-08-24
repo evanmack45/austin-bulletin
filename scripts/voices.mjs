@@ -115,8 +115,10 @@ function strArg(name) {
 // Trade the app password for a short-lived token. The password itself is
 // never logged, and neither is the token.
 async function login() {
-  const identifier = process.env.BLUESKY_HANDLE;
-  const password = process.env.BLUESKY_APP_PASSWORD;
+  // BSKY_* are the names the last30days skill uses; accept either so one
+  // pair of environment variables serves both.
+  const identifier = process.env.BLUESKY_HANDLE || process.env.BSKY_HANDLE;
+  const password = process.env.BLUESKY_APP_PASSWORD || process.env.BSKY_APP_PASSWORD;
   if (!identifier || !password) return null;
   const res = await fetch(`${AUTH_API}/com.atproto.server.createSession`, {
     method: "POST",
@@ -176,7 +178,7 @@ async function main() {
   } catch (err) {
     skipped.push(`search login failed (${err.message})`);
   }
-  if (!token && !process.env.BLUESKY_HANDLE) {
+  if (!token && !(process.env.BLUESKY_HANDLE || process.env.BSKY_HANDLE)) {
     sources.push("feeds only — set BLUESKY_HANDLE and BLUESKY_APP_PASSWORD to add search");
   }
   if (!token && searchTerm) {

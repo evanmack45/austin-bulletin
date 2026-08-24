@@ -147,6 +147,19 @@ Neutral. Factual. Clean.
   reports it and falls back to feeds rather than failing the run. The search
   path is written against Bluesky's documented endpoints but has not been run
   against live credentials yet — the first real run should confirm it.
+- 2026-08-24 (Evan): the `last30days` skill is installed (MIT, v3.21.1,
+  github.com/mvanhorn/last30days-skill) via `npx skills add`, living in
+  `.agents/skills/last30days` with a symlink at `.claude/skills/last30days`;
+  `skills-lock.json` pins it. Invoke with `/last30days <topic>`. Two gotchas:
+  it needs **python3.12** and this container's default `python3` is 3.11, so
+  call `python3.12` explicitly; and its Bluesky source reads `BSKY_HANDLE` /
+  `BSKY_APP_PASSWORD`, so add those names to the routine environment with the
+  same values as the BLUESKY_* pair (`scripts/voices.mjs` now accepts either).
+  Live sources without extra keys: Reddit, Hacker News, Polymarket, GitHub.
+  The 14 MB of demo media under `assets/` is gitignored — the skill's own
+  `.skillignore` marks it non-runtime. It searches a 30-day window across
+  social platforms, so it suits research and community reaction, not the
+  24-hour daily gather.
 - 2026-08-24 (Evan): the Standings ritual is cut — "we don't need any sports
   news." Removed from EDITORIAL, PIPELINE and CLAUDE. Do not reinstate it or
   propose a replacement. This Weekend is parked, not cut: Evan wants to build
