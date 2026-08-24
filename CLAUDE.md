@@ -104,9 +104,15 @@ Neutral. Factual. Clean.
   attributed in the prose ("KVUE reported that …"), saying nothing the teaser
   does not, never for a death, a named crime accusation, a disputed political
   claim or a figure that has to be right — rules in EDITORIAL.md. Evan decided
-  not to email KVUE for access, so this stands until something changes. Still
-  open: the Austin Monitor (defunct since Oct. 2025, successor Austin Current)
-  and KUT (cited but not on the trusted list).
+  not to email KVUE for access, so this stands until something changes.
+- 2026-08-24 (Evan): Austin Current (austincurrent.org) replaces the Austin
+  Monitor on the trusted-outlet list. Nonprofit 501(c)(3) in the Texas
+  Tribune's network of editorially independent local newsrooms, ~1 story a
+  weekday, deep reporting on City Council, Travis County, Austin ISD, the
+  budget and bonds — the City Hall & county beat the Bulletin has been
+  missing. Gathered through its WordPress REST API like KXAN; robots.txt
+  allows everything. The Monitor stays linkable as an archive, never as a
+  source for today. Still open: KUT (cited but not on the trusted list).
 - 2026-08-23 (Evan): images must add value. New priority: original
   graphics (bar chart, timeline, Google static map via `npm run graphic`)
   built from verified facts; then official embeds; then verified real

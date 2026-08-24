@@ -49,6 +49,20 @@ proxy (`https://r.jina.ai/<url>`) — that works but truncates long articles,
 so prefer the API. Plain curl and WebFetch both get 403 on KXAN article
 pages; do not waste a run retrying them.
 
+**Austin Current — same WordPress API pattern**, and check it every morning:
+it is the successor to the Austin Monitor and our best source for City Hall &
+county and Schools.
+
+    https://austincurrent.org/wp-json/wp/v2/posts?per_page=100&orderby=date
+      &after=YYYY-MM-DDTHH:MM:SS
+      &_fields=date_gmt,link,title,content,excerpt
+
+Its robots.txt allows everything and `content.rendered` carries the full
+article. It publishes about one story a weekday, so a 24-hour window will
+usually hold one or two — but they are often the day's most substantial local
+stories, and one item from here can outweigh five from anywhere else. If the
+window is empty, widen it to 48 hours and use anything not already covered.
+
 **KVUE is discovery-only** (settled 2026-08-24; see EDITORIAL.md). Its
 `/article/…` pages 403 to every route — curl, WebFetch, a reader proxy, the
 `/amp/` and `/mobile/` variants. Its section pages return 200 but are

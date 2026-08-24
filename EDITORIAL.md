@@ -86,9 +86,21 @@ suggestions. Every rule binds the writing.
 ## Trusted outlets
 
 KXAN, KVUE, CBS Austin, FOX 7 Austin, Austin American-Statesman,
-Austin Monitor, Texas Tribune, Community Impact, National Weather
+Austin Current, Texas Tribune, Community Impact, National Weather
 Service (weather.gov/ewx). Other established outlets may be cited as a
 second source. Add outlets here only after discussion with the publisher.
+
+**Austin Current** (austincurrent.org) replaced the Austin Monitor on this
+list 2026-08-24. It is a 501(c)(3) nonprofit newsroom in The Texas Tribune's
+network of editorially independent local newsrooms, publishing roughly one
+story a weekday on City Council, Travis County, Austin ISD, the city budget
+and bonds. It is the strongest source we have for the City Hall & county and
+Schools beats — check it every morning. Summarise and link as with any
+outlet; never reproduce its articles at length.
+
+**The Austin Monitor** stopped publishing in October 2025 and its staff left
+to found Austin Current. austinmonitor.com remains as a searchable archive:
+fine to link for background, never a source for today's news.
 
 **KVUE is discovery-only** (2026-08-24, publisher's decision). Its article
 pages are unreachable from the routine and the one route that would work is
