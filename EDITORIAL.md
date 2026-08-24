@@ -7,16 +7,16 @@ suggestions. Every rule binds the writing.
 
 - The morning note is warm and local — a friendly Austinite. It may
   mention heat, traffic, city mood. It never carries political opinion.
-- Story summaries are flat, clear, and neutral. 2–4 sentences, 100 words
-  maximum. Count them.
+- Story paragraphs are flat, clear, and neutral. In the River, one or two
+  sentences; in the Big Story, short paragraphs; 100 words is the cap for
+  any single item.
 - In brief items are one sentence each and start with a bold one-word
   category label and a colon: `**Outage:**`, `**Politics:**`, `**Border:**`.
-- Every top story ends with one "What's next" sentence: a date, a vote, a
-  deadline, a scheduled event, or "No further action has been announced."
-  It states what is scheduled, never what should happen.
-- Story block order: headline, image, caption, summary, What's next,
-  source line. The lead story's image is the page's hero; choose it with
-  the most care.
+- The Big Story ends with one "What's next" sentence: a date, a vote, a
+  deadline, or a scheduled event. River items may carry one when it earns
+  it. It states what is scheduled, never what should happen.
+- The Big Story's image is the page's hero; choose it with the most care.
+  In the River, an image or card follows the item it belongs to.
 - Bulletin titles are plain: "The Austin Bulletin — {Weekday, Month D, YYYY}".
   Never puns or jokes.
 - Each glance cell carries one blurb: a single plain sentence, at most
@@ -24,6 +24,39 @@ suggestions. Every rule binds the writing.
   the reader's day. `npm run today` writes a sensible default; the
   morning writer may rewrite it, but never adds opinion or politics and
   never repeats the number the cell already shows.
+
+## The shape of a day
+
+1. The Morning Note (voice, zero politics).
+2. The Big Story: one piece, 400–700 words, with its own headline, that
+   connects two to four of the day's items into one idea. It explains and
+   connects; it never says what should happen. Every claim links. When a
+   dispute exists, each side's own words. It ends with a What's next line.
+3. The River: 25–40 one- or two-sentence items grouped by beat, in this
+   fixed order: Roads & transit · Public safety & courts · City Hall & county ·
+   Schools · Health · Business & tech · Around town · Texas · Sports ·
+   Weather. Every
+   item ends with a source tag. Missing beats are omitted, never padded.
+4. Rituals: The Number (daily), Countdown (daily), Standings (in season),
+   This Weekend in Austin (Thursday and Friday), Sunday Paper (Sunday),
+   One Good Thing (daily closer, Morning Note voice).
+
+## Voice cards and video
+
+- A Voice card shows a public post verbatim, attributed and linked:
+  agencies, outlets, officials, teams, businesses, and ordinary people
+  commenting publicly on Austin life. Community commentary is welcome:
+  the point is to let the city talk.
+- Never: minors; private facts about anyone; posts that target or mock a
+  private person; posts about a private individual's crime or misfortune
+  unless it is already public record in a linked story; anything that
+  would need a correction if false — cards carry opinion, not new facts.
+- On contested public questions, cards run in pairs: one voice from each
+  side, or none.
+- Cap: 10 cards a day, 3 videos a day. Video is the outlet's own upload,
+  embedded, never re-hosted.
+- Cards and videos are gathered with `npm run card -- <post-url>` and
+  `npm run video -- <youtube-url>` (PIPELINE.md Step 4).
 
 ## Neutrality rules
 

@@ -23,6 +23,13 @@ NWS API with a User-Agent header: forecast
 https://api.weather.gov/gridpoints/EWX/156,91/forecast and active alerts
 https://api.weather.gov/alerts/active?zone=TXZ192.
 
+Widen the gather beyond outlet RSS: the outlets' YouTube channels
+(`https://www.youtube.com/feeds/videos.xml?channel_id=…`), agency newsrooms
+(City of Austin, Travis County, TxDOT Austin, APD, CapMetro, Austin Energy,
+LCRA, Austin ISD, NWS Austin), Bluesky accounts, and r/Austin's top posts
+(`https://www.reddit.com/r/Austin/top.json?t=day`, with a User-Agent).
+Collect post URLs worth a Voice card.
+
 Then fetch the day's glance numbers: `npm run today` (writes
 `src/_data/glance/YYYY-MM-DD.json` from NWS, Open-Meteo, Water Data for
 Texas, Google's Pollen API, and ERCOT; the pollen module needs
@@ -34,23 +41,36 @@ flat or misses the day's point, in the Morning Note's voice (EDITORIAL.md).
 
 ## Step 2 — Select
 
-Pick exactly 5 stories. Priority: impact on daily life in Austin (safety,
-schools, transportation, cost of living, weather, city government), then
-major Texas news. Order by importance. Check recent bulletins in
-`src/bulletins/` to avoid repeating a story with no new development.
+Find the day's idea first: two to four items that belong together become
+the Big Story. Then fill the River: aim for 25–40 items across the beats
+in EDITORIAL.md's fixed order; 5 is a failure, log it. Priority: impact on
+daily life in Austin (safety, schools, transportation, cost of living,
+weather, city government), then major Texas news. Order by importance.
+Check recent bulletins in `src/bulletins/` to avoid repeating a story with
+no new development.
 
 ## Step 3 — Write
 
 Create `src/bulletins/YYYY-MM-DD.md` for today, copying the exact front
-matter and section structure of the newest existing bulletin file:
-morning note, "## Top stories" (per story: ### headline, image + caption, summary, a
-"What's next" line, source line), "## Weather", optional "## In brief" (3–5 one-line items,
-each opening with a bold one-word category label). Set
+matter and section order of the newest existing bulletin file: the
+morning note; `## The Big Story` inside `{% bigstory %}…{% endbigstory %}`
+(### headline, optional `{% video %}`, paragraphs, a What's next line,
+optional `{% voice %}` cards, a Sources line); `## The River` inside
+`{% river %}…{% endriver %}` (`#### Beat` labels in the fixed order,
+one paragraph per item ending in `<span class="src">OUTLET</span>`,
+`{% voice %}` cards and a `<div class="standings">` table where they
+earn it); `## Weather`; then `<aside class="the-number">`, a
+`<p class="countdown">`, and a `<p class="good-thing">`. Set
 `permalink: "/YYYY/MM/DD/"`. Every rule in EDITORIAL.md applies to every
-sentence. "Today" means the date in America/Chicago (`TZ='America/Chicago' date`),
-never UTC.
+sentence. "Today" means the date in America/Chicago
+(`TZ='America/Chicago' date`), never UTC.
 
 ## Step 4 — Illustrate
+
+Real voices first: `npm run card -- <post-url>` (X, Bluesky, Reddit;
+`--manual` for Facebook) writes a card and prints the `{% voice %}` tag;
+`npm run video -- <youtube-url>` does the same for an outlet's clip. Then
+graphics, photos, AI, per EDITORIAL.md.
 
 One image per story, chosen by the image rules in EDITORIAL.md. Reach for
 an original graphic first:
@@ -82,7 +102,7 @@ EDITORIAL.md. When every check passes:
 
 Write today's log (Step 6) first — the commit below stages `logs/`.
 
-    git add src/bulletins/ src/images/ src/_data/glance/ src/_data/graphics/ logs/
+    git add src/bulletins/ src/images/ src/_data/glance/ src/_data/graphics/ src/_data/cards/ src/_data/videos/ logs/
     git commit -m "bulletin: YYYY-MM-DD"
     git push
 

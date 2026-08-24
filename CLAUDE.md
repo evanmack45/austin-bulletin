@@ -50,6 +50,13 @@ Neutral. Factual. Clean.
   blocks outbound fetches). Manage or run it at
   https://claude.ai/code/routines. Manual catch-up: run /daily-bulletin in
   any session in this repo.
+- 2026-08-23 (Evan, late): the site is "clean, sterile, dead"; the model is
+  now Jouster's aliveness done cleanly (docs/2026-08-23-alive-plan.md,
+  mockup docs/mockup-2026-08-24-alive.html — Evan approved the shape):
+  Big Story + River (25–40 items by beat) + Voice cards (public posts,
+  including ordinary people's community commentary) + outlet video +
+  rituals (The Number, Countdown, Standings, This Weekend, Sunday Paper,
+  One Good Thing). Cards via `npm run card`, video via `npm run video`.
 - 2026-08-23 (site plan, Evan's decisions): "Today at a glance" strip
   with all six modules (weather, air, Lake Travis, allergies, power grid,
   sun; Barton Springs was dropped 2026-08-23 because its temperature

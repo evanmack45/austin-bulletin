@@ -9,7 +9,9 @@
     "serve": "eleventy --serve",
     "illustrate": "node scripts/illustrate.mjs",
     "today": "node scripts/today.mjs",
-    "graphic": "node scripts/graphic.mjs"
+    "graphic": "node scripts/graphic.mjs",
+    "card": "node scripts/card.mjs",
+    "video": "node scripts/video.mjs"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0",
