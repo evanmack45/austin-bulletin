@@ -43,7 +43,18 @@ never UTC.
 
 ## Step 4 — Illustrate
 
-One image per story, chosen by the image rules in EDITORIAL.md.
+One image per story, chosen by the image rules in EDITORIAL.md. When a
+story falls to rule 3, generate its illustration:
+
+    npm run illustrate -- YYYY-MM-DD <slug> "<one-sentence subject>"
+
+The subject is a plain description of what to draw (for example "a
+high-voltage transmission tower crossing dry Texas hill country"), never
+a real person. The script needs `GEMINI_API_KEY` in the environment; it
+writes `src/images/YYYY-MM-DD/<slug>.jpg` and prints the exact markdown
+to paste under the story. The image is committed with the bulletin. If
+generation fails (no key, network error, or a refusal), run the story
+without an image and say so in the log.
 
 ## Step 5 — Build & publish
 
@@ -53,7 +64,7 @@ EDITORIAL.md. When every check passes:
 
 Write today's log (Step 6) first — the commit below stages `logs/`.
 
-    git add src/bulletins/ logs/
+    git add src/bulletins/ src/images/ logs/
     git commit -m "bulletin: YYYY-MM-DD"
     git push
 

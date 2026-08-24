@@ -7,6 +7,7 @@ const SITE_URL = "https://theaustinbulletin.com/";
 export default function (eleventyConfig) {
   eleventyConfig.addPlugin(HtmlBasePlugin);
   eleventyConfig.addPassthroughCopy("src/css");
+  eleventyConfig.addPassthroughCopy("src/images");
 
   // Heading ids (e.g. <h2 id="weather">) so in-page jump links work.
   eleventyConfig.amendLibrary("md", (md) => md.use(markdownItAnchor));

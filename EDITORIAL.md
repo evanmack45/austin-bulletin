@@ -50,13 +50,20 @@ second source. Add outlets here only after discussion with the publisher.
 
 1. Official embed — the source's own X/Facebook post, when one exists.
    Hard cap: 2 embeds per bulletin, total.
-2. Free stock photo — for generic topics (e.g., Texas Capitol for a
-   state story). Reuse-licensed only. Credit in the caption.
-3. AI-generated image — only for abstract topics (e.g., a budget vote).
-   The caption must say "AI-generated illustration".
+2. A real photo of the story's actual subject — the specific place,
+   building, event, or thing named in the story. Reuse-licensed only
+   (Wikimedia Commons or another free-license source); credit the
+   photographer and license in the caption. A generic stand-in (a water
+   tower for a fire-station story, a supermarket for a candle maker)
+   does not qualify — use rule 3 instead.
+3. House-style illustration, generated with `npm run illustrate` (see
+   PIPELINE.md Step 4). The caption must read exactly "AI-generated
+   illustration". Illustrations never depict real or recognizable
+   people, never imitate photographs, and never stand in for a record of
+   what happened — they set the subject, not the scene.
 
 Never: hotlinked copyrighted news photos; screenshots of other outlets'
-pages or social feeds.
+pages or social feeds; AI images captioned as photographs.
 
 ## Corrections
 

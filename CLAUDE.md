@@ -59,5 +59,9 @@ Neutral. Factual. Clean.
   Neutral · Factual"; each edition opens with a boxed date plate (weekday,
   date, edition number); the morning note sits in a boxed panel; summaries
   are capped at 100 words; In brief items carry a bold one-word category
-  label. Image strategy (better selection and/or Nano Banana generation) is
-  an open decision.
+  label. Images (Evan's pick, option 3): a real photo of the actual subject when
+  a free-licensed one exists, otherwise a house-style wood-engraving
+  illustration from Nano Banana 2 via `npm run illustrate`; generated
+  files live in src/images/. The Gemini key is the 1Password item
+  "Gemini API Credential"; the cloud routine's environment needs it as
+  GEMINI_API_KEY.
