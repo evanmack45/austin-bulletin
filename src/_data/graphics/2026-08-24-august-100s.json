@@ -1,0 +1,17 @@
+{
+  "type": "bars",
+  "date": "2026-08-24",
+  "slug": "august-100s",
+  "title": "Triple-digit days in August at Camp Mabry",
+  "subtitle": "2026 counts days through Aug. 23; the record is 29, set in 2011 and matched in 2023",
+  "unit": " days",
+  "alt": "Bar chart of triple-digit days in August at Camp Mabry: 29 in 2011, 3 in 2021, 29 in 2023, 13 in 2025 and 21 so far in 2026",
+  "source": "KXAN",
+  "bars": [
+    { "label": "2011", "value": 29 },
+    { "label": "2021", "value": 3 },
+    { "label": "2023", "value": 29 },
+    { "label": "2025", "value": 13 },
+    { "label": "2026 so far", "value": 21 }
+  ]
+}

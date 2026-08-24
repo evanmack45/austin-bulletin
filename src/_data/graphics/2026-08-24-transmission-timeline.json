@@ -1,0 +1,46 @@
+{
+  "type": "timeline",
+  "date": "2026-08-24",
+  "slug": "transmission-timeline",
+  "title": "How Texas got here on the 765-kV lines",
+  "subtitle": "From Winter Storm Uri to five applications now pending at the Public Utility Commission",
+  "alt": "Timeline of the Texas 765-kilovolt transmission line buildout, from Winter Storm Uri in 2021 to pending Public Utility Commission decisions in 2026",
+  "source": "The Texas Tribune",
+  "events": [
+    {
+      "date": "Feb. 2021",
+      "label": "Winter Storm Uri forces rolling blackouts",
+      "note": "246 deaths; $80 billion to $130 billion in economic damage"
+    },
+    {
+      "date": "2023",
+      "label": "House Bill 5066 becomes law",
+      "note": "Cuts the PUC's review window for a line from 365 days to 180"
+    },
+    {
+      "date": "2025",
+      "label": "West Texas demand outruns the rest of the state",
+      "note": "West Zone demand up 12.3% vs. 6.1% statewide; congestion up 27%"
+    },
+    {
+      "date": "July 2026",
+      "label": "ERCOT testifies on Permian Basin reliability",
+      "note": "Its COO said rolling blackouts there are possible by next summer"
+    },
+    {
+      "date": "Aug. 2026",
+      "label": "Abbott orders an audit of data centers in the queue",
+      "note": "ERCOT pauses its Batch Zero study of large-load connections"
+    },
+    {
+      "date": "Aug. 20",
+      "label": "State hearings office recommends rejecting a leg",
+      "note": "First time SOAH has done so for this buildout"
+    }
+  ],
+  "next": {
+    "date": "Next",
+    "label": "PUC rules on five pending applications",
+    "note": "Final decisions expected in the next couple of months"
+  }
+}
