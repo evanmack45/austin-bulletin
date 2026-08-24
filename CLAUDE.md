@@ -118,6 +118,18 @@ Neutral. Factual. Clean.
   unreachable after only its (empty) RSS stub was tried. Discover stories from
   the kut.org homepage, where article URLs carry the publish date; there is no
   usable feed. Details in PIPELINE.md Step 1.
+- 2026-08-24: source sweep beyond the outlet list (PIPELINE.md Step 1).
+  Added: City of Austin news RSS (primary source for APD/Austin Water/LCRA
+  items), Austin open data on data.austintexas.gov (Socrata; the place The
+  Number and graphics figures should come from), The Daily Texan (UT beat;
+  news only, its feed mixes in opinion columns), Austin Chronicle (arts and
+  Around town, a few times a week), r/Austin via `.rss` for Voice cards.
+  `scripts/card.mjs` now reads Reddit through `.rss` via curl — its `.json`
+  endpoints 403 and Node's HTTP client is blocked whatever headers it sends;
+  retries on 429. Rejected: Spectrum News (stale wire copy), CapMetro (alerts
+  only as a GTFS protobuf), Axios Austin (blocked), Travis County (no dates,
+  under ten posts a year). Standings and This Weekend still have NO source —
+  EDITORIAL now says skip and log rather than invent.
 - 2026-08-23 (Evan): images must add value. New priority: original
   graphics (bar chart, timeline, Google static map via `npm run graphic`)
   built from verified facts; then official embeds; then verified real

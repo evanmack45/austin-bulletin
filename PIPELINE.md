@@ -109,6 +109,43 @@ NWS API with a User-Agent header: forecast
 https://api.weather.gov/gridpoints/EWX/156,91/forecast and active alerts
 https://api.weather.gov/alerts/active?zone=TXZ192.
 
+Primary and secondary sources (all verified 2026-08-24):
+
+- **City of Austin** — https://www.austintexas.gov/site/news/rss.xml. Ten
+  items, properly dated, and it is the original of stories outlets rewrite:
+  APD releases, Austin Water spills, LCRA lake drawdowns, health department
+  notices. It posts every few days rather than daily, so most mornings it
+  adds nothing — check it anyway, because when it has something it beats the
+  outlet write-up.
+- **Austin open data** — https://data.austintexas.gov, a Socrata portal.
+  Search the catalogue with `/api/catalog/v1?q=<terms>`, then query a dataset
+  at `/resource/<id>.json` with `$limit` and `$where` for a date range. Many
+  datasets update daily (311 requests, traffic, permits). This is where The
+  Number and original graphics should come from when a story has a figure we
+  can source ourselves rather than quote.
+- **The Daily Texan** — https://thedailytexan.com/feed/. Fresh, usually a few
+  hours old, and the only source we have on UT itself. It is a student paper
+  that mixes reporting and opinion columns in one feed: take the news, never
+  cite a column as fact.
+- **Austin Chronicle** — https://www.austinchronicle.com/rss/. Publishes a
+  few times a week on arts, music, food and Austin FC. Good for Around town;
+  do not expect it to have anything most mornings.
+- **Travis County** — its RSS is dead (two items, years old). The listing at
+  https://www.traviscountytx.gov/news/2026 works but carries no dates, and
+  the county posts under ten items a year. Judge newness by the numeric id in
+  the URL, highest first. Worth an occasional look, not a daily one.
+- **r/Austin** — https://www.reddit.com/r/Austin/.rss for the subreddit, or
+  `<post-url>/.rss` for one post. Reddit's `.json` endpoints return 403 and
+  its rate limiting is aggressive: expect HTTP 429 and retry. `npm run card`
+  handles both for you. Use it for Voice cards from Austinites and as a tip
+  sheet — a Reddit post is opinion, never the source for a fact.
+
+Checked and not worth using: Spectrum News Austin (per-section feeds work but
+carry stale wire copy), CapMetro (no feed; alerts exist only as a GTFS
+protobuf on data.texas.gov), Axios Austin (blocks us), Texas Standard (feed
+is stale). No source was found for the Standings or This Weekend rituals —
+see the note in EDITORIAL.md.
+
 Widen the gather beyond outlet RSS: the outlets' YouTube channels
 (`https://www.youtube.com/feeds/videos.xml?channel_id=…`), agency newsrooms
 (City of Austin, Travis County, TxDOT Austin, APD, CapMetro, Austin Energy,

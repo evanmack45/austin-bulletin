@@ -41,6 +41,15 @@ suggestions. Every rule binds the writing.
    This Weekend in Austin (Thursday and Friday), Sunday Paper (Sunday),
    One Good Thing (daily closer, Morning Note voice).
 
+**Standings and This Weekend have no source behind them** (checked
+2026-08-24). ESPN and the MLS stats API both refuse us, and every events
+listing tried — the Chronicle's calendar, Do512 — blocks us or has no feed.
+Do not invent either one to fill the slot: a made-up standings table or an
+event whose time and price we cannot verify is worse than an absent ritual.
+Run them only when a readable source is found, and say in the log that the
+slot was skipped and why. r/Austin's weekly events thread is a tip sheet
+only; a commenter saying a show is free at 7 is not a source for that.
+
 ## Voice cards and video
 
 - A Voice card shows a public post verbatim, attributed and linked:

@@ -22,6 +22,7 @@ import { mkdir, writeFile, readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import crypto from "node:crypto";
+import { execFile } from "node:child_process";
 import sharp from "sharp";
 
 const USER_AGENT = "TheAustinBulletin/1.0 (contact@theaustinbulletin.com)";
@@ -58,6 +59,44 @@ async function fetchJson(url, options = {}) {
     throw new Error(`HTTP ${res.status} ${res.statusText} for ${safeUrl(url)}`);
   }
   return res.json();
+}
+
+// Fetch a URL's text with curl, for hosts that reject Node's HTTP client.
+// Sends the same honest User-Agent as every other request we make.
+// Reddit rate-limits hard: a burst of requests earns an HTTP 429 with an
+// empty body. Retry a couple of times before giving up.
+async function curlText(url, attempts = 3) {
+  let lastErr;
+  for (let i = 0; i < attempts; i++) {
+    try {
+      return await curlTextOnce(url);
+    } catch (err) {
+      lastErr = err;
+      if (!/HTTP 429|HTTP 5\d\d/.test(err.message) || i === attempts - 1) throw err;
+      await new Promise((r) => setTimeout(r, 2000 * (i + 1)));
+    }
+  }
+  throw lastErr;
+}
+
+function curlTextOnce(url) {
+  return new Promise((resolve, reject) => {
+    execFile(
+      "curl",
+      ["-sSL", "--max-time", String(Math.round(TIMEOUT_MS / 1000)),
+       "-A", USER_AGENT, "-w", "\n%{http_code}", url],
+      { maxBuffer: 20 * 1024 * 1024 },
+      (err, stdout) => {
+        if (err) return reject(new Error(`curl failed: ${err.message}`));
+        const cut = stdout.lastIndexOf("\n");
+        const status = stdout.slice(cut + 1).trim();
+        if (status !== "200") {
+          return reject(new Error(`HTTP ${status} for ${safeUrl(url)}`));
+        }
+        resolve(stdout.slice(0, cut));
+      }
+    );
+  });
 }
 
 function decodeEntities(s) {
@@ -217,37 +256,54 @@ async function fetchBluesky(handleOrDid, rkey) {
 
 // --- Reddit ------------------------------------------------------------
 
+// Reddit's .json endpoints return 403 to us; the Atom feed at .rss on the
+// same URL is open and carries everything a card needs except the score.
 async function fetchReddit(url) {
   const clean = new URL(url);
   clean.search = "";
-  const jsonUrl = `${clean.toString().replace(/\/$/, "")}.json`;
-  const data = await fetchJson(jsonUrl, { headers: { "User-Agent": USER_AGENT } });
-  const post = data?.[0]?.data?.children?.[0]?.data;
-  if (!post) throw new Error("no post data in reddit response");
+  const rssUrl = `${clean.toString().replace(/\/$/, "")}/.rss`;
+  // Reddit 403s Node's HTTP client whatever headers we send — it is
+  // fingerprinting the client, not the User-Agent. curl gets 200 with the
+  // same honest User-Agent, so shell out for this one request.
+  const xml = await curlText(rssUrl);
+
+  // The first <entry> is the post itself; later entries are its comments.
+  const entry = xml.split("<entry>")[1];
+  if (!entry) throw new Error("no post entry in reddit feed");
+  const pick = (tag) => {
+    const m = entry.match(new RegExp(`<${tag}[^>]*>([\\s\\S]*?)</${tag}>`));
+    return m ? m[1].trim() : "";
+  };
+
+  const title = decodeEntities(pick("title"));
+  const author = pick("name").replace(/^\/u\//, "");
+  const updated = pick("updated");
+  // <content> is HTML-escaped markup; unescape once, then read it.
+  const contentHtml = decodeEntities(pick("content"));
 
   let imageUrl = null;
-  const dest = post.url_overridden_by_dest;
-  if (dest && /\.(jpg|jpeg|png|webp)$/i.test(dest)) {
-    imageUrl = dest;
-  } else if (post.preview?.images?.[0]?.source?.url) {
-    imageUrl = post.preview.images[0].source.url.replace(/&amp;/g, "&");
-  }
+  const img = contentHtml.match(/<img[^>]+src="([^"]+\.(?:jpg|jpeg|png|webp))[^"]*"/i);
+  if (img) imageUrl = decodeEntities(img[1]);
 
-  let text = post.title || "";
-  if (post.selftext) {
-    text += "\n\n" + post.selftext.slice(0, 400);
+  // Drop the "submitted by" footer Reddit appends to every entry.
+  const bodyHtml = contentHtml.split(/<!--\s*SC_OFF\s*-->/).pop().split(/<!--\s*SC_ON\s*-->/)[0];
+  const body = decodeEntities(stripTags(bodyHtml)).replace(/\s+\n/g, "\n").trim();
+
+  let text = title;
+  if (body && !body.startsWith("submitted by")) {
+    text += "\n\n" + body.slice(0, 400);
   }
 
   return {
     platform: "reddit",
-    name: post.subreddit_name_prefixed || "Reddit",
-    handle: post.author ? `u/${post.author}` : "",
-    date: formatApDate(typeof post.created_utc === "number" ? new Date(post.created_utc * 1000) : null),
+    name: `r/${clean.pathname.split("/")[2] || "Austin"}`,
+    handle: author ? `u/${author}` : "",
+    date: formatApDate(updated ? new Date(updated) : null),
     text,
     imageUrl,
     imageAlt: null,
     avatarUrl: null,
-    stats: typeof post.score === "number" ? `${post.score} upvotes` : null
+    stats: null
   };
 }
 
