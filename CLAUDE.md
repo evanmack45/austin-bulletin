@@ -93,9 +93,16 @@ Neutral. Factual. Clean.
   its WordPress REST API (`/wp-json/wp/v2/posts`), which is open to an
   honest UA, carries the full article body, filters to the window in one
   request, and is more complete than its RSS; reader proxy is the
-  documented fallback only. Details in PIPELINE.md Step 1. Still open for
-  decision: KVUE (unreadable by every path), the Austin Monitor (defunct
-  since Oct. 2025, successor Austin Current), and KUT (cited but not on the
+  documented fallback only. Details in PIPELINE.md Step 1.
+- 2026-08-24 (Evan): KVUE is discovery-only. Its article pages 403 by every
+  route; the one route that works is its `/ajax/content/…` API, which its
+  robots.txt disallows and we will not use — we do not engineer around an
+  outlet's stated policy, even at the cost of stories. Read its RSS as a tip
+  sheet and report the story from a readable source, preferring the primary
+  one (agency, department, court) over another outlet. A KVUE teaser is never
+  itself a source. Evan decided not to email KVUE for access, so this stands
+  until something changes. Still open: the Austin Monitor (defunct since
+  Oct. 2025, successor Austin Current) and KUT (cited but not on the
   trusted list).
 - 2026-08-23 (Evan): images must add value. New priority: original
   graphics (bar chart, timeline, Google static map via `npm run graphic`)

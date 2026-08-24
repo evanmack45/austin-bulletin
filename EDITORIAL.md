@@ -90,6 +90,19 @@ Austin Monitor, Texas Tribune, Community Impact, National Weather
 Service (weather.gov/ewx). Other established outlets may be cited as a
 second source. Add outlets here only after discussion with the publisher.
 
+**KVUE is discovery-only** (2026-08-24, publisher's decision). Its article
+pages are unreachable from the routine and the one route that would work is
+disallowed by its robots.txt, which we honour. Read its RSS to learn what
+happened in town, then report the story from a source we can actually read —
+another outlet, or the agency, department or court the story came from. A
+KVUE headline or RSS teaser is never itself the source for an item: it names
+a subject, it does not verify one. If no readable source exists, the story is
+dropped and the drop is logged, as with any unverifiable story.
+
+Never reach an outlet's content through a path its robots.txt disallows, and
+never send a User-Agent we are not, however much a story is worth. Access is
+a question for the publisher, not something a run engineers around.
+
 ## Image rules (per story, in priority order)
 
 1. An original graphic built from the story's own verified facts —

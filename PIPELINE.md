@@ -49,11 +49,24 @@ proxy (`https://r.jina.ai/<url>`) — that works but truncates long articles,
 so prefer the API. Plain curl and WebFetch both get 403 on KXAN article
 pages; do not waste a run retrying them.
 
-**KVUE is unreadable** as of 2026-08-24: 403 to curl, to WebFetch, to a
-reader proxy and to the `/amp/` path alike. Only its RSS headlines are
-reachable, which is not enough to verify a story. Status pending a
-publisher decision; until then, KVUE stories are unverifiable and get
-dropped and logged.
+**KVUE is discovery-only** (settled 2026-08-24; see EDITORIAL.md). Its
+`/article/…` pages 403 to every route — curl, WebFetch, a reader proxy, the
+`/amp/` and `/mobile/` variants. Its section pages return 200 but are
+client-side shells with no article text, and no syndication feed carries
+more than a ~120-character teaser. The one route that would work is its
+content API under `/ajax/content/…`, which its own robots.txt disallows:
+**do not use it.** Read
+https://www.kvue.com/feeds/syndication/rss/news/local as a tip sheet, then
+report anything worth having from a source we can read. Do not retry the
+article pages.
+
+When the only outlet on a story is one we cannot read, go to the primary
+source before dropping it: the agency, department, district or court the
+story is about. A fire, a road closure, a boil-water notice, a budget or an
+indictment almost always has a public original — a PIO release, a council or
+commissioners' agenda, a TCEQ notice, a court docket. Try that first; drop
+the story only when the primary source is missing too, and log which of the
+two failed.
 
 **Austin American-Statesman** has no working RSS feed (all
 `/arc/outboundfeeds/` paths 404). Article pages read fine; section pages
