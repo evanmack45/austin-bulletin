@@ -112,7 +112,12 @@ Neutral. Factual. Clean.
   budget and bonds — the City Hall & county beat the Bulletin has been
   missing. Gathered through its WordPress REST API like KXAN; robots.txt
   allows everything. The Monitor stays linkable as an archive, never as a
-  source for today. Still open: KUT (cited but not on the trusted list).
+  source for today.
+- 2026-08-24 (Evan): KUT joins the trusted-outlet list. Austin's NPR station;
+  article pages are fully readable — the 2026-08-24 run wrongly logged it as
+  unreachable after only its (empty) RSS stub was tried. Discover stories from
+  the kut.org homepage, where article URLs carry the publish date; there is no
+  usable feed. Details in PIPELINE.md Step 1.
 - 2026-08-23 (Evan): images must add value. New priority: original
   graphics (bar chart, timeline, Google static map via `npm run graphic`)
   built from verified facts; then official embeds; then verified real

@@ -86,9 +86,14 @@ suggestions. Every rule binds the writing.
 ## Trusted outlets
 
 KXAN, KVUE, CBS Austin, FOX 7 Austin, Austin American-Statesman,
-Austin Current, Texas Tribune, Community Impact, National Weather
+Austin Current, KUT, Texas Tribune, Community Impact, National Weather
 Service (weather.gov/ewx). Other established outlets may be cited as a
 second source. Add outlets here only after discussion with the publisher.
+
+**KUT** (kut.org) joined the list 2026-08-24. Austin's NPR station, a staffed
+newsroom covering transportation, health, criminal justice, city government
+and the arts; it partners with Austin Current on a local news show. It had
+been cited in bulletins without being listed, which this corrects.
 
 **Austin Current** (austincurrent.org) replaced the Austin Monitor on this
 list 2026-08-24. It is a 501(c)(3) nonprofit newsroom in The Texas Tribune's

@@ -63,6 +63,20 @@ usually hold one or two — but they are often the day's most substantial local
 stories, and one item from here can outweigh five from anywhere else. If the
 window is empty, widen it to 48 hours and use anything not already covered.
 
+**KUT — discover from the homepage, not a feed.** KUT's article pages are
+fully readable, but it has no usable RSS: `https://www.kut.org/index.rss`
+returns an empty stub and the other common feed paths 404. Do not waste time
+on them. Instead fetch `https://www.kut.org/` and extract links matching
+
+    /<section>/YYYY-MM-DD/<slug>
+
+The publish date is in the URL, so filtering to the window needs no extra
+request. `https://www.kut.org/news-sitemap-content.xml` and
+`https://www.kut.org/sitemap-latest.xml` list the newest one or two stories
+with timestamps and are worth a look, but they are too thin to rely on alone.
+Article body text sits in ordinary `<p>` tags and the page also carries
+NewsArticle structured data.
+
 **KVUE is discovery-only** (settled 2026-08-24; see EDITORIAL.md). Its
 `/article/…` pages 403 to every route — curl, WebFetch, a reader proxy, the
 `/amp/` and `/mobile/` variants. Its section pages return 200 but are
