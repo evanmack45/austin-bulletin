@@ -7,6 +7,7 @@
   "scripts": {
     "build": "eleventy",
     "serve": "eleventy --serve",
+    "favicon": "node scripts/favicon.mjs",
     "illustrate": "node scripts/illustrate.mjs",
     "today": "node scripts/today.mjs",
     "graphic": "node scripts/graphic.mjs",

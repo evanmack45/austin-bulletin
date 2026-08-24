@@ -39,6 +39,13 @@ export default function (eleventyConfig) {
   eleventyConfig.addPlugin(HtmlBasePlugin);
   eleventyConfig.addPassthroughCopy("src/css");
   eleventyConfig.addPassthroughCopy("src/images");
+  // Site icons, served from the root where browsers look for them.
+  // Generated from src/favicon.svg by `npm run favicon`.
+  eleventyConfig.addPassthroughCopy("src/favicon.svg");
+  eleventyConfig.addPassthroughCopy("src/favicon.ico");
+  eleventyConfig.addPassthroughCopy("src/apple-touch-icon.png");
+  eleventyConfig.addPassthroughCopy("src/icon-192.png");
+  eleventyConfig.addPassthroughCopy("src/icon-512.png");
 
   // Heading ids (e.g. <h2 id="weather">) so in-page jump links work.
   // The instance is also captured so the river/bigstory shortcodes below can
