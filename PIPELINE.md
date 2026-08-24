@@ -190,7 +190,26 @@ sentence. "Today" means the date in America/Chicago
 
 ## Step 4 — Illustrate
 
-Real voices first: `npm run card -- <post-url>` (X, Bluesky, Reddit;
+Find the voices first:
+
+    npm run voices                      # last 30h, all candidates
+    npm run voices -- --min-likes 2     # fewer, better-read posts
+    npm run voices -- --hours 48        # quiet morning, widen it
+
+Bluesky's post search needs a logged-in session, so we read Austin's public
+custom feeds instead. The script finds them by name each run (they are run by
+individuals and come and go), pulls recent posts, drops reposts, replies and
+hashtag spam, and prints a shortlist with each post's URL. Nothing is
+written; you choose from the list.
+
+Read the flags on each candidate. One popular feed matches the *word* Austin,
+so it surfaces people named Austin — those are marked and sorted to the
+bottom. Another is dominated by Democratic officeholders: a card on a
+contested public question runs paired with the other side or not at all, and
+that rule bites hardest here. r/Austin (`https://www.reddit.com/r/Austin/.rss`)
+is the other good source of ordinary Austinites.
+
+Then build the cards: `npm run card -- <post-url>` (X, Bluesky, Reddit;
 `--manual` for Facebook) writes a card and prints the `{% voice %}` tag;
 `npm run video -- <youtube-url>` does the same for an outlet's clip. Then
 graphics, photos, AI, per EDITORIAL.md.

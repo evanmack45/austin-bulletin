@@ -11,6 +11,7 @@
     "today": "node scripts/today.mjs",
     "graphic": "node scripts/graphic.mjs",
     "card": "node scripts/card.mjs",
+    "voices": "node scripts/voices.mjs",
     "video": "node scripts/video.mjs"
   },
   "devDependencies": {

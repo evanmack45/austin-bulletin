@@ -130,6 +130,16 @@ Neutral. Factual. Clean.
   only as a GTFS protobuf), Axios Austin (blocked), Travis County (no dates,
   under ten posts a year). This Weekend still has NO source —
   EDITORIAL now says skip and log rather than invent.
+- 2026-08-24: Bluesky post search needs a logged-in session (the public API
+  returns 401 AuthMissing — it is not a block on us). Until an account exists,
+  Voice card discovery runs off Austin's public custom feeds via
+  `npm run voices` (scripts/voices.mjs): finds Austin feeds by name each run,
+  pulls recent posts, drops reposts/replies/spam, ranks local ones first,
+  prints a shortlist. Two known hazards, flagged in the output: one feed
+  matches the word "Austin" so it surfaces people with that name, and one is
+  dominated by Democratic officeholders. Evan is setting up a Bluesky account
+  and app password so real search can be added — store it in the routine's
+  environment like GEMINI_API_KEY and POLLEN_API_KEY.
 - 2026-08-24 (Evan): the Standings ritual is cut — "we don't need any sports
   news." Removed from EDITORIAL, PIPELINE and CLAUDE. Do not reinstate it or
   propose a replacement. This Weekend is parked, not cut: Evan wants to build
