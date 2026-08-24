@@ -1,0 +1,45 @@
+{
+  "date": "2026-08-23",
+  "fetchedAt": "2026-08-24T01:01:25.147Z",
+  "weather": {
+    "high": 106,
+    "low": 81,
+    "summary": "Sunny",
+    "alerts": [
+      "Heat Advisory until 7:00 p.m. Wednesday",
+      "Extreme Heat Warning until 7:00 p.m. Monday"
+    ],
+    "source": "https://www.weather.gov/ewx/"
+  },
+  "air": {
+    "aqi": 59,
+    "category": "Moderate",
+    "pm25": 9.5,
+    "ozone": 94,
+    "source": "https://open-meteo.com/en/docs/air-quality-api"
+  },
+  "lake": {
+    "percentFull": 97.2,
+    "elevationFt": 679.36,
+    "weekNote": "−0.9 pts vs. last week",
+    "source": "https://www.waterdatafortexas.org/reservoirs/individual/travis"
+  },
+  "springs": {
+    "tempC": 22.1,
+    "tempF": 71.8,
+    "source": "https://waterdata.usgs.gov/monitoring-location/08155500/"
+  },
+  "grid": {
+    "forecastPeakMw": 90100,
+    "peakHourEnding": 18,
+    "availableMw": 110400,
+    "source": "https://www.ercot.com/gridmktinfo/dashboards/systemwidedemand"
+  },
+  "sun": {
+    "sunrise": "7:02 a.m.",
+    "sunset": "8:04 p.m.",
+    "source": "https://open-meteo.com/"
+  },
+  "errors": {},
+  "note": "high/summary filled by hand from the morning NWS forecast quoted in the edition; the script ran after the day's forecast period had expired"
+}

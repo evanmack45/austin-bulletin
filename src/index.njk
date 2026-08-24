@@ -9,5 +9,7 @@ permalink: "/"
   {% set editionUrl = latest.url %}
   {% set showPermalink = true %}
   {% include "edition-head.njk" %}
+  {% set glanceData = glance[editionDate | isoDate] %}
+  {% include "glance.njk" %}
   {{ latest.templateContent | safe }}
 </article>

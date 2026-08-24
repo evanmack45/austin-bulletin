@@ -11,6 +11,12 @@ suggestions. Every rule binds the writing.
   maximum. Count them.
 - In brief items are one sentence each and start with a bold one-word
   category label and a colon: `**Outage:**`, `**Politics:**`, `**Border:**`.
+- Every top story ends with one "What's next" sentence: a date, a vote, a
+  deadline, a scheduled event, or "No further action has been announced."
+  It states what is scheduled, never what should happen.
+- Story block order: headline, image, caption, summary, What's next,
+  source line. The lead story's image is the page's hero; choose it with
+  the most care.
 - Bulletin titles are plain: "The Austin Bulletin — {Weekday, Month D, YYYY}".
   Never puns or jokes.
 

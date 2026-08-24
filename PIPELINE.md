@@ -23,6 +23,11 @@ NWS API with a User-Agent header: forecast
 https://api.weather.gov/gridpoints/EWX/156,91/forecast and active alerts
 https://api.weather.gov/alerts/active?zone=TXZ192.
 
+Then fetch the day's glance numbers: `npm run today` (writes
+`src/_data/glance/YYYY-MM-DD.json` from NWS, Open-Meteo, Water Data for
+Texas, USGS, and ERCOT). A module that fails is left out of the strip and
+noted in the log; the run continues.
+
 ## Step 2 — Select
 
 Pick exactly 5 stories. Priority: impact on daily life in Austin (safety,
@@ -34,8 +39,8 @@ major Texas news. Order by importance. Check recent bulletins in
 
 Create `src/bulletins/YYYY-MM-DD.md` for today, copying the exact front
 matter and section structure of the newest existing bulletin file:
-morning note, "## Top stories" (### headline + summary + image + source
-line per story), "## Weather", optional "## In brief" (3–5 one-line items,
+morning note, "## Top stories" (per story: ### headline, image + caption, summary, a
+"What's next" line, source line), "## Weather", optional "## In brief" (3–5 one-line items,
 each opening with a bold one-word category label). Set
 `permalink: "/YYYY/MM/DD/"`. Every rule in EDITORIAL.md applies to every
 sentence. "Today" means the date in America/Chicago (`TZ='America/Chicago' date`),
@@ -64,7 +69,7 @@ EDITORIAL.md. When every check passes:
 
 Write today's log (Step 6) first — the commit below stages `logs/`.
 
-    git add src/bulletins/ src/images/ logs/
+    git add src/bulletins/ src/images/ src/_data/glance/ logs/
     git commit -m "bulletin: YYYY-MM-DD"
     git push
 

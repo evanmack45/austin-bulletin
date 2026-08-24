@@ -7,7 +7,8 @@
   "scripts": {
     "build": "eleventy",
     "serve": "eleventy --serve",
-    "illustrate": "node scripts/illustrate.mjs"
+    "illustrate": "node scripts/illustrate.mjs",
+    "today": "node scripts/today.mjs"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0",

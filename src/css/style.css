@@ -168,3 +168,69 @@ figcaption { font-size: 0.85rem; color: var(--muted); }
 .archive-list a { text-decoration: none; }
 .archive-list a:hover { text-decoration: underline; }
 .archive-note { margin: 0 0 1.5rem; color: var(--muted); font-style: italic; }
+
+/* Today at a glance */
+.glance {
+  margin: 1.6rem 0 0;
+  padding: 0.7rem 0 0.55rem;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+h2.glance-title {
+  display: block;
+  margin: 0 0 0.6rem;
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+h2.glance-title::after { content: none; }
+.glance-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem 0;
+}
+.glance-grid li {
+  display: flex;
+  flex-direction: column;
+  padding: 0.3rem 0.8rem;
+  border-left: 1px solid var(--rule);
+}
+.glance-grid li:nth-child(3n + 1) { border-left: none; }
+.g-label { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.g-value { font-size: 1.35rem; font-weight: 800; line-height: 1.2; letter-spacing: -0.01em; }
+.g-note { font-size: 0.8rem; line-height: 1.35; color: var(--muted); }
+.glance-sources {
+  margin: 0.6rem 0 0;
+  text-align: center;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+@media (max-width: 40rem) {
+  .glance-grid { grid-template-columns: repeat(2, 1fr); }
+  .glance-grid li:nth-child(3n + 1) { border-left: 1px solid var(--rule); }
+  .glance-grid li:nth-child(2n + 1) { border-left: none; }
+}
+
+/* Lead story: larger headline; its image bleeds past the text column on wide screens */
+.bulletin h3:first-of-type { font-size: 2.3rem; line-height: 1.12; }
+@media (min-width: 60rem) {
+  .bulletin h3:first-of-type + p,
+  .bulletin h3:first-of-type + p + figcaption { margin-left: -6rem; margin-right: -6rem; }
+}
+.bulletin h3 + p img { margin-top: 0.2rem; }
+
+/* "What's next" line under each story */
+.whats-next { margin: 0.7rem 0 0.5rem; font-size: 0.98rem; }
+.whats-next strong {
+  font-size: 0.8em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}

@@ -49,6 +49,9 @@ export default function (eleventyConfig) {
     return i === -1 ? bulletins.length : bulletins.length - i;
   });
 
+  eleventyConfig.addFilter("isoDate", (d) => new Date(d).toISOString().slice(0, 10));
+  eleventyConfig.addFilter("commas", (n) => Number(n).toLocaleString("en-US"));
+
   // Links that leave the site open in a new tab, so readers keep their place.
   // Runs on our own generated HTML only; the pattern matches <a href="http…"> exactly as
   // the templates and bulletins emit it.

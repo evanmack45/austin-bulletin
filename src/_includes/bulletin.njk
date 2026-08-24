@@ -6,5 +6,7 @@ layout: layout.njk
   {% set editionUrl = page.url %}
   {% set showPermalink = false %}
   {% include "edition-head.njk" %}
+  {% set glanceData = glance[editionDate | isoDate] %}
+  {% include "glance.njk" %}
   {{ content | safe }}
 </article>
