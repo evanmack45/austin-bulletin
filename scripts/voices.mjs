@@ -1,21 +1,26 @@
-// Gather Voice card candidates from Austin's Bluesky feeds.
+// Gather Voice card candidates from Austin's Bluesky feeds and from X.
 //
 // Usage:
 //   node scripts/voices.mjs [--hours 30] [--limit 60] [--min-likes 0]
-//   node scripts/voices.mjs --search "barton springs"      (needs login)
+//   node scripts/voices.mjs --search "barton springs"    (needs credentials)
 //
-// Two sources, and the script uses whichever are available.
+// Three sources, and the script uses whichever are available. A missing or
+// rejected credential is reported and the run carries on with the rest, so
+// nothing here can fail the morning bulletin.
 //
-// Austin's public custom feeds are open to anyone, so those always run. The
-// script finds them by name, reads each one, and prints recent posts as
-// candidates for a Voice card.
+// 1. Austin's public Bluesky custom feeds. Open to anyone, so these always
+//    run. Found by name each morning, since they are run by individuals and
+//    come and go.
 //
-// Bluesky's post search needs a logged-in session. Set BLUESKY_HANDLE and
-// BLUESKY_APP_PASSWORD in the environment (an app password generated in
-// Bluesky's settings, never the account password) and the script also
-// searches — either the default Austin queries or whatever --search asks
-// for. Without those variables it says so once and carries on with the
-// feeds, so a missing credential never fails the morning run.
+// 2. Bluesky post search, when BLUESKY_HANDLE and BLUESKY_APP_PASSWORD are
+//    set — an app password from Bluesky's settings, never the account
+//    password. Free, so it runs a spread of Austin queries.
+//
+// 3. X search, when X_BEARER_TOKEN is set — an app-only bearer token from
+//    the X developer portal. X bills per request, so this is deliberately
+//    two calls a morning: the queries use OR to cover many terms at once.
+//    Widen a query rather than adding one. On a rejected token or a rate
+//    limit it stops immediately instead of spending another billed call.
 //
 // Nothing is written to disk: the point is a shortlist to read, from which
 // you run `npm run card -- <post-url>` on the ones worth carrying.
@@ -42,6 +47,16 @@ const TIMEOUT_MS = 45000;
 const DEFAULT_QUERIES = [
   "Austin Texas", "ATX", "Barton Springs", "CapMetro",
   "Austin traffic", "Austin heat", "Austin ISD", "Travis County"
+];
+
+// X charges per call, so the same ground is covered in two requests using
+// OR rather than one request per term. Two calls a morning, every morning.
+// Adding a term here is free; adding a query costs a call on every run.
+const X_API = "https://api.x.com/2";
+const X_QUERIES = [
+  '(ATX OR "Austin Texas" OR "Austin, TX") -is:retweet -is:reply lang:en',
+  '(CapMetro OR "Barton Springs" OR "Travis County" OR "Austin ISD" OR ' +
+    '"Lady Bird Lake" OR "Zilker" OR "Austin City Council") -is:retweet -is:reply lang:en'
 ];
 
 // Feeds whose subject is a beat we do not cover, or that are reliably noise.
@@ -105,11 +120,18 @@ async function api(method, params, attempts = 2) {
   throw lastErr;
 }
 
+// `npm run voices -- --search "barton springs"` arrives as two separate
+// argv entries, because npm re-splits the arguments it forwards. Take
+// everything up to the next flag so a multi-word term survives either way.
 function strArg(name) {
   const i = process.argv.indexOf(`--${name}`);
   if (i === -1 || i === process.argv.length - 1) return null;
-  const value = process.argv[i + 1];
-  return value.startsWith("--") ? null : value;
+  const words = [];
+  for (let j = i + 1; j < process.argv.length; j++) {
+    if (process.argv[j].startsWith("--")) break;
+    words.push(process.argv[j]);
+  }
+  return words.length ? words.join(" ") : null;
 }
 
 // Trade the app password for a short-lived token. The password itself is
@@ -151,11 +173,53 @@ async function searchPosts(token, query, limit) {
   return (body.posts || []).map((post) => ({ post }));
 }
 
+// X search. Needs X_BEARER_TOKEN — an app-only bearer token from the X
+// developer portal. Returns items in the same shape as the Bluesky paths so
+// everything downstream treats them alike.
+async function searchX(query, limit, sinceIso) {
+  const url = new URL(`${X_API}/tweets/search/recent`);
+  url.searchParams.set("query", query);
+  url.searchParams.set("max_results", String(Math.min(Math.max(limit, 10), 100)));
+  url.searchParams.set("sort_order", "recency");
+  url.searchParams.set("start_time", sinceIso);
+  url.searchParams.set("tweet.fields", "created_at,public_metrics");
+  url.searchParams.set("expansions", "author_id");
+  url.searchParams.set("user.fields", "username,name");
+  const res = await fetch(url, {
+    headers: {
+      Authorization: `Bearer ${process.env.X_BEARER_TOKEN}`,
+      "User-Agent": USER_AGENT
+    },
+    signal: AbortSignal.timeout(TIMEOUT_MS)
+  });
+  if (res.status === 401) throw new Error("X_BEARER_TOKEN rejected — regenerate it in the X developer portal");
+  if (res.status === 429) throw new Error("X rate limit reached");
+  if (!res.ok) {
+    const body = await res.text().catch(() => "");
+    throw new Error(`HTTP ${res.status} ${res.statusText} ${body.slice(0, 120)}`.trim());
+  }
+  const body = await res.json();
+  const users = new Map((body.includes?.users || []).map((u) => [u.id, u]));
+  return (body.data || []).map((t) => {
+    const user = users.get(t.author_id) || {};
+    return {
+      post: {
+        uri: `x:${t.id}`,
+        author: { handle: user.username || "unknown", displayName: user.name || "" },
+        likeCount: t.public_metrics?.like_count || 0,
+        record: { text: t.text, createdAt: t.created_at },
+        xUrl: `https://x.com/${user.username || "i"}/status/${t.id}`
+      }
+    };
+  });
+}
+
 function isNoise(text) {
   return NOISE.some((re) => re.test(text));
 }
 
 function postUrl(post) {
+  if (post.xUrl) return post.xUrl;
   return `https://bsky.app/profile/${post.author.handle}/post/${post.uri.split("/").pop()}`;
 }
 
@@ -197,6 +261,29 @@ async function main() {
       }
     }
     sources.push(`search on ${queries.length} ${queries.length === 1 ? "query" : "queries"}`);
+  }
+
+  // --- X, when a bearer token is present ----------------------------------
+  // X bills per request, so this is deliberately two calls a morning (or one
+  // when chasing a story with --search). Widen X_QUERIES, not their number.
+  if (process.env.X_BEARER_TOKEN) {
+    const sinceIso = new Date(now - hours * 3600000).toISOString();
+    const xQueries = searchTerm
+      ? [`"${searchTerm}" (Austin OR ATX OR Texas) -is:retweet -is:reply lang:en`]
+      : X_QUERIES;
+    let ok = 0;
+    for (const q of xQueries) {
+      try {
+        searchGroups.push({ label: "X", items: await searchX(q, perFeed, sinceIso) });
+        ok++;
+      } catch (err) {
+        skipped.push(`X search (${err.message})`);
+        // A rejected token or a rate limit will not fix itself on the next
+        // query — stop rather than spend another billed call to be told so.
+        if (/rejected|rate limit/.test(err.message)) break;
+      }
+    }
+    if (ok) sources.push(`X on ${ok} ${ok === 1 ? "query" : "queries"}`);
   }
 
   // --- the public Austin feeds --------------------------------------------
@@ -257,7 +344,7 @@ async function main() {
   // sinks to the bottom rather than being dropped — the call is the writer's.
   candidates.sort((a, b) => b.local - a.local || a.ageHours - b.ageHours);
 
-  console.log(`Austin Bluesky voices — ${candidates.length} candidates, last ${hours}h`);
+  console.log(`Austin voices — ${candidates.length} candidates, last ${hours}h`);
   console.log(`Sources: ${sources.join(" · ")}`);
   console.log("These are candidates, not cleared copy. Some Austin feeds are");
   console.log("dominated by politicians of one party: a card on a contested");
@@ -271,7 +358,7 @@ async function main() {
     console.log(`${c.url}\n`);
   }
   if (skipped.length) {
-    console.log(`Unavailable this run: ${skipped.join("; ")}`);
+    console.log(`Unavailable this run: ${[...new Set(skipped)].join("; ")}`);
   }
   if (!candidates.length) {
     console.log("No candidates. Widen with --hours, or lower --min-likes.");

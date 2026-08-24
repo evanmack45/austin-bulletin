@@ -145,8 +145,17 @@ Neutral. Factual. Clean.
   item "Bluesky austinbulletin App Password" — it belongs in the environment,
   never in the repo. Without credentials, or with stale ones, the script
   reports it and falls back to feeds rather than failing the run. The search
-  path is written against Bluesky's documented endpoints but has not been run
-  against live credentials yet — the first real run should confirm it.
+  path was confirmed working against live credentials on 2026-08-24.
+- 2026-08-24 (Evan): X is a daily source. `npm run voices` searches X when
+  `X_BEARER_TOKEN` is set — an app-only bearer token from the X developer
+  portal, in the routine's environment with the other keys. X moved to
+  pay-per-usage pricing (no subscription tiers), so **every call costs
+  money**: the script makes exactly two a morning, using `OR` queries that
+  cover many terms per request, and stops on a rejected token or rate limit
+  rather than spending another call. Widen a query in `X_QUERIES`; never add
+  one without meaning to pay for it daily. Evan chose daily over opt-in.
+  Untested against a live token — the code path is written and its failure
+  modes are tested, but no real X credential has run through it yet.
 - 2026-08-24 (Evan): the `last30days` skill is installed (MIT, v3.21.1,
   github.com/mvanhorn/last30days-skill) via `npx skills add`, living in
   `.agents/skills/last30days` with a symlink at `.claude/skills/last30days`;

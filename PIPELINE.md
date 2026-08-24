@@ -206,11 +206,21 @@ written; you choose from the list.
 Bluesky's post search additionally runs when `BLUESKY_HANDLE` and
 `BLUESKY_APP_PASSWORD` are set in the environment — an app password from
 Bluesky's settings, never the account password, and kept in the routine's
-environment alongside `GEMINI_API_KEY` and `POLLEN_API_KEY`. With no
-credentials the script says so and carries on with the feeds; with bad ones
-it reports the rejection and still returns the feed candidates, so a stale
-password never costs you the morning. Use `--search` to chase a specific
-story; without it, search runs a standing set of Austin queries.
+environment alongside `GEMINI_API_KEY` and `POLLEN_API_KEY`. It is free, so
+it runs a spread of Austin queries every morning.
+
+X search runs when `X_BEARER_TOKEN` is set — an app-only bearer token from
+the X developer portal. **X bills per request**, so it is deliberately two
+calls a morning: the queries in `X_QUERIES` use `OR` to cover many terms in
+one request. To widen X coverage, add terms to an existing query rather than
+adding a query, because a new query costs a call on every run forever. On a
+rejected token or a rate limit it stops rather than spending another billed
+call. `--search` costs one X call.
+
+None of these can fail the run. With no credentials the script says so and
+uses what it has; with bad ones it names the rejection and still returns the
+rest. Use `--search "<term>"` to chase a specific story across every source
+that is configured; without it, each source runs its standing queries.
 
 Read the flags on each candidate. One popular feed matches the *word* Austin,
 so it surfaces people named Austin — those are marked and sorted to the
