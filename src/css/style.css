@@ -204,7 +204,7 @@ h2.glance-title::after { content: none; }
 .glance-grid li:nth-child(3n + 1) { border-left: none; }
 .g-label { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
 .g-value { font-size: 1.35rem; font-weight: 800; line-height: 1.2; letter-spacing: -0.01em; }
-.g-note { font-size: 0.8rem; line-height: 1.35; color: var(--muted); }
+.g-note { font-size: 0.82rem; line-height: 1.4; color: var(--muted); font-style: italic; }
 .glance-sources {
   margin: 0.6rem 0 0;
   text-align: center;

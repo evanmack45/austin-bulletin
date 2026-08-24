@@ -19,6 +19,11 @@ suggestions. Every rule binds the writing.
   the most care.
 - Bulletin titles are plain: "The Austin Bulletin — {Weekday, Month D, YYYY}".
   Never puns or jokes.
+- Each glance cell carries one blurb: a single plain sentence, at most
+  16 words, in the Morning Note's voice, saying what the number means for
+  the reader's day. `npm run today` writes a sensible default; the
+  morning writer may rewrite it, but never adds opinion or politics and
+  never repeats the number the cell already shows.
 
 ## Neutrality rules
 

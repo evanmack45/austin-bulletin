@@ -29,6 +29,9 @@ Texas, Google's Pollen API, and ERCOT; the pollen module needs
 `POLLEN_API_KEY` in the environment). A module that fails is left out of
 the strip and noted in the log; the run continues.
 
+Then open the glance file and read each `blurb`. Rewrite any that reads
+flat or misses the day's point, in the Morning Note's voice (EDITORIAL.md).
+
 ## Step 2 — Select
 
 Pick exactly 5 stories. Priority: impact on daily life in Austin (safety,

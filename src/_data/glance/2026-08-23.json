@@ -1,6 +1,6 @@
 {
   "date": "2026-08-23",
-  "fetchedAt": "2026-08-24T01:40:35.458Z",
+  "fetchedAt": "2026-08-24T02:07:47.849Z",
   "weather": {
     "high": 106,
     "low": 81,
@@ -9,19 +9,22 @@
       "Heat Advisory until 7:00 p.m. Wednesday",
       "Extreme Heat Warning until 7:00 p.m. Monday"
     ],
+    "blurb": "An Extreme Heat Warning is on. Early errands, lots of water, check on the neighbors.",
     "source": "https://www.weather.gov/ewx/"
   },
   "air": {
-    "aqi": 59,
+    "aqi": 57,
     "category": "Moderate",
-    "pm25": 9.5,
-    "ozone": 94,
+    "pm25": 10.2,
+    "ozone": 84,
+    "blurb": "Fine for most of us. If your lungs are touchy, take it a little easy.",
     "source": "https://open-meteo.com/en/docs/air-quality-api"
   },
   "lake": {
     "percentFull": 97.2,
     "elevationFt": 679.36,
     "weekNote": "−0.9 pts vs. last week",
+    "blurb": "The lake is close to full — good for boats and for the summer water supply. Down a touch from last week.",
     "source": "https://www.waterdatafortexas.org/reservoirs/individual/travis"
   },
   "pollen": {
@@ -35,17 +38,20 @@
       "Ragweed"
     ],
     "note": "Tree 1 · Grass 2 · Weed 2 · Grasses, Ragweed",
+    "blurb": "A little grasses and ragweed around — most noses won't notice.",
     "source": "https://developers.google.com/maps/documentation/pollen"
   },
   "grid": {
     "forecastPeakMw": 90100,
     "peakHourEnding": 18,
     "availableMw": 110400,
+    "blurb": "A busy grid this afternoon, but ERCOT expects enough to go around.",
     "source": "https://www.ercot.com/gridmktinfo/dashboards/systemwidedemand"
   },
   "sun": {
     "sunrise": "7:02 a.m.",
     "sunset": "8:04 p.m.",
+    "blurb": "The sun is up for 13 hours and 2 minutes today, and down by 8:04 p.m.",
     "source": "https://open-meteo.com/"
   },
   "errors": {},

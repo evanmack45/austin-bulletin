@@ -83,6 +83,132 @@ function formatLocalClock(isoLocal) {
   return `${hour12}:${mm} ${period}`;
 }
 
+// --- blurbs ----------------------------------------------------------------
+// Each function computes a default, plain-English "what this means for your
+// day" sentence for one glance cell. The morning writer may rewrite these
+// (see EDITORIAL.md / PIPELINE.md) but the script always writes a sensible
+// default so a cell is never left without one.
+
+function weatherBlurb(high, low, alerts) {
+  const hasAlert = (needle) => alerts.some((a) => a.includes(needle));
+  if (hasAlert("Extreme Heat")) {
+    return "An Extreme Heat Warning is on. Early errands, lots of water, check on the neighbors.";
+  }
+  if (hasAlert("Heat Advisory")) {
+    return "Heat Advisory today. Take the shade and the water bottle with you.";
+  }
+  if (hasAlert("Freeze") || hasAlert("Cold")) {
+    return "Freeze warning. Cover the plants and let the faucets drip tonight.";
+  }
+  if (hasAlert("Flood")) {
+    return "Flood watch. Low-water crossings fill fast — turn around, don't drown.";
+  }
+  if (hasAlert("Thunderstorm") || hasAlert("Tornado")) {
+    return "Storms possible. Keep the phone charged and an eye on the sky.";
+  }
+  if (alerts.length > 0) {
+    return `${alerts[0]}. Plan around it.`;
+  }
+
+  const effectiveHigh = high != null ? high : low + 20;
+  if (effectiveHigh >= 105) return "Dangerous heat. Get the errands done early and check on the neighbors.";
+  if (effectiveHigh >= 100) return "Triple digits again. Water bottle, shade, and an early start.";
+  if (effectiveHigh >= 90) return "Hot, but normal for us. The evening walk is the good one.";
+  if (effectiveHigh >= 75) return "About as nice as Austin gets. Get outside.";
+  if (effectiveHigh >= 60) return "Light-jacket morning, pleasant afternoon.";
+  if (effectiveHigh >= 45) return "Chilly by our standards. Real jacket weather.";
+  return "Cold for Austin. Mind the pipes, pets, and plants.";
+}
+
+function airBlurb(category) {
+  switch (category) {
+    case "Good":
+      return "Clear air. A great day to be outside.";
+    case "Moderate":
+      return "Fine for most of us. If your lungs are touchy, take it a little easy.";
+    case "Unhealthy for Sensitive Groups":
+      return "Kids, older folks, and anyone with asthma: keep the hard exercise indoors.";
+    case "Unhealthy":
+      return "Everyone should keep outdoor exertion short today.";
+    case "Very Unhealthy":
+    case "Hazardous":
+      return "Stay inside as much as you can today.";
+    default:
+      return "";
+  }
+}
+
+function lakeBlurb(percentFull, weekNote) {
+  let trend = "";
+  if (weekNote != null) {
+    if (weekNote.startsWith("+")) trend = " Up a touch from last week.";
+    else if (weekNote.startsWith("−")) trend = " Down a touch from last week.";
+  }
+
+  let base;
+  if (percentFull >= 90) {
+    base = "The lake is close to full — good for boats and for the summer water supply.";
+  } else if (percentFull >= 70) {
+    base = "Comfortably full, but every dry week takes a little.";
+  } else if (percentFull >= 50) {
+    base = "Half-full territory. Watch for boat-ramp closures.";
+  } else if (percentFull >= 30) {
+    base = "Low. Ramps are closing and the drought math is getting real.";
+  } else {
+    base = "Near the lows of 2013. Every inch matters now.";
+  }
+  return base + trend;
+}
+
+function pollenBlurb(category, plants) {
+  const who = plants.length ? plants.join(" and ").toLowerCase() : "pollen";
+  const Who = who.charAt(0).toUpperCase() + who.slice(1);
+  const isCedar = plants.some((p) => p.includes("Juniper"));
+
+  switch (category) {
+    case "None":
+    case "Very Low":
+      return "Almost nothing in the air. Breathe easy.";
+    case "Low":
+      return `A little ${who} around — most noses won't notice.`;
+    case "Moderate":
+      return `${Who} are up. Allergy folks, take the pill before it takes you.`;
+    case "High":
+      return `${Who} are heavy today. Windows closed, meds early.`;
+    case "Very High":
+      if (isCedar) {
+        return "Peak cedar. It's a cedar-fever kind of day — meds, windows shut, be kind to yourself.";
+      }
+      return `Peak ${who}. Meds early, windows shut.`;
+    default:
+      return "";
+  }
+}
+
+function gridBlurb(forecastPeakMw, availableMw) {
+  const ratio = forecastPeakMw / availableMw;
+  if (ratio < 0.75) return "Plenty of room on the grid. No conservation worries today.";
+  if (ratio < 0.85) return "A busy grid this afternoon, but ERCOT expects enough to go around.";
+  if (ratio < 0.95) return "A tight afternoon. Nudge the thermostat up a couple of degrees from 4 to 7.";
+  return "ERCOT is asking everyone to conserve this afternoon. Thermostat up, big appliances after 8.";
+}
+
+// Minutes-since-midnight for a local ISO-like string with no offset
+// (e.g. "2026-08-23T07:02"), paired with its date part.
+function localIsoMinutes(isoLocal) {
+  const [datePart, timePart] = isoLocal.split("T");
+  const [h, m] = timePart.split(":").map(Number);
+  return { datePart, minutes: h * 60 + m };
+}
+
+function daylightHoursMinutes(sunriseIso, sunsetIso) {
+  const sunrise = localIsoMinutes(sunriseIso);
+  const sunset = localIsoMinutes(sunsetIso);
+  let diff = sunset.minutes - sunrise.minutes;
+  if (sunset.datePart !== sunrise.datePart) diff += 24 * 60;
+  return { hours: Math.floor(diff / 60), minutes: diff % 60 };
+}
+
 // --- weather -----------------------------------------------------------
 
 async function fetchWeather(date) {
@@ -123,6 +249,7 @@ async function fetchWeather(date) {
     low,
     summary,
     alerts,
+    blurb: weatherBlurb(high, low, alerts),
     source: "https://www.weather.gov/ewx/",
   };
 }
@@ -144,11 +271,13 @@ async function fetchAir() {
   );
   const current = data.current;
   const aqi = Math.round(current.us_aqi);
+  const category = aqiCategory(aqi);
   return {
     aqi,
-    category: aqiCategory(aqi),
+    category,
     pm25: current.pm2_5,
     ozone: current.ozone,
+    blurb: airBlurb(category),
     source: "https://open-meteo.com/en/docs/air-quality-api",
   };
 }
@@ -221,6 +350,7 @@ async function fetchLake(date) {
     percentFull,
     elevationFt,
     weekNote,
+    blurb: lakeBlurb(percentFull, weekNote),
     source: "https://www.waterdatafortexas.org/reservoirs/individual/travis",
   };
 }
@@ -301,6 +431,7 @@ async function fetchPollen(date) {
     weed,
     plants,
     note,
+    blurb: pollenBlurb(category, plants),
     source: "https://developers.google.com/maps/documentation/pollen",
   };
 }
@@ -343,6 +474,7 @@ async function fetchGrid(date) {
     forecastPeakMw,
     peakHourEnding,
     availableMw,
+    blurb: gridBlurb(forecastPeakMw, availableMw),
     source: "https://www.ercot.com/gridmktinfo/dashboards/systemwidedemand",
   };
 }
@@ -353,11 +485,14 @@ async function fetchSun(date) {
   const data = await fetchJson(
     `https://api.open-meteo.com/v1/forecast?latitude=30.2672&longitude=-97.7431&daily=sunrise,sunset&timezone=America/Chicago&start_date=${date}&end_date=${date}`,
   );
-  const sunrise = data.daily.sunrise[0];
-  const sunset = data.daily.sunset[0];
+  const sunriseIso = data.daily.sunrise[0];
+  const sunsetIso = data.daily.sunset[0];
+  const sunset = formatLocalClock(sunsetIso);
+  const { hours, minutes } = daylightHoursMinutes(sunriseIso, sunsetIso);
   return {
-    sunrise: formatLocalClock(sunrise),
-    sunset: formatLocalClock(sunset),
+    sunrise: formatLocalClock(sunriseIso),
+    sunset,
+    blurb: `The sun is up for ${hours} hours and ${minutes} minutes today, and down by ${sunset}`,
     source: "https://open-meteo.com/",
   };
 }
