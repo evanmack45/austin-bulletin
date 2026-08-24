@@ -1,0 +1,15 @@
+{
+  "type": "bars",
+  "date": "2026-08-24",
+  "slug": "data-center-megawatts",
+  "title": "What a data center draws, in megawatts",
+  "subtitle": "Austin Energy serves 10 data centers today, each needing 1 to 20 MW; the city says 1 MW powers about 250 homes",
+  "unit": " MW",
+  "alt": "Bar chart comparing data center electricity demand in megawatts: the largest data center Austin Energy serves today at 20, the state's large-load threshold at 75, and a single hyperscale AI data center at more than 100",
+  "source": "KUT and Austin Current",
+  "bars": [
+    { "label": "Largest Austin Energy serves today", "value": 20 },
+    { "label": "State 'large load' threshold", "value": 75 },
+    { "label": "One hyperscale AI data center", "value": 100 }
+  ]
+}
