@@ -5,9 +5,33 @@ Before starting, read `EDITORIAL.md` in full.
 
 ## Step 1 — Gather
 
-Web-search the last 24 hours of Austin and Texas news from the trusted
-outlets listed in EDITORIAL.md. Also fetch today's forecast and any
-active alerts from weather.gov/ewx. Collect candidate stories with URLs.
+Collect candidate stories with URLs, covering the last 24 hours. Work in
+this order — it front-loads the sources that carry the most and lets the
+slow ones run while you read:
+
+1. **`npm run today`** — the glance numbers. Independent of everything else,
+   so start it first.
+2. **KXAN and Austin Current**, both through their WordPress APIs. These two
+   return full article text in one request each and between them cover most
+   beats; Austin Current is the only source for City Hall & county.
+3. **The four plain feeds** — FOX 7, CBS Austin, Texas Tribune, Community
+   Impact. Filter by pubDate, then fetch the article text of anything usable.
+4. **KUT**, from its homepage links, and the **Statesman**, checking each
+   article's own publish date.
+5. **City of Austin** news feed. Usually empty; authoritative when it is not.
+6. **KVUE's RSS as a tip sheet** — headlines only. Anything it has that
+   nobody else does, chase to a primary source before relaying it.
+7. **The Daily Texan** and **Austin Chronicle** for UT and Around town.
+8. **`npm run voices`** for Voice card candidates, and the outlets' YouTube
+   feeds for video. Details in Step 4.
+
+Then read the whole set before selecting. Every fact needs a source read
+this morning; every source below has been verified working on 2026-08-24,
+with its failure modes recorded so no run rediscovers them.
+
+Weather comes from the NWS API with a User-Agent header: forecast
+https://api.weather.gov/gridpoints/EWX/156,91/forecast and active alerts
+https://api.weather.gov/alerts/active?zone=TXZ192.
 
 Identify yourself honestly on every fetch. The standard User-Agent for all
 gathering is:
@@ -20,14 +44,19 @@ PerplexityBot, Google-Extended, Applebot-Extended, FacebookBot) in
 robots.txt; we are none of those and must not imitate one. Read an outlet's
 robots.txt before adding a new fetch path, and respect it.
 
-Gather mechanics (verified 2026-08-23, revised 2026-08-24): check the
-outlets' RSS feeds first, filter items by pubDate to the last 24 hours, then
-fetch the article text of anything you might use. Known-good feeds:
-FOX 7 https://www.fox7austin.com/rss/category/news, CBS Austin
-https://cbsaustin.com/news/local.rss, Texas Tribune
-https://feeds.texastribune.org/feeds/main/, Community Impact
-https://communityimpact.com/rss/austin/. Those four read fine over plain
-curl, feed and article text alike.
+### Source by source
+
+Reference for the checklist above: how each source is read, and how it
+fails. Every one was verified on 2026-08-24.
+
+**The four plain feeds** read fine over plain curl, feed and article text
+alike. Filter items by pubDate to the window, then fetch the text of
+anything usable.
+
+    FOX 7             https://www.fox7austin.com/rss/category/news
+    CBS Austin        https://cbsaustin.com/news/local.rss
+    Texas Tribune     https://feeds.texastribune.org/feeds/main/
+    Community Impact  https://communityimpact.com/rss/austin/
 
 **KXAN — use the WordPress REST API, not RSS.** It is open to an honest
 User-Agent, returns the full article body, filters to the window in one
@@ -146,14 +175,17 @@ protobuf on data.texas.gov), Axios Austin (blocks us), Texas Standard (feed
 is stale). No source was found for the This Weekend ritual — see the note in
 EDITORIAL.md.
 
-Widen the gather beyond outlet RSS: the outlets' YouTube channels
-(`https://www.youtube.com/feeds/videos.xml?channel_id=…`), agency newsrooms
-(City of Austin, Travis County, TxDOT Austin, APD, CapMetro, Austin Energy,
-LCRA, Austin ISD, NWS Austin), Bluesky accounts, and r/Austin's top posts
-(`https://www.reddit.com/r/Austin/top.json?t=day`, with a User-Agent).
-Collect post URLs worth a Voice card.
+For video, the outlets' YouTube channel feeds
+(`https://www.youtube.com/feeds/videos.xml?channel_id=…`) work. The channel
+ids are not guessable — read one off the channel page rather than inventing
+it. Confirmed 2026-08-24: FOX 7 is `UC5maSolHQX9er0BOxrzjMwA`, CBS Austin is
+`UCT2FAPpgWOGGXtpheDT6jkQ`.
 
-Then fetch the day's glance numbers: `npm run today` (writes
+Voice cards come from `npm run voices` and r/Austin (Step 4). Do not hand-
+roll Bluesky or Reddit fetches: Reddit's `.json` endpoints and Bluesky's
+search both refuse us, and the script already handles the routes that work.
+
+The glance numbers: `npm run today` (writes
 `src/_data/glance/YYYY-MM-DD.json` from NWS, Open-Meteo, Water Data for
 Texas, Google's Pollen API, and ERCOT; the pollen module needs
 `POLLEN_API_KEY` in the environment). A module that fails is left out of
@@ -171,6 +203,14 @@ daily life in Austin (safety, schools, transportation, cost of living,
 weather, city government), then major Texas news. Order by importance.
 Check recent bulletins in `src/bulletins/` to avoid repeating a story with
 no new development.
+
+Where the beats come from, now that the sources are settled. City Hall &
+county is Austin Current first, then the City of Austin feed. Schools is
+Austin Current and the Daily Texan. Roads & transit, Public safety and Health
+are the TV stations and the city. Around town is the Chronicle and Community
+Impact. Texas is the Tribune. If a beat is empty, say so by omitting it —
+EDITORIAL forbids padding — but an empty City Hall & county beat now usually
+means Austin Current was not checked rather than that nothing happened.
 
 ## Step 3 — Write
 
