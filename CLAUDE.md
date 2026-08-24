@@ -99,11 +99,14 @@ Neutral. Factual. Clean.
   robots.txt disallows and we will not use — we do not engineer around an
   outlet's stated policy, even at the cost of stories. Read its RSS as a tip
   sheet and report the story from a readable source, preferring the primary
-  one (agency, department, court) over another outlet. A KVUE teaser is never
-  itself a source. Evan decided not to email KVUE for access, so this stands
-  until something changes. Still open: the Austin Monitor (defunct since
-  Oct. 2025, successor Austin Current) and KUT (cited but not on the
-  trusted list).
+  one (agency, department, court) over another outlet. Where nothing readable
+  exists, Evan chose thin over nothing: a one-sentence "relayed item"
+  attributed in the prose ("KVUE reported that …"), saying nothing the teaser
+  does not, never for a death, a named crime accusation, a disputed political
+  claim or a figure that has to be right — rules in EDITORIAL.md. Evan decided
+  not to email KVUE for access, so this stands until something changes. Still
+  open: the Austin Monitor (defunct since Oct. 2025, successor Austin Current)
+  and KUT (cited but not on the trusted list).
 - 2026-08-23 (Evan): images must add value. New priority: original
   graphics (bar chart, timeline, Google static map via `npm run graphic`)
   built from verified facts; then official embeds; then verified real

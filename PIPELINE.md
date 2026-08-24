@@ -57,8 +57,10 @@ more than a ~120-character teaser. The one route that would work is its
 content API under `/ajax/content/…`, which its own robots.txt disallows:
 **do not use it.** Read
 https://www.kvue.com/feeds/syndication/rss/news/local as a tip sheet, then
-report anything worth having from a source we can read. Do not retry the
-article pages.
+report anything worth having from a source we can read. Where no readable
+source exists, a one-sentence relayed item is allowed — see "relayed item"
+in EDITORIAL.md for what it may and may not say. Do not retry the article
+pages.
 
 When the only outlet on a story is one we cannot read, go to the primary
 source before dropping it: the agency, department, district or court the

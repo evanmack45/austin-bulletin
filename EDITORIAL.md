@@ -95,9 +95,20 @@ pages are unreachable from the routine and the one route that would work is
 disallowed by its robots.txt, which we honour. Read its RSS to learn what
 happened in town, then report the story from a source we can actually read —
 another outlet, or the agency, department or court the story came from. A
-KVUE headline or RSS teaser is never itself the source for an item: it names
-a subject, it does not verify one. If no readable source exists, the story is
-dropped and the drop is logged, as with any unverifiable story.
+readable source exists, a **relayed item** is allowed, so the bulletin still
+shows what KVUE is covering (publisher's call, 2026-08-24). A relayed item:
+
+- is one sentence, and says nothing its source sentence does not say — no
+  added context, no figure that was not in the teaser, no What's next;
+- attributes in the prose, not just the tag: "KVUE reported that …";
+- is never the Big Story, and never carries an image.
+
+Do not relay a teaser about a person's death or injury, a crime accusation
+against a named person, a disputed political claim, or any figure that has to
+be right. A teaser drops qualifiers, and we will not see a correction to it.
+Those stories need a readable source or they are dropped and logged, as with
+any unverifiable story. Relaying is the last resort, after the primary source
+has been tried.
 
 Never reach an outlet's content through a path its robots.txt disallows, and
 never send a User-Agent we are not, however much a story is worth. Access is
