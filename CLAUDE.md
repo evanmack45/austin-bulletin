@@ -184,3 +184,18 @@ Neutral. Factual. Clean.
   photos including agency-released ones; AI images last. Never copy
   photos out of other outlets' articles. Maps use the austin-bulletin
   Google key (Maps Static API enabled, same key as the Pollen API).
+- 2026-08-24 (Evan): Weather is its own `## Weather` section after the River,
+  not the last River beat. This settles a disagreement between EDITORIAL and
+  PIPELINE that the first two bulletins had resolved the wrong way. The
+  section carries the NWS forecast and alerts, weather items, the weather
+  graphic and its own sources line, and keeps the heading id `weather` that
+  the masthead's "Skip to weather" link targets. River counts are now
+  non-weather items only. Published editions are not restructured after the
+  fact, so 2026-08-23 keeps Weather inside its River.
+- 2026-08-24 (Evan): a day may be re-issued. When Evan asks for a day to be
+  regathered and republished, overwrite that date's bulletin in place — same
+  permalink, same edition number — and record every run of the day in one log
+  file, in order. A re-issue is not a correction: only add a `<p class=
+  "correction">` note if a fact in the earlier edition was actually wrong.
+  Unattended runs still never re-issue on their own; a published edition is
+  replaced only on Evan's explicit instruction.

@@ -221,7 +221,9 @@ morning note; `## The Big Story` inside `{% bigstory %}…{% endbigstory %}`
 optional `{% voice %}` cards, a Sources line); `## The River` inside
 `{% river %}…{% endriver %}` (`#### Beat` labels in the fixed order,
 one paragraph per item ending in `<span class="src">OUTLET</span>`,
-`{% voice %}` cards where they earn it); `## Weather`; then
+`{% voice %}` cards where they earn it); `## Weather` **outside** the river
+wrapper, carrying the NWS forecast and alerts, any weather items, the weather
+graphic and its own sources line; then
 `<aside class="the-number">`, a
 `<p class="countdown">`, and a `<p class="good-thing">`. Set
 `permalink: "/YYYY/MM/DD/"`. Every rule in EDITORIAL.md applies to every

@@ -34,16 +34,29 @@ suggestions. Every rule binds the writing.
    dispute exists, each side's own words. It ends with a What's next line.
 3. The River: 25–40 one- or two-sentence items grouped by beat, in this
    fixed order: Roads & transit · Public safety & courts · City Hall & county ·
-   Schools · Health · Business & tech · Around town · Texas · Sports ·
-   Weather. Every
+   Schools · Health · Business & tech · Around town · Texas · Sports. Every
    item ends with a source tag. Missing beats are omitted, never padded.
-4. Rituals: The Number (daily), Countdown (daily), This Weekend in Austin
+4. Weather: its own `## Weather` section after the River, not a River beat.
+   It opens with the day's NWS forecast and active alerts, then any weather
+   items worth having (records, streaks, what the week does), then the
+   weather graphic if there is one, then its own sources line. The masthead's
+   "Skip to weather" link points at this heading, so the section must exist
+   every day and keep the id `weather`.
+5. Rituals: The Number (daily), Countdown (daily), This Weekend in Austin
    (Thursday and Friday), Sunday Paper (Sunday), One Good Thing (daily
    closer, Morning Note voice).
 
 Standings was cut 2026-08-24 at the publisher's direction. Do not reinstate
 it or propose a replacement. Only the ritual was cut: the Sports beat in the
 River stays exactly as it is.
+
+Weather became its own section 2026-08-24 at the publisher's direction,
+resolving a long-standing disagreement between this file and PIPELINE.md: the
+first two bulletins ran Weather as the last River beat while PIPELINE Step 3
+described a `## Weather` section. The section wins. The River's item count
+excludes weather items, so a 25–40 River is 25–40 non-weather items. The
+2026-08-23 bulletin still has Weather inside its River and is left alone —
+published editions are not restructured after the fact.
 
 **This Weekend has no source behind it** (checked 2026-08-24). Every events
 listing tried — the Chronicle's calendar, Do512 — blocks us or has no feed,
