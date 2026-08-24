@@ -10,6 +10,5 @@
     {% if glanceData.grid %}<li><span class="g-label">Power grid</span><span class="g-value">{{ glanceData.grid.forecastPeakMw | commas }} MW</span><span class="g-note">{{ glanceData.grid.blurb }}</span></li>{% endif %}
     {% if glanceData.sun %}<li><span class="g-label">Sunrise</span><span class="g-value">{{ glanceData.sun.sunrise }}</span><span class="g-note">{{ glanceData.sun.blurb }}</span></li>{% endif %}
   </ul>
-  <p class="glance-sources">Sources: National Weather Service · Open-Meteo · Water Data for Texas · Google Pollen API · ERCOT</p>
 </section>
 {% endif %}
