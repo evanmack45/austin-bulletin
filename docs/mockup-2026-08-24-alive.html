@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mon., Aug. 24 · The Austin Bulletin (mockup)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..800;1,8..60,400..800&display=swap">
+<style>
+/* ---- copied verbatim from src/css/style.css ---- */
+:root {
+  --ink: #1b1712;
+  --muted: #6d6357;
+  --accent: #7a1f1f;
+  --rule: #d9d2c4;
+  --bg: #f6efe2;
+  --tint: #f1e8d6;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+main { max-width: 44rem; margin: 0 auto; padding: 0.5rem 1.25rem 4rem; }
+h1, h2, h3 { line-height: 1.25; }
+a { color: var(--accent); }
+img { width: 100%; height: auto; display: block; }
+
+.site-header {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: 2.25rem 1.25rem 0;
+  text-align: center;
+}
+.masthead-kicker {
+  margin: 0 0 0.4rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.wordmark {
+  display: block;
+  font-family: "UnifrakturMaguntia", "Source Serif 4", Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(2.5rem, 9vw, 4.4rem);
+  line-height: 1.05;
+  color: var(--ink);
+  text-decoration: none;
+}
+.folio {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.5rem;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 0.85rem;
+  border-top: 1px solid var(--ink);
+  border-bottom: 3px double var(--ink);
+  padding: 0.45rem 0.15rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.folio-note { color: var(--muted); }
+.folio-nav { display: flex; gap: 1.4rem; }
+.folio-nav a { color: var(--accent); text-decoration: none; }
+.folio-nav a:hover { text-decoration: underline; }
+
+.edition-head {
+  position: relative;
+  max-width: 30rem;
+  margin: 1.75rem auto 0;
+  padding: 0.9rem 1.25rem 0.95rem;
+  border: 1px solid var(--ink);
+  box-shadow: inset 0 0 0 4px var(--bg), inset 0 0 0 5px var(--ink);
+  background: var(--tint);
+  text-align: center;
+}
+.edition-weekday {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.edition-date {
+  margin: 0.15rem 0 0.25rem;
+  font-size: clamp(1.6rem, 5vw, 2.2rem);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+.edition-meta {
+  margin: 0;
+  font-size: 0.74rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.edition-meta a { color: var(--accent); }
+
+.morning-note {
+  position: relative;
+  margin: 2rem auto 2.25rem;
+  padding: 1.9rem 1.75rem 1.5rem;
+  border: 1px solid var(--ink);
+  background: var(--tint);
+  text-align: center;
+  font-style: italic;
+  font-size: 1.2rem;
+  line-height: 1.65;
+}
+.morning-note::before {
+  content: "The Morning Note";
+  position: absolute;
+  top: -0.55rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0 0.7rem;
+  background: var(--bg);
+  font-style: normal;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+h1 { font-size: 1.9rem; margin: 1rem 0 0.25rem; }
+h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-top: 2.6rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+h2::after { content: ""; flex: 1; border-top: 1px solid var(--ink); }
+h3 { font-size: 1.7rem; font-weight: 800; letter-spacing: -0.01em; margin: 2.2rem 0 0.5rem; }
+
+.source-line {
+  font-size: 0.86rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.source-line a { text-decoration: underline; text-underline-offset: 0.15em; }
+.correction { background: #efe3cd; border: 1px solid #cdb98f; padding: 0.75rem 1rem; }
+figcaption { font-size: 0.85rem; color: var(--muted); }
+#in-brief + ul li { margin-bottom: 0.5rem; }
+#in-brief + ul strong {
+  font-size: 0.82em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.site-footer {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: 1.25rem;
+  border-top: 1px solid var(--rule);
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.archive-list { list-style: none; padding: 0; }
+.archive-list li { padding: 0.65rem 0; border-bottom: 1px solid var(--rule); }
+.archive-list a { text-decoration: none; }
+.archive-list a:hover { text-decoration: underline; }
+.archive-note { margin: 0 0 1.5rem; color: var(--muted); font-style: italic; }
+
+/* Today at a glance */
+.glance {
+  margin: 1.6rem 0 0;
+  padding: 0.7rem 0 0.55rem;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+h2.glance-title {
+  display: block;
+  margin: 0 0 0.6rem;
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+h2.glance-title::after { content: none; }
+.glance-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem 0;
+}
+.glance-grid li {
+  display: flex;
+  flex-direction: column;
+  padding: 0.3rem 0.8rem;
+  border-left: 1px solid var(--rule);
+}
+.glance-grid li:nth-child(3n + 1) { border-left: none; }
+.g-label { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.g-value { font-size: 1.35rem; font-weight: 800; line-height: 1.2; letter-spacing: -0.01em; }
+.g-note { font-size: 0.82rem; line-height: 1.4; color: var(--muted); }
+@media (max-width: 40rem) {
+  .glance-grid { grid-template-columns: repeat(2, 1fr); }
+  .glance-grid li:nth-child(3n + 1) { border-left: 1px solid var(--rule); }
+  .glance-grid li:nth-child(2n + 1) { border-left: none; }
+}
+
+/* Lead story: larger headline; its image bleeds past the text column on wide screens */
+.bulletin h3:first-of-type { font-size: 2.3rem; line-height: 1.12; }
+@media (min-width: 60rem) {
+  .bulletin h3:first-of-type + p,
+  .bulletin h3:first-of-type + p + figcaption { margin-left: -6rem; margin-right: -6rem; }
+}
+.bulletin h3 + p img { margin-top: 0.2rem; }
+
+/* "What's next" line under each story */
+.whats-next { margin: 0.7rem 0 0.5rem; font-size: 0.98rem; }
+.whats-next strong {
+  font-size: 0.8em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* ---- new, for the denser mockup shape ---- */
+
+.river-subnote {
+  margin: -0.6rem 0 1.1rem;
+  text-align: center;
+  font-size: 0.82rem;
+  font-style: italic;
+  color: var(--muted);
+}
+
+.beat {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 1.9rem 0 0.7rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.beat::after { content: ""; flex: 1; border-top: 1px solid var(--rule); }
+.beat:first-of-type { margin-top: 1rem; }
+
+.river-list { list-style: none; margin: 0; padding: 0; }
+.river-list li { margin: 0 0 0.85rem; font-size: 0.98rem; line-height: 1.5; }
+.source-tag {
+  margin-left: 0.45rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.video-frame {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--ink);
+  background: var(--tint);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  margin: 1.4rem 0 0.4rem;
+  padding: 1rem;
+  text-align: center;
+}
+.play-glyph {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid var(--ink);
+  background: var(--bg);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.play-glyph svg { width: 22px; height: 22px; }
+.video-frame figcaption { max-width: 30rem; }
+
+.voice-card {
+  max-width: 36rem;
+  margin: 1.25rem auto;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--ink);
+  background: var(--bg);
+}
+.voice-card-head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 0.65rem;
+}
+.voice-glyph { width: 22px; height: 22px; flex-shrink: 0; color: var(--ink); }
+.voice-who { display: flex; flex-direction: column; line-height: 1.3; }
+.voice-account { font-weight: 700; font-size: 0.95rem; }
+.voice-meta {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.voice-body { margin: 0 0 0.75rem; font-size: 0.98rem; line-height: 1.55; }
+.voice-image {
+  aspect-ratio: 3 / 2;
+  margin-bottom: 0.65rem;
+  background: var(--tint);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.voice-image span {
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.voice-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.voice-footer a { color: var(--accent); text-decoration: none; }
+.voice-footer a:hover { text-decoration: underline; }
+
+.table-wrap { overflow-x: auto; margin: 0.75rem 0 1.3rem; }
+.standings { width: 100%; min-width: 22rem; border-collapse: collapse; font-size: 0.9rem; }
+.standings caption {
+  text-align: left;
+  margin-bottom: 0.4rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.standings th, .standings td { padding: 0.35rem 0.6rem; border-bottom: 1px solid var(--rule); text-align: right; }
+.standings th:first-child, .standings td:first-child { text-align: left; }
+.standings th {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.number-box {
+  margin: 2.4rem auto;
+  padding: 1.7rem 1.5rem;
+  border: 1px solid var(--ink);
+  background: var(--tint);
+  text-align: center;
+}
+.number-box .big-num {
+  display: block;
+  font-size: clamp(3rem, 12vw, 4.6rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--accent);
+}
+.number-box p { margin: 0.7rem auto 0.35rem; max-width: 30rem; }
+
+.countdown {
+  margin: 2.2rem 0;
+  text-align: center;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.good-thing {
+  position: relative;
+  margin: 2.2rem auto 2.4rem;
+  padding: 1.9rem 1.75rem 1.5rem;
+  border: 1px solid var(--ink);
+  background: var(--tint);
+  text-align: center;
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+.good-thing::before {
+  content: "One Good Thing";
+  position: absolute;
+  top: -0.55rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0 0.7rem;
+  background: var(--bg);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+@media (max-width: 30rem) {
+  .voice-card { margin: 1.25rem 0; }
+}
+</style>
+</head>
+<body>
+  <header class="site-header">
+    <p class="masthead-kicker">Every morning &middot; Neutral &middot; Factual</p>
+    <a class="wordmark" href="#">The Austin Bulletin</a>
+    <div class="folio">
+      <span class="folio-note">Est. 2026 &middot; Austin, Texas</span>
+      <nav class="folio-nav">
+        <a href="#">Today</a>
+        <a href="#">Archive</a>
+        <a href="#">About</a>
+      </nav>
+    </div>
+    <div class="edition-head">
+      <p class="edition-weekday">Monday</p>
+      <p class="edition-date">August 24, 2026</p>
+      <p class="edition-meta">No. 2</p>
+    </div>
+  </header>
+
+  <main class="bulletin">
+
+    <section class="glance">
+      <h2 class="glance-title">Today at a Glance</h2>
+      <ul class="glance-grid">
+        <li>
+          <span class="g-label">Weather</span>
+          <span class="g-value">105&deg;/78&deg;</span>
+          <span class="g-note">Heat Advisory today. Take the shade and the water bottle with you.</span>
+        </li>
+        <li>
+          <span class="g-label">Air Quality</span>
+          <span class="g-value">61</span>
+          <span class="g-note">Fine for most of us. If your lungs are touchy, take it a little easy.</span>
+        </li>
+        <li>
+          <span class="g-label">Lake Travis</span>
+          <span class="g-value">97.1% full</span>
+          <span class="g-note">The lake is close to full &mdash; good for boats and for the summer water supply. Down a touch from last week.</span>
+        </li>
+        <li>
+          <span class="g-label">Allergies</span>
+          <span class="g-value">Low</span>
+          <span class="g-note">A little grasses and ragweed around &mdash; most noses won't notice.</span>
+        </li>
+        <li>
+          <span class="g-label">Power Grid</span>
+          <span class="g-value">91,400 MW</span>
+          <span class="g-note">A tight afternoon. Nudge the thermostat up a couple of degrees from 4 to 7.</span>
+        </li>
+        <li>
+          <span class="g-label">Sunrise</span>
+          <span class="g-value">7:03 a.m.</span>
+          <span class="g-note">The sun is up for 13 hours today, and down by 8:03 p.m.</span>
+        </li>
+      </ul>
+    </section>
+
+    <div class="morning-note">
+      <p>Good morning, Austin. Still hot, still dry, but the week finally has a shape: the heat eases by Friday, the Red Line goes quiet for four days, and somebody at Travis County just put a train on the table. There's a countdown at the bottom.</p>
+    </div>
+
+    <h2>The Big Story</h2>
+    <h3>Pavement or rail? Central Texas is betting on both</h3>
+
+    <figure class="video-frame">
+      <div class="play-glyph" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20" fill="currentColor"/></svg>
+      </div>
+      <figcaption>KXAN: Firm says Austin&ndash;San Antonio passenger rail line viable, for $13.5 billion</figcaption>
+    </figure>
+
+    <p>TxDOT is widening Interstate 35 between Round Rock and Georgetown, a stretch that recorded 4,114 crashes on its main lanes and 31 deaths from 2021 through 2026, according to the agency's own count. The project adds lanes and rebuilds interchanges along one of the busiest corridors in Central Texas. A few miles away, a different kind of capacity question is on the table: a feasibility study commissioned by Travis County found no engineering dealbreakers for a 125 mph passenger rail line between Austin and San Antonio, running largely along the SH 130 and I-10 corridors, at an estimated cost of roughly $13.5 billion.</p>
+
+    <p>The road and the possible railway won't compete for the same trip for years, if ever &mdash; the environmental review for I-35 alone runs past the decade's end. Meanwhile, CapMetro is pausing Red Line service Aug. 24&ndash;27 for track work at the future North Burnet/Uptown station, a smaller but more immediate reminder that both driving and transit in the region are under construction at once.</p>
+
+    <p class="whats-next"><strong>What's next:</strong> TxDOT's environmental review continues; completion is projected for late 2029. The rail study goes to Travis County commissioners next.</p>
+
+    <div class="voice-card">
+      <div class="voice-card-head">
+        <svg class="voice-glyph" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M15 3h-2a5 5 0 0 0-5 5v2H6v4h2v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3z"/></svg>
+        <div class="voice-who">
+          <span class="voice-account">Texas Department of Transportation &ndash; Austin</span>
+          <span class="voice-meta">@TxDOTAustin &middot; Wednesday</span>
+        </div>
+      </div>
+      <p class="voice-body">BASTROP: Progress remains steady on the SH 71 at Tucker Hill Lane project. Recently, project crews set the beams for the eastbound bridge over Dry Creek. They also installed the cable barrier at Berdoll Lane.</p>
+      <div class="voice-image"><span>Photo from the post</span></div>
+      <div class="voice-footer">
+        <a href="#">View on Facebook &#8599;</a>
+        <span>118 reactions</span>
+      </div>
+    </div>
+
+    <h2>The River</h2>
+    <p class="river-subnote">27 items &middot; grouped by beat</p>
+
+    <h4 class="beat">Roads &amp; Transit</h4>
+    <ul class="river-list">
+      <li>Northbound I-35 main lanes between Rundberg Lane and Braker Lane will close nightly this weekend, 11 p.m. to 10 a.m., for paving work.<span class="source-tag">TxDOT</span></li>
+      <li>A pedestrian was struck and killed on a ramp to northbound SH 71 near Bastrop.<span class="source-tag">KXAN</span></li>
+      <li>CapMetro's Red Line will pause service Aug. 24&ndash;27 for track work at the future North Burnet/Uptown station.<span class="source-tag">CapMetro</span></li>
+    </ul>
+
+    <div class="voice-card">
+      <div class="voice-card-head">
+        <svg class="voice-glyph" viewBox="0 0 24 24" aria-hidden="true"><line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" stroke-width="2.4"/><line x1="20" y1="4" x2="4" y2="20" stroke="currentColor" stroke-width="2.4"/></svg>
+        <div class="voice-who">
+          <span class="voice-account">TxDOT Austin</span>
+          <span class="voice-meta">@TxDOTAustin &middot; Aug. 21</span>
+        </div>
+      </div>
+      <p class="voice-body">TRAFFIC ALERT: The northbound I-35 mainlanes between Rundberg Lane and Braker Lane will be closed nightly this weekend, Aug. 21 and Aug. 22, from 11 p.m. to 10 a.m., for paving work. Drivers will use the Braker Lane exit (243) to access the frontage road.</p>
+      <div class="voice-image"><span>Photo from the post</span></div>
+      <div class="voice-footer">
+        <a href="#">View on X &#8599;</a>
+      </div>
+    </div>
+
+    <h4 class="beat">Police &amp; Courts</h4>
+    <ul class="river-list">
+      <li>APD's SWAT team responded to a call at a Super 8 on the southbound I-35 service road near Wonsley Drive; no suspect was in custody as of the latest update.<span class="source-tag">KXAN</span></li>
+      <li>A Travis County jury sentenced Samuel Ramirez, 36, to 25 years in prison for continuous sexual abuse of a child.<span class="source-tag">CBS Austin</span></li>
+      <li>Round Rock police shut down a suspected illegal gambling operation after a 10-month investigation.<span class="source-tag">Round Rock PD</span></li>
+      <li>A judge denied Karmelo Anthony's motion for a new trial Saturday.<span class="source-tag">FOX 7 Austin</span></li>
+    </ul>
+
+    <h4 class="beat">City Hall &amp; County</h4>
+    <ul class="river-list">
+      <li>Austin City Council votes Thursday on a resolution directing staff to write rules for AI data centers before one arrives in the city.<span class="source-tag">Austin Current</span></li>
+      <li>LCRA will draw down Lake Austin Oct. 12&ndash;Nov. 30, the lake's first drawdown since 2017.<span class="source-tag">LCRA</span></li>
+      <li>Pacifico Energy withdrew its request for a tax abatement on two planned Bastrop County data centers, saying it will instead pay roughly $20 million a year in property taxes.<span class="source-tag">KXAN</span></li>
+    </ul>
+
+    <h4 class="beat">Schools</h4>
+    <ul class="river-list">
+      <li>Austin ISD earned a B from the Texas Education Agency, its highest rating in four years, even as two middle schools face possible state intervention.<span class="source-tag">CBS Austin</span></li>
+    </ul>
+
+    <h4 class="beat">Health</h4>
+    <ul class="river-list">
+      <li>Travis County confirmed its first human West Nile virus case of 2026.<span class="source-tag">KUT</span></li>
+      <li>Bexar County confirmed its first rabid dog in more than a decade.<span class="source-tag">Texas Public Radio</span></li>
+    </ul>
+
+    <h4 class="beat">Texas</h4>
+    <ul class="river-list">
+      <li>Former Texas Lottery director Gary Grief was indicted over the April 2023 lottery drawing.<span class="source-tag">Texas Standard</span></li>
+      <li>Aalo Atomics abandoned its planned test site near McMahan after running into permit problems.<span class="source-tag">KXAN</span></li>
+      <li>State Rep. James Talarico has outspent Attorney General Ken Paxton more than 200-to-1 on television ads.<span class="source-tag">Texas Tribune</span></li>
+      <li>A Lufkin police officer was arrested over alleged misuse of Flock license-plate reader cameras.<span class="source-tag">KXAN</span></li>
+    </ul>
+
+    <h4 class="beat">Sports</h4>
+    <ul class="river-list">
+      <li>Austin FC moved Saturday's kickoff time because of the heat.<span class="source-tag">Austin FC</span></li>
+      <li>Jacob deGrom struck out 10 as the Rangers beat Washington 2-0.<span class="source-tag">AP</span></li>
+      <li>The Angels routed the Astros 18-3.<span class="source-tag">AP</span></li>
+    </ul>
+    <div class="table-wrap">
+      <table class="standings">
+        <caption>AL West</caption>
+        <thead>
+          <tr><th>Team</th><th>W</th><th>L</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Astros</td><td>64</td><td>64</td></tr>
+          <tr><td>Rangers</td><td>63</td><td>65</td></tr>
+          <tr><td>Mariners</td><td>60</td><td>68</td></tr>
+          <tr><td>Angels</td><td>51</td><td>77</td></tr>
+          <tr><td>Athletics</td><td>49</td><td>79</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4 class="beat">Weather</h4>
+    <ul class="river-list">
+      <li>A Heat Advisory remains in effect through 7 p.m. Wednesday, with the first rain chance of the week arriving Thursday.<span class="source-tag">NWS</span></li>
+    </ul>
+
+    <div class="number-box">
+      <span class="big-num">4,114</span>
+      <p>crashes on the I-35 main lanes between Round Rock and Georgetown, 2021&ndash;2026. Another 4,139 on the service road. 31 people died.</p>
+      <p class="source-line">TxDOT</p>
+    </div>
+
+    <p class="countdown">15 days until Texas football &middot; 26 until ACL</p>
+
+    <div class="good-thing">
+      <p>The Red Line's new stop by the Domain will be the system's second-busiest the day it opens. Four quiet days now for a lot of easier commutes later.</p>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; The Austin Bulletin &middot; Published by Evan McMillan, Austin, Texas &middot; <a href="#">About this site</a> &middot; <a href="#">RSS</a></p>
+  </footer>
+</body>
+</html>
