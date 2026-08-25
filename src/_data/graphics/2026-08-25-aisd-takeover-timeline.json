@@ -1,0 +1,34 @@
+{
+  "type": "timeline",
+  "date": "2026-08-25",
+  "slug": "aisd-takeover-timeline",
+  "title": "How Austin ISD reached the edge of a state takeover",
+  "subtitle": "Five straight failing ratings at one campus trigger mandatory action by the state education commissioner",
+  "alt": "Timeline of the Austin ISD state takeover question: a 2015 Texas law making five straight F ratings trigger state action, the 2023 Houston ISD takeover, Webb and Burnet middle schools hitting a fifth failing rating in August 2026, the Nov. 3 school board election, and a TEA decision expected by the end of the year",
+  "source": "The Texas Tribune and Austin Current",
+  "events": [
+    {
+      "date": "2015",
+      "label": "Texas law makes five straight Fs trigger state action",
+      "note": "The commissioner must close the campus or replace the elected board"
+    },
+    {
+      "date": "2023",
+      "label": "TEA replaces the Houston ISD board with appointees",
+      "note": "Seven districts have had their leaders replaced since"
+    },
+    {
+      "date": "Aug. 2026",
+      "label": "Webb and Burnet hit a fifth straight failing rating",
+      "note": "Austin ISD's own rating rose from a C to a B this month"
+    },
+    {
+      "date": "Nov. 3, 2026",
+      "label": "15 candidates run for five Austin ISD board seats",
+      "note": "Four of the five seats up have no incumbent seeking re-election"
+    }
+  ],
+  "next": {
+    "label": "Commissioner Mike Morath's decision is expected by the end of the year"
+  }
+}

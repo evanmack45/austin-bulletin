@@ -1,0 +1,57 @@
+{
+  "date": "2026-08-25",
+  "fetchedAt": "2026-08-25T11:24:37.022Z",
+  "weather": {
+    "high": 105,
+    "low": 79,
+    "summary": "Sunny",
+    "alerts": [
+      "Heat Advisory until 7:00 p.m. Wednesday"
+    ],
+    "blurb": "Heat Advisory today. Take the shade and the water bottle with you.",
+    "source": "https://www.weather.gov/ewx/"
+  },
+  "air": {
+    "aqi": 40,
+    "category": "Good",
+    "pm25": 8.7,
+    "ozone": 28,
+    "blurb": "The air is clean today; it is the heat that will get you, not the haze.",
+    "source": "https://open-meteo.com/en/docs/air-quality-api"
+  },
+  "lake": {
+    "percentFull": 96.9,
+    "elevationFt": 679.21,
+    "weekNote": "−1.0 pts vs. last week",
+    "blurb": "Lake Travis is nearly full, and only slipping slowly in this heat.",
+    "source": "https://www.waterdatafortexas.org/reservoirs/individual/travis"
+  },
+  "pollen": {
+    "index": 2,
+    "category": "Low",
+    "tree": 1,
+    "grass": 2,
+    "weed": 2,
+    "plants": [
+      "Grasses",
+      "Ragweed"
+    ],
+    "note": "Tree 1 · Grass 2 · Weed 2 · Grasses, Ragweed",
+    "blurb": "A little grass and ragweed in the air; most noses will not notice.",
+    "source": "https://developers.google.com/maps/documentation/pollen"
+  },
+  "grid": {
+    "forecastPeakMw": 90500,
+    "peakHourEnding": 17,
+    "availableMw": 114400,
+    "blurb": "A busy grid this afternoon, but ERCOT expects enough to go around.",
+    "source": "https://www.ercot.com/gridmktinfo/dashboards/systemwidedemand"
+  },
+  "sun": {
+    "sunrise": "7:04 a.m.",
+    "sunset": "8:01 p.m.",
+    "blurb": "Just under 13 hours of daylight, and the evening walk is finally back in reach.",
+    "source": "https://open-meteo.com/"
+  },
+  "errors": {}
+}

@@ -1,0 +1,22 @@
+{
+  "type": "bars",
+  "date": "2026-08-25",
+  "slug": "heat-week-ahead",
+  "title": "The week ahead: forecast highs",
+  "subtitle": "National Weather Service forecast for Austin. Rain chances return Thursday and Friday.",
+  "unit": "°",
+  "alt": "Bar chart of National Weather Service forecast highs for Austin: 105 Tuesday, 105 Wednesday, 102 Thursday, 100 Friday, 100 Saturday, 99 Sunday and 99 Monday",
+  "source": "Data: National Weather Service",
+  "bars": [
+    { "label": "Tue", "value": 105 },
+    { "label": "Wed", "value": 105 },
+    { "label": "Thu", "value": 102 },
+    { "label": "Fri", "value": 100 },
+    { "label": "Sat", "value": 100 },
+    { "label": "Sun", "value": 99 },
+    { "label": "Mon", "value": 99 }
+  ],
+  "reference": { "value": 100, "label": "100°" },
+  "yMin": 90,
+  "yMax": 110
+}
