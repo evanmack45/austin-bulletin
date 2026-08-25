@@ -1,7 +1,7 @@
 // Fetch one public social post into a Voice card.
 //
 // Usage:
-//   node scripts/card.mjs <post-url> [--date YYYY-MM-DD] [--alt "image description"]
+//   node scripts/card.mjs <post-url> [--date YYYY-MM-DD] [--alt "image description"] [--title-only]
 //   node scripts/card.mjs --manual <json-file> [--date YYYY-MM-DD]
 //
 // Supported post URLs: x.com/twitter.com status, bsky.app post, reddit.com
@@ -18,7 +18,7 @@
 //
 // See EDITORIAL.md "Voice cards and video" and PIPELINE.md Step 4.
 
-import { mkdir, writeFile, readFile } from "node:fs/promises";
+import { mkdir, writeFile, readFile, readdir } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import crypto from "node:crypto";
@@ -64,8 +64,12 @@ async function fetchJson(url, options = {}) {
 // Fetch a URL's text with curl, for hosts that reject Node's HTTP client.
 // Sends the same honest User-Agent as every other request we make.
 // Reddit rate-limits hard: a burst of requests earns an HTTP 429 with an
-// empty body. Retry a couple of times before giving up.
-async function curlText(url, attempts = 3) {
+// empty body, and it stays angry for longer than a couple of seconds. Building
+// three cards in a row on 2026-08-25 exhausted the old 2s/4s backoff and
+// failed outright, so the waits are now long enough to actually outlast it.
+const CURL_BACKOFF_MS = [5000, 15000, 30000];
+
+async function curlText(url, attempts = CURL_BACKOFF_MS.length + 1) {
   let lastErr;
   for (let i = 0; i < attempts; i++) {
     try {
@@ -73,7 +77,9 @@ async function curlText(url, attempts = 3) {
     } catch (err) {
       lastErr = err;
       if (!/HTTP 429|HTTP 5\d\d/.test(err.message) || i === attempts - 1) throw err;
-      await new Promise((r) => setTimeout(r, 2000 * (i + 1)));
+      const wait = CURL_BACKOFF_MS[Math.min(i, CURL_BACKOFF_MS.length - 1)];
+      console.error(`card: ${err.message} — retrying in ${wait / 1000}s`);
+      await new Promise((r) => setTimeout(r, wait));
     }
   }
   throw lastErr;
@@ -99,16 +105,33 @@ function curlTextOnce(url) {
   });
 }
 
+// Numeric references first — Reddit's feed is full of `&#32;`, and leaving
+// them undecoded once put raw entity text into a published card's quote.
+// `&amp;` decodes last so `&amp;lt;` survives as literal "&lt;", not "<".
 function decodeEntities(s) {
   return s
+    .replace(/&#(\d+);/g, (_, n) => safeCodePoint(parseInt(n, 10)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, n) => safeCodePoint(parseInt(n, 16)))
     .replace(/&mdash;/g, "—")
     .replace(/&ndash;/g, "–")
+    .replace(/&hellip;/g, "…")
     .replace(/&nbsp;/g, " ")
     .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/&amp;/g, "&")
+    .replace(/&apos;/g, "'")
+    .replace(/&lsquo;|&rsquo;/g, "'")
+    .replace(/&ldquo;|&rdquo;/g, '"')
     .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">");
+    .replace(/&gt;/g, ">")
+    .replace(/&amp;/g, "&");
+}
+
+function safeCodePoint(code) {
+  if (!Number.isFinite(code) || code < 0 || code > 0x10ffff) return "";
+  try {
+    return String.fromCodePoint(code);
+  } catch {
+    return "";
+  }
 }
 
 function stripTags(html) {
@@ -149,6 +172,8 @@ function parseArgs(argv) {
     if (a === "--date") args.date = argv[++i];
     else if (a === "--alt") args.alt = argv[++i];
     else if (a === "--manual") args.manual = true;
+    else if (a === "--title-only") args.titleOnly = true;
+    else if (a === "--reuse") args.reuse = true;
     else args._.push(a);
   }
   return args;
@@ -254,7 +279,41 @@ async function fetchBluesky(handleOrDid, rkey) {
   };
 }
 
+// Bulletins that already embed `{% voice "<id>" %}`, newest filename first.
+// A card's data file is keyed on the post id alone, so re-fetching a card an
+// already-published bulletin uses would rewrite that edition's stored quote
+// and image path in place. Same defect that bit scripts/video.mjs.
+async function bulletinsUsing(repoRoot, id) {
+  const dir = path.join(repoRoot, "src", "bulletins");
+  let names;
+  try {
+    names = (await readdir(dir)).filter((n) => n.endsWith(".md"));
+  } catch {
+    return [];
+  }
+  const needle = `{% voice "${id}" %}`;
+  const hits = [];
+  for (const name of names.sort().reverse()) {
+    let text;
+    try {
+      text = await readFile(path.join(dir, name), "utf8");
+    } catch {
+      continue;
+    }
+    if (text.includes(needle)) hits.push(name.replace(/\.md$/, ""));
+  }
+  return hits;
+}
+
 // --- Reddit ------------------------------------------------------------
+
+// True for the scraped remains of Reddit's per-entry footer, in any order:
+// "submitted by /u/name [link] [comments]".
+function isRedditFooter(s) {
+  if (!s) return false;
+  const t = s.toLowerCase();
+  return /submitted by/.test(t) || (/\[link\]/.test(t) && /\[comments\]/.test(t));
+}
 
 // Reddit's .json endpoints return 403 to us; the Atom feed at .rss on the
 // same URL is open and carries everything a card needs except the score.
@@ -285,14 +344,19 @@ async function fetchReddit(url) {
   const img = contentHtml.match(/<img[^>]+src="([^"]+\.(?:jpg|jpeg|png|webp))[^"]*"/i);
   if (img) imageUrl = decodeEntities(img[1]);
 
-  // Drop the "submitted by" footer Reddit appends to every entry.
-  const bodyHtml = contentHtml.split(/<!--\s*SC_OFF\s*-->/).pop().split(/<!--\s*SC_ON\s*-->/)[0];
-  const body = decodeEntities(stripTags(bodyHtml)).replace(/\s+\n/g, "\n").trim();
+  // Drop the "submitted by … [link] [comments]" footer Reddit appends to every
+  // entry. Self-text posts wrap the body in SC_OFF/SC_ON comments; a link post
+  // has no body at all, so its whole <content> is that footer. Take the body
+  // only when the markers are actually present, then check for the footer's
+  // wording anyway in case Reddit changes the markup again.
+  const marked = contentHtml.match(/<!--\s*SC_OFF\s*-->([\s\S]*?)<!--\s*SC_ON\s*-->/);
+  const bodyHtml = marked ? marked[1] : "";
+  let body = decodeEntities(stripTags(bodyHtml)).replace(/\s+\n/g, "\n").trim();
+  if (isRedditFooter(body)) body = "";
 
   let text = title;
-  if (body && !body.startsWith("submitted by")) {
-    text += "\n\n" + body.slice(0, 400);
-  }
+  if (body) text += "\n\n" + body.slice(0, 400);
+  const hasBody = Boolean(body);
 
   return {
     platform: "reddit",
@@ -300,6 +364,7 @@ async function fetchReddit(url) {
     handle: author ? `u/${author}` : "",
     date: formatApDate(updated ? new Date(updated) : null),
     text,
+    hasBody,
     imageUrl,
     imageAlt: null,
     avatarUrl: null,
@@ -426,12 +491,36 @@ async function main() {
       imageAlt = args.alt || data.imageAlt;
       imageSource = data.imageUrl ? { kind: "url", value: data.imageUrl } : null;
       avatarSource = null;
+      // A link post carries no words of its own, so the "quote" would just be
+      // the headline the card already links to. That is not a voice.
+      if (!data.hasBody && !args.titleOnly) {
+        fail(
+          `this Reddit post has no self-text — the card would quote only its title. ` +
+            `Pick a post where someone actually says something, or pass --title-only ` +
+            `if the title itself is the comment.`
+        );
+      }
     } else {
       fail(
         `unsupported URL — expected an x.com/twitter.com status, bsky.app post, or reddit.com comments URL ` +
           `(use --manual for Facebook). Got ${safeUrl(rawUrl)}`
       );
     }
+  }
+
+  // Refuse to rewrite a data file a published edition depends on.
+  const usedBy = await bulletinsUsing(repoRoot, id);
+  if (usedBy.length > 0) {
+    if (args.reuse) {
+      console.error(`card: reusing ${id}, already in ${usedBy.join(", ")}; nothing rewritten`);
+      console.log(`{% voice "${id}" %}`);
+      return;
+    }
+    fail(
+      `${id} is already used in ${usedBy.join(", ")}. Re-fetching would rewrite that ` +
+        `edition's stored quote and image path. Pass --reuse to run the same card again ` +
+        `without touching the stored data.`
+    );
   }
 
   let image = null;

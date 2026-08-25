@@ -268,6 +268,12 @@ billing, unlike our own noise and locality filters, which run after we have
 paid. And raising `--x-max` multiplies the bill directly: ten posts a query
 is the API minimum and the cheapest useful unit.
 
+Every run prints the posts billed and the estimated spend twice — in the
+`Sources:` header and again as the last line — and appends a line to
+`logs/x-spend.jsonl`. The footer and the ledger exist because the 2026-08-25
+run read the output through `tail` and lost the header, so the day's spend
+could not be reported. Quote the ledger's figure in the log.
+
 Self-serve access caps a query at 512 characters. On a rejected token or a
 rate limit the run stops rather than making more pointless calls. If X
 rejects a query for using `min_likes:` or `point_radius:` — access levels
@@ -291,6 +297,18 @@ Then build the cards: `npm run card -- <post-url>` (X, Bluesky, Reddit;
 `--manual` for Facebook) writes a card and prints the `{% voice %}` tag;
 `npm run video -- <youtube-url>` does the same for an outlet's clip. Then
 graphics, photos, AI, per EDITORIAL.md.
+
+Both scripts key their data file on the post or video id alone, so re-fetching
+something an already-published bulletin embeds would rewrite that edition's
+stored quote, image or thumbnail path — a silent change to a published page.
+(This happened to the 2026-08-23 bulletin during the 2026-08-25 run.) Both now
+refuse and name the edition that already uses it. Pass `--reuse` to embed the
+same card or clip again deliberately: it prints the tag and touches nothing.
+Prefer a different post — a repeat is rarely what the morning wants.
+
+`npm run card` also refuses a Reddit link post that has no self-text, because
+the card's "quote" would be nothing but the headline it already links to. Pass
+`--title-only` when the title genuinely is the comment.
 
 One image per story, chosen by the image rules in EDITORIAL.md. Reach for
 an original graphic first:
@@ -316,9 +334,29 @@ without an image and say so in the log.
 
 ## Step 5 — Build & publish
 
-If `node_modules` is missing (every fresh clone), run `npm ci` first. Then
-run `npm run build`. Then run the full pre-publish quality gate from
-EDITORIAL.md. When every check passes:
+If `node_modules` is missing (every fresh clone), run `npm ci` first. Then:
+
+    npm run build
+    npm run check                  # today; or `npm run check -- YYYY-MM-DD`
+
+`npm run check` (scripts/check.mjs) is the mechanical half of EDITORIAL's
+quality gate: front matter and permalink, Big Story length, the 100-word item
+cap, beat names and their fixed order, the River count against the river-note,
+source tags, banned verbs, the Weather section and its `weather` id, the
+rituals, image files that exist with real alt text, the card and video caps,
+and card/video ids not already used by an earlier edition. Its link check
+knows KXAN article pages 403 to every non-browser client and verifies those
+through the WordPress API by slug instead of calling them broken, so a clean
+run means the links are genuinely good. `--no-links` skips the network pass
+while drafting.
+
+It exists because the 2026-08-25 run shipped six over-cap items into a draft
+and caught them only by hand. **It does not replace gate checks 2 and 6** —
+whether each summary matches its source, and whether the page reads clean top
+to bottom, still need reading. Run it, then read.
+
+Then run the rest of the pre-publish quality gate from EDITORIAL.md. When
+every check passes:
 
 Write today's log (Step 6) first — the commit below stages `logs/`.
 

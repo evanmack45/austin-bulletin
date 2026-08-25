@@ -202,6 +202,32 @@ Neutral. Factual. Clean.
   route the icons through Eleventy's `url` filter / HtmlBasePlugin, so a
   path-prefix build still finds them.
 
+- 2026-08-25 (Evan): single-sourced reports from unnamed sources are **kept**.
+  When a trusted outlet reports something itself, citing sources it does not
+  name, and nobody else has it, accuracy rule 2 does not drop the story — it
+  runs with that sourcing stated in the item's own prose. Written into
+  EDITORIAL under the accuracy rules. Do not re-litigate this each time it
+  comes up; the 2026-08-25 Anthropic/Bastrop item is the worked example.
+- 2026-08-25 (Evan): **no catch-up mechanism** for significant stories that
+  predate the site or that a run missed — "we don't need this." The $6.6bn
+  city budget adopted Aug. 12, 2026 is the case that prompted the question and
+  it stays uncovered. The Bulletin reports today's news. Do not propose a
+  catch-up slot, a "what we missed" section, or a backfill project again.
+- 2026-08-25: after the third daily run, the mechanical half of the quality
+  gate is a script: `npm run check [YYYY-MM-DD]` (scripts/check.mjs). It
+  enforces word caps, beat order and naming, the River count against the
+  river-note, source tags, banned verbs, the Weather section and its `weather`
+  id, the rituals, images that exist, and card/video ids not already used by an
+  earlier edition. Its link check knows KXAN article pages 403 to curl and
+  verifies those through the WordPress API by slug instead of calling them
+  broken. Run it before the gate every morning; it is not a substitute for
+  reading the page, which is checks 2 and 6.
+- 2026-08-25: `npm run video` used to key its data file on the YouTube id
+  alone, so re-fetching a clip an earlier bulletin already embedded rewrote
+  that edition's thumbnail path in place — it silently altered the published
+  2026-08-23 bulletin during the 2026-08-25 run. It now refuses when the id is
+  already used by an existing bulletin and names that bulletin; `--reuse`
+  prints the existing tag without touching anything.
 - 2026-08-24 (Evan): a day may be re-issued. When Evan asks for a day to be
   regathered and republished, overwrite that date's bulletin in place — same
   permalink, same edition number — and record every run of the day in one log

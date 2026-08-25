@@ -96,7 +96,13 @@ time or price we cannot verify is worse than an absent ritual.
 5. The morning note may have personality, never political opinion.
 6. Weekly balance check: every Sunday, re-read the past 7 bulletins and
    note in the log whether story selection leaned toward any side. Adjust
-   the coming week if it did.
+   the coming week if it did. Check **topic concentration** in the same
+   pass: list the week's Big Story subjects and note any subject that led
+   more than twice. A single subject can dominate on the merits for days —
+   data centers nearly took two mornings running on 2026-08-24 and
+   2026-08-25 — and the result reads as a paper about one thing. Where a
+   subject is genuinely the biggest news again, it stays; the check exists
+   so that is a decision, not a default.
 
 ## Accuracy rules
 
@@ -106,6 +112,17 @@ time or price we cannot verify is worse than an absent ritual.
 4. If sources disagree, the bulletin says so.
 5. Social media posts are never the sole source for a story.
 6. Unverifiable story = omitted story. Missing is better than wrong.
+
+**Single-sourced reports from unnamed sources may run** (publisher's ruling,
+2026-08-25). When a trusted outlet reports something on its own, attributed to
+sources it does not name, and no second outlet has it, the story is not dropped
+under rule 2. It runs on one condition: the item states that sourcing in its own
+prose, so the reader weighs it as we do — "the Austin Business Journal reported,
+citing several sources", "no agreement has been finalized" — never as a flat
+assertion of the fact. This is a narrow carve-out from rule 2 for one shape of
+story: a named, trusted outlet standing behind its own reporting. It does not
+license anything else rule 2 covers. A surprising claim we cannot trace to an
+outlet willing to put its name on it still needs two sources.
 
 ## Trusted outlets
 

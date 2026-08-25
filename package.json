@@ -6,6 +6,7 @@
   "description": "The Austin Bulletin — a daily AI-produced news bulletin for Austin and Texas.",
   "scripts": {
     "build": "eleventy",
+    "check": "node scripts/check.mjs",
     "serve": "eleventy --serve",
     "favicon": "node scripts/favicon.mjs",
     "illustrate": "node scripts/illustrate.mjs",
