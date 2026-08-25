@@ -1,5 +1,9 @@
 // Gather Voice card candidates from Austin's Bluesky feeds and from X.
 //
+// The only thing this writes is logs/x-spend.jsonl, one line per run
+// recording what X billed. Candidates themselves are never written: the
+// point is a shortlist to read, from which you choose.
+//
 // Usage:
 //   node scripts/voices.mjs [--hours 30] [--limit 60] [--min-likes 0]
 //   node scripts/voices.mjs --search "barton springs"    (needs credentials)
@@ -24,8 +28,8 @@
 //    prints how many posts it paid for. See X_QUERIES before changing any
 //    of it.
 //
-// Nothing is written to disk: the point is a shortlist to read, from which
-// you run `npm run card -- <post-url>` on the ones worth carrying.
+// No candidate is written to disk: the point is a shortlist to read, from
+// which you run `npm run card -- <post-url>` on the ones worth carrying.
 //
 // The feeds are run by individuals and go down without warning. Discovery is
 // therefore dynamic rather than a hard-coded list, and a feed that errors is
@@ -38,6 +42,10 @@
 // that judgement is the writer's.
 //
 // See PIPELINE.md Step 4.
+
+import { mkdir, appendFile } from "node:fs/promises";
+import { fileURLToPath } from "node:url";
+import path from "node:path";
 
 const API = "https://public.api.bsky.app/xrpc";
 const AUTH_API = "https://bsky.social/xrpc";
@@ -402,6 +410,38 @@ async function main() {
   }
   if (!candidates.length) {
     console.log("No candidates. Widen with --hours, or lower --min-likes.");
+  }
+
+  // X is the one source that costs money, so what it cost has to survive
+  // however this run is read. The 2026-08-25 run piped stdout through `tail`
+  // and lost the spend, which lives in the Sources line at the top — so print
+  // it last as well, and write it to a ledger no pipe can truncate.
+  if (process.env.X_BEARER_TOKEN) {
+    const usd = (xPostsBilled * X_POST_COST_USD).toFixed(2);
+    console.log(`\nX spend this run: ${xPostsBilled} posts billed, ~$${usd} at $${X_POST_COST_USD}/post.`);
+    await recordXSpend(xPostsBilled, usd, searchTerm);
+  }
+}
+
+// One JSON line per run in logs/x-spend.jsonl — a running record of what the
+// only paid source costs, committed alongside the day's log.
+async function recordXSpend(posts, usd, searchTerm) {
+  const __dirname = path.dirname(fileURLToPath(import.meta.url));
+  const ledger = path.join(path.resolve(__dirname, ".."), "logs", "x-spend.jsonl");
+  const date = new Intl.DateTimeFormat("en-CA", { timeZone: "America/Chicago" }).format(new Date());
+  const line = JSON.stringify({
+    date,
+    at: new Date().toISOString(),
+    postsBilled: posts,
+    estimatedUsd: Number(usd),
+    mode: searchTerm ? `search:${searchTerm}` : "standing queries"
+  });
+  try {
+    await mkdir(path.dirname(ledger), { recursive: true });
+    await appendFile(ledger, `${line}\n`);
+    console.log(`Logged to logs/x-spend.jsonl`);
+  } catch (err) {
+    console.error(`voices: warning — could not write the X spend ledger: ${err.message}`);
   }
 }
 

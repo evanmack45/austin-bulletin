@@ -1,8 +1,16 @@
 // Fetch one YouTube video's metadata into a video embed.
 //
-// Usage: node scripts/video.mjs <youtube-url> [--date YYYY-MM-DD]
+// Usage: node scripts/video.mjs <youtube-url> [--date YYYY-MM-DD] [--reuse]
 //
 // If no --date is given, defaults to today in America/Chicago.
+//
+// A video's data file is keyed on the YouTube id alone, so re-fetching a clip
+// that an already-published bulletin embeds would rewrite that edition's
+// thumbnail path in place — a silent change to a published page. (This
+// happened to the 2026-08-23 bulletin during the 2026-08-25 run.) So: if any
+// bulletin already embeds this video, the script refuses and names it. Pass
+// --reuse to deliberately embed the same clip again, which prints the tag and
+// leaves the stored data and thumbnail untouched.
 //
 // Uses the official oEmbed endpoint (no API key needed) for title, author,
 // and thumbnail. Downloads the thumbnail to src/images/<date>/video-<id>.jpg,
@@ -12,7 +20,7 @@
 //
 // See EDITORIAL.md "Voice cards and video" and PIPELINE.md Step 4.
 
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, writeFile, readFile, readdir } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import sharp from "sharp";
@@ -47,7 +55,7 @@ async function fetchJson(url, options = {}) {
 
 function usage(msg) {
   if (msg) fail(msg);
-  console.error("Usage: node scripts/video.mjs <youtube-url> [--date YYYY-MM-DD]");
+  console.error("Usage: node scripts/video.mjs <youtube-url> [--date YYYY-MM-DD] [--reuse]");
   process.exit(1);
 }
 
@@ -56,9 +64,33 @@ function parseArgs(argv) {
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (a === "--date") args.date = argv[++i];
+    else if (a === "--reuse") args.reuse = true;
     else args._.push(a);
   }
   return args;
+}
+
+// Bulletins that already embed `{% video "<id>" %}`, newest filename first.
+async function bulletinsUsing(repoRoot, id) {
+  const dir = path.join(repoRoot, "src", "bulletins");
+  let names;
+  try {
+    names = (await readdir(dir)).filter((n) => n.endsWith(".md"));
+  } catch {
+    return [];
+  }
+  const needle = `{% video "${id}" %}`;
+  const hits = [];
+  for (const name of names.sort().reverse()) {
+    let text;
+    try {
+      text = await readFile(path.join(dir, name), "utf8");
+    } catch {
+      continue;
+    }
+    if (text.includes(needle)) hits.push(name.replace(/\.md$/, ""));
+  }
+  return hits;
 }
 
 function extractVideoId(rawUrl) {
@@ -95,6 +127,25 @@ async function main() {
     fail(`could not find a video id in ${safeUrl(rawUrl)} (expected watch?v=, youtu.be/, or shorts/)`);
   }
 
+  const __dirname = path.dirname(fileURLToPath(import.meta.url));
+  const repoRoot = path.resolve(__dirname, "..");
+  const id = `yt-${videoId}`;
+
+  // Refuse to rewrite a data file a published edition depends on.
+  const usedBy = await bulletinsUsing(repoRoot, id);
+  if (usedBy.length > 0) {
+    if (args.reuse) {
+      console.error(`video: reusing ${id}, already embedded in ${usedBy.join(", ")}; nothing rewritten`);
+      console.log(`{% video "${id}" %}`);
+      return;
+    }
+    fail(
+      `${id} is already embedded in ${usedBy.join(", ")}. Re-fetching would rewrite ` +
+        `that edition's stored thumbnail path. Pick a different clip, or pass --reuse ` +
+        `to embed the same one again without touching the stored data.`
+    );
+  }
+
   let oembed;
   try {
     oembed = await fetchJson(`https://www.youtube.com/oembed?url=${encodeURIComponent(rawUrl)}&format=json`);
@@ -106,11 +157,8 @@ async function main() {
   const author = oembed.author_name || "";
   const thumbnailUrl = oembed.thumbnail_url || null;
 
-  const __dirname = path.dirname(fileURLToPath(import.meta.url));
-  const repoRoot = path.resolve(__dirname, "..");
   const imagesDir = path.join(repoRoot, "src", "images", date);
   const videosDir = path.join(repoRoot, "src", "_data", "videos");
-  const id = `yt-${videoId}`;
 
   let thumbnail = null;
   if (thumbnailUrl) {
