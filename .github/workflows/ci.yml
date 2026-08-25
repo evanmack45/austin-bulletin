@@ -1,0 +1,58 @@
+name: Check
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: check-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # check.mjs compares this bulletin's card and video ids against every
+          # other edition, and the step below diffs against the base branch.
+          # Both need real history, not a depth-1 clone.
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      # Only bulletins this PR actually touches. Editions published before
+      # scripts/check.mjs existed do not all pass it — 2026-08-23 and
+      # 2026-08-24 have real violations, and published editions are not
+      # restructured after the fact (CLAUDE.md, 2026-08-24). Checking the whole
+      # archive would fail every PR forever; checking what the PR changes is
+      # the part a PR can actually be responsible for.
+      - name: Check changed bulletins
+        run: |
+          set -euo pipefail
+          base="${{ github.event.pull_request.base.sha }}"
+          if [ -z "$base" ]; then
+            base="$(git rev-parse HEAD~1 2>/dev/null || git rev-parse HEAD)"
+          fi
+          dates="$(git diff --name-only --diff-filter=AM "$base" HEAD -- src/bulletins \
+                   | sed -n 's#^src/bulletins/\(....-..-..\)\.md$#\1#p' | sort -u)"
+          if [ -z "$dates" ]; then
+            echo "No bulletin added or modified in this PR — nothing to check."
+            exit 0
+          fi
+          status=0
+          for d in $dates; do
+            echo "::group::npm run check -- $d"
+            # --no-links: the link pass makes ~45 outbound requests to news
+            # outlets, several of which rate-limit or block cloud IPs. A red
+            # check for someone else's rate limiter teaches people to ignore
+            # the check. Links are verified during the daily run, on the
+            # machine that gathered them, where a failure means something.
+            npm run check -- "$d" --no-links || status=1
+            echo "::endgroup::"
+          done
+          exit $status

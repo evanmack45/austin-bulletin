@@ -222,6 +222,15 @@ Neutral. Factual. Clean.
   verifies those through the WordPress API by slug instead of calling them
   broken. Run it before the gate every morning; it is not a substitute for
   reading the page, which is checks 2 and 6.
+- 2026-08-25 (Evan asked for it): `.github/workflows/ci.yml` runs `npm ci`,
+  `npm run build` and `npm run check` on every pull request. It checks **only
+  the bulletins that PR adds or modifies** — the archive is not all clean
+  (2026-08-23 and 2026-08-24 have real violations that predate the checker,
+  and published editions are not restructured), so checking everything would
+  fail every PR forever. It runs `--no-links` because the link pass makes ~45
+  outbound requests to news outlets that rate-limit cloud IPs; links are
+  verified during the daily run instead, on the machine that gathered them.
+  `deploy.yml` still handles main and is untouched.
 - 2026-08-25: `npm run video` used to key its data file on the YouTube id
   alone, so re-fetching a clip an earlier bulletin already embedded rewrote
   that edition's thumbnail path in place — it silently altered the published
