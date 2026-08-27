@@ -1,0 +1,17 @@
+{
+  "type": "bars",
+  "date": "2026-08-27",
+  "slug": "txdot-central-texas",
+  "title": "TxDOT's biggest Central Texas projects",
+  "subtitle": "Estimated cost in millions, from TxDOT's 2027 program release",
+  "unit": "",
+  "alt": "Bar chart of the four costliest Central Texas projects named in TxDOT's 2027 Unified Transportation Program release: the I-35 University segment at $343.8 million, the I-35 Downtown segment at $343.5 million, an added lane in each direction on SH 130 in Williamson County at $274.5 million, and an overpass at SH 71 and FM 1209 in Bastrop County at $109.8 million",
+  "source": "Texas Department of Transportation, via KXAN",
+  "yMin": 0,
+  "bars": [
+    { "label": "I-35 University", "value": 343.8 },
+    { "label": "I-35 Downtown", "value": 343.5 },
+    { "label": "SH 130 lane", "value": 274.5 },
+    { "label": "SH 71 / FM 1209", "value": 109.8 }
+  ]
+}

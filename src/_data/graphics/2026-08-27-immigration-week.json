@@ -1,0 +1,36 @@
+{
+  "type": "timeline",
+  "date": "2026-08-27",
+  "slug": "immigration-week",
+  "title": "Three Texas immigration cases, eleven days",
+  "subtitle": "Dates reported by KXAN, CBS Austin, KUT and The Texas Tribune",
+  "alt": "Timeline of three Texas immigration cases between Aug. 16 and Aug. 27, 2026: ICE detains Victor Martinez Nieto and his 5-year-old son at an Austin traffic stop on Aug. 16; a federal judge in San Antonio orders an Austin mother released from detention within two days on Aug. 24; ICE releases her and the father and son are deported to Mexico on Aug. 25; a federal judge in Brownsville declines to hold ICE officer Christian Castro past the legal limit on Aug. 26; and Texas' 90-day cap on holding Castro before extradition expires on Aug. 27",
+  "source": "KXAN, CBS Austin, KUT and The Texas Tribune",
+  "events": [
+    {
+      "date": "Aug. 16",
+      "label": "ICE detains a father and 5-year-old in Austin",
+      "note": "Father and 5-year-old son taken to the Dilley family facility"
+    },
+    {
+      "date": "Aug. 24",
+      "label": "A judge orders an Austin mother released",
+      "note": "Judge Orlando Garcia: holding her without a hearing was unconstitutional"
+    },
+    {
+      "date": "Aug. 25",
+      "label": "The mother is freed; father and son deported",
+      "note": "She reunites with her baby; the father and son are flown out that night"
+    },
+    {
+      "date": "Aug. 26",
+      "label": "A judge declines to hold Officer Castro",
+      "note": "Judge Fernando Rodriguez Jr. found Minnesota's suit not yet ripe"
+    },
+    {
+      "date": "Aug. 27",
+      "label": "Castro's 90-day detention limit expires",
+      "note": "Gov. Greg Abbott has not signed the warrant; his review is pending"
+    }
+  ]
+}
