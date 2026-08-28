@@ -141,10 +141,16 @@ test("fails an edition with no graphic", () => {
   assert.ok(problems.some((p) => /no graphic/.test(p.message)));
 });
 
-test("fails a beat over 400 words with no visual", () => {
-  const river = riverOf("Texas", Array(14).fill(brief(30)));
+test("passes a beat at exactly 400 words with no visual", () => {
+  const river = riverOf("Texas", Array(20).fill(brief(20)));
   const { problems } = checkRiver(parseRiver(river));
-  assert.ok(problems.some((p) => /Texas runs \d+ words with no visual/.test(p.message)));
+  assert.ok(!problems.some((p) => /runs \d+ words with no visual/.test(p.message)));
+});
+
+test("fails a beat at exactly 401 words with no visual", () => {
+  const river = riverOf("Texas", [...Array(20).fill(brief(20)), brief(1)]);
+  const { problems } = checkRiver(parseRiver(river));
+  assert.ok(problems.some((p) => /Texas runs 401 words with no visual/.test(p.message)));
 });
 
 test("a beat over 400 words with a visual passes the density rule", () => {
@@ -178,4 +184,48 @@ test("passes an edition with exactly 3 videos", () => {
   ]);
   const { problems } = checkRiver(parseRiver(river));
   assert.ok(!problems.some((p) => /video\(s\), EDITORIAL wants/.test(p.message)));
+});
+
+test("passes an edition with exactly 4 voice cards", () => {
+  const river =
+    riverOf("Schools", [brief(20), '{% voice "a" %}', '{% voice "b" %}']) +
+    riverOf("Texas", [brief(20), '{% voice "c" %}', '{% voice "d" %}']);
+  const { problems } = checkRiver(parseRiver(river));
+  assert.ok(!problems.some((p) => /voice card\(s\), EDITORIAL wants/.test(p.message)));
+});
+
+test("passes a beat with exactly 2 voice cards", () => {
+  const river = riverOf("Schools", [brief(20), '{% voice "a" %}', '{% voice "b" %}']);
+  const { problems } = checkRiver(parseRiver(river));
+  assert.ok(!problems.some((p) => /carries \d+ voice cards/.test(p.message)));
+});
+
+test("passes an edition with exactly 1 graphic", () => {
+  const river = riverOf("Schools", [brief(20), '![chart](/images/x.png)']);
+  const { problems } = checkRiver(parseRiver(river));
+  assert.ok(!problems.some((p) => /no graphic/.test(p.message)));
+});
+
+test("fails an edition with 24 items", () => {
+  const river = riverOf("Schools", Array(24).fill(brief(20)));
+  const { problems } = checkRiver(parseRiver(river));
+  assert.ok(problems.some((p) => /24 items, EDITORIAL wants/.test(p.message)));
+});
+
+test("passes an edition with exactly 25 items", () => {
+  const river = riverOf("Schools", Array(25).fill(brief(20)));
+  const { problems } = checkRiver(parseRiver(river));
+  assert.ok(!problems.some((p) => /items, EDITORIAL wants/.test(p.message)));
+});
+
+test("passes an edition with exactly 40 items", () => {
+  const river = riverOf("Schools", Array(40).fill(brief(20)));
+  const { problems } = checkRiver(parseRiver(river));
+  assert.ok(!problems.some((p) => /items, EDITORIAL wants/.test(p.message)));
+});
+
+test("fails an edition with 41 items", () => {
+  const river = riverOf("Schools", Array(41).fill(brief(20)));
+  const { problems } = checkRiver(parseRiver(river));
+  assert.ok(problems.some((p) => /41 items, EDITORIAL wants/.test(p.message)));
 });
