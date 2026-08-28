@@ -47,7 +47,11 @@ export function checkAcronyms(text, dict) {
     // immediately after it, as in "MoPac (Loop 1)" (right bound: 140 chars).
     // An expansion that only shows up later in the document does not count.
     const window = body.slice(0, at + short.length + 140);
-    if (!window.includes(expansion)) {
+    // Case-insensitive: "Municipal Utility District (MUD)" must satisfy the
+    // dictionary's lowercase "municipal utility district" expansion — the
+    // correct journalistic (title-case) form must not fail the gate just
+    // because the dictionary happens to store the expansion in lowercase.
+    if (!window.toLowerCase().includes(expansion.toLowerCase())) {
       problems.push({
         check: "language",
         message: `"${short}" is used before its expansion "${expansion}"`

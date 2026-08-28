@@ -383,8 +383,9 @@ already used by an earlier edition.
 On a genuinely quiet news day the visual minimums (at least 4 Voice cards,
 1 graphic, 1 video) can be unsatisfiable rather than merely unmet. If so,
 add `visual_exception: "<real reason>"` to the edition's front matter before
-running the checker — a substantive reason (20+ characters, not a
-placeholder) downgrades those four minimums from FAILURE to WARNING, and
+running the checker — a substantive reason (a real sentence: at least 4
+words and 20+ non-whitespace characters, not a placeholder or a run of
+punctuation) downgrades those four minimums from FAILURE to WARNING, and
 the checker prints the reason prominently so it lands in this run's log.
 This is for genuine scarcity only: the voice-cards-per-beat cap, the
 voice-cards-per-edition cap, the videos-per-edition cap, and every rule

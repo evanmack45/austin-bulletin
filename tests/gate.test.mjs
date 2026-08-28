@@ -11,29 +11,39 @@
 // dated 2099-01-01, unambiguously post-cutover and obviously synthetic if it
 // ever leaks. It must not use 2026-08-29: the live cloud routine writes that
 // file for real, and a crash-leaked fixture must not collide with it.
+//
+// Fixtures live in a per-test os.tmpdir() directory, passed to check.mjs via
+// its --dir flag — never in src/bulletins/. That directory is the live
+// content Eleventy scans on every build; earlier versions of this suite
+// wrote and deleted fixtures there directly, and a build running
+// concurrently with the tests could glob a fixture mid-run or 404 on one
+// this suite had just deleted (an ENOENT was reproduced this way against
+// 2099-01-02.md). A temp directory makes that collision structurally
+// impossible instead of merely unlikely.
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
-import { readFile, writeFile, rm } from "node:fs/promises";
+import { readFile, writeFile, mkdtemp, rm } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
+import os from "node:os";
 
 const execFileAsync = promisify(execFile);
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, "..");
 const checkScript = path.join(repoRoot, "scripts", "check.mjs");
-const bulletinDir = path.join(repoRoot, "src", "bulletins");
+const liveBulletinDir = path.join(repoRoot, "src", "bulletins");
 
 const FIXTURE_DATE = "2099-01-01";
 
-async function runCheck(date) {
+async function runCheck(date, dir) {
   try {
     const { stdout, stderr } = await execFileAsync(
       process.execPath,
-      [checkScript, date, "--no-links"],
+      [checkScript, date, "--no-links", "--dir", dir],
       { cwd: repoRoot }
     );
     return { code: 0, output: `${stdout}\n${stderr}` };
@@ -45,15 +55,12 @@ async function runCheck(date) {
 }
 
 // A fixture copied verbatim from a real edition carries that edition's real
-// date/permalink in its front matter. If a fixture ever survived a crash
-// (writeFile succeeded, then a SIGINT skipped the finally before rm), a
-// build would glob it in and emit a page at the SAME permalink as the real,
-// already-published edition it was copied from — a silent duplicate-URL
-// collision. Rewriting just these two front-matter lines to the fixture's
-// own synthetic date makes a leaked fixture self-consistently synthetic
-// instead. Deliberately not a full YAML parse — front matter here is always
-// flat `key: value` lines, and the body (River, cards, video shortcodes)
-// must be left untouched since the test depends on its content.
+// date/permalink in its front matter. Rewriting just these two front-matter
+// lines to the fixture's own synthetic date keeps a temp-dir fixture
+// self-consistently synthetic. Deliberately not a full YAML parse — front
+// matter here is always flat `key: value` lines, and the body (River, cards,
+// video shortcodes) must be left untouched since the test depends on its
+// content.
 function withSyntheticFrontMatter(body, date) {
   const [, y, m, d] = date.match(/^(\d{4})-(\d{2})-(\d{2})$/);
   const permalink = `/${y}/${m}/${d}/`;
@@ -62,15 +69,23 @@ function withSyntheticFrontMatter(body, date) {
     .replace(/^permalink:\s*.*$/m, `permalink: "${permalink}"`);
 }
 
-test("a post-cutover edition fails under the new rules, not the old ones", async () => {
-  const fixturePath = path.join(bulletinDir, `${FIXTURE_DATE}.md`);
+async function withTempDir(run) {
+  const tmpDir = await mkdtemp(path.join(os.tmpdir(), "bulletin-gate-"));
   try {
+    await run(tmpDir);
+  } finally {
+    await rm(tmpDir, { recursive: true, force: true });
+  }
+}
+
+test("a post-cutover edition fails under the new rules, not the old ones", async () => {
+  await withTempDir(async (tmpDir) => {
     // Known to fail the new rules many ways and pass the old ones — see
     // task-5-report.md for the full breakdown at its real date.
-    const body = await readFile(path.join(bulletinDir, "2026-08-28.md"), "utf8");
-    await writeFile(fixturePath, withSyntheticFrontMatter(body, FIXTURE_DATE), "utf8");
+    const body = await readFile(path.join(liveBulletinDir, "2026-08-28.md"), "utf8");
+    await writeFile(path.join(tmpDir, `${FIXTURE_DATE}.md`), withSyntheticFrontMatter(body, FIXTURE_DATE), "utf8");
 
-    const { code, output } = await runCheck(FIXTURE_DATE);
+    const { code, output } = await runCheck(FIXTURE_DATE, tmpDir);
 
     assert.notEqual(code, 0, "expected the checker to fail a post-cutover edition");
     assert.match(output, /brief is \d+ words \(cap \d+\)/, "expected the new brief-length cap to fire");
@@ -90,14 +105,22 @@ test("a post-cutover edition fails under the new rules, not the old ones", async
       /wants 25–40/,
       "the old 25–40 item-count check must not run post-cutover"
     );
-  } finally {
-    await rm(fixturePath, { force: true });
-  }
+  });
 });
 
 test("a pre-cutover edition still runs under the old rules only", async () => {
-  const { code } = await runCheck("2026-08-28");
-  assert.equal(code, 0, "the real 2026-08-28 edition should still pass the mechanical gate");
+  await withTempDir(async (tmpDir) => {
+    // Copied verbatim, same date — this edition is already pre-cutover, so
+    // no front-matter rewrite is needed. Copying it into the temp dir (
+    // rather than pointing --dir at src/bulletins/ for just this one test)
+    // keeps every test in this file off the live directory, with no
+    // exceptions to remember.
+    const body = await readFile(path.join(liveBulletinDir, "2026-08-28.md"), "utf8");
+    await writeFile(path.join(tmpDir, "2026-08-28.md"), body, "utf8");
+
+    const { code } = await runCheck("2026-08-28", tmpDir);
+    assert.equal(code, 0, "the real 2026-08-28 edition should still pass the mechanical gate");
+  });
 });
 
 test("the old numeric rules do not leak into a post-cutover edition", async () => {
@@ -107,13 +130,12 @@ test("the old numeric rules do not leak into a post-cutover edition", async () =
   // (see task-5-report.md: two items over 100 words, only 23 items), so if
   // the gate ever let the old checks run post-cutover, this fixture would
   // still trip them and this test would catch it.
-  const fixtureDate = "2099-01-02";
-  const fixturePath = path.join(bulletinDir, `${fixtureDate}.md`);
-  try {
-    const body = await readFile(path.join(bulletinDir, "2026-08-24.md"), "utf8");
-    await writeFile(fixturePath, withSyntheticFrontMatter(body, fixtureDate), "utf8");
+  await withTempDir(async (tmpDir) => {
+    const fixtureDate = "2099-01-02";
+    const body = await readFile(path.join(liveBulletinDir, "2026-08-24.md"), "utf8");
+    await writeFile(path.join(tmpDir, `${fixtureDate}.md`), withSyntheticFrontMatter(body, fixtureDate), "utf8");
 
-    const { output } = await runCheck(fixtureDate);
+    const { output } = await runCheck(fixtureDate, tmpDir);
 
     // The old cap ("item is N words (cap 100)") is worded differently from
     // checkRiver's own brief-length cap ("brief is N words (cap 35)"), so its
@@ -136,7 +158,5 @@ test("the old numeric rules do not leak into a post-cutover edition", async () =
       1,
       `expected exactly one item-count message (from checkRiver only), got ${occurrences.length}: ${occurrences.join(" | ")}`
     );
-  } finally {
-    await rm(fixturePath, { force: true });
-  }
+  });
 });

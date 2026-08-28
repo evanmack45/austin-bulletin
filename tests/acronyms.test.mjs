@@ -150,3 +150,36 @@ test("passes when a mixed-case dictionary key like Flock is expanded beside firs
   const { problems } = checkAcronyms("Flock Safety cameras lined the street.", dict);
   assert.equal(problems.length, 0);
 });
+
+// --- Additional coverage: case-insensitive expansion match (FIX 1). The
+// dictionary stores "MUD": "municipal utility district" in lowercase, but the
+// correct journalistic form capitalizes it as a proper noun. A case-sensitive
+// containment check made the correct form fail the gate while the lowercase,
+// less-idiomatic form passed — backwards from what the rule should reward.
+test("passes the title-case journalistic form 'Municipal Utility District (MUD)'", () => {
+  const dict = { MUD: "municipal utility district" };
+  const text = "Voters approved the Municipal Utility District (MUD) bond Tuesday night by a wide margin.";
+  const { problems } = checkAcronyms(text, dict);
+  assert.ok(!problems.some((p) => p.message.includes('"MUD" is used')));
+});
+
+test("passes the lowercase dictionary-exact form 'municipal utility district (MUD)'", () => {
+  const dict = { MUD: "municipal utility district" };
+  const text = "Voters approved the municipal utility district (MUD) bond Tuesday night by a wide margin.";
+  const { problems } = checkAcronyms(text, dict);
+  assert.ok(!problems.some((p) => p.message.includes('"MUD" is used')));
+});
+
+test("passes the all-caps form 'MUNICIPAL UTILITY DISTRICT (MUD)'", () => {
+  const dict = { MUD: "municipal utility district" };
+  const text = "Voters approved the MUNICIPAL UTILITY DISTRICT (MUD) bond Tuesday night by a wide margin.";
+  const { problems } = checkAcronyms(text, dict);
+  assert.ok(!problems.some((p) => p.message.includes('"MUD" is used')));
+});
+
+test("still fails a bare MUD with no expansion anywhere", () => {
+  const dict = { MUD: "municipal utility district" };
+  const text = "Voters approved the MUD bond Tuesday night by a wide margin across the district.";
+  const { problems } = checkAcronyms(text, dict);
+  assert.ok(problems.some((p) => p.message.includes('"MUD" is used')));
+});

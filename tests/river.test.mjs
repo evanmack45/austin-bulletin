@@ -201,9 +201,29 @@ test("passes a beat with exactly 2 voice cards", () => {
 });
 
 test("passes an edition with exactly 1 graphic", () => {
-  const river = riverOf("Schools", [brief(20), '![chart](/images/x.png)']);
+  const river = riverOf("Schools", [
+    brief(20),
+    '<figure class="graphic">\n![chart](/images/x.png)\n<figcaption>Chart: The Austin Bulletin · Source</figcaption>\n</figure>'
+  ]);
   const { problems } = checkRiver(parseRiver(river));
   assert.ok(!problems.some((p) => /no graphic/.test(p.message)));
+});
+
+// --- FIX 4: a news photo (a bare Markdown image, or any <figure> that is
+// not marked class="graphic") must not satisfy the original-graphic
+// requirement — only scripts/graphic.mjs's own <figure class="graphic">
+// output counts as a "graphic". A bare photo still counts as a visual for
+// the beat density rule (covered separately above).
+test("a bare photo does not satisfy the graphic minimum", () => {
+  const river = riverOf("Schools", [brief(20), '![a wire photo](/images/x.png)']);
+  const { problems } = checkRiver(parseRiver(river));
+  assert.ok(problems.some((p) => /no graphic/.test(p.message)));
+});
+
+test("a plain <figure> without class=\"graphic\" does not satisfy the graphic minimum", () => {
+  const river = riverOf("Schools", [brief(20), '<figure>\n![a wire photo](/images/x.png)\n</figure>']);
+  const { problems } = checkRiver(parseRiver(river));
+  assert.ok(problems.some((p) => /no graphic/.test(p.message)));
 });
 
 test("fails an edition with 24 items", () => {
@@ -351,4 +371,63 @@ test("a genuine 20+ character sentence is accepted", () => {
   const { problems, warnings } = checkRiver(parseRiver(river), { visualException: SUBSTANTIVE_EXCEPTION });
   assert.ok(!problems.some((p) => /visual_exception is too short/.test(p.message)));
   assert.ok(warnings.some((w) => /0 voice card\(s\) in the River/.test(w.message)));
+});
+
+// --- FIX 3: punctuation-only (or single-repeated-token) reasons must not
+// clear the character floor alone — a real sentence needs actual words.
+test("a real sentence like the EDITORIAL example is accepted", () => {
+  const reason = "No public posts about Austin were worth carrying as cards today";
+  const river = riverOf("Schools", [brief(20), '![chart](/images/x.png)', '{% video "a" %}']);
+  const { problems } = checkRiver(parseRiver(river), { visualException: reason });
+  assert.ok(!problems.some((p) => /visual_exception is too short/.test(p.message)));
+});
+
+test("20 dots is rejected even though it clears the character floor", () => {
+  const river = riverOf("Schools", [brief(20), '![chart](/images/x.png)', '{% video "a" %}']);
+  const { problems } = checkRiver(parseRiver(river), { visualException: ".".repeat(20) });
+  assert.ok(problems.some((p) => /visual_exception is too short/.test(p.message)));
+});
+
+test("20 dashes is rejected even though it clears the character floor", () => {
+  const river = riverOf("Schools", [brief(20), '![chart](/images/x.png)', '{% video "a" %}']);
+  const { problems } = checkRiver(parseRiver(river), { visualException: "-".repeat(20) });
+  assert.ok(problems.some((p) => /visual_exception is too short/.test(p.message)));
+});
+
+test("a single 20-character repeated token is rejected as not a sentence", () => {
+  const river = riverOf("Schools", [brief(20), '![chart](/images/x.png)', '{% video "a" %}']);
+  const { problems } = checkRiver(parseRiver(river), { visualException: "a".repeat(20) });
+  assert.ok(problems.some((p) => /visual_exception is too short/.test(p.message)));
+});
+
+// --- FIX 2: a River with no recognised beat heading must fail — previously
+// checkRiver only validated beat structure when beats existed, so 25
+// ungrouped items plus the required visuals produced zero problems.
+test("an ungrouped River (no beat headings at all) fails", () => {
+  const items = Array.from({ length: 25 }, (_, i) => brief(20));
+  const river =
+    items.join("\n\n") +
+    '\n\n<figure class="graphic">\n![chart](/images/x.png)\n<figcaption>Chart: The Austin Bulletin · Source</figcaption>\n</figure>\n\n' +
+    '{% voice "a" %}\n\n{% voice "b" %}\n\n{% voice "c" %}\n\n{% voice "d" %}\n\n{% video "a" %}\n';
+  const parsed = parseRiver(river);
+  assert.equal(parsed.beats.length, 0);
+  assert.ok(parsed.items.every((i) => i.beat === null));
+  const { problems } = checkRiver(parsed);
+  assert.ok(problems.some((p) => /no beat headings in the River/.test(p.message)));
+});
+
+test("a River with one valid beat and all items inside it passes the beat-structure checks", () => {
+  const river = riverOf("Schools", [brief(20), '{% voice "a" %}']);
+  const { problems } = checkRiver(parseRiver(river));
+  assert.ok(!problems.some((p) => /no beat headings/.test(p.message)));
+  assert.ok(!problems.some((p) => /outside every beat heading/.test(p.message)));
+});
+
+test("an item appearing before the first #### heading fails", () => {
+  const river = `${brief(20)}\n\n#### Schools\n\n${brief(20)}\n`;
+  const parsed = parseRiver(river);
+  assert.equal(parsed.items[0].beat, null);
+  assert.equal(parsed.items[1].beat, "Schools");
+  const { problems } = checkRiver(parsed);
+  assert.ok(problems.some((p) => /item is outside every beat heading/.test(p.message)));
 });

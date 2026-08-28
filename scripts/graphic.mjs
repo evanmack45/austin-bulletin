@@ -325,13 +325,17 @@ async function main() {
   }
 
   const publicPath = `/images/${spec.date}/${spec.slug}.png`;
+  const caption =
+    spec.type === 'map'
+      ? `Map: Google · ${spec.source}`
+      : `${spec.type === 'bars' ? 'Chart' : 'Timeline'}: The Austin Bulletin · ${spec.source}`;
+  // Wrapped in <figure class="graphic"> so scripts/river.mjs can tell an
+  // original graphic apart from a bare photo — only the marked kind
+  // satisfies EDITORIAL.md's original-graphic minimum (graphicMin).
+  console.log('<figure class="graphic">');
   console.log(`![${spec.alt}](${publicPath})`);
-  if (spec.type === 'map') {
-    console.log(`<figcaption>Map: Google · ${spec.source}</figcaption>`);
-  } else {
-    const kind = spec.type === 'bars' ? 'Chart' : 'Timeline';
-    console.log(`<figcaption>${kind}: The Austin Bulletin · ${spec.source}</figcaption>`);
-  }
+  console.log(`<figcaption>${caption}</figcaption>`);
+  console.log('</figure>');
 }
 
 await main();

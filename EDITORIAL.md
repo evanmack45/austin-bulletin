@@ -139,6 +139,13 @@ time or price we cannot verify is worse than an absent ritual.
   somewhere else in the page does not do that. The cards are what break up
   the River; a River that ships two of them has not met the rule, and the
   pre-publish check will fail.
+- The daily original-graphic minimum means one graphic from `npm run
+  graphic` — its output is wrapped in `<figure class="graphic">`, which is
+  what the pre-publish check looks for. A photo (a bare Markdown image, or
+  any other `<figure>`) still counts toward a beat's density requirement —
+  for breaking up a wall of text, any visual works — but it does not satisfy
+  the original-graphic minimum. A wire photo is not a substitute for a chart,
+  timeline, or map the Bulletin made.
 - A graphic's subtitle never restates its source list. `npm run graphic`
   generates the attribution caption from the spec's `source` field, so writing
   the outlets into the subtitle as well prints the same credit twice.
@@ -152,9 +159,13 @@ not be four public posts worth carrying as cards. Publisher's ruling: publish
 with a logged exception rather than silently ship no paper.
 
 An edition's front matter may carry `visual_exception: "<reason>"`. When the
-reason is substantive (at least 20 characters of real text — a placeholder
-like "n/a" is rejected as its own failure, not treated as no exception at
-all), it downgrades exactly these four rules from FAILURE to WARNING:
+reason is substantive — a real sentence of at least 4 words and 20
+non-whitespace characters — it downgrades exactly these four rules from
+FAILURE to WARNING. A placeholder like "n/a", or a run of punctuation
+padded past the character floor (twenty dots, twenty dashes, a single
+repeated token with no spaces), is rejected as its own failure, not treated
+as no exception at all: it clears the character count without saying
+anything, and the word floor exists specifically to catch that.
 
 - the voice-card minimum (`voiceMin`, at least 4 cards)
 - the graphic minimum (`graphicMin`, at least 1)

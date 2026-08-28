@@ -1,6 +1,12 @@
 // Pre-publish checker for one bulletin.
 //
-// Usage: node scripts/check.mjs [YYYY-MM-DD] [--no-links]
+// Usage: node scripts/check.mjs [YYYY-MM-DD] [--no-links] [--dir <path>]
+//
+// --dir overrides the bulletin directory (default: src/bulletins). It exists
+// so tests/gate.test.mjs can point the checker at a throwaway temp directory
+// instead of writing fixtures into the live content directory, where a
+// crash mid-test could leave a stray file for an Eleventy build to trip
+// over. Default behaviour (no --dir) is unchanged.
 //
 // Runs the mechanical half of EDITORIAL.md's quality gate — everything a
 // script can judge without reading for sense. It is not a substitute for
@@ -59,8 +65,10 @@ function todayCentral() {
 
 function parseArgs(argv) {
   const args = { _: [] };
-  for (const a of argv) {
+  for (let i = 0; i < argv.length; i++) {
+    const a = argv[i];
     if (a === "--no-links") args.noLinks = true;
+    else if (a === "--dir") args.dir = argv[++i];
     else args._.push(a);
   }
   return args;
@@ -133,13 +141,14 @@ async function main() {
 
   const __dirname = path.dirname(fileURLToPath(import.meta.url));
   const repoRoot = path.resolve(__dirname, "..");
-  const file = path.join(repoRoot, "src", "bulletins", `${date}.md`);
+  const bulletinDir = args.dir ? path.resolve(args.dir) : path.join(repoRoot, "src", "bulletins");
+  const file = path.join(bulletinDir, `${date}.md`);
 
   let text;
   try {
     text = await readFile(file, "utf8");
   } catch {
-    console.error(`check: no bulletin at src/bulletins/${date}.md`);
+    console.error(`check: no bulletin at ${path.relative(repoRoot, file)}`);
     process.exit(1);
   }
 
@@ -280,7 +289,6 @@ async function main() {
   // --- cards and videos ---------------------------------------------------
   // An id used by an earlier edition means a re-fetch rewrote that edition's
   // stored data. See scripts/video.mjs and scripts/card.mjs.
-  const bulletinDir = path.join(repoRoot, "src", "bulletins");
   const others = (await readdir(bulletinDir))
     .filter((n) => n.endsWith(".md") && n !== `${date}.md`)
     .sort();
