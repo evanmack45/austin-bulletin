@@ -53,6 +53,79 @@ function visualKind(block) {
   return null;
 }
 
+// --- parseRiver: per-block classification -------------------------------
+// Each helper below recognises (or builds) one kind of block that the River
+// walk can encounter. Order matters in the walk itself: a lead ("#####")
+// must be tested before a beat heading ("####"), because "#####".startsWith
+// ("####") is true — see the file-header note.
+
+function isLeadBlock(block) {
+  return block.startsWith("#####");
+}
+
+function parseLeadBlock(block, current) {
+  const [head, ...rest] = block.split("\n");
+  const headline = head.replace(/^#####\s*/, "").trim();
+  const body = rest.join("\n").trim();
+  return { kind: "lead", headline, body, words: wordCount(body), beat: current?.name ?? null };
+}
+
+function isBeatHeading(block) {
+  return block.startsWith("####");
+}
+
+function parseBeatHeading(block) {
+  return { name: block.replace(/^####\s*/, "").trim(), items: [], visuals: 0, voice: 0, words: 0 };
+}
+
+// A visual (voice/video/graphic/image) always counts toward the edition
+// total; only when it falls inside a beat does it also count toward that
+// beat's visuals (and, for voice, that beat's voice count).
+function applyVisual(kind, visuals, current) {
+  visuals[kind] += 1;
+  if (current) {
+    current.visuals += 1;
+    if (kind === "voice") current.voice += 1;
+  }
+}
+
+// Blocks that are structural noise, not content: embeds, the trailing
+// sources line, and figure captions.
+function isSkippableBlock(block) {
+  return (
+    block.startsWith("{%") ||
+    block.startsWith('<p class="source-line"') ||
+    block.startsWith("<figcaption")
+  );
+}
+
+function parseBriefBlock(block, current) {
+  return { kind: "brief", headline: null, body: block, words: wordCount(block), beat: current?.name ?? null };
+}
+
+// An item before any beat heading still gets recorded (with beat: null) so
+// checkRiver's checkItemBeats can flag it, rather than being silently lost.
+function addItem(item, items, current) {
+  items.push(item);
+  current?.items.push(item);
+}
+
+function finalizeBeats(beats) {
+  for (const beat of beats) {
+    beat.words = beat.items.reduce((n, i) => n + i.words, 0);
+  }
+}
+
+function buildParseResult(beats, items, visuals) {
+  return {
+    beats,
+    items,
+    leads: items.filter((i) => i.kind === "lead"),
+    briefs: items.filter((i) => i.kind === "brief"),
+    visuals
+  };
+}
+
 export function parseRiver(river) {
   const blocks = river
     .split(/\n\s*\n/)
@@ -65,52 +138,33 @@ export function parseRiver(river) {
   let current = null;
 
   for (const block of blocks) {
-    if (block.startsWith("#####")) {
-      const [head, ...rest] = block.split("\n");
-      const headline = head.replace(/^#####\s*/, "").trim();
-      const body = rest.join("\n").trim();
-      const item = { kind: "lead", headline, body, words: wordCount(body), beat: current?.name ?? null };
-      items.push(item);
-      current?.items.push(item);
+    if (isLeadBlock(block)) {
+      addItem(parseLeadBlock(block, current), items, current);
       continue;
     }
 
-    if (block.startsWith("####")) {
-      current = { name: block.replace(/^####\s*/, "").trim(), items: [], visuals: 0, voice: 0, words: 0 };
+    if (isBeatHeading(block)) {
+      current = parseBeatHeading(block);
       beats.push(current);
       continue;
     }
 
     const kind = visualKind(block);
     if (kind) {
-      visuals[kind] += 1;
-      if (current) {
-        current.visuals += 1;
-        if (kind === "voice") current.voice += 1;
-      }
+      applyVisual(kind, visuals, current);
       continue;
     }
 
-    if (block.startsWith("{%") || block.startsWith('<p class="source-line"') || block.startsWith("<figcaption")) {
+    if (isSkippableBlock(block)) {
       continue;
     }
 
-    const item = { kind: "brief", headline: null, body: block, words: wordCount(block), beat: current?.name ?? null };
-    items.push(item);
-    current?.items.push(item);
+    addItem(parseBriefBlock(block, current), items, current);
   }
 
-  for (const beat of beats) {
-    beat.words = beat.items.reduce((n, i) => n + i.words, 0);
-  }
+  finalizeBeats(beats);
 
-  return {
-    beats,
-    items,
-    leads: items.filter((i) => i.kind === "lead"),
-    briefs: items.filter((i) => i.kind === "brief"),
-    visuals
-  };
+  return buildParseResult(beats, items, visuals);
 }
 
 export const LIMITS = {
