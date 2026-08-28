@@ -22,7 +22,7 @@
 - **Beat order is fixed and unchanged:** Roads & transit · Public safety & courts · City Hall & county · Schools · Health · Business & tech · Around town · Texas · Sports.
 - **No calculated numbers.** Scales are stated only where inherent to the index or published by a source. Never compute a comparison.
 - **No AI disclosure on bulletin pages.** About carries it. Standing decision, reaffirmed 2026-08-28.
-- Every new assertion is mutation-checked before it is trusted (Task 10).
+- Every new assertion is mutation-checked before it is trusted (Task 9).
 
 ---
 
@@ -44,7 +44,7 @@
 | `PIPELINE.md` | The daily River step, rewritten to the new contract. |
 | `src/about.md` | Publish the impact test; move Contact above Follow. |
 
-**Why the extraction:** `check.mjs` is 376 lines with the River logic inline and no way to test it. The parsing is about to get materially more complex (two item kinds, per-beat visual density). Splitting it out is what makes Task 10's mutation check possible at all.
+**Why the extraction:** `check.mjs` is 376 lines with the River logic inline and no way to test it. The parsing is about to get materially more complex (two item kinds, per-beat visual density). Splitting it out is what makes Task 9's mutation check possible at all.
 
 ---
 
@@ -717,11 +717,9 @@ git commit -m "feat: check that initialisms are expanded on first use"
 In `scripts/check.mjs`, extend the Task 1 import and add two more:
 
 ```js
-import { readFileSync } from "node:fs";
 import { BEATS, words, wordCount, parseRiver, checkRiver } from "./river.mjs";
 import { checkAcronyms } from "./acronyms.mjs";
-
-const ACRONYMS = JSON.parse(readFileSync(new URL("./acronyms.json", import.meta.url), "utf8"));
+import ACRONYMS from "./acronyms.json" with { type: "json" };
 
 // The lead/brief contract starts with this edition. Earlier bulletins keep the
 // old rules — published editions are not restructured after the fact
@@ -729,7 +727,8 @@ const ACRONYMS = JSON.parse(readFileSync(new URL("./acronyms.json", import.meta.
 const NEW_SHAPE_FROM = "2026-08-29";
 ```
 
-(If `readFileSync` is already imported, extend the existing import rather than adding a second.)
+`check.mjs` imports from `node:fs/promises`; the JSON import attribute keeps the
+dictionary load out of that async path entirely. Verified working on Node 26.
 
 - [ ] **Step 2: Gate the old item-length rule and run the new checks**
 
