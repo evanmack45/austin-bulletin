@@ -333,3 +333,22 @@ test("a too-short exception is itself a problem, not a silent no-op", () => {
   assert.ok(problems.some((p) => /0 voice card\(s\) in the River/.test(p.message)));
   assert.ok(!warnings.some((w) => /voice card\(s\) in the River/.test(w.message)));
 });
+
+test("a sparse reason padded to 20 characters with whitespace is rejected", () => {
+  // "x" + 18 spaces + "y" is 20 characters by .trim().length, but only 2
+  // characters of actual reason — padding must not pass as substantive.
+  const padded = "x" + " ".repeat(18) + "y";
+  assert.strictEqual(padded.trim().length, 20);
+  const river = riverOf("Schools", [brief(20), '![chart](/images/x.png)', '{% video "a" %}']);
+  const { problems, warnings } = checkRiver(parseRiver(river), { visualException: padded });
+  assert.ok(problems.some((p) => /visual_exception is too short/.test(p.message)));
+  assert.ok(problems.some((p) => /0 voice card\(s\) in the River/.test(p.message)));
+  assert.ok(!warnings.some((w) => /voice card\(s\) in the River/.test(w.message)));
+});
+
+test("a genuine 20+ character sentence is accepted", () => {
+  const river = riverOf("Schools", [brief(20), '![chart](/images/x.png)', '{% video "a" %}']);
+  const { problems, warnings } = checkRiver(parseRiver(river), { visualException: SUBSTANTIVE_EXCEPTION });
+  assert.ok(!problems.some((p) => /visual_exception is too short/.test(p.message)));
+  assert.ok(warnings.some((w) => /0 voice card\(s\) in the River/.test(w.message)));
+});

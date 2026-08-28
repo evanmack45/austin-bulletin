@@ -122,8 +122,11 @@ time or price we cannot verify is worse than an absent ritual.
   would need a correction if false — cards carry opinion, not new facts.
 - On contested public questions, cards run in pairs: one voice from each
   side, or none.
-- Cap: 10 cards a day, 3 videos a day. Video is the outlet's own upload,
-  embedded, never re-hosted.
+- Cap: 10 cards a day, 3 videos a day, enforced across the whole edition —
+  not scoped to the River the way the minimums below are. (The River also
+  carries its own copy of the same cap, since a River that alone reached 10
+  cards would already have tripped the edition-wide one.) Video is the
+  outlet's own upload, embedded, never re-hosted.
 - Cards and videos are gathered with `npm run card -- <post-url>` and
   `npm run video -- <youtube-url>` (PIPELINE.md Step 4).
 - Daily minimums, not just caps. The River carries at least four Voice cards
@@ -168,9 +171,11 @@ item lengths, lead counts, item counts, the River word budget, and every
 language rule stay hard failures under all circumstances.
 
 Use this only for genuine scarcity, never to skip the work of finding
-cards. The reason is written into the edition's own front matter and
-`npm run check` prints it prominently, so it lands in that day's run log —
-the exception is meant to be audited after the fact, not hidden.
+cards. The reason is written into the edition's own front matter, and
+when the exception is invoked it is recorded in that morning's run log
+(PIPELINE.md Step 6) — quoted, with the minimums it covered — so the
+publisher can see how often the hatch is being used. A hatch nobody can
+audit is the drift this whole change exists to prevent.
 
 ## Neutrality rules
 

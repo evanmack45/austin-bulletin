@@ -418,8 +418,9 @@ GitHub Pages deploys automatically.
 
 Write `logs/YYYY-MM-DD.md` (before the commit in Step 5) containing:
 published yes/no, story count, embeds used, images by type, any facts
-you were unsure about, any stories dropped and why. On Sundays, add the
-weekly balance check from EDITORIAL.md.
+you were unsure about, any stories dropped and why. If a `visual_exception`
+was invoked, say so, quote the reason, and state which minimums it covered.
+On Sundays, add the weekly balance check from EDITORIAL.md.
 
 ## Failure behavior
 

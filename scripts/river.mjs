@@ -124,9 +124,18 @@ function preview(item) {
   return words(item.body).slice(0, 60) + "…";
 }
 
-// A visual_exception is substantive only past this length — a placeholder
-// like "n/a" or "-" must not silently behave like a real, audited reason.
+// A visual_exception is substantive only past this many non-whitespace
+// characters — a placeholder like "n/a" or "-" (or padding out a short
+// placeholder with spaces to clear a length check) must not silently
+// behave like a real, audited reason.
 const EXCEPTION_MIN_CHARS = 20;
+
+// Counts real content, not whitespace — `.trim()` alone only strips the
+// ends, so "x" + 18 spaces + "y" would pass a plain length check at 20
+// chars while carrying 2 characters of actual reason.
+function substantiveChars(s) {
+  return s.replace(/\s+/g, "").length;
+}
 
 export function checkRiver(parsed, { visualException } = {}) {
   const problems = [];
@@ -139,12 +148,12 @@ export function checkRiver(parsed, { visualException } = {}) {
   // must not quietly behave like no hatch at all.
   let exceptionOk = false;
   if (visualException != null && visualException !== "") {
-    if (visualException.trim().length >= EXCEPTION_MIN_CHARS) {
+    if (substantiveChars(visualException) >= EXCEPTION_MIN_CHARS) {
       exceptionOk = true;
     } else {
       bad(
         "visuals",
-        `visual_exception is too short (${visualException.trim().length} chars, needs ${EXCEPTION_MIN_CHARS}): "${visualException}"`
+        `visual_exception is too short (${substantiveChars(visualException)} non-whitespace chars, needs ${EXCEPTION_MIN_CHARS}): "${visualException}"`
       );
     }
   }
