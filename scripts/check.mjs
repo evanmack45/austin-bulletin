@@ -19,21 +19,9 @@ import { readFile, readdir, access } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { execFile } from "node:child_process";
+import { BEATS, words, wordCount, parseRiver } from "./river.mjs";
 
 const UA = "TheAustinBulletin/1.0 (+https://theaustinbulletin.com)";
-
-// EDITORIAL.md "The shape of a day": the fixed beat order.
-const BEATS = [
-  "Roads & transit",
-  "Public safety & courts",
-  "City Hall & county",
-  "Schools",
-  "Health",
-  "Business & tech",
-  "Around town",
-  "Texas",
-  "Sports"
-];
 
 // EDITORIAL.md "Neutrality rules": use neutral verbs.
 const BANNED_VERBS = ["claimed", "admitted", "slammed", "blasted", "gushed", "bragged", "lashed out"];
@@ -68,43 +56,12 @@ function parseArgs(argv) {
   return args;
 }
 
-// Visible words: markup and image markdown are not prose.
-function words(block) {
-  return block
-    .replace(/!\[[\s\S]*?\]\([^)]*\)/g, " ")
-    .replace(/<[^>]+>/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-function wordCount(block) {
-  const t = words(block);
-  return t ? t.split(" ").length : 0;
-}
-
 function section(text, open, close) {
   const a = text.indexOf(open);
   if (a === -1) return null;
   const b = text.indexOf(close, a);
   if (b === -1) return null;
   return text.slice(a + open.length, b);
-}
-
-// Paragraph blocks that are actual River items: not beat headings, not shortcodes,
-// not the trailing sources line.
-function riverItems(river) {
-  return river
-    .split(/\n\s*\n/)
-    .map((s) => s.trim())
-    .filter(
-      (s) =>
-        s &&
-        !s.startsWith("####") &&
-        !s.startsWith("{%") &&
-        !s.startsWith('<p class="source-line"') &&
-        !s.startsWith("![") &&
-        !s.startsWith("<figcaption")
-    );
 }
 
 function curl(url) {
@@ -233,7 +190,8 @@ async function main() {
       bad("river", `beats out of order or duplicated: ${known.join(" · ")}`);
     }
 
-    const items = riverItems(river);
+    const parsed = parseRiver(river);
+    const items = parsed.items.map((i) => i.body);
     if (items.length < RIVER_MIN || items.length > RIVER_MAX) {
       bad("river", `${items.length} items, EDITORIAL wants ${RIVER_MIN}–${RIVER_MAX}`);
     }

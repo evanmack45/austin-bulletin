@@ -14,7 +14,8 @@
     "graphic": "node scripts/graphic.mjs",
     "card": "node scripts/card.mjs",
     "voices": "node scripts/voices.mjs",
-    "video": "node scripts/video.mjs"
+    "video": "node scripts/video.mjs",
+    "test": "node --test tests/*.test.mjs"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0",
