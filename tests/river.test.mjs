@@ -152,3 +152,30 @@ test("a beat over 400 words with a visual passes the density rule", () => {
   const { problems } = checkRiver(parseRiver(river));
   assert.ok(!problems.some((p) => /runs \d+ words with no visual/.test(p.message)));
 });
+
+test("fails an edition with no videos", () => {
+  const { problems } = checkRiver(parseRiver(riverOf("Schools", [brief(20)])));
+  assert.ok(problems.some((p) => /0 video\(s\), EDITORIAL wants/.test(p.message)));
+});
+
+test("fails an edition with more than 3 videos", () => {
+  const river = riverOf("Schools", [
+    brief(20), '{% video "a" %}', '{% video "b" %}', '{% video "c" %}', '{% video "d" %}'
+  ]);
+  const { problems } = checkRiver(parseRiver(river));
+  assert.ok(problems.some((p) => /4 video\(s\), EDITORIAL wants/.test(p.message)));
+});
+
+test("passes an edition with exactly 1 video", () => {
+  const river = riverOf("Schools", [brief(20), '{% video "a" %}']);
+  const { problems } = checkRiver(parseRiver(river));
+  assert.ok(!problems.some((p) => /video\(s\), EDITORIAL wants/.test(p.message)));
+});
+
+test("passes an edition with exactly 3 videos", () => {
+  const river = riverOf("Schools", [
+    brief(20), '{% video "a" %}', '{% video "b" %}', '{% video "c" %}'
+  ]);
+  const { problems } = checkRiver(parseRiver(river));
+  assert.ok(!problems.some((p) => /video\(s\), EDITORIAL wants/.test(p.message)));
+});
