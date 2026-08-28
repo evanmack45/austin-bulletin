@@ -7,9 +7,9 @@ suggestions. Every rule binds the writing.
 
 - The morning note is warm and local — a friendly Austinite. It may
   mention heat, traffic, city mood. It never carries political opinion.
-- Story paragraphs are flat, clear, and neutral. In the River, one or two
-  sentences; in the Big Story, short paragraphs; 100 words is the cap for
-  any single item.
+- Story paragraphs are flat, clear, and neutral. In the Big Story, short
+  paragraphs. River item lengths follow the lead/brief contract in "The
+  shape of a day": briefs about 25 words, leads 50–70.
 - In brief items are one sentence each and start with a bold one-word
   category label and a colon: `**Outage:**`, `**Politics:**`, `**Border:**`.
 - The Big Story ends with one "What's next" sentence: a date, a vote, a
@@ -24,6 +24,17 @@ suggestions. Every rule binds the writing.
   the reader's day. `npm run today` writes a sensible default; the
   morning writer may rewrite it, but never adds opinion or politics and
   never repeats the number the cell already shows.
+- Every initialism is expanded on its first use in the edition, then used
+  short: "the Electric Reliability Council of Texas (ERCOT)", "Emergency
+  Services District 5", "Independent School District". This covers agencies,
+  districts, utilities, stadiums (DKR), road nicknames (first use as "MoPac
+  (Loop 1)"), and vendor names used as bare nouns (Flock, Axon). The Big Story
+  counts as first use; the River need not repeat it.
+- An index number carries its scale: the air-quality cell reads "59 of 500",
+  not "59". The scale is stated only where it is inherent to the index or
+  published by a source — never calculated. Do not write comparisons like
+  "about 85% of the record"; that is a calculation, and calculations are
+  forbidden by the accuracy rules.
 
 ## The shape of a day
 
@@ -32,10 +43,34 @@ suggestions. Every rule binds the writing.
    connects two to four of the day's items into one idea. It explains and
    connects; it never says what should happen. Every claim links. When a
    dispute exists, each side's own words. It ends with a What's next line.
-3. The River: 25–40 one- or two-sentence items grouped by beat, in this
-   fixed order: Roads & transit · Public safety & courts · City Hall & county ·
-   Schools · Health · Business & tech · Around town · Texas · Sports. Every
-   item ends with a source tag. Missing beats are omitted, never padded.
+3. The River: 25–40 items grouped by beat, in this fixed order: Roads & transit ·
+   Public safety & courts · City Hall & county · Schools · Health · Business & tech ·
+   Around town · Texas · Sports. Missing beats are omitted, never padded.
+
+   Each beat holds two kinds of item.
+
+   A **lead** opens with a `#####` headline and runs 50–70 words (the gate
+   fails outside 40–80). At most two per beat, at most twelve per edition. An
+   item becomes a lead only if it passes the impact test below. A beat with
+   nothing that passes has no lead — never promote an item to fill a slot.
+
+   A **brief** is every other item: one sentence, about 25 words, no headline
+   (the gate fails above 35). Briefs are the default; most of the River is
+   briefs.
+
+   Every item, lead or brief, ends with a source tag. The whole River targets
+   about 1,500 words and fails above 2,200.
+
+   **The impact test.** An item earns a lead if it meets any of:
+   1. Someone was killed or seriously hurt.
+   2. Money or a rule that binds residents changed — a vote taken, a price
+      set, a contract signed, a ban enacted.
+   3. Something closes, opens, or changes today or this week — a road, a
+      school, a utility, a service.
+   4. A decision is scheduled, with a date — a vote, a hearing, a deadline.
+
+   This test is published on the About page. It is the site's answer to "who
+   decided this mattered", so it is applied literally, not loosely.
 4. Weather: its own `## Weather` section after the River, not a River beat.
    It opens with the day's NWS forecast and active alerts, then any weather
    items worth having (records, streaks, what the week does), then the
@@ -81,6 +116,15 @@ time or price we cannot verify is worse than an absent ritual.
   embedded, never re-hosted.
 - Cards and videos are gathered with `npm run card -- <post-url>` and
   `npm run video -- <youtube-url>` (PIPELINE.md Step 4).
+- Daily minimums, not just caps. An edition carries at least four Voice cards
+  (target six to ten, at most two in any one beat), at least one original
+  graphic, and one to three videos. Any beat running more than 400 words
+  carries at least one visual. The cards are what break up the River; an
+  edition that ships two of them has not met the rule, and the pre-publish
+  check will fail.
+- A graphic's subtitle never restates its source list. `npm run graphic`
+  generates the attribution caption from the spec's `source` field, so writing
+  the outlets into the subtitle as well prints the same credit twice.
 
 ## Neutrality rules
 
