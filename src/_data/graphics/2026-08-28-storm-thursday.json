@@ -1,0 +1,41 @@
+{
+  "type": "timeline",
+  "date": "2026-08-28",
+  "slug": "storm-thursday",
+  "title": "One Thursday, from dry to storm",
+  "subtitle": "Times and figures reported by KXAN, CBS Austin and Austin Energy",
+  "alt": "Timeline of Thursday, Aug. 27, 2026 in Central Texas: overnight the West Travis County Public Utility Agency records 5.27 million gallons used in irrigation-sized bursts between 7 p.m. Wednesday and 6 a.m. Thursday; Thursday morning three Lake Travis ISD campuses lose water pressure and students are given bottled water; shortly before 1:30 p.m. the district says pressure is restored at all three schools; at 4:24 p.m. crews are called to a house under construction that collapsed on workers in south Austin, killing one; Thursday evening about 7,000 Austin Energy customers lose power as storms move through; and by 9:10 p.m. 41 outages still affect 1,085 customers",
+  "source": "KXAN, CBS Austin and Austin Energy",
+  "events": [
+    {
+      "date": "Overnight",
+      "label": "5.27 million gallons drawn in irrigation bursts",
+      "note": "West Travis County PUA, 7 p.m. Wednesday to 6 a.m. Thursday"
+    },
+    {
+      "date": "Morning",
+      "label": "Three Lake Travis ISD campuses lose water pressure",
+      "note": "Bottled water replaces fountains; parents offered early pickup"
+    },
+    {
+      "date": "1:30 p.m.",
+      "label": "The district says pressure is back at all three schools",
+      "note": "Utility asks customers to water only on assigned days"
+    },
+    {
+      "date": "4:24 p.m.",
+      "label": "Crews called to a collapsed house in south Austin",
+      "note": "One worker dead, a second airlifted; gusts of 50 to 70 mph"
+    },
+    {
+      "date": "Evening",
+      "label": "About 7,000 Austin Energy customers lose power",
+      "note": "Storms bring heavy rain and gusty winds across the region"
+    },
+    {
+      "date": "9:10 p.m.",
+      "label": "41 outages still affect 1,085 customers",
+      "note": "Austin Energy outage map"
+    }
+  ]
+}

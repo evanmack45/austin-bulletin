@@ -103,8 +103,11 @@ The publish date is in the URL, so filtering to the window needs no extra
 request. `https://www.kut.org/news-sitemap-content.xml` and
 `https://www.kut.org/sitemap-latest.xml` list the newest one or two stories
 with timestamps and are worth a look, but they are too thin to rely on alone.
-Article body text sits in ordinary `<p>` tags and the page also carries
-NewsArticle structured data.
+Article body text sits in ordinary `<p>` tags, but taking *every* `<p>` on
+the page returns KUT's navigation, podcast list and membership menu ahead of
+the story. The body is inside `<div class="ArtP-articleBody">` and ends at
+`ArtP-tags`; the headline is `<h1 class="ArtP-headline">`. Slice between those
+markers (noted 2026-08-28). The page also carries NewsArticle structured data.
 
 **KVUE is discovery-only** (settled 2026-08-24; see EDITORIAL.md). Its
 `/article/…` pages 403 to every route — curl, WebFetch, a reader proxy, the
@@ -156,9 +159,11 @@ Primary and secondary sources (all verified 2026-08-24):
   hours old, and the only source we have on UT itself. It is a student paper
   that mixes reporting and opinion columns in one feed: take the news, never
   cite a column as fact.
-- **Austin Chronicle** — https://www.austinchronicle.com/rss/. Publishes a
+- **Austin Chronicle** — https://www.austinchronicle.com/feed/. Publishes a
   few times a week on arts, music, food and Austin FC. Good for Around town;
-  do not expect it to have anything most mornings.
+  do not expect it to have anything most mornings. The old `/rss/` path now
+  answers 301 with an empty body, so a plain curl reads it as a dead source —
+  fetch with `curl -L`, or use `/feed/` directly (corrected 2026-08-28).
 - **Travis County** — its RSS is dead (two items, years old). The listing at
   https://www.traviscountytx.gov/news/2026 works but carries no dates, and
   the county posts under ten items a year. Judge newness by the numeric id in
