@@ -75,8 +75,11 @@ Behaviour-preserving. `check.mjs` must produce identical output on the six publi
 In `package.json`, add to `"scripts"`:
 
 ```json
-"test": "node --test tests/"
+"test": "node --test tests/*.test.mjs"
 ```
+
+A bare directory argument (`node --test tests/`) does NOT work on Node 26.7.0 —
+Node treats the directory as a test file and reports a failure. Verified.
 
 - [ ] **Step 2: Write the failing test**
 
@@ -286,7 +289,18 @@ Run:
 for d in 2026-08-23 2026-08-24 2026-08-25 2026-08-26 2026-08-27 2026-08-28; do echo "--- $d"; npm run check -- "$d" --no-links; done
 ```
 
-Expected: identical output to before the change. All six pass the mechanical gate. If any edition newly fails, the extraction changed behaviour — fix `river.mjs` before continuing.
+Expected: **output identical to before the change** — not "all six pass". Two
+editions already fail the existing gate for pre-existing reasons and must keep
+failing in exactly the same way:
+
+- `2026-08-23` — Big Story 278 words (wants 400–700); Weather nested inside the
+  River (the known legacy case the 2026-08-24 ruling deliberately left alone);
+  20 items.
+- `2026-08-24` — 23 items; two items at 123 and 101 words, over the old 100-word cap.
+
+`2026-08-25` through `2026-08-28` pass. Capture the output before and after and
+diff it; do not eyeball it. If any edition's result *changes*, the extraction
+changed behaviour — fix `river.mjs` before continuing.
 
 - [ ] **Step 8: Commit**
 
@@ -776,7 +790,10 @@ Run:
 for d in 2026-08-23 2026-08-24 2026-08-25 2026-08-26 2026-08-27 2026-08-28; do printf '%s: ' "$d"; npm run check -- "$d" --no-links >/dev/null 2>&1 && echo PASS || echo FAIL; done
 ```
 
-Expected: six PASS. All six predate the cutover, so none of the new assertions apply to them.
+Expected: `2026-08-23` FAIL, `2026-08-24` FAIL (both pre-existing — see Task 1
+Step 7), the other four PASS. All six predate the cutover, so none of the NEW
+assertions apply to them. What matters is that this result is unchanged from
+before Task 5.
 
 - [ ] **Step 4: Add the unit tests to CI**
 
@@ -1201,7 +1218,8 @@ Expected: 21 tests pass.
 for d in 2026-08-23 2026-08-24 2026-08-25 2026-08-26 2026-08-27 2026-08-28; do printf '%s: ' "$d"; npm run check -- "$d" --no-links >/dev/null 2>&1 && echo PASS || echo FAIL; done
 ```
 
-Expected: six PASS.
+Expected: `2026-08-23` and `2026-08-24` FAIL for the pre-existing reasons listed
+in Task 1 Step 7; the other four PASS. Unchanged from the start of the branch.
 
 - [ ] **Step 3: Site builds**
 
