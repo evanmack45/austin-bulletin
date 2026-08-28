@@ -44,13 +44,31 @@ async function runCheck(date) {
   }
 }
 
+// A fixture copied verbatim from a real edition carries that edition's real
+// date/permalink in its front matter. If a fixture ever survived a crash
+// (writeFile succeeded, then a SIGINT skipped the finally before rm), a
+// build would glob it in and emit a page at the SAME permalink as the real,
+// already-published edition it was copied from — a silent duplicate-URL
+// collision. Rewriting just these two front-matter lines to the fixture's
+// own synthetic date makes a leaked fixture self-consistently synthetic
+// instead. Deliberately not a full YAML parse — front matter here is always
+// flat `key: value` lines, and the body (River, cards, video shortcodes)
+// must be left untouched since the test depends on its content.
+function withSyntheticFrontMatter(body, date) {
+  const [, y, m, d] = date.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  const permalink = `/${y}/${m}/${d}/`;
+  return body
+    .replace(/^date:\s*.*$/m, `date: ${date}`)
+    .replace(/^permalink:\s*.*$/m, `permalink: "${permalink}"`);
+}
+
 test("a post-cutover edition fails under the new rules, not the old ones", async () => {
   const fixturePath = path.join(bulletinDir, `${FIXTURE_DATE}.md`);
   try {
     // Known to fail the new rules many ways and pass the old ones — see
     // task-5-report.md for the full breakdown at its real date.
     const body = await readFile(path.join(bulletinDir, "2026-08-28.md"), "utf8");
-    await writeFile(fixturePath, body, "utf8");
+    await writeFile(fixturePath, withSyntheticFrontMatter(body, FIXTURE_DATE), "utf8");
 
     const { code, output } = await runCheck(FIXTURE_DATE);
 
@@ -93,7 +111,7 @@ test("the old numeric rules do not leak into a post-cutover edition", async () =
   const fixturePath = path.join(bulletinDir, `${fixtureDate}.md`);
   try {
     const body = await readFile(path.join(bulletinDir, "2026-08-24.md"), "utf8");
-    await writeFile(fixturePath, body, "utf8");
+    await writeFile(fixturePath, withSyntheticFrontMatter(body, fixtureDate), "utf8");
 
     const { output } = await runCheck(fixtureDate);
 
