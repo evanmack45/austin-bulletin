@@ -21,7 +21,6 @@ import path from "node:path";
 import { execFile } from "node:child_process";
 import { BEATS, words, wordCount, parseRiver, checkRiver } from "./river.mjs";
 import { checkAcronyms } from "./acronyms.mjs";
-import ACRONYMS from "./acronyms.json" with { type: "json" };
 
 const UA = "TheAustinBulletin/1.0 (+https://theaustinbulletin.com)";
 
@@ -183,6 +182,9 @@ async function main() {
   }
 
   // --- River --------------------------------------------------------------
+  const ACRONYMS = JSON.parse(
+    await readFile(new URL("./acronyms.json", import.meta.url), "utf8")
+  );
   const river = section(text, "{% river %}", "{% endriver %}");
   if (!river) {
     bad("river", "no {% river %} block");
