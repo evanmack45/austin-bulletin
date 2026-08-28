@@ -305,10 +305,6 @@ h2.glance-title::after { content: none; }
 }
 .river h5 + p { margin-bottom: 1.1rem; }
 
-/* Briefs sit tighter than leads so the two tiers read as different weights
-   without a rule or a bullet between them. */
-.river h5 ~ p { margin-bottom: 0.55rem; }
-
 .src {
   font-size: 0.72rem;
   letter-spacing: 0.06em;

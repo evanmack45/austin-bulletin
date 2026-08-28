@@ -4,6 +4,19 @@ import markdownItAnchor from "markdown-it-anchor";
 
 const SITE_URL = "https://theaustinbulletin.com/";
 
+// Shared by the heading-anchor slugifier and the River's beat nav, so a beat
+// heading's id and its jump-link href are always produced by the same rule.
+// The default markdown-it-anchor slugifier percent-encodes "&", which turns
+// "Roads & transit" into "roads-%26-transit" — drop it in favor of this.
+function beatSlug(s) {
+  return String(s).trim().toLowerCase()
+    .replace(/&/g, " ")
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
 // Inline SVG glyphs (24x24, currentColor) for each Voice-card platform.
 const GLYPH = {
   x: `<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.9 2H22l-7.4 8.5L23 22h-6.9l-5.4-6.9L4.5 22H1.4l7.9-9L1 2h7l4.9 6.3L18.9 2Zm-1.2 18h1.9L7.4 4H5.4l12.3 16Z"/></svg>`,
@@ -48,21 +61,10 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/icon-512.png");
 
   // Heading ids (e.g. <h2 id="weather">) so in-page jump links work.
-  // The default slugifier percent-encodes "&", which turns "Roads & transit"
-  // into "roads-%26-transit". Drop it instead so the beat nav links are clean.
+  // Uses beatSlug (above) so ids agree with the River's beat nav hrefs.
   let md;
   eleventyConfig.amendLibrary("md", (lib) => {
-    md = lib.use(markdownItAnchor, {
-      slugify: (s) =>
-        encodeURIComponent(
-          String(s).trim().toLowerCase()
-            .replace(/&/g, " ")
-            .replace(/[^\w\s-]/g, "")
-            .replace(/\s+/g, "-")
-            .replace(/-+/g, "-")
-            .replace(/^-|-$/g, "")
-        )
-    });
+    md = lib.use(markdownItAnchor, { slugify: beatSlug });
     return md;
   });
 
@@ -166,16 +168,14 @@ export default function (eleventyConfig) {
   // otherwise unreliable, since the outer Nunjucks->markdown-it pipeline only
   // passes raw HTML blocks through unchanged.
   // The River renders its own beat navigation: readers who want City Hall
-  // should not have to scroll past Public safety to reach it. Beat ids come
-  // from markdown-it-anchor on the #### headings.
+  // should not have to scroll past Public safety to reach it. Both the
+  // heading ids (via markdown-it-anchor above) and these hrefs come from the
+  // same beatSlug function, so a jump link always lands on its heading.
   eleventyConfig.addPairedShortcode("river", (content) => {
     const beats = [...content.matchAll(/^####\s+(.+?)\s*$/gm)].map((m) => m[1].trim());
-    const slug = (s) =>
-      s.trim().toLowerCase().replace(/&/g, " ").replace(/[^\w\s-]/g, "")
-        .replace(/\s+/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
     const nav = beats.length
       ? `<nav class="beat-nav" aria-label="Jump to a beat">` +
-        beats.map((b) => `<a href="#${slug(b)}">${b}</a>`).join("") +
+        beats.map((b) => `<a href="#${beatSlug(b)}">${b}</a>`).join("") +
         `</nav>\n`
       : "";
     const top = `<p class="to-top"><a href="#top">Back to top</a></p>\n`;
