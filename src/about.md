@@ -27,18 +27,32 @@ and is responsible for the site.
 - If sources disagree, we say so.
 - If we cannot verify a story, we leave it out.
 
+### How we decide what leads
+
+Each beat carries a few longer items with headlines, and a run of one-sentence
+briefs. An item earns a headline if it meets any of these tests:
+
+- Someone was killed or seriously hurt.
+- Money or a rule that binds residents changed — a vote taken, a price set, a
+  contract signed, a ban enacted.
+- Something closes, opens, or changes today or this week.
+- A decision is scheduled, with a date.
+
+At most two per beat. If nothing in a beat meets the test, nothing in that beat
+gets a headline. You can check any morning's bulletin against this list.
+
 ## Corrections
 
 When we get something wrong, we fix it with a visible note in the
 bulletin: "Correction: an earlier version said X. The correct fact is Y."
 We never silently erase errors.
 
-## Follow
-
-Subscribe by RSS: add <https://theaustinbulletin.com/feed.xml> to any feed
-reader and each morning's bulletin will arrive on its own.
-
 ## Contact
 
 Feedback and corrections are welcome. Email Evan McMillan, the publisher, at
 <contact@theaustinbulletin.com>.
+
+## Follow
+
+Subscribe by RSS: add <https://theaustinbulletin.com/feed.xml> to any feed
+reader and each morning's bulletin will arrive on its own.
