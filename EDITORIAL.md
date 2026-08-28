@@ -59,7 +59,9 @@ suggestions. Every rule binds the writing.
    briefs.
 
    Every item, lead or brief, ends with a source tag. The whole River targets
-   about 1,500 words and fails above 2,200.
+   about 1,500 words, warns above 1,800 — the early signal that items are
+   drifting long, the same drift that went unnoticed for six editions — and
+   fails above 2,200.
 
    **The impact test.** An item earns a lead if it meets any of:
    1. Someone was killed or seriously hurt.
