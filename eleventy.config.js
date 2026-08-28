@@ -48,11 +48,21 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/icon-512.png");
 
   // Heading ids (e.g. <h2 id="weather">) so in-page jump links work.
-  // The instance is also captured so the river/bigstory shortcodes below can
-  // run markdown-it themselves (see PIPELINE.md / the River shortcode note).
+  // The default slugifier percent-encodes "&", which turns "Roads & transit"
+  // into "roads-%26-transit". Drop it instead so the beat nav links are clean.
   let md;
   eleventyConfig.amendLibrary("md", (lib) => {
-    md = lib.use(markdownItAnchor);
+    md = lib.use(markdownItAnchor, {
+      slugify: (s) =>
+        encodeURIComponent(
+          String(s).trim().toLowerCase()
+            .replace(/&/g, " ")
+            .replace(/[^\w\s-]/g, "")
+            .replace(/\s+/g, "-")
+            .replace(/-+/g, "-")
+            .replace(/^-|-$/g, "")
+        )
+    });
     return md;
   });
 
@@ -155,7 +165,22 @@ export default function (eleventyConfig) {
   // heading anchors) used for the rest of the page. Markdown-inside-a-div is
   // otherwise unreliable, since the outer Nunjucks->markdown-it pipeline only
   // passes raw HTML blocks through unchanged.
-  eleventyConfig.addPairedShortcode("river", (content) => `<div class="river">\n${md.render(content)}</div>`);
+  // The River renders its own beat navigation: readers who want City Hall
+  // should not have to scroll past Public safety to reach it. Beat ids come
+  // from markdown-it-anchor on the #### headings.
+  eleventyConfig.addPairedShortcode("river", (content) => {
+    const beats = [...content.matchAll(/^####\s+(.+?)\s*$/gm)].map((m) => m[1].trim());
+    const slug = (s) =>
+      s.trim().toLowerCase().replace(/&/g, " ").replace(/[^\w\s-]/g, "")
+        .replace(/\s+/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
+    const nav = beats.length
+      ? `<nav class="beat-nav" aria-label="Jump to a beat">` +
+        beats.map((b) => `<a href="#${slug(b)}">${b}</a>`).join("") +
+        `</nav>\n`
+      : "";
+    const top = `<p class="to-top"><a href="#top">Back to top</a></p>\n`;
+    return `<div class="river">\n${nav}${md.render(content)}${top}</div>`;
+  });
 
   // {% bigstory %}…{% endbigstory %} — same idea, for the day's Big Story.
   eleventyConfig.addPairedShortcode("bigstory", (content) => `<section class="big-story">\n${md.render(content)}</section>`);
