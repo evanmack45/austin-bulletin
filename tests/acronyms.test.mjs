@@ -18,6 +18,16 @@ test("passes when the expansion sits beside first use", () => {
   assert.equal(problems.length, 0);
 });
 
+// Pins the right bound's actual extent: the abbreviation-first form
+// ("ERCOT (Electric Reliability Council of Texas)") must also pass — the
+// expansion sits within 140 characters AFTER first use, not before it, so
+// this only passes if the right bound still reaches past the token itself.
+test("passes when the abbreviation appears first and the expansion follows immediately", () => {
+  const text = "ERCOT (Electric Reliability Council of Texas) expects enough to go around.";
+  const { problems } = checkAcronyms(text, DICT);
+  assert.equal(problems.length, 0);
+});
+
 test("ignores initialisms that only appear as attribution", () => {
   const text = 'Council voted Thursday. <span class="src">KXAN</span>';
   const { warnings } = checkAcronyms(text, DICT);
@@ -56,8 +66,22 @@ test("strips source-line paragraphs before warning on unknown tokens", () => {
   assert.ok(!warnings.some((w) => /WFAA/.test(w.message)));
 });
 
-// --- Additional coverage: the proximity window must not be so wide that an
-// expansion appearing much later in the document satisfies "first use."
+// --- Additional coverage: spec 3.3 says first use is anywhere in the
+// edition — the expansion may come well before the initialism (e.g. spelled
+// out in the Big Story, then abbreviated later in the River). The left side
+// of the window must therefore be unbounded: a real-writing case like this
+// must NOT be flagged.
+test("does not flag an initialism whose expansion appeared ~500 characters earlier", () => {
+  const filler = "x".repeat(500);
+  const text = `The Electric Reliability Council of Texas said reserves were adequate. ${filler} ERCOT expects enough to go around.`;
+  const { problems } = checkAcronyms(text, DICT);
+  assert.equal(problems.length, 0);
+});
+
+// --- Additional coverage: the proximity window must not be so wide on the
+// right that an expansion appearing much later in the document satisfies
+// "first use." (This also pins the 140-character right bound: widening it
+// to something like 10000 would let this pass incorrectly.)
 test("flags an initialism whose expansion arrives ~500 characters later as not expanded on first use", () => {
   const filler = "x".repeat(500);
   const text = `ERCOT expects enough to go around. ${filler} Electric Reliability Council of Texas.`;

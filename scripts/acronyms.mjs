@@ -29,9 +29,12 @@ export function checkAcronyms(text, dict) {
   for (const [short, expansion] of Object.entries(dict)) {
     const at = body.indexOf(short);
     if (at === -1) continue;
-    // The expansion must sit within a sentence's reach of first use, on
-    // either side: "Loop 1 (MoPac)" and "MoPac (Loop 1)" are both fine.
-    const window = body.slice(Math.max(0, at - 140), at + short.length + 140);
+    // Spec 3.3: an initialism is expanded on its FIRST USE anywhere in the
+    // edition — the Big Story counts, so the River need not repeat it. The
+    // expansion may appear anywhere before first use (no left bound), or
+    // immediately after it, as in "MoPac (Loop 1)" (right bound: 140 chars).
+    // An expansion that only shows up later in the document does not count.
+    const window = body.slice(0, at + short.length + 140);
     if (!window.includes(expansion)) {
       problems.push({
         check: "language",
