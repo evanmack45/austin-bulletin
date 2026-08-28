@@ -190,3 +190,127 @@ bare photo satisfies graphicMin (should be false): false
 ```
 
 All four match the required outcome.
+
+---
+
+## FIX 7 — parseRiver complexity/length split
+
+The pre-existing, out-of-scope note above flagged `parseRiver` (complexity
+17, limit 8) as the one remaining violation from this branch. Fixed now:
+split the per-block classification into named helpers — `isLeadBlock` /
+`parseLeadBlock`, `isBeatHeading` / `parseBeatHeading`, `applyVisual`,
+`isSkippableBlock`, `parseBriefBlock`, `addItem`, `finalizeBeats`,
+`buildParseResult` — leaving `parseRiver` itself as the block-walking loop
+that calls them. Lead detection (`#####`) is still tested before beat
+detection (`####`) inside `parseRiver`'s own loop, preserving the
+`startsWith` gate. Exported signature `parseRiver(river)` and the returned
+`{ beats, items, leads, briefs, visuals }` shape (with `graphic`/`image`
+both incrementing `visuals` but only `graphic` counting toward
+`graphicMin`) are unchanged. No test file changes were needed — no internal
+name was renamed or referenced by `tests/river.test.mjs`. Commit `927744f`.
+
+### 1. ESLint (`complexity: 8`, `max-lines-per-function: 100`) on `scripts/river.mjs`
+
+```
+$ npx eslint --no-config-lookup -c /tmp/eslint-cx.mjs scripts/river.mjs
+(no output, exit 0)
+```
+
+Clean — zero errors, including for `parseRiver`.
+
+### 2. Per-function complexity (threshold temporarily set to 0 to force every value to print; confirms every function, not just parseRiver, stays inside the limit)
+
+| Function | Complexity |
+|---|---|
+| `words` | 1 |
+| `wordCount` | 2 |
+| `visualKind` | 6 |
+| `isLeadBlock` | 1 |
+| `parseLeadBlock` | 3 |
+| `isBeatHeading` | 1 |
+| `parseBeatHeading` | 1 |
+| `applyVisual` | 3 |
+| `isSkippableBlock` | 3 |
+| `parseBriefBlock` | 3 |
+| `addItem` | 2 |
+| `finalizeBeats` | 2 |
+| `buildParseResult` | 1 |
+| **`parseRiver`** | **6** |
+| `preview` | 1 |
+| `substantiveChars` | 1 |
+| `substantiveWords` | 1 |
+| `isSubstantiveException` | 2 |
+| `resolveVisualException` | 4 |
+| `checkBeatHeadings` | 2 |
+| `checkItemBeats` | 3 |
+| `checkBriefLength` | 3 |
+| `checkLeadShape` | 5 |
+| `checkItemLengths` | 2 |
+| `checkLeadsPerBeat` | 3 |
+| `checkLeadsPerEdition` | 3 |
+| `checkItemCount` | 3 |
+| `checkStructure` | 1 |
+| `checkWordBudget` | 3 |
+| `checkVoiceBudget` | 3 |
+| `checkGraphicBudget` | 2 |
+| `checkVideoBudget` | 3 |
+| `checkPerBeatVisuals` | 5 |
+| `checkVisualBudget` | 1 |
+| `checkRiver` | 4 |
+
+`parseRiver` dropped from 17 to 6. Every function in the file is ≤8
+(well inside the limit), matching the real-threshold ESLint run's zero
+errors above.
+
+### 3. `npm test`
+
+```
+ℹ tests 78
+ℹ suites 0
+ℹ pass 78
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+```
+
+Unchanged from the FIX 1–6 baseline: still 78/78.
+
+### 4. Parse-equivalence proof
+
+Captured `JSON.stringify(parseRiver(river))` (river block extracted the
+same way `scripts/check.mjs`'s `section()` does, via `{% river %}` /
+`{% endriver %}`) for all six published editions in `src/bulletins/`,
+before and after the refactor:
+
+```
+$ diff before.json after.json
+(no output)
+$ echo "diff exit=$?"
+diff exit=0
+```
+
+Both captures are 4661 lines. Byte-identical — the refactor changed no
+output for any of the six real editions.
+
+### 5. Six-edition parity (unchanged)
+
+```
+2026-08-23 exit=1   (FAIL, pre-existing)
+2026-08-24 exit=1   (FAIL, pre-existing)
+2026-08-25 exit=0   (PASS)
+2026-08-26 exit=0   (PASS)
+2026-08-27 exit=0   (PASS)
+2026-08-28 exit=0   (PASS)
+```
+
+Matches the required baseline exactly.
+
+### 6. `npm run build` / `git status --short`
+
+Build: exit 0, wrote 12 files (6 bulletin pages + feed/manifest/archive/
+index/404/about) from the 6 real files in `src/bulletins/`.
+
+`git status --short`: clean after commit `927744f`. Only
+`scripts/river.mjs` was touched; nothing under `src/bulletins/` was
+modified.
