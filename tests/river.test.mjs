@@ -229,3 +229,24 @@ test("fails an edition with 41 items", () => {
   const { problems } = checkRiver(parseRiver(river));
   assert.ok(problems.some((p) => /41 items, EDITORIAL wants/.test(p.message)));
 });
+
+test("passes an edition with exactly 10 voice cards", () => {
+  const river = BEATS.slice(0, 5)
+    .map((b) => riverOf(b, [brief(20), '{% voice "a" %}', '{% voice "b" %}']))
+    .join("\n");
+  const { problems } = checkRiver(parseRiver(river));
+  assert.ok(!problems.some((p) => /voice cards \(cap 10\)/.test(p.message)));
+});
+
+test("fails an edition with 11 voice cards", () => {
+  const river = BEATS.slice(0, 6)
+    .map((b, i) => riverOf(
+      b,
+      i < 5
+        ? [brief(20), '{% voice "a" %}', '{% voice "b" %}']
+        : [brief(20), '{% voice "a" %}']
+    ))
+    .join("\n");
+  const { problems } = checkRiver(parseRiver(river));
+  assert.ok(problems.some((p) => /11 voice cards \(cap 10\)/.test(p.message)));
+});

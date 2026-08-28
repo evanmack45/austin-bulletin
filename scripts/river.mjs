@@ -110,11 +110,13 @@ export const LIMITS = {
   wordsWarn: 1800,
   wordsFail: 2200,
   voiceMin: 4,
+  voiceMax: 10,
   voicePerBeat: 2,
   videoMin: 1,
   videoMax: 3,
   graphicMin: 1,
-  beatWordsBeforeVisual: 400
+  beatWordsBeforeVisual: 400,
+  wordsTarget: 1500
 };
 
 function preview(item) {
@@ -158,11 +160,14 @@ export function checkRiver(parsed) {
   if (total > LIMITS.wordsFail) {
     bad("river", `river is ${total} words (fails above ${LIMITS.wordsFail})`);
   } else if (total > LIMITS.wordsWarn) {
-    warn("river", `river is ${total} words (target 1500, warns above ${LIMITS.wordsWarn})`);
+    warn("river", `river is ${total} words (target ${LIMITS.wordsTarget}, warns above ${LIMITS.wordsWarn})`);
   }
 
   if (parsed.visuals.voice < LIMITS.voiceMin) {
     bad("visuals", `${parsed.visuals.voice} voice card(s), EDITORIAL wants at least ${LIMITS.voiceMin}`);
+  }
+  if (parsed.visuals.voice > LIMITS.voiceMax) {
+    bad("visuals", `${parsed.visuals.voice} voice cards (cap ${LIMITS.voiceMax})`);
   }
   if (parsed.visuals.graphic < LIMITS.graphicMin) {
     bad("visuals", "no graphic in the edition; EDITORIAL wants at least one");
