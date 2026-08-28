@@ -238,6 +238,38 @@ test("passes an edition with exactly 10 voice cards", () => {
   assert.ok(!problems.some((p) => /voice cards \(cap 10\)/.test(p.message)));
 });
 
+// --- Additional coverage (final review, I2): the scannable layer had a
+// ceiling (leadsPerEdition) but no floor, so a brief-only edition passed
+// clean — the same shape as the original bug (a cap with no floor silently
+// collapsing). Below-floor is a WARN, not a fail: the impact test is allowed
+// to legitimately find nothing on a quiet day, so blocking publish on it
+// would punish correct editorial judgment.
+function riverWithLeads(n) {
+  // Spread leads two per beat (the leadsPerBeat cap) across distinct beats
+  // so this helper never trips an unrelated per-beat-cap failure.
+  const chunks = [];
+  let remaining = n;
+  let beatIndex = 0;
+  while (remaining > 0) {
+    const take = Math.min(2, remaining);
+    const beatLeads = Array.from({ length: take }, (_, i) => lead(`Lead ${beatIndex}-${i}`, 50));
+    chunks.push(riverOf(BEATS[beatIndex], [...beatLeads, brief(20)]));
+    remaining -= take;
+    beatIndex += 1;
+  }
+  return chunks.join("\n");
+}
+
+test("warns on an edition with 3 leads", () => {
+  const { warnings } = checkRiver(parseRiver(riverWithLeads(3)));
+  assert.ok(warnings.some((w) => /3 lead\(s\) in the River/.test(w.message)));
+});
+
+test("does not warn on an edition with exactly 4 leads", () => {
+  const { warnings } = checkRiver(parseRiver(riverWithLeads(4)));
+  assert.ok(!warnings.some((w) => /lead\(s\) in the River/.test(w.message)));
+});
+
 test("fails an edition with 11 voice cards", () => {
   const river = BEATS.slice(0, 6)
     .map((b, i) => riverOf(

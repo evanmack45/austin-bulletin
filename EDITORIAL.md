@@ -53,6 +53,9 @@ suggestions. Every rule binds the writing.
    fails outside 40–80). At most two per beat, at most twelve per edition. An
    item becomes a lead only if it passes the impact test below. A beat with
    nothing that passes has no lead — never promote an item to fill a slot.
+   Fewer than four leads in the River warns, but does not fail the gate — the
+   impact test is allowed to legitimately find nothing on a quiet day, and a
+   hard fail would punish correct editorial judgment.
 
    A **brief** is every other item: one sentence, about 25 words, no headline
    (the gate fails above 35). Briefs are the default; most of the River is
@@ -81,7 +84,12 @@ suggestions. Every rule binds the writing.
    every day and keep the id `weather`.
 5. Rituals: The Number (daily), Countdown (daily), This Weekend in Austin
    (Thursday and Friday), Sunday Paper (Sunday), One Good Thing (daily
-   closer, Morning Note voice).
+   closer, Morning Note voice). Countdown's first use each edition names the
+   stadium in full — "Darrell K Royal-Texas Memorial Stadium (DKR)" — then
+   short form ("DKR") thereafter, per the initialism rule above. Because
+   tomorrow's writer copies today's file as its format template, a ritual
+   line that ships with a bare "DKR" propagates that mistake forever — expand
+   it in the template line itself, not just in this morning's copy.
 
 Standings was cut 2026-08-24 at the publisher's direction. Do not reinstate
 it or propose a replacement. Only the ritual was cut: the Sports beat in the
@@ -118,12 +126,16 @@ time or price we cannot verify is worse than an absent ritual.
   embedded, never re-hosted.
 - Cards and videos are gathered with `npm run card -- <post-url>` and
   `npm run video -- <youtube-url>` (PIPELINE.md Step 4).
-- Daily minimums, not just caps. An edition carries at least four Voice cards
+- Daily minimums, not just caps. The River carries at least four Voice cards
   (target six to ten, at most two in any one beat), at least one original
   graphic, and one to three videos. Any beat running more than 400 words
-  carries at least one visual. The cards are what break up the River; an
-  edition that ships two of them has not met the rule, and the pre-publish
-  check will fail.
+  carries at least one visual. These minimums are scoped to the River, not
+  the edition as a whole: a graphic in the Big Story or a chart in the
+  Weather section does not count toward them, because their job is
+  interrupting the River's wall of text specifically — a visual sitting
+  somewhere else in the page does not do that. The cards are what break up
+  the River; a River that ships two of them has not met the rule, and the
+  pre-publish check will fail.
 - A graphic's subtitle never restates its source list. `npm run graphic`
   generates the attribution caption from the spec's `source` field, so writing
   the outlets into the subtitle as well prints the same credit twice.
@@ -258,8 +270,12 @@ Do not push unless every check passes:
 3. Date, title, and permalink are correct and consistent.
 4. Every image loads (HTTP 200) and follows the image rules; embed cap
    respected.
-5. No empty sections; `npm run build` succeeds with no errors.
-6. The full page reads clean top to bottom — no leftover notes, no
+5. The River's leads and briefs meet the lead/brief contract — lengths, and
+   lead counts per beat and per edition — and the River meets its visual
+   minimums and caps (Voice cards, graphic, video).
+6. Every initialism is expanded on its first use in the edition.
+7. No empty sections; `npm run build` succeeds with no errors.
+8. The full page reads clean top to bottom — no leftover notes, no
    sample text, no broken markdown.
 
 A story that fails a check is fixed or dropped. A bulletin that cannot

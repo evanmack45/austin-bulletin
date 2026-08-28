@@ -4,10 +4,10 @@
   <h2 class="glance-title">Today at a glance</h2>
   <ul class="glance-grid">
     {% if glanceData.weather %}<li><span class="g-label">Weather</span><span class="g-value">{% if glanceData.weather.high %}{{ glanceData.weather.high }}°{% endif %}{% if glanceData.weather.high and glanceData.weather.low %} / {% endif %}{% if glanceData.weather.low %}{{ glanceData.weather.low }}°{% endif %}</span><span class="g-note">{{ glanceData.weather.blurb }}</span></li>{% endif %}
-    {% if glanceData.air %}<li><span class="g-label">Air quality</span><span class="g-value">{{ glanceData.air.aqi }}</span><span class="g-note">{{ glanceData.air.blurb }}</span></li>{% endif %}
+    {% if glanceData.air %}<li><span class="g-label">Air quality</span><span class="g-value">{{ glanceData.air.aqi }} of 500</span><span class="g-note">{{ glanceData.air.blurb }}</span></li>{% endif %}
     {% if glanceData.lake %}<li><span class="g-label">Lake Travis</span><span class="g-value">{{ glanceData.lake.percentFull }}% full</span><span class="g-note">{{ glanceData.lake.blurb }}</span></li>{% endif %}
     {% if glanceData.pollen %}<li><span class="g-label">Allergies</span><span class="g-value">{{ glanceData.pollen.category }}</span><span class="g-note">{{ glanceData.pollen.blurb }}</span></li>{% endif %}
-    {% if glanceData.grid %}<li><span class="g-label">Power grid</span><span class="g-value">{{ glanceData.grid.forecastPeakMw | commas }} MW</span><span class="g-note">{{ glanceData.grid.blurb }}</span></li>{% endif %}
+    {% if glanceData.grid %}<li><span class="g-label">Power grid</span><span class="g-value">{{ glanceData.grid.forecastPeakMw | commas }} megawatts</span><span class="g-note">{{ glanceData.grid.blurb }}</span></li>{% endif %}
     {% if glanceData.sun %}<li><span class="g-label">Sunrise</span><span class="g-value">{{ glanceData.sun.sunrise }}</span><span class="g-note">{{ glanceData.sun.blurb }}</span></li>{% endif %}
   </ul>
 </section>

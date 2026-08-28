@@ -133,3 +133,20 @@ test("does not warn on Texas road designators", () => {
   const { warnings } = checkAcronyms(text, DICT);
   assert.equal(warnings.length, 0);
 });
+
+// --- Additional coverage (final review, I6): brand names like Flock and
+// Axon are mixed-case, so the unknown-token scan (\b[A-Z]{2,5}\b) structurally
+// cannot see them — it only matches all-caps tokens. Adding a mixed-case key
+// to the dictionary must still enforce expansion through the "problems" loop,
+// which matches on the literal key, not the warnings scan.
+test("catches a mixed-case dictionary key like Flock when unexpanded", () => {
+  const dict = { Flock: "Flock Safety" };
+  const { problems } = checkAcronyms("Flock cameras lined the street.", dict);
+  assert.ok(problems.some((p) => p.message.includes('"Flock" is used')));
+});
+
+test("passes when a mixed-case dictionary key like Flock is expanded beside first use", () => {
+  const dict = { Flock: "Flock Safety" };
+  const { problems } = checkAcronyms("Flock Safety cameras lined the street.", dict);
+  assert.equal(problems.length, 0);
+});

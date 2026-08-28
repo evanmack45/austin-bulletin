@@ -371,11 +371,14 @@ If `node_modules` is missing (every fresh clone), run `npm ci` first. Then:
     npm run check                  # today; or `npm run check -- YYYY-MM-DD`
 
 `npm run check` (scripts/check.mjs) is the mechanical half of EDITORIAL's
-quality gate: front matter and permalink, Big Story length, the 100-word item
-cap, beat names and their fixed order, the River count against the river-note,
-source tags, banned verbs, the Weather section and its `weather` id, the
-rituals, image files that exist with real alt text, the card and video caps,
-and card/video ids not already used by an earlier edition. Its link check
+quality gate: front matter and permalink, Big Story length, lead and brief
+lengths, lead counts per beat and per edition, beat names and their fixed
+order, the River's item count against the river-note and its word budget
+(warns above 1,800, fails above 2,200), source tags, banned verbs, the
+Weather section and its `weather` id, the rituals, image files that exist
+with real alt text, the River's visual minimums and caps (Voice cards,
+graphic, video), initialism expansion on first use, and card/video ids not
+already used by an earlier edition. Its link check
 knows KXAN article pages 403 to every non-browser client and verifies those
 through the WordPress API by slug instead of calling them broken, so a clean
 run means the links are genuinely good. `--no-links` skips the network pass
