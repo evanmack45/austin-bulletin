@@ -19,9 +19,16 @@ import { readFile, readdir, access } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { execFile } from "node:child_process";
-import { BEATS, words, wordCount, parseRiver } from "./river.mjs";
+import { BEATS, words, wordCount, parseRiver, checkRiver } from "./river.mjs";
+import { checkAcronyms } from "./acronyms.mjs";
+import ACRONYMS from "./acronyms.json" with { type: "json" };
 
 const UA = "TheAustinBulletin/1.0 (+https://theaustinbulletin.com)";
+
+// The lead/brief contract starts with this edition. Earlier bulletins keep the
+// old rules — published editions are not restructured after the fact
+// (precedent: the 2026-08-24 Weather ruling left 2026-08-23 alone).
+const NEW_SHAPE_FROM = "2026-08-29";
 
 // EDITORIAL.md "Neutrality rules": use neutral verbs.
 const BANNED_VERBS = ["claimed", "admitted", "slammed", "blasted", "gushed", "bragged", "lashed out"];
@@ -191,18 +198,29 @@ async function main() {
     }
 
     const parsed = parseRiver(river);
+    const newShape = date >= NEW_SHAPE_FROM;
     const items = parsed.items.map((i) => i.body);
-    if (items.length < RIVER_MIN || items.length > RIVER_MAX) {
+    if (!newShape && (items.length < RIVER_MIN || items.length > RIVER_MAX)) {
       bad("river", `${items.length} items, EDITORIAL wants ${RIVER_MIN}–${RIVER_MAX}`);
     }
     for (const it of items) {
       const n = wordCount(it);
-      if (n > ITEM_WORD_CAP) {
+      if (!newShape && n > ITEM_WORD_CAP) {
         bad("river", `item is ${n} words (cap ${ITEM_WORD_CAP}): "${words(it).slice(0, 60)}…"`);
       }
       if (!/<span class="src">[^<]+<\/span>\s*$/.test(it)) {
         bad("river", `item has no closing source tag: "${words(it).slice(0, 60)}…"`);
       }
+    }
+
+    if (newShape) {
+      const riverFindings = checkRiver(parsed);
+      for (const p of riverFindings.problems) bad(p.check, p.message);
+      for (const w of riverFindings.warnings) warn(w.check, w.message);
+
+      const language = checkAcronyms(text, ACRONYMS);
+      for (const p of language.problems) bad(p.check, p.message);
+      for (const w of language.warnings) warn(w.check, w.message);
     }
 
     const note = (text.match(/<p class="river-note">\s*(\d+)\s+items/) || [])[1];

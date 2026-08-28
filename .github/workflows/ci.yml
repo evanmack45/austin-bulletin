@@ -25,6 +25,9 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Unit tests
+        run: npm test
+
       # Only bulletins this PR actually touches. Editions published before
       # scripts/check.mjs existed do not all pass it — 2026-08-23 and
       # 2026-08-24 have real violations, and published editions are not
