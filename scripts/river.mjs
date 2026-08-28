@@ -108,7 +108,13 @@ export const LIMITS = {
   itemsMin: 25,
   itemsMax: 40,
   wordsWarn: 1800,
-  wordsFail: 2200
+  wordsFail: 2200,
+  voiceMin: 4,
+  voicePerBeat: 2,
+  videoMin: 1,
+  videoMax: 3,
+  graphicMin: 1,
+  beatWordsBeforeVisual: 400
 };
 
 function preview(item) {
@@ -153,6 +159,25 @@ export function checkRiver(parsed) {
     bad("river", `river is ${total} words (fails above ${LIMITS.wordsFail})`);
   } else if (total > LIMITS.wordsWarn) {
     warn("river", `river is ${total} words (target 1500, warns above ${LIMITS.wordsWarn})`);
+  }
+
+  if (parsed.visuals.voice < LIMITS.voiceMin) {
+    bad("visuals", `${parsed.visuals.voice} voice card(s), EDITORIAL wants at least ${LIMITS.voiceMin}`);
+  }
+  if (parsed.visuals.graphic < LIMITS.graphicMin) {
+    bad("visuals", "no graphic in the edition; EDITORIAL wants at least one");
+  }
+  if (parsed.visuals.video < LIMITS.videoMin || parsed.visuals.video > LIMITS.videoMax) {
+    bad("visuals", `${parsed.visuals.video} video(s), EDITORIAL wants ${LIMITS.videoMin}–${LIMITS.videoMax}`);
+  }
+
+  for (const beat of parsed.beats) {
+    if (beat.voice > LIMITS.voicePerBeat) {
+      bad("visuals", `${beat.name} carries ${beat.voice} voice cards (cap ${LIMITS.voicePerBeat})`);
+    }
+    if (beat.words > LIMITS.beatWordsBeforeVisual && beat.visuals === 0) {
+      bad("visuals", `${beat.name} runs ${beat.words} words with no visual (cap ${LIMITS.beatWordsBeforeVisual})`);
+    }
   }
 
   return { problems, warnings };

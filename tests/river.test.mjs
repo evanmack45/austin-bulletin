@@ -121,3 +121,34 @@ test("fails a river above 2200 words", () => {
   const { problems } = checkRiver(parseRiver(river));
   assert.ok(problems.some((p) => /river is \d+ words/.test(p.message)));
 });
+
+test("fails an edition with fewer than 4 voice cards", () => {
+  const river = riverOf("Schools", [brief(20), '{% voice "a" %}', brief(20)]);
+  const { problems } = checkRiver(parseRiver(river));
+  assert.ok(problems.some((p) => /1 voice card/.test(p.message)));
+});
+
+test("fails a beat carrying more than 2 voice cards", () => {
+  const river = riverOf("Schools", [
+    brief(20), '{% voice "a" %}', '{% voice "b" %}', '{% voice "c" %}'
+  ]);
+  const { problems } = checkRiver(parseRiver(river));
+  assert.ok(problems.some((p) => /Schools carries 3 voice cards/.test(p.message)));
+});
+
+test("fails an edition with no graphic", () => {
+  const { problems } = checkRiver(parseRiver(riverOf("Schools", [brief(20)])));
+  assert.ok(problems.some((p) => /no graphic/.test(p.message)));
+});
+
+test("fails a beat over 400 words with no visual", () => {
+  const river = riverOf("Texas", Array(14).fill(brief(30)));
+  const { problems } = checkRiver(parseRiver(river));
+  assert.ok(problems.some((p) => /Texas runs \d+ words with no visual/.test(p.message)));
+});
+
+test("a beat over 400 words with a visual passes the density rule", () => {
+  const river = riverOf("Texas", [...Array(14).fill(brief(30)), '![chart](/images/x.png)']);
+  const { problems } = checkRiver(parseRiver(river));
+  assert.ok(!problems.some((p) => /runs \d+ words with no visual/.test(p.message)));
+});
