@@ -4,7 +4,8 @@ import { checkAcronyms } from "../scripts/acronyms.mjs";
 
 const DICT = {
   ERCOT: "Electric Reliability Council of Texas",
-  ISD: "Independent School District"
+  ISD: "Independent School District",
+  AISD: "Austin Independent School District"
 };
 
 test("fails an initialism used with no expansion", () => {
@@ -87,4 +88,48 @@ test("flags an initialism whose expansion arrives ~500 characters later as not e
   const text = `ERCOT expects enough to go around. ${filler} Electric Reliability Council of Texas.`;
   const { problems } = checkAcronyms(text, DICT);
   assert.ok(problems.some((p) => /ERCOT/.test(p.message)));
+});
+
+// --- Additional coverage: word-boundary fix (fix round 2). The problems
+// loop used to do a raw substring search, so "AISD" would falsely trip the
+// "ISD" dictionary entry (indexOf finds "ISD" inside "AISD") and report a
+// token the writer never wrote. It must now be word-boundary aware, matching
+// the warnings loop's \b[A-Z]{2,5}\b behavior.
+test("does not raise an ISD problem when the text only contains AISD", () => {
+  const text = "AISD said campuses would stay closed through Friday for storm cleanup across every affected building.";
+  const { problems } = checkAcronyms(text, DICT);
+  assert.ok(!problems.some((p) => p.message.includes('"ISD" is used')));
+});
+
+test("raises an ISD problem for a standalone \"Austin ISD\" token", () => {
+  const text = "Austin ISD said campuses would reopen Monday after storm cleanup finished ahead of schedule.";
+  const { problems } = checkAcronyms(text, DICT);
+  assert.ok(problems.some((p) => p.message.includes('"ISD" is used')));
+});
+
+test("passes when AISD's own expansion sits beside it", () => {
+  const text = "The Austin Independent School District (AISD) said campuses would reopen Monday.";
+  const { problems } = checkAcronyms(text, DICT);
+  assert.equal(problems.length, 0);
+});
+
+test("still finds ESD as a standalone token", () => {
+  const dict = { ESD: "Emergency Services District" };
+  const { problems } = checkAcronyms("ESD 5 responded to the call.", dict);
+  assert.ok(problems.some((p) => p.message.includes('"ESD" is used')));
+});
+
+test("still finds mixed-case dictionary keys like MoPac and TxDOT", () => {
+  const dict = { MoPac: "Loop 1", TxDOT: "Texas Department of Transportation" };
+  const { problems } = checkAcronyms("MoPac and TxDOT crews cleared the debris.", dict);
+  assert.ok(problems.some((p) => p.message.includes('"MoPac" is used')));
+  assert.ok(problems.some((p) => p.message.includes('"TxDOT" is used')));
+});
+
+// --- Additional coverage: IGNORE list expansion (fix round 2). Texas road
+// designators are not the local jargon this check exists to catch.
+test("does not warn on Texas road designators", () => {
+  const text = "Drivers used SH 130, FM 1626, and CR 280 to avoid the closure.";
+  const { warnings } = checkAcronyms(text, DICT);
+  assert.equal(warnings.length, 0);
 });

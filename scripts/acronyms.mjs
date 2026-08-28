@@ -11,7 +11,11 @@ const IGNORE = new Set([
   "US", "USA", "TV", "AI", "CEO", "CFO", "ID", "AM", "PM", "CT", "UT", "HVAC",
   "OK", "II", "III", "IV", "SUV", "DNA", "FBI", "NASA", "HUD", "DPS", "EMS",
   "KXAN", "KUT", "KVUE", "CBS", "FOX", "NBC", "ABC", "NPR", "NWS", "PGA",
-  "SXSW", "ACL", "AT", "AP", "DA", "PD", "HOA", "RSS"
+  "SXSW", "ACL", "AT", "AP", "DA", "PD", "HOA", "RSS",
+  // Texas road designators — not local jargon, just how routes are named.
+  "SH", "FM", "CR", "RM",
+  // Nationally understood terms; not the local jargon this check exists for.
+  "ICE", "FEMA", "DHS", "SNAP", "CHIP", "STEM", "NFL", "NOAA", "LGBTQ", "GED"
 ]);
 
 function stripAttribution(text) {
@@ -21,14 +25,22 @@ function stripAttribution(text) {
     .replace(/<p class="source-line">[\s\S]*?<\/p>/g, " ");
 }
 
+function escapeRegExp(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 export function checkAcronyms(text, dict) {
   const problems = [];
   const warnings = [];
   const body = stripAttribution(text);
 
   for (const [short, expansion] of Object.entries(dict)) {
-    const at = body.indexOf(short);
-    if (at === -1) continue;
+    // Word-boundary aware, consistent with the warnings scan below — a raw
+    // substring search would let "ISD" match inside "AISD" and fail the
+    // wrong token (the writer never wrote a bare "ISD").
+    const match = new RegExp(`\\b${escapeRegExp(short)}\\b`).exec(body);
+    if (!match) continue;
+    const at = match.index;
     // Spec 3.3: an initialism is expanded on its FIRST USE anywhere in the
     // edition — the Big Story counts, so the River need not repeat it. The
     // expansion may appear anywhere before first use (no left bound), or
