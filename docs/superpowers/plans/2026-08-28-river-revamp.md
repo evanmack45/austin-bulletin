@@ -1052,7 +1052,14 @@ Place the day's Voice cards as you go — at least four, no more than two in any
 one beat, spread so no beat runs 400 words without one. Add at least one
 graphic (`npm run graphic`) and one to three videos (`npm run video`).
 
-Expand every initialism on first use. Run `npm run check -- <date>` before
+Expand every initialism on first use. **This includes the recurring ritual
+lines**: the Countdown names the stadium, so its first use is "Darrell K
+Royal-Texas Memorial Stadium (DKR)", not a bare "DKR". A fixed template line
+that ships unexpanded fails the gate every single morning, so the ritual
+templates carry their expansions. Same for road nicknames in any beat: first
+use is "MoPac (Loop 1)".
+
+Run `npm run check -- <date>` before
 publishing; it fails on item length, lead counts, visual minimums, and
 unexpanded initialisms, and warns on unknown all-caps tokens. Warnings are
 triaged, not ignored: an unknown token is either expanded in the copy or added
