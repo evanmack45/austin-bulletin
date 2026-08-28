@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { parseRiver } from "../scripts/river.mjs";
+import { parseRiver, checkRiver, BEATS } from "../scripts/river.mjs";
 
 const SAMPLE = `
 #### Roads & transit
@@ -52,4 +52,49 @@ test("counts visuals globally and per beat", () => {
 test("excludes the trailing sources line from items", () => {
   const p = parseRiver(SAMPLE + '\n<p class="source-line">KXAN · CBS Austin</p>\n');
   assert.equal(p.items.length, 3);
+});
+
+function riverOf(beatName, items) {
+  return `#### ${beatName}\n\n` + items.join("\n\n") + "\n";
+}
+// Exactly n words: (n-1) filler plus the source tag's text, which words() keeps.
+const brief = (n) => Array(n - 1).fill("word").join(" ") + ' <span class="src">KXAN</span>';
+const lead = (title, n) => `##### ${title}\n` + brief(n);
+
+test("fails a brief over 35 words", () => {
+  const { problems } = checkRiver(parseRiver(riverOf("Schools", [brief(36)])));
+  assert.ok(problems.some((p) => /brief is 36 words/.test(p.message)));
+});
+
+test("passes a brief at exactly 35 words", () => {
+  const { problems } = checkRiver(parseRiver(riverOf("Schools", [brief(35)])));
+  assert.ok(!problems.some((p) => /brief is/.test(p.message)));
+});
+
+test("fails a lead outside 40-80 body words", () => {
+  const short = checkRiver(parseRiver(riverOf("Schools", [lead("A", 39)])));
+  const long = checkRiver(parseRiver(riverOf("Schools", [lead("A", 81)])));
+  assert.ok(short.problems.some((p) => /lead is 39 words/.test(p.message)));
+  assert.ok(long.problems.some((p) => /lead is 81 words/.test(p.message)));
+});
+
+test("fails a beat with three leads", () => {
+  const river = riverOf("Schools", [lead("A", 50), lead("B", 50), lead("C", 50)]);
+  const { problems } = checkRiver(parseRiver(river));
+  assert.ok(problems.some((p) => /Schools has 3 leads/.test(p.message)));
+});
+
+test("fails more than 12 leads in an edition", () => {
+  const river = BEATS.slice(0, 7).map((b) => riverOf(b, [lead("A", 50), lead("B", 50)])).join("\n");
+  const { problems } = checkRiver(parseRiver(river));
+  assert.ok(problems.some((p) => /14 leads/.test(p.message)));
+});
+
+test("warns above 1800 river words and fails above 2200", () => {
+  const warnOnly = checkRiver(parseRiver(riverOf("Schools", [brief(30), lead("A", 60)])));
+  assert.equal(warnOnly.problems.filter((p) => /river is/.test(p.message)).length, 0);
+
+  const huge = riverOf("Schools", Array(80).fill(brief(30)));
+  const { problems } = checkRiver(parseRiver(huge));
+  assert.ok(problems.some((p) => /river is \d+ words/.test(p.message)));
 });

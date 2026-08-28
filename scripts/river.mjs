@@ -98,3 +98,62 @@ export function parseRiver(river) {
     visuals
   };
 }
+
+export const LIMITS = {
+  briefMax: 35,
+  leadMin: 40,
+  leadMax: 80,
+  leadsPerBeat: 2,
+  leadsPerEdition: 12,
+  itemsMin: 25,
+  itemsMax: 40,
+  wordsWarn: 1800,
+  wordsFail: 2200
+};
+
+function preview(item) {
+  return words(item.body).slice(0, 60) + "…";
+}
+
+export function checkRiver(parsed) {
+  const problems = [];
+  const warnings = [];
+  const bad = (check, message) => problems.push({ check, message });
+  const warn = (check, message) => warnings.push({ check, message });
+
+  for (const item of parsed.items) {
+    if (item.kind === "brief" && item.words > LIMITS.briefMax) {
+      bad("river", `brief is ${item.words} words (cap ${LIMITS.briefMax}): "${preview(item)}"`);
+    }
+    if (item.kind === "lead" && (item.words < LIMITS.leadMin || item.words > LIMITS.leadMax)) {
+      bad("river", `lead is ${item.words} words, wants ${LIMITS.leadMin}–${LIMITS.leadMax}: "${item.headline}"`);
+    }
+    if (item.kind === "lead" && !item.headline) {
+      bad("river", `lead has an empty headline: "${preview(item)}"`);
+    }
+  }
+
+  for (const beat of parsed.beats) {
+    const leads = beat.items.filter((i) => i.kind === "lead").length;
+    if (leads > LIMITS.leadsPerBeat) {
+      bad("river", `${beat.name} has ${leads} leads (cap ${LIMITS.leadsPerBeat})`);
+    }
+  }
+
+  if (parsed.leads.length > LIMITS.leadsPerEdition) {
+    bad("river", `${parsed.leads.length} leads in the edition (cap ${LIMITS.leadsPerEdition})`);
+  }
+
+  if (parsed.items.length < LIMITS.itemsMin || parsed.items.length > LIMITS.itemsMax) {
+    bad("river", `${parsed.items.length} items, EDITORIAL wants ${LIMITS.itemsMin}–${LIMITS.itemsMax}`);
+  }
+
+  const total = parsed.items.reduce((n, i) => n + i.words, 0);
+  if (total > LIMITS.wordsFail) {
+    bad("river", `river is ${total} words (fails above ${LIMITS.wordsFail})`);
+  } else if (total > LIMITS.wordsWarn) {
+    warn("river", `river is ${total} words (target 1500, warns above ${LIMITS.wordsWarn})`);
+  }
+
+  return { problems, warnings };
+}
