@@ -40,6 +40,10 @@ const BIG_MAX = 700;
 
 const problems = [];
 const warnings = [];
+// Set when a substantive visual_exception is invoked, so the final report
+// can print it prominently — the whole point is that it is auditable in
+// the day's run log.
+let exceptionNotice = null;
 
 function bad(check, message) {
   problems.push({ check, message });
@@ -141,6 +145,11 @@ async function main() {
 
   // --- front matter -------------------------------------------------------
   const fm = section(text, "---\n", "\n---");
+  // Optional escape hatch for the River's visual minimums (EDITORIAL.md
+  // "Voice cards and video"): visual_exception: "<reason>". Narrowly scoped
+  // to the front-matter block itself, not the whole file — reusing the same
+  // `section()` mechanism the rest of front matter parsing already uses.
+  const visualException = fm ? (fm.match(/^visual_exception:\s*"([^"]*)"\s*$/m) || [])[1] : undefined;
   if (!fm) {
     bad("front matter", "could not find front matter");
   } else {
@@ -216,9 +225,12 @@ async function main() {
     }
 
     if (newShape) {
-      const riverFindings = checkRiver(parsed);
+      const riverFindings = checkRiver(parsed, { visualException });
       for (const p of riverFindings.problems) bad(p.check, p.message);
       for (const w of riverFindings.warnings) warn(w.check, w.message);
+      if (riverFindings.exceptionApplied) {
+        exceptionNotice = riverFindings.visualException;
+      }
 
       const language = checkAcronyms(text, ACRONYMS);
       for (const p of language.problems) bad(p.check, p.message);
@@ -333,6 +345,9 @@ async function main() {
   }
 
   // --- report -------------------------------------------------------------
+  if (exceptionNotice) {
+    console.error(`\n  *** VISUAL EXCEPTION invoked for ${date}: "${exceptionNotice}" ***`);
+  }
   for (const w of warnings) console.error(`  warn  [${w.check}] ${w.message}`);
   if (problems.length === 0) {
     console.error(

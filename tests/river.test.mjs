@@ -282,3 +282,54 @@ test("fails an edition with 11 voice cards", () => {
   const { problems } = checkRiver(parseRiver(river));
   assert.ok(problems.some((p) => /11 voice cards \(cap 10\)/.test(p.message)));
 });
+
+// --- visual_exception (publisher's decision: publish with a logged
+// exception when the visual minimums are genuinely unsatisfiable, e.g. a
+// quiet news day with no public posts worth carrying). Only the four
+// supply-shortage rules (voiceMin, graphicMin, videoMin's lower bound,
+// beatWordsBeforeVisual) downgrade to a warning; caps and every other rule
+// stay hard failures no matter what.
+const SUBSTANTIVE_EXCEPTION = "Quiet news day; no public posts worth carrying as cards.";
+
+test("no exception + 0 voice cards fails the voice minimum", () => {
+  const river = riverOf("Schools", [brief(20), '![chart](/images/x.png)', '{% video "a" %}']);
+  const { problems, warnings } = checkRiver(parseRiver(river));
+  assert.ok(problems.some((p) => /0 voice card\(s\) in the River/.test(p.message)));
+  assert.ok(!warnings.some((w) => /0 voice card\(s\) in the River/.test(w.message)));
+});
+
+test("a substantive exception downgrades 0 voice cards to a warning, not a problem", () => {
+  const river = riverOf("Schools", [brief(20), '![chart](/images/x.png)', '{% video "a" %}']);
+  const { problems, warnings } = checkRiver(parseRiver(river), { visualException: SUBSTANTIVE_EXCEPTION });
+  assert.ok(!problems.some((p) => /voice card\(s\) in the River/.test(p.message)));
+  assert.ok(warnings.some((w) => /0 voice card\(s\) in the River/.test(w.message)));
+  assert.ok(warnings.some((w) => w.message.includes(SUBSTANTIVE_EXCEPTION)));
+});
+
+test("a substantive exception does not save too many voice cards in one beat", () => {
+  const river = riverOf("Schools", [
+    brief(20), '{% voice "a" %}', '{% voice "b" %}', '{% voice "c" %}',
+    '![chart](/images/x.png)', '{% video "a" %}'
+  ]);
+  const { problems } = checkRiver(parseRiver(river), { visualException: SUBSTANTIVE_EXCEPTION });
+  assert.ok(problems.some((p) => /Schools carries 3 voice cards/.test(p.message)));
+});
+
+test("a substantive exception does not save an over-length brief", () => {
+  const river = riverOf("Schools", [
+    brief(36), '{% voice "a" %}', '{% voice "b" %}', '{% voice "c" %}', '{% voice "d" %}',
+    '![chart](/images/x.png)', '{% video "a" %}'
+  ]);
+  const { problems } = checkRiver(parseRiver(river), { visualException: SUBSTANTIVE_EXCEPTION });
+  assert.ok(problems.some((p) => /brief is 36 words/.test(p.message)));
+});
+
+test("a too-short exception is itself a problem, not a silent no-op", () => {
+  const river = riverOf("Schools", [brief(20), '![chart](/images/x.png)', '{% video "a" %}']);
+  const { problems, warnings } = checkRiver(parseRiver(river), { visualException: "quiet day" });
+  assert.ok(problems.some((p) => /visual_exception is too short/.test(p.message)));
+  // The minimums still fail normally — a bad exception must not act as a
+  // valid one.
+  assert.ok(problems.some((p) => /0 voice card\(s\) in the River/.test(p.message)));
+  assert.ok(!warnings.some((w) => /voice card\(s\) in the River/.test(w.message)));
+});

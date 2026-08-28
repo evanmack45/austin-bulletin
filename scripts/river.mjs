@@ -124,11 +124,36 @@ function preview(item) {
   return words(item.body).slice(0, 60) + "…";
 }
 
-export function checkRiver(parsed) {
+// A visual_exception is substantive only past this length — a placeholder
+// like "n/a" or "-" must not silently behave like a real, audited reason.
+const EXCEPTION_MIN_CHARS = 20;
+
+export function checkRiver(parsed, { visualException } = {}) {
   const problems = [];
   const warnings = [];
   const bad = (check, message) => problems.push({ check, message });
   const warn = (check, message) => warnings.push({ check, message });
+
+  // A missing/empty exception is simply "no exception" — normal rules apply.
+  // A present-but-short one is its own failure: a half-filled escape hatch
+  // must not quietly behave like no hatch at all.
+  let exceptionOk = false;
+  if (visualException != null && visualException !== "") {
+    if (visualException.trim().length >= EXCEPTION_MIN_CHARS) {
+      exceptionOk = true;
+    } else {
+      bad(
+        "visuals",
+        `visual_exception is too short (${visualException.trim().length} chars, needs ${EXCEPTION_MIN_CHARS}): "${visualException}"`
+      );
+    }
+  }
+  // Only the four supply-shortage rules below downgrade to WARNING when the
+  // exception is substantive. Caps and every non-visual rule are unaffected —
+  // they use `bad` directly, never this helper.
+  const exceptable = exceptionOk
+    ? (check, message) => warn(check, `${message} (visual_exception: ${visualException.trim()})`)
+    : bad;
 
   for (const item of parsed.items) {
     if (item.kind === "brief" && item.words > LIMITS.briefMax) {
@@ -170,15 +195,28 @@ export function checkRiver(parsed) {
   }
 
   if (parsed.visuals.voice < LIMITS.voiceMin) {
-    bad("visuals", `${parsed.visuals.voice} voice card(s) in the River, EDITORIAL wants at least ${LIMITS.voiceMin}`);
+    exceptable(
+      "visuals",
+      `${parsed.visuals.voice} voice card(s) in the River, EDITORIAL wants at least ${LIMITS.voiceMin}`
+    );
   }
+  // voiceMax is a hard failure regardless of any exception — too many
+  // visuals is never a supply shortage.
   if (parsed.visuals.voice > LIMITS.voiceMax) {
     bad("visuals", `${parsed.visuals.voice} voice cards (cap ${LIMITS.voiceMax})`);
   }
   if (parsed.visuals.graphic < LIMITS.graphicMin) {
-    bad("visuals", "no graphic in the River; EDITORIAL wants at least one");
+    exceptable("visuals", "no graphic in the River; EDITORIAL wants at least one");
   }
-  if (parsed.visuals.video < LIMITS.videoMin || parsed.visuals.video > LIMITS.videoMax) {
+  // Only the lower bound (videoMin) is exceptable; the upper bound (videoMax)
+  // is a hard failure, checked separately so an exception cannot reach it.
+  if (parsed.visuals.video < LIMITS.videoMin) {
+    exceptable(
+      "visuals",
+      `${parsed.visuals.video} video(s), EDITORIAL wants ${LIMITS.videoMin}–${LIMITS.videoMax} in the River`
+    );
+  }
+  if (parsed.visuals.video > LIMITS.videoMax) {
     bad(
       "visuals",
       `${parsed.visuals.video} video(s), EDITORIAL wants ${LIMITS.videoMin}–${LIMITS.videoMax} in the River`
@@ -186,13 +224,22 @@ export function checkRiver(parsed) {
   }
 
   for (const beat of parsed.beats) {
+    // voicePerBeat is a hard failure regardless of any exception.
     if (beat.voice > LIMITS.voicePerBeat) {
       bad("visuals", `${beat.name} carries ${beat.voice} voice cards (cap ${LIMITS.voicePerBeat})`);
     }
     if (beat.words > LIMITS.beatWordsBeforeVisual && beat.visuals === 0) {
-      bad("visuals", `${beat.name} runs ${beat.words} words with no visual (cap ${LIMITS.beatWordsBeforeVisual})`);
+      exceptable(
+        "visuals",
+        `${beat.name} runs ${beat.words} words with no visual (cap ${LIMITS.beatWordsBeforeVisual})`
+      );
     }
   }
 
-  return { problems, warnings };
+  return {
+    problems,
+    warnings,
+    exceptionApplied: exceptionOk,
+    visualException: exceptionOk ? visualException.trim() : null
+  };
 }

@@ -140,6 +140,38 @@ time or price we cannot verify is worse than an absent ritual.
   generates the attribution caption from the spec's `source` field, so writing
   the outlets into the subtitle as well prints the same credit twice.
 
+### The visual_exception escape hatch
+
+Every other rule in this gate is within the writer's control — an item can
+always be cut to 35 words, a beat can always be trimmed under 400 words.
+The visual minimums are different: on a genuinely quiet news day there may
+not be four public posts worth carrying as cards. Publisher's ruling: publish
+with a logged exception rather than silently ship no paper.
+
+An edition's front matter may carry `visual_exception: "<reason>"`. When the
+reason is substantive (at least 20 characters of real text — a placeholder
+like "n/a" is rejected as its own failure, not treated as no exception at
+all), it downgrades exactly these four rules from FAILURE to WARNING:
+
+- the voice-card minimum (`voiceMin`, at least 4 cards)
+- the graphic minimum (`graphicMin`, at least 1)
+- the video minimum (`videoMin` — the lower bound only; the 1–3 cap's upper
+  bound is never touched)
+- the per-beat density rule (`beatWordsBeforeVisual`, a visual required past
+  400 words in a beat)
+
+These never bend, exception or not, because too many visuals is never a
+supply shortage: the voice-cards-per-beat cap (`voicePerBeat`), the
+voice-cards-per-edition cap (`voiceMax`), and the videos-per-edition cap
+(`videoMax`). Nothing outside the visual minimums is ever exceptable —
+item lengths, lead counts, item counts, the River word budget, and every
+language rule stay hard failures under all circumstances.
+
+Use this only for genuine scarcity, never to skip the work of finding
+cards. The reason is written into the edition's own front matter and
+`npm run check` prints it prominently, so it lands in that day's run log —
+the exception is meant to be audited after the fact, not hidden.
+
 ## Neutrality rules
 
 1. Report what happened and who said what. Never state whether a policy
@@ -272,7 +304,8 @@ Do not push unless every check passes:
    respected.
 5. The River's leads and briefs meet the lead/brief contract — lengths, and
    lead counts per beat and per edition — and the River meets its visual
-   minimums and caps (Voice cards, graphic, video).
+   minimums and caps (Voice cards, graphic, video), unless a logged
+   `visual_exception` applies (see "The visual_exception escape hatch" above).
 6. Every initialism is expanded on its first use in the edition.
 7. No empty sections; `npm run build` succeeds with no errors.
 8. The full page reads clean top to bottom — no leftover notes, no

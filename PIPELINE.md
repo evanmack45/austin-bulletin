@@ -378,7 +378,21 @@ order, the River's item count against the river-note and its word budget
 Weather section and its `weather` id, the rituals, image files that exist
 with real alt text, the River's visual minimums and caps (Voice cards,
 graphic, video), initialism expansion on first use, and card/video ids not
-already used by an earlier edition. Its link check
+already used by an earlier edition.
+
+On a genuinely quiet news day the visual minimums (at least 4 Voice cards,
+1 graphic, 1 video) can be unsatisfiable rather than merely unmet. If so,
+add `visual_exception: "<real reason>"` to the edition's front matter before
+running the checker — a substantive reason (20+ characters, not a
+placeholder) downgrades those four minimums from FAILURE to WARNING, and
+the checker prints the reason prominently so it lands in this run's log.
+This is for genuine scarcity only: the voice-cards-per-beat cap, the
+voice-cards-per-edition cap, the videos-per-edition cap, and every rule
+outside the visual minimums (item lengths, lead counts, item counts, the
+River word budget, language rules) can never be excepted — see EDITORIAL.md
+"The visual_exception escape hatch."
+
+Its link check
 knows KXAN article pages 403 to every non-browser client and verifies those
 through the WordPress API by slug instead of calling them broken, so a clean
 run means the links are genuinely good. `--no-links` skips the network pass
