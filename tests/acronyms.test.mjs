@@ -199,3 +199,14 @@ test("still fails a bare MUD with no expansion anywhere", () => {
   const { problems } = checkAcronyms(text, dict);
   assert.ok(problems.some((p) => p.message.includes('"MUD" is used')));
 });
+
+// The 2026-08-29 re-issue hit this live: bulletin prose is hard-wrapped, so
+// an expansion can carry a newline mid-phrase ("Electric Reliability\nCouncil
+// of Texas"). The checker must collapse whitespace before matching, or a
+// correctly expanded initialism fails the gate.
+test("passes when the expansion is split across a line wrap", () => {
+  const text =
+    "The Electric Reliability\nCouncil of Texas (ERCOT) expects enough. ERCOT said so again.";
+  const { problems } = checkAcronyms(text, DICT);
+  assert.equal(problems.length, 0);
+});

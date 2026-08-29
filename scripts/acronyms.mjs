@@ -32,7 +32,10 @@ function escapeRegExp(str) {
 export function checkAcronyms(text, dict) {
   const problems = [];
   const warnings = [];
-  const body = stripAttribution(text);
+  // Collapse whitespace before matching: bulletin prose is hard-wrapped, so
+  // an expansion like "Building and Strengthening Tenant Action" can carry a
+  // newline mid-phrase - a literal substring match would call it missing.
+  const body = stripAttribution(text).replace(/\s+/g, " ");
 
   for (const [short, expansion] of Object.entries(dict)) {
     // Word-boundary aware, consistent with the warnings scan below — a raw

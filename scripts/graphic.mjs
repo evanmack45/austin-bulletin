@@ -138,7 +138,12 @@ function renderBarsSvg(spec) {
     const r = Math.min(radius, barW / 2, Math.max(0, bottomY - topY));
     const d = `M ${x} ${bottomY} L ${x} ${topY + r} Q ${x} ${topY} ${x + r} ${topY} L ${x + barW - r} ${topY} Q ${x + barW} ${topY} ${x + barW} ${topY + r} L ${x + barW} ${bottomY} Z`;
     parts.push(`<path d="${d}" fill="${ACCENT}"/>`);
-    parts.push(`<text x="${x + barW / 2}" y="${(topY - 12).toFixed(1)}" font-family='${FONT}' font-size="28" font-weight="700" fill="${INK}" text-anchor="middle">${esc(b.value + unit)}</text>`);
+    // A currency unit reads "$30M", never "30$M": a unit starting with "$"
+    // splits around the value instead of trailing it.
+    const valueLabel = unit.startsWith("$")
+      ? `$${b.value}${unit.slice(1)}`
+      : `${b.value}${unit}`;
+    parts.push(`<text x="${x + barW / 2}" y="${(topY - 12).toFixed(1)}" font-family='${FONT}' font-size="28" font-weight="700" fill="${INK}" text-anchor="middle">${esc(valueLabel)}</text>`);
     parts.push(`<text x="${x + barW / 2}" y="740" font-family='${FONT}' font-size="24" fill="${INK}" text-anchor="middle">${esc(b.label)}</text>`);
   });
 
