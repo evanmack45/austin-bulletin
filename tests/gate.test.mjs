@@ -201,6 +201,77 @@ test("--dir as the final argument fails loudly, not silently against the default
   );
 });
 
+// scripts/graphic.mjs emits a real <img> inside <figure class="graphic">
+// instead of Markdown image syntax (markdown-it does not process Markdown
+// inside a raw HTML block, so the Markdown form rendered as literal text
+// there). These four tests exercise the HTML-<img> half of the image gate
+// added to cover that — a Copilot review comment on PR #4 — alongside the
+// pre-existing Markdown-image half, appending a snippet to a verbatim,
+// already-passing 2026-08-28 fixture so only the appended image can affect
+// the result.
+async function runWithAppendedSnippet(snippet) {
+  let result;
+  await withTempDir(async (tmpDir) => {
+    const body = await readFile(path.join(liveBulletinDir, "2026-08-28.md"), "utf8");
+    await writeFile(path.join(tmpDir, "2026-08-28.md"), `${body}\n\n${snippet}\n`, "utf8");
+    result = await runCheck("2026-08-28", tmpDir);
+  });
+  return result;
+}
+
+test("an HTML <img> pointing at a missing file fails with 'file not found'", async () => {
+  const { code, output } = await runWithAppendedSnippet(
+    '<figure class="graphic"><img src="/images/2026-08-28/DOES-NOT-EXIST.png" ' +
+      'alt="Test chart"></figure>'
+  );
+  assert.notEqual(code, 0, "expected the checker to fail on a missing HTML <img> file");
+  assert.match(
+    output,
+    /file not found: src\/images\/2026-08-28\/DOES-NOT-EXIST\.png/,
+    "expected the missing-file message to name the HTML image's src"
+  );
+});
+
+test("an HTML <img> with empty alt text fails with the empty-alt message", async () => {
+  // alt before src (reversed from the missing-file test above) — attribute
+  // order must not matter — pointing at a file that genuinely exists, so
+  // only the empty alt can be the failure.
+  const { code, output } = await runWithAppendedSnippet(
+    '<figure class="graphic"><img alt="" ' +
+      'src="/images/2026-08-25/aisd-takeover-timeline.png"></figure>'
+  );
+  assert.notEqual(code, 0, "expected the checker to fail on an HTML <img> with empty alt");
+  assert.match(
+    output,
+    /image has empty alt text: \/images\/2026-08-25\/aisd-takeover-timeline\.png/,
+    "expected the empty-alt message to name the HTML image's src"
+  );
+});
+
+test("an HTML <img> with a real file and real alt text passes", async () => {
+  // Single quotes, alt before src, and an HTML-escaped alt (&quot; / &mdash;
+  // — the form scripts/graphic.mjs actually emits) — the checker must treat
+  // an escaped-but-non-empty alt as valid without unescaping it.
+  const { code, output } = await runWithAppendedSnippet(
+    "<figure class=\"graphic\"><img " +
+      "alt='AISD enrollment &mdash; a timeline of &quot;takeover&quot; milestones' " +
+      "src='/images/2026-08-25/aisd-takeover-timeline.png'></figure>"
+  );
+  assert.equal(code, 0, `expected a valid HTML <img> to pass; got: ${output}`);
+});
+
+test("the existing Markdown image check is unaffected by the new HTML <img> check", async () => {
+  const { code, output } = await runWithAppendedSnippet(
+    "![missing](/images/2026-08-28/DOES-NOT-EXIST.png)"
+  );
+  assert.notEqual(code, 0, "expected the checker to still fail a missing Markdown image");
+  assert.match(
+    output,
+    /file not found: src\/images\/2026-08-28\/DOES-NOT-EXIST\.png/,
+    "expected the pre-existing Markdown-image message to still fire"
+  );
+});
+
 test("--dir followed by another flag fails loudly with the same clear message", async () => {
   // The other malformed form: --dir consumes the next flag as its value
   // (e.g. --no-links), which used to produce a confusing "no bulletin at

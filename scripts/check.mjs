@@ -350,6 +350,28 @@ async function main() {
     }
   }
 
+  // Same two checks, but for HTML <img> elements — scripts/graphic.mjs emits
+  // a real <img> inside <figure class="graphic"> rather than Markdown image
+  // syntax, because markdown-it does not process Markdown inside a raw HTML
+  // block (the Markdown form there rendered as literal text, never an
+  // image). Without this, generated graphics were invisible to the image
+  // gate. A targeted attribute regex, not a full HTML parse: src and alt can
+  // appear in either order, with either quote style, alongside other
+  // attributes. Alt text from graphic.mjs is HTML-escaped (&quot; etc.); an
+  // escaped-but-non-empty alt is valid as-is, no unescaping needed.
+  const htmlImgs = [...text.matchAll(/<img\b[^>]*>/gi)];
+  for (const [tag] of htmlImgs) {
+    const srcMatch = tag.match(/\bsrc\s*=\s*(["'])(\/images\/[^"']+)\1/i);
+    if (!srcMatch) continue;
+    const src = srcMatch[2];
+    const altMatch = tag.match(/\balt\s*=\s*(["'])([^"']*)\1/i);
+    const alt = altMatch ? altMatch[2] : "";
+    if (!alt.trim()) bad("images", `image has empty alt text: ${src}`);
+    if (!(await exists(path.join(repoRoot, "src", src.replace(/^\//, ""))))) {
+      bad("images", `file not found: src${src}`);
+    }
+  }
+
   // --- leftovers ----------------------------------------------------------
   for (const re of [/\bTODO\b/, /\bTK\b/, /\bLorem ipsum\b/i, /\bXXX\b/, /<<+/]) {
     if (re.test(text)) bad("leftovers", `draft marker found: ${re}`);
