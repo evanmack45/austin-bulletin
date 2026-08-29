@@ -187,3 +187,98 @@ the fix and reran; all 90 tests pass again.
 
 Only `scripts/check.mjs` and `tests/gate.test.mjs` were touched; no
 threshold or rule changed.
+
+## FIX 7 — an ungrouped visual satisfied the visual minimums (follow-up)
+
+Branch: `river-revamp`. Commit: `4d78828` ("fix: fail a visual before the
+first beat heading as ungrouped"). Not pushed; not merged.
+
+A further Copilot review comment on PR #4 pointed at `applyVisual()` in
+`scripts/river.mjs`: it incremented the River-wide visual totals
+(`visuals.voice`/`video`/`graphic`/`image`) even when `current` (the
+active beat) was `null` — i.e. a visual sitting before the River's
+first `####` heading. Reproducing it showed this is worse than a
+counting quirk: stacking all six visuals (4 voice cards + 1 video + 1
+graphic) before the first beat heading, with three beats each under
+400 words (so the per-beat density rule can't catch it either), passed
+`checkRiver` with **zero problems**. Every visual minimum exists solely
+to break up the River's wall of text — the finding that made five of
+seven readers quit the live site — so an interruption-free visual
+defeated their entire purpose.
+
+Copilot's own suggestion (stop counting an ungrouped visual toward the
+totals) was rejected: it would turn four voice cards in the source
+into a confusing `"0 voice card(s) in the River"` failure, with no clue
+what to fix. Instead, `river.mjs` now treats an ungrouped visual
+exactly like an ungrouped item already is:
+
+- `parseRiver` records every visual in a new `visualList` array —
+  `{ kind, beat, id }`, with `beat: current?.name ?? null` — alongside
+  the existing `visuals` count totals (unchanged: a visual still counts
+  toward the aggregate totals whether grouped or not, matching how
+  ungrouped items still count toward `items.length`).
+- A new `visualId()` helper pulls the quoted id out of a
+  `{% voice %}`/`{% video %}` shortcode, or the `src`/path out of an
+  `<img>`/Markdown image, for the failure message.
+- A new `checkVisualBeats()` (called from `checkStructure`, right after
+  `checkItemBeats`) fails every visual with `beat === null`, e.g.
+  `"voice card is outside every beat heading (reddit-abc123)"` or
+  `"graphic is outside every beat heading (/images/2026-08-28/x.png)"`.
+- `applyVisual` was renamed `recordVisual` (not exported, so no
+  signature to preserve) and now takes the raw `block` and `visualList`
+  in addition to its previous parameters.
+
+No threshold changed, and `checkRiver`'s `{ problems, warnings,
+exceptionApplied, visualException }` return shape is unchanged.
+`parseRiver`'s returned object gained one field (`visualList`); no
+existing field's meaning changed.
+
+**Tests added** to `tests/river.test.mjs` (93 total, up from 90):
+- The exact reported reproduction (six visuals before the first beat
+  heading, three sub-400-word beats) now fails with six named
+  problems, one per ungrouped visual — confirmed `parsed.visualList`
+  really does carry `beat: null` for all six before asserting on
+  `checkRiver`'s output, so the test exercises the real shape rather
+  than a stand-in.
+- The same visuals placed correctly inside beats still satisfy every
+  minimum (voice, graphic, video) with no ungrouped failure.
+- A visual inside a beat still counts toward that beat's `visuals`
+  total and (for voice) its `voice` count, and the pre-existing
+  per-beat cap (`voicePerBeat`) and density rule (`beatWordsBeforeVisual`)
+  both still fire exactly as before.
+
+**Mutation-check**: reverted `scripts/river.mjs` only (`git stash push
+-- scripts/river.mjs`) with the new tests left in place. The
+reproduction test failed immediately — not a soft assertion failure
+but a `TypeError: Cannot read properties of undefined (reading
+'filter')`, since `parsed.visualList` doesn't exist without the fix —
+confirming the test genuinely depends on the change. The other two new
+tests (visuals correctly grouped; per-beat counts) passed even
+unmutated, as expected, since they assert behavior that was already
+correct. Restored (`git stash pop`); all 93 tests pass again.
+
+**Verification** (all run in this session):
+- `npm test`: 93/93 pass.
+- `npm run lint`: clean, no output.
+- Direct reproduction script (`parseRiver`/`checkRiver`, not just the
+  test suite) — **before** the fix: `checkRiver problems: 0`. **After**
+  the fix: `checkRiver problems: 6`:
+  ```
+  voice card is outside every beat heading (a)
+  voice card is outside every beat heading (b)
+  voice card is outside every beat heading (c)
+  voice card is outside every beat heading (d)
+  video is outside every beat heading (a)
+  graphic is outside every beat heading (/images/x.png)
+  ```
+- Six-edition parity unchanged: 2026-08-23 FAIL, 2026-08-24 FAIL (both
+  pre-existing), 2026-08-25/26/27/28 PASS (`--no-links`, to avoid an
+  unrelated live-link timeout on 2026-08-28 unrelated to this fix).
+  Confirmed none of the six editions' check output contains "outside
+  every beat heading" for a visual — the fix does not false-positive on
+  real content.
+- `npm run build`: exits 0. `git status --short`: clean after commit.
+  No file under `src/bulletins/` was touched at any point.
+
+Only `scripts/river.mjs` and `tests/river.test.mjs` were touched; no
+threshold or rule changed.
