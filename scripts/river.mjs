@@ -99,12 +99,30 @@ function parseBeatHeading(block) {
 // A visual (voice/video/graphic/image) always counts toward the edition
 // total; only when it falls inside a beat does it also count toward that
 // beat's visuals (and, for voice, that beat's voice count).
-function applyVisual(kind, visuals, current) {
+//
+// Every visual is also recorded in `visualList` with beat: current?.name ??
+// null, exactly like addItem does for items — a visual before any beat
+// heading interrupts nothing, so checkRiver's checkVisualBeats rejects it
+// the same way checkItemBeats rejects an ungrouped item.
+function recordVisual(kind, block, visuals, visualList, current) {
   visuals[kind] += 1;
+  visualList.push({ kind, beat: current?.name ?? null, id: visualId(block) });
   if (current) {
     current.visuals += 1;
     if (kind === "voice") current.voice += 1;
   }
+}
+
+// Pulls a human-identifiable label out of a visual block for failure
+// messages: the quoted id for a `{% voice %}`/`{% video %}` shortcode, or
+// the src/path for an <img>/Markdown image (graphic or bare photo). Returns
+// null when neither pattern matches, so the caller can fall back to naming
+// just the kind.
+function visualId(block) {
+  const shortcode = block.match(/^\{%\s*(?:voice|video)\s+"([^"]+)"/);
+  if (shortcode) return shortcode[1];
+  const img = block.match(/<img\s+[^>]*\bsrc="([^"]+)"/) || block.match(/!\[[^\]]*\]\(([^)]+)\)/);
+  return img ? img[1] : null;
 }
 
 // Blocks that are structural noise, not content: embeds, the trailing
@@ -140,13 +158,14 @@ function finalizeBeats(beats) {
   }
 }
 
-function buildParseResult(beats, items, visuals) {
+function buildParseResult(beats, items, visuals, visualList) {
   return {
     beats,
     items,
     leads: items.filter((i) => i.kind === "lead"),
     briefs: items.filter((i) => i.kind === "brief"),
-    visuals
+    visuals,
+    visualList
   };
 }
 
@@ -159,6 +178,7 @@ export function parseRiver(river) {
   const beats = [];
   const items = [];
   const visuals = { voice: 0, video: 0, graphic: 0, image: 0 };
+  const visualList = [];
   let current = null;
 
   for (const block of blocks) {
@@ -175,7 +195,7 @@ export function parseRiver(river) {
 
     const kind = visualKind(block);
     if (kind) {
-      applyVisual(kind, visuals, current);
+      recordVisual(kind, block, visuals, visualList, current);
       continue;
     }
 
@@ -188,7 +208,7 @@ export function parseRiver(river) {
 
   finalizeBeats(beats);
 
-  return buildParseResult(beats, items, visuals);
+  return buildParseResult(beats, items, visuals, visualList);
 }
 
 export const LIMITS = {
@@ -295,6 +315,31 @@ function checkItemBeats(parsed, bad) {
   }
 }
 
+// Names shown in the failure message for each visual kind (matches the
+// wording checkVoiceBudget/checkGraphicBudget/checkVideoBudget already use).
+const VISUAL_KIND_NAMES = {
+  voice: "voice card",
+  video: "video",
+  graphic: "graphic",
+  image: "image"
+};
+
+// A visual that sits before the first beat heading interrupts nothing, so it
+// cannot satisfy the voice/video/graphic minimums those interruptions exist
+// for (see the visual budget section below). Fails it explicitly, naming its
+// kind and id/src where one was found, rather than silently excluding it
+// from the counts — an author who sees four voice cards in the source but a
+// "0 voice cards" failure has no idea what to fix.
+function checkVisualBeats(parsed, bad) {
+  for (const visual of parsed.visualList) {
+    if (visual.beat === null) {
+      const name = VISUAL_KIND_NAMES[visual.kind] ?? visual.kind;
+      const id = visual.id ? ` (${visual.id})` : "";
+      bad("river", `${name} is outside every beat heading${id}`);
+    }
+  }
+}
+
 // A declared beat with zero items is a navigation destination that jumps
 // to nothing — EDITORIAL.md's "missing beats are omitted, never padded"
 // means a beat heading with nothing under it should not have been written
@@ -370,6 +415,7 @@ function checkItemCount(parsed, bad) {
 function checkStructure(parsed, bad, warn) {
   checkBeatHeadings(parsed, bad);
   checkItemBeats(parsed, bad);
+  checkVisualBeats(parsed, bad);
   checkEmptyBeats(parsed, bad);
   checkItemLengths(parsed, bad);
   checkLeadsPerBeat(parsed, bad);

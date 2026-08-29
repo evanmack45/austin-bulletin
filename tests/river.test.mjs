@@ -528,3 +528,78 @@ test("a genuine sentence is still accepted after the FIX 4 tightening", () => {
   });
   assert.ok(!problems.some((p) => /visual_exception is too short/.test(p.message)));
 });
+
+// --- FIX 5 (round 2 of PR #4, Copilot comment): a visual before the first
+// #### heading was silently excluded from every count instead of being
+// treated as ungrouped — so stacking all six visual minimums before the
+// first beat heading, with beats too short to trip the per-beat density
+// rule, cleared the gate with zero problems. Every visual minimum exists
+// only to break up the River's wall of text; a visual that interrupts
+// nothing must not satisfy them.
+test("six visuals stacked before the first beat heading fail as ungrouped", () => {
+  const beats = ["Schools", "Health", "Texas"]
+    .map((b) => riverOf(b, Array(9).fill(brief(20))))
+    .join("\n");
+  const river =
+    '{% voice "a" %}\n\n{% voice "b" %}\n\n{% voice "c" %}\n\n{% voice "d" %}\n\n' +
+    '{% video "a" %}\n\n' +
+    '<figure class="graphic">\n<img src="/images/x.png" alt="chart">\n' +
+    '<figcaption>Chart: The Austin Bulletin · Source</figcaption>\n</figure>\n\n' +
+    beats;
+
+  const parsed = parseRiver(river);
+  // Every one of the six visuals really did land with beat: null — this is
+  // the exact shape that used to be silently miscounted, not a strawman.
+  assert.equal(parsed.visualList.filter((v) => v.beat === null).length, 6);
+  assert.equal(parsed.visuals.voice, 4);
+  assert.equal(parsed.visuals.video, 1);
+  assert.equal(parsed.visuals.graphic, 1);
+
+  const { problems } = checkRiver(parsed);
+  assert.ok(
+    problems.some((p) => /voice card is outside every beat heading \(a\)/.test(p.message)),
+    "expected a named failure for the ungrouped voice card"
+  );
+  assert.ok(
+    problems.some((p) => /video is outside every beat heading \(a\)/.test(p.message)),
+    "expected a named failure for the ungrouped video"
+  );
+  assert.ok(
+    problems.some(
+      (p) => /graphic is outside every beat heading \(\/images\/x\.png\)/.test(p.message)
+    ),
+    "expected a named failure for the ungrouped graphic"
+  );
+});
+
+test("visuals correctly placed inside beats satisfy the minimums with no ungrouped failure", () => {
+  const river =
+    riverOf("Schools", [
+      brief(20), '{% voice "a" %}', '{% voice "b" %}',
+      '<figure class="graphic">\n<img src="/images/x.png" alt="chart">\n' +
+        '<figcaption>Chart: The Austin Bulletin · Source</figcaption>\n</figure>',
+      '{% video "a" %}'
+    ]) +
+    riverOf("Texas", Array(24).fill(brief(20))
+      .concat(['{% voice "c" %}', '{% voice "d" %}']));
+
+  const { problems } = checkRiver(parseRiver(river));
+  assert.ok(!problems.some((p) => /is outside every beat heading/.test(p.message)));
+  assert.ok(!problems.some((p) => /voice card\(s\) in the River/.test(p.message)));
+  assert.ok(!problems.some((p) => /no graphic/.test(p.message)));
+  assert.ok(!problems.some((p) => /video\(s\), EDITORIAL wants/.test(p.message)));
+});
+
+test("a visual inside a beat still counts toward that beat's visuals and voice totals", () => {
+  const river = riverOf("Schools", [
+    brief(20), '{% voice "a" %}', '{% voice "b" %}', '{% voice "c" %}'
+  ]);
+  const parsed = parseRiver(river);
+  const schools = parsed.beats.find((b) => b.name === "Schools");
+  assert.equal(schools.visuals, 3);
+  assert.equal(schools.voice, 3);
+  // The per-beat cap (voicePerBeat = 2) and the density rule both still fire
+  // exactly as before this fix.
+  const { problems } = checkRiver(parsed);
+  assert.ok(problems.some((p) => /Schools carries 3 voice cards/.test(p.message)));
+});
