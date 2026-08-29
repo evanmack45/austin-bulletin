@@ -83,12 +83,20 @@ test("a post-cutover edition fails under the new rules, not the old ones", async
     // Known to fail the new rules many ways and pass the old ones — see
     // task-5-report.md for the full breakdown at its real date.
     const body = await readFile(path.join(liveBulletinDir, "2026-08-28.md"), "utf8");
-    await writeFile(path.join(tmpDir, `${FIXTURE_DATE}.md`), withSyntheticFrontMatter(body, FIXTURE_DATE), "utf8");
+    await writeFile(
+      path.join(tmpDir, `${FIXTURE_DATE}.md`),
+      withSyntheticFrontMatter(body, FIXTURE_DATE),
+      "utf8"
+    );
 
     const { code, output } = await runCheck(FIXTURE_DATE, tmpDir);
 
     assert.notEqual(code, 0, "expected the checker to fail a post-cutover edition");
-    assert.match(output, /brief is \d+ words \(cap \d+\)/, "expected the new brief-length cap to fire");
+    assert.match(
+      output,
+      /brief is \d+ words \(cap \d+\)/,
+      "expected the new brief-length cap to fire"
+    );
     assert.match(output, /voice card/, "expected the new visual-budget check to fire");
     assert.match(
       output,
@@ -133,7 +141,11 @@ test("the old numeric rules do not leak into a post-cutover edition", async () =
   await withTempDir(async (tmpDir) => {
     const fixtureDate = "2099-01-02";
     const body = await readFile(path.join(liveBulletinDir, "2026-08-24.md"), "utf8");
-    await writeFile(path.join(tmpDir, `${fixtureDate}.md`), withSyntheticFrontMatter(body, fixtureDate), "utf8");
+    await writeFile(
+      path.join(tmpDir, `${fixtureDate}.md`),
+      withSyntheticFrontMatter(body, fixtureDate),
+      "utf8"
+    );
 
     const { output } = await runCheck(fixtureDate, tmpDir);
 
@@ -156,7 +168,8 @@ test("the old numeric rules do not leak into a post-cutover edition", async () =
     assert.equal(
       occurrences.length,
       1,
-      `expected exactly one item-count message (from checkRiver only), got ${occurrences.length}: ${occurrences.join(" | ")}`
+      `expected exactly one item-count message (from checkRiver only), got ` +
+        `${occurrences.length}: ${occurrences.join(" | ")}`
     );
   });
 });

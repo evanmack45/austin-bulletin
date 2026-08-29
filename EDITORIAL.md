@@ -159,13 +159,16 @@ not be four public posts worth carrying as cards. Publisher's ruling: publish
 with a logged exception rather than silently ship no paper.
 
 An edition's front matter may carry `visual_exception: "<reason>"`. When the
-reason is substantive — a real sentence of at least 4 words and 20
-non-whitespace characters — it downgrades exactly these four rules from
-FAILURE to WARNING. A placeholder like "n/a", or a run of punctuation
-padded past the character floor (twenty dots, twenty dashes, a single
-repeated token with no spaces), is rejected as its own failure, not treated
-as no exception at all: it clears the character count without saying
-anything, and the word floor exists specifically to catch that.
+reason is substantive — a real sentence with at least 4 distinct words of
+three or more letters each, and 20 non-whitespace characters — it downgrades
+exactly these four rules from FAILURE to WARNING. A placeholder like "n/a",
+a run of punctuation padded past the character floor (twenty dots, twenty
+dashes), or a handful of short or repeated tokens padding for a word count
+("a a a a ....................", "aaaa aaaa aaaa aaaa", "x y z w
+...................."), is rejected as its own failure, not treated as no
+exception at all: each clears the character count, or the raw token count,
+without actually saying anything, and the distinct-word floor exists
+specifically to catch that.
 
 - the voice-card minimum (`voiceMin`, at least 4 cards)
 - the graphic minimum (`graphicMin`, at least 1)

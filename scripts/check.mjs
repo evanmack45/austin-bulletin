@@ -25,7 +25,7 @@ import { readFile, readdir, access } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { execFile } from "node:child_process";
-import { BEATS, words, wordCount, parseRiver, checkRiver } from "./river.mjs";
+import { BEATS, words, wordCount, parseRiver, checkRiver, BEAT_HEADING_RE } from "./river.mjs";
 import { checkAcronyms } from "./acronyms.mjs";
 
 const UA = "TheAustinBulletin/1.0 (+https://theaustinbulletin.com)";
@@ -207,7 +207,11 @@ async function main() {
   if (!river) {
     bad("river", "no {% river %} block");
   } else {
-    const heads = [...river.matchAll(/^####\s+(.+?)\s*$/gm)].map((m) => m[1]);
+    // Shares river.mjs's own BEAT_HEADING_RE (rather than a second, hand-typed
+    // regex) so this scan and the River parser's heading detection cannot
+    // silently drift apart — see river.mjs's file-header note.
+    const headingRe = new RegExp(BEAT_HEADING_RE.source, "gm");
+    const heads = [...river.matchAll(headingRe)].map((m) => m[1].trim());
     for (const h of heads) {
       if (!BEATS.includes(h)) bad("river", `unknown beat heading "${h}"`);
     }

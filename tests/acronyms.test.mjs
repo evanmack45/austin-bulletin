@@ -14,7 +14,9 @@ test("fails an initialism used with no expansion", () => {
 });
 
 test("passes when the expansion sits beside first use", () => {
-  const text = "The Electric Reliability Council of Texas (ERCOT) expects enough. ERCOT said so again.";
+  const text =
+    "The Electric Reliability Council of Texas (ERCOT) expects enough. ERCOT said so " +
+    "again.";
   const { problems } = checkAcronyms(text, DICT);
   assert.equal(problems.length, 0);
 });
@@ -74,7 +76,9 @@ test("strips source-line paragraphs before warning on unknown tokens", () => {
 // must NOT be flagged.
 test("does not flag an initialism whose expansion appeared ~500 characters earlier", () => {
   const filler = "x".repeat(500);
-  const text = `The Electric Reliability Council of Texas said reserves were adequate. ${filler} ERCOT expects enough to go around.`;
+  const text =
+    `The Electric Reliability Council of Texas said reserves were adequate. ${filler} ` +
+    `ERCOT expects enough to go around.`;
   const { problems } = checkAcronyms(text, DICT);
   assert.equal(problems.length, 0);
 });
@@ -83,9 +87,11 @@ test("does not flag an initialism whose expansion appeared ~500 characters earli
 // right that an expansion appearing much later in the document satisfies
 // "first use." (This also pins the 140-character right bound: widening it
 // to something like 10000 would let this pass incorrectly.)
-test("flags an initialism whose expansion arrives ~500 characters later as not expanded on first use", () => {
+test("flags an initialism whose expansion arrives ~500 chars later as not expanded first", () => {
   const filler = "x".repeat(500);
-  const text = `ERCOT expects enough to go around. ${filler} Electric Reliability Council of Texas.`;
+  const text =
+    `ERCOT expects enough to go around. ${filler} Electric Reliability Council of ` +
+    `Texas.`;
   const { problems } = checkAcronyms(text, DICT);
   assert.ok(problems.some((p) => /ERCOT/.test(p.message)));
 });
@@ -96,13 +102,17 @@ test("flags an initialism whose expansion arrives ~500 characters later as not e
 // token the writer never wrote. It must now be word-boundary aware, matching
 // the warnings loop's \b[A-Z]{2,5}\b behavior.
 test("does not raise an ISD problem when the text only contains AISD", () => {
-  const text = "AISD said campuses would stay closed through Friday for storm cleanup across every affected building.";
+  const text =
+    "AISD said campuses would stay closed through Friday for storm cleanup across " +
+    "every affected building.";
   const { problems } = checkAcronyms(text, DICT);
   assert.ok(!problems.some((p) => p.message.includes('"ISD" is used')));
 });
 
 test("raises an ISD problem for a standalone \"Austin ISD\" token", () => {
-  const text = "Austin ISD said campuses would reopen Monday after storm cleanup finished ahead of schedule.";
+  const text =
+    "Austin ISD said campuses would reopen Monday after storm cleanup finished ahead " +
+    "of schedule.";
   const { problems } = checkAcronyms(text, DICT);
   assert.ok(problems.some((p) => p.message.includes('"ISD" is used')));
 });
@@ -158,21 +168,27 @@ test("passes when a mixed-case dictionary key like Flock is expanded beside firs
 // less-idiomatic form passed — backwards from what the rule should reward.
 test("passes the title-case journalistic form 'Municipal Utility District (MUD)'", () => {
   const dict = { MUD: "municipal utility district" };
-  const text = "Voters approved the Municipal Utility District (MUD) bond Tuesday night by a wide margin.";
+  const text =
+    "Voters approved the Municipal Utility District (MUD) bond Tuesday night by a " +
+    "wide margin.";
   const { problems } = checkAcronyms(text, dict);
   assert.ok(!problems.some((p) => p.message.includes('"MUD" is used')));
 });
 
 test("passes the lowercase dictionary-exact form 'municipal utility district (MUD)'", () => {
   const dict = { MUD: "municipal utility district" };
-  const text = "Voters approved the municipal utility district (MUD) bond Tuesday night by a wide margin.";
+  const text =
+    "Voters approved the municipal utility district (MUD) bond Tuesday night by a " +
+    "wide margin.";
   const { problems } = checkAcronyms(text, dict);
   assert.ok(!problems.some((p) => p.message.includes('"MUD" is used')));
 });
 
 test("passes the all-caps form 'MUNICIPAL UTILITY DISTRICT (MUD)'", () => {
   const dict = { MUD: "municipal utility district" };
-  const text = "Voters approved the MUNICIPAL UTILITY DISTRICT (MUD) bond Tuesday night by a wide margin.";
+  const text =
+    "Voters approved the MUNICIPAL UTILITY DISTRICT (MUD) bond Tuesday night by a " +
+    "wide margin.";
   const { problems } = checkAcronyms(text, dict);
   assert.ok(!problems.some((p) => p.message.includes('"MUD" is used')));
 });

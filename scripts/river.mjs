@@ -11,8 +11,18 @@
 // that state, so a River that clears the gate never has a null beat — the
 // type is nullable in the data, not in anything that gets published.
 //
-// Careful: `startsWith("####")` is true for "#####" as well. Lead detection
-// must be tested before beat detection, or every lead is read as a beat.
+// Heading detection uses exact CommonMark ATX-heading grammar (#### or
+// ##### followed by REQUIRED whitespace), never a bare startsWith:
+// "####Schools" (no space) is not a heading to markdown-it either, so a
+// startsWith match would silently create a beat/lead here that never
+// actually renders as a heading on the built page — its items would look
+// grouped in this parser while the reader sees no heading and no beat nav
+// destination at all. scripts/check.mjs scans the same grammar (imported
+// from here, not re-typed) so the gate and the parser cannot drift apart.
+// Careful: lead detection (#####) must still be tested before beat
+// detection (####), since a five-# line also starts with four #s.
+export const BEAT_HEADING_RE = /^####\s+(.+)$/;
+export const LEAD_HEADING_RE = /^#####\s+(.+)$/;
 
 export const BEATS = [
   "Roads & transit",
@@ -59,23 +69,31 @@ function visualKind(block) {
 // must be tested before a beat heading ("####"), because "#####".startsWith
 // ("####") is true — see the file-header note.
 
+// Only the block's own first line can be a heading; a lead's body lines
+// (or any other trailing content) must not accidentally match the grammar.
+function firstLine(block) {
+  const idx = block.indexOf("\n");
+  return idx === -1 ? block : block.slice(0, idx);
+}
+
 function isLeadBlock(block) {
-  return block.startsWith("#####");
+  return LEAD_HEADING_RE.test(firstLine(block));
 }
 
 function parseLeadBlock(block, current) {
   const [head, ...rest] = block.split("\n");
-  const headline = head.replace(/^#####\s*/, "").trim();
+  const headline = head.match(LEAD_HEADING_RE)[1].trim();
   const body = rest.join("\n").trim();
   return { kind: "lead", headline, body, words: wordCount(body), beat: current?.name ?? null };
 }
 
 function isBeatHeading(block) {
-  return block.startsWith("####");
+  return BEAT_HEADING_RE.test(firstLine(block));
 }
 
 function parseBeatHeading(block) {
-  return { name: block.replace(/^####\s*/, "").trim(), items: [], visuals: 0, voice: 0, words: 0 };
+  const name = firstLine(block).match(BEAT_HEADING_RE)[1].trim();
+  return { name, items: [], visuals: 0, voice: 0, words: 0 };
 }
 
 // A visual (voice/video/graphic/image) always counts toward the edition
@@ -100,7 +118,13 @@ function isSkippableBlock(block) {
 }
 
 function parseBriefBlock(block, current) {
-  return { kind: "brief", headline: null, body: block, words: wordCount(block), beat: current?.name ?? null };
+  return {
+    kind: "brief",
+    headline: null,
+    body: block,
+    words: wordCount(block),
+    beat: current?.name ?? null
+  };
 }
 
 // An item before any beat heading still gets recorded (with beat: null) so
@@ -193,13 +217,16 @@ function preview(item) {
 }
 
 // A visual_exception is substantive only past this floor of non-whitespace
-// characters AND this floor of real words — a placeholder like "n/a" fails
-// on both; a run of punctuation like "...................." (20 dots) or
-// "aaaaaaaaaaaaaaaaaaaa" (one repeated token, no spaces) can clear the
-// character floor alone, so the word floor is what actually requires a
-// sentence rather than noise.
+// characters AND this floor of distinct, meaningful word-like tokens. A
+// meaningful token is 3+ letters (case-insensitive dedup) — this rules out
+// short filler ("a", "no", "as"), pure punctuation ("...................."),
+// and a single token merely repeated to pad the count ("aaaa aaaa aaaa
+// aaaa" is one reason restated four times, not four reasons; "a a a a
+// ...................." has four tokens but every one is a single letter,
+// so none qualify). Only a real sentence clears both floors together.
 const EXCEPTION_MIN_CHARS = 20;
-const EXCEPTION_MIN_WORDS = 4;
+const EXCEPTION_MIN_DISTINCT_WORDS = 4;
+const WORD_TOKEN_RE = /^[A-Za-z]{3,}$/;
 
 // Counts real content, not whitespace — `.trim()` alone only strips the
 // ends, so "x" + 18 spaces + "y" would pass a plain length check at 20
@@ -208,17 +235,23 @@ function substantiveChars(s) {
   return s.replace(/\s+/g, "").length;
 }
 
-// Counts whitespace-separated tokens that contain at least one letter or
-// digit — "....................", "--------------------", and other
-// punctuation-only reasons contain zero such tokens no matter how long they
-// are, and a single repeated token like "aaaaaaaaaaaaaaaaaaaa" contains only
-// one, well short of a real sentence.
+// Counts DISTINCT word-like tokens (3+ letters, case-insensitive). See the
+// EXCEPTION_MIN_CHARS/EXCEPTION_MIN_DISTINCT_WORDS comment above for why
+// both distinctness and a minimum token length are required, not just an
+// alphanumeric-content check.
 function substantiveWords(s) {
-  return s.split(/\s+/).filter((w) => /[A-Za-z0-9]/.test(w)).length;
+  const seen = new Set();
+  for (const token of s.split(/\s+/)) {
+    if (WORD_TOKEN_RE.test(token)) seen.add(token.toLowerCase());
+  }
+  return seen.size;
 }
 
 function isSubstantiveException(s) {
-  return substantiveChars(s) >= EXCEPTION_MIN_CHARS && substantiveWords(s) >= EXCEPTION_MIN_WORDS;
+  return (
+    substantiveChars(s) >= EXCEPTION_MIN_CHARS &&
+    substantiveWords(s) >= EXCEPTION_MIN_DISTINCT_WORDS
+  );
 }
 
 // A missing/empty exception is simply "no exception" — normal rules apply.
@@ -233,9 +266,10 @@ function resolveVisualException(visualException, bad) {
     } else {
       bad(
         "visuals",
-        `visual_exception is too short (${substantiveWords(visualException)} word(s), ` +
-          `${substantiveChars(visualException)} non-whitespace chars — needs at least ` +
-          `${EXCEPTION_MIN_WORDS} words and ${EXCEPTION_MIN_CHARS} chars): "${visualException}"`
+        `visual_exception is too short (${substantiveWords(visualException)} distinct word(s) ` +
+          `of 3+ letters, ${substantiveChars(visualException)} non-whitespace chars — needs ` +
+          `at least ${EXCEPTION_MIN_DISTINCT_WORDS} distinct words and ${EXCEPTION_MIN_CHARS} ` +
+          `chars): "${visualException}"`
       );
     }
   }
@@ -246,7 +280,10 @@ function resolveVisualException(visualException, bad) {
 
 function checkBeatHeadings(parsed, bad) {
   if (parsed.beats.length === 0) {
-    bad("river", "no beat headings in the River; EDITORIAL requires every item grouped under a recognised beat");
+    bad(
+      "river",
+      "no beat headings in the River; EDITORIAL requires every item grouped under a recognised beat"
+    );
   }
 }
 
@@ -254,6 +291,22 @@ function checkItemBeats(parsed, bad) {
   for (const item of parsed.items) {
     if (item.beat === null) {
       bad("river", `item is outside every beat heading: "${preview(item)}"`);
+    }
+  }
+}
+
+// A declared beat with zero items is a navigation destination that jumps
+// to nothing — EDITORIAL.md's "missing beats are omitted, never padded"
+// means a beat heading with nothing under it should not have been written
+// at all.
+function checkEmptyBeats(parsed, bad) {
+  for (const beat of parsed.beats) {
+    if (beat.items.length === 0) {
+      bad(
+        "river",
+        `${beat.name} is a declared beat with zero items; EDITORIAL says missing beats are ` +
+          "omitted, never padded"
+      );
     }
   }
 }
@@ -267,7 +320,10 @@ function checkBriefLength(item, bad) {
 function checkLeadShape(item, bad) {
   if (item.kind !== "lead") return;
   if (item.words < LIMITS.leadMin || item.words > LIMITS.leadMax) {
-    bad("river", `lead is ${item.words} words, wants ${LIMITS.leadMin}–${LIMITS.leadMax}: "${item.headline}"`);
+    bad(
+      "river",
+      `lead is ${item.words} words, wants ${LIMITS.leadMin}–${LIMITS.leadMax}: "${item.headline}"`
+    );
   }
   if (!item.headline) {
     bad("river", `lead has an empty headline: "${preview(item)}"`);
@@ -296,20 +352,25 @@ function checkLeadsPerEdition(parsed, bad, warn) {
   } else if (parsed.leads.length < LIMITS.leadsWarnBelow) {
     warn(
       "river",
-      `${parsed.leads.length} lead(s) in the River (EDITORIAL warns below ${LIMITS.leadsWarnBelow}; the impact test may legitimately find nothing)`
+      `${parsed.leads.length} lead(s) in the River (EDITORIAL warns below ` +
+        `${LIMITS.leadsWarnBelow}; the impact test may legitimately find nothing)`
     );
   }
 }
 
 function checkItemCount(parsed, bad) {
   if (parsed.items.length < LIMITS.itemsMin || parsed.items.length > LIMITS.itemsMax) {
-    bad("river", `${parsed.items.length} items, EDITORIAL wants ${LIMITS.itemsMin}–${LIMITS.itemsMax}`);
+    bad(
+      "river",
+      `${parsed.items.length} items, EDITORIAL wants ${LIMITS.itemsMin}–${LIMITS.itemsMax}`
+    );
   }
 }
 
 function checkStructure(parsed, bad, warn) {
   checkBeatHeadings(parsed, bad);
   checkItemBeats(parsed, bad);
+  checkEmptyBeats(parsed, bad);
   checkItemLengths(parsed, bad);
   checkLeadsPerBeat(parsed, bad);
   checkLeadsPerEdition(parsed, bad, warn);
@@ -323,7 +384,10 @@ function checkWordBudget(parsed, bad, warn) {
   if (total > LIMITS.wordsFail) {
     bad("river", `river is ${total} words (fails above ${LIMITS.wordsFail})`);
   } else if (total > LIMITS.wordsWarn) {
-    warn("river", `river is ${total} words (target ${LIMITS.wordsTarget}, warns above ${LIMITS.wordsWarn})`);
+    warn(
+      "river",
+      `river is ${total} words (target ${LIMITS.wordsTarget}, warns above ${LIMITS.wordsWarn})`
+    );
   }
 }
 
@@ -337,7 +401,8 @@ function checkVoiceBudget(parsed, exceptable, bad) {
   if (parsed.visuals.voice < LIMITS.voiceMin) {
     exceptable(
       "visuals",
-      `${parsed.visuals.voice} voice card(s) in the River, EDITORIAL wants at least ${LIMITS.voiceMin}`
+      `${parsed.visuals.voice} voice card(s) in the River, EDITORIAL wants at least ` +
+        `${LIMITS.voiceMin}`
     );
   }
   // voiceMax is a hard failure regardless of any exception — too many
@@ -357,17 +422,14 @@ function checkVideoBudget(parsed, exceptable, bad) {
   // Only the lower bound (videoMin) is exceptable; the upper bound
   // (videoMax) is a hard failure, checked separately so an exception cannot
   // reach it.
+  const videoMessage =
+    `${parsed.visuals.video} video(s), EDITORIAL wants ${LIMITS.videoMin}–${LIMITS.videoMax} ` +
+    "in the River";
   if (parsed.visuals.video < LIMITS.videoMin) {
-    exceptable(
-      "visuals",
-      `${parsed.visuals.video} video(s), EDITORIAL wants ${LIMITS.videoMin}–${LIMITS.videoMax} in the River`
-    );
+    exceptable("visuals", videoMessage);
   }
   if (parsed.visuals.video > LIMITS.videoMax) {
-    bad(
-      "visuals",
-      `${parsed.visuals.video} video(s), EDITORIAL wants ${LIMITS.videoMin}–${LIMITS.videoMax} in the River`
-    );
+    bad("visuals", videoMessage);
   }
 }
 

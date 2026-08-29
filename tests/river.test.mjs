@@ -6,15 +6,18 @@ const SAMPLE = `
 #### Roads & transit
 
 ##### Council moves to ban the largest data centers
-Austin City Council voted unanimously Thursday to speed up work on rules for data centers, directing staff to return by December. <span class="src">KXAN</span>
+Austin City Council voted unanimously Thursday to speed up work on rules for data
+centers, directing staff to return by December. <span class="src">KXAN</span>
 
-Bee Cave council rejected microtrenching for fiber Aug. 25. <span class="src">Community Impact</span>
+Bee Cave council rejected microtrenching for fiber
+Aug. 25. <span class="src">Community Impact</span>
 
 {% voice "reddit-abc123" %}
 
 #### Schools
 
-McCallum High School asked families to donate fans after air conditioning failed. <span class="src">CBS Austin</span>
+McCallum High School asked families to donate fans after air
+conditioning failed. <span class="src">CBS Austin</span>
 `;
 
 test("separates leads from briefs", () => {
@@ -203,7 +206,8 @@ test("passes a beat with exactly 2 voice cards", () => {
 test("passes an edition with exactly 1 graphic", () => {
   const river = riverOf("Schools", [
     brief(20),
-    '<figure class="graphic">\n![chart](/images/x.png)\n<figcaption>Chart: The Austin Bulletin · Source</figcaption>\n</figure>'
+    '<figure class="graphic">\n![chart](/images/x.png)\n<figcaption>Chart: The Austin ' +
+      'Bulletin · Source</figcaption>\n</figure>'
   ]);
   const { problems } = checkRiver(parseRiver(river));
   assert.ok(!problems.some((p) => /no graphic/.test(p.message)));
@@ -221,7 +225,10 @@ test("a bare photo does not satisfy the graphic minimum", () => {
 });
 
 test("a plain <figure> without class=\"graphic\" does not satisfy the graphic minimum", () => {
-  const river = riverOf("Schools", [brief(20), '<figure>\n![a wire photo](/images/x.png)\n</figure>']);
+  const river = riverOf("Schools", [
+    brief(20),
+    '<figure>\n![a wire photo](/images/x.png)\n</figure>'
+  ]);
   const { problems } = checkRiver(parseRiver(river));
   assert.ok(problems.some((p) => /no graphic/.test(p.message)));
 });
@@ -320,7 +327,9 @@ test("no exception + 0 voice cards fails the voice minimum", () => {
 
 test("a substantive exception downgrades 0 voice cards to a warning, not a problem", () => {
   const river = riverOf("Schools", [brief(20), '![chart](/images/x.png)', '{% video "a" %}']);
-  const { problems, warnings } = checkRiver(parseRiver(river), { visualException: SUBSTANTIVE_EXCEPTION });
+  const { problems, warnings } = checkRiver(parseRiver(river), {
+    visualException: SUBSTANTIVE_EXCEPTION
+  });
   assert.ok(!problems.some((p) => /voice card\(s\) in the River/.test(p.message)));
   assert.ok(warnings.some((w) => /0 voice card\(s\) in the River/.test(w.message)));
   assert.ok(warnings.some((w) => w.message.includes(SUBSTANTIVE_EXCEPTION)));
@@ -368,7 +377,9 @@ test("a sparse reason padded to 20 characters with whitespace is rejected", () =
 
 test("a genuine 20+ character sentence is accepted", () => {
   const river = riverOf("Schools", [brief(20), '![chart](/images/x.png)', '{% video "a" %}']);
-  const { problems, warnings } = checkRiver(parseRiver(river), { visualException: SUBSTANTIVE_EXCEPTION });
+  const { problems, warnings } = checkRiver(parseRiver(river), {
+    visualException: SUBSTANTIVE_EXCEPTION
+  });
   assert.ok(!problems.some((p) => /visual_exception is too short/.test(p.message)));
   assert.ok(warnings.some((w) => /0 voice card\(s\) in the River/.test(w.message)));
 });
@@ -407,7 +418,8 @@ test("an ungrouped River (no beat headings at all) fails", () => {
   const items = Array.from({ length: 25 }, (_, i) => brief(20));
   const river =
     items.join("\n\n") +
-    '\n\n<figure class="graphic">\n![chart](/images/x.png)\n<figcaption>Chart: The Austin Bulletin · Source</figcaption>\n</figure>\n\n' +
+    '\n\n<figure class="graphic">\n![chart](/images/x.png)\n<figcaption>Chart: The Austin ' +
+      'Bulletin · Source</figcaption>\n</figure>\n\n' +
     '{% voice "a" %}\n\n{% voice "b" %}\n\n{% voice "c" %}\n\n{% voice "d" %}\n\n{% video "a" %}\n';
   const parsed = parseRiver(river);
   assert.equal(parsed.beats.length, 0);
@@ -430,4 +442,89 @@ test("an item appearing before the first #### heading fails", () => {
   assert.equal(parsed.items[1].beat, "Schools");
   const { problems } = checkRiver(parsed);
   assert.ok(problems.some((p) => /item is outside every beat heading/.test(p.message)));
+});
+
+// --- FIX 2 (round 2): a heading needs a real space after the #s.
+// startsWith("####") matched "####Schools" too, even though markdown-it (and
+// every CommonMark renderer) requires whitespace before it counts as a
+// heading at all — so the built page would show no heading and no beat-nav
+// destination while this parser happily called it a "Schools" beat.
+test("#### Schools with the required space is recognised as a beat", () => {
+  const parsed = parseRiver(riverOf("Schools", [brief(20)]));
+  assert.equal(parsed.beats.length, 1);
+  assert.equal(parsed.beats[0].name, "Schools");
+});
+
+test("####Schools with no space is not a beat, and its items fail as ungrouped", () => {
+  const river = `####Schools\n\n${brief(20)}\n\n${brief(20)}\n`;
+  const parsed = parseRiver(river);
+  assert.equal(parsed.beats.length, 0);
+  assert.ok(parsed.items.every((i) => i.beat === null));
+  const { problems } = checkRiver(parsed);
+  assert.ok(
+    problems.some((p) => /item is outside every beat heading/.test(p.message)),
+    "expected a comprehensible failure naming the ungrouped items"
+  );
+});
+
+test("#####Lead with no space is not recognised as a lead", () => {
+  const river = riverOf("Schools", [`#####Lead\n${brief(20)}`]);
+  const parsed = parseRiver(river);
+  assert.equal(parsed.leads.length, 0);
+});
+
+// --- FIX 3 (round 2): a declared beat with zero items must fail.
+// EDITORIAL.md says missing beats are omitted, never padded — an empty
+// beat heading is a beat-nav destination that jumps to nothing.
+test("a declared beat with zero items fails", () => {
+  const river = riverOf("Roads & transit", []) + riverOf("Schools", Array(25).fill(brief(20)));
+  const { problems } = checkRiver(parseRiver(river));
+  assert.ok(
+    problems.some((p) => /Roads & transit is a declared beat with zero items/.test(p.message))
+  );
+});
+
+test("a declared beat with at least one item passes the empty-beat check", () => {
+  const river =
+    riverOf("Roads & transit", [brief(20)]) + riverOf("Schools", Array(24).fill(brief(20)));
+  const { problems } = checkRiver(parseRiver(river));
+  assert.ok(!problems.some((p) => /declared beat with zero items/.test(p.message)));
+});
+
+// --- FIX 4 (round 2): the visual_exception floor previously accepted any
+// four whitespace-separated tokens that merely contained a letter or digit,
+// so "a a a a ...................." (four one-letter tokens plus padding
+// dots) cleared both the word and character floors. It now requires
+// distinct, meaningful (3+ letter) word tokens, so short filler and a
+// single token repeated for padding no longer count as four reasons.
+test("'a a a a ....................' is rejected despite four alnum-ish tokens", () => {
+  const river = riverOf("Schools", [brief(20), '![chart](/images/x.png)', '{% video "a" %}']);
+  const { problems } = checkRiver(parseRiver(river), {
+    visualException: "a a a a ...................."
+  });
+  assert.ok(problems.some((p) => /visual_exception is too short/.test(p.message)));
+});
+
+test("'aaaa aaaa aaaa aaaa' is rejected as one token restated, not four reasons", () => {
+  const river = riverOf("Schools", [brief(20), '![chart](/images/x.png)', '{% video "a" %}']);
+  const { problems } = checkRiver(parseRiver(river), {
+    visualException: "aaaa aaaa aaaa aaaa"
+  });
+  assert.ok(problems.some((p) => /visual_exception is too short/.test(p.message)));
+});
+
+test("'x y z w ....................' is rejected — every token is too short to count", () => {
+  const river = riverOf("Schools", [brief(20), '![chart](/images/x.png)', '{% video "a" %}']);
+  const { problems } = checkRiver(parseRiver(river), {
+    visualException: "x y z w ...................."
+  });
+  assert.ok(problems.some((p) => /visual_exception is too short/.test(p.message)));
+});
+
+test("a genuine sentence is still accepted after the FIX 4 tightening", () => {
+  const river = riverOf("Schools", [brief(20), '![chart](/images/x.png)', '{% video "a" %}']);
+  const { problems } = checkRiver(parseRiver(river), {
+    visualException: "No public posts about Austin were worth carrying as cards today"
+  });
+  assert.ok(!problems.some((p) => /visual_exception is too short/.test(p.message)));
 });

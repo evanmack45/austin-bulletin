@@ -327,13 +327,20 @@ async function main() {
   const publicPath = `/images/${spec.date}/${spec.slug}.png`;
   const caption =
     spec.type === 'map'
-      ? `Map: Google · ${spec.source}`
-      : `${spec.type === 'bars' ? 'Chart' : 'Timeline'}: The Austin Bulletin · ${spec.source}`;
+      ? `Map: Google · ${esc(spec.source)}`
+      : `${spec.type === 'bars' ? 'Chart' : 'Timeline'}: The Austin Bulletin · ${esc(spec.source)}`;
   // Wrapped in <figure class="graphic"> so scripts/river.mjs can tell an
   // original graphic apart from a bare photo — only the marked kind
   // satisfies EDITORIAL.md's original-graphic minimum (graphicMin).
+  //
+  // A real <img> tag, not Markdown image syntax. This whole block opens
+  // with a block-level HTML tag, so markdown-it treats it as a raw HTML
+  // block and does NOT run Markdown syntax inside it — a `![alt](path)`
+  // line here rendered as literal text, never an <img>, which is exactly
+  // the regression this shape fixes. alt is HTML-escaped since real alt
+  // text carries colons, semicolons, commas and quotes.
   console.log('<figure class="graphic">');
-  console.log(`![${spec.alt}](${publicPath})`);
+  console.log(`<img src="${esc(publicPath)}" alt="${esc(spec.alt)}">`);
   console.log(`<figcaption>${caption}</figcaption>`);
   console.log('</figure>');
 }
