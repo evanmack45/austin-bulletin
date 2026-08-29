@@ -40,12 +40,18 @@ const liveBulletinDir = path.join(repoRoot, "src", "bulletins");
 const FIXTURE_DATE = "2099-01-01";
 
 async function runCheck(date, dir) {
+  return runCheckArgs([date, "--no-links", "--dir", dir]);
+}
+
+// Like runCheck, but takes the raw argv instead of assuming the (date,
+// --no-links, --dir, dir) shape — needed to exercise malformed --dir
+// invocations where --dir is missing its value or is followed by another
+// flag instead of a path.
+async function runCheckArgs(args) {
   try {
-    const { stdout, stderr } = await execFileAsync(
-      process.execPath,
-      [checkScript, date, "--no-links", "--dir", dir],
-      { cwd: repoRoot }
-    );
+    const { stdout, stderr } = await execFileAsync(process.execPath, [checkScript, ...args], {
+      cwd: repoRoot,
+    });
     return { code: 0, output: `${stdout}\n${stderr}` };
   } catch (err) {
     // execFile rejects on a non-zero exit code; the error still carries
@@ -172,4 +178,36 @@ test("the old numeric rules do not leak into a post-cutover edition", async () =
         `${occurrences.length}: ${occurrences.join(" | ")}`
     );
   });
+});
+
+test("--dir as the final argument fails loudly, not silently against the default dir", async () => {
+  // Reproduces a Copilot review comment on PR #4: --dir with no value used to
+  // fall through to the default bulletin dir (args.dir undefined) and check
+  // the live src/bulletins instead of the fixture directory the caller
+  // intended — a green result from production content, not the temp fixture.
+  const { code, output } = await runCheckArgs(["2026-08-28", "--no-links", "--dir"]);
+
+  assert.notEqual(code, 0, "expected a non-zero exit when --dir has no value");
+  assert.match(output, /--dir/, "expected the error message to mention --dir");
+  assert.doesNotMatch(
+    output,
+    /passes the mechanical gate/,
+    "must not report success when --dir has no value"
+  );
+  assert.doesNotMatch(
+    output,
+    /\d+ problems? in 2026-08-28/,
+    "must not silently fall back to checking the default directory"
+  );
+});
+
+test("--dir followed by another flag fails loudly with the same clear message", async () => {
+  // The other malformed form: --dir consumes the next flag as its value
+  // (e.g. --no-links), which used to produce a confusing "no bulletin at
+  // --no-links/<date>.md" and silently drop the --no-links the caller asked
+  // for. --dir's value must not itself look like a flag.
+  const { code, output } = await runCheckArgs(["2026-08-28", "--dir", "--no-links"]);
+
+  assert.notEqual(code, 0, "expected a non-zero exit when --dir's value looks like a flag");
+  assert.match(output, /--dir/, "expected the error message to mention --dir");
 });

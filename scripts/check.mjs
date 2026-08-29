@@ -6,7 +6,10 @@
 // so tests/gate.test.mjs can point the checker at a throwaway temp directory
 // instead of writing fixtures into the live content directory, where a
 // crash mid-test could leave a stray file for an Eleventy build to trip
-// over. Default behaviour (no --dir) is unchanged.
+// over. Default behaviour (no --dir) is unchanged. --dir requires a path
+// argument that does not itself look like a flag (does not start with "-");
+// if the value is missing or looks like a flag, the checker fails loudly
+// instead of silently falling back to the default directory.
 //
 // Runs the mechanical half of EDITORIAL.md's quality gate — everything a
 // script can judge without reading for sense. It is not a substitute for
@@ -78,8 +81,14 @@ function parseArgs(argv) {
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (a === "--no-links") args.noLinks = true;
-    else if (a === "--dir") args.dir = argv[++i];
-    else args._.push(a);
+    else if (a === "--dir") {
+      const value = argv[++i];
+      if (value === undefined || value.startsWith("-")) {
+        console.error("check: --dir requires a path argument");
+        process.exit(1);
+      }
+      args.dir = value;
+    } else args._.push(a);
   }
   return args;
 }
