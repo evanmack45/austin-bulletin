@@ -4,13 +4,42 @@ import markdownItAnchor from "markdown-it-anchor";
 
 const SITE_URL = "https://theaustinbulletin.com/";
 
+// Shared by the heading-anchor slugifier and the River's beat nav, so a beat
+// heading's id and its jump-link href are always produced by the same rule.
+// The default markdown-it-anchor slugifier percent-encodes "&", which turns
+// "Roads & transit" into "roads-%26-transit" — drop it in favor of this.
+function beatSlug(s) {
+  return String(s).trim().toLowerCase()
+    .replace(/&/g, " ")
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
 // Inline SVG glyphs (24x24, currentColor) for each Voice-card platform.
 const GLYPH = {
-  x: `<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.9 2H22l-7.4 8.5L23 22h-6.9l-5.4-6.9L4.5 22H1.4l7.9-9L1 2h7l4.9 6.3L18.9 2Zm-1.2 18h1.9L7.4 4H5.4l12.3 16Z"/></svg>`,
-  bluesky: `<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 8.5C10.5 5.5 7 3 4.5 3.5c-.6 3 .5 7 3 8.5-2.5 1.5-3.6 5.5-3 8.5 2.5.5 6-2 7.5-5 1.5 3 5 5.5 7.5 5 .6-3-.5-7-3-8.5 2.5-1.5 3.6-5.5 3-8.5C17 3 13.5 5.5 12 8.5Z"/></svg>`,
-  reddit: `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.3" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="8.6" cy="12" r="1.3" fill="currentColor"/><circle cx="15.4" cy="12" r="1.3" fill="currentColor"/><path d="M7.6 15.4c1.1 1.1 2.6 1.7 4.4 1.7s3.3-.6 4.4-1.7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>`,
-  facebook: `<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M15 3h-2a5 5 0 0 0-5 5v2H6v4h2v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3z"/></svg>`,
-  youtube: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4" fill="none" stroke="currentColor" stroke-width="1.6"/><polygon points="10,8.5 16,12 10,15.5" fill="currentColor"/></svg>`
+  x:
+    `<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.9 2H22l-7.4 8.` +
+    `5L23 22h-6.9l-5.4-6.9L4.5 22H1.4l7.9-9L1 2h7l4.9 6.3L18.9 2Zm-1.2 18h1.9L7.4 4H5.4l12.3 16Z"` +
+    `/></svg>`,
+  bluesky:
+    `<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 8.5C10.5` +
+    ` 5.5 7 3 4.5 3.5c-.6 3 .5 7 3 8.5-2.5 1.5-3.6 5.5-3 8.5 2.5.5 6-2 7.5-5 1.5 3 5 5.5 7.5 5 .6` +
+    `-3-.5-7-3-8.5 2.5-1.5 3.6-5.5 3-8.5C17 3 13.5 5.5 12 8.5Z"/></svg>`,
+  reddit:
+    `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.3" fill="none` +
+    `" stroke="currentColor" stroke-width="1.6"/><circle cx="8.6" cy="12" r="1.3" fill="currentCo` +
+    `lor"/><circle cx="15.4" cy="12" r="1.3" fill="currentColor"/><path d="M7.6 15.4c1.1 1.1 2.6 ` +
+    `1.7 4.4 1.7s3.3-.6 4.4-1.7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-line` +
+    `cap="round"/></svg>`,
+  facebook:
+    `<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M15 3h-2a5 ` +
+    `5 0 0 0-5 5v2H6v4h2v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3z"/></svg>`,
+  youtube:
+    `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" ` +
+    `rx="4" fill="none" stroke="currentColor" stroke-width="1.6"/><polygon points="10,8.5 16,12 1` +
+    `0,15.5" fill="currentColor"/></svg>`
 };
 
 const PLATFORM_NAME = {
@@ -48,11 +77,10 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/icon-512.png");
 
   // Heading ids (e.g. <h2 id="weather">) so in-page jump links work.
-  // The instance is also captured so the river/bigstory shortcodes below can
-  // run markdown-it themselves (see PIPELINE.md / the River shortcode note).
+  // Uses beatSlug (above) so ids agree with the River's beat nav hrefs.
   let md;
   eleventyConfig.amendLibrary("md", (lib) => {
-    md = lib.use(markdownItAnchor);
+    md = lib.use(markdownItAnchor, { slugify: beatSlug });
     return md;
   });
 
@@ -118,22 +146,30 @@ export default function (eleventyConfig) {
     const platformName = PLATFORM_NAME[platform] || escapeHtml(platform);
     const textHtml = textToHtml(text);
     const avatarHtml = avatar
-      ? `<img class="voice-avatar" src="${escapeHtml(avatar)}" alt="" width="40" height="40" loading="lazy">`
+      ? `<img class="voice-avatar" src="${escapeHtml(avatar)}" alt="" width="40" ` +
+        `height="40" loading="lazy">`
       : "";
     const imageHtml = image
-      ? `<img class="voice-image" src="${escapeHtml(image)}" alt="${escapeHtml(imageAlt || "Image from the post")}" loading="lazy">`
+      ? `<img class="voice-image" src="${escapeHtml(image)}" alt="` +
+        `${escapeHtml(imageAlt || "Image from the post")}" loading="lazy">`
       : "";
     const statsHtml = stats ? `<span>${escapeHtml(stats)}</span>` : "";
     const dateHtml = date ? " · " + escapeHtml(date) : "";
+    const whoHtml =
+      `<div class="voice-who"><strong class="voice-name">${escapeHtml(name)}</strong>` +
+      `<span class="voice-meta">${escapeHtml(handle)}${dateHtml}</span></div>`;
+    const figcaptionHtml =
+      `<figcaption class="voice-foot"><a href="${escapeHtml(url)}">View on ${platformName} ↗</a>` +
+      `${statsHtml}</figcaption>`;
     return `<figure class="voice-card voice-${escapeHtml(platform)}">
   <div class="voice-head">
     <span class="voice-glyph" aria-hidden="true">${glyph}</span>
     ${avatarHtml}
-    <div class="voice-who"><strong class="voice-name">${escapeHtml(name)}</strong><span class="voice-meta">${escapeHtml(handle)}${dateHtml}</span></div>
+    ${whoHtml}
   </div>
   <p class="voice-text">${textHtml}</p>
   ${imageHtml}
-  <figcaption class="voice-foot"><a href="${escapeHtml(url)}">View on ${platformName} ↗</a>${statsHtml}</figcaption>
+  ${figcaptionHtml}
 </figure>`;
   });
 
@@ -144,8 +180,13 @@ export default function (eleventyConfig) {
     const v = this.ctx.videos?.[id];
     if (!v) return `<!-- video ${escapeHtml(id)} not found -->`;
     const { videoId, title, author } = v;
+    const videoBoxHtml =
+      `<div class="video-box"><iframe src="https://www.youtube-nocookie.com/embed/` +
+      `${escapeHtml(videoId)}" title="${escapeHtml(title)}" loading="lazy" ` +
+      `allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen ` +
+      `referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`;
     return `<figure class="video-frame">
-  <div class="video-box"><iframe src="https://www.youtube-nocookie.com/embed/${escapeHtml(videoId)}" title="${escapeHtml(title)}" loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+  ${videoBoxHtml}
   <figcaption>Video: ${escapeHtml(author)} — ${escapeHtml(title)}</figcaption>
 </figure>`;
   });
@@ -155,10 +196,26 @@ export default function (eleventyConfig) {
   // heading anchors) used for the rest of the page. Markdown-inside-a-div is
   // otherwise unreliable, since the outer Nunjucks->markdown-it pipeline only
   // passes raw HTML blocks through unchanged.
-  eleventyConfig.addPairedShortcode("river", (content) => `<div class="river">\n${md.render(content)}</div>`);
+  // The River renders its own beat navigation: readers who want City Hall
+  // should not have to scroll past Public safety to reach it. Both the
+  // heading ids (via markdown-it-anchor above) and these hrefs come from the
+  // same beatSlug function, so a jump link always lands on its heading.
+  eleventyConfig.addPairedShortcode("river", (content) => {
+    const beats = [...content.matchAll(/^####\s+(.+?)\s*$/gm)].map((m) => m[1].trim());
+    const nav = beats.length
+      ? `<nav class="beat-nav" aria-label="Jump to a beat">` +
+        beats.map((b) => `<a href="#${beatSlug(b)}">${b}</a>`).join("") +
+        `</nav>\n`
+      : "";
+    const top = `<p class="to-top"><a href="#top">Back to top</a></p>\n`;
+    return `<div class="river">\n${nav}${md.render(content)}${top}</div>`;
+  });
 
   // {% bigstory %}…{% endbigstory %} — same idea, for the day's Big Story.
-  eleventyConfig.addPairedShortcode("bigstory", (content) => `<section class="big-story">\n${md.render(content)}</section>`);
+  eleventyConfig.addPairedShortcode(
+    "bigstory",
+    (content) => `<section class="big-story">\n${md.render(content)}</section>`
+  );
 
   return {
     dir: { input: "src", includes: "_includes", output: "_site" },

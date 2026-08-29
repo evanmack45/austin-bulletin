@@ -7,9 +7,9 @@ suggestions. Every rule binds the writing.
 
 - The morning note is warm and local — a friendly Austinite. It may
   mention heat, traffic, city mood. It never carries political opinion.
-- Story paragraphs are flat, clear, and neutral. In the River, one or two
-  sentences; in the Big Story, short paragraphs; 100 words is the cap for
-  any single item.
+- Story paragraphs are flat, clear, and neutral. In the Big Story, short
+  paragraphs. River item lengths follow the lead/brief contract in "The
+  shape of a day": briefs about 25 words, leads 50–70.
 - In brief items are one sentence each and start with a bold one-word
   category label and a colon: `**Outage:**`, `**Politics:**`, `**Border:**`.
 - The Big Story ends with one "What's next" sentence: a date, a vote, a
@@ -24,6 +24,17 @@ suggestions. Every rule binds the writing.
   the reader's day. `npm run today` writes a sensible default; the
   morning writer may rewrite it, but never adds opinion or politics and
   never repeats the number the cell already shows.
+- Every initialism is expanded on its first use in the edition, then used
+  short: "the Electric Reliability Council of Texas (ERCOT)", "Emergency
+  Services District 5", "Independent School District". This covers agencies,
+  districts, utilities, stadiums (DKR), road nicknames (first use as "MoPac
+  (Loop 1)"), and vendor names used as bare nouns (Flock, Axon). The Big Story
+  counts as first use; the River need not repeat it.
+- An index number carries its scale: the air-quality cell reads "59 of 500",
+  not "59". The scale is stated only where it is inherent to the index or
+  published by a source — never calculated. Do not write comparisons like
+  "about 85% of the record"; that is a calculation, and calculations are
+  forbidden by the accuracy rules.
 
 ## The shape of a day
 
@@ -32,10 +43,39 @@ suggestions. Every rule binds the writing.
    connects two to four of the day's items into one idea. It explains and
    connects; it never says what should happen. Every claim links. When a
    dispute exists, each side's own words. It ends with a What's next line.
-3. The River: 25–40 one- or two-sentence items grouped by beat, in this
-   fixed order: Roads & transit · Public safety & courts · City Hall & county ·
-   Schools · Health · Business & tech · Around town · Texas · Sports. Every
-   item ends with a source tag. Missing beats are omitted, never padded.
+3. The River: 25–40 items grouped by beat, in this fixed order: Roads & transit ·
+   Public safety & courts · City Hall & county · Schools · Health · Business & tech ·
+   Around town · Texas · Sports. Missing beats are omitted, never padded.
+
+   Each beat holds two kinds of item.
+
+   A **lead** opens with a `#####` headline and runs 50–70 words (the gate
+   fails outside 40–80). At most two per beat, at most twelve per edition. An
+   item becomes a lead only if it passes the impact test below. A beat with
+   nothing that passes has no lead — never promote an item to fill a slot.
+   Fewer than four leads in the River warns, but does not fail the gate — the
+   impact test is allowed to legitimately find nothing on a quiet day, and a
+   hard fail would punish correct editorial judgment.
+
+   A **brief** is every other item: one sentence, about 25 words, no headline
+   (the gate fails above 35). Briefs are the default; most of the River is
+   briefs.
+
+   Every item, lead or brief, ends with a source tag. The whole River targets
+   about 1,500 words, warns above 1,800 — the early signal that items are
+   drifting long, the same drift that went unnoticed for six editions — and
+   fails above 2,200.
+
+   **The impact test.** An item earns a lead if it meets any of:
+   1. Someone was killed or seriously hurt.
+   2. Money or a rule that binds residents changed — a vote taken, a price
+      set, a contract signed, a ban enacted.
+   3. Something closes, opens, or changes today or this week — a road, a
+      school, a utility, a service.
+   4. A decision is scheduled, with a date — a vote, a hearing, a deadline.
+
+   This test is published on the About page. It is the site's answer to "who
+   decided this mattered", so it is applied literally, not loosely.
 4. Weather: its own `## Weather` section after the River, not a River beat.
    It opens with the day's NWS forecast and active alerts, then any weather
    items worth having (records, streaks, what the week does), then the
@@ -44,7 +84,12 @@ suggestions. Every rule binds the writing.
    every day and keep the id `weather`.
 5. Rituals: The Number (daily), Countdown (daily), This Weekend in Austin
    (Thursday and Friday), Sunday Paper (Sunday), One Good Thing (daily
-   closer, Morning Note voice).
+   closer, Morning Note voice). Countdown's first use each edition names the
+   stadium in full — "Darrell K Royal-Texas Memorial Stadium (DKR)" — then
+   short form ("DKR") thereafter, per the initialism rule above. Because
+   tomorrow's writer copies today's file as its format template, a ritual
+   line that ships with a bare "DKR" propagates that mistake forever — expand
+   it in the template line itself, not just in this morning's copy.
 
 Standings was cut 2026-08-24 at the publisher's direction. Do not reinstate
 it or propose a replacement. Only the ritual was cut: the Sports beat in the
@@ -77,10 +122,74 @@ time or price we cannot verify is worse than an absent ritual.
   would need a correction if false — cards carry opinion, not new facts.
 - On contested public questions, cards run in pairs: one voice from each
   side, or none.
-- Cap: 10 cards a day, 3 videos a day. Video is the outlet's own upload,
-  embedded, never re-hosted.
+- Cap: 10 cards a day, 3 videos a day, enforced across the whole edition —
+  not scoped to the River the way the minimums below are. (The River also
+  carries its own copy of the same cap, since a River that alone reached 10
+  cards would already have tripped the edition-wide one.) Video is the
+  outlet's own upload, embedded, never re-hosted.
 - Cards and videos are gathered with `npm run card -- <post-url>` and
   `npm run video -- <youtube-url>` (PIPELINE.md Step 4).
+- Daily minimums, not just caps. The River carries at least four Voice cards
+  (target six to ten, at most two in any one beat), at least one original
+  graphic, and one to three videos. Any beat running more than 400 words
+  carries at least one visual. These minimums are scoped to the River, not
+  the edition as a whole: a graphic in the Big Story or a chart in the
+  Weather section does not count toward them, because their job is
+  interrupting the River's wall of text specifically — a visual sitting
+  somewhere else in the page does not do that. The cards are what break up
+  the River; a River that ships two of them has not met the rule, and the
+  pre-publish check will fail.
+- The daily original-graphic minimum means one graphic from `npm run
+  graphic` — its output is wrapped in `<figure class="graphic">`, which is
+  what the pre-publish check looks for. A photo (a bare Markdown image, or
+  any other `<figure>`) still counts toward a beat's density requirement —
+  for breaking up a wall of text, any visual works — but it does not satisfy
+  the original-graphic minimum. A wire photo is not a substitute for a chart,
+  timeline, or map the Bulletin made.
+- A graphic's subtitle never restates its source list. `npm run graphic`
+  generates the attribution caption from the spec's `source` field, so writing
+  the outlets into the subtitle as well prints the same credit twice.
+
+### The visual_exception escape hatch
+
+Every other rule in this gate is within the writer's control — an item can
+always be cut to 35 words, a beat can always be trimmed under 400 words.
+The visual minimums are different: on a genuinely quiet news day there may
+not be four public posts worth carrying as cards. Publisher's ruling: publish
+with a logged exception rather than silently ship no paper.
+
+An edition's front matter may carry `visual_exception: "<reason>"`. When the
+reason is substantive — a real sentence with at least 4 distinct words of
+three or more letters each, and 20 non-whitespace characters — it downgrades
+exactly these four rules from FAILURE to WARNING. A placeholder like "n/a",
+a run of punctuation padded past the character floor (twenty dots, twenty
+dashes), or a handful of short or repeated tokens padding for a word count
+("a a a a ....................", "aaaa aaaa aaaa aaaa", "x y z w
+...................."), is rejected as its own failure, not treated as no
+exception at all: each clears the character count, or the raw token count,
+without actually saying anything, and the distinct-word floor exists
+specifically to catch that.
+
+- the voice-card minimum (`voiceMin`, at least 4 cards)
+- the graphic minimum (`graphicMin`, at least 1)
+- the video minimum (`videoMin` — the lower bound only; the 1–3 cap's upper
+  bound is never touched)
+- the per-beat density rule (`beatWordsBeforeVisual`, a visual required past
+  400 words in a beat)
+
+These never bend, exception or not, because too many visuals is never a
+supply shortage: the voice-cards-per-beat cap (`voicePerBeat`), the
+voice-cards-per-edition cap (`voiceMax`), and the videos-per-edition cap
+(`videoMax`). Nothing outside the visual minimums is ever exceptable —
+item lengths, lead counts, item counts, the River word budget, and every
+language rule stay hard failures under all circumstances.
+
+Use this only for genuine scarcity, never to skip the work of finding
+cards. The reason is written into the edition's own front matter, and
+when the exception is invoked it is recorded in that morning's run log
+(PIPELINE.md Step 6) — quoted, with the minimums it covered — so the
+publisher can see how often the hatch is being used. A hatch nobody can
+audit is the drift this whole change exists to prevent.
 
 ## Neutrality rules
 
@@ -212,8 +321,13 @@ Do not push unless every check passes:
 3. Date, title, and permalink are correct and consistent.
 4. Every image loads (HTTP 200) and follows the image rules; embed cap
    respected.
-5. No empty sections; `npm run build` succeeds with no errors.
-6. The full page reads clean top to bottom — no leftover notes, no
+5. The River's leads and briefs meet the lead/brief contract — lengths, and
+   lead counts per beat and per edition — and the River meets its visual
+   minimums and caps (Voice cards, graphic, video), unless a logged
+   `visual_exception` applies (see "The visual_exception escape hatch" above).
+6. Every initialism is expanded on its first use in the edition.
+7. No empty sections; `npm run build` succeeds with no errors.
+8. The full page reads clean top to bottom — no leftover notes, no
    sample text, no broken markdown.
 
 A story that fails a check is fixed or dropped. A bulletin that cannot

@@ -235,6 +235,32 @@ graphic and its own sources line; then
 sentence. "Today" means the date in America/Chicago
 (`TZ='America/Chicago' date`), never UTC.
 
+Write 25–40 items grouped by beat, in the fixed order.
+
+For each beat, apply the impact test in EDITORIAL.md and choose at most two
+leads — often zero or one. A lead gets a `#####` headline and 50–70 words. A
+beat with nothing that passes the test gets no lead.
+
+Everything else in the beat is a brief: one sentence, about 25 words, source
+tag, no headline.
+
+Place the day's Voice cards as you go — at least four, no more than two in any
+one beat, spread so no beat runs 400 words without one. Add at least one
+graphic (`npm run graphic`) and one to three videos (`npm run video`).
+
+Expand every initialism on first use. **This includes the recurring ritual
+lines**: the Countdown names the stadium, so its first use is "Darrell K
+Royal-Texas Memorial Stadium (DKR)", not a bare "DKR". A fixed template line
+that ships unexpanded fails the gate every single morning, so the ritual
+templates carry their expansions. Same for road nicknames in any beat: first
+use is "MoPac (Loop 1)".
+
+Run `npm run check -- <date>` before
+publishing; it fails on item length, lead counts, visual minimums, and
+unexpanded initialisms, and warns on unknown all-caps tokens. Warnings are
+triaged, not ignored: an unknown token is either expanded in the copy or added
+to `scripts/acronyms.json`.
+
 ## Step 4 — Illustrate
 
 Find the voices first:
@@ -345,11 +371,31 @@ If `node_modules` is missing (every fresh clone), run `npm ci` first. Then:
     npm run check                  # today; or `npm run check -- YYYY-MM-DD`
 
 `npm run check` (scripts/check.mjs) is the mechanical half of EDITORIAL's
-quality gate: front matter and permalink, Big Story length, the 100-word item
-cap, beat names and their fixed order, the River count against the river-note,
-source tags, banned verbs, the Weather section and its `weather` id, the
-rituals, image files that exist with real alt text, the card and video caps,
-and card/video ids not already used by an earlier edition. Its link check
+quality gate: front matter and permalink, Big Story length, lead and brief
+lengths, lead counts per beat and per edition, beat names and their fixed
+order, the River's item count against the river-note and its word budget
+(warns above 1,800, fails above 2,200), source tags, banned verbs, the
+Weather section and its `weather` id, the rituals, image files that exist
+with real alt text, the River's visual minimums and caps (Voice cards,
+graphic, video), initialism expansion on first use, and card/video ids not
+already used by an earlier edition.
+
+On a genuinely quiet news day the visual minimums (at least 4 Voice cards,
+1 graphic, 1 video) can be unsatisfiable rather than merely unmet. If so,
+add `visual_exception: "<real reason>"` to the edition's front matter before
+running the checker — a substantive reason (a real sentence: at least 4
+distinct words of three or more letters each, plus 20+ non-whitespace
+characters — not a placeholder, a run of punctuation, or a handful of
+short/repeated tokens padding for a word count) downgrades those four
+minimums from FAILURE to WARNING, and the checker prints the reason
+prominently so it lands in this run's log.
+This is for genuine scarcity only: the voice-cards-per-beat cap, the
+voice-cards-per-edition cap, the videos-per-edition cap, and every rule
+outside the visual minimums (item lengths, lead counts, item counts, the
+River word budget, language rules) can never be excepted — see EDITORIAL.md
+"The visual_exception escape hatch."
+
+Its link check
 knows KXAN article pages 403 to every non-browser client and verifies those
 through the WordPress API by slug instead of calling them broken, so a clean
 run means the links are genuinely good. `--no-links` skips the network pass
@@ -375,8 +421,9 @@ GitHub Pages deploys automatically.
 
 Write `logs/YYYY-MM-DD.md` (before the commit in Step 5) containing:
 published yes/no, story count, embeds used, images by type, any facts
-you were unsure about, any stories dropped and why. On Sundays, add the
-weekly balance check from EDITORIAL.md.
+you were unsure about, any stories dropped and why. If a `visual_exception`
+was invoked, say so, quote the reason, and state which minimums it covered.
+On Sundays, add the weekly balance check from EDITORIAL.md.
 
 ## Failure behavior
 

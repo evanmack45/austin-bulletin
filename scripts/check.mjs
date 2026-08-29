@@ -1,6 +1,15 @@
 // Pre-publish checker for one bulletin.
 //
-// Usage: node scripts/check.mjs [YYYY-MM-DD] [--no-links]
+// Usage: node scripts/check.mjs [YYYY-MM-DD] [--no-links] [--dir <path>]
+//
+// --dir overrides the bulletin directory (default: src/bulletins). It exists
+// so tests/gate.test.mjs can point the checker at a throwaway temp directory
+// instead of writing fixtures into the live content directory, where a
+// crash mid-test could leave a stray file for an Eleventy build to trip
+// over. Default behaviour (no --dir) is unchanged. --dir requires a path
+// argument that does not itself look like a flag (does not start with "-");
+// if the value is missing or looks like a flag, the checker fails loudly
+// instead of silently falling back to the default directory.
 //
 // Runs the mechanical half of EDITORIAL.md's quality gate — everything a
 // script can judge without reading for sense. It is not a substitute for
@@ -19,21 +28,25 @@ import { readFile, readdir, access } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { execFile } from "node:child_process";
+import { BEATS, words, wordCount, parseRiver, checkRiver, BEAT_HEADING_RE } from "./river.mjs";
+import { checkAcronyms } from "./acronyms.mjs";
 
 const UA = "TheAustinBulletin/1.0 (+https://theaustinbulletin.com)";
 
-// EDITORIAL.md "The shape of a day": the fixed beat order.
-const BEATS = [
-  "Roads & transit",
-  "Public safety & courts",
-  "City Hall & county",
-  "Schools",
-  "Health",
-  "Business & tech",
-  "Around town",
-  "Texas",
-  "Sports"
-];
+// The lead/brief contract starts with this edition. Earlier bulletins keep the
+// old rules — published editions are not restructured after the fact
+// (precedent: the 2026-08-24 Weather ruling left 2026-08-23 alone). The rules
+// take effect with the first edition of September; 2026-08-29 through
+// 2026-08-31 are grandfathered because they were written and published
+// before this contract existed.
+//
+// WARNING: if this branch has not merged before this date, move it forward
+// again. GitHub tests a PR by merging it with current main, so CI evaluates
+// whatever main has already published under these new rules. A cutover date
+// that has slipped into the past retroactively condemns editions that were
+// written and published under the OLD rules — which is exactly the bug this
+// comment is here to prevent from recurring.
+const NEW_SHAPE_FROM = "2026-09-01";
 
 // EDITORIAL.md "Neutrality rules": use neutral verbs.
 const BANNED_VERBS = ["claimed", "admitted", "slammed", "blasted", "gushed", "bragged", "lashed out"];
@@ -46,6 +59,10 @@ const BIG_MAX = 700;
 
 const problems = [];
 const warnings = [];
+// Set when a substantive visual_exception is invoked, so the final report
+// can print it prominently — the whole point is that it is auditable in
+// the day's run log.
+let exceptionNotice = null;
 
 function bad(check, message) {
   problems.push({ check, message });
@@ -61,25 +78,19 @@ function todayCentral() {
 
 function parseArgs(argv) {
   const args = { _: [] };
-  for (const a of argv) {
+  for (let i = 0; i < argv.length; i++) {
+    const a = argv[i];
     if (a === "--no-links") args.noLinks = true;
-    else args._.push(a);
+    else if (a === "--dir") {
+      const value = argv[++i];
+      if (value === undefined || value.startsWith("-")) {
+        console.error("check: --dir requires a path argument");
+        process.exit(1);
+      }
+      args.dir = value;
+    } else args._.push(a);
   }
   return args;
-}
-
-// Visible words: markup and image markdown are not prose.
-function words(block) {
-  return block
-    .replace(/!\[[\s\S]*?\]\([^)]*\)/g, " ")
-    .replace(/<[^>]+>/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-function wordCount(block) {
-  const t = words(block);
-  return t ? t.split(" ").length : 0;
 }
 
 function section(text, open, close) {
@@ -88,23 +99,6 @@ function section(text, open, close) {
   const b = text.indexOf(close, a);
   if (b === -1) return null;
   return text.slice(a + open.length, b);
-}
-
-// Paragraph blocks that are actual River items: not beat headings, not shortcodes,
-// not the trailing sources line.
-function riverItems(river) {
-  return river
-    .split(/\n\s*\n/)
-    .map((s) => s.trim())
-    .filter(
-      (s) =>
-        s &&
-        !s.startsWith("####") &&
-        !s.startsWith("{%") &&
-        !s.startsWith('<p class="source-line"') &&
-        !s.startsWith("![") &&
-        !s.startsWith("<figcaption")
-    );
 }
 
 function curl(url) {
@@ -166,18 +160,24 @@ async function main() {
 
   const __dirname = path.dirname(fileURLToPath(import.meta.url));
   const repoRoot = path.resolve(__dirname, "..");
-  const file = path.join(repoRoot, "src", "bulletins", `${date}.md`);
+  const bulletinDir = args.dir ? path.resolve(args.dir) : path.join(repoRoot, "src", "bulletins");
+  const file = path.join(bulletinDir, `${date}.md`);
 
   let text;
   try {
     text = await readFile(file, "utf8");
   } catch {
-    console.error(`check: no bulletin at src/bulletins/${date}.md`);
+    console.error(`check: no bulletin at ${path.relative(repoRoot, file)}`);
     process.exit(1);
   }
 
   // --- front matter -------------------------------------------------------
   const fm = section(text, "---\n", "\n---");
+  // Optional escape hatch for the River's visual minimums (EDITORIAL.md
+  // "Voice cards and video"): visual_exception: "<reason>". Narrowly scoped
+  // to the front-matter block itself, not the whole file — reusing the same
+  // `section()` mechanism the rest of front matter parsing already uses.
+  const visualException = fm ? (fm.match(/^visual_exception:\s*"([^"]*)"\s*$/m) || [])[1] : undefined;
   if (!fm) {
     bad("front matter", "could not find front matter");
   } else {
@@ -219,11 +219,18 @@ async function main() {
   }
 
   // --- River --------------------------------------------------------------
+  const ACRONYMS = JSON.parse(
+    await readFile(new URL("./acronyms.json", import.meta.url), "utf8")
+  );
   const river = section(text, "{% river %}", "{% endriver %}");
   if (!river) {
     bad("river", "no {% river %} block");
   } else {
-    const heads = [...river.matchAll(/^####\s+(.+?)\s*$/gm)].map((m) => m[1]);
+    // Shares river.mjs's own BEAT_HEADING_RE (rather than a second, hand-typed
+    // regex) so this scan and the River parser's heading detection cannot
+    // silently drift apart — see river.mjs's file-header note.
+    const headingRe = new RegExp(BEAT_HEADING_RE.source, "gm");
+    const heads = [...river.matchAll(headingRe)].map((m) => m[1].trim());
     for (const h of heads) {
       if (!BEATS.includes(h)) bad("river", `unknown beat heading "${h}"`);
     }
@@ -233,18 +240,33 @@ async function main() {
       bad("river", `beats out of order or duplicated: ${known.join(" · ")}`);
     }
 
-    const items = riverItems(river);
-    if (items.length < RIVER_MIN || items.length > RIVER_MAX) {
+    const parsed = parseRiver(river);
+    const newShape = date >= NEW_SHAPE_FROM;
+    const items = parsed.items.map((i) => i.body);
+    if (!newShape && (items.length < RIVER_MIN || items.length > RIVER_MAX)) {
       bad("river", `${items.length} items, EDITORIAL wants ${RIVER_MIN}–${RIVER_MAX}`);
     }
     for (const it of items) {
       const n = wordCount(it);
-      if (n > ITEM_WORD_CAP) {
+      if (!newShape && n > ITEM_WORD_CAP) {
         bad("river", `item is ${n} words (cap ${ITEM_WORD_CAP}): "${words(it).slice(0, 60)}…"`);
       }
       if (!/<span class="src">[^<]+<\/span>\s*$/.test(it)) {
         bad("river", `item has no closing source tag: "${words(it).slice(0, 60)}…"`);
       }
+    }
+
+    if (newShape) {
+      const riverFindings = checkRiver(parsed, { visualException });
+      for (const p of riverFindings.problems) bad(p.check, p.message);
+      for (const w of riverFindings.warnings) warn(w.check, w.message);
+      if (riverFindings.exceptionApplied) {
+        exceptionNotice = riverFindings.visualException;
+      }
+
+      const language = checkAcronyms(text, ACRONYMS);
+      for (const p of language.problems) bad(p.check, p.message);
+      for (const w of language.warnings) warn(w.check, w.message);
     }
 
     const note = (text.match(/<p class="river-note">\s*(\d+)\s+items/) || [])[1];
@@ -290,7 +312,6 @@ async function main() {
   // --- cards and videos ---------------------------------------------------
   // An id used by an earlier edition means a re-fetch rewrote that edition's
   // stored data. See scripts/video.mjs and scripts/card.mjs.
-  const bulletinDir = path.join(repoRoot, "src", "bulletins");
   const others = (await readdir(bulletinDir))
     .filter((n) => n.endsWith(".md") && n !== `${date}.md`)
     .sort();
@@ -329,6 +350,28 @@ async function main() {
     }
   }
 
+  // Same two checks, but for HTML <img> elements — scripts/graphic.mjs emits
+  // a real <img> inside <figure class="graphic"> rather than Markdown image
+  // syntax, because markdown-it does not process Markdown inside a raw HTML
+  // block (the Markdown form there rendered as literal text, never an
+  // image). Without this, generated graphics were invisible to the image
+  // gate. A targeted attribute regex, not a full HTML parse: src and alt can
+  // appear in either order, with either quote style, alongside other
+  // attributes. Alt text from graphic.mjs is HTML-escaped (&quot; etc.); an
+  // escaped-but-non-empty alt is valid as-is, no unescaping needed.
+  const htmlImgs = [...text.matchAll(/<img\b[^>]*>/gi)];
+  for (const [tag] of htmlImgs) {
+    const srcMatch = tag.match(/\bsrc\s*=\s*(["'])(\/images\/[^"']+)\1/i);
+    if (!srcMatch) continue;
+    const src = srcMatch[2];
+    const altMatch = tag.match(/\balt\s*=\s*(["'])([^"']*)\1/i);
+    const alt = altMatch ? altMatch[2] : "";
+    if (!alt.trim()) bad("images", `image has empty alt text: ${src}`);
+    if (!(await exists(path.join(repoRoot, "src", src.replace(/^\//, ""))))) {
+      bad("images", `file not found: src${src}`);
+    }
+  }
+
   // --- leftovers ----------------------------------------------------------
   for (const re of [/\bTODO\b/, /\bTK\b/, /\bLorem ipsum\b/i, /\bXXX\b/, /<<+/]) {
     if (re.test(text)) bad("leftovers", `draft marker found: ${re}`);
@@ -355,6 +398,9 @@ async function main() {
   }
 
   // --- report -------------------------------------------------------------
+  if (exceptionNotice) {
+    console.error(`\n  *** VISUAL EXCEPTION invoked for ${date}: "${exceptionNotice}" ***`);
+  }
   for (const w of warnings) console.error(`  warn  [${w.check}] ${w.message}`);
   if (problems.length === 0) {
     console.error(
