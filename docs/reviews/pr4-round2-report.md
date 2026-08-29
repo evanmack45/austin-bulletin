@@ -282,3 +282,84 @@ correct. Restored (`git stash pop`); all 93 tests pass again.
 
 Only `scripts/river.mjs` and `tests/river.test.mjs` were touched; no
 threshold or rule changed.
+
+## FIX 8 — the image gate never learned about HTML `<img>` graphics (follow-up)
+
+Branch: `river-revamp`. Commit: `bfac737` ("fix: check HTML <img> tags
+for the image gate, not just Markdown"). Not pushed; not merged.
+
+A further Copilot review comment on PR #4 pointed at the image-validation
+block in `scripts/check.mjs` (`~line 345`): it only matches Markdown
+image syntax (`![alt](/images/...)`), checking that alt text is
+non-empty and the file exists on disk. Earlier in this PR,
+`scripts/graphic.mjs` was changed to emit a real HTML `<img>` inside
+`<figure class="graphic">` instead of Markdown syntax — necessary
+because markdown-it does not process Markdown inside a raw HTML block,
+so the Markdown form rendered there as literal text, never an image.
+The image checker was never updated to match, so every generated
+graphic (the new River contract requires at least one per edition) was
+invisible to it. Reproduced against a real bulletin, both forms pointed
+at a missing file:
+- `![missing](/images/2026-08-28/DOES-NOT-EXIST.png)` → caught, `file
+  not found`.
+- `<figure class="graphic"><img src="/images/2026-08-28/DOES-NOT-EXIST.png"
+  alt="missing"></figure>` → **not caught**, gate passed.
+
+**Fix**: added a second scan in `scripts/check.mjs`, right after the
+existing Markdown-image loop, that matches `<img\b[^>]*>` tags and pulls
+`src`/`alt` out with attribute regexes (`\bsrc\s*=\s*(["'])(...)\1`,
+same for `alt`) rather than a full HTML parse — matching the file's
+existing style. Attribute order and quote style don't matter (both
+extracted independently), and only `<img>` tags whose `src` starts with
+`/images/` are checked, matching the Markdown check's scope. The same
+two checks apply: file must exist under `src<path>`, alt text must be
+non-empty after trimming. An HTML-escaped alt (`&quot;`, `&amp;`, etc. —
+what `graphic.mjs` actually emits) is accepted as-is; no unescaping is
+attempted, since the escaped form is never empty when the real alt
+text isn't. The pre-existing Markdown-image loop is untouched.
+
+**Tests added** to `tests/gate.test.mjs` (97 total, up from 93), all
+built by appending a snippet to a verbatim, already-passing
+`2026-08-28` fixture so only the appended image can affect the result:
+- An HTML `<img>` pointing at a missing file fails with `file not
+  found`, naming the src.
+- An HTML `<img>` with empty alt text (alt attribute before src, to
+  exercise order-independence) fails with the empty-alt message,
+  pointed at a file that genuinely exists so only the alt is at fault.
+- An HTML `<img>` with single quotes, alt before src, and an
+  HTML-escaped alt (`&mdash;`, `&quot;`) pointing at a real file
+  (`src/images/2026-08-25/aisd-takeover-timeline.png`) passes.
+- A missing Markdown image still fails with the pre-existing message,
+  confirming the new HTML-`<img>` scan didn't disturb the old one.
+
+**Mutation-check**: reverted `scripts/check.mjs` only (`git stash push
+-- scripts/check.mjs`) with the new tests left in place. `npm test`
+dropped from 97/97 to 95/97 — exactly the two new HTML-`<img>`
+failure-case tests failed (`AssertionError: expected the checker to
+fail on a missing HTML <img> file` / `...on an HTML <img> with empty
+alt`), while the pass-case and Markdown-regression tests still passed
+unmutated (expected, since neither depends on the new code). Restored
+(`git stash pop`); all 97 tests pass again.
+
+**Verification** (all run in this session):
+- `npm test`: 97/97 pass (was 93; +4 new).
+- `npm run lint`: clean, no output. (Lint's script list is
+  `scripts/river.mjs scripts/acronyms.mjs tests/` — `scripts/check.mjs`
+  is deliberately excluded per FIX 5's note above; the new test file
+  content was linted and required three line-length wraps.)
+- Direct reproduction against a real fixture (`node scripts/check.mjs
+  2026-08-28 --no-links --dir <fixture>`) — **before** the fix
+  (`scripts/check.mjs` stashed): the HTML `<img>` missing-file case
+  printed `check: 2026-08-28 passes the mechanical gate` (not caught).
+  **After** the fix: both the Markdown and HTML forms print `FAIL
+  [images] file not found: src/images/2026-08-28/DOES-NOT-EXIST.png`.
+- Six-edition parity unchanged: 2026-08-23 FAIL, 2026-08-24 FAIL (both
+  pre-existing, for river/weather reasons unrelated to images),
+  2026-08-25/26/27/28 PASS. Grepped all six editions' check output for
+  "images" — no matches on any of them, confirming no published edition
+  newly fails on an image rule.
+- `npm run build`: exits 0. `git status --short`: clean after commit.
+  No file under `src/bulletins/` was touched at any point.
+
+Only `scripts/check.mjs` and `tests/gate.test.mjs` were touched; no
+threshold or River rule changed.
