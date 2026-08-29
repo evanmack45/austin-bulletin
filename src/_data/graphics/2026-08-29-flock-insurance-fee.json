@@ -1,0 +1,15 @@
+{
+  "type": "bars",
+  "date": "2026-08-29",
+  "slug": "flock-insurance-fee",
+  "title": "The $1 fee that bought a camera network",
+  "subtitle": "Motor Vehicle Crime Prevention Authority money into Flock Safety cameras since 2023",
+  "unit": "$M",
+  "alt": "Bar chart of Motor Vehicle Crime Prevention Authority spending on Flock Safety license plate cameras: at least $30 million in grants across all Texas agencies, roughly 3,200 cameras, of which $15.9 million went to the Department of Public Safety for nearly 1,200 cameras",
+  "source": "The Texas Tribune",
+  "yMin": 0,
+  "bars": [
+    { "label": "All Texas agencies (~3,200 cameras)", "value": 30 },
+    { "label": "DPS share (~1,200 cameras)", "value": 15.9 }
+  ]
+}
