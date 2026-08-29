@@ -128,3 +128,62 @@ actual reported reproduction) is the one that discriminates.
 **`npm run build`**: exits 0. `git status --short`: clean after commit.
 No file under `src/bulletins/` was touched at any point (confirmed via
 `git diff --stat` before committing).
+
+## FIX 6 — `--dir` accepts no value or a flag as its value (follow-up)
+
+Branch: `river-revamp`. Commit: `1300352` ("fix: reject --dir with no
+value or a flag as its value"). Not pushed; not merged.
+
+A further Copilot review comment on PR #4 pointed at `scripts/check.mjs`'s
+`--dir` flag parsing (`else if (a === "--dir") args.dir = argv[++i];`),
+claiming it crashes with a `path.resolve` stack trace when `--dir` has no
+value. Reproducing it showed the claimed mechanism was wrong — line ~154
+already guards with `args.dir ? path.resolve(args.dir) : <default>` — but
+the actual behavior was worse in one case and confusing in the other:
+
+- `--dir` last (no value): `args.dir` is `undefined`, the ternary silently
+  falls back to the default `src/bulletins`, and the check runs against
+  live content and **exits 0** — a caller who believes they pointed the
+  checker at a fixture directory gets a green result from production
+  content.
+- `--dir --no-links` (flag consumes the next flag as its value): produces
+  `check: no bulletin at --no-links/2026-08-28.md` and exits 1, silently
+  discarding the `--no-links` the caller asked for.
+
+**Fix**: `parseArgs` now validates `--dir`'s value — it must exist and
+must not start with `-`. If invalid, it prints `check: --dir requires a
+path argument` and exits 1 immediately, matching the style of the
+existing malformed-date error (`check: date must be YYYY-MM-DD`). The
+usage comment at the top of `scripts/check.mjs` documents the
+requirement.
+
+**Tests added** to `tests/gate.test.mjs` (90 total, up from 88): `--dir`
+as the final argument, and `--dir --no-links`, both asserted non-zero
+exit with an error mentioning `--dir`; the first also asserts the output
+does not contain the success message (`passes the mechanical gate`) or a
+problem-count line for the default directory, ruling out the silent
+fallback. The existing `--dir <real temp path>` gate tests were run
+unchanged and still pass.
+
+**Mutation-check**: reverted `parseArgs` to the unvalidated one-liner,
+ran the two new tests — both failed (as expected, reproducing the
+original silent-fallback and flag-swallowing behavior) — then restored
+the fix and reran; all 90 tests pass again.
+
+**Verification** (all run in this session):
+- `npm test`: 90/90 pass.
+- `npm run lint`: clean.
+- `node scripts/check.mjs 2026-08-28 --no-links --dir` → exit 1,
+  `check: --dir requires a path argument`.
+- `node scripts/check.mjs 2026-08-28 --dir --no-links` → exit 1, same
+  message.
+- `node scripts/check.mjs 2026-08-28 --no-links --dir <temp dir>` → exit
+  0, `check: 2026-08-28 passes the mechanical gate` (unchanged from
+  before this fix).
+- Six-edition parity unchanged: 2026-08-23 FAIL, 2026-08-24 FAIL (both
+  pre-existing), 2026-08-25/26/27/28 PASS.
+- `npm run build`: exits 0. `git status --short`: clean after commit. No
+  file under `src/bulletins/` was touched.
+
+Only `scripts/check.mjs` and `tests/gate.test.mjs` were touched; no
+threshold or rule changed.
