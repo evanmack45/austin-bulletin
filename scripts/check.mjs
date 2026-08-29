@@ -35,18 +35,11 @@ const UA = "TheAustinBulletin/1.0 (+https://theaustinbulletin.com)";
 
 // The lead/brief contract starts with this edition. Earlier bulletins keep the
 // old rules — published editions are not restructured after the fact
-// (precedent: the 2026-08-24 Weather ruling left 2026-08-23 alone). The rules
-// take effect with the first edition of September; 2026-08-29 through
-// 2026-08-31 are grandfathered because they were written and published
-// before this contract existed.
-//
-// WARNING: if this branch has not merged before this date, move it forward
-// again. GitHub tests a PR by merging it with current main, so CI evaluates
-// whatever main has already published under these new rules. A cutover date
-// that has slipped into the past retroactively condemns editions that were
-// written and published under the OLD rules — which is exactly the bug this
-// comment is here to prevent from recurring.
-const NEW_SHAPE_FROM = "2026-09-01";
+// (precedent: the 2026-08-24 Weather ruling left 2026-08-23 alone). Evan moved
+// the cutover from 2026-09-01 to 2026-08-29 on 2026-08-29 and had that day's
+// edition re-issued under the new shape, so 2026-08-29 is the first edition
+// this contract governs; everything earlier is grandfathered.
+const NEW_SHAPE_FROM = "2026-08-29";
 
 // EDITORIAL.md "Neutrality rules": use neutral verbs.
 const BANNED_VERBS = ["claimed", "admitted", "slammed", "blasted", "gushed", "bragged", "lashed out"];
