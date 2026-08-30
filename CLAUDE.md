@@ -302,3 +302,11 @@ Neutral. Factual. Clean.
   consequence. Fallback when no genuine thread exists: lead with the single
   most consequential story and say so in the log. Ladder lives in
   PIPELINE.md Step 2; voice notes in EDITORIAL.md.
+- 2026-08-29 (Evan, evening — River header and section fronts): the
+  "N items · grouped by beat" river-note line is DEAD on new-shape editions
+  (the gate now fails a new edition that carries one; pre-cutover editions
+  still require theirs). The River and Weather open as broadsheet section
+  fronts: a 3px double rule, the section name centered at 1.3rem with wide
+  tracking, one hairline closing the band — the River's under its beat nav,
+  Weather's under the heading. Styled by h2 id (#the-river, #weather), so
+  the Weather id the skip links target is untouched.

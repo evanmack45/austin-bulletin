@@ -320,11 +320,18 @@ async function main() {
       for (const w of language.warnings) warn(w.check, w.message);
     }
 
+    // The river-note line was cut from the page on 2026-08-29 (Evan) — the
+    // parser counts items itself, so the note only survives in pre-cutover
+    // editions, where it must still match.
     const note = (text.match(/<p class="river-note">\s*(\d+)\s+items/) || [])[1];
-    if (!note) {
-      bad("river", "no river-note giving an item count");
-    } else if (Number(note) !== items.length) {
-      bad("river", `river-note says ${note} items, found ${items.length}`);
+    if (!newShape) {
+      if (!note) {
+        bad("river", "no river-note giving an item count");
+      } else if (Number(note) !== items.length) {
+        bad("river", `river-note says ${note} items, found ${items.length}`);
+      }
+    } else if (note) {
+      bad("river", "river-note line is retired for new-shape editions — remove it");
     }
   }
 

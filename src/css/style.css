@@ -396,14 +396,36 @@ h2.glance-title::after { content: none; }
   white-space: nowrap;
 }
 
+/* The River and Weather open like broadsheet section fronts (Evan,
+   2026-08-29): a double rule starts the band, the section name sits
+   centered and large, and one hairline closes the unit — under the beat
+   nav for the River, under the heading itself for Weather. */
+h2#the-river,
+h2#weather {
+  display: block;
+  text-align: center;
+  margin: 3.2rem 0 0;
+  padding-top: 0.75rem;
+  border-top: 3px double var(--ink);
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: 0.32em;
+  text-indent: 0.32em; /* balances the tracked caps around center */
+}
+h2#the-river::after,
+h2#weather::after { content: none; }
+h2#weather {
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.6rem;
+  margin-bottom: 1.4rem;
+}
 .beat-nav {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.35rem 1rem;
-  margin: 0 0 1.6rem;
-  padding: 0.7rem 0;
-  border-top: 1px solid var(--rule);
+  gap: 0.3rem 1rem;
+  margin: 0.55rem 0 1.6rem;
+  padding: 0 0 0.6rem;
   border-bottom: 1px solid var(--rule);
   font-size: 0.72rem;
   letter-spacing: 0.12em;

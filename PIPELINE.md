@@ -402,7 +402,7 @@ If `node_modules` is missing (every fresh clone), run `npm ci` first. Then:
 quality gate: front matter and permalink, First Read's length, headline,
 chart, What's next line and in-page link targets, lead and brief
 lengths, lead counts per beat and per edition, beat names and their fixed
-order, the River's item count against the river-note and its word budget
+order, the River's item count and word budget
 (warns above 1,800, fails above 2,200), source tags, banned verbs, the
 Weather section and its `weather` id, the rituals, image files that exist
 with real alt text, the River's visual minimums and caps (Voice cards,
