@@ -414,3 +414,14 @@ Neutral. Factual. Clean.
   the edition ~7:45 with both early waves fresh. MAINTENANCE: the cron
   is UTC, so when DST ends (Nov. 1, 2026) the run drifts to 6:00 a.m.
   CST — re-set to 0 13 UTC that week to stay at 7:00 local.
+- 2026-08-30 (Evan — VISITOR ANALYTICS): Cloudflare Web Analytics is
+  live. The beacon script sits at the foot of _includes/layout.njk
+  (token fa631a41b1134237bc0c66e3c19f5e5d — public by design, it
+  appears in every page's source). The Web Analytics site for
+  theaustinbulletin.com already existed in the Cloudflare account but
+  was set to "automatic setup," which only injects on proxied traffic —
+  our DNS-only records meant it counted nothing; it is now "Enable with
+  JS Snippet installation." Counting starts 2026-08-30; there is no
+  earlier data. Dashboard: dash.cloudflare.com → Analytics → Web
+  analytics. Do not add any other tracker, and do not flip DNS records
+  to proxied for analytics — DNS-only is a standing choice.
