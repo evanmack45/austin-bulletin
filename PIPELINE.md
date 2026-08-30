@@ -271,7 +271,8 @@ one paragraph per item ending in a linked source tag —
 link to the item's article (KVUE tags link too since 2026-08-30; the gate
 verifies KVUE URLs against KVUE's own feed) — there is no bottom
 sources wall,
-`{% voice %}` cards where they earn it); `## Weather` **outside** the river
+`{% voice %}` cards where they earn it — only in Business & street life
+inside City Desk; Weather and The Back Page may carry one when it fits); `## Weather` **outside** the river
 wrapper, carrying the NWS forecast and alerts, any weather items, the weather
 graphic, each item carrying its linked source tag; then
 `## The Back Page` over the rituals:

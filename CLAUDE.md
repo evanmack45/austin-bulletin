@@ -399,3 +399,10 @@ Neutral. Factual. Clean.
   and The Number, gate-enforced. The Number and Countdown gained the
   small-caps label tab One Good Thing already had; Countdown is boxed.
   Sunday Paper lives under it too.
+- 2026-08-30 (Evan, ~2:25 a.m. — CARD PLACEMENT): Voice cards sit only
+  in Business & street life inside City Desk (CARD_BEATS in river.mjs,
+  gate-enforced; City Desk voiceMin 4→2), plus Weather and The Back
+  Page by editorial judgment. The third panel found street voice
+  tonally wrong inside hard-news beats (5/7). The two Growth cards came
+  off Edition No. 7 in its eighteenth publish; relevance-adjacency
+  (Fiber card beside infrastructure news) lost to placement.

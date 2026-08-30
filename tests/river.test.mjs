@@ -127,10 +127,10 @@ test("fails a river above 2200 words", () => {
   assert.ok(problems.some((p) => /river is \d+ words/.test(p.message)));
 });
 
-test("fails an edition with fewer than 4 voice cards", () => {
-  const river = riverOf("Schools", [brief(20), '{% voice "a" %}', brief(20)]);
+test("fails an edition with fewer than 2 voice cards", () => {
+  const river = riverOf("Schools", [brief(20), brief(20)]);
   const { problems } = checkRiver(parseRiver(river));
-  assert.ok(problems.some((p) => /1 voice card/.test(p.message)));
+  assert.ok(problems.some((p) => /0 voice card/.test(p.message)));
 });
 
 test("fails a beat carrying more than 2 voice cards", () => {
@@ -191,12 +191,22 @@ test("passes an edition with exactly 3 videos", () => {
   assert.ok(!problems.some((p) => /video\(s\), EDITORIAL wants/.test(p.message)));
 });
 
-test("passes an edition with exactly 4 voice cards", () => {
+test("passes an edition with 2 voice cards in a card-eligible beat", () => {
   const river =
-    riverOf("Schools", [brief(20), '{% voice "a" %}', '{% voice "b" %}']) +
-    riverOf("Texas", [brief(20), '{% voice "c" %}', '{% voice "d" %}']);
+    riverOf("Schools", [brief(20)]) + "\n" +
+    riverOf("Business & street life", [brief(20), '{% voice "a" %}', '{% voice "b" %}']);
   const { problems } = checkRiver(parseRiver(river));
-  assert.ok(!problems.some((p) => /voice card\(s\), EDITORIAL wants/.test(p.message)));
+  assert.ok(!problems.some((p) => /voice card/.test(p.message)));
+});
+
+test("fails a voice card outside the card-eligible beats", () => {
+  const river =
+    riverOf("Public safety & courts", [brief(20), '{% voice "a" %}']) + "\n" +
+    riverOf("Business & street life", [brief(20), '{% voice "b" %}', '{% voice "c" %}']);
+  const { problems } = checkRiver(parseRiver(river));
+  assert.ok(
+    problems.some((p) => /Public safety & courts carries 1 voice card/.test(p.message))
+  );
 });
 
 test("passes a beat with exactly 2 voice cards", () => {
