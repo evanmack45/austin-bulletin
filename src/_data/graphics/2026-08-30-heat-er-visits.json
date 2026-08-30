@@ -1,0 +1,15 @@
+{
+  "type": "bars",
+  "date": "2026-08-30",
+  "slug": "heat-er-visits",
+  "title": "Austin's heat, counted",
+  "subtitle": "Heat-related emergency room visits in Austin and Travis County, by year",
+  "source": "Austin Public Health, via the Austin American-Statesman",
+  "alt": "Bar chart of heat-related emergency room visits in Austin and Travis County: 1,355 visits in 2023, when 34 people died; 937 visits in 2025, when 21 people died; and 880 visits so far in 2026, with no deaths posted by Austin Public Health",
+  "unit": "visits",
+  "bars": [
+    { "label": "2023", "value": 1355 },
+    { "label": "2025", "value": 937 },
+    { "label": "2026 so far", "value": 880 }
+  ]
+}
