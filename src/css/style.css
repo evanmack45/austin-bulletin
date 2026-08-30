@@ -337,14 +337,19 @@ h2.glance-title::after { content: none; }
   display: flex;
   align-items: center;
   gap: 0.9rem;
-  margin: 1.6rem 0 0.5rem;
-  font-size: 0.72rem;
+  margin: 2.3rem 0 0.6rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid var(--ink);
+  font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--accent);
 }
 .river h4::after { content: ""; flex: 1; border-top: 1px solid var(--rule); }
+/* The first beat sits right under the beat nav's own hairline — the
+   section front already cuts there, so no second rule. */
+.river h4:first-of-type { border-top: none; padding-top: 0; margin-top: 1.6rem; }
 .river p { margin: 0 0 0.6rem; font-size: 0.98rem; line-height: 1.5; }
 
 /* A lead: the beat's headline item. Bold and dark against the briefs, at body

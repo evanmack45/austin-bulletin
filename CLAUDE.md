@@ -389,3 +389,7 @@ Neutral. Factual. Clean.
   reader's post on…"), with the platform's mark in oxblood leading the
   line — the Reddit glyph redrawn as the Snoo head, the Bluesky
   butterfly redrawn for small-size legibility.
+- 2026-08-30 (Evan, ~1:50 a.m.): beat headings open with a full-width
+  ink rule (a column cut; first beat exempt) and a 0.8rem label. Evan
+  considered and rejected giving beats the centered section-front
+  treatment — beats stay visibly subordinate to City Desk.
