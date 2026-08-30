@@ -202,10 +202,36 @@ flat or misses the day's point, in the Morning Note's voice (EDITORIAL.md).
 ## Step 2 — Select
 
 Find the day's idea first: two to four items that belong together become
-First Read's opening thought and its chart. Then fill the River: aim for 25–40 items across the beats
-in EDITORIAL.md's fixed order; 5 is a failure, log it. Priority: impact on
-daily life in Austin (safety, schools, transportation, cost of living,
-weather, city government), then major Texas news. Order by importance.
+First Read's opening thought and its chart. When no genuine thread exists,
+lead with the day's single most consequential story and its chart — a real
+single story beats a manufactured connection, and the log says so. Then
+fill the River: aim for 25–40 items across the beats in EDITORIAL.md's
+fixed order; 5 is a failure, log it.
+
+Priority ladder ("Who Pays" — Evan's pick from the 2026-08-29 selection
+jam, docs/reviews/first-read-priority-jam-2026-08-29.md: every story ranks
+by whose life and wallet it actually lands on):
+
+1. Household money, dated and quantified — what an Austin household pays
+   or loses, with a number and a date: taxes, fees, rates, rent, evictions,
+   prices.
+2. Safety failures with accountability attached — deaths, injuries and
+   threats, ranked higher while an institution's role is an open question.
+3. Who absorbs the cost of growth — development, zoning, surveillance and
+   infrastructure decisions, weighed by which neighborhoods bear them.
+4. The systems everyone uses, when they actually change — roads, transit,
+   schools, utilities; a change that reroutes a week beats a ribbon-cutting.
+5. Street life and third places — venues, food, festivals, springs, parks.
+   These are business and economy stories, never entertainment filler (see
+   EDITORIAL.md "Voice").
+6. Texas, as a filter and not a tier — a state story ranks only when it
+   converts into something specific for an Austin household: a law taking
+   effect here, dollars moving here.
+
+Government process is never news by itself: a vote or hearing ranks by what
+it does to a bill, a street, or a school, not because a meeting happened.
+Weather leads only when severe — it keeps its own section every day
+regardless. Order by importance.
 Check recent bulletins in `src/bulletins/` to avoid repeating a story with
 no new development.
 
@@ -223,8 +249,8 @@ Create `src/bulletins/YYYY-MM-DD.md` for today, copying the exact front
 matter and section order of the newest existing bulletin file: the
 morning note; `## First Read` inside `{% bigstory %}…{% endbigstory %}`
 (### headline stating the day's idea, the day's chart with its
-`<figcaption>`, 150–250 words of brief with inline source links and at
-least three in-page links into the River, then a What's next line);
+`<figcaption>`, 150–250 words of connected prose, a What's next line,
+then a Sources line — links live there, not sprinkled through the prose);
 `## The River` inside
 `{% river %}…{% endriver %}` (`#### Beat` labels in the fixed order,
 one paragraph per item ending in `<span class="src">OUTLET</span>`,

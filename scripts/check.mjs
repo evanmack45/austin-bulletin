@@ -151,11 +151,12 @@ async function exists(p) {
   }
 }
 
-// First Read (new shape): a ### headline stating the day's idea, the day's
-// chart, 120–300 words of prose, a What's next line, and at least three
-// in-page links routing into the rest of the page — each landing on an
-// anchor that actually exists (beat headings, lead headlines, the Weather
-// section, the One Good Thing closer).
+// First Read (new shape): the old Big Story's synthesis at a quarter the
+// length — a ### headline stating the day's idea, the day's chart, 120–300
+// words of connected prose, a What's next line, and a Sources line. Evan
+// tried and rejected a routing brief full of in-page links on 2026-08-29
+// ("spammy"); links belong in the Sources line, and any in-page link that
+// does appear must land on an anchor that actually exists.
 function checkFirstRead(big, fullText, bad) {
   const prose = big
     .replace(/^###.*$/gm, " ")
@@ -170,10 +171,8 @@ function checkFirstRead(big, fullText, bad) {
   if (!/!\[|<img[\s>]/.test(big)) {
     bad("first read", "no chart or image — the day's graphic anchors the section");
   }
+  if (!/<p class="source-line">/.test(big)) bad("first read", "no Sources line");
   const targets = [...big.matchAll(/\]\(#([^)]+)\)/g)].map((m) => m[1]);
-  if (targets.length < 3) {
-    bad("first read", `${targets.length} in-page link(s) into the River, EDITORIAL wants at least 3`);
-  }
   const river = section(fullText, "{% river %}", "{% endriver %}") || "";
   const valid = new Set(["weather", "one-good-thing", "top"]);
   for (const b of BEATS) valid.add(slug(b));

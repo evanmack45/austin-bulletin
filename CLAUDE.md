@@ -288,3 +288,17 @@ Neutral. Factual. Clean.
   gate; pre-cutover editions keep their Big Story checks. He also flagged the
   site should localize harder (less statewide) — pending his further
   feedback. Rules live in EDITORIAL.md "The shape of a day" item 2.
+- 2026-08-29 (Evan, evening — the "Who Pays" priority ladder): First Read's
+  selection priority was re-derived by a five-persona jam
+  (docs/reviews/first-read-priority-jam-2026-08-29.md) and Evan chose
+  Variant B: (1) household money, dated and quantified; (2) safety failures
+  with accountability attached; (3) who absorbs the cost of growth, by
+  neighborhood; (4) the systems everyone uses, when they actually change;
+  (5) street life and third places as BUSINESS stories, never entertainment
+  filler; (6) Texas as a filter, not a tier. Unanimous panel planks now
+  standing rules: government process is never news by itself, and weather
+  leads only when severe. Grafts: the Chronicle's SPECIFICITY (named
+  blocks, bars, people) is the sensibility we borrow — never taste over
+  consequence. Fallback when no genuine thread exists: lead with the single
+  most consequential story and say so in the log. Ladder lives in
+  PIPELINE.md Step 2; voice notes in EDITORIAL.md.

@@ -19,6 +19,15 @@ suggestions. Every rule binds the writing.
   care. In the River, an image or card follows the item it belongs to.
 - Bulletin titles are plain: "The Austin Bulletin — {Weekday, Month D, YYYY}".
   Never puns or jokes.
+- Street-level specificity: name the block, the bar, the campus, the person.
+  The Chronicle's specificity is the sensibility this paper borrows — never
+  its instinct to let taste outrank consequence (rulings from the 2026-08-29
+  selection jam).
+- A venue, kitchen, festival or long-standing gathering place opening,
+  closing, or under threat is a business story about the city's economy and
+  identity — never entertainment filler. It still ranks below anyone's rent
+  or safety, and a closing reported only by social posts is a tip to chase,
+  not a story (accuracy rule 5).
 - Each glance cell carries one blurb: a single plain sentence, at most
   16 words, in the Morning Note's voice, saying what the number means for
   the reader's day. `npm run today` writes a sensible default; the
@@ -49,19 +58,22 @@ suggestions. Every rule binds the writing.
 ## The shape of a day
 
 1. The Morning Note (voice, zero politics).
-2. First Read (name provisional): the day's chart plus an editor's brief of
-   150–250 words (the gate allows 120–300) under a ### headline stating the
-   day's idea. It is a map of the morning, not an article: it opens with the
-   connective idea when the day has one, then routes the reader — at least
-   three in-page links jumping to River leads, beats, Weather, or One Good
-   Thing, each landing on a real anchor. Facts stated in the brief itself
-   link to their sources inline. "The Austin point of view" means relevance
-   — what this touches in a reader's bills, commute, schools — never
-   opinion; the neutrality rules do not bend. The chart is the day's
-   original graphic, built by us from the day's verified figures. It ends
-   with a What's next line. (Replaced the 400–700 word Big Story article,
-   Evan's ruling 2026-08-29: the paper's value is reading everything and
-   routing you, not re-telling reporting the sources did better.)
+2. First Read (name provisional): the old Big Story's synthesis at a
+   quarter the length — the day's chart plus 150–250 words (the gate allows
+   120–300) of connected prose under a ### headline stating the day's idea.
+   It connects two to four of the day's items into one thought, explains,
+   and never says what should happen; when a dispute exists, each side's
+   own words. "The Austin point of view" means relevance — what this
+   touches in a reader's bills, commute, schools — never opinion. The chart
+   is the day's original graphic, built by us from the day's verified
+   figures, and it is the page's hero. The section ends with a What's next
+   line and a Sources line; claims trace to the Sources line rather than a
+   thicket of inline links. (Two rulings, both Evan's, 2026-08-29: the
+   400–700 word article died first — nobody grants 650 AI-written words the
+   benefit of the doubt — and a link-heavy routing brief died the same
+   evening as "spammy." Prose synthesis, short, with links kept to the
+   Sources line, is the standing shape. In-page links are allowed sparingly
+   and must land on real anchors; the gate validates any that appear.)
 3. The River: 25–40 items grouped by beat, in this fixed order: Roads & transit ·
    Public safety & courts · City Hall & county · Schools · Health · Business & tech ·
    Around town · Texas · Sports. Missing beats are omitted, never padded.
