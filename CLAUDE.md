@@ -271,3 +271,6 @@ Neutral. Factual. Clean.
   demand/capacity figures moved into the blurb. Lake dot thresholds
   (≥80 green, 50–80 yellow, <50 red) are ours — a documented presentation
   choice, no published scale exists. Rule recorded in EDITORIAL.md "Voice".
+- 2026-08-29 (Evan): the morning note is LOCKED — "my favorite part of the
+  website right now. Don't change it." Voice, boxed panel, length all stay
+  as they are. Do not propose changes to it.
