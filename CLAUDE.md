@@ -393,3 +393,9 @@ Neutral. Factual. Clean.
   ink rule (a column cut; first beat exempt) and a 0.8rem label. Evan
   considered and rejected giving beats the centered section-front
   treatment — beats stay visibly subordinate to City Desk.
+- 2026-08-30 (Evan, ~2 a.m. — THE BACK PAGE): the rituals close every
+  new-shape edition under a third section front, `## The Back Page`
+  (Evan's pick over "Almanac" and an unnamed dinkus), between Weather
+  and The Number, gate-enforced. The Number and Countdown gained the
+  small-caps label tab One Good Thing already had; Countdown is boxed.
+  Sunday Paper lives under it too.

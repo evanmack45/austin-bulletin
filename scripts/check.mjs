@@ -399,6 +399,23 @@ async function main() {
     if (!text.includes(needle)) bad("rituals", `${label} is missing`);
   }
   if (!/<p class="morning-note">/.test(text)) bad("rituals", "morning note is missing");
+  // The rituals live under a Back Page section front on new-shape editions
+  // (Evan, 2026-08-30), between Weather and The Number.
+  if (newShape) {
+    const bpIdx = text.search(/^##\s+The Back Page\s*$/m);
+    const wIdx = text.search(/^##\s+Weather\s*$/m);
+    const numIdx = text.indexOf('<aside class="the-number"');
+    if (bpIdx === -1) {
+      bad("back page", "no `## The Back Page` heading over the rituals");
+    } else {
+      if (wIdx !== -1 && bpIdx < wIdx) {
+        bad("back page", "The Back Page heading sits before the Weather section");
+      }
+      if (numIdx !== -1 && numIdx < bpIdx) {
+        bad("back page", "The Number sits above The Back Page heading");
+      }
+    }
+  }
 
   // --- neutral verbs ------------------------------------------------------
   for (const verb of BANNED_VERBS) {

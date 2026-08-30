@@ -414,12 +414,33 @@ h2.glance-title::after { content: none; }
 .standings th { padding: 0.35rem 0.6rem; border-bottom: 1px solid var(--rule); }
 
 .the-number {
+  position: relative;
   border: 1px solid var(--ink);
   background: var(--tint);
   text-align: center;
-  padding: 1.4rem 1.5rem;
+  padding: 1.6rem 1.5rem 1.4rem;
   margin: 2rem 0;
 }
+/* Every Back Page fixture announces itself the way One Good Thing always
+   has: a small-caps tab on the box (Evan, 2026-08-30). */
+.the-number::before,
+.countdown::before {
+  position: absolute;
+  top: -0.55rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0 0.7rem;
+  background: var(--bg);
+  font-style: normal;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--accent);
+  white-space: nowrap;
+}
+.the-number::before { content: "The Number"; }
+.countdown::before { content: "Countdown"; }
 .the-number strong {
   display: block;
   font-size: clamp(3rem, 10vw, 5rem);
@@ -431,12 +452,16 @@ h2.glance-title::after { content: none; }
 .the-number .src { display: block; margin: 0; }
 
 .countdown {
+  position: relative;
+  border: 1px solid var(--ink);
+  background: var(--tint);
   text-align: center;
   font-size: 0.8rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   font-weight: 700;
   margin: 2rem 0;
+  padding: 1.15rem 1.2rem 0.95rem;
 }
 
 .good-thing {
@@ -475,7 +500,8 @@ h2.glance-title::after { content: none; }
    editions keep their styling. */
 h2#the-river,
 h2#city-desk,
-h2#weather {
+h2#weather,
+h2#the-back-page {
   display: block;
   text-align: center;
   margin: 3.2rem 0 0;
@@ -488,8 +514,10 @@ h2#weather {
 }
 h2#the-river::after,
 h2#city-desk::after,
-h2#weather::after { content: none; }
-h2#weather {
+h2#weather::after,
+h2#the-back-page::after { content: none; }
+h2#weather,
+h2#the-back-page {
   border-bottom: 1px solid var(--rule);
   padding-bottom: 0.6rem;
   margin-bottom: 1.4rem;

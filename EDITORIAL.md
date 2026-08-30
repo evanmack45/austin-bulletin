@@ -174,7 +174,11 @@ suggestions. Every rule binds the writing.
    weather graphic if there is one, then its own sources line. The masthead's
    "Skip to weather" link points at this heading, so the section must exist
    every day and keep the id `weather`.
-5. Rituals: The Number (daily), Countdown (daily) — The Number's figure is
+5. The Back Page (named 2026-08-30): the rituals close the paper under
+   their own section front — `## The Back Page` between Weather and The
+   Number, enforced by the gate — and every fixture inside it carries a
+   small-caps label tab on its box, the way One Good Thing always has.
+   Rituals: The Number (daily), Countdown (daily) — The Number's figure is
    not restated as digits elsewhere in the edition; other sections
    reference the fact, never the number itself — This Weekend in Austin
    (Thursday and Friday), Sunday Paper (Sunday), One Good Thing (daily

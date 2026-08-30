@@ -189,6 +189,19 @@ test("the old numeric rules do not leak into a post-cutover edition", async () =
   });
 });
 
+test("a post-cutover edition without The Back Page heading fails", async () => {
+  await withTempDir(async (tmpDir) => {
+    const body = await readFile(path.join(liveBulletinDir, "2026-08-29.md"), "utf8");
+    const stripped = body.replace(/^## The Back Page\s*$/m, "");
+    assert.notEqual(stripped, body, "fixture should actually lose the heading");
+    await writeFile(path.join(tmpDir, "2026-08-29.md"), stripped, "utf8");
+
+    const { code, output } = await runCheck("2026-08-29", tmpDir);
+    assert.notEqual(code, 0);
+    assert.match(output, /back page/, "expected a back-page failure");
+  });
+});
+
 test("--dir as the final argument fails loudly, not silently against the default dir", async () => {
   // Reproduces a Copilot review comment on PR #4: --dir with no value used to
   // fall through to the default bulletin dir (args.dir undefined) and check
