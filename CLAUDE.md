@@ -406,3 +406,11 @@ Neutral. Factual. Clean.
   constrains placement. Do not re-propose the restriction — the third
   panel's tonal finding stays on file in normies-2026-08-30.md if Evan
   ever reopens it.
+- 2026-08-30 (Evan, ~2:40 a.m. — RUN TIME MOVED TO 7:00 A.M.): the
+  daily routine's cron is now 0 12 * * * UTC (= 7:00 a.m. CDT; Evan
+  changed it in the routines UI, superseding the 0 11 in the
+  2026-08-23 entry). Basis: KXAN publishes nothing midnight–5 a.m.,
+  a wave at 5, peak 7–8; runs take 25–50 min, so a 7:00 start lands
+  the edition ~7:45 with both early waves fresh. MAINTENANCE: the cron
+  is UTC, so when DST ends (Nov. 1, 2026) the run drifts to 6:00 a.m.
+  CST — re-set to 0 13 UTC that week to stay at 7:00 local.
