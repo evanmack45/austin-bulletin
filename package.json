@@ -22,7 +22,8 @@
     "@11ty/eleventy": "^3.0.0",
     "@11ty/eleventy-plugin-rss": "^3.0.0",
     "eslint": "^10.9.1",
-    "markdown-it-anchor": "^9.2.1"
+    "markdown-it-anchor": "^9.2.1",
+    "puppeteer-core": "^25.9.0"
   },
   "dependencies": {
     "sharp": "^0.35.3"
