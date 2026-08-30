@@ -18,11 +18,11 @@ suggestions. Every rule binds the writing.
   deadline, or a scheduled event. City Desk items may carry one when it earns
   it. It states what is scheduled, never what should happen.
 - The Briefing's chart is the page's hero; choose and build it with the most
-  care. In the City Desk, an image or card follows the item it belongs to —
-  and an item with an attached chart names it in its own sentence
-  ("charted below"), so the pairing is stated, not inferred; the template
-  tucks the chart to the item's margin (2026-08-30, Evan: a floating chart
-  between briefs read as belonging to nothing).
+  care. In the City Desk, an image or card follows the item it belongs to;
+  the template tucks a brief's chart to the item's margin so the pairing
+  is visible (2026-08-30 — Evan first required a "charted below" clause in
+  the sentence too, then dropped it the same night: with the tuck and a
+  self-contained sentence, the words were redundant).
 - Bulletin titles are plain: "The Austin Bulletin — {Weekday, Month D, YYYY}".
   Never puns or jokes.
 - Street-level specificity: name the block, the bar, the campus, the person.
