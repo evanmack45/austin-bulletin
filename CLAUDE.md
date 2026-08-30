@@ -384,3 +384,8 @@ Neutral. Factual. Clean.
   normal linked KVUE tag; miss = readable-source fallback, relay last.
   Rules in PIPELINE Step 1 and EDITORIAL; the 2026-08-29 East Riverside
   relay was upgraded on its verified text as the worked example.
+- 2026-08-30 (Evan, ~1:40 a.m.): Voice-card framing line reworded to
+  "Overheard on Reddit/X/Bluesky/Facebook" (his pick; supersedes "A
+  reader's post on…"), with the platform's mark in oxblood leading the
+  line — the Reddit glyph redrawn as the Snoo head, the Bluesky
+  butterfly redrawn for small-size legibility.

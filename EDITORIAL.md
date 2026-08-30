@@ -218,8 +218,9 @@ time or price we cannot verify is worse than an absent ritual.
   would need a correction if false — cards carry opinion, not new facts.
 - On contested public questions, cards run in pairs: one voice from each
   side, or none.
-- Every card opens with a plain-words framing line naming what it is ("A
-  reader's post on Reddit") — the template renders it; never assume a
+- Every card opens with a framing line naming where it came from —
+  "Overheard on Reddit" (wording Evan's, 2026-08-30), led by the
+  platform's mark in oxblood — the template renders both; never assume a
   reader knows what r/, u/ or a handle means (2026-08-29 panel: the
   unframed card ended the least-online reader's first successful visit).
 - A card never sits directly adjacent to an item reporting a death or

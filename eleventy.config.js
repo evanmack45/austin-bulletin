@@ -12,15 +12,19 @@ const GLYPH = {
     `5L23 22h-6.9l-5.4-6.9L4.5 22H1.4l7.9-9L1 2h7l4.9 6.3L18.9 2Zm-1.2 18h1.9L7.4 4H5.4l12.3 16Z"` +
     `/></svg>`,
   bluesky:
-    `<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 8.5C10.5` +
-    ` 5.5 7 3 4.5 3.5c-.6 3 .5 7 3 8.5-2.5 1.5-3.6 5.5-3 8.5 2.5.5 6-2 7.5-5 1.5 3 5 5.5 7.5 5 .6` +
-    `-3-.5-7-3-8.5 2.5-1.5 3.6-5.5 3-8.5C17 3 13.5 5.5 12 8.5Z"/></svg>`,
+    `<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 10.8C10.7 ` +
+    `7.9 7.4 4.2 4.6 3.2 2.9 2.6 2 3.3 2 5.2c0 2.9 1.2 7.2 3.4 8.6.9.6 2 .8 3 .7-2.5.6-3.6 1.9-3` +
+    `.1 3.6.6 2 3.3 2.9 5.2 1.3 1-.9 1.3-1.8 1.5-2.6.2.8.5 1.7 1.5 2.6 1.9 1.6 4.6.7 5.2-1.3.5-1` +
+    `.7-.6-3-3.1-3.6 1 .1 2.1-.1 3-.7 2.2-1.4 3.4-5.7 3.4-8.6 0-1.9-.9-2.6-2.6-2C16.6 4.2 13.3 7` +
+    `.9 12 10.8Z"/></svg>`,
   reddit:
-    `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.3" fill="none` +
-    `" stroke="currentColor" stroke-width="1.6"/><circle cx="8.6" cy="12" r="1.3" fill="currentCo` +
-    `lor"/><circle cx="15.4" cy="12" r="1.3" fill="currentColor"/><path d="M7.6 15.4c1.1 1.1 2.6 ` +
-    `1.7 4.4 1.7s3.3-.6 4.4-1.7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-line` +
-    `cap="round"/></svg>`,
+    `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="16.6" cy="3.4" r="1.7" fill="curr` +
+    `entColor"/><path d="M12 6.2 15.6 4" fill="none" stroke="currentColor" stroke-width="1.4" str` +
+    `oke-linecap="round"/><circle cx="3.4" cy="13" r="2.1" fill="currentColor"/><circle cx="20.6"` +
+    ` cy="13" r="2.1" fill="currentColor"/><ellipse cx="12" cy="14.2" rx="8.2" ry="6.4" fill="cur` +
+    `rentColor"/><circle cx="9" cy="13.4" r="1.25" fill="var(--bg, #fff)"/><circle cx="15" cy="13` +
+    `.4" r="1.25" fill="var(--bg, #fff)"/><path d="M8.8 17c1 .9 2 1.3 3.2 1.3s2.2-.4 3.2-1.3" fil` +
+    `l="none" stroke="var(--bg, #fff)" stroke-width="1.3" stroke-linecap="round"/></svg>`,
   facebook:
     `<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M15 3h-2a5 ` +
     `5 0 0 0-5 5v2H6v4h2v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3z"/></svg>`,
@@ -41,10 +45,10 @@ const PLATFORM_NAME = {
 // platform knows what the box is (2026-08-29 panel: "who is u/Trabbler and
 // why is a stranger's comment next to the news?" ended one visit).
 const VOICE_KIND = {
-  reddit: "A reader's post on Reddit",
-  x: "A public post on X",
-  bluesky: "A public post on Bluesky",
-  facebook: "A public post on Facebook"
+  reddit: "Overheard on Reddit",
+  x: "Overheard on X",
+  bluesky: "Overheard on Bluesky",
+  facebook: "Overheard on Facebook"
 };
 
 function escapeHtml(value) {
@@ -243,9 +247,8 @@ export default function (eleventyConfig) {
       `${statsHtml}</figcaption>`;
     const kind = VOICE_KIND[platform] || "A public post";
     return `<figure class="voice-card voice-${escapeHtml(platform)}">
-  <p class="voice-kind">${kind}</p>
+  <p class="voice-kind"><span class="voice-glyph" aria-hidden="true">${glyph}</span>${kind}</p>
   <div class="voice-head">
-    <span class="voice-glyph" aria-hidden="true">${glyph}</span>
     ${avatarHtml}
     ${whoHtml}
   </div>
