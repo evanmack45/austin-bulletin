@@ -253,10 +253,13 @@ morning note; `## First Read` inside `{% bigstory %}…{% endbigstory %}`
 then a Sources line — links live there, not sprinkled through the prose);
 `## The River` inside
 `{% river %}…{% endriver %}` (`#### Beat` labels in the fixed order,
-one paragraph per item ending in `<span class="src">OUTLET</span>`,
+one paragraph per item ending in a linked source tag —
+`<span class="src"><a href="…">OUTLET</a></span>`, the tag itself is the
+link to the item's article (a KVUE relay stays plain; its pages are
+unreachable by policy) — there is no bottom sources wall,
 `{% voice %}` cards where they earn it); `## Weather` **outside** the river
 wrapper, carrying the NWS forecast and alerts, any weather items, the weather
-graphic and its own sources line; then
+graphic, each item carrying its linked source tag; then
 `<aside class="the-number">`, a
 `<p class="countdown">`, and a `<p class="good-thing">`. Set
 `permalink: "/YYYY/MM/DD/"`. Every rule in EDITORIAL.md applies to every

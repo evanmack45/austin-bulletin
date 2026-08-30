@@ -310,3 +310,9 @@ Neutral. Factual. Clean.
   tracking, one hairline closing the band — the River's under its beat nav,
   Weather's under the heading. Styled by h2 id (#the-river, #weather), so
   the Weather id the skip links target is untouched.
+- 2026-08-29 (Evan, evening — source tags are links): each River and
+  Weather item's `<span class="src">` tag now links to the item's article
+  (one link per outlet); the bottom "River sources"/"Weather sources"
+  walls are dead. Gate: new-shape editions fail on an unlinked tag or a
+  leftover wall; the sole plain-tag exception is a KVUE relay. First Read
+  keeps its Sources line.

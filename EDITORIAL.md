@@ -105,7 +105,10 @@ suggestions. Every rule binds the writing.
    (the gate fails above 35). Briefs are the default; most of the River is
    briefs.
 
-   Every item, lead or brief, ends with a source tag. The whole River targets
+   Every item, lead or brief, ends with a source tag, and the tag is the
+   link: each outlet name links to the article the item came from (ruling
+   2026-08-29 — the old bottom wall of source links is gone). A KVUE
+   relayed item's tag stays plain. The whole River targets
    about 1,500 words, warns above 1,800 — the early signal that items are
    drifting long, the same drift that went unnoticed for six editions — and
    fails above 2,200.

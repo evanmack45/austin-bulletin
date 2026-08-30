@@ -302,9 +302,18 @@ async function main() {
       if (!newShape && n > ITEM_WORD_CAP) {
         bad("river", `item is ${n} words (cap ${ITEM_WORD_CAP}): "${words(it).slice(0, 60)}…"`);
       }
-      if (!/<span class="src">[^<]+<\/span>\s*$/.test(it)) {
+      const tag = it.match(/<span class="src">([\s\S]+?)<\/span>\s*$/);
+      if (!tag) {
         bad("river", `item has no closing source tag: "${words(it).slice(0, 60)}…"`);
+      } else if (newShape && !/<a\s+href=/.test(tag[1]) && tag[1].trim() !== "KVUE") {
+        // New shape (Evan, 2026-08-29): the tag IS the link to the item's
+        // article — the bottom source-line walls are gone. The one plain-tag
+        // exception is a KVUE relay, whose pages are unreachable by policy.
+        bad("river", `source tag is not linked: "${words(it).slice(0, 60)}…"`);
       }
+    }
+    if (newShape && /<p class="source-line">(River|Weather) sources:/.test(text)) {
+      bad("river", "the bottom sources wall is retired — links live in each item's source tag");
     }
 
     if (newShape) {
@@ -343,9 +352,21 @@ async function main() {
   } else if (river && /^##\s+Weather\s*$/m.test(river)) {
     bad("weather", "Weather is inside the {% river %} wrapper; it must be its own section");
   }
+  // Old shape: Weather carries its own sources line. New shape (Evan,
+  // 2026-08-29): each weather item's tag is the link, and every tag must be
+  // linked — no wall, no plain tags.
   const weatherPart = text.split(/^##\s+Weather\s*$/m)[1] || "";
-  if (weatherPart && !/<p class="source-line">/.test(weatherPart.split(/<aside/)[0])) {
-    bad("weather", "Weather section has no sources line");
+  const weatherBody = weatherPart.split(/<aside/)[0];
+  if (!newShape) {
+    if (weatherPart && !/<p class="source-line">/.test(weatherBody)) {
+      bad("weather", "Weather section has no sources line");
+    }
+  } else {
+    for (const m of weatherBody.matchAll(/<span class="src">([\s\S]+?)<\/span>/g)) {
+      if (!/<a\s+href=/.test(m[1]) && m[1].trim() !== "KVUE") {
+        bad("weather", `weather item's source tag is not linked: "${m[1].slice(0, 40)}"`);
+      }
+    }
   }
 
   // --- rituals ------------------------------------------------------------

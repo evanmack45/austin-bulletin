@@ -112,6 +112,9 @@ test("a post-cutover edition fails under the new rules, not the old ones", async
     // The old-shape Big Story (~650 words, no in-page links) must be judged
     // by the First Read rules post-cutover, not the old 400-700 article rule.
     assert.match(output, /first read/, "expected the First Read checks to fire post-cutover");
+    // Old-shape items carry plain source tags; post-cutover the tag must be
+    // the link (Evan, 2026-08-29), so these must now be flagged.
+    assert.match(output, /source tag is not linked/, "expected the linked-tag rule to fire");
     assert.doesNotMatch(
       output,
       /big story/,
