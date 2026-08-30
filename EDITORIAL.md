@@ -7,7 +7,9 @@ suggestions. Every rule binds the writing.
 
 - The morning note is warm and local — a friendly Austinite. It may
   mention heat, traffic, city mood. It never carries political opinion.
-- Story paragraphs are flat, clear, and neutral. The Briefing is a short
+- Story paragraphs are flat, clear, and neutral. Every item stands alone:
+  a pronoun never points at a neighboring item's subject ("paid for them"
+  leaning on the previous brief's cameras was the 2026-08-30 case). The Briefing is a short
   editor's brief, not an article. City Desk item lengths follow the lead/brief
   contract in "The shape of a day": briefs about 25 words, leads 50–70.
 - In brief items are one sentence each and start with a bold one-word
@@ -16,7 +18,11 @@ suggestions. Every rule binds the writing.
   deadline, or a scheduled event. City Desk items may carry one when it earns
   it. It states what is scheduled, never what should happen.
 - The Briefing's chart is the page's hero; choose and build it with the most
-  care. In the City Desk, an image or card follows the item it belongs to.
+  care. In the City Desk, an image or card follows the item it belongs to —
+  and an item with an attached chart names it in its own sentence
+  ("charted below"), so the pairing is stated, not inferred; the template
+  tucks the chart to the item's margin (2026-08-30, Evan: a floating chart
+  between briefs read as belonging to nothing).
 - Bulletin titles are plain: "The Austin Bulletin — {Weekday, Month D, YYYY}".
   Never puns or jokes.
 - Street-level specificity: name the block, the bar, the campus, the person.

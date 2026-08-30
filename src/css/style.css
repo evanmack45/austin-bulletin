@@ -378,6 +378,11 @@ h2.glance-title::after { content: none; }
   position: absolute;
   left: -1.35rem;
 }
+/* A chart attached to a brief tucks to the brief's own margin, tight
+   under it, so it reads as that entry's exhibit — not a floating peer. */
+.river--tiered p:has(.src):not(h5 + p) + figure.graphic {
+  margin: 0.4rem 0 1.15rem 1.1rem;
+}
 
 .src {
   font-size: 0.72rem;
