@@ -367,13 +367,18 @@ outlet; never reproduce its articles at length.
 to found Austin Current. austinmonitor.com remains as a searchable archive:
 fine to link for background, never a source for today's news.
 
-**KVUE is discovery-only** (2026-08-24, publisher's decision). Its article
-pages are unreachable from the routine (a bot wall; the /ajax/ route its
-robots.txt disallows stays untouched, and we never disguise the fetcher). Read its RSS to learn what
-happened in town, then report the story from a source we can actually read —
-another outlet, or the agency, department or court the story came from. A
-readable source exists, a **relayed item** is allowed, so the bulletin still
-shows what KVUE is covering (publisher's call, 2026-08-24). A relayed item:
+**KVUE: discover by RSS, read via MSN when syndicated** (2026-08-30,
+Evan; supersedes 2026-08-24's discovery-only). Its article pages are
+unreachable from the routine (a bot wall; the /ajax/ route its robots.txt
+disallows stays untouched, and we never disguise the fetcher) — but KVUE
+licenses its stories to an official MSN channel, and `npm run kvue`
+retrieves that full text openly, accepting only a copy whose source URL
+matches KVUE's own. A story verified that way runs as a REAL item like
+any other outlet's, with a normal linked `KVUE` tag. When the story is
+not on MSN, report it from a source we can actually read — another
+outlet, or the agency, department or court it came from. Only when no
+readable source exists is a **relayed item** allowed, so the bulletin
+still shows what KVUE is covering. A relayed item:
 
 - is one sentence, and says nothing its source sentence does not say — no
   added context, no figure that was not in the teaser, no What's next;

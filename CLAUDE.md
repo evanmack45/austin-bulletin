@@ -377,5 +377,10 @@ Neutral. Factual. Clean.
   prose attribution "KVUE reported that…" marks the relay); the gate
   verifies KVUE URLs against KVUE's own RSS feeds. Relays stay thin
   with all 2026-08-24 guardrails. Evan also approved building the MSN
-  route: KVUE's official licensed MSN channel serves full article JSON
-  openly, so syndicated stories can run as real items.
+  route, and it is BUILT the same night: `npm run kvue -- <url>`
+  (scripts/kvue.mjs) finds KVUE's licensed MSN copy (Bing News RSS
+  discovery — /news is robots-clean, /search is not; MSN's open content
+  API) and accepts only a source-URL-matched result. Hit = real item,
+  normal linked KVUE tag; miss = readable-source fallback, relay last.
+  Rules in PIPELINE Step 1 and EDITORIAL; the 2026-08-29 East Riverside
+  relay was upgraded on its verified text as the worked example.

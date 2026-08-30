@@ -1,5 +1,6 @@
 // ESLint flat config. Covers the files listed in `npm run lint`
-// (scripts/river.mjs, scripts/acronyms.mjs, tests/) — see package.json.
+// (scripts/river.mjs, scripts/acronyms.mjs, scripts/kvue.mjs, tests/) — see
+// package.json.
 //
 // scripts/check.mjs is deliberately NOT linted here. Its main() is 201
 // lines at cyclomatic complexity 79 (inherited at 181 lines/complexity 67
@@ -12,7 +13,7 @@
 // for `npm run lint` until that task happens.
 export default [
   {
-    files: ["scripts/river.mjs", "scripts/acronyms.mjs", "tests/**/*.mjs"],
+    files: ["scripts/river.mjs", "scripts/acronyms.mjs", "scripts/kvue.mjs", "tests/**/*.mjs"],
     languageOptions: {
       ecmaVersion: 2023,
       sourceType: "module"

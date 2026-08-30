@@ -109,15 +109,20 @@ the story. The body is inside `<div class="ArtP-articleBody">` and ends at
 `ArtP-tags`; the headline is `<h1 class="ArtP-headline">`. Slice between those
 markers (noted 2026-08-28). The page also carries NewsArticle structured data.
 
-**KVUE is discovery-only** (settled 2026-08-24; see EDITORIAL.md). Its
-`/article/…` pages 403 to every route — curl, WebFetch, a reader proxy, the
-`/amp/` and `/mobile/` variants. Its section pages return 200 but are
-client-side shells with no article text, and no syndication feed carries
-more than a ~120-character teaser. The one route that would work is its
-content API under `/ajax/content/…`, which its own robots.txt disallows:
-**do not use it.** Read
-https://www.kvue.com/feeds/syndication/rss/news/local as a tip sheet, then
-report anything worth having from a source we can read. Where no readable
+**KVUE: discover by RSS, read via MSN when syndicated** (2026-08-30,
+superseding "discovery-only"; research in
+docs/reviews/kvue-access-research-2026-08-30.md). Its `/article/…` pages
+403 to every automated route — a bot wall, though robots.txt permits them
+and real browsers pass. The `/ajax/content/…` API its robots.txt disallows
+stays untouched: **do not use it.** Read
+https://www.kvue.com/feeds/syndication/rss/news/local as a tip sheet.
+For any story worth having, run `npm run kvue -- <article-url>`: it finds
+KVUE's licensed copy on its official MSN channel and prints the verified
+full text (it accepts only a result whose sourceHref matches the KVUE
+URL). A hit means the story runs as a REAL item — facts from the licensed
+text, a normal linked `KVUE` tag, no relay language. A miss (not
+syndicated, or not yet) falls back to reporting from a source we can
+read. Where no readable
 source exists, a one-sentence relayed item is allowed — see "relayed item"
 in EDITORIAL.md for what it may and may not say. Do not retry the article
 pages.
@@ -263,8 +268,8 @@ then a Sources line — links live there, not sprinkled through the prose);
 `{% river %}…{% endriver %}` (`#### Beat` labels in the fixed order,
 one paragraph per item ending in a linked source tag —
 `<span class="src"><a href="…">OUTLET</a></span>`, the tag itself is the
-link to the item's article (a KVUE relay's tag reads `KVUE (relayed)`,
-unlinked — its pages are unreachable by policy) — there is no bottom
+link to the item's article (KVUE tags link too since 2026-08-30; the gate
+verifies KVUE URLs against KVUE's own feed) — there is no bottom
 sources wall,
 `{% voice %}` cards where they earn it); `## Weather` **outside** the river
 wrapper, carrying the NWS forecast and alerts, any weather items, the weather
