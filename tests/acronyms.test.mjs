@@ -71,7 +71,7 @@ test("strips source-line paragraphs before warning on unknown tokens", () => {
 
 // --- Additional coverage: spec 3.3 says first use is anywhere in the
 // edition — the expansion may come well before the initialism (e.g. spelled
-// out in the Big Story, then abbreviated later in the River). The left side
+// out in the Big Story, then abbreviated later in City Desk). The left side
 // of the window must therefore be unbounded: a real-writing case like this
 // must NOT be flagged.
 test("does not flag an initialism whose expansion appeared ~500 characters earlier", () => {

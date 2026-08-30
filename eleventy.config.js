@@ -75,7 +75,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/icon-512.png");
 
   // Heading ids (e.g. <h2 id="weather">) so in-page jump links work.
-  // Uses beatSlug (above) so ids agree with the River's beat nav hrefs.
+  // Uses beatSlug (above) so ids agree with City Desk's beat nav hrefs.
   let md;
   eleventyConfig.amendLibrary("md", (lib) => {
     md = lib.use(markdownItAnchor, { slugify: beatSlug });
@@ -273,12 +273,12 @@ export default function (eleventyConfig) {
 </figure>`;
   });
 
-  // {% river %}…{% endriver %} — wraps the day's River in a <div class="river">,
-  // running the inner markdown through the same markdown-it instance (with
-  // heading anchors) used for the rest of the page. Markdown-inside-a-div is
-  // otherwise unreliable, since the outer Nunjucks->markdown-it pipeline only
-  // passes raw HTML blocks through unchanged.
-  // The River renders its own beat navigation: readers who want City Hall
+  // {% river %}…{% endriver %} — wraps the day's City Desk in a <div class="river">
+  // (the shortcode keeps its "river" name), running the inner markdown through
+  // the same markdown-it instance (with heading anchors) used for the rest of
+  // the page. Markdown-inside-a-div is otherwise unreliable, since the outer
+  // Nunjucks->markdown-it pipeline only passes raw HTML blocks through unchanged.
+  // City Desk renders its own beat navigation: readers who want City Hall
   // should not have to scroll past Public safety to reach it. Both the
   // heading ids (via markdown-it-anchor above) and these hrefs come from the
   // same beatSlug function, so a jump link always lands on its heading.

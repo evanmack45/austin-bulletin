@@ -1,5 +1,9 @@
 // Parses a {% river %} block into typed items and beats.
 //
+// The section this parses prints as "City Desk" since 2026-08-29 (it printed
+// as "The River" before); this file, its exports and the {% river %}
+// shortcode keep the internal name "river".
+//
 // Two kinds of item, per EDITORIAL.md "The shape of a day":
 //   lead  — a ##### headline over a 50–70 word summary
 //   brief — one sentence, no headline
@@ -327,7 +331,7 @@ function checkBeatHeadings(parsed, bad) {
   if (parsed.beats.length === 0) {
     bad(
       "river",
-      "no beat headings in the River; EDITORIAL requires every item grouped under a recognised beat"
+      "no beat headings in City Desk; EDITORIAL requires every item grouped under a recognised beat"
     );
   }
 }
@@ -422,7 +426,7 @@ function checkLeadsPerEdition(parsed, bad, warn) {
   } else if (parsed.leads.length < LIMITS.leadsWarnBelow) {
     warn(
       "river",
-      `${parsed.leads.length} lead(s) in the River (EDITORIAL warns below ` +
+      `${parsed.leads.length} lead(s) in City Desk (EDITORIAL warns below ` +
         `${LIMITS.leadsWarnBelow}; the impact test may legitimately find nothing)`
     );
   }
@@ -472,7 +476,7 @@ function checkVoiceBudget(parsed, exceptable, bad) {
   if (parsed.visuals.voice < LIMITS.voiceMin) {
     exceptable(
       "visuals",
-      `${parsed.visuals.voice} voice card(s) in the River, EDITORIAL wants at least ` +
+      `${parsed.visuals.voice} voice card(s) in City Desk, EDITORIAL wants at least ` +
         `${LIMITS.voiceMin}`
     );
   }
@@ -485,7 +489,7 @@ function checkVoiceBudget(parsed, exceptable, bad) {
 
 function checkGraphicBudget(parsed, exceptable) {
   if (parsed.visuals.graphic < LIMITS.graphicMin) {
-    exceptable("visuals", "no graphic in the River; EDITORIAL wants at least one");
+    exceptable("visuals", "no graphic in City Desk; EDITORIAL wants at least one");
   }
 }
 
@@ -495,7 +499,7 @@ function checkVideoBudget(parsed, exceptable, bad) {
   // reach it.
   const videoMessage =
     `${parsed.visuals.video} video(s), EDITORIAL wants ${LIMITS.videoMin}–${LIMITS.videoMax} ` +
-    "in the River";
+    "in City Desk";
   if (parsed.visuals.video < LIMITS.videoMin) {
     exceptable("visuals", videoMessage);
   }

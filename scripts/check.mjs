@@ -70,8 +70,8 @@ const ITEM_WORD_CAP = 100;
 const BIG_MIN = 400;
 const BIG_MAX = 700;
 
-// First Read (new shape, from 2026-08-29): the day's chart plus a short
-// editor's brief that routes readers into the River — not an article.
+// The Briefing (new shape, from 2026-08-29): the day's chart plus a short
+// editor's brief that routes readers into City Desk — not an article.
 // Target 150–250 words; the gate allows 120–300.
 const FIRSTREAD_MIN = 120;
 const FIRSTREAD_MAX = 300;
@@ -169,7 +169,7 @@ async function exists(p) {
   }
 }
 
-// First Read (new shape): the old Big Story's synthesis at a quarter the
+// The Briefing (new shape): the old Big Story's synthesis at a quarter the
 // length — a ### headline stating the day's idea, the day's chart, 120–300
 // words of connected prose, a What's next line, and a Sources line. Evan
 // tried and rejected a routing brief full of in-page links on 2026-08-29
@@ -182,21 +182,21 @@ function checkFirstRead(big, fullText, bad) {
     .replace(/<figcaption[\s\S]*?<\/figcaption>/g, " ");
   const n = wordCount(prose);
   if (n < FIRSTREAD_MIN || n > FIRSTREAD_MAX) {
-    bad("first read", `${n} words, EDITORIAL wants ${FIRSTREAD_MIN}–${FIRSTREAD_MAX}`);
+    bad("briefing", `${n} words, EDITORIAL wants ${FIRSTREAD_MIN}–${FIRSTREAD_MAX}`);
   }
-  if (!/^###\s+\S/m.test(big)) bad("first read", "no ### headline stating the day's idea");
-  if (!/<p class="whats-next">/.test(big)) bad("first read", 'no "What\'s next" line');
+  if (!/^###\s+\S/m.test(big)) bad("briefing", "no ### headline stating the day's idea");
+  if (!/<p class="whats-next">/.test(big)) bad("briefing", 'no "What\'s next" line');
   if (!/!\[|<img[\s>]/.test(big)) {
-    bad("first read", "no chart or image — the day's graphic anchors the section");
+    bad("briefing", "no chart or image — the day's graphic anchors the section");
   }
-  if (!/<p class="source-line">/.test(big)) bad("first read", "no Sources line");
+  if (!/<p class="source-line">/.test(big)) bad("briefing", "no Sources line");
   const targets = [...big.matchAll(/\]\(#([^)]+)\)/g)].map((m) => m[1]);
   const river = section(fullText, "{% river %}", "{% endriver %}") || "";
   const valid = new Set(["weather", "one-good-thing", "top"]);
   for (const b of BEATS) valid.add(slug(b));
   for (const m of river.matchAll(new RegExp(LEAD_HEADING_RE.source, "gm"))) valid.add(slug(m[1]));
   for (const t of targets) {
-    if (!valid.has(t)) bad("first read", `in-page link "#${t}" has no matching anchor on the page`);
+    if (!valid.has(t)) bad("briefing", `in-page link "#${t}" has no matching anchor on the page`);
   }
 }
 
@@ -223,7 +223,7 @@ async function main() {
 
   // --- front matter -------------------------------------------------------
   const fm = section(text, "---\n", "\n---");
-  // Optional escape hatch for the River's visual minimums (EDITORIAL.md
+  // Optional escape hatch for City Desk's visual minimums (EDITORIAL.md
   // "Voice cards and video"): visual_exception: "<reason>". Narrowly scoped
   // to the front-matter block itself, not the whole file — reusing the same
   // `section()` mechanism the rest of front matter parsing already uses.
@@ -250,11 +250,11 @@ async function main() {
     }
   }
 
-  // --- Lead section: Big Story (old shape) / First Read (new shape) -------
+  // --- Lead section: Big Story (old shape) / The Briefing (new shape) ----
   const newShape = date >= NEW_SHAPE_FROM;
   const big = section(text, "{% bigstory %}", "{% endbigstory %}");
   if (!big) {
-    bad(newShape ? "first read" : "big story", "no {% bigstory %} block");
+    bad(newShape ? "briefing" : "big story", "no {% bigstory %} block");
   } else if (!newShape) {
     const prose = big
       .replace(/^###.*$/gm, " ")
@@ -271,7 +271,7 @@ async function main() {
     checkFirstRead(big, text, bad);
   }
 
-  // --- River --------------------------------------------------------------
+  // --- City Desk ------------------------------------------------------------
   const ACRONYMS = JSON.parse(
     await readFile(new URL("./acronyms.json", import.meta.url), "utf8")
   );

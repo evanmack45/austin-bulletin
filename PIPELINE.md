@@ -202,10 +202,10 @@ flat or misses the day's point, in the Morning Note's voice (EDITORIAL.md).
 ## Step 2 — Select
 
 Find the day's idea first: two to four items that belong together become
-First Read's opening thought and its chart. When no genuine thread exists,
+The Briefing's opening thought and its chart. When no genuine thread exists,
 lead with the day's single most consequential story and its chart — a real
 single story beats a manufactured connection, and the log says so. Then
-fill the River: aim for 25–40 items across the beats in EDITORIAL.md's
+fill the City Desk: aim for 25–40 items across the beats in EDITORIAL.md's
 fixed order; 5 is a failure, log it.
 
 Priority ladder ("Who Pays" — Evan's pick from the 2026-08-29 selection
@@ -251,11 +251,11 @@ Current was not checked rather than that nothing happened.
 
 Create `src/bulletins/YYYY-MM-DD.md` for today, copying the exact front
 matter and section order of the newest existing bulletin file: the
-morning note; `## First Read` inside `{% bigstory %}…{% endbigstory %}`
+morning note; `## The Briefing` inside `{% bigstory %}…{% endbigstory %}`
 (### headline stating the day's idea, the day's chart with its
 `<figcaption>`, 150–250 words of connected prose, a What's next line,
 then a Sources line — links live there, not sprinkled through the prose);
-`## The River` inside
+`## City Desk` inside
 `{% river %}…{% endriver %}` (`#### Beat` labels in the fixed order,
 one paragraph per item ending in a linked source tag —
 `<span class="src"><a href="…">OUTLET</a></span>`, the tag itself is the
@@ -407,13 +407,13 @@ If `node_modules` is missing (every fresh clone), run `npm ci` first. Then:
     npm run check                  # today; or `npm run check -- YYYY-MM-DD`
 
 `npm run check` (scripts/check.mjs) is the mechanical half of EDITORIAL's
-quality gate: front matter and permalink, First Read's length, headline,
+quality gate: front matter and permalink, The Briefing's length, headline,
 chart, What's next line and in-page link targets, lead and brief
 lengths, lead counts per beat and per edition, beat names and their fixed
-order, the River's item count and word budget
+order, the City Desk's item count and word budget
 (warns above 1,800, fails above 2,200), source tags, banned verbs, the
 Weather section and its `weather` id, the rituals, image files that exist
-with real alt text, the River's visual minimums and caps (Voice cards,
+with real alt text, the City Desk's visual minimums and caps (Voice cards,
 graphic, video), initialism expansion on first use, and card/video ids not
 already used by an earlier edition.
 
@@ -429,7 +429,7 @@ prominently so it lands in this run's log.
 This is for genuine scarcity only: the voice-cards-per-beat cap, the
 voice-cards-per-edition cap, the videos-per-edition cap, and every rule
 outside the visual minimums (item lengths, lead counts, item counts, the
-River word budget, language rules) can never be excepted — see EDITORIAL.md
+City Desk word budget, language rules) can never be excepted — see EDITORIAL.md
 "The visual_exception escape hatch."
 
 Its link check

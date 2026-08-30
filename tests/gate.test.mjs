@@ -110,8 +110,8 @@ test("a post-cutover edition fails under the new rules, not the old ones", async
       "expected the new acronym-expansion check to fire"
     );
     // The old-shape Big Story (~650 words, no in-page links) must be judged
-    // by the First Read rules post-cutover, not the old 400-700 article rule.
-    assert.match(output, /first read/, "expected the First Read checks to fire post-cutover");
+    // by The Briefing rules post-cutover, not the old 400-700 article rule.
+    assert.match(output, /briefing/, "expected The Briefing checks to fire post-cutover");
     // Old-shape items carry plain source tags; post-cutover the tag must be
     // the link (Evan, 2026-08-29), so these must now be flagged.
     assert.match(output, /source tag is not linked/, "expected the linked-tag rule to fire");
@@ -306,7 +306,8 @@ test("an AI-tell phrase fails the language check", async () => {
 
 test('a trailing "-ing analysis" clause fails the language check', async () => {
   const { code, output } = await runWithAppendedSnippet(
-    'Attendance rose to 4,000, highlighting the event\'s growing appeal. <span class="src">KXAN</span>'
+    'Attendance rose to 4,000, highlighting the event\'s growing appeal. ' +
+    '<span class="src">KXAN</span>'
   );
   assert.notEqual(code, 0, "expected the checker to fail on a gerund analysis clause");
   assert.match(output, /-ing analysis/, "expected the gerund-clause message to fire");

@@ -404,11 +404,14 @@ h2.glance-title::after { content: none; }
   white-space: nowrap;
 }
 
-/* The River and Weather open like broadsheet section fronts (Evan,
+/* City Desk and Weather open like broadsheet section fronts (Evan,
    2026-08-29): a double rule starts the band, the section name sits
    centered and large, and one hairline closes the unit — under the beat
-   nav for the River, under the heading itself for Weather. */
+   nav for City Desk, under the heading itself for Weather. The stream
+   printed as "The River" before 2026-08-29; #the-river stays so those
+   editions keep their styling. */
 h2#the-river,
+h2#city-desk,
 h2#weather {
   display: block;
   text-align: center;
@@ -421,6 +424,7 @@ h2#weather {
   text-indent: 0.32em; /* balances the tracked caps around center */
 }
 h2#the-river::after,
+h2#city-desk::after,
 h2#weather::after { content: none; }
 h2#weather {
   border-bottom: 1px solid var(--rule);

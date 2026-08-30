@@ -101,7 +101,9 @@ test("passes a beat with exactly 2 leads", () => {
 });
 
 test("fails more than 12 leads in an edition", () => {
-  const river = BEATS_LEGACY.slice(0, 7).map((b) => riverOf(b, [lead("A", 50), lead("B", 50)])).join("\n");
+  const river = BEATS_LEGACY.slice(0, 7)
+    .map((b) => riverOf(b, [lead("A", 50), lead("B", 50)]))
+    .join("\n");
   const { problems } = checkRiver(parseRiver(river));
   assert.ok(problems.some((p) => /14 leads/.test(p.message)));
 });
@@ -289,12 +291,12 @@ function riverWithLeads(n) {
 
 test("warns on an edition with 3 leads", () => {
   const { warnings } = checkRiver(parseRiver(riverWithLeads(3)));
-  assert.ok(warnings.some((w) => /3 lead\(s\) in the River/.test(w.message)));
+  assert.ok(warnings.some((w) => /3 lead\(s\) in City Desk/.test(w.message)));
 });
 
 test("does not warn on an edition with exactly 4 leads", () => {
   const { warnings } = checkRiver(parseRiver(riverWithLeads(4)));
-  assert.ok(!warnings.some((w) => /lead\(s\) in the River/.test(w.message)));
+  assert.ok(!warnings.some((w) => /lead\(s\) in City Desk/.test(w.message)));
 });
 
 test("fails an edition with 11 voice cards", () => {
@@ -321,8 +323,8 @@ const SUBSTANTIVE_EXCEPTION = "Quiet news day; no public posts worth carrying as
 test("no exception + 0 voice cards fails the voice minimum", () => {
   const river = riverOf("Schools", [brief(20), '![chart](/images/x.png)', '{% video "a" %}']);
   const { problems, warnings } = checkRiver(parseRiver(river));
-  assert.ok(problems.some((p) => /0 voice card\(s\) in the River/.test(p.message)));
-  assert.ok(!warnings.some((w) => /0 voice card\(s\) in the River/.test(w.message)));
+  assert.ok(problems.some((p) => /0 voice card\(s\) in City Desk/.test(p.message)));
+  assert.ok(!warnings.some((w) => /0 voice card\(s\) in City Desk/.test(w.message)));
 });
 
 test("a substantive exception downgrades 0 voice cards to a warning, not a problem", () => {
@@ -330,8 +332,8 @@ test("a substantive exception downgrades 0 voice cards to a warning, not a probl
   const { problems, warnings } = checkRiver(parseRiver(river), {
     visualException: SUBSTANTIVE_EXCEPTION
   });
-  assert.ok(!problems.some((p) => /voice card\(s\) in the River/.test(p.message)));
-  assert.ok(warnings.some((w) => /0 voice card\(s\) in the River/.test(w.message)));
+  assert.ok(!problems.some((p) => /voice card\(s\) in City Desk/.test(p.message)));
+  assert.ok(warnings.some((w) => /0 voice card\(s\) in City Desk/.test(w.message)));
   assert.ok(warnings.some((w) => w.message.includes(SUBSTANTIVE_EXCEPTION)));
 });
 
@@ -359,8 +361,8 @@ test("a too-short exception is itself a problem, not a silent no-op", () => {
   assert.ok(problems.some((p) => /visual_exception is too short/.test(p.message)));
   // The minimums still fail normally — a bad exception must not act as a
   // valid one.
-  assert.ok(problems.some((p) => /0 voice card\(s\) in the River/.test(p.message)));
-  assert.ok(!warnings.some((w) => /voice card\(s\) in the River/.test(w.message)));
+  assert.ok(problems.some((p) => /0 voice card\(s\) in City Desk/.test(p.message)));
+  assert.ok(!warnings.some((w) => /voice card\(s\) in City Desk/.test(w.message)));
 });
 
 test("a sparse reason padded to 20 characters with whitespace is rejected", () => {
@@ -371,8 +373,8 @@ test("a sparse reason padded to 20 characters with whitespace is rejected", () =
   const river = riverOf("Schools", [brief(20), '![chart](/images/x.png)', '{% video "a" %}']);
   const { problems, warnings } = checkRiver(parseRiver(river), { visualException: padded });
   assert.ok(problems.some((p) => /visual_exception is too short/.test(p.message)));
-  assert.ok(problems.some((p) => /0 voice card\(s\) in the River/.test(p.message)));
-  assert.ok(!warnings.some((w) => /voice card\(s\) in the River/.test(w.message)));
+  assert.ok(problems.some((p) => /0 voice card\(s\) in City Desk/.test(p.message)));
+  assert.ok(!warnings.some((w) => /voice card\(s\) in City Desk/.test(w.message)));
 });
 
 test("a genuine 20+ character sentence is accepted", () => {
@@ -381,7 +383,7 @@ test("a genuine 20+ character sentence is accepted", () => {
     visualException: SUBSTANTIVE_EXCEPTION
   });
   assert.ok(!problems.some((p) => /visual_exception is too short/.test(p.message)));
-  assert.ok(warnings.some((w) => /0 voice card\(s\) in the River/.test(w.message)));
+  assert.ok(warnings.some((w) => /0 voice card\(s\) in City Desk/.test(w.message)));
 });
 
 // --- FIX 3: punctuation-only (or single-repeated-token) reasons must not
@@ -425,7 +427,7 @@ test("an ungrouped River (no beat headings at all) fails", () => {
   assert.equal(parsed.beats.length, 0);
   assert.ok(parsed.items.every((i) => i.beat === null));
   const { problems } = checkRiver(parsed);
-  assert.ok(problems.some((p) => /no beat headings in the River/.test(p.message)));
+  assert.ok(problems.some((p) => /no beat headings in City Desk/.test(p.message)));
 });
 
 test("a River with one valid beat and all items inside it passes the beat-structure checks", () => {
@@ -534,7 +536,7 @@ test("a genuine sentence is still accepted after the FIX 4 tightening", () => {
 // treated as ungrouped — so stacking all six visual minimums before the
 // first beat heading, with beats too short to trip the per-beat density
 // rule, cleared the gate with zero problems. Every visual minimum exists
-// only to break up the River's wall of text; a visual that interrupts
+// only to break up City Desk's wall of text; a visual that interrupts
 // nothing must not satisfy them.
 test("six visuals stacked before the first beat heading fail as ungrouped", () => {
   const beats = ["Schools", "Health", "Texas"]
@@ -585,7 +587,7 @@ test("visuals correctly placed inside beats satisfy the minimums with no ungroup
 
   const { problems } = checkRiver(parseRiver(river));
   assert.ok(!problems.some((p) => /is outside every beat heading/.test(p.message)));
-  assert.ok(!problems.some((p) => /voice card\(s\) in the River/.test(p.message)));
+  assert.ok(!problems.some((p) => /voice card\(s\) in City Desk/.test(p.message)));
   assert.ok(!problems.some((p) => /no graphic/.test(p.message)));
   assert.ok(!problems.some((p) => /video\(s\), EDITORIAL wants/.test(p.message)));
 });

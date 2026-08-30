@@ -336,3 +336,13 @@ Neutral. Factual. Clean.
   The Number's figure is never restated as digits elsewhere. Remaining
   panel items (naming pass for First Read/The River, archive search,
   capture stitching) wait on Evan.
+- 2026-08-29 (Evan, late — THE NAMING PASS IS SETTLED): the opening
+  synthesis is **The Briefing** (replaces the provisional "First Read" —
+  NBC's political-newsletter brand, and cold readers misread it) and the
+  news stream is **City Desk** (replaces "The River," opaque to two
+  review panels). Chosen from a five-persona naming jam
+  (docs/reviews/naming-jam-2026-08-29.md). Editions before 2026-08-29
+  keep their printed names; the code, shortcodes ({% river %},
+  {% bigstory %}), CSS classes and scripts/river.mjs keep their internal
+  names, and h2#the-river stays styled for old editions. Do not
+  re-litigate these names or rename the internal terms.

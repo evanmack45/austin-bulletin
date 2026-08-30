@@ -7,16 +7,16 @@ suggestions. Every rule binds the writing.
 
 - The morning note is warm and local — a friendly Austinite. It may
   mention heat, traffic, city mood. It never carries political opinion.
-- Story paragraphs are flat, clear, and neutral. First Read is a short
-  editor's brief, not an article. River item lengths follow the lead/brief
+- Story paragraphs are flat, clear, and neutral. The Briefing is a short
+  editor's brief, not an article. City Desk item lengths follow the lead/brief
   contract in "The shape of a day": briefs about 25 words, leads 50–70.
 - In brief items are one sentence each and start with a bold one-word
   category label and a colon: `**Outage:**`, `**Politics:**`, `**Border:**`.
-- First Read ends with one "What's next" sentence: a date, a vote, a
-  deadline, or a scheduled event. River items may carry one when it earns
+- The Briefing ends with one "What's next" sentence: a date, a vote, a
+  deadline, or a scheduled event. City Desk items may carry one when it earns
   it. It states what is scheduled, never what should happen.
-- First Read's chart is the page's hero; choose and build it with the most
-  care. In the River, an image or card follows the item it belongs to.
+- The Briefing's chart is the page's hero; choose and build it with the most
+  care. In the City Desk, an image or card follows the item it belongs to.
 - Bulletin titles are plain: "The Austin Bulletin — {Weekday, Month D, YYYY}".
   Never puns or jokes.
 - Street-level specificity: name the block, the bar, the campus, the person.
@@ -35,10 +35,10 @@ suggestions. Every rule binds the writing.
   evolving", "rich tapestry", and vague attributions like "experts say" —
   name the person or the outlet instead), and no trailing "-ing analysis"
   clauses (", highlighting the…", ", reflecting broader…"). Enforced by
-  reading, not the gate: vary sentence length — First Read carries at
+  reading, not the gate: vary sentence length — The Briefing carries at
   least one sentence under six words and never three same-shaped sentences
-  in a row; at most one em dash in all of First Read; one turn of phrase
-  per First Read, spent early, never as a closing bow — the section ends
+  in a row; at most one em dash in all of the Briefing; one turn of phrase
+  per Briefing, spent early, never as a closing bow — the section ends
   on its hardest concrete fact, not a summary; no parallel-structure
   flourishes (rule of three, chiasmus, "not X but Y" as ornament).
 - Each glance cell carries one blurb: a single plain sentence, at most
@@ -50,9 +50,9 @@ suggestions. Every rule binds the writing.
   short: "the Electric Reliability Council of Texas (ERCOT)", "Emergency
   Services District 5", "Independent School District". This covers agencies,
   districts, utilities, stadiums (DKR), road nicknames (first use as "MoPac
-  (Loop 1)"), and vendor names used as bare nouns (Flock, Axon). First Read
-  counts as first use; the River need not repeat it — and because First Read
-  precedes the River, an initialism it touches must be expanded there or
+  (Loop 1)"), and vendor names used as bare nouns (Flock, Axon). The Briefing
+  counts as first use; the City Desk need not repeat it — and because the Briefing
+  precedes the City Desk, an initialism it touches must be expanded there or
   avoided there.
 - A glance metric leads with its source's own status word, never a bare
   number on an unstated scale (ruling 2026-08-29, replacing the "59 of 500"
@@ -71,7 +71,8 @@ suggestions. Every rule binds the writing.
 ## The shape of a day
 
 1. The Morning Note (voice, zero politics).
-2. First Read (name provisional): the old Big Story's synthesis at a
+2. The Briefing (so named 2026-08-29; earlier editions printed "First
+   Read"): the old Big Story's synthesis at a
    quarter the length — the day's chart plus 150–250 words (the gate allows
    120–300) of connected prose under a ### headline stating the day's idea.
    It connects two to four of the day's items into one thought, explains,
@@ -87,7 +88,9 @@ suggestions. Every rule binds the writing.
    evening as "spammy." Prose synthesis, short, with links kept to the
    Sources line, is the standing shape. In-page links are allowed sparingly
    and must land on real anchors; the gate validates any that appear.)
-3. The River: 25–40 items grouped by beat, in this fixed order (the
+3. City Desk (so named 2026-08-29; editions before then printed "The
+   River", and the code keeps "river" as its internal term): 25–40 items
+   grouped by beat, in this fixed order (the
    six-beat map adopted 2026-08-29 from the beat-taxonomy jam,
    docs/reviews/river-beats-jam-2026-08-29.md — the order is the Who Pays
    ladder): **Money & bills · Public safety & courts · Growth &
@@ -125,18 +128,18 @@ suggestions. Every rule binds the writing.
    fails outside 40–80). At most two per beat, at most twelve per edition. An
    item becomes a lead only if it passes the impact test below. A beat with
    nothing that passes has no lead — never promote an item to fill a slot.
-   Fewer than four leads in the River warns, but does not fail the gate — the
+   Fewer than four leads in the City Desk warns, but does not fail the gate — the
    impact test is allowed to legitimately find nothing on a quiet day, and a
    hard fail would punish correct editorial judgment.
 
    A **brief** is every other item: one sentence, about 25 words, no headline
-   (the gate fails above 35). Briefs are the default; most of the River is
+   (the gate fails above 35). Briefs are the default; most of the City Desk is
    briefs.
 
    Every item, lead or brief, ends with a source tag, and the tag is the
    link: each outlet name links to the article the item came from (ruling
    2026-08-29 — the old bottom wall of source links is gone). A KVUE
-   relayed item's tag stays plain. The whole River targets
+   relayed item's tag stays plain. The whole City Desk targets
    about 1,500 words, warns above 1,800 — the early signal that items are
    drifting long, the same drift that went unnoticed for six editions — and
    fails above 2,200.
@@ -151,7 +154,7 @@ suggestions. Every rule binds the writing.
 
    This test is published on the About page. It is the site's answer to "who
    decided this mattered", so it is applied literally, not loosely.
-4. Weather: its own `## Weather` section after the River, not a River beat.
+4. Weather: its own `## Weather` section after the City Desk, not a City Desk beat.
    It opens with the day's NWS forecast and active alerts, then any weather
    items worth having (records, streaks, what the week does), then the
    weather graphic if there is one, then its own sources line. The masthead's
@@ -177,8 +180,8 @@ life. Do not reinstate a sports beat or ritual, or propose either.
 Weather became its own section 2026-08-24 at the publisher's direction,
 resolving a long-standing disagreement between this file and PIPELINE.md: the
 first two bulletins ran Weather as the last River beat while PIPELINE Step 3
-described a `## Weather` section. The section wins. The River's item count
-excludes weather items, so a 25–40 River is 25–40 non-weather items. The
+described a `## Weather` section. The section wins. City Desk's item count
+excludes weather items, so a 25–40 City Desk is 25–40 non-weather items. The
 2026-08-23 bulletin still has Weather inside its River and is left alone —
 published editions are not restructured after the fact.
 
@@ -210,21 +213,21 @@ time or price we cannot verify is worse than an absent ritual.
   tonal whiplash, however kindly meant (same panel: three readers flagged
   it; the condolence card was pulled).
 - Cap: 10 cards a day, 3 videos a day, enforced across the whole edition —
-  not scoped to the River the way the minimums below are. (The River also
-  carries its own copy of the same cap, since a River that alone reached 10
+  not scoped to the City Desk the way the minimums below are. (City Desk also
+  carries its own copy of the same cap, since a City Desk that alone reached 10
   cards would already have tripped the edition-wide one.) Video is the
   outlet's own upload, embedded, never re-hosted.
 - Cards and videos are gathered with `npm run card -- <post-url>` and
   `npm run video -- <youtube-url>` (PIPELINE.md Step 4).
-- Daily minimums, not just caps. The River carries at least four Voice cards
+- Daily minimums, not just caps. City Desk carries at least four Voice cards
   (target six to ten, at most two in any one beat), at least one original
   graphic, and one to three videos. Any beat running more than 400 words
-  carries at least one visual. These minimums are scoped to the River, not
-  the edition as a whole: the First Read chart or a chart in the
+  carries at least one visual. These minimums are scoped to the City Desk, not
+  the edition as a whole: the Briefing's chart or a chart in the
   Weather section does not count toward them, because their job is
-  interrupting the River's wall of text specifically — a visual sitting
+  interrupting the City Desk's wall of text specifically — a visual sitting
   somewhere else in the page does not do that. The cards are what break up
-  the River; a River that ships two of them has not met the rule, and the
+  the City Desk; a City Desk that ships two of them has not met the rule, and the
   pre-publish check will fail.
 - The daily original-graphic minimum means one graphic from `npm run
   graphic` — its output is wrapped in `<figure class="graphic">`, which is
@@ -268,7 +271,7 @@ These never bend, exception or not, because too many visuals is never a
 supply shortage: the voice-cards-per-beat cap (`voicePerBeat`), the
 voice-cards-per-edition cap (`voiceMax`), and the videos-per-edition cap
 (`videoMax`). Nothing outside the visual minimums is ever exceptable —
-item lengths, lead counts, item counts, the River word budget, and every
+item lengths, lead counts, item counts, the City Desk word budget, and every
 language rule stay hard failures under all circumstances.
 
 Use this only for genuine scarcity, never to skip the work of finding
@@ -293,7 +296,7 @@ audit is the drift this whole change exists to prevent.
 6. Weekly balance check: every Sunday, re-read the past 7 bulletins and
    note in the log whether story selection leaned toward any side. Adjust
    the coming week if it did. Check **topic concentration** in the same
-   pass: list the week's First Read headline subjects and note any subject
+   pass: list the week's Briefing headline subjects and note any subject
    that led more than twice. A single subject can dominate on the merits for days —
    data centers nearly took two mornings running on 2026-08-24 and
    2026-08-25 — and the result reads as a paper about one thing. Where a
@@ -363,7 +366,7 @@ shows what KVUE is covering (publisher's call, 2026-08-24). A relayed item:
 - attributes in the prose, not just the tag: "KVUE reported that …" — and
   its tag reads `KVUE (relayed)`, unlinked, so the missing link registers
   as policy rather than a mistake;
-- never leads First Read, and never carries an image.
+- never leads the Briefing, and never carries an image.
 
 Do not relay a teaser about a person's death or injury, a crime accusation
 against a named person, a disputed political claim, or any figure that has to
@@ -416,8 +419,8 @@ Do not push unless every check passes:
 3. Date, title, and permalink are correct and consistent.
 4. Every image loads (HTTP 200) and follows the image rules; embed cap
    respected.
-5. The River's leads and briefs meet the lead/brief contract — lengths, and
-   lead counts per beat and per edition — and the River meets its visual
+5. City Desk's leads and briefs meet the lead/brief contract — lengths, and
+   lead counts per beat and per edition — and the City Desk meets its visual
    minimums and caps (Voice cards, graphic, video), unless a logged
    `visual_exception` applies (see "The visual_exception escape hatch" above).
 6. Every initialism is expanded on its first use in the edition.
