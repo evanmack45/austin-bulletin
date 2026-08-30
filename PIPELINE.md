@@ -209,7 +209,7 @@ fill the City Desk — Austin proper only: a story must land inside the
 city limits or on a system Austin residents use (EDITORIAL.md's coverage
 boundary; suburb stories are left on the desk at gather time, so do not
 carry Community Impact's suburb-desk feeds or suburb-city crime past
-discovery). Aim for 25–40 items across the beats in EDITORIAL.md's
+discovery). Aim for 20–40 items across the beats in EDITORIAL.md's
 fixed order; 5 is a failure, log it.
 
 Priority ladder ("Who Pays" — Evan's pick from the 2026-08-29 selection
@@ -275,7 +275,7 @@ graphic, each item carrying its linked source tag; then
 sentence. "Today" means the date in America/Chicago
 (`TZ='America/Chicago' date`), never UTC.
 
-Write 25–40 items grouped by beat, in the fixed order.
+Write 20–40 items grouped by beat, in the fixed order.
 
 For each beat, apply the impact test in EDITORIAL.md and choose at most two
 leads — often zero or one. A lead gets a `#####` headline and 50–70 words. A

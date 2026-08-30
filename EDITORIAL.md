@@ -89,7 +89,7 @@ suggestions. Every rule binds the writing.
    Sources line, is the standing shape. In-page links are allowed sparingly
    and must land on real anchors; the gate validates any that appear.)
 3. City Desk (so named 2026-08-29; editions before then printed "The
-   River", and the code keeps "river" as its internal term): 25–40 items
+   River", and the code keeps "river" as its internal term): 20–40 items
    grouped by beat, in this fixed order (the
    six-beat map adopted 2026-08-29 from the beat-taxonomy jam,
    docs/reviews/river-beats-jam-2026-08-29.md — the order is the Who Pays
@@ -189,7 +189,7 @@ Weather became its own section 2026-08-24 at the publisher's direction,
 resolving a long-standing disagreement between this file and PIPELINE.md: the
 first two bulletins ran Weather as the last River beat while PIPELINE Step 3
 described a `## Weather` section. The section wins. City Desk's item count
-excludes weather items, so a 25–40 City Desk is 25–40 non-weather items. The
+excludes weather items, so a 20–40 City Desk is 20–40 non-weather items. The
 2026-08-23 bulletin still has Weather inside its River and is left alone —
 published editions are not restructured after the fact.
 

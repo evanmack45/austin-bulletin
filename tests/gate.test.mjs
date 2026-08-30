@@ -175,18 +175,16 @@ test("the old numeric rules do not leak into a post-cutover edition", async () =
       "the old per-item 100-word cap must not run post-cutover"
     );
 
-    // The old item-count check and checkRiver's own itemsMin/itemsMax check
-    // share the same 25-40 bounds and therefore emit byte-identical text
-    // ("N items, EDITORIAL wants 25–40") — its mere presence does not prove
-    // a leak, since checkRiver is supposed to report it too. What proves a
-    // leak is a DUPLICATE: if both the old check and checkRiver fired, the
-    // line would appear twice.
-    const occurrences = output.match(/\d+ items, EDITORIAL wants 25–40/g) || [];
-    assert.equal(
-      occurrences.length,
-      1,
-      `expected exactly one item-count message (from checkRiver only), got ` +
-        `${occurrences.length}: ${occurrences.join(" | ")}`
+    // Since the 2026-08-30 floor change the two checks no longer share
+    // bounds: the old check says "wants 25–40" (RIVER_MIN–RIVER_MAX, frozen
+    // for pre-cutover editions) while checkRiver says "wants 20–40". The
+    // old wording appearing at all is therefore an unambiguous leak — no
+    // duplicate-counting needed. (The 23-item fixture is legal under the
+    // new floor, so checkRiver itself stays silent here.)
+    assert.doesNotMatch(
+      output,
+      /items, EDITORIAL wants 25–40/,
+      "the old 25–40 item-count check must not run post-cutover"
     );
   });
 });

@@ -235,14 +235,14 @@ test("a plain <figure> without class=\"graphic\" does not satisfy the graphic mi
   assert.ok(problems.some((p) => /no graphic/.test(p.message)));
 });
 
-test("fails an edition with 24 items", () => {
-  const river = riverOf("Schools", Array(24).fill(brief(20)));
+test("fails an edition with 19 items", () => {
+  const river = riverOf("Schools", Array(19).fill(brief(20)));
   const { problems } = checkRiver(parseRiver(river));
-  assert.ok(problems.some((p) => /24 items, EDITORIAL wants/.test(p.message)));
+  assert.ok(problems.some((p) => /19 items, EDITORIAL wants/.test(p.message)));
 });
 
-test("passes an edition with exactly 25 items", () => {
-  const river = riverOf("Schools", Array(25).fill(brief(20)));
+test("passes an edition with exactly 20 items", () => {
+  const river = riverOf("Schools", Array(20).fill(brief(20)));
   const { problems } = checkRiver(parseRiver(river));
   assert.ok(!problems.some((p) => /items, EDITORIAL wants/.test(p.message)));
 });

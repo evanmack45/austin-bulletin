@@ -246,7 +246,7 @@ export const LIMITS = {
   leadMax: 80,
   leadsPerBeat: 2,
   leadsPerEdition: 12,
-  itemsMin: 25,
+  itemsMin: 20,
   itemsMax: 40,
   wordsWarn: 1800,
   wordsFail: 2200,
