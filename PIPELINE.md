@@ -205,7 +205,11 @@ Find the day's idea first: two to four items that belong together become
 The Briefing's opening thought and its chart. When no genuine thread exists,
 lead with the day's single most consequential story and its chart — a real
 single story beats a manufactured connection, and the log says so. Then
-fill the City Desk: aim for 25–40 items across the beats in EDITORIAL.md's
+fill the City Desk — Austin proper only: a story must land inside the
+city limits or on a system Austin residents use (EDITORIAL.md's coverage
+boundary; suburb stories are left on the desk at gather time, so do not
+carry Community Impact's suburb-desk feeds or suburb-city crime past
+discovery). Aim for 25–40 items across the beats in EDITORIAL.md's
 fixed order; 5 is a failure, log it.
 
 Priority ladder ("Who Pays" — Evan's pick from the 2026-08-29 selection

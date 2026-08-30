@@ -355,3 +355,17 @@ Neutral. Factual. Clean.
   `--pagefind-ui-font: inherit` silently fails (CSS-wide keywords are
   invalid in var() substitution) — the stack is named explicitly. Search
   only works on a full build, not `npm run serve`.
+- 2026-08-30 (Evan, after midnight — AUSTIN PROPER ONLY): suburb news is
+  cut. A story runs only if it lands inside Austin city limits or on a
+  system Austin residents use (city, Travis County government, Austin
+  ISD, CapMetro, ERCOT/LCRA, the airport); suburb municipal/crime/
+  school/business stories do not run. This kills the locality-label rule
+  from the same evening's panel pass. Weather stays regional for storm
+  systems that hit the Austin area; other cities' recovery news is out.
+  Same session: City Desk briefs render as their own tier — an "Also"
+  label after each beat's leads, briefs smaller with a hanging oxblood
+  dash (item-legibility jam, docs/reviews/item-legibility-jam-2026-08-30
+  .md; Evan rejected uniform spacing and item hairlines first). The
+  tier styling keys off ##### lead headlines, so pre-tier editions
+  render unchanged. Edition No. 7 re-issued a ninth time with 12 suburb
+  items cut and one trimmed.

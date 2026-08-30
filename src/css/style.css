@@ -355,6 +355,30 @@ h2.glance-title::after { content: none; }
 }
 .river h5 + p { margin-bottom: 1.1rem; }
 
+/* Tiered City Desk (editions with lead headlines): after a beat's leads,
+   an "Also" label opens the run of briefs, and briefs read as their own
+   genus — smaller, tucked in, each opened by a hanging dash — so a lead's
+   headline visibly governs only its own paragraph (2026-08-30 jam). */
+.river--tiered .brief-slug {
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 1.15rem 0 0.55rem;
+}
+.river--tiered p:has(.src):not(h5 + p) {
+  font-size: 0.92rem;
+  line-height: 1.45;
+  margin: 0 0 0.55rem 1.1rem;
+  position: relative;
+}
+.river--tiered p:has(.src):not(h5 + p)::before {
+  content: "\2014";
+  color: var(--accent);
+  position: absolute;
+  left: -1.35rem;
+}
+
 .src {
   font-size: 0.72rem;
   letter-spacing: 0.06em;

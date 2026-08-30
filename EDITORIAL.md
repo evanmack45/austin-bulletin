@@ -115,12 +115,20 @@ suggestions. Every rule binds the writing.
      filter is sorted by its content like any other story.
    - There is no Health beat: a health story routes by its hook — cost,
      incident, or institution.
-   - **Locality labels.** A brief whose story sits outside Austin city
-     limits opens with a bold place label — "**Georgetown:**",
-     "**Round Rock:**" — so a reader can tell forty miles from four blocks
-     without reading the sentence. A lead names the place in its headline
-     instead. Austin-proper items carry no label. (2026-08-29 panel: both
-     local-utility readers had to read every line to place the story.)
+   - **Austin proper only (2026-08-30, Evan).** A story runs only if it
+     lands inside Austin city limits or on a system Austin residents use:
+     city government, Travis County government, Austin ISD, CapMetro,
+     the grid and lakes (ERCOT, LCRA), the airport. Suburb municipal
+     news, crime, crashes, schools and business — Round Rock,
+     Georgetown, Leander, Pflugerville, Cedar Park, Manor and the rest —
+     do not run, however dramatic. Statewide action still runs when it
+     changes life in Austin proper (the Texas filter). This replaced the
+     locality-label device the same night it shipped: labels existed to
+     place suburb stories, and with the suburbs out, an out-of-Austin
+     dateline is a selection defect, not a labeling problem. Weather is
+     the one regional exception: a storm system that hit the Austin area
+     is covered wherever its damage lies, but another city's utility or
+     recovery news is not ours.
 
    Each beat holds two kinds of item.
 

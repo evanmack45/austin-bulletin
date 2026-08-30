@@ -282,7 +282,40 @@ export default function (eleventyConfig) {
   // should not have to scroll past Public safety to reach it. Both the
   // heading ids (via markdown-it-anchor above) and these hrefs come from the
   // same beatSlug function, so a jump link always lands on its heading.
+  // Tiered editions (the ones with ##### lead headlines) get an "Also"
+  // label between a beat's leads and its run of briefs, so a lead's bold
+  // headline visibly governs only its own paragraph (Evan, 2026-08-30,
+  // from the item-legibility jam). A lead's headline and paragraph may
+  // share one markdown block or arrive as two; both shapes are handled.
+  // Pre-tier editions have no ##### headlines and pass through untouched.
+  const alsoSlugs = (content) => {
+    const out = [];
+    let prev = null, sawLead = false, slugged = false;
+    for (const raw of content.split(/\n{2,}/)) {
+      const t = raw.trim();
+      if (!t) continue;
+      if (/^####\s/.test(t)) { prev = "beat"; sawLead = false; slugged = false; }
+      else if (/^#####\s/.test(t)) {
+        sawLead = true;
+        prev = /class="src"/.test(t) ? "leaddone" : "headline";
+      } else if (/class="src"/.test(t)) {
+        if (prev === "headline") { prev = "leaddone"; }
+        else {
+          if (sawLead && !slugged) {
+            out.push('<p class="brief-slug">Also</p>');
+            slugged = true;
+          }
+          prev = "item";
+        }
+      }
+      out.push(raw);
+    }
+    return out.join("\n\n");
+  };
+
   eleventyConfig.addPairedShortcode("river", (content) => {
+    const tiered = /^#####\s/m.test(content);
+    if (tiered) content = alsoSlugs(content);
     const beats = [...content.matchAll(/^####\s+(.+?)\s*$/gm)].map((m) => m[1].trim());
     const nav = beats.length
       ? `<nav class="beat-nav" aria-label="Jump to a beat">` +
@@ -290,7 +323,8 @@ export default function (eleventyConfig) {
         `</nav>\n`
       : "";
     const top = `<p class="to-top"><a href="#top">Back to top</a></p>\n`;
-    return `<div class="river">\n${nav}${md.render(content)}${top}</div>`;
+    const cls = tiered ? "river river--tiered" : "river";
+    return `<div class="${cls}">\n${nav}${md.render(content)}${top}</div>`;
   });
 
   // {% bigstory %}…{% endbigstory %} — same idea, for the day's Big Story.
