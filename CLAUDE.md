@@ -369,3 +369,13 @@ Neutral. Factual. Clean.
   tier styling keys off ##### lead headlines, so pre-tier editions
   render unchanged. Edition No. 7 re-issued a ninth time with 12 suburb
   items cut and one trimmed.
+- 2026-08-30 (Evan, ~1 a.m. — KVUE relays are LINKED): research
+  (docs/reviews/kvue-access-research-2026-08-30.md) found KVUE's
+  robots.txt permits article pages (only /ajax/ stays off-limits) and
+  real browsers pass its bot wall — readers were never blocked. Relay
+  tags are now normal linked `KVUE` (the "(relayed)" wording is dead;
+  prose attribution "KVUE reported that…" marks the relay); the gate
+  verifies KVUE URLs against KVUE's own RSS feeds. Relays stay thin
+  with all 2026-08-24 guardrails. Evan also approved building the MSN
+  route: KVUE's official licensed MSN channel serves full article JSON
+  openly, so syndicated stories can run as real items.

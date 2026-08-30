@@ -160,6 +160,24 @@ async function kxanSlugExists(url) {
   }
 }
 
+// KVUE article pages sit behind a bot wall that 403s every automated client
+// while loading fine in a real browser (docs/reviews/
+// kvue-access-research-2026-08-30.md). Its RSS feeds are open and list each
+// article's exact URL, so verify presence there instead — KVUE's own
+// attestation that the page exists.
+const KVUE_FEEDS = [
+  "https://www.kvue.com/feeds/syndication/rss/news/local",
+  "https://www.kvue.com/feeds/syndication/rss/news"
+];
+async function kvueFeedHasUrl(url) {
+  const clean = url.replace(/[?#].*$/, "").replace(/\/$/, "");
+  for (const feed of KVUE_FEEDS) {
+    const body = await curlBody(feed);
+    if (body.includes(clean)) return true;
+  }
+  return false;
+}
+
 async function exists(p) {
   try {
     await access(p);
@@ -307,10 +325,11 @@ async function main() {
       const tag = it.match(/<span class="src">([\s\S]+?)<\/span>\s*$/);
       if (!tag) {
         bad("river", `item has no closing source tag: "${words(it).slice(0, 60)}…"`);
-      } else if (newShape && !/<a\s+href=/.test(tag[1]) && !/^KVUE\b/.test(tag[1].trim())) {
+      } else if (newShape && !/<a\s+href=/.test(tag[1])) {
         // New shape (Evan, 2026-08-29): the tag IS the link to the item's
-        // article — the bottom source-line walls are gone. The one plain-tag
-        // exception is a KVUE relay, whose pages are unreachable by policy.
+        // article — the bottom source-line walls are gone. Since 2026-08-30
+        // KVUE relays link too (readers pass its bot wall fine; the URL is
+        // verified against KVUE's own feed below), so no tag stays plain.
         bad("river", `source tag is not linked: "${words(it).slice(0, 60)}…"`);
       }
     }
@@ -365,7 +384,7 @@ async function main() {
     }
   } else {
     for (const m of weatherBody.matchAll(/<span class="src">([\s\S]+?)<\/span>/g)) {
-      if (!/<a\s+href=/.test(m[1]) && !/^KVUE\b/.test(m[1].trim())) {
+      if (!/<a\s+href=/.test(m[1])) {
         bad("weather", `weather item's source tag is not linked: "${m[1].slice(0, 40)}"`);
       }
     }
@@ -480,6 +499,13 @@ async function main() {
       if (/^https?:\/\/(www\.)?kxan\.com\//.test(url) && code === "403") {
         if (await kxanSlugExists(url)) continue;
         bad("links", `KXAN slug not found in its WordPress API: ${url}`);
+        continue;
+      }
+      if (/^https?:\/\/(www\.)?kvue\.com\//.test(url) && code === "403") {
+        if (await kvueFeedHasUrl(url)) continue;
+        // Feed entries age out after a day or so — an older relay link that
+        // has left the feed is not proof of breakage.
+        warn("links", `KVUE URL no longer in its feeds (they age out; check by hand): ${url}`);
         continue;
       }
       if (code === "403" || code === "000") {

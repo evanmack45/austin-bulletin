@@ -368,8 +368,8 @@ to found Austin Current. austinmonitor.com remains as a searchable archive:
 fine to link for background, never a source for today's news.
 
 **KVUE is discovery-only** (2026-08-24, publisher's decision). Its article
-pages are unreachable from the routine and the one route that would work is
-disallowed by its robots.txt, which we honour. Read its RSS to learn what
+pages are unreachable from the routine (a bot wall; the /ajax/ route its
+robots.txt disallows stays untouched, and we never disguise the fetcher). Read its RSS to learn what
 happened in town, then report the story from a source we can actually read —
 another outlet, or the agency, department or court the story came from. A
 readable source exists, a **relayed item** is allowed, so the bulletin still
@@ -377,9 +377,11 @@ shows what KVUE is covering (publisher's call, 2026-08-24). A relayed item:
 
 - is one sentence, and says nothing its source sentence does not say — no
   added context, no figure that was not in the teaser, no What's next;
-- attributes in the prose, not just the tag: "KVUE reported that …" — and
-  its tag reads `KVUE (relayed)`, unlinked, so the missing link registers
-  as policy rather than a mistake;
+- attributes in the prose, not just the tag: "KVUE reported that …" — the
+  prose attribution is what marks a relay. Its tag is a normal linked
+  `KVUE` (2026-08-30: readers pass KVUE's bot wall fine, its robots.txt
+  permits article pages, and the gate verifies the URL against KVUE's own
+  feed since our fetcher cannot knock on the door itself);
 - never leads the Briefing, and never carries an image.
 
 Do not relay a teaser about a person's death or injury, a crime accusation
