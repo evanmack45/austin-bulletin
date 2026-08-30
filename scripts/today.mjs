@@ -185,12 +185,17 @@ function pollenBlurb(category, plants) {
   }
 }
 
+// The glance value now leads with ERCOT's own condition word, so the blurb
+// carries the numbers story (both figures are ERCOT's, never calculated).
 function gridBlurb(forecastPeakMw, availableMw) {
+  const peak = forecastPeakMw.toLocaleString("en-US");
+  if (availableMw == null) return `Demand should peak near ${peak} megawatts this afternoon.`;
+  const avail = availableMw.toLocaleString("en-US");
   const ratio = forecastPeakMw / availableMw;
-  if (ratio < 0.75) return "Plenty of room on the grid. No conservation worries today.";
-  if (ratio < 0.85) return "A busy grid this afternoon, but ERCOT expects enough to go around.";
-  if (ratio < 0.95) return "A tight afternoon. Nudge the thermostat up a couple of degrees from 4 to 7.";
-  return "ERCOT is asking everyone to conserve this afternoon. Thermostat up, big appliances after 8.";
+  if (ratio < 0.75) return `Demand peaks near ${peak} megawatts; ERCOT has ${avail} ready and room to spare.`;
+  if (ratio < 0.85) return `A busy afternoon: demand near ${peak} megawatts, with ${avail} on hand.`;
+  if (ratio < 0.95) return `Tight from 4 to 7, demand near ${peak} megawatts against ${avail}. Nudge the thermostat.`;
+  return "ERCOT is asking everyone to conserve. Thermostat up, big appliances after 8.";
 }
 
 // Minutes-since-midnight for a local ISO-like string with no offset
@@ -470,10 +475,24 @@ async function fetchGrid(date) {
   const availableRaw = peakRow.currentDayHsl ?? peakRow.dayAheadHsl;
   const availableMw = availableRaw != null ? Math.round(availableRaw / 100) * 100 : null;
 
+  // ERCOT's own condition word ("Normal", a conservation appeal, an energy
+  // emergency) — the glance value leads with it. Optional: a failure here
+  // must not take down the demand figures, so the module falls back to the
+  // megawatt display (the template shows megawatts when condition is absent).
+  let condition = null;
+  try {
+    const prc = await fetchJson("https://www.ercot.com/api/1/services/read/dashboards/daily-prc.json");
+    const title = prc?.current_condition?.title;
+    if (title) condition = title.replace(/\s+Conditions$/i, "");
+  } catch {
+    // fall through — condition stays null
+  }
+
   return {
     forecastPeakMw,
     peakHourEnding,
     availableMw,
+    ...(condition ? { condition } : {}),
     blurb: gridBlurb(forecastPeakMw, availableMw),
     source: "https://www.ercot.com/gridmktinfo/dashboards/systemwidedemand",
   };

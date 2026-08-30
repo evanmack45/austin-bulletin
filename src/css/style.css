@@ -205,6 +205,24 @@ h2.glance-title::after { content: none; }
 .g-label { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
 .g-value { font-size: 1.35rem; font-weight: 800; line-height: 1.2; letter-spacing: -0.01em; }
 .g-note { font-size: 0.82rem; line-height: 1.4; color: var(--muted); }
+/* Status marks in the value line: the picture is the reading. Pictorial
+   emoji (weather, sunrise) shrink to sit with the text; scaled metrics get
+   typeset ink dots in print-palette tones instead of glossy emoji circles. */
+.g-icon { font-size: 0.85em; }
+.g-dot {
+  display: inline-block;
+  width: 0.55em;
+  height: 0.55em;
+  border-radius: 50%;
+  vertical-align: 0.06em;
+  margin-right: 0.06em;
+}
+.g-dot--green { background: #3a6b35; }
+.g-dot--yellow { background: #c29008; }
+.g-dot--orange { background: #c2571a; }
+.g-dot--red { background: #a3241c; }
+.g-dot--purple { background: #6b3fa0; }
+.g-dot--maroon { background: #641414; }
 @media (max-width: 40rem) {
   .glance-grid { grid-template-columns: repeat(2, 1fr); }
   .glance-grid li:nth-child(3n + 1) { border-left: 1px solid var(--rule); }

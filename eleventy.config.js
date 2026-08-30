@@ -121,6 +121,69 @@ export default function (eleventyConfig) {
     return i === -1 ? bulletins.length : bulletins.length - i;
   });
 
+  // Glance-strip status emoji. The picture is the reading: pictorial emoji
+  // for conditions (weather), traffic-light dots for scaled metrics, so the
+  // strip can be read without reading.
+
+  // Weather: from the NWS short forecast. "mostly sunny"/"partly cloudy"
+  // must be tested before the bare "sunny"/"cloudy".
+  eleventyConfig.addFilter("weatherEmoji", (summary) => {
+    const s = String(summary || "").toLowerCase();
+    if (s.includes("thunder") || s.includes("storm")) return "⛈️";
+    if (s.includes("rain") || s.includes("shower") || s.includes("drizzle")) return "🌧️";
+    if (s.includes("snow") || s.includes("sleet") || s.includes("ice")) return "❄️";
+    if (s.includes("fog") || s.includes("haze") || s.includes("smoke")) return "🌫️";
+    if (s.includes("partly") || s.includes("mostly sunny")) return "⛅";
+    if (s.includes("cloudy") || s.includes("overcast")) return "☁️";
+    if (s.includes("sunny") || s.includes("clear")) return "☀️";
+    return "🌤️";
+  });
+
+  // Each tier filter returns a CSS color token ("green", "yellow", …) that
+  // glance.njk turns into a typeset ink dot (.g-dot--<tier>), or "" for no
+  // dot. Uniform language: green is fine in every cell.
+
+  // Air quality: the EPA's own color scale for each AQI category.
+  eleventyConfig.addFilter("aqiTier", (category) => {
+    const c = String(category || "").toLowerCase();
+    if (c === "good") return "green";
+    if (c === "moderate") return "yellow";
+    if (c.includes("sensitive")) return "orange";
+    if (c === "unhealthy") return "red";
+    if (c === "very unhealthy") return "purple";
+    return c ? "maroon" : "";
+  });
+
+  // Pollen: Google Pollen API categories.
+  eleventyConfig.addFilter("pollenTier", (category) => {
+    const c = String(category || "").toLowerCase();
+    if (c === "none" || c.includes("low")) return "green";
+    if (c === "moderate") return "yellow";
+    if (c === "very high") return "red";
+    if (c === "high") return "orange";
+    return "";
+  });
+
+  // Lake Travis: presentation thresholds, not a published scale — green when
+  // effectively full, yellow when clearly down, red at drought-crisis levels
+  // (the 2023 drought bottomed near 38%).
+  eleventyConfig.addFilter("lakeTier", (percentFull) => {
+    const p = Number(percentFull);
+    if (!Number.isFinite(p)) return "";
+    if (p >= 80) return "green";
+    if (p >= 50) return "yellow";
+    return "red";
+  });
+
+  // Grid: ERCOT's own condition word. No dot when the condition is unknown.
+  eleventyConfig.addFilter("gridTier", (condition) => {
+    const c = String(condition || "").toLowerCase();
+    if (!c) return "";
+    if (c.includes("normal")) return "green";
+    if (c.includes("conserv") || c.includes("watch") || c.includes("advisory")) return "yellow";
+    return "red";
+  });
+
   // Masthead volume: Vol. I is 2026, the founding year, and the volume rolls
   // on Jan. 1 (Evan, 2026-08-29) — computed so the unattended New Year's run
   // cannot print a stale volume.

@@ -30,11 +30,19 @@ suggestions. Every rule binds the writing.
   districts, utilities, stadiums (DKR), road nicknames (first use as "MoPac
   (Loop 1)"), and vendor names used as bare nouns (Flock, Axon). The Big Story
   counts as first use; the River need not repeat it.
-- An index number carries its scale: the air-quality cell reads "59 of 500",
-  not "59". The scale is stated only where it is inherent to the index or
-  published by a source — never calculated. Do not write comparisons like
-  "about 85% of the record"; that is a calculation, and calculations are
-  forbidden by the accuracy rules.
+- A glance metric leads with its source's own status word, never a bare
+  number on an unstated scale (ruling 2026-08-29, replacing the "59 of 500"
+  form): the air-quality cell reads "54 · Moderate" — the EPA's category —
+  and the grid cell leads with ERCOT's own condition word ("Normal"), with
+  the megawatt figures told as a story in the blurb. Each cell carries a
+  status mark the reader can take in without reading: a pictorial emoji for
+  weather and sunrise, and a colored ink dot for the scaled metrics, colored
+  by the source's published scale (EPA colors for air, pollen categories,
+  ERCOT conditions). Lake Travis has no published scale; its dot thresholds
+  are a documented presentation choice in eleventy.config.js. Numbers are
+  still never calculated: every figure shown is the source's own. Do not
+  write comparisons like "about 85% of the record"; that is a calculation,
+  and calculations are forbidden by the accuracy rules.
 
 ## The shape of a day
 

@@ -258,3 +258,16 @@ Neutral. Factual. Clean.
   homepage article; the plate carries no other utility links. Evan also
   signaled the site should localize harder toward Austin proper — beat
   changes to follow from the rest of his feedback.
+- 2026-08-29 (Evan, evening feedback session — the glance strip): status
+  marks sit WITH the value, not the label, and change with the metric — the
+  reader gets the day from the picture without reading. Weather and sunrise
+  are pictorial emoji (weather mapped from the NWS summary by the
+  `weatherEmoji` filter); air, allergies, lake and grid carry small typeset
+  ink dots in print tones (the `*Tier` filters + `.g-dot` CSS), NOT glossy
+  emoji circles — Evan found four identical emoji circles samey and too big.
+  "54 of 500" is dead: air reads "54 · Moderate" (EPA's category), the grid
+  cell leads with ERCOT's own condition word from its daily-prc dashboard
+  (fetched by `npm run today`, megawatts falls back if it fails) and the
+  demand/capacity figures moved into the blurb. Lake dot thresholds
+  (≥80 green, 50–80 yellow, <50 red) are ours — a documented presentation
+  choice, no published scale exists. Rule recorded in EDITORIAL.md "Voice".

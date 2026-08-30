@@ -1,14 +1,17 @@
 {# Expects glanceData (the day's object from src/_data/glance/, or undefined). #}
+{# Status marks sit with the value, not the label: the picture is the reading.
+   Weather and sunrise are pictorial emoji; the four scaled metrics get typeset
+   ink dots colored by their own category (tier filters in eleventy.config.js). #}
 {% if glanceData %}
 <section class="glance" aria-label="Today at a glance">
   <h2 class="glance-title">Today at a glance</h2>
   <ul class="glance-grid">
-    {% if glanceData.weather %}<li><span class="g-label">Weather</span><span class="g-value">{% if glanceData.weather.high %}{{ glanceData.weather.high }}°{% endif %}{% if glanceData.weather.high and glanceData.weather.low %} / {% endif %}{% if glanceData.weather.low %}{{ glanceData.weather.low }}°{% endif %}</span><span class="g-note">{{ glanceData.weather.blurb }}</span></li>{% endif %}
-    {% if glanceData.air %}<li><span class="g-label">Air quality</span><span class="g-value">{{ glanceData.air.aqi }} of 500</span><span class="g-note">{{ glanceData.air.blurb }}</span></li>{% endif %}
-    {% if glanceData.lake %}<li><span class="g-label">Lake Travis</span><span class="g-value">{{ glanceData.lake.percentFull }}% full</span><span class="g-note">{{ glanceData.lake.blurb }}</span></li>{% endif %}
-    {% if glanceData.pollen %}<li><span class="g-label">Allergies</span><span class="g-value">{{ glanceData.pollen.category }}</span><span class="g-note">{{ glanceData.pollen.blurb }}</span></li>{% endif %}
-    {% if glanceData.grid %}<li><span class="g-label">Power grid</span><span class="g-value">{{ glanceData.grid.forecastPeakMw | commas }} megawatts</span><span class="g-note">{{ glanceData.grid.blurb }}</span></li>{% endif %}
-    {% if glanceData.sun %}<li><span class="g-label">Sunrise</span><span class="g-value">{{ glanceData.sun.sunrise }}</span><span class="g-note">{{ glanceData.sun.blurb }}</span></li>{% endif %}
+    {% if glanceData.weather %}<li><span class="g-label">Weather</span><span class="g-value"><span class="g-icon" aria-hidden="true">{{ glanceData.weather.summary | weatherEmoji }}</span> {% if glanceData.weather.high %}{{ glanceData.weather.high }}°{% endif %}{% if glanceData.weather.high and glanceData.weather.low %} / {% endif %}{% if glanceData.weather.low %}{{ glanceData.weather.low }}°{% endif %}</span><span class="g-note">{{ glanceData.weather.blurb }}</span></li>{% endif %}
+    {% if glanceData.air %}{% set tier = glanceData.air.category | aqiTier %}<li><span class="g-label">Air quality</span><span class="g-value">{% if tier %}<span class="g-dot g-dot--{{ tier }}" aria-hidden="true"></span> {% endif %}{{ glanceData.air.aqi }} &middot; {{ glanceData.air.category }}</span><span class="g-note">{{ glanceData.air.blurb }}</span></li>{% endif %}
+    {% if glanceData.lake %}{% set tier = glanceData.lake.percentFull | lakeTier %}<li><span class="g-label">Lake Travis</span><span class="g-value">{% if tier %}<span class="g-dot g-dot--{{ tier }}" aria-hidden="true"></span> {% endif %}{{ glanceData.lake.percentFull }}% full</span><span class="g-note">{{ glanceData.lake.blurb }}</span></li>{% endif %}
+    {% if glanceData.pollen %}{% set tier = glanceData.pollen.category | pollenTier %}<li><span class="g-label">Allergies</span><span class="g-value">{% if tier %}<span class="g-dot g-dot--{{ tier }}" aria-hidden="true"></span> {% endif %}{{ glanceData.pollen.category }}</span><span class="g-note">{{ glanceData.pollen.blurb }}</span></li>{% endif %}
+    {% if glanceData.grid %}{% set tier = glanceData.grid.condition | gridTier %}<li><span class="g-label">Power grid</span><span class="g-value">{% if glanceData.grid.condition %}{% if tier %}<span class="g-dot g-dot--{{ tier }}" aria-hidden="true"></span> {% endif %}{{ glanceData.grid.condition }}{% else %}{{ glanceData.grid.forecastPeakMw | commas }} megawatts{% endif %}</span><span class="g-note">{{ glanceData.grid.blurb }}</span></li>{% endif %}
+    {% if glanceData.sun %}<li><span class="g-label">Sunrise</span><span class="g-value"><span class="g-icon" aria-hidden="true">🌅</span> {{ glanceData.sun.sunrise }}</span><span class="g-note">{{ glanceData.sun.blurb }}</span></li>{% endif %}
   </ul>
 </section>
 {% endif %}
