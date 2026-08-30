@@ -46,6 +46,23 @@ const NEW_SHAPE_FROM = "2026-08-29";
 // EDITORIAL.md "Neutrality rules": use neutral verbs.
 const BANNED_VERBS = ["claimed", "admitted", "slammed", "blasted", "gushed", "bragged", "lashed out"];
 
+// EDITORIAL.md "Write like a person": phrase-level AI tells that never
+// belong in news copy (Evan, 2026-08-29, via the humanizer pattern
+// catalog). Kept narrow to avoid false positives — each is banned in any
+// context this paper writes in.
+const BANNED_PHRASES = [
+  "stands as a", "serves as a", "a testament to", "underscores",
+  "it's not just", "isn't just about", "is not just about",
+  "vibrant", "nestled", "delve", "pivotal moment", "rapidly evolving",
+  "rich tapestry", "plays a vital role", "in today's world",
+  "experts say", "experts believe", "observers note", "observers say"
+];
+
+// Trailing "-ing analysis" clauses ("…, highlighting the depth of…") — the
+// comma-then-gerund construction that fakes analysis. Same source ruling.
+const GERUND_ANALYSIS_RE =
+  /,\s+(highlighting|underscoring|reflecting|signaling|showcasing|demonstrating|emphasizing|illustrating)\b/gi;
+
 const RIVER_MIN = 25;
 const RIVER_MAX = 40;
 const ITEM_WORD_CAP = 100;
@@ -341,6 +358,18 @@ async function main() {
       const around = text.slice(Math.max(0, m.index - 50), m.index + 50).replace(/\s+/g, " ");
       bad("neutral verbs", `"${verb}" — …${around}…`);
     }
+  }
+
+  for (const phrase of BANNED_PHRASES) {
+    const re = new RegExp(`\\b${phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/ /g, "\\s+")}\\b`, "gi");
+    for (const m of text.matchAll(re)) {
+      const around = text.slice(Math.max(0, m.index - 50), m.index + 50).replace(/\s+/g, " ");
+      bad("language", `AI-tell phrase "${phrase}" — …${around}…`);
+    }
+  }
+  for (const m of text.matchAll(GERUND_ANALYSIS_RE)) {
+    const around = text.slice(Math.max(0, m.index - 50), m.index + 60).replace(/\s+/g, " ");
+    bad("language", `trailing "-ing analysis" clause — …${around}…`);
   }
 
   // --- cards and videos ---------------------------------------------------

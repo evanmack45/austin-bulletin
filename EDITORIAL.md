@@ -28,6 +28,19 @@ suggestions. Every rule binds the writing.
   identity — never entertainment filler. It still ranks below anyone's rent
   or safety, and a closing reported only by social posts is a tip to chase,
   not a story (accuracy rule 5).
+- **Write like a person** (Evan, 2026-08-29). The copy must not read as
+  AI-generated. Mechanically enforced by the gate: no AI-tell phrases
+  ("stands as a", "serves as a", "a testament to", "underscores", "it's
+  not just", "vibrant", "nestled", "delve", "pivotal moment", "rapidly
+  evolving", "rich tapestry", and vague attributions like "experts say" —
+  name the person or the outlet instead), and no trailing "-ing analysis"
+  clauses (", highlighting the…", ", reflecting broader…"). Enforced by
+  reading, not the gate: vary sentence length — First Read carries at
+  least one sentence under six words and never three same-shaped sentences
+  in a row; at most one em dash in all of First Read; one turn of phrase
+  per First Read, spent early, never as a closing bow — the section ends
+  on its hardest concrete fact, not a summary; no parallel-structure
+  flourishes (rule of three, chiasmus, "not X but Y" as ornament).
 - Each glance cell carries one blurb: a single plain sentence, at most
   16 words, in the Morning Note's voice, saying what the number means for
   the reader's day. `npm run today` writes a sensible default; the

@@ -290,3 +290,21 @@ test("--dir followed by another flag fails loudly with the same clear message", 
   assert.notEqual(code, 0, "expected a non-zero exit when --dir's value looks like a flag");
   assert.match(output, /--dir/, "expected the error message to mention --dir");
 });
+
+// EDITORIAL "Write like a person" (2026-08-29): the gate rejects phrase-level
+// AI tells and trailing "-ing analysis" clauses in any edition, any date.
+test("an AI-tell phrase fails the language check", async () => {
+  const { code, output } = await runWithAppendedSnippet(
+    'The opening stands as a testament to growth. <span class="src">KXAN</span>'
+  );
+  assert.notEqual(code, 0, "expected the checker to fail on an AI-tell phrase");
+  assert.match(output, /AI-tell phrase/, "expected the AI-tell message to fire");
+});
+
+test('a trailing "-ing analysis" clause fails the language check', async () => {
+  const { code, output } = await runWithAppendedSnippet(
+    'Attendance rose to 4,000, highlighting the event\'s growing appeal. <span class="src">KXAN</span>'
+  );
+  assert.notEqual(code, 0, "expected the checker to fail on a gerund analysis clause");
+  assert.match(output, /-ing analysis/, "expected the gerund-clause message to fire");
+});
