@@ -1,0 +1,15 @@
+{
+  "type": "timeline",
+  "date": "2026-08-30",
+  "slug": "barton-springs-wall",
+  "title": "Repairing the Barton Springs wall",
+  "subtitle": "The city's schedule for the 1917 retaining wall on the pool's eastern edge",
+  "source": "City of Austin Parks and Recreation",
+  "alt": "Timeline of the City of Austin's repair schedule for the 1917 stone retaining wall at Barton Springs Pool: tree removal of 37 trees begins Sept. 8, 2026; vegetation and vine clearing in September 2026; a structural engineer's assessment in fall and winter 2026; and masonry reconstruction beginning in early 2027",
+  "events": [
+    { "date": "Sept. 8, 2026", "label": "Tree removal begins", "note": "37 trees inside the wall's zone of influence" },
+    { "date": "September 2026", "label": "Vegetation and vines cleared", "note": "Opens the wall to a structural engineer" },
+    { "date": "Fall/winter 2026", "label": "Engineer's assessment and design" },
+    { "date": "Early 2027", "label": "Masonry reconstruction begins", "note": "Pool stays open throughout" }
+  ]
+}
