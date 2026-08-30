@@ -259,8 +259,9 @@ then a Sources line — links live there, not sprinkled through the prose);
 `{% river %}…{% endriver %}` (`#### Beat` labels in the fixed order,
 one paragraph per item ending in a linked source tag —
 `<span class="src"><a href="…">OUTLET</a></span>`, the tag itself is the
-link to the item's article (a KVUE relay stays plain; its pages are
-unreachable by policy) — there is no bottom sources wall,
+link to the item's article (a KVUE relay's tag reads `KVUE (relayed)`,
+unlinked — its pages are unreachable by policy) — there is no bottom
+sources wall,
 `{% voice %}` cards where they earn it); `## Weather` **outside** the river
 wrapper, carrying the NWS forecast and alerts, any weather items, the weather
 graphic, each item carrying its linked source tag; then

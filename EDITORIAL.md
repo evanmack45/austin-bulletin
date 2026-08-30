@@ -112,6 +112,12 @@ suggestions. Every rule binds the writing.
      filter is sorted by its content like any other story.
    - There is no Health beat: a health story routes by its hook — cost,
      incident, or institution.
+   - **Locality labels.** A brief whose story sits outside Austin city
+     limits opens with a bold place label — "**Georgetown:**",
+     "**Round Rock:**" — so a reader can tell forty miles from four blocks
+     without reading the sentence. A lead names the place in its headline
+     instead. Austin-proper items carry no label. (2026-08-29 panel: both
+     local-utility readers had to read every line to place the story.)
 
    Each beat holds two kinds of item.
 
@@ -151,7 +157,9 @@ suggestions. Every rule binds the writing.
    weather graphic if there is one, then its own sources line. The masthead's
    "Skip to weather" link points at this heading, so the section must exist
    every day and keep the id `weather`.
-5. Rituals: The Number (daily), Countdown (daily), This Weekend in Austin
+5. Rituals: The Number (daily), Countdown (daily) — The Number's figure is
+   not restated as digits elsewhere in the edition; other sections
+   reference the fact, never the number itself — This Weekend in Austin
    (Thursday and Friday), Sunday Paper (Sunday), One Good Thing (daily
    closer, Morning Note voice). Countdown's first use each edition names the
    stadium in full — "Darrell K Royal-Texas Memorial Stadium (DKR)" — then
@@ -193,6 +201,14 @@ time or price we cannot verify is worse than an absent ritual.
   would need a correction if false — cards carry opinion, not new facts.
 - On contested public questions, cards run in pairs: one voice from each
   side, or none.
+- Every card opens with a plain-words framing line naming what it is ("A
+  reader's post on Reddit") — the template renders it; never assume a
+  reader knows what r/, u/ or a handle means (2026-08-29 panel: the
+  unframed card ended the least-online reader's first successful visit).
+- A card never sits directly adjacent to an item reporting a death or
+  serious injury. A sympathy-scroll quote beside a fatality item reads as
+  tonal whiplash, however kindly meant (same panel: three readers flagged
+  it; the condolence card was pulled).
 - Cap: 10 cards a day, 3 videos a day, enforced across the whole edition —
   not scoped to the River the way the minimums below are. (The River also
   carries its own copy of the same cap, since a River that alone reached 10
@@ -292,6 +308,12 @@ audit is the drift this whole change exists to prevent.
 4. If sources disagree, the bulletin says so.
 5. Social media posts are never the sole source for a story.
 6. Unverifiable story = omitted story. Missing is better than wrong.
+7. **State the load-bearing fact.** When the day's items only make sense
+   against a fact — a death, a closure, an election result — that fact is
+   stated plainly on the page with a source, even when the fact itself is
+   out of scope (national wire, old news). One clause suffices; implying
+   it is never enough. (2026-08-29 panel: the edition celebrated a Dolly
+   Parton tribute weekend without ever saying she had died.)
 
 **Single-sourced reports from unnamed sources may run** (publisher's ruling,
 2026-08-25). When a trusted outlet reports something on its own, attributed to
@@ -338,7 +360,9 @@ shows what KVUE is covering (publisher's call, 2026-08-24). A relayed item:
 
 - is one sentence, and says nothing its source sentence does not say — no
   added context, no figure that was not in the teaser, no What's next;
-- attributes in the prose, not just the tag: "KVUE reported that …";
+- attributes in the prose, not just the tag: "KVUE reported that …" — and
+  its tag reads `KVUE (relayed)`, unlinked, so the missing link registers
+  as policy rather than a mistake;
 - never leads First Read, and never carries an image.
 
 Do not relay a teaser about a person's death or injury, a crime accusation

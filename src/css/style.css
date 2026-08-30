@@ -253,6 +253,14 @@ h2.glance-title::after { content: none; }
   border: 1px solid var(--ink);
   background: var(--bg);
 }
+.voice-kind {
+  margin: 0 0 0.45rem;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
 .voice-head {
   display: flex;
   align-items: center;

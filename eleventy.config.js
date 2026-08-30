@@ -37,6 +37,16 @@ const PLATFORM_NAME = {
   facebook: "Facebook"
 };
 
+// Plain-words framing for Voice cards, so a reader who has never seen the
+// platform knows what the box is (2026-08-29 panel: "who is u/Trabbler and
+// why is a stranger's comment next to the news?" ended one visit).
+const VOICE_KIND = {
+  reddit: "A reader's post on Reddit",
+  x: "A public post on X",
+  bluesky: "A public post on Bluesky",
+  facebook: "A public post on Facebook"
+};
+
 function escapeHtml(value) {
   return String(value ?? "")
     .replace(/&/g, "&amp;")
@@ -231,7 +241,9 @@ export default function (eleventyConfig) {
     const figcaptionHtml =
       `<figcaption class="voice-foot"><a href="${escapeHtml(url)}">View on ${platformName} ↗</a>` +
       `${statsHtml}</figcaption>`;
+    const kind = VOICE_KIND[platform] || "A public post";
     return `<figure class="voice-card voice-${escapeHtml(platform)}">
+  <p class="voice-kind">${kind}</p>
   <div class="voice-head">
     <span class="voice-glyph" aria-hidden="true">${glyph}</span>
     ${avatarHtml}

@@ -307,7 +307,7 @@ async function main() {
       const tag = it.match(/<span class="src">([\s\S]+?)<\/span>\s*$/);
       if (!tag) {
         bad("river", `item has no closing source tag: "${words(it).slice(0, 60)}…"`);
-      } else if (newShape && !/<a\s+href=/.test(tag[1]) && tag[1].trim() !== "KVUE") {
+      } else if (newShape && !/<a\s+href=/.test(tag[1]) && !/^KVUE\b/.test(tag[1].trim())) {
         // New shape (Evan, 2026-08-29): the tag IS the link to the item's
         // article — the bottom source-line walls are gone. The one plain-tag
         // exception is a KVUE relay, whose pages are unreachable by policy.
@@ -365,7 +365,7 @@ async function main() {
     }
   } else {
     for (const m of weatherBody.matchAll(/<span class="src">([\s\S]+?)<\/span>/g)) {
-      if (!/<a\s+href=/.test(m[1]) && m[1].trim() !== "KVUE") {
+      if (!/<a\s+href=/.test(m[1]) && !/^KVUE\b/.test(m[1].trim())) {
         bad("weather", `weather item's source tag is not linked: "${m[1].slice(0, 40)}"`);
       }
     }

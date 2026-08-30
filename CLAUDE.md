@@ -327,3 +327,12 @@ Neutral. Factual. Clean.
   street life when they clear the ladder. Routing rules in EDITORIAL "The
   shape of a day"; jam record docs/reviews/river-beats-jam-2026-08-29.md;
   BEATS_LEGACY in river.mjs keeps old editions valid.
+- 2026-08-29 (Evan, late): the re-review panel's top five are applied and
+  their rules are in EDITORIAL: state the load-bearing fact (accuracy rule
+  7 — the Dolly-death gap); Voice cards open with a framing line ("A
+  reader's post on Reddit", VOICE_KIND in eleventy.config.js) and never
+  sit adjacent to a death item; briefs outside Austin proper open with a
+  bold place label; the KVUE relay tag reads "KVUE (relayed)", unlinked;
+  The Number's figure is never restated as digits elsewhere. Remaining
+  panel items (naming pass for First Read/The River, archive search,
+  capture stitching) wait on Evan.
