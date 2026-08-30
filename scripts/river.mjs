@@ -21,6 +21,18 @@
 // from here, not re-typed) so the gate and the parser cannot drift apart.
 // Careful: lead detection (#####) must still be tested before beat
 // detection (####), since a five-# line also starts with four #s.
+// One slug rule for every in-page anchor: markdown-it-anchor's heading ids,
+// the beat nav's hrefs, and the gate's First Read link validation all use
+// this. The default slugifier percent-encodes "&" ("roads-%26-transit").
+export function slug(s) {
+  return String(s).trim().toLowerCase()
+    .replace(/&/g, " ")
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
 export const BEAT_HEADING_RE = /^####\s+(.+)$/;
 export const LEAD_HEADING_RE = /^#####\s+(.+)$/;
 

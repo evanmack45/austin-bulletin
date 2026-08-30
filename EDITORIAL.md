@@ -7,16 +7,16 @@ suggestions. Every rule binds the writing.
 
 - The morning note is warm and local — a friendly Austinite. It may
   mention heat, traffic, city mood. It never carries political opinion.
-- Story paragraphs are flat, clear, and neutral. In the Big Story, short
-  paragraphs. River item lengths follow the lead/brief contract in "The
-  shape of a day": briefs about 25 words, leads 50–70.
+- Story paragraphs are flat, clear, and neutral. First Read is a short
+  editor's brief, not an article. River item lengths follow the lead/brief
+  contract in "The shape of a day": briefs about 25 words, leads 50–70.
 - In brief items are one sentence each and start with a bold one-word
   category label and a colon: `**Outage:**`, `**Politics:**`, `**Border:**`.
-- The Big Story ends with one "What's next" sentence: a date, a vote, a
+- First Read ends with one "What's next" sentence: a date, a vote, a
   deadline, or a scheduled event. River items may carry one when it earns
   it. It states what is scheduled, never what should happen.
-- The Big Story's image is the page's hero; choose it with the most care.
-  In the River, an image or card follows the item it belongs to.
+- First Read's chart is the page's hero; choose and build it with the most
+  care. In the River, an image or card follows the item it belongs to.
 - Bulletin titles are plain: "The Austin Bulletin — {Weekday, Month D, YYYY}".
   Never puns or jokes.
 - Each glance cell carries one blurb: a single plain sentence, at most
@@ -28,8 +28,10 @@ suggestions. Every rule binds the writing.
   short: "the Electric Reliability Council of Texas (ERCOT)", "Emergency
   Services District 5", "Independent School District". This covers agencies,
   districts, utilities, stadiums (DKR), road nicknames (first use as "MoPac
-  (Loop 1)"), and vendor names used as bare nouns (Flock, Axon). The Big Story
-  counts as first use; the River need not repeat it.
+  (Loop 1)"), and vendor names used as bare nouns (Flock, Axon). First Read
+  counts as first use; the River need not repeat it — and because First Read
+  precedes the River, an initialism it touches must be expanded there or
+  avoided there.
 - A glance metric leads with its source's own status word, never a bare
   number on an unstated scale (ruling 2026-08-29, replacing the "59 of 500"
   form): the air-quality cell reads "54 · Moderate" — the EPA's category —
@@ -47,10 +49,19 @@ suggestions. Every rule binds the writing.
 ## The shape of a day
 
 1. The Morning Note (voice, zero politics).
-2. The Big Story: one piece, 400–700 words, with its own headline, that
-   connects two to four of the day's items into one idea. It explains and
-   connects; it never says what should happen. Every claim links. When a
-   dispute exists, each side's own words. It ends with a What's next line.
+2. First Read (name provisional): the day's chart plus an editor's brief of
+   150–250 words (the gate allows 120–300) under a ### headline stating the
+   day's idea. It is a map of the morning, not an article: it opens with the
+   connective idea when the day has one, then routes the reader — at least
+   three in-page links jumping to River leads, beats, Weather, or One Good
+   Thing, each landing on a real anchor. Facts stated in the brief itself
+   link to their sources inline. "The Austin point of view" means relevance
+   — what this touches in a reader's bills, commute, schools — never
+   opinion; the neutrality rules do not bend. The chart is the day's
+   original graphic, built by us from the day's verified figures. It ends
+   with a What's next line. (Replaced the 400–700 word Big Story article,
+   Evan's ruling 2026-08-29: the paper's value is reading everything and
+   routing you, not re-telling reporting the sources did better.)
 3. The River: 25–40 items grouped by beat, in this fixed order: Roads & transit ·
    Public safety & courts · City Hall & county · Schools · Health · Business & tech ·
    Around town · Texas · Sports. Missing beats are omitted, never padded.
@@ -141,7 +152,7 @@ time or price we cannot verify is worse than an absent ritual.
   (target six to ten, at most two in any one beat), at least one original
   graphic, and one to three videos. Any beat running more than 400 words
   carries at least one visual. These minimums are scoped to the River, not
-  the edition as a whole: a graphic in the Big Story or a chart in the
+  the edition as a whole: the First Read chart or a chart in the
   Weather section does not count toward them, because their job is
   interrupting the River's wall of text specifically — a visual sitting
   somewhere else in the page does not do that. The cards are what break up
@@ -214,8 +225,8 @@ audit is the drift this whole change exists to prevent.
 6. Weekly balance check: every Sunday, re-read the past 7 bulletins and
    note in the log whether story selection leaned toward any side. Adjust
    the coming week if it did. Check **topic concentration** in the same
-   pass: list the week's Big Story subjects and note any subject that led
-   more than twice. A single subject can dominate on the merits for days —
+   pass: list the week's First Read headline subjects and note any subject
+   that led more than twice. A single subject can dominate on the merits for days —
    data centers nearly took two mornings running on 2026-08-24 and
    2026-08-25 — and the result reads as a paper about one thing. Where a
    subject is genuinely the biggest news again, it stays; the check exists
@@ -276,7 +287,7 @@ shows what KVUE is covering (publisher's call, 2026-08-24). A relayed item:
 - is one sentence, and says nothing its source sentence does not say — no
   added context, no figure that was not in the teaser, no What's next;
 - attributes in the prose, not just the tag: "KVUE reported that …";
-- is never the Big Story, and never carries an image.
+- never leads First Read, and never carries an image.
 
 Do not relay a teaser about a person's death or injury, a crime accusation
 against a named person, a disputed political claim, or any figure that has to

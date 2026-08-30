@@ -202,7 +202,7 @@ flat or misses the day's point, in the Morning Note's voice (EDITORIAL.md).
 ## Step 2 — Select
 
 Find the day's idea first: two to four items that belong together become
-the Big Story. Then fill the River: aim for 25–40 items across the beats
+First Read's opening thought and its chart. Then fill the River: aim for 25–40 items across the beats
 in EDITORIAL.md's fixed order; 5 is a failure, log it. Priority: impact on
 daily life in Austin (safety, schools, transportation, cost of living,
 weather, city government), then major Texas news. Order by importance.
@@ -221,9 +221,11 @@ means Austin Current was not checked rather than that nothing happened.
 
 Create `src/bulletins/YYYY-MM-DD.md` for today, copying the exact front
 matter and section order of the newest existing bulletin file: the
-morning note; `## The Big Story` inside `{% bigstory %}…{% endbigstory %}`
-(### headline, optional `{% video %}`, paragraphs, a What's next line,
-optional `{% voice %}` cards, a Sources line); `## The River` inside
+morning note; `## First Read` inside `{% bigstory %}…{% endbigstory %}`
+(### headline stating the day's idea, the day's chart with its
+`<figcaption>`, 150–250 words of brief with inline source links and at
+least three in-page links into the River, then a What's next line);
+`## The River` inside
 `{% river %}…{% endriver %}` (`#### Beat` labels in the fixed order,
 one paragraph per item ending in `<span class="src">OUTLET</span>`,
 `{% voice %}` cards where they earn it); `## Weather` **outside** the river
@@ -371,7 +373,8 @@ If `node_modules` is missing (every fresh clone), run `npm ci` first. Then:
     npm run check                  # today; or `npm run check -- YYYY-MM-DD`
 
 `npm run check` (scripts/check.mjs) is the mechanical half of EDITORIAL's
-quality gate: front matter and permalink, Big Story length, lead and brief
+quality gate: front matter and permalink, First Read's length, headline,
+chart, What's next line and in-page link targets, lead and brief
 lengths, lead counts per beat and per edition, beat names and their fixed
 order, the River's item count against the river-note and its word budget
 (warns above 1,800, fails above 2,200), source tags, banned verbs, the

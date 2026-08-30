@@ -109,6 +109,14 @@ test("a post-cutover edition fails under the new rules, not the old ones", async
       /is used before its expansion/,
       "expected the new acronym-expansion check to fire"
     );
+    // The old-shape Big Story (~650 words, no in-page links) must be judged
+    // by the First Read rules post-cutover, not the old 400-700 article rule.
+    assert.match(output, /first read/, "expected the First Read checks to fire post-cutover");
+    assert.doesNotMatch(
+      output,
+      /big story/,
+      "the old Big Story checks must not run post-cutover"
+    );
     assert.doesNotMatch(
       output,
       /cap 100\)/,

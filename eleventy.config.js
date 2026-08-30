@@ -1,21 +1,9 @@
 import { HtmlBasePlugin } from "@11ty/eleventy";
 import { feedPlugin } from "@11ty/eleventy-plugin-rss";
 import markdownItAnchor from "markdown-it-anchor";
+import { slug as beatSlug } from "./scripts/river.mjs";
 
 const SITE_URL = "https://theaustinbulletin.com/";
-
-// Shared by the heading-anchor slugifier and the River's beat nav, so a beat
-// heading's id and its jump-link href are always produced by the same rule.
-// The default markdown-it-anchor slugifier percent-encodes "&", which turns
-// "Roads & transit" into "roads-%26-transit" — drop it in favor of this.
-function beatSlug(s) {
-  return String(s).trim().toLowerCase()
-    .replace(/&/g, " ")
-    .replace(/[^\w\s-]/g, "")
-    .replace(/\s+/g, "-")
-    .replace(/-+/g, "-")
-    .replace(/^-|-$/g, "");
-}
 
 // Inline SVG glyphs (24x24, currentColor) for each Voice-card platform.
 const GLYPH = {

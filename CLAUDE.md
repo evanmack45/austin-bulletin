@@ -274,3 +274,17 @@ Neutral. Factual. Clean.
 - 2026-08-29 (Evan): the morning note is LOCKED — "my favorite part of the
   website right now. Don't change it." Voice, boxed panel, length all stay
   as they are. Do not propose changes to it.
+- 2026-08-29 (Evan, evening — THE BIG STORY IS DEAD): replaced by **First
+  Read** (name provisional; Evan finds "Big Story" generic — propose better
+  names when asked). Shape: the day's original chart (the hero, built by us)
+  + a 150–250 word editor's brief under a ### idea headline that ROUTES the
+  reader — at least 3 in-page links into River leads/beats/Weather/One Good
+  Thing, validated against real anchors by the gate — plus inline source
+  links, ending with What's next. Rationale, in Evan's framing: nobody reads
+  650 AI-generated words, and a reader can get the story better from a linked
+  source; the paper's real value is reading everything, connecting it, and
+  routing you. "The Austin point of view" = relevance to bills/commute/
+  schools, never opinion. Enforced from 2026-08-29 via the same newShape
+  gate; pre-cutover editions keep their Big Story checks. He also flagged the
+  site should localize harder (less statewide) — pending his further
+  feedback. Rules live in EDITORIAL.md "The shape of a day" item 2.

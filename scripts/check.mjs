@@ -28,7 +28,9 @@ import { readFile, readdir, access } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { execFile } from "node:child_process";
-import { BEATS, words, wordCount, parseRiver, checkRiver, BEAT_HEADING_RE } from "./river.mjs";
+import {
+  BEATS, words, wordCount, parseRiver, checkRiver, BEAT_HEADING_RE, LEAD_HEADING_RE, slug
+} from "./river.mjs";
 import { checkAcronyms } from "./acronyms.mjs";
 
 const UA = "TheAustinBulletin/1.0 (+https://theaustinbulletin.com)";
@@ -49,6 +51,12 @@ const RIVER_MAX = 40;
 const ITEM_WORD_CAP = 100;
 const BIG_MIN = 400;
 const BIG_MAX = 700;
+
+// First Read (new shape, from 2026-08-29): the day's chart plus a short
+// editor's brief that routes readers into the River — not an article.
+// Target 150–250 words; the gate allows 120–300.
+const FIRSTREAD_MIN = 120;
+const FIRSTREAD_MAX = 300;
 
 const problems = [];
 const warnings = [];
@@ -143,6 +151,38 @@ async function exists(p) {
   }
 }
 
+// First Read (new shape): a ### headline stating the day's idea, the day's
+// chart, 120–300 words of prose, a What's next line, and at least three
+// in-page links routing into the rest of the page — each landing on an
+// anchor that actually exists (beat headings, lead headlines, the Weather
+// section, the One Good Thing closer).
+function checkFirstRead(big, fullText, bad) {
+  const prose = big
+    .replace(/^###.*$/gm, " ")
+    .replace(/<p class="whats-next"[\s\S]*$/, " ")
+    .replace(/<figcaption[\s\S]*?<\/figcaption>/g, " ");
+  const n = wordCount(prose);
+  if (n < FIRSTREAD_MIN || n > FIRSTREAD_MAX) {
+    bad("first read", `${n} words, EDITORIAL wants ${FIRSTREAD_MIN}–${FIRSTREAD_MAX}`);
+  }
+  if (!/^###\s+\S/m.test(big)) bad("first read", "no ### headline stating the day's idea");
+  if (!/<p class="whats-next">/.test(big)) bad("first read", 'no "What\'s next" line');
+  if (!/!\[|<img[\s>]/.test(big)) {
+    bad("first read", "no chart or image — the day's graphic anchors the section");
+  }
+  const targets = [...big.matchAll(/\]\(#([^)]+)\)/g)].map((m) => m[1]);
+  if (targets.length < 3) {
+    bad("first read", `${targets.length} in-page link(s) into the River, EDITORIAL wants at least 3`);
+  }
+  const river = section(fullText, "{% river %}", "{% endriver %}") || "";
+  const valid = new Set(["weather", "one-good-thing", "top"]);
+  for (const b of BEATS) valid.add(slug(b));
+  for (const m of river.matchAll(new RegExp(LEAD_HEADING_RE.source, "gm"))) valid.add(slug(m[1]));
+  for (const t of targets) {
+    if (!valid.has(t)) bad("first read", `in-page link "#${t}" has no matching anchor on the page`);
+  }
+}
+
 async function main() {
   const args = parseArgs(process.argv.slice(2));
   const date = args._[0] || todayCentral();
@@ -193,11 +233,12 @@ async function main() {
     }
   }
 
-  // --- Big Story ----------------------------------------------------------
+  // --- Lead section: Big Story (old shape) / First Read (new shape) -------
+  const newShape = date >= NEW_SHAPE_FROM;
   const big = section(text, "{% bigstory %}", "{% endbigstory %}");
   if (!big) {
-    bad("big story", "no {% bigstory %} block");
-  } else {
+    bad(newShape ? "first read" : "big story", "no {% bigstory %} block");
+  } else if (!newShape) {
     const prose = big
       .replace(/^###.*$/gm, " ")
       .replace(/<p class="whats-next"[\s\S]*$/, " ")
@@ -209,6 +250,8 @@ async function main() {
     if (!/^###\s+\S/m.test(big)) bad("big story", "no ### headline");
     if (!/<p class="whats-next">/.test(big)) bad("big story", 'no "What\'s next" line');
     if (!/<p class="source-line">/.test(big)) bad("big story", "no Sources line");
+  } else {
+    checkFirstRead(big, text, bad);
   }
 
   // --- River --------------------------------------------------------------
@@ -234,7 +277,6 @@ async function main() {
     }
 
     const parsed = parseRiver(river);
-    const newShape = date >= NEW_SHAPE_FROM;
     const items = parsed.items.map((i) => i.body);
     if (!newShape && (items.length < RIVER_MIN || items.length > RIVER_MAX)) {
       bad("river", `${items.length} items, EDITORIAL wants ${RIVER_MIN}–${RIVER_MAX}`);
