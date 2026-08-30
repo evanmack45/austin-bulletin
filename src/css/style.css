@@ -229,12 +229,10 @@ h2.glance-title::after { content: none; }
   .glance-grid li:nth-child(2n + 1) { border-left: none; }
 }
 
-/* Lead story: larger headline; its image bleeds past the text column on wide screens */
+/* Lead story: larger headline. The hero image sits flush with the text
+   column (the old wide-screen bleed clipped chart titles at the right edge
+   — Evan, 2026-08-29). */
 .bulletin h3:first-of-type { font-size: 2.3rem; line-height: 1.12; }
-@media (min-width: 60rem) {
-  .bulletin h3:first-of-type + p,
-  .bulletin h3:first-of-type + p + figcaption { margin-left: -6rem; margin-right: -6rem; }
-}
 .bulletin h3 + p img { margin-top: 0.2rem; }
 
 /* "What's next" line under each story */

@@ -42,10 +42,6 @@ function niceCeil(value) {
   return Math.ceil(value / 5) * 5;
 }
 
-function footerSvg(source) {
-  return `<text x="60" y="770" font-family='${FONT}' font-size="22" fill="${MUTED}">The Austin Bulletin · ${esc(source)}</text>`;
-}
-
 function wrapLabel(text, maxLen = 48) {
   if (text.length <= maxLen) return [text];
   let idx = text.lastIndexOf(' ', maxLen);
@@ -53,6 +49,21 @@ function wrapLabel(text, maxLen = 48) {
   const first = text.slice(0, idx).trim();
   const rest = text.slice(idx).trim();
   return rest ? [first, rest] : [first];
+}
+
+// The 1200px canvas clips anything longer - and how wide text renders
+// depends on which font the rasterizer finds, so the caps are conservative.
+// The 2026-08-29 morning chart shipped with its title cut off mid-word.
+const TITLE_MAX = 46;
+const SUBTITLE_MAX = 88;
+
+function validateHeader(kind, title, subtitle) {
+  if (isNonEmptyString(title) && title.length > TITLE_MAX) {
+    fail(`${kind}: title exceeds ${TITLE_MAX} chars and would clip at the canvas edge: "${title}"`);
+  }
+  if (typeof subtitle === 'string' && subtitle.length > SUBTITLE_MAX) {
+    fail(`${kind}: subtitle exceeds ${SUBTITLE_MAX} chars and would clip at the canvas edge: "${subtitle}"`);
+  }
 }
 
 function validateCommon(spec) {
@@ -77,6 +88,7 @@ function renderBarsSvg(spec) {
   const { title, subtitle, unit, bars, reference } = spec;
   if (!isNonEmptyString(title)) fail('bars: title is required');
   if (subtitle !== undefined && typeof subtitle !== 'string') fail('bars: subtitle must be a string');
+  validateHeader('bars', title, subtitle);
   if (typeof unit !== 'string') fail('bars: unit is required (use "" for none)');
   if (!Array.isArray(bars) || bars.length < 2 || bars.length > 14) {
     fail('bars: need 2-14 {label, value} items');
@@ -154,7 +166,6 @@ function renderBarsSvg(spec) {
   }
 
   parts.push(`<line x1="${plotX0}" y1="${plotY1}" x2="${plotX1}" y2="${plotY1}" stroke="${INK}" stroke-width="1"/>`);
-  parts.push(footerSvg(spec.source));
   parts.push('</svg>');
   return parts.join('\n');
 }
@@ -163,6 +174,7 @@ function renderTimelineSvg(spec) {
   const { title, subtitle, events, next } = spec;
   if (!isNonEmptyString(title)) fail('timeline: title is required');
   if (subtitle !== undefined && typeof subtitle !== 'string') fail('timeline: subtitle must be a string');
+  validateHeader('timeline', title, subtitle);
   if (!Array.isArray(events) || events.length < 3 || events.length > 7) {
     fail('timeline: need 3-7 events');
   }
@@ -221,7 +233,6 @@ function renderTimelineSvg(spec) {
     }
   });
 
-  parts.push(footerSvg(spec.source));
   parts.push('</svg>');
   return parts.join('\n');
 }

@@ -143,3 +143,33 @@ test("graphic.mjs's output renders a real <img>, not literal Markdown, on the pa
     assert.match(html, /officials said &quot;restored&quot; &amp; &lt;safe&gt;/);
   });
 });
+
+// The 2026-08-29 morning chart shipped with its title clipped mid-word at
+// the canvas edge: rendered text width depends on which font sharp's
+// rasterizer finds, so overflow is environment-dependent and must be
+// prevented by a hard cap, not eyeballed. These pin the cap.
+test("a title over the cap fails instead of clipping at the canvas edge", async () => {
+  await withTempSite(async (tmpDir) => {
+    const spec = { ...SPEC, title: "x".repeat(47) };
+    const specPath = path.join(tmpDir, "long-title.json");
+    await writeFile(specPath, JSON.stringify(spec), "utf8");
+    await assert.rejects(
+      execFileAsync(process.execPath, [graphicScript, "long-title.json"], { cwd: tmpDir }),
+      (err) => /title exceeds 46 chars/.test(`${err.stderr}`),
+      "expected graphic.mjs to refuse a 47-char title"
+    );
+  });
+});
+
+test("a subtitle over the cap fails instead of clipping at the canvas edge", async () => {
+  await withTempSite(async (tmpDir) => {
+    const spec = { ...SPEC, subtitle: "x".repeat(89) };
+    const specPath = path.join(tmpDir, "long-subtitle.json");
+    await writeFile(specPath, JSON.stringify(spec), "utf8");
+    await assert.rejects(
+      execFileAsync(process.execPath, [graphicScript, "long-subtitle.json"], { cwd: tmpDir }),
+      (err) => /subtitle exceeds 88 chars/.test(`${err.stderr}`),
+      "expected graphic.mjs to refuse an 89-char subtitle"
+    );
+  });
+});

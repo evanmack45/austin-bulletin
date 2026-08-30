@@ -2,16 +2,28 @@
   "type": "bars",
   "date": "2026-08-26",
   "slug": "austin-traffic-deaths",
-  "title": "Austin traffic deaths are running behind last year's pace",
+  "title": "Austin traffic deaths trail last year's pace",
   "subtitle": "Fatal crashes and traffic deaths recorded by Austin police as of Aug. 20",
   "unit": "",
   "alt": "Bar chart comparing Austin traffic figures as of Aug. 20: 66 fatal crashes and 70 traffic deaths in 2025 against 52 fatal crashes and 52 traffic deaths in 2026, according to the Austin Police Department",
   "source": "Austin Police Department, via KXAN",
   "yMin": 0,
   "bars": [
-    { "label": "2025 fatal crashes", "value": 66 },
-    { "label": "2025 deaths", "value": 70 },
-    { "label": "2026 fatal crashes", "value": 52 },
-    { "label": "2026 deaths", "value": 52 }
+    {
+      "label": "2025 fatal crashes",
+      "value": 66
+    },
+    {
+      "label": "2025 deaths",
+      "value": 70
+    },
+    {
+      "label": "2026 fatal crashes",
+      "value": 52
+    },
+    {
+      "label": "2026 deaths",
+      "value": 52
+    }
   ]
 }
