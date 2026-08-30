@@ -227,13 +227,6 @@ time or price we cannot verify is worse than an absent ritual.
   platform's mark in oxblood — the template renders both; never assume a
   reader knows what r/, u/ or a handle means (2026-08-29 panel: the
   unframed card ended the least-online reader's first successful visit).
-- Cards sit only in Business & street life inside City Desk (gate-
-  enforced), and in Weather and The Back Page when one belongs there.
-  The 2026-08-30 panel found street voice tonally wrong inside hard-news
-  beats — five of seven readers, and the near-quit point for the two
-  least-online. Relevance to a hard story does not override this: the
-  Fiber-outage card beside infrastructure news is the case that proved
-  placement beats adjacency.
 - A card never sits directly adjacent to an item reporting a death or
   serious injury. A sympathy-scroll quote beside a fatality item reads as
   tonal whiplash, however kindly meant (same panel: three readers flagged

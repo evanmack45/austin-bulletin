@@ -250,7 +250,7 @@ export const LIMITS = {
   itemsMax: 40,
   wordsWarn: 1800,
   wordsFail: 2200,
-  voiceMin: 2,
+  voiceMin: 4,
   voiceMax: 10,
   voicePerBeat: 2,
   videoMin: 1,
@@ -472,23 +472,7 @@ function checkWordBudget(parsed, bad, warn) {
 // when a substantive visual_exception is in force. Caps and every
 // non-visual rule call `bad` directly and are never exceptable.
 
-// Voice cards carry street voice, and the 2026-08-30 review panel found
-// them tonally wrong inside hard-news beats (five of seven readers; the
-// near-quit point for two). They may sit only in the beats below — the
-// Weather section and The Back Page live outside City Desk and are
-// governed by EDITORIAL, not this list.
-export const CARD_BEATS = ["Business & street life"];
-
 function checkVoiceBudget(parsed, exceptable, bad) {
-  for (const beat of parsed.beats) {
-    if (beat.voice > 0 && !CARD_BEATS.includes(beat.name)) {
-      bad(
-        "visuals",
-        `${beat.name} carries ${beat.voice} voice card(s); cards may sit only in ` +
-          CARD_BEATS.join(", ")
-      );
-    }
-  }
   if (parsed.visuals.voice < LIMITS.voiceMin) {
     exceptable(
       "visuals",
