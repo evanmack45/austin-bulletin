@@ -346,3 +346,12 @@ Neutral. Factual. Clean.
   {% bigstory %}), CSS classes and scripts/river.mjs keep their internal
   names, and h2#the-river stays styled for old editions. Do not
   re-litigate these names or rename the internal terms.
+- 2026-08-29 (Evan, late): the Archive page has full-text search —
+  Pagefind 1.5.2 (npm devDependency, stock setup), run by the
+  `postbuild` script so `npm run build -- --pathprefix=…` keeps working
+  (extra args reach eleventy only). `data-pagefind-body` on the bulletin
+  article scopes the index to editions and excludes the homepage's copy.
+  UI on /archive/ styled via Pagefind's CSS custom properties; note
+  `--pagefind-ui-font: inherit` silently fails (CSS-wide keywords are
+  invalid in var() substitution) — the stack is named explicitly. Search
+  only works on a full build, not `npm run serve`.

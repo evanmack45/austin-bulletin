@@ -6,6 +6,14 @@ permalink: "/archive/"
 <h1>Archive</h1>
 {% set first = collections.bulletins | last %}
 <p class="archive-note">Publishing every morning since {{ first.date | readableDate }}.</p>
+<link href="{{ '/pagefind/pagefind-ui.css' | url }}" rel="stylesheet">
+<script src="{{ '/pagefind/pagefind-ui.js' | url }}"></script>
+<div id="search"></div>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    new PagefindUI({ element: "#search", showSubResults: true, showImages: false });
+  });
+</script>
 <ul class="archive-list">
 {% for b in collections.bulletins %}
   <li><a href="{{ b.url }}">{{ b.data.title }}</a></li>

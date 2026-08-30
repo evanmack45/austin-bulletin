@@ -6,6 +6,7 @@
   "description": "The Austin Bulletin — a daily AI-produced news bulletin for Austin and Texas.",
   "scripts": {
     "build": "eleventy",
+    "postbuild": "pagefind --site _site",
     "check": "node scripts/check.mjs",
     "serve": "eleventy --serve",
     "favicon": "node scripts/favicon.mjs",
@@ -23,6 +24,7 @@
     "@11ty/eleventy-plugin-rss": "^3.0.0",
     "eslint": "^10.9.1",
     "markdown-it-anchor": "^9.2.1",
+    "pagefind": "^1.5.2",
     "puppeteer-core": "^25.9.0"
   },
   "dependencies": {

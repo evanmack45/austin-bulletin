@@ -169,6 +169,32 @@ figcaption { font-size: 0.85rem; color: var(--muted); }
 .archive-list a:hover { text-decoration: underline; }
 .archive-note { margin: 0 0 1.5rem; color: var(--muted); font-style: italic; }
 
+/* Pagefind search UI, themed to the broadsheet */
+#search {
+  --pagefind-ui-scale: 0.9;
+  --pagefind-ui-primary: var(--accent);
+  --pagefind-ui-text: var(--ink);
+  --pagefind-ui-background: var(--bg);
+  --pagefind-ui-border: var(--rule);
+  --pagefind-ui-border-width: 1px;
+  --pagefind-ui-border-radius: 0;
+  /* "inherit" is invalid inside var() substitution — name the stack. */
+  --pagefind-ui-font: "Source Serif 4", Georgia, "Times New Roman", serif;
+  margin: 0 0 2rem;
+}
+
+#search input:focus,
+#search input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 0;
+}
+
+#search mark {
+  background: transparent;
+  color: var(--accent);
+  font-weight: 700;
+}
+
 /* Today at a glance */
 .glance {
   margin: 1.6rem 0 0;
