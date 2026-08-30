@@ -121,6 +121,17 @@ export default function (eleventyConfig) {
     return i === -1 ? bulletins.length : bulletins.length - i;
   });
 
+  // Masthead volume: Vol. I is 2026, the founding year, and the volume rolls
+  // on Jan. 1 (Evan, 2026-08-29) — computed so the unattended New Year's run
+  // cannot print a stale volume.
+  eleventyConfig.addFilter("volumeNumeral", (d) => {
+    let v = new Date(d).getUTCFullYear() - 2025;
+    const numerals = [["X", 10], ["IX", 9], ["V", 5], ["IV", 4], ["I", 1]];
+    let out = "";
+    for (const [sym, val] of numerals) while (v >= val) { out += sym; v -= val; }
+    return out;
+  });
+
   eleventyConfig.addFilter("isoDate", (d) => new Date(d).toISOString().slice(0, 10));
   eleventyConfig.addFilter("commas", (n) => Number(n).toLocaleString("en-US"));
 
@@ -133,6 +144,14 @@ export default function (eleventyConfig) {
       /<a href="(https?:\/\/(?!theaustinbulletin\.com)[^"]*)"/g,
       '<a href="$1" target="_blank" rel="noopener"'
     );
+  });
+
+  // The One Good Thing closer is authored as raw HTML in each bulletin, so
+  // published editions get their jump-link anchor here rather than by
+  // restructuring their files.
+  eleventyConfig.addTransform("goodThingAnchor", (content, outputPath) => {
+    if (!outputPath || !outputPath.endsWith(".html")) return content;
+    return content.replace('<p class="good-thing"', '<p class="good-thing" id="one-good-thing"');
   });
 
   // {% voice "id" %} — renders one Voice card from src/_data/cards/<id>.json

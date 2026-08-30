@@ -70,8 +70,8 @@ Neutral. Factual. Clean.
   plugin), a styled 404 page, a "Today" nav link, a "Skip to weather" jump
   link (headings get ids via markdown-it-anchor), external links open in a
   new tab (build transform), and the Archive shows the first publish date.
-- 2026-08-23 (evening notes from Evan): masthead kicker is "Every morning ·
-  Neutral · Factual"; each edition opens with a boxed date plate (weekday,
+- 2026-08-23 (evening notes from Evan): masthead kicker was "Every morning ·
+  Neutral · Factual" (kicker and plate line superseded 2026-08-29, below); each edition opens with a boxed date plate (weekday,
   date, edition number); the morning note sits in a boxed panel; summaries
   are capped at 100 words; In brief items carry a bold one-word category
   label. Images (Evan's rulings, 2026-08-23 evening): a real photo only when
@@ -244,3 +244,17 @@ Neutral. Factual. Clean.
   "correction">` note if a fact in the earlier edition was actually wrong.
   Unattended runs still never re-issue on their own; a published edition is
   replaced only on Evan's explicit instruction.
+- 2026-08-29 (Evan, evening feedback session — masthead and date plate):
+  the kicker is now "Every morning, for the city". Evan vetoed self-praise
+  ("Neutral · Factual" reads as a defensive claim — neutrality is
+  demonstrated, not printed; the promise lives on About) and vetoed
+  heritage nicknames (Violet Crown, Waterloo — old-school Austin cliché).
+  The date plate's third line is "Vol. N · No. N · Weather · One Good
+  Thing": volume numbering rolls Jan. 1 (Vol. I = 2026, computed by the
+  `volumeNumeral` filter so the New Year's run can't print it stale), and
+  the two jump links target the Weather section and the One Good Thing
+  closer (its anchor is added at build time to every edition, published
+  ones included). "Permanent link to this edition" sits at the foot of the
+  homepage article; the plate carries no other utility links. Evan also
+  signaled the site should localize harder toward Austin proper — beat
+  changes to follow from the rest of his feedback.

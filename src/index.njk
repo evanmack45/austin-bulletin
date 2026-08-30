@@ -7,9 +7,9 @@ permalink: "/"
 <article class="bulletin">
   {% set editionDate = latest.date %}
   {% set editionUrl = latest.url %}
-  {% set showPermalink = true %}
   {% include "edition-head.njk" %}
   {% set glanceData = glance[editionDate | isoDate] %}
   {% include "glance.njk" %}
   {{ latest.templateContent | safe }}
+  <p class="source-line"><a href="{{ editionUrl }}">Permanent link to this edition</a></p>
 </article>
