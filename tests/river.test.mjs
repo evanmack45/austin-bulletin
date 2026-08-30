@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { parseRiver, checkRiver, BEATS } from "../scripts/river.mjs";
+import { parseRiver, checkRiver, BEATS, BEATS_LEGACY } from "../scripts/river.mjs";
 
 const SAMPLE = `
 #### Roads & transit
@@ -101,7 +101,7 @@ test("passes a beat with exactly 2 leads", () => {
 });
 
 test("fails more than 12 leads in an edition", () => {
-  const river = BEATS.slice(0, 7).map((b) => riverOf(b, [lead("A", 50), lead("B", 50)])).join("\n");
+  const river = BEATS_LEGACY.slice(0, 7).map((b) => riverOf(b, [lead("A", 50), lead("B", 50)])).join("\n");
   const { problems } = checkRiver(parseRiver(river));
   assert.ok(problems.some((p) => /14 leads/.test(p.message)));
 });

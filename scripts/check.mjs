@@ -29,7 +29,8 @@ import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { execFile } from "node:child_process";
 import {
-  BEATS, words, wordCount, parseRiver, checkRiver, BEAT_HEADING_RE, LEAD_HEADING_RE, slug
+  BEATS, BEATS_LEGACY, words, wordCount, parseRiver, checkRiver, BEAT_HEADING_RE,
+  LEAD_HEADING_RE, slug
 } from "./river.mjs";
 import { checkAcronyms } from "./acronyms.mjs";
 
@@ -283,11 +284,12 @@ async function main() {
     // silently drift apart — see river.mjs's file-header note.
     const headingRe = new RegExp(BEAT_HEADING_RE.source, "gm");
     const heads = [...river.matchAll(headingRe)].map((m) => m[1].trim());
+    const beatList = newShape ? BEATS : BEATS_LEGACY;
     for (const h of heads) {
-      if (!BEATS.includes(h)) bad("river", `unknown beat heading "${h}"`);
+      if (!beatList.includes(h)) bad("river", `unknown beat heading "${h}"`);
     }
-    const known = heads.filter((h) => BEATS.includes(h));
-    const order = known.map((h) => BEATS.indexOf(h));
+    const known = heads.filter((h) => beatList.includes(h));
+    const order = known.map((h) => beatList.indexOf(h));
     if (order.some((v, i) => i > 0 && v <= order[i - 1])) {
       bad("river", `beats out of order or duplicated: ${known.join(" · ")}`);
     }

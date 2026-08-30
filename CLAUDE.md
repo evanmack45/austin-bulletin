@@ -316,3 +316,14 @@ Neutral. Factual. Clean.
   walls are dead. Gate: new-shape editions fail on an unlinked tag or a
   leftover wall; the sole plain-tag exception is a KVUE relay. First Read
   keeps its Sources line.
+- 2026-08-29 (Evan, late evening — SIX-BEAT RIVER, sports beat cut): the
+  River's beats are now Money & bills · Public safety & courts · Growth &
+  infrastructure · City Hall & county · Schools · Business & street life,
+  in that fixed order (= the Who Pays ladder). Texas and Health are not
+  beats (stories route by content/hook); Around town is dead;
+  entertainment and culture are first-class news IN Business & street
+  life. THE SPORTS BEAT IS CUT (supersedes 2026-08-24's "beat stays"):
+  pro/college sports don't run; community sports may run in Business &
+  street life when they clear the ladder. Routing rules in EDITORIAL "The
+  shape of a day"; jam record docs/reviews/river-beats-jam-2026-08-29.md;
+  BEATS_LEGACY in river.mjs keeps old editions valid.

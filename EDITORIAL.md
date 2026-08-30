@@ -87,9 +87,31 @@ suggestions. Every rule binds the writing.
    evening as "spammy." Prose synthesis, short, with links kept to the
    Sources line, is the standing shape. In-page links are allowed sparingly
    and must land on real anchors; the gate validates any that appear.)
-3. The River: 25–40 items grouped by beat, in this fixed order: Roads & transit ·
-   Public safety & courts · City Hall & county · Schools · Health · Business & tech ·
-   Around town · Texas · Sports. Missing beats are omitted, never padded.
+3. The River: 25–40 items grouped by beat, in this fixed order (the
+   six-beat map adopted 2026-08-29 from the beat-taxonomy jam,
+   docs/reviews/river-beats-jam-2026-08-29.md — the order is the Who Pays
+   ladder): **Money & bills · Public safety & courts · Growth &
+   infrastructure · City Hall & county · Schools · Business & street
+   life**. Missing beats are omitted, never padded.
+
+   Routing rules, which exist so every story has exactly one home:
+   - **Money & bills** holds any story whose news event IS a tax, fee,
+     rate, bond, or budget, no matter which body voted it.
+   - **Public safety & courts** holds incidents AND the accountability
+     stories around them — crashes and collisions included; a fatal wreck
+     is a safety story, not a transportation story.
+   - **Growth & infrastructure** routes by subject, not by which body held
+     the meeting: land use, zoning, corridors, housing supply, road and
+     transit projects, utilities, data centers.
+   - **City Hall & county** keeps what remains of governance: elections,
+     appointments, conduct, process.
+   - **Business & street life** treats venues, food, festivals, arts and
+     community life as first-class economic news — entertainment and
+     culture live here, not in a lifestyle bucket.
+   - **Texas is not a beat.** A statewide story that clears the household
+     filter is sorted by its content like any other story.
+   - There is no Health beat: a health story routes by its hook — cost,
+     incident, or institution.
 
    Each beat holds two kinds of item.
 
@@ -138,9 +160,11 @@ suggestions. Every rule binds the writing.
    line that ships with a bare "DKR" propagates that mistake forever — expand
    it in the template line itself, not just in this morning's copy.
 
-Standings was cut 2026-08-24 at the publisher's direction. Do not reinstate
-it or propose a replacement. Only the ritual was cut: the Sports beat in the
-River stays exactly as it is.
+Standings was cut 2026-08-24, and on 2026-08-29 Evan cut the Sports beat
+itself, superseding the earlier "the beat stays" ruling. Pro and college
+sports do not run. Community sports (a high-school football night) may run
+in Business & street life when it clears the Who Pays ladder as community
+life. Do not reinstate a sports beat or ritual, or propose either.
 
 Weather became its own section 2026-08-24 at the publisher's direction,
 resolving a long-standing disagreement between this file and PIPELINE.md: the

@@ -235,13 +235,17 @@ regardless. Order by importance.
 Check recent bulletins in `src/bulletins/` to avoid repeating a story with
 no new development.
 
-Where the beats come from, now that the sources are settled. City Hall &
-county is Austin Current first, then the City of Austin feed. Schools is
-Austin Current and the Daily Texan. Roads & transit, Public safety and Health
-are the TV stations and the city. Around town is the Chronicle and Community
-Impact. Texas is the Tribune. If a beat is empty, say so by omitting it —
-EDITORIAL forbids padding — but an empty City Hall & county beat now usually
-means Austin Current was not checked rather than that nothing happened.
+Where the beats come from, under the six-beat map. Money & bills and
+City Hall & county are Austin Current first, then the City of Austin feed
+and Community Impact (suburban budgets). Public safety & courts is the TV
+stations, the city, and the courts. Growth & infrastructure is Austin
+Current, the city, and Community Impact. Schools is Austin Current and the
+Daily Texan. Business & street life is the Chronicle, Community Impact and
+the TV stations' business/venue coverage. Statewide stories that clear the
+household filter arrive mostly from the Tribune and are sorted by content.
+If a beat is empty, say so by omitting it — EDITORIAL forbids padding —
+but an empty City Hall & county or Money & bills beat usually means Austin
+Current was not checked rather than that nothing happened.
 
 ## Step 3 — Write
 

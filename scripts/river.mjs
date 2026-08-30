@@ -36,7 +36,20 @@ export function slug(s) {
 export const BEAT_HEADING_RE = /^####\s+(.+)$/;
 export const LEAD_HEADING_RE = /^#####\s+(.+)$/;
 
+// The six-beat map adopted 2026-08-29 (Evan's pick from the beat-taxonomy
+// jam, docs/reviews/river-beats-jam-2026-08-29.md). Order is the Who Pays
+// ladder. Routing rules live in EDITORIAL.md "The shape of a day".
 export const BEATS = [
+  "Money & bills",
+  "Public safety & courts",
+  "Growth & infrastructure",
+  "City Hall & county",
+  "Schools",
+  "Business & street life"
+];
+
+// Pre-cutover editions keep the nine-beat map they were published under.
+export const BEATS_LEGACY = [
   "Roads & transit",
   "Public safety & courts",
   "City Hall & county",
