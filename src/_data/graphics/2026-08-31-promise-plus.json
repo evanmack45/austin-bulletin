@@ -1,0 +1,17 @@
+{
+  "type": "bars",
+  "date": "2026-08-31",
+  "slug": "promise-plus",
+  "title": "What UT has put into its tuition promise",
+  "subtitle": "Endowments and additions approved by the University of Texas System since 2019",
+  "unit": "$M",
+  "alt": "Bar chart of money the University of Texas System has committed to its Promise Plus tuition program: a $167 million endowment in 2019, a second endowment of $300 million in 2022, an added $35 million in 2025, and an additional $65 million approved for 2027",
+  "source": "UT System figures, via The Daily Texan",
+  "yMin": 0,
+  "bars": [
+    { "label": "2019 endowment", "value": 167 },
+    { "label": "2022 endowment", "value": 300 },
+    { "label": "2025 addition", "value": 35 },
+    { "label": "2027 addition", "value": 65 }
+  ]
+}

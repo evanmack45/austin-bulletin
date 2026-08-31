@@ -1,0 +1,34 @@
+{
+  "type": "timeline",
+  "date": "2026-08-31",
+  "slug": "childcare-tax",
+  "title": "Two years of the Travis County childcare tax",
+  "subtitle": "Where the money voters approved in 2024 has gone, and what providers still report",
+  "alt": "Timeline of the Travis County childcare tax: voters approved a property tax increase in November 2024 raising about $75 million a year; a 2025 United Way for Greater Austin survey found turnover above 40 percent, with 418 early childhood teachers leaving in a year; by July 2026 about 150 providers were receiving monthly gap payments totaling $4.2 million; and by August 2026 more than $51 million had been allocated, covering 7,500 children in after-school and summer programs and 1,000 new scholarships",
+  "source": "Austin Current",
+  "events": [
+    {
+      "date": "Nov. 2024",
+      "label": "Travis County voters approve the childcare tax",
+      "note": "About $75 million a year for childcare, after-school and summer programs"
+    },
+    {
+      "date": "2025",
+      "label": "A United Way survey finds classrooms closing",
+      "note": "418 early childhood teachers left in a year; turnover topped 40 percent"
+    },
+    {
+      "date": "July 2026",
+      "label": "About 150 providers get monthly gap payments",
+      "note": "$4.2 million so far, averaging $1,394 at centers and about $1,000 at homes"
+    },
+    {
+      "date": "Aug. 2026",
+      "label": "More than $51 million has been allocated",
+      "note": "7,500 children in after-school and summer programs; 1,000 new scholarships"
+    }
+  ],
+  "next": {
+    "label": "Workforce Solutions expects 530 fewer federally funded subsidies by 2027"
+  }
+}
