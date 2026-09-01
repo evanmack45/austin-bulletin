@@ -1,0 +1,31 @@
+{
+  "type": "timeline",
+  "date": "2026-09-01",
+  "slug": "rent-and-evictions",
+  "title": "The rent fell. The filings didn't.",
+  "subtitle": "Travis County renters, from the apartment boom to eviction court",
+  "alt": "Timeline of Austin rents and Travis County eviction filings: the Austin Apartment Association counts about 86,000 rental units added since 2023; Senate Bill 38 took effect Jan. 1, 2026, limiting local courts from requiring mediation or a pretrial conference before an eviction trial; in June 2026 the median asking rent was $1,371, down 4.3 percent from a year earlier, and Travis County saw roughly 1,500 eviction filings, about 60 percent above the baseline; and over the most recent 12 months there were more than 15,600 filings, 35 percent above the 2023-24 average, or about one case for every 20 renter households",
+  "source": "Eviction Lab and Realtor.com figures, via CBS Austin",
+  "events": [
+    {
+      "date": "Since 2023",
+      "label": "About 86,000 rental units are added",
+      "note": "The Austin Apartment Association's count of the supply that pushed rents down"
+    },
+    {
+      "date": "Jan. 1, 2026",
+      "label": "Senate Bill 38 changes eviction court",
+      "note": "Limits local courts from requiring mediation or a pretrial conference"
+    },
+    {
+      "date": "June 2026",
+      "label": "Median asking rent is $1,371, down 4.3 percent",
+      "note": "Realtor.com's Austin figure; Travis County logged about 1,500 filings that month"
+    },
+    {
+      "date": "Past 12 months",
+      "label": "More than 15,600 eviction filings",
+      "note": "35 percent above the 2023-24 average: one case for every 20 renter households"
+    }
+  ]
+}

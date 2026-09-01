@@ -1,0 +1,17 @@
+{
+  "type": "map",
+  "date": "2026-09-01",
+  "slug": "grove-riverside",
+  "title": "The Grove-Riverside site",
+  "subtitle": "The 125-acre former Tokyo Electron campus, now city offices, in the East Riverside corridor",
+  "alt": "Map of southeast Austin marking the Grove-Riverside site at 2400 Grove Boulevard, the 125-acre former Tokyo Electron campus now used as city offices, sitting between East Riverside Drive and State Highway 71 beside the Montopolis and Pleasant Valley neighborhoods",
+  "source": "City of Austin planning documents, via KXAN",
+  "center": "2400 Grove Blvd, Austin, TX 78741",
+  "zoom": 14,
+  "markers": [
+    {
+      "label": "A",
+      "place": "2400 Grove Blvd, Austin, TX 78741"
+    }
+  ]
+}
