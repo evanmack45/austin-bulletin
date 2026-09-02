@@ -1,0 +1,31 @@
+{
+  "type": "timeline",
+  "date": "2026-09-02",
+  "slug": "aisd-bus-hubs",
+  "title": "The cuts reach the bus stop",
+  "subtitle": "Austin ISD's high school transportation, two weeks into the school year",
+  "alt": "Timeline of the Austin Independent School District's high school bus changes: the district adopted a $205 million reduction package for the 2026-27 school year; it opened the year with 98 bus hubs an average of 2.5 miles from students' homes, replacing neighborhood stops; Communities In Schools closed a campaign at more than $354,200 on Aug. 31 to cover what the budget could not; and by Sept. 2 the district had 108 hubs about 1.5 miles from homes, with transportation savings put at $2.3 million, while Austin Ed Fund delivered $350,000 to 48 teacher-led projects",
+  "source": "Austin ISD figures, via KUT and Community Impact",
+  "events": [
+    {
+      "date": "2026-27 budget",
+      "label": "A $205 million reduction package",
+      "note": "The district's real deficit is running ahead of its own projections"
+    },
+    {
+      "date": "August",
+      "label": "98 hubs, 2.5 miles from home on average",
+      "note": "Neighborhood stops give way to hubs at schools, bus stops, rec centers"
+    },
+    {
+      "date": "Aug. 31",
+      "label": "Communities In Schools raises $354,200",
+      "note": "A campaign to cover what the school budget no longer does"
+    },
+    {
+      "date": "Sept. 2",
+      "label": "108 hubs, about 1.5 miles from home",
+      "note": "Added after 3,500 comments; the district puts the savings at $2.3 million"
+    }
+  ]
+}

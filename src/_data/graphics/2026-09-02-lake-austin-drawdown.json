@@ -1,0 +1,31 @@
+{
+  "type": "timeline",
+  "date": "2026-09-02",
+  "slug": "lake-austin-drawdown",
+  "title": "Seven weeks with the lake down",
+  "subtitle": "The Lower Colorado River Authority's Lake Austin drawdown, week by week",
+  "alt": "Timeline of the Lake Austin drawdown: the Lower Colorado River Authority begins lowering the lake on Oct. 12 at about one foot a day at the City of Austin's request; the lake reaches its target about a dozen feet down after roughly three weeks, with public boat ramps closed and no swimming at Emma Long Metro Park; four weeks of dock cleaning, maintenance and hydrilla management follow; refilling from Lake Travis starts Nov. 24 at two feet a day; and the drawdown period ends Nov. 30",
+  "source": "City of Austin memo and LCRA schedule, via FOX 7 Austin",
+  "events": [
+    {
+      "date": "Oct. 12",
+      "label": "The lake starts dropping, about a foot a day",
+      "note": "At the City of Austin's request; the last drawdown here was in 2017"
+    },
+    {
+      "date": "Early Nov.",
+      "label": "About a dozen feet down, and held there",
+      "note": "Boat ramps closed, no swimming at Emma Long Metro Park"
+    },
+    {
+      "date": "Four weeks",
+      "label": "Dock cleaning, repairs, hydrilla work",
+      "note": "The window the city says the drawdown exists for"
+    },
+    {
+      "date": "Nov. 24",
+      "label": "Refilling begins, two feet a day",
+      "note": "Water comes down from Lake Travis; the period ends Nov. 30"
+    }
+  ]
+}
