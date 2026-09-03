@@ -1,0 +1,17 @@
+{
+  "type": "bars",
+  "date": "2026-09-03",
+  "slug": "central-health-rates",
+  "title": "Three rates on one median house",
+  "subtitle": "Annual Central Health tax bill on a Travis County homestead valued at $372,638",
+  "source": "Central Health budget figures, via KVUE",
+  "alt": "Bar chart of the annual Central Health property tax bill on a median Travis County homestead valued at $372,638 under three rates the district is weighing for fiscal year 2027: about $470 at the no-new-revenue rate, about $496 at a 6 percent increase, and about $504 at the 8 percent increase the board set as its maximum",
+  "unit": "$",
+  "bars": [
+    { "label": "No-new-revenue", "value": 470 },
+    { "label": "6% increase", "value": 496 },
+    { "label": "8% (the cap set)", "value": 504 }
+  ],
+  "yMin": 440,
+  "yMax": 520
+}

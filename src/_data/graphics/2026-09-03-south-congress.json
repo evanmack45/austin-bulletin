@@ -1,0 +1,36 @@
+{
+  "type": "timeline",
+  "date": "2026-09-03",
+  "slug": "south-congress",
+  "title": "Who left South Congress, and who came",
+  "subtitle": "Four years of turnover on the Austin corridor, storefront by storefront",
+  "alt": "Timeline of business turnover on South Congress Avenue in Austin: Lucy in Disguise with Diamonds closed in 2022 after 38 years and Tesoros Trading Company retired after 33 years, with On and Tecovas later taking those spaces; Hermes opened in 2022, followed by Sezane, Birkenstock and Lucchese; Maya Star closed in 2023 after nearly 30 years; in 2026 Vespaio, Chapulin Cantina, Prototype Vintage and Tiny Grocer closed and Monkey See Monkey Do moved to South Lamar Boulevard after 20 years; and Taste of Ethiopia leaves when its lease expires on Sept. 30, 2026",
+  "source": "Business openings and closings reported by KVUE",
+  "events": [
+    {
+      "date": "2022",
+      "label": "Lucy in Disguise and Tesoros close",
+      "note": "38 years and 33 years on the avenue; On and Tecovas later take the spaces"
+    },
+    {
+      "date": "2022 onward",
+      "label": "Hermes opens, and others follow",
+      "note": "Sezane, Birkenstock and the bootmaker Lucchese join the corridor"
+    },
+    {
+      "date": "2023",
+      "label": "Maya Star closes after nearly 30 years",
+      "note": "One of the last of the avenue's independent clothing shops"
+    },
+    {
+      "date": "2026",
+      "label": "Four more storefronts go dark",
+      "note": "Vespaio, Chapulin Cantina, Prototype Vintage and Tiny Grocer close"
+    },
+    {
+      "date": "Sept. 30",
+      "label": "Taste of Ethiopia's lease expires",
+      "note": "Twelve years on South Congress; the owners say they will not renew"
+    }
+  ]
+}
