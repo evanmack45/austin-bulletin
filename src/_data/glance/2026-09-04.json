@@ -1,0 +1,56 @@
+{
+  "date": "2026-09-04",
+  "fetchedAt": "2026-09-04T12:27:31.559Z",
+  "weather": {
+    "high": 96,
+    "low": 77,
+    "summary": "Chance Rain Showers then Slight Chance Showers And Thunderstorms",
+    "alerts": [],
+    "blurb": "Showers first thing, then a break from the triple digits. Take the umbrella.",
+    "source": "https://www.weather.gov/ewx/"
+  },
+  "air": {
+    "aqi": 31,
+    "category": "Good",
+    "pm25": 5.2,
+    "ozone": 33,
+    "blurb": "Clear air. A great day to be outside.",
+    "source": "https://open-meteo.com/en/docs/air-quality-api"
+  },
+  "lake": {
+    "percentFull": 94.9,
+    "elevationFt": 677.98,
+    "weekNote": "−1.5 pts vs. last week",
+    "blurb": "Close to full, good for boats and for the water supply. Down a touch this week.",
+    "source": "https://www.waterdatafortexas.org/reservoirs/individual/travis"
+  },
+  "pollen": {
+    "index": 2,
+    "category": "Low",
+    "tree": 1,
+    "grass": 2,
+    "weed": 2,
+    "plants": [
+      "Grasses",
+      "Ragweed"
+    ],
+    "note": "Tree 1 · Grass 2 · Weed 2 · Grasses, Ragweed",
+    "blurb": "A little grasses and ragweed around — most noses won't notice.",
+    "source": "https://developers.google.com/maps/documentation/pollen"
+  },
+  "grid": {
+    "forecastPeakMw": 83800,
+    "peakHourEnding": 17,
+    "availableMw": 99700,
+    "condition": "Normal",
+    "blurb": "A busy afternoon: demand near 83,800 megawatts, with 99,700 on hand.",
+    "source": "https://www.ercot.com/gridmktinfo/dashboards/systemwidedemand"
+  },
+  "sun": {
+    "sunrise": "7:09 a.m.",
+    "sunset": "7:49 p.m.",
+    "blurb": "Twelve hours and forty minutes of daylight — long enough for a swim after work.",
+    "source": "https://open-meteo.com/"
+  },
+  "errors": {}
+}

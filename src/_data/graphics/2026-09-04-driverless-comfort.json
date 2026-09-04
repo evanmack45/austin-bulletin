@@ -1,0 +1,17 @@
+{
+  "type": "bars",
+  "date": "2026-09-04",
+  "slug": "driverless-comfort",
+  "title": "How Americans feel about a driverless ride",
+  "subtitle": "Share of U.S. adults by comfort level, Pew Research Center survey taken in February",
+  "source": "Pew Research Center, via The Texas Tribune",
+  "alt": "Bar chart of a Pew Research Center survey of U.S. adults taken in February, showing how comfortable they would be riding in a driverless car: 70 percent said not too or not at all comfortable, 16 percent said somewhat comfortable, and 7 percent said extremely or very comfortable",
+  "unit": "%",
+  "bars": [
+    { "label": "Not too / not at all", "value": 70 },
+    { "label": "Somewhat", "value": 16 },
+    { "label": "Extremely or very", "value": 7 }
+  ],
+  "yMin": 0,
+  "yMax": 75
+}

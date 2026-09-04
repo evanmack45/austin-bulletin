@@ -1,0 +1,17 @@
+{
+  "type": "bars",
+  "date": "2026-09-04",
+  "slug": "dps-camera-searches",
+  "title": "Who searches the state's camera network",
+  "subtitle": "Agencies that ran plate searches on Texas DPS cameras during June",
+  "source": "Texas Tribune review of a month of DPS search records",
+  "alt": "Bar chart of law enforcement agencies that searched the Texas Department of Public Safety license plate camera network during June: 396 agencies inside Texas and 2,679 agencies from outside Texas ran searches, while 206 Texas departments had signed access agreements with DPS as of July",
+  "unit": "",
+  "bars": [
+    { "label": "Texas agencies", "value": 396 },
+    { "label": "Out-of-state agencies", "value": 2679 },
+    { "label": "Had signed agreements", "value": 206 }
+  ],
+  "yMin": 0,
+  "yMax": 2800
+}
