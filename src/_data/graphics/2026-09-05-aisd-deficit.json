@@ -1,0 +1,26 @@
+{
+  "type": "bars",
+  "date": "2026-09-05",
+  "slug": "aisd-deficit",
+  "title": "How far the school district hole opened",
+  "subtitle": "The district budget deficit for 2025-26 at three points in the year, per district data",
+  "source": "Austin Independent School District data, via Community Impact",
+  "alt": "Bar chart of the Austin Independent School District budget deficit for the 2025-26 school year at three points: 19 million dollars when the board adopted the budget, 121 million dollars after a mid-year amendment, and 105 million dollars in the final unaudited figure reported to the board on Aug. 27",
+  "unit": "$M",
+  "bars": [
+    {
+      "label": "At adoption",
+      "value": 19
+    },
+    {
+      "label": "Mid-year amendment",
+      "value": 121
+    },
+    {
+      "label": "Final (unaudited)",
+      "value": 105
+    }
+  ],
+  "yMin": 0,
+  "yMax": 130
+}

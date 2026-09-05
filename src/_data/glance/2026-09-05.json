@@ -1,0 +1,57 @@
+{
+  "date": "2026-09-05",
+  "fetchedAt": "2026-09-05T12:12:03.109Z",
+  "weather": {
+    "high": 98,
+    "low": 78,
+    "summary": "Mostly Sunny",
+    "alerts": [],
+    "blurb": "Hot, and the index says it feels hotter. Shade and water if you are out.",
+    "source": "https://www.weather.gov/ewx/"
+  },
+  "air": {
+    "aqi": 30,
+    "category": "Good",
+    "pm25": 6.2,
+    "ozone": 23,
+    "blurb": "Clear air. A great day to be outside.",
+    "source": "https://open-meteo.com/en/docs/air-quality-api"
+  },
+  "lake": {
+    "percentFull": 94.6,
+    "elevationFt": 677.84,
+    "weekNote": "−1.6 pts vs. last week",
+    "blurb": "The lake is close to full — good for boats and for the summer water supply. Down a touch from last week.",
+    "source": "https://www.waterdatafortexas.org/reservoirs/individual/travis"
+  },
+  "pollen": {
+    "index": 3,
+    "category": "Moderate",
+    "tree": 2,
+    "grass": 3,
+    "weed": 3,
+    "plants": [
+      "Grasses",
+      "Ragweed",
+      "Elm"
+    ],
+    "note": "Tree 2 · Grass 3 · Weed 3 · Grasses, Ragweed, Elm",
+    "blurb": "Grasses, ragweed and elm are all working. Take the pill before it takes you.",
+    "source": "https://developers.google.com/maps/documentation/pollen"
+  },
+  "grid": {
+    "forecastPeakMw": 82400,
+    "peakHourEnding": 17,
+    "availableMw": 105300,
+    "condition": "Normal",
+    "blurb": "A busy afternoon: demand near 82,400 megawatts, with 105,300 on hand.",
+    "source": "https://www.ercot.com/gridmktinfo/dashboards/systemwidedemand"
+  },
+  "sun": {
+    "sunrise": "7:10 a.m.",
+    "sunset": "7:49 p.m.",
+    "blurb": "Long light still. The last hour before it goes is the only comfortable one.",
+    "source": "https://open-meteo.com/"
+  },
+  "errors": {}
+}

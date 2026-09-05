@@ -1,0 +1,17 @@
+{
+  "type": "bars",
+  "date": "2026-09-05",
+  "slug": "central-health-plan",
+  "title": "What the tax question buys",
+  "subtitle": "The three largest lines in Central Health's proposed fiscal 2027 mental health plan",
+  "source": "Central Health budget presentation, via KXAN",
+  "alt": "Bar chart of the three largest lines in Central Health's proposed mental health spending for fiscal year 2027: 25.1 million dollars for inpatient psychiatric beds and emergency department services, 11 million dollars for a mental health crisis center, and 1.5 million dollars for justice-involved and community-based health services",
+  "unit": "$M",
+  "bars": [
+    { "label": "Psychiatric beds", "value": 25.1 },
+    { "label": "Crisis center", "value": 11 },
+    { "label": "Justice-involved", "value": 1.5 }
+  ],
+  "yMin": 0,
+  "yMax": 28
+}
