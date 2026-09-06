@@ -1,0 +1,36 @@
+{
+  "type": "timeline",
+  "date": "2026-09-06",
+  "slug": "bethany-cemetery",
+  "title": "Bethany Cemetery's road to landmark",
+  "subtitle": "The city first took up landmark status for the East Austin burial ground in 1977",
+  "source": "KXAN, citing city documents and Preservation Austin",
+  "alt": "Timeline of landmark status for Bethany Cemetery in East Austin: founded in 1893 by and for Black Austinites, first taken up by the Historic Landmark Commission in 1977, brought forward again in 2024 but timed out, recommended by the commission in January 2026, and designated a City of Austin Landmark by City Council on Aug. 27, 2026",
+  "events": [
+    {
+      "date": "1893",
+      "label": "Bethany Cemetery is founded on Springdale Road",
+      "note": "Started by and for Black Austinites in what is now East Austin"
+    },
+    {
+      "date": "1977",
+      "label": "The Historic Landmark Commission takes up the case",
+      "note": "City documents cite a series of postponements; it never reaches a recommendation"
+    },
+    {
+      "date": "2024",
+      "label": "The nomination returns and times out",
+      "note": "City documents blame missing case materials"
+    },
+    {
+      "date": "Jan. 2026",
+      "label": "The commission recommends designation",
+      "note": "Preservation Austin brought the case with the cemetery association"
+    },
+    {
+      "date": "Aug. 27, 2026",
+      "label": "City Council designates the cemetery a landmark",
+      "note": "Council voted at its regular meeting, following the January recommendation"
+    }
+  ]
+}

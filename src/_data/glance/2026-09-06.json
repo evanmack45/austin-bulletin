@@ -1,0 +1,45 @@
+{
+  "date": "2026-09-06",
+  "fetchedAt": "2026-09-06T12:09:27.894Z",
+  "weather": {
+    "high": 97,
+    "low": 78,
+    "summary": "Chance Rain Showers then Chance Showers And Thunderstorms",
+    "alerts": [],
+    "blurb": "A 40 percent chance of showers, then a heat index near 106. Go early.",
+    "source": "https://www.weather.gov/ewx/"
+  },
+  "air": {
+    "aqi": 35,
+    "category": "Good",
+    "pm25": 6.5,
+    "ozone": 28,
+    "blurb": "Cleanest air in days. The heat, not the air, is what limits you today.",
+    "source": "https://open-meteo.com/en/docs/air-quality-api"
+  },
+  "lake": {
+    "percentFull": 94.4,
+    "elevationFt": 677.68,
+    "weekNote": "−1.6 pts vs. last week",
+    "blurb": "Still close to full, down a touch from last week. Good news for the fall.",
+    "source": "https://www.waterdatafortexas.org/reservoirs/individual/travis"
+  },
+  "pollen": null,
+  "grid": {
+    "forecastPeakMw": 84500,
+    "peakHourEnding": 17,
+    "availableMw": 107500,
+    "condition": "Normal",
+    "blurb": "A busy afternoon: demand near 84,500 megawatts, with 107,500 on hand.",
+    "source": "https://www.ercot.com/gridmktinfo/dashboards/systemwidedemand"
+  },
+  "sun": {
+    "sunrise": "7:10 a.m.",
+    "sunset": "7:47 p.m.",
+    "blurb": "Daylight holds until nearly eight. There is an evening in there after the heat breaks.",
+    "source": "https://open-meteo.com/"
+  },
+  "errors": {
+    "pollen": "HTTP 403 Forbidden for https://pollen.googleapis.com/v1/forecast:lookup"
+  }
+}

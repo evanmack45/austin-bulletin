@@ -1,0 +1,17 @@
+{
+  "type": "bars",
+  "date": "2026-09-06",
+  "slug": "driverless-fleet",
+  "title": "Driverless cars registered in Texas",
+  "subtitle": "Vehicles cleared for commercial driverless operation; Cybercabs sit inside Tesla's fleet",
+  "source": "Austin American-Statesman and FOX 7 Austin, citing state registration figures",
+  "alt": "Bar chart of vehicles registered for commercial autonomous operation in Texas: Waymo has 1,000, Tesla's robotaxi fleet totals 420, and 45 of those are Cybercabs authorized for driverless operation",
+  "unit": "cars",
+  "bars": [
+    { "label": "Waymo", "value": 1000 },
+    { "label": "Tesla robotaxis", "value": 420 },
+    { "label": "Tesla Cybercabs", "value": 45 }
+  ],
+  "yMin": 0,
+  "yMax": 1050
+}
