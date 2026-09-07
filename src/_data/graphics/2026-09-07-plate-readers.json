@@ -1,0 +1,36 @@
+{
+  "type": "timeline",
+  "date": "2026-09-07",
+  "slug": "plate-readers",
+  "title": "Austin's license plate cameras",
+  "subtitle": "The city switched its own readers off in 2025 and has not decided what comes next",
+  "source": "Austin American-Statesman",
+  "alt": "Timeline of Austin's automated license plate reader program: a Flock Safety pilot began in 2023 with 40 fixed cameras and nearly 500 vehicle-mounted cameras, the city manager declined to bring a renewal to City Council in June 2025, police switched the readers off in July 2025, the council passed a surveillance ordinance in April 2026, and as of September 2026 Austin police still receive license plate data from other agencies",
+  "events": [
+    {
+      "date": "2023",
+      "label": "Austin starts a Flock camera pilot",
+      "note": "40 fixed cameras and nearly 500 mounted on city vehicles"
+    },
+    {
+      "date": "June 2025",
+      "label": "No renewal goes to City Council",
+      "note": "City Manager T.C. Broadnax does not bring one; the pilot expires"
+    },
+    {
+      "date": "July 2025",
+      "label": "Austin police switch the readers off",
+      "note": "An audit found 10% to 20% of searches had no reason or case number"
+    },
+    {
+      "date": "April 2026",
+      "label": "Council passes the TRUST Act",
+      "note": "Surveillance tech now needs council approval and a use policy"
+    },
+    {
+      "date": "Sept. 2026",
+      "label": "Plate data still reaches Austin police",
+      "note": "Partner agencies share it; no written agreements, no records kept"
+    }
+  ]
+}
