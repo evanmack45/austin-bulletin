@@ -219,6 +219,19 @@ export default function (eleventyConfig) {
     return content.replace('<p class="good-thing"', '<p class="good-thing" id="one-good-thing"');
   });
 
+  // Add a subtle trust link next to "The Briefing" heading on new-shape editions.
+  // This keeps disclosure off the permanent footer while making it easy to find.
+  eleventyConfig.addTransform("briefingTrustLink", (content, outputPath) => {
+    if (!outputPath || !outputPath.endsWith(".html")) return content;
+    if (!content.includes('id="the-briefing"')) return content;
+    const link =
+      '<span class="briefing-meta"> · <a class="trust-link" href="/about/#trust">About our reporting</a></span>';
+    return content.replace(
+      /(<h2[^>]*id="the-briefing"[^>]*>)([\s\S]*?)(<\/h2>)/,
+      (_m, open, inner, close) => `${open}${inner} ${link}${close}`
+    );
+  });
+
   // {% voice "id" %} — renders one Voice card from src/_data/cards/<id>.json
   // (exposed as global data `cards.<id>`). See scripts/card.mjs and
   // EDITORIAL.md "Voice cards and video".
