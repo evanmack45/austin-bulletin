@@ -704,8 +704,11 @@ Neutral. Factual. Clean.
 - Never weaken the neutrality or accuracy rules without an explicit,
   confirmed request from Evan.
 - Corrections to published bulletins are visible, never silent.
-- Site changes beyond the daily bulletin (design, new sections) happen
-  only when Evan asks; propose, don't surprise.
+- Bulletin Owner operates hands-off (added 2026-09-08; supersedes prior
+  propose/ask wording): proceed on content, design, layout, pipeline, and
+  roadmap execution without asking for go‑aheads. Brief Evan only when a
+  material change ships or any paid spend needs OK. Money remains the only
+  approval gate.
 
 ## Standing decisions
 
