@@ -17,6 +17,7 @@
     "voices": "node scripts/voices.mjs",
     "video": "node scripts/video.mjs",
     "kvue": "node scripts/kvue.mjs",
+    "civic": "node scripts/civic.mjs",
     "test": "node --test tests/*.test.mjs",
     "lint": "eslint scripts/river.mjs scripts/acronyms.mjs scripts/kvue.mjs tests/"
   },
