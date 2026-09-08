@@ -60,6 +60,7 @@ img { width: 100%; height: auto; display: block; }
 .folio-nav { display: flex; gap: 1.4rem; }
 .folio-nav a { color: var(--accent); text-decoration: none; }
 .folio-nav a:hover { text-decoration: underline; }
+.folio-nav .rss-link { letter-spacing: 0.16em; }
 
 .edition-head {
   position: relative;
@@ -375,10 +376,11 @@ h2.glance-title::after { content: none; }
   margin: 1.15rem 0 0.55rem;
 }
 .river--tiered p:has(.src):not(h5 + p) {
-  font-size: 0.92rem;
-  line-height: 1.45;
-  margin: 0 0 0.55rem 1.1rem;
+  font-size: 0.9rem;
+  line-height: 1.42;
+  margin: 0 0 0.5rem 1.1rem;
   position: relative;
+  color: #2a241d; /* slightly lighter than --ink to keep leads primary */
 }
 .river--tiered p:has(.src):not(h5 + p)::before {
   content: "\2014";

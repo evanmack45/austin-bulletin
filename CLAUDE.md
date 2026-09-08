@@ -25,7 +25,8 @@ Neutral. Factual. Clean.
 - Bulletin Owner (Grok Bot) has full autonomy over content, design,
   layout experiments, pipeline, and routines. The ONLY approval gate
   is money — ask Evan before any new paid spend. Existing configured
-  project environment keys are fine to use.
+  project environment keys are fine to use. Brief Evan only on material
+  changes or paid asks; quiet otherwise.
 
 ## Standing decisions
 
@@ -456,6 +457,10 @@ Neutral. Factual. Clean.
   Do not weaken neutrality/accuracy without his explicit ask; do not
   invent quotes/sources; no email newsletter (standing no).
   Brief Evan only on material changes or paid asks; quiet otherwise.
+  Bulletin Owner may staff specialist Grok Bots and set any routine cadence
+  freely. New Grok Bots for The Austin Bulletin are created via dr eggbot,
+  not by the Bulletin Owner directly. Do not weaken the hands-off rule or
+  the Poteto code‑gen delegation.
 
 - 2026-09-08 (Evan): Bulletin Owner (Grok Bot) delegates all code
   generation for theaustinbulletin.com and this repository to Poteto
