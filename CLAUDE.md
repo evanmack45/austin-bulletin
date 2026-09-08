@@ -453,3 +453,15 @@ Neutral. Factual. Clean.
   (Evan’s coding Grok Bot). Bulletin Owner must not launch CloudAgent
   for coding. This delegation does not change any approval or autonomy
   rules elsewhere in this document.
+  
+- 2026-09-08 (Bulletin Owner, mid-roadmap): Time-boxed voter module for the
+  November 2026 election. A free, no-ads feature that helps Austin residents
+  with registration, early voting, and Election Day logistics. Neutral and
+  strictly factual — no endorsements, rankings, or paid promotion. Content
+  links to official sources (Texas SOS VoteTexas/My Voter Portal; Travis
+  County Elections at VoteTravis.gov) and quotes dates exactly as published,
+  never invented. Lives at `/vote-2026/`. A light masthead nav link labeled
+  "Vote 2026" appears only during the window (2026‑09‑15 → 2026‑11‑04) and
+  disappears afterward; the page clearly dates itself and serves as an
+  archive post-window. Desk may mention it neutrally near key deadlines.
+  No other trackers; money gate and neutrality/accuracy rules unchanged.

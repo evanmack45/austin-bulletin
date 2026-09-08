@@ -479,3 +479,18 @@ The live site keeps yesterday's bulletin. Write the failure and its cause
 to `logs/YYYY-MM-DD.md`, then commit and push the log only — never the
 bulletin file. (An unpushed commit in a cloud workspace is lost when the
 run ends; a log-only push is safe because the site rebuilds unchanged.)
+
+## Seasonal — Voter module (Nov 2026)
+
+For the November 2026 election window, a dated voter logistics page lives at
+`/vote-2026/` with official links (VoteTexas/My Voter Portal; VoteTravis.gov)
+and key dates. A “Vote 2026” masthead link appears only during the window and
+removes itself afterward. During the window, the Desk may:
+
+- Add one neutral pointer line to the page near deadlines — e.g., in The
+  Briefing’s “What’s next” or in City Hall & county when a logistics date
+  is itself the news — never as an opinion or an endorsement.
+- Prefer linking the page over listing dates inline unless the date is the
+  load‑bearing fact of an item.
+
+Outside the window, do not mention it; the page remains as a dated archive.

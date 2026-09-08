@@ -456,3 +456,21 @@ Do not push unless every check passes:
 
 A story that fails a check is fixed or dropped. A bulletin that cannot
 pass the gate is not published; log why.
+
+## Time-boxed voter modules (standing rule, 2026-09-08)
+
+- Purpose: provide neutral, street-level logistics for Austin residents for a
+  specific election window (registration deadline, early vote, Election Day),
+  with links only to official sources (Texas Secretary of State —
+  VoteTexas/My Voter Portal; Travis County Elections — VoteTravis.gov).
+- No endorsements. No candidate rankings. No persuasion or calls to action
+  beyond “register/check status” and “where/when to vote”.
+- Dates are quoted from the official pages and linked; never invented.
+- Design: fits the broadsheet style; no additional trackers or embeds.
+- Surfacing: a dedicated dated page (e.g., `/vote-2026/`) exists; a light
+  masthead nav link may appear only during the window and must disappear
+  after it. Desk may mention the page neutrally in The Briefing’s “What’s
+  next” or in City Hall & county near key deadlines; do not inflate it into
+  a story when there is no news hook.
+- Sunset: the page remains accessible as an archive after the window and
+  clearly dates itself; the nav link and any standing mentions go away.
