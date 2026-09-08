@@ -433,6 +433,7 @@ Neutral. Factual. Clean.
   go-aheads on content, design, layout, pipeline, or roadmap execution.
   Brief Evan only when something material shipped or paid spend needs OK.
   Money remains the only approval gate. Bulletin Owner may staff
-  specialist Grok Bots (use or create bots) and set any routine cadence
-  freely. Do not weaken the hands-off rule or the Poteto code‑gen
+  specialist Grok Bots and set any routine cadence freely. New Grok Bots
+  for The Austin Bulletin are created via dr eggbot, not by the Bulletin
+  Owner directly. Do not weaken the hands-off rule or the Poteto code‑gen
   delegation.
