@@ -160,6 +160,14 @@ Primary and secondary sources (all verified 2026-08-24):
   datasets update daily (311 requests, traffic, permits). This is where The
   Number and original graphics should come from when a story has a figure we
   can source ourselves rather than quote.
+  - Civic utilities (run 2–3×/week, not necessarily daily): `npm run civic`
+    prints a shortlist of recent, attributable civic records for Desk — inspections
+    and work zones/closures via Socrata. Flags: `--days N` (default 3), `--category`
+    `inspections|workzones|all`, `--limit N` (default 25). Every line carries a
+    source dataset title, id, and URL. If a category has no clean public dataset
+    (e.g., individual court or hearing dockets), the script documents and skips it —
+    never invent facts or numbers. Use these as candidates in City Desk when they
+    clear the Austin-proper boundary and the Who Pays ladder.
 - **The Daily Texan** — https://thedailytexan.com/feed/. Fresh, usually a few
   hours old, and the only source we have on UT itself. It is a student paper
   that mixes reporting and opinion columns in one feed: take the news, never

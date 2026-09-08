@@ -453,3 +453,10 @@ Neutral. Factual. Clean.
   (Evan’s coding Grok Bot). Bulletin Owner must not launch CloudAgent
   for coding. This delegation does not change any approval or autonomy
   rules elsewhere in this document.
+-
+- 2026-09-08 (mid roadmap — civic utilities path): A free, repeatable CLI
+  pulls recent, attributable civic records from data.austintexas.gov (Socrata)
+  for Desk 2–3×/week. Command: `npm run civic -- [--days N] [--category inspections|workzones|all] [--limit N]`.
+  Honest UA `TheAustinBulletin/1.0 (+https://theaustinbulletin.com)` only; optional `SOCRATA_APP_TOKEN`
+  supported but not required. Output is factual snippets with dataset titles, ids and URLs; no invented numbers.
+  If a category has no clean public dataset (e.g. individual court/hearing dockets), the script documents and skips it.

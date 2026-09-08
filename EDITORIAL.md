@@ -327,6 +327,12 @@ audit is the drift this whole change exists to prevent.
 1. Every fact traces to a source read this morning, linked in the story.
 2. Two independent sources for surprising or disputed claims.
 3. Quote numbers from sources. Never calculate or extrapolate them.
+   - Civic utilities (inspections, work zones) come from Austin's Socrata
+     portal and must cite the dataset's published title, 4x4 id, and URL in
+     the item's own copy or Sources line. Do not restate or average scores,
+     do not compute rates; quote what the row says. If a category has no
+     clean public, row-level dataset (e.g., individual court/hearing dockets),
+     skip it rather than inventing a surrogate — and note the skip in the log.
 4. If sources disagree, the bulletin says so.
 5. Social media posts are never the sole source for a story.
 6. Unverifiable story = omitted story. Missing is better than wrong.
