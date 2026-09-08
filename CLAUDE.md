@@ -447,3 +447,7 @@ Neutral. Factual. Clean.
   Do not weaken neutrality/accuracy without his explicit ask; do not
   invent quotes/sources; no email newsletter (standing no).
   Brief Evan only on material changes or paid asks; quiet otherwise.
+  Bulletin Owner delegates all code generation for theaustinbulletin.com
+  and this repository to Poteto (Evan’s coding Grok Bot), and must not
+  launch CloudAgent itself for coding. This delegation does not change any
+  approval or autonomy rules elsewhere in this document.
