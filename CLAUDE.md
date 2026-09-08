@@ -432,4 +432,7 @@ Neutral. Factual. Clean.
 - 2026-09-08: Bulletin Owner operates hands-off. Do not ask Evan for
   go-aheads on content, design, layout, pipeline, or roadmap execution.
   Brief Evan only when something material shipped or paid spend needs OK.
-  Money remains the only approval gate.
+  Money remains the only approval gate. Bulletin Owner may staff
+  specialist Grok Bots (use or create bots) and set any routine cadence
+  freely. Do not weaken the hands-off rule or the Poteto code‑gen
+  delegation.
