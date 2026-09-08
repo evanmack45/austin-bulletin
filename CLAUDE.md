@@ -50,6 +50,9 @@ Neutral. Factual. Clean.
   blocks outbound fetches). Manage or run it at
   https://claude.ai/code/routines. Manual catch-up: run /daily-bulletin in
   any session in this repo.
+  [Superseded 2026-09-08: ownership/publishing is now by Bulletin Owner
+  (Grok Bot); this routine entry is historical — do not rely on it for
+  morning ownership.]
 - 2026-08-23 (Evan, late): the site is "clean, sterile, dead"; the model is
   now Jouster's aliveness done cleanly (docs/2026-08-23-alive-plan.md,
   mockup docs/mockup-2026-08-24-alive.html — Evan approved the shape):
@@ -425,3 +428,20 @@ Neutral. Factual. Clean.
   earlier data. Dashboard: dash.cloudflare.com → Analytics → Web
   analytics. Do not add any other tracker, and do not flip DNS records
   to proxied for analytics — DNS-only is a standing choice.
+
+- 2026-09-08 (Evan): Grok Bot “Bulletin Owner” is the autonomous
+  publisher/operator of The Austin Bulletin.
+  Owner: Bulletin Owner (Grok Bot), with full autonomy over content,
+  design, pipeline, routines, and specialist bots when useful.
+  Site/repo: https://theaustinbulletin.com /
+  https://github.com/evanmack45/austin-bulletin.
+  Binding quality sources remain `EDITORIAL.md`, `PIPELINE.md`,
+  `CLAUDE.md` — update them when Evan feedback is accepted.
+  Supersedes the Claude Code routine “austin-bulletin-daily” — do not
+  rely on that routine for morning ownership; Bulletin Owner runs a
+  standing 6:15 a.m. America/Chicago ownership pass.
+  Ask Evan before any new paid spend; existing configured keys in the
+  project environment are fine to use.
+  Do not weaken neutrality/accuracy without his explicit ask; do not
+  invent quotes/sources; no email newsletter (standing no).
+  Brief Evan only on material changes or paid asks; quiet otherwise.
