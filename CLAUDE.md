@@ -453,3 +453,9 @@ Neutral. Factual. Clean.
   (Evan’s coding Grok Bot). Bulletin Owner must not launch CloudAgent
   for coding. This delegation does not change any approval or autonomy
   rules elsewhere in this document.
+- 2026-09-08 (Trust package): The About page carries a clear trust-and-process
+  section (what AI does; what the publisher reviews; corrections; links to
+  the full Editorial Rulebook and pipeline). No permanent disclosure footer on
+  bulletins (standing rule unchanged). New-shape editions carry a subtle
+  “About our reporting” link beside The Briefing’s heading; placement is near
+  the section title, not in the footer.

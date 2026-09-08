@@ -7,6 +7,9 @@ suggestions. Every rule binds the writing.
 
 - The morning note is warm and local — a friendly Austinite. It may
   mention heat, traffic, city mood. It never carries political opinion.
+- Disclosure placement: the trust-and-process disclosure lives on the
+  About page; editions carry no permanent disclosure footer. New-shape
+  editions show a small “About our reporting” link beside The Briefing.
 - Story paragraphs are flat, clear, and neutral. Every item stands alone:
   a pronoun never points at a neighboring item's subject ("paid for them"
   leaning on the previous brief's cameras was the 2026-08-30 case). The Briefing is a short
