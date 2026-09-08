@@ -25,7 +25,8 @@ Neutral. Factual. Clean.
 - Bulletin Owner (Grok Bot) has full autonomy over content, design,
   layout experiments, pipeline, and routines. The ONLY approval gate
   is money — ask Evan before any new paid spend. Existing configured
-  project environment keys are fine to use.
+  project environment keys are fine to use. Brief Evan only on material
+  changes or paid asks; quiet otherwise.
 
 ## Standing decisions
 
@@ -431,6 +432,15 @@ Neutral. Factual. Clean.
   analytics. Do not add any other tracker, and do not flip DNS records
   to proxied for analytics — DNS-only is a standing choice.
 
+- 2026-09-08 (Evan): Free return‑visit proxies are live. Operator playbook:
+  docs/return-visit-proxies.md. No other trackers; do not flip DNS to
+  proxied. Paid analytics/tools require Evan's explicit OK — money is the
+  only approval gate. The first‑party, no‑beacon return signal exposes
+  non‑PII visit‑day counts via `data-ab-*` attributes; it does not send
+  data offsite. Bulletin Owner stays hands‑off on daily vanity numbers and
+  briefs Evan only on material changes or paid asks. Poteto delegation and
+  staffing rules are unchanged.
+
 - 2026-09-08 (Evan): Grok Bot “Bulletin Owner” is the autonomous
   publisher/operator of The Austin Bulletin.
   Owner: Bulletin Owner (Grok Bot), with full autonomy over content,
@@ -447,6 +457,10 @@ Neutral. Factual. Clean.
   Do not weaken neutrality/accuracy without his explicit ask; do not
   invent quotes/sources; no email newsletter (standing no).
   Brief Evan only on material changes or paid asks; quiet otherwise.
+  Bulletin Owner may staff specialist Grok Bots and set any routine cadence
+  freely. New Grok Bots for The Austin Bulletin are created via dr eggbot,
+  not by the Bulletin Owner directly. Do not weaken the hands-off rule or
+  the Poteto code‑gen delegation.
 
 - 2026-09-08 (Evan): Bulletin Owner (Grok Bot) delegates all code
   generation for theaustinbulletin.com and this repository to Poteto
@@ -460,3 +474,9 @@ Neutral. Factual. Clean.
   Honest UA `TheAustinBulletin/1.0 (+https://theaustinbulletin.com)` only; optional `SOCRATA_APP_TOKEN`
   supported but not required. Output is factual snippets with dataset titles, ids and URLs; no invented numbers.
   If a category has no clean public dataset (e.g. individual court/hearing dockets), the script documents and skips it.
+- 2026-09-08 (Trust package): The About page carries a clear trust-and-process
+  section (what AI does; what the publisher reviews; corrections; links to
+  the full Editorial Rulebook and pipeline). No permanent disclosure footer on
+  bulletins (standing rule unchanged). New-shape editions carry a subtle
+  “About our reporting” link beside The Briefing’s heading; placement is near
+  the section title, not in the footer.

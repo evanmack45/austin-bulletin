@@ -26,6 +26,7 @@
         <a href="/">Today</a>
         <a href="/archive/">Archive</a>
         <a href="/about/">About</a>
+        <a href="/feed.xml" class="rss-link" rel="alternate" type="application/atom+xml" aria-label="RSS feed">RSS</a>
       </nav>
     </div>
   </header>
@@ -36,5 +37,42 @@
     <p>© The Austin Bulletin · Published by Evan McMillan, Austin, Texas · <a href="/about/">About this site</a> · <a href="/feed.xml">RSS</a></p>
   </footer>
   <!-- Cloudflare Web Analytics --><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "fa631a41b1134237bc0c66e3c19f5e5d"}'></script><!-- End Cloudflare Web Analytics -->
+  <script>
+    // First-party, no-beacon return signal (America/Chicago calendar days).
+    (function () {
+      try {
+        var tz = "America/Chicago";
+        var parts = new Intl.DateTimeFormat("en-CA", {
+          timeZone: tz, year: "numeric", month: "2-digit", day: "2-digit"
+        }).formatToParts(new Date());
+        var y = parts.find(p => p.type === "year")?.value;
+        var m = parts.find(p => p.type === "month")?.value;
+        var d = parts.find(p => p.type === "day")?.value;
+        if (!y || !m || !d) return;
+        var today = y + "-" + m + "-" + d;
+        var key = "abVisitDays";
+        var days;
+        try { days = JSON.parse(localStorage.getItem(key) || "[]"); }
+        catch { days = []; }
+        if (!Array.isArray(days)) days = [];
+        var hadPriorDistinct = days.some(function (dt) { return dt !== today; });
+        if (!days.includes(today)) days.push(today);
+        // Unique, keep last ~30
+        var seen = Object.create(null), uniq = [];
+        for (var i = 0; i < days.length; i++) {
+          var dt = days[i];
+          if (!seen[dt]) { seen[dt] = 1; uniq.push(dt); }
+        }
+        var capped = uniq.slice(-30);
+        try { localStorage.setItem(key, JSON.stringify(capped)); } catch {}
+        var root = document.documentElement;
+        root.dataset.abVisitDays = String(capped.length);
+        if (hadPriorDistinct) root.dataset.abReturn = "1";
+        else delete root.dataset.abReturn;
+      } catch (e) {
+        /* no-op */
+      }
+    }());
+  </script>
 </body>
 </html>

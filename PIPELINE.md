@@ -261,6 +261,10 @@ Daily Texan. Business & street life is the Chronicle, Community Impact and
 the TV stations' business/venue coverage. Statewide stories that clear the
 household filter arrive mostly from the Tribune and are sorted by content.
 If a beat is empty, say so by omitting it — EDITORIAL forbids padding —
+EXCEPT Growth & infrastructure (Near roadmap, 2026-09-08): that beat is
+unskippable daily. When no qualifying items exist, print an explicit
+one‑line notice under the beat — “No new closures or openings today” —
+rather than omitting it —
 but an empty City Hall & county or Money & bills beat usually means Austin
 Current was not checked rather than that nothing happened.
 

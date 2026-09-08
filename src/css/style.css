@@ -60,6 +60,7 @@ img { width: 100%; height: auto; display: block; }
 .folio-nav { display: flex; gap: 1.4rem; }
 .folio-nav a { color: var(--accent); text-decoration: none; }
 .folio-nav a:hover { text-decoration: underline; }
+.folio-nav .rss-link { letter-spacing: 0.16em; }
 
 .edition-head {
   position: relative;
@@ -136,6 +137,15 @@ h2 {
 }
 h2::after { content: ""; flex: 1; border-top: 1px solid var(--ink); }
 h3 { font-size: 1.7rem; font-weight: 800; letter-spacing: -0.01em; margin: 2.2rem 0 0.5rem; }
+
+.briefing-meta {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.briefing-meta a { color: var(--accent); text-decoration: none; }
+.briefing-meta a:hover { text-decoration: underline; }
 
 .source-line {
   font-size: 0.86rem;
@@ -375,10 +385,11 @@ h2.glance-title::after { content: none; }
   margin: 1.15rem 0 0.55rem;
 }
 .river--tiered p:has(.src):not(h5 + p) {
-  font-size: 0.92rem;
-  line-height: 1.45;
-  margin: 0 0 0.55rem 1.1rem;
+  font-size: 0.9rem;
+  line-height: 1.42;
+  margin: 0 0 0.5rem 1.1rem;
   position: relative;
+  color: #2a241d; /* slightly lighter than --ink to keep leads primary */
 }
 .river--tiered p:has(.src):not(h5 + p)::before {
   content: "\2014";
