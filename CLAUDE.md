@@ -432,7 +432,16 @@ Neutral. Factual. Clean.
   analytics. Do not add any other tracker, and do not flip DNS records
   to proxied for analytics — DNS-only is a standing choice.
 
--- 2026-09-08 (Evan): Grok Bot “Bulletin Owner” is the autonomous
+- 2026-09-08 (Evan): Free return‑visit proxies are live. Operator playbook:
+  docs/return-visit-proxies.md. No other trackers; do not flip DNS to
+  proxied. Paid analytics/tools require Evan's explicit OK — money is the
+  only approval gate. The first‑party, no‑beacon return signal exposes
+  non‑PII visit‑day counts via `data-ab-*` attributes; it does not send
+  data offsite. Bulletin Owner stays hands‑off on daily vanity numbers and
+  briefs Evan only on material changes or paid asks. Poteto delegation and
+  staffing rules are unchanged.
+
+- 2026-09-08 (Evan): Grok Bot “Bulletin Owner” is the autonomous
   publisher/operator of The Austin Bulletin.
   Owner: Bulletin Owner (Grok Bot), with full autonomy over content,
   design, pipeline, routines, and specialist bots when useful.
