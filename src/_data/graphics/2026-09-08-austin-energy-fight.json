@@ -1,0 +1,17 @@
+{
+  "type": "timeline",
+  "date": "2026-09-08",
+  "slug": "austin-energy-fight",
+  "title": "The fight over Austin's own power company",
+  "subtitle": "How a 2002 opt-out became a 2026 campaign proposal",
+  "alt": "Timeline of the fight over city-owned electric utilities in Texas: in 2002 the state deregulated its power market and Austin and San Antonio opted out; a February 2023 ice storm cut power to hundreds of thousands of Central Texas customers; in 2023 state Rep. Ellen Troxclair filed a bill to make public utilities offer retail shopping and it died in committee; in May 2026 a Texas Senate committee examined utility payments to city budgets; on Aug. 3, 2026 Gov. Greg Abbott proposed legislation ending city utility monopolies; and on Sept. 8, 2026 Austin and San Antonio said the change would raise rates",
+  "source": "The Texas Tribune",
+  "events": [
+    { "date": "2002", "label": "Texas deregulates its power market", "note": "Austin and San Antonio opt out and keep their city utilities" },
+    { "date": "Feb. 2023", "label": "Ice storm cuts power for days", "note": "Hundreds of thousands of Central Texas customers go dark" },
+    { "date": "2023", "label": "Troxclair bill dies in committee", "note": "Would have made public utilities offer retail shopping" },
+    { "date": "May 2026", "label": "Senate committee weighs the transfers", "note": "Opponents say utility revenue should not pad city budgets" },
+    { "date": "Aug. 3, 2026", "label": "Abbott proposes ending the monopolies", "note": "Campaign promises 10% off the average bill" },
+    { "date": "Sept. 8, 2026", "label": "The cities answer: rates would rise", "note": "Watson puts the conversion cost above $1 billion" }
+  ]
+}

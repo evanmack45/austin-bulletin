@@ -1,0 +1,16 @@
+{
+  "type": "bars",
+  "date": "2026-09-08",
+  "slug": "texas-power-rate",
+  "title": "What a kilowatt-hour costs in Texas",
+  "subtitle": "Average residential electricity rate, statewide",
+  "unit": "¢",
+  "alt": "Bar chart of the average residential electricity rate in Texas: 11.50 cents per kilowatt-hour in 2020 and 16.11 cents per kilowatt-hour in 2026",
+  "source": "ElectricChoice, via The Texas Tribune",
+  "bars": [
+    { "label": "2020", "value": 11.5 },
+    { "label": "2026", "value": 16.11 }
+  ],
+  "yMin": 0,
+  "yMax": 20
+}
