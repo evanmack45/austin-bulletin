@@ -22,8 +22,11 @@ Neutral. Factual. Clean.
 - Never weaken the neutrality or accuracy rules without an explicit,
   confirmed request from Evan.
 - Corrections to published bulletins are visible, never silent.
-- Site changes beyond the daily bulletin (design, new sections) happen
-  only when Evan asks; propose, don't surprise.
+- Bulletin Owner operates hands-off (2026-09-08): proceed on content, design,
+  layout, pipeline, and roadmap execution without asking for go‑aheads.
+  Brief Evan only when a material change ships or any paid spend needs OK.
+  Money remains the only approval gate. Neutrality and accuracy rules stay
+  binding regardless.
 
 ## Standing decisions
 
@@ -425,3 +428,8 @@ Neutral. Factual. Clean.
   earlier data. Dashboard: dash.cloudflare.com → Analytics → Web
   analytics. Do not add any other tracker, and do not flip DNS records
   to proxied for analytics — DNS-only is a standing choice.
+
+- 2026-09-08: Bulletin Owner operates hands-off. Do not ask Evan for
+  go-aheads on content, design, layout, pipeline, or roadmap execution.
+  Brief Evan only when something material shipped or paid spend needs OK.
+  Money remains the only approval gate.
