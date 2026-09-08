@@ -47,6 +47,13 @@ const NEW_SHAPE_FROM = "2026-08-29";
 // EDITORIAL.md "Neutrality rules": use neutral verbs.
 const BANNED_VERBS = ["claimed", "admitted", "slammed", "blasted", "gushed", "bragged", "lashed out"];
 
+// Near roadmap (EDITORIAL.md, 2026-09-08): Growth & infrastructure is unskippable.
+// When there are no qualifying items, the beat prints a one-line notice instead.
+// The notice line itself is treated as a valid Growth item for the purposes of the
+// mechanical gate (it does not carry a source tag).
+const GROWTH_BEAT = "Growth & infrastructure";
+const GROWTH_EMPTY_NOTICE = "No new closures or openings today";
+
 // EDITORIAL.md "Write like a person": phrase-level AI tells that never
 // belong in news copy (Evan, 2026-08-29, via the humanizer pattern
 // catalog). Kept narrow to avoid false positives — each is banned in any
@@ -314,17 +321,32 @@ async function main() {
 
     const parsed = parseRiver(river);
     const items = parsed.items.map((i) => i.body);
+    // New-shape hard gate: Growth & infrastructure is unskippable daily.
+    if (newShape && !heads.includes(GROWTH_BEAT)) {
+      bad(
+        "river",
+        `"${GROWTH_BEAT}" heading is missing; Growth is unskippable daily (EDITORIAL Near roadmap)`
+      );
+    }
     if (!newShape && (items.length < RIVER_MIN || items.length > RIVER_MAX)) {
       bad("river", `${items.length} items, EDITORIAL wants ${RIVER_MIN}–${RIVER_MAX}`);
     }
-    for (const it of items) {
+    for (const item of parsed.items) {
+      const it = item.body;
       const n = wordCount(it);
       if (!newShape && n > ITEM_WORD_CAP) {
         bad("river", `item is ${n} words (cap ${ITEM_WORD_CAP}): "${words(it).slice(0, 60)}…"`);
       }
+      // New-shape Growth empty-state notice is a valid item without a source tag.
+      const isGrowthNotice =
+        newShape &&
+        item.beat === GROWTH_BEAT &&
+        words(it).trim() === GROWTH_EMPTY_NOTICE;
       const tag = it.match(/<span class="src">([\s\S]+?)<\/span>\s*$/);
       if (!tag) {
-        bad("river", `item has no closing source tag: "${words(it).slice(0, 60)}…"`);
+        if (!isGrowthNotice) {
+          bad("river", `item has no closing source tag: "${words(it).slice(0, 60)}…"`);
+        }
       } else if (newShape && !/<a\s+href=/.test(tag[1])) {
         // New shape (Evan, 2026-08-29): the tag IS the link to the item's
         // article — the bottom source-line walls are gone. Since 2026-08-30
