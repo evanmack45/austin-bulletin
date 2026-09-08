@@ -16,9 +16,11 @@ const liveBulletinDir = path.join(repoRoot, "src", "bulletins");
 
 async function runCheck(date, dir) {
   try {
-    const { stdout, stderr } = await execFileAsync(process.execPath, [checkScript, date, "--no-links", "--dir", dir], {
-      cwd: repoRoot,
-    });
+    const { stdout, stderr } = await execFileAsync(
+      process.execPath,
+      [checkScript, date, "--no-links", "--dir", dir],
+      { cwd: repoRoot }
+    );
     return { code: 0, output: `${stdout}\n${stderr}` };
   } catch (err) {
     return { code: err.code ?? 1, output: `${err.stdout || ""}\n${err.stderr || ""}` };
@@ -55,7 +57,11 @@ test('fails when the "Growth & infrastructure" beat heading is missing', async (
     await writeFile(path.join(tmpDir, `${FIXTURE_DATE}.md`), mutated, "utf8");
 
     const { code, output } = await runCheck(FIXTURE_DATE, tmpDir);
-    assert.notEqual(code, 0, "expected the checker to fail when Growth & infrastructure is missing");
+    assert.notEqual(
+      code,
+      0,
+      "expected failure when the Growth & infrastructure heading is missing"
+    );
     assert.match(
       output,
       /Growth & infrastructure.*heading is missing/,
@@ -75,8 +81,15 @@ test('passes when Growth has only the exact empty-state notice', async () => {
     );
     mutated = mutated.replace(
       /^(####\s+City Hall & county\s*\n)/m,
-      `$1\nAustin added filler. <span class="src"><a href="https://www.austintexas.gov/">City of Austin</a></span>\n\n` +
-        `Austin added another filler. <span class="src"><a href="https://www.austintexas.gov/">City of Austin</a></span>\n\n`
+      (() => {
+        const filler1 =
+          'Austin added filler. ' +
+          '<span class="src"><a href="https://www.austintexas.gov/">City of Austin</a></span>';
+        const filler2 =
+          'Austin added another filler. ' +
+          '<span class="src"><a href="https://www.austintexas.gov/">City of Austin</a></span>';
+        return `$1\n${filler1}\n\n${filler2}\n\n`;
+      })()
     );
     // Keep the real date for a clean front-matter pass.
     const outDate = "2026-09-03";
