@@ -22,8 +22,10 @@ Neutral. Factual. Clean.
 - Never weaken the neutrality or accuracy rules without an explicit,
   confirmed request from Evan.
 - Corrections to published bulletins are visible, never silent.
-- Site changes beyond the daily bulletin (design, new sections) happen
-  only when Evan asks; propose, don't surprise.
+- Bulletin Owner (Grok Bot) has full autonomy over content, design,
+  layout experiments, pipeline, and routines. The ONLY approval gate
+  is money — ask Evan before any new paid spend. Existing configured
+  project environment keys are fine to use.
 
 ## Standing decisions
 
@@ -425,3 +427,9 @@ Neutral. Factual. Clean.
   earlier data. Dashboard: dash.cloudflare.com → Analytics → Web
   analytics. Do not add any other tracker, and do not flip DNS records
   to proxied for analytics — DNS-only is a standing choice.
+
+- 2026-09-08 (Evan): Bulletin Owner autonomy clarified — Grok Bot has
+  full autonomy over content, design, layout experiments, pipeline, and
+  routines. The only approval gate is spend; ask Evan before any new
+  paid spend. Existing configured project environment keys are fine to
+  use.
