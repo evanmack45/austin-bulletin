@@ -102,6 +102,10 @@ suggestions. Every rule binds the writing.
    ladder): **Money & bills · Public safety & courts · Growth &
    infrastructure · City Hall & county · Schools · Business & street
    life**. Missing beats are omitted, never padded.
+   EXCEPTION (Near roadmap, 2026-09-08): Growth & infrastructure is
+   unskippable daily. When no qualifying items exist, print an explicit
+   one‑line notice under the beat — “No new closures or openings today” —
+   rather than omitting the beat.
 
    Routing rules, which exist so every story has exactly one home:
    - **Money & bills** holds any story whose news event IS a tax, fee,
@@ -111,7 +115,8 @@ suggestions. Every rule binds the writing.
      is a safety story, not a transportation story.
    - **Growth & infrastructure** routes by subject, not by which body held
      the meeting: land use, zoning, corridors, housing supply, road and
-     transit projects, utilities, data centers.
+     transit projects, utilities, data centers. Prefer street closings/openings
+     with a specific address and day‑two sequels when available.
    - **City Hall & county** keeps what remains of governance: elections,
      appointments, conduct, process.
    - **Business & street life** treats venues, food, festivals, arts and
@@ -119,6 +124,10 @@ suggestions. Every rule binds the writing.
      culture live here, not in a lifestyle bucket.
    - **Texas is not a beat.** A statewide story that clears the household
      filter is sorted by its content like any other story.
+   - **Also‑dump quarantine (Near roadmap, 2026-09-08).** Statewide/wire
+     items run only when they concretely change an Austin household bill,
+     commute, or school. Items that do not meet this household‑impact filter
+     do not run at all — they are not briefed as “Also” filler.
    - There is no Health beat: a health story routes by its hook — cost,
      incident, or institution.
    - **Austin proper only (2026-08-30, Evan).** A story runs only if it
