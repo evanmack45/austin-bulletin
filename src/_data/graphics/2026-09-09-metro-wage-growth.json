@@ -1,0 +1,18 @@
+{
+  "type": "bars",
+  "date": "2026-09-09",
+  "slug": "metro-wage-growth",
+  "title": "Gross pay growth in four Texas metros",
+  "subtitle": "Median year-over-year change for workers at private employers, Aug. 2025 to Aug. 2026",
+  "unit": "%",
+  "alt": "Bar chart of median year-over-year gross pay growth for workers at private employers in four Texas metro areas from August 2025 to August 2026: Austin-Round Rock-San Marcos 5.2 percent, Houston-Pasadena-The Woodlands 4.9 percent, Dallas-Fort Worth-Arlington 4.8 percent and San Antonio-New Braunfels 4.4 percent",
+  "source": "ADP, via KXAN",
+  "bars": [
+    { "label": "Austin", "value": 5.2 },
+    { "label": "Houston", "value": 4.9 },
+    { "label": "Dallas-Fort Worth", "value": 4.8 },
+    { "label": "San Antonio", "value": 4.4 }
+  ],
+  "yMin": 0,
+  "yMax": 6
+}

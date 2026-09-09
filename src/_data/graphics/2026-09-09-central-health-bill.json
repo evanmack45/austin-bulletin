@@ -1,0 +1,16 @@
+{
+  "type": "bars",
+  "date": "2026-09-09",
+  "slug": "central-health-bill",
+  "title": "What the hospital district wants to add",
+  "subtitle": "Range Central Health gives for the average homeowner's annual bill",
+  "unit": "$",
+  "alt": "Bar chart of the range Central Health gives for what its proposed property tax rate increase would add to the average Travis County homeowner's annual Central Health tax bill: 36 dollars at the low end of the proposal and 44 dollars at the high end",
+  "source": "FOX 7 Austin",
+  "bars": [
+    { "label": "Low end of the proposal", "value": 36 },
+    { "label": "High end of the proposal", "value": 44 }
+  ],
+  "yMin": 0,
+  "yMax": 50
+}

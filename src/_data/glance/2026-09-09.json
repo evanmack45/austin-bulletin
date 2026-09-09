@@ -1,0 +1,45 @@
+{
+  "date": "2026-09-09",
+  "fetchedAt": "2026-09-09T12:25:33.795Z",
+  "weather": {
+    "high": 101,
+    "low": 77,
+    "summary": "Mostly Sunny",
+    "alerts": [],
+    "blurb": "Triple digits again. Water bottle, shade, and an early start.",
+    "source": "https://www.weather.gov/ewx/"
+  },
+  "air": {
+    "aqi": 24,
+    "category": "Good",
+    "pm25": 4.4,
+    "ozone": 26,
+    "blurb": "Clear air today. It is the heat that will slow you down.",
+    "source": "https://open-meteo.com/en/docs/air-quality-api"
+  },
+  "lake": {
+    "percentFull": 93.6,
+    "elevationFt": 677.25,
+    "weekNote": "−1.7 pts vs. last week",
+    "blurb": "Close to full, good for boats and for the water supply. Down a touch this week.",
+    "source": "https://www.waterdatafortexas.org/reservoirs/individual/travis"
+  },
+  "pollen": null,
+  "grid": {
+    "forecastPeakMw": 85300,
+    "peakHourEnding": 17,
+    "availableMw": 97900,
+    "condition": "Normal",
+    "blurb": "Plenty of supply behind the afternoon peak. Run the dishwasher whenever you like.",
+    "source": "https://www.ercot.com/gridmktinfo/dashboards/systemwidedemand"
+  },
+  "sun": {
+    "sunrise": "7:12 a.m.",
+    "sunset": "7:43 p.m.",
+    "blurb": "Just over twelve and a half hours of daylight, and the evenings keep getting shorter.",
+    "source": "https://open-meteo.com/"
+  },
+  "errors": {
+    "pollen": "HTTP 403 Forbidden for https://pollen.googleapis.com/v1/forecast:lookup"
+  }
+}
