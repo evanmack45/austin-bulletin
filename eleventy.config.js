@@ -90,11 +90,20 @@ export default function (eleventyConfig) {
     api.getFilteredByGlob("src/bulletins/**/*.md").sort((a, b) => b.date - a.date)
   );
 
+  // The feed plugin renders `collection | reverse | head(limit)`, which assumes
+  // Eleventy's default oldest-first order. `bulletins` is newest-first for the
+  // homepage and archive, so reversing it handed the feed the ten OLDEST
+  // editions and no subscriber ever saw a new one. The feed gets its own
+  // ascending copy; do not point it back at `bulletins`.
+  eleventyConfig.addCollection("bulletinsFeed", (api) =>
+    api.getFilteredByGlob("src/bulletins/**/*.md").sort((a, b) => a.date - b.date)
+  );
+
   // Atom feed of the ten newest bulletins at /feed.xml.
   eleventyConfig.addPlugin(feedPlugin, {
     type: "atom",
     outputPath: "/feed.xml",
-    collection: { name: "bulletins", limit: 10 },
+    collection: { name: "bulletinsFeed", limit: 10 },
     metadata: {
       language: "en",
       title: "The Austin Bulletin",
