@@ -1,0 +1,34 @@
+{
+  "type": "timeline",
+  "date": "2026-09-10",
+  "slug": "aisd-petition-clock",
+  "title": "The school takeover deadlines, in order",
+  "subtitle": "State law sets each date; the middle two are the parent-petition path",
+  "alt": "Timeline of the deadlines in the state takeover question facing the Austin school district: Webb and Burnet middle schools received a fifth straight preliminary failing rating in August 2026, the district must appeal those preliminary ratings by September 11, parents must present a closure petition to the superintendent for validation by October 15, and the superintendent must forward a validated petition to the education commissioner by December 1",
+  "source": "Austin Current and KUT",
+  "events": [
+    {
+      "date": "Aug. 2026",
+      "label": "Webb and Burnet get a fifth straight failing rating",
+      "note": "Preliminary 2025-26 ratings from the Texas Education Agency"
+    },
+    {
+      "date": "Sept. 11",
+      "label": "The district's deadline to appeal the ratings",
+      "note": "If a rating becomes final, the commissioner must intervene"
+    },
+    {
+      "date": "Oct. 15",
+      "label": "Parents' deadline to file a closure petition",
+      "note": "It needs parents of a majority of a campus's students"
+    },
+    {
+      "date": "Dec. 1",
+      "label": "Superintendent's deadline to forward a validated petition",
+      "note": "A valid petition generally obliges the commissioner to act on it"
+    }
+  ],
+  "next": {
+    "label": "Without a petition, Commissioner Mike Morath chooses: close the campuses or replace the elected board"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "bars",
+  "date": "2026-09-10",
+  "slug": "school-tax-bill",
+  "title": "The average Texas homeowner's school tax bill",
+  "subtitle": "From a survey of appraisal districts in all 254 counties",
+  "alt": "Bar chart of the average Texas homeowner's annual school district property tax bill as reported by state Sen. Paul Bettencourt: 1,037 dollars in 2024 and 896 dollars in 2025",
+  "source": "Sen. Paul Bettencourt's office, via Community Impact",
+  "unit": "$",
+  "bars": [
+    {
+      "label": "2024",
+      "value": 1037
+    },
+    {
+      "label": "2025",
+      "value": 896
+    }
+  ],
+  "yMin": 0
+}

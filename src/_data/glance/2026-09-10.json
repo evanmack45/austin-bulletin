@@ -1,0 +1,45 @@
+{
+  "date": "2026-09-10",
+  "fetchedAt": "2026-09-10T12:22:34.626Z",
+  "weather": {
+    "high": 100,
+    "low": 78,
+    "summary": "Mostly Sunny",
+    "alerts": [],
+    "blurb": "Triple digits again, and the heat index runs seven degrees past that.",
+    "source": "https://www.weather.gov/ewx/"
+  },
+  "air": {
+    "aqi": 26,
+    "category": "Good",
+    "pm25": 4.3,
+    "ozone": 38,
+    "blurb": "Clean air today, which makes it the one easy part of going outside.",
+    "source": "https://open-meteo.com/en/docs/air-quality-api"
+  },
+  "lake": {
+    "percentFull": 93.4,
+    "elevationFt": 677.12,
+    "weekNote": "−1.6 pts vs. last week",
+    "blurb": "Still close to full and down only a little from last week. Boats are fine.",
+    "source": "https://www.waterdatafortexas.org/reservoirs/individual/travis"
+  },
+  "pollen": null,
+  "grid": {
+    "forecastPeakMw": 86500,
+    "peakHourEnding": 17,
+    "availableMw": 103700,
+    "condition": "Normal",
+    "blurb": "Demand peaks near 86,500 megawatts this afternoon with 103,700 on hand.",
+    "source": "https://www.ercot.com/gridmktinfo/dashboards/systemwidedemand"
+  },
+  "sun": {
+    "sunrise": "7:12 a.m.",
+    "sunset": "7:42 p.m.",
+    "blurb": "Twelve and a half hours of daylight, and the evenings keep quietly shrinking.",
+    "source": "https://open-meteo.com/"
+  },
+  "errors": {
+    "pollen": "HTTP 403 Forbidden for https://pollen.googleapis.com/v1/forecast:lookup"
+  }
+}
