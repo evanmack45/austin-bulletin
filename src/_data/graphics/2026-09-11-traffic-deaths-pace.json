@@ -1,0 +1,21 @@
+{
+  "type": "bars",
+  "date": "2026-09-11",
+  "slug": "traffic-deaths-pace",
+  "title": "Austin traffic deaths, same point in the year",
+  "subtitle": "Each Austin police fatality release carries its own comparison to a year earlier",
+  "alt": "Bar chart comparing Austin traffic deaths at the same point in the year, from Austin Police Department fatality releases: 75 deaths by early September 2025 and 57 deaths by early September 2026",
+  "source": "Austin Police Department fatality releases",
+  "unit": "",
+  "bars": [
+    {
+      "label": "By early Sept. 2025",
+      "value": 75
+    },
+    {
+      "label": "By early Sept. 2026",
+      "value": 57
+    }
+  ],
+  "yMin": 0
+}

@@ -1,0 +1,45 @@
+{
+  "date": "2026-09-11",
+  "fetchedAt": "2026-09-11T12:21:21.938Z",
+  "weather": {
+    "high": 101,
+    "low": 78,
+    "summary": "Mostly Sunny then Slight Chance Showers And Thunderstorms",
+    "alerts": [],
+    "blurb": "Triple digits again. Water bottle, shade, and an early start.",
+    "source": "https://www.weather.gov/ewx/"
+  },
+  "air": {
+    "aqi": 27,
+    "category": "Good",
+    "pm25": 5.7,
+    "ozone": 30,
+    "blurb": "Clear air. A great day to be outside.",
+    "source": "https://open-meteo.com/en/docs/air-quality-api"
+  },
+  "lake": {
+    "percentFull": 93.2,
+    "elevationFt": 676.98,
+    "weekNote": "−1.6 pts vs. last week",
+    "blurb": "The lake is close to full — good for boats and for the summer water supply. Down a touch from last week.",
+    "source": "https://www.waterdatafortexas.org/reservoirs/individual/travis"
+  },
+  "pollen": null,
+  "grid": {
+    "forecastPeakMw": 87600,
+    "peakHourEnding": 17,
+    "availableMw": 108200,
+    "condition": "Normal",
+    "blurb": "A busy afternoon: demand near 87,600 megawatts, with 108,200 on hand.",
+    "source": "https://www.ercot.com/gridmktinfo/dashboards/systemwidedemand"
+  },
+  "sun": {
+    "sunrise": "7:13 a.m.",
+    "sunset": "7:41 p.m.",
+    "blurb": "The sun is up for 12 hours and 28 minutes today, and down by 7:41 p.m.",
+    "source": "https://open-meteo.com/"
+  },
+  "errors": {
+    "pollen": "HTTP 403 Forbidden for https://pollen.googleapis.com/v1/forecast:lookup"
+  }
+}

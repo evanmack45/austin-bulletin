@@ -1,0 +1,25 @@
+{
+  "type": "bars",
+  "date": "2026-09-11",
+  "slug": "diesel-record",
+  "title": "A gallon of diesel in Austin",
+  "subtitle": "AAA averages for Austin, as reported on Sept. 11",
+  "alt": "Bar chart of the average price of a gallon of diesel in Austin as reported by AAA: about 3 dollars 24 cents a year ago, about 4 dollars 91 cents a month ago, and about 5 dollars 63 cents on September 11, 2026",
+  "source": "AAA, via CBS Austin",
+  "unit": "$",
+  "bars": [
+    {
+      "label": "A year ago",
+      "value": 3.24
+    },
+    {
+      "label": "A month ago",
+      "value": 4.91
+    },
+    {
+      "label": "Today",
+      "value": 5.63
+    }
+  ],
+  "yMin": 0
+}
