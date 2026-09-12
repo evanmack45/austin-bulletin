@@ -1,0 +1,39 @@
+{
+  "type": "timeline",
+  "date": "2026-09-12",
+  "slug": "rangel-case",
+  "title": "Two and a half years, two arrests",
+  "subtitle": "The Cristian Rangel case, as Austin police have laid it out in court records",
+  "alt": "Timeline of the Cristian Rangel case as described in Austin police court records: Rangel was last seen on April 8, 2024, the day of that year's total solar eclipse; his girlfriend reported him missing on April 9; his body was found in a southeast Austin greenbelt eleven days later; Kamery Wooldridge was arrested in June 2024 and later sentenced for tampering with a corpse; and Xzaria White-Wooldridge was arrested in September 2026 on a felony witness-tampering charge",
+  "source": "Austin Police Department court records, via KXAN",
+  "events": [
+    {
+      "date": "Apr. 8, 2024",
+      "label": "Rangel tells his girlfriend he is going to Walmart",
+      "note": "The day of that year’s total solar eclipse"
+    },
+    {
+      "date": "Apr. 9, 2024",
+      "label": "His girlfriend reports him missing",
+      "note": "He had been missing since the day before, she told police"
+    },
+    {
+      "date": "11 days later",
+      "label": "His body is found in a southeast Austin greenbelt",
+      "note": "Its condition made forensic testing difficult, police said"
+    },
+    {
+      "date": "June 2024",
+      "label": "Kamery Wooldridge is arrested",
+      "note": "Later sentenced to 10 years for tampering with a corpse"
+    },
+    {
+      "date": "Sept. 2026",
+      "label": "Xzaria White-Wooldridge is arrested",
+      "note": "Charged with felony witness tampering"
+    }
+  ],
+  "next": {
+    "label": "No one has been charged with the homicide itself; the investigation remains open"
+  }
+}

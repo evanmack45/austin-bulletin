@@ -1,0 +1,18 @@
+{
+  "type": "bars",
+  "date": "2026-09-12",
+  "slug": "county-diversion-money",
+  "title": "What the county added, line by line",
+  "subtitle": "New money in the Travis County budget advanced Sept. 10, in millions of dollars",
+  "alt": "Bar chart of new money added to the Travis County Fiscal Year 2027-28 budget at the September 10 markup: 3 million dollars reserved for outside indigent-defense counsel, 2 million dollars for the Supportive Housing Initiative Pipeline, 1.6 million dollars earmarked for felony case representation, 1.5 million dollars for public defender attorney pay, and 1 million dollars a year for the Travis County Transformation Project",
+  "source": "Travis County budget markup, via Community Impact",
+  "unit": "",
+  "bars": [
+    { "label": "Outside defense counsel reserve", "value": 3 },
+    { "label": "Supportive housing pipeline", "value": 2 },
+    { "label": "Felony case representation", "value": 1.6 },
+    { "label": "Public defender attorney pay", "value": 1.5 },
+    { "label": "Transformation Project, a year", "value": 1 }
+  ],
+  "yMin": 0
+}
