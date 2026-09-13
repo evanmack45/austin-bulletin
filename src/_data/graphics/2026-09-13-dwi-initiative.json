@@ -1,0 +1,16 @@
+{
+  "type": "bars",
+  "date": "2026-09-13",
+  "slug": "dwi-initiative",
+  "title": "Three and a half weeks of DWI enforcement",
+  "subtitle": "What Austin police recorded between Aug. 14 and Sept. 7",
+  "alt": "Bar chart of results Austin police reported from their DWI Enforcement and No Refusal Initiative between August 14 and September 7, 2026: 132 warnings, 83 citations and 8 arrests",
+  "source": "Austin Police Department, via KXAN",
+  "unit": "",
+  "bars": [
+    { "label": "Warnings", "value": 132 },
+    { "label": "Citations", "value": 83 },
+    { "label": "Arrests", "value": 8 }
+  ],
+  "yMin": 0
+}

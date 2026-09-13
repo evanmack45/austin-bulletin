@@ -1,0 +1,17 @@
+{
+  "type": "bars",
+  "date": "2026-09-13",
+  "slug": "hundred-degree-days",
+  "title": "Aug. 1 to Sept. 12, by number of 100° days",
+  "subtitle": "Camp Mabry is Austin's official reporting site; its records begin in 1898",
+  "alt": "Bar chart of the number of days reaching 100 degrees or hotter at Camp Mabry in Austin between August 1 and September 12, for the four highest years on record: 39 days in 2026, 38 days in 2023, 38 days in 2019 and 36 days in 2011",
+  "source": "KXAN First Warning Weather, from Camp Mabry records",
+  "unit": " days",
+  "bars": [
+    { "label": "2026", "value": 39 },
+    { "label": "2023", "value": 38 },
+    { "label": "2019", "value": 38 },
+    { "label": "2011", "value": 36 }
+  ],
+  "yMin": 0
+}
