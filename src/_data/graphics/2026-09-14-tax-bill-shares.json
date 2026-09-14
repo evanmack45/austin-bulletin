@@ -1,0 +1,18 @@
+{
+  "type": "bars",
+  "date": "2026-09-14",
+  "slug": "tax-bill-shares",
+  "title": "Where a Travis County tax bill goes",
+  "subtitle": "Shares of a homeowner's bill, on the 2026 figures Central Health cites",
+  "alt": "Bar chart of the share of a Travis County homeowner's property tax bill going to each taxing entity on 2026 figures: 44.1 percent to Austin Independent School District, 25.6 percent to the city of Austin, 18.3 percent to Travis County, 6.2 percent to Austin Community College and about 6 percent to Central Health, the county hospital district",
+  "source": "Austin Current, from 2026 taxing-entity figures",
+  "unit": "%",
+  "bars": [
+    { "label": "Austin ISD", "value": 44.1 },
+    { "label": "City of Austin", "value": 25.6 },
+    { "label": "Travis County", "value": 18.3 },
+    { "label": "Austin Community College", "value": 6.2 },
+    { "label": "Central Health", "value": 6 }
+  ],
+  "yMin": 0
+}

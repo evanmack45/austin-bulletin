@@ -156,7 +156,15 @@ function renderBarsSvg(spec) {
       ? `$${b.value}${unit.slice(1)}`
       : `${b.value}${unit}`;
     parts.push(`<text x="${x + barW / 2}" y="${(topY - 12).toFixed(1)}" font-family='${FONT}' font-size="28" font-weight="700" fill="${INK}" text-anchor="middle">${esc(valueLabel)}</text>`);
-    parts.push(`<text x="${x + barW / 2}" y="740" font-family='${FONT}' font-size="24" fill="${INK}" text-anchor="middle">${esc(b.label)}</text>`);
+    // Bar labels are centred in a fixed slot and do not wrap on their own, so
+    // a long one (2026-09-14: "Austin Community College") runs into its
+    // neighbours. Wrap to a second line rather than abbreviate an institution.
+    const labelMax = Math.max(8, Math.floor(slot / 11.5));
+    const labelLines = wrapLabel(b.label, labelMax).slice(0, 2);
+    const labelY = labelLines.length > 1 ? 732 : 740;
+    labelLines.forEach((line, li) => {
+      parts.push(`<text x="${x + barW / 2}" y="${labelY + li * 28}" font-family='${FONT}' font-size="24" fill="${INK}" text-anchor="middle">${esc(line)}</text>`);
+    });
   });
 
   if (reference) {

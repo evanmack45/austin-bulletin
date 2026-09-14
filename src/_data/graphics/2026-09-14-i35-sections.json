@@ -1,0 +1,34 @@
+{
+  "type": "timeline",
+  "date": "2026-09-14",
+  "slug": "i35-sections",
+  "title": "The I-35 rebuild, section by section",
+  "subtitle": "TxDOT's three Capital Express projects and when each is due to finish",
+  "alt": "Timeline of the three Interstate 35 Capital Express projects in Austin as described by the Texas Department of Transportation: construction began on the first project in 2022, the south section from Ben White to State Highway 45 Southeast is expected to continue until 2028, the north section from State Highway 45 North to U.S. 290 East until 2029, and the central section from U.S. 290 East through downtown to Ben White through 2033",
+  "source": "Texas Department of Transportation, via CBS Austin",
+  "events": [
+    {
+      "date": "2022",
+      "label": "Construction starts on the first of the three projects",
+      "note": "The full buildout covers about 28 miles of I-35"
+    },
+    {
+      "date": "2028",
+      "label": "South section due to finish",
+      "note": "Ben White to SH 45 Southeast; two new HOV lanes each way"
+    },
+    {
+      "date": "2029",
+      "label": "North section due to finish",
+      "note": "SH 45 North to U.S. 290 East; one new HOV lane each way"
+    },
+    {
+      "date": "2033",
+      "label": "Central section due to finish",
+      "note": "U.S. 290 East through downtown to Ben White, listed at about $4.5 billion"
+    }
+  ],
+  "next": {
+    "label": "The three projects carry listed construction costs of about $5.65 billion in total"
+  }
+}

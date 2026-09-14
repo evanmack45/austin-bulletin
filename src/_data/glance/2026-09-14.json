@@ -1,0 +1,59 @@
+{
+  "date": "2026-09-14",
+  "fetchedAt": "2026-09-14T12:20:45.280Z",
+  "weather": {
+    "high": 101,
+    "low": 79,
+    "summary": "Mostly Sunny",
+    "alerts": [
+      "Heat Advisory until 7:00 p.m. Monday"
+    ],
+    "blurb": "Heat Advisory today. Take the shade and the water bottle with you.",
+    "source": "https://www.weather.gov/ewx/"
+  },
+  "air": {
+    "aqi": 25,
+    "category": "Good",
+    "pm25": 3.4,
+    "ozone": 40,
+    "blurb": "Cleanest air in days. It is the heat that will limit you today, not the air.",
+    "source": "https://open-meteo.com/en/docs/air-quality-api"
+  },
+  "lake": {
+    "percentFull": 92.6,
+    "elevationFt": 676.6,
+    "weekNote": "−1.4 pts vs. last week",
+    "blurb": "Close to full, and down a touch from last week. Ramps and docks are fine.",
+    "source": "https://www.waterdatafortexas.org/reservoirs/individual/travis"
+  },
+  "pollen": {
+    "index": 3,
+    "category": "Moderate",
+    "tree": 2,
+    "grass": 3,
+    "weed": 3,
+    "plants": [
+      "Grasses",
+      "Ragweed",
+      "Elm"
+    ],
+    "note": "Tree 2 · Grass 3 · Weed 3 · Grasses, Ragweed, Elm",
+    "blurb": "Grass, ragweed and elm all moving. Take the pill before it takes you.",
+    "source": "https://developers.google.com/maps/documentation/pollen"
+  },
+  "grid": {
+    "forecastPeakMw": 88500,
+    "peakHourEnding": 17,
+    "availableMw": 120000,
+    "condition": "Normal",
+    "blurb": "Demand peaks near 88,500 megawatts; ERCOT has 120,000 ready and room to spare.",
+    "source": "https://www.ercot.com/gridmktinfo/dashboards/systemwidedemand"
+  },
+  "sun": {
+    "sunrise": "7:15 a.m.",
+    "sunset": "7:37 p.m.",
+    "blurb": "Sunset at 7:37, so there is just enough evening left for a lap of the lake.",
+    "source": "https://open-meteo.com/"
+  },
+  "errors": {}
+}
