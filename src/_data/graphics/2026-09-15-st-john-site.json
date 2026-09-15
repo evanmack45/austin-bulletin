@@ -1,0 +1,34 @@
+{
+  "type": "timeline",
+  "date": "2026-09-15",
+  "slug": "st-john-site",
+  "title": "A vacant St. John lot, 2013 to 2028",
+  "subtitle": "How a city-owned block at 800 E. St. John Ave. reached a groundbreaking",
+  "alt": "Timeline of the St. John redevelopment site at 800 East St. John Avenue in Austin: the city bought the land in 2013 and it sat empty for nearly 20 years; in 2017 the City Council directed staff to plan the site with neighbors; earlier in 2026 the city signed a redevelopment deal with the Housing Authority of the City of Austin and Greystar for 526 rental apartments, commercial space and an expanded park; on September 14, 2026 Airbnb put in 6.4 million dollars toward the 201 fully affordable apartments; crews are now clearing the site and final delivery is anticipated in 2028",
+  "source": "KXAN and CBS Austin, from the city and Airbnb",
+  "events": [
+    {
+      "date": "2013",
+      "label": "The city buys the block at 800 E. St. John Ave.",
+      "note": "The site sat empty for close to 20 years"
+    },
+    {
+      "date": "2017",
+      "label": "Council tells staff to plan the site with neighbors",
+      "note": "A resolution by then-Council Member Greg Casar"
+    },
+    {
+      "date": "2026",
+      "label": "City signs a deal with the housing authority and Greystar",
+      "note": "526 rental apartments, commercial space, an expanded St. John Park"
+    },
+    {
+      "date": "SEPT. 14, 2026",
+      "label": "Airbnb puts in $6.4 million",
+      "note": "Aimed at the 201 fully affordable apartments on the site"
+    }
+  ],
+  "next": {
+    "label": "Crews are clearing the land; final delivery is anticipated in 2028"
+  }
+}

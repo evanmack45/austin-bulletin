@@ -1,0 +1,16 @@
+{
+  "type": "bars",
+  "date": "2026-09-15",
+  "slug": "encampment-costs",
+  "title": "Where the encampment money went",
+  "subtitle": "Shares of a 26-day city initiative; about $10,000 more went to disposal",
+  "alt": "Bar chart of the shares the city of Austin reported for its Homeless Encampment Management initiative between May 11 and June 5, 2026: 62 percent of the cost went to staff salaries, 32 percent to contractors and 4 percent to equipment, with about 10,000 dollars more going to disposal",
+  "source": "Austin Homeless Strategies and Operations, via KXAN",
+  "unit": "%",
+  "bars": [
+    { "label": "Staff salaries", "value": 62 },
+    { "label": "Contractors", "value": 32 },
+    { "label": "Equipment", "value": 4 }
+  ],
+  "yMin": 0
+}
