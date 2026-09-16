@@ -1,0 +1,33 @@
+{
+  "type": "bars",
+  "date": "2026-09-16",
+  "slug": "mental-health-54m",
+  "title": "What the $54 million buys",
+  "subtitle": "The five largest lines; two smaller ones round out the $54 million",
+  "alt": "Bar chart of the five largest lines in Central Health's 54 million dollars of new mental health investments for fiscal 2026-27: 33.1 million dollars for 22 inpatient psychiatric beds and 10 psychiatric emergency department bays, 16 million dollars to plan and launch a mental health crisis care center including 3 million for a sobering center, 1.5 million for justice-involved health and community-based complex primary care, 1 million for an additional crisis care team and 1 million for long-acting injectable medications; two smaller lines, 1 million to expand medication-assisted treatment and 400 thousand dollars for psychiatric emergency services through Integral Care, are not shown",
+  "source": "Central Health, via Austin Current and Community Impact",
+  "unit": "$M",
+  "bars": [
+    {
+      "label": "Psychiatric beds",
+      "value": 33.1
+    },
+    {
+      "label": "Crisis care center",
+      "value": 16
+    },
+    {
+      "label": "Justice-involved care",
+      "value": 1.5
+    },
+    {
+      "label": "New crisis team",
+      "value": 1
+    },
+    {
+      "label": "Injectable medications",
+      "value": 1
+    }
+  ],
+  "yMin": 0
+}

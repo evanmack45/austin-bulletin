@@ -1,0 +1,19 @@
+{
+  "type": "timeline",
+  "date": "2026-09-16",
+  "slug": "acl-load-in",
+  "title": "Zilker closes by the week",
+  "subtitle": "Parking and road closures for the Austin City Limits Music Festival load-in",
+  "alt": "Timeline of Austin City Limits Music Festival load-in closures around Zilker Park in 2026: the Stratford Lot closed September 14; the Pecan Grove and Polo Picnic lots close September 18; the festival grounds and Great Lawn close to the public at midnight September 21; the Rock Garden Lot closes September 23; Barton Springs Road closes fully from 3 a.m. to 7 a.m. on September 26, with lane reductions the rest of that day; the Disc Golf, Moonlight Tower and Playscape lots close September 28; and full daytime closures of Barton Springs Road run September 28 through 30 and again on October 1 until 7 p.m. All of the closures lift October 18",
+  "source": "City of Austin ACL Mobility Guide, via KXAN",
+  "events": [
+    { "date": "Sept. 14", "label": "Stratford Lot closes" },
+    { "date": "Sept. 18", "label": "Pecan Grove, Polo Picnic lots close" },
+    { "date": "Sept. 21", "label": "Great Lawn closes to the public" },
+    { "date": "Sept. 23", "label": "Rock Garden Lot closes" },
+    { "date": "Sept. 26", "label": "Barton Springs Road shut 3 to 7 a.m." },
+    { "date": "Sept. 28", "label": "Three more Zilker lots close" },
+    { "date": "Oct. 1", "label": "Barton Springs Road shut until 7 p.m." }
+  ],
+  "next": { "label": "All of it lifts Oct. 18" }
+}

@@ -1,0 +1,14 @@
+{
+  "id": "reddit-1wh3d86",
+  "platform": "reddit",
+  "url": "https://www.reddit.com/r/Austin/comments/1wh3d86/",
+  "name": "r/Austin",
+  "handle": "u/Kenmaira",
+  "date": "Sept. 15",
+  "text": "Heads up — Texas SOS \"Am I Registered?\" voter lookup is throwing 503s right now\n\nTried checking my registration status on the Texas Secretary of State's voter lookup this morning, and the page hangs on submit. Opened dev tools — the XHR is coming back \"503 Service Unavailable\", so it's a server-side failure, not a form validation issue on my end. Not claiming anything sinister.…",
+  "image": null,
+  "imageAlt": null,
+  "avatar": null,
+  "stats": null,
+  "fetchedAt": "2026-09-16T12:22:11.918Z"
+}
