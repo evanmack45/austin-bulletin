@@ -1,0 +1,57 @@
+{
+  "date": "2026-09-17",
+  "fetchedAt": "2026-09-17T12:12:54.002Z",
+  "weather": {
+    "high": 100,
+    "low": 77,
+    "summary": "Partly Sunny",
+    "alerts": [],
+    "blurb": "Triple digits again. Water bottle, shade, and an early start.",
+    "source": "https://www.weather.gov/ewx/"
+  },
+  "air": {
+    "aqi": 57,
+    "category": "Moderate",
+    "pm25": 11,
+    "ozone": 37,
+    "blurb": "Fine for most of us. If your lungs are touchy, take it a little easy.",
+    "source": "https://open-meteo.com/en/docs/air-quality-api"
+  },
+  "lake": {
+    "percentFull": 91.9,
+    "elevationFt": 676.17,
+    "weekNote": "−1.4 pts vs. last week",
+    "blurb": "Still close to full, and down just a touch from last week.",
+    "source": "https://www.waterdatafortexas.org/reservoirs/individual/travis"
+  },
+  "pollen": {
+    "index": 4,
+    "category": "High",
+    "tree": 3,
+    "grass": 3,
+    "weed": 4,
+    "plants": [
+      "Ragweed",
+      "Elm",
+      "Grasses"
+    ],
+    "note": "Tree 3 · Grass 3 · Weed 4 · Ragweed, Elm, Grasses",
+    "blurb": "Ragweed, elm and grasses all running heavy. Windows closed, meds early.",
+    "source": "https://developers.google.com/maps/documentation/pollen"
+  },
+  "grid": {
+    "forecastPeakMw": 85000,
+    "peakHourEnding": 16,
+    "availableMw": 105000,
+    "condition": "Normal",
+    "blurb": "A busy afternoon: demand near 85,000 megawatts, with 105,000 on hand.",
+    "source": "https://www.ercot.com/gridmktinfo/dashboards/systemwidedemand"
+  },
+  "sun": {
+    "sunrise": "7:16 a.m.",
+    "sunset": "7:33 p.m.",
+    "blurb": "Just over twelve hours of daylight, and the evenings keep getting shorter.",
+    "source": "https://open-meteo.com/"
+  },
+  "errors": {}
+}

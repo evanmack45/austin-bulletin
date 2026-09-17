@@ -1,0 +1,37 @@
+{
+  "type": "bars",
+  "date": "2026-09-17",
+  "slug": "capmetro-monthly-pass",
+  "title": "What a monthly CapMetro pass would cost",
+  "subtitle": "Local calendar-month pass, standard and reduced rates, under the two-step proposal",
+  "alt": "Bar chart of CapMetro's proposed local calendar-month pass prices, which cover bus, Pickup and UT Shuttle service. The standard pass is 41 dollars and 25 cents now, would rise to 49 dollars and 50 cents on January 10, 2027, and to 66 dollars in January 2029. The reduced-rate pass is 20 dollars and 60 cents now, would rise to 24 dollars and 75 cents in January 2027, and to 33 dollars in January 2029. The CapMetro board votes on the proposal September 28, 2026.",
+  "source": "CapMetro",
+  "unit": "$",
+  "bars": [
+    {
+      "label": "Standard now",
+      "value": 41.25
+    },
+    {
+      "label": "Standard 2027",
+      "value": 49.5
+    },
+    {
+      "label": "Standard 2029",
+      "value": 66
+    },
+    {
+      "label": "Reduced now",
+      "value": 20.6
+    },
+    {
+      "label": "Reduced 2027",
+      "value": 24.75
+    },
+    {
+      "label": "Reduced 2029",
+      "value": 33
+    }
+  ],
+  "yMin": 0
+}

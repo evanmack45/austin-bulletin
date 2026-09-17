@@ -1,0 +1,25 @@
+{
+  "type": "bars",
+  "date": "2026-09-17",
+  "slug": "east-riverside-crashes",
+  "title": "Three of the nine sit on East Riverside",
+  "subtitle": "Crashes at each intersection since 2010, through Aug. 28, 2026",
+  "alt": "Bar chart of crashes since 2010 at three East Riverside Drive intersections in Austin, all within about half a mile of each other: East Riverside Drive at South Pleasant Valley Road, 244 crashes, the most of any intersection in the city; East Riverside Drive at Willow Creek Drive, 157 crashes, the second most; and East Riverside Drive at Wickersham Lane, 114 crashes, the fifth most. Nine Austin intersections have had more than 100 crashes since 2010. The figures run through August 28, 2026.",
+  "source": "Austin Transportation and Public Works data, analyzed by KXAN",
+  "unit": "",
+  "bars": [
+    {
+      "label": "S. Pleasant Valley",
+      "value": 244
+    },
+    {
+      "label": "Willow Creek",
+      "value": 157
+    },
+    {
+      "label": "Wickersham",
+      "value": 114
+    }
+  ],
+  "yMin": 0
+}

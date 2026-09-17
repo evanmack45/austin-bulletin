@@ -142,6 +142,8 @@ function renderBarsSvg(spec) {
     parts.push(`<line x1="${plotX0}" y1="${gy.toFixed(1)}" x2="${plotX1}" y2="${gy.toFixed(1)}" stroke="${RULE}" stroke-width="1"/>`);
   }
 
+  const centsShown = unit.startsWith('$') && bars.some((b) => !Number.isInteger(b.value));
+
   bars.forEach((b, i) => {
     const slotX = plotX0 + i * slot;
     const x = slotX + (slot - barW) / 2;
@@ -152,8 +154,11 @@ function renderBarsSvg(spec) {
     parts.push(`<path d="${d}" fill="${ACCENT}"/>`);
     // A currency unit reads "$30M", never "30$M": a unit starting with "$"
     // splits around the value instead of trailing it.
+    // A currency amount with cents keeps both of them: JavaScript prints 49.5
+    // for 49.50, and "$49.5" on the 2026-09-17 fare chart read as a typo. When
+    // any bar in a "$" chart carries cents, every label gets two decimals.
     const valueLabel = unit.startsWith("$")
-      ? `$${b.value}${unit.slice(1)}`
+      ? `$${centsShown ? b.value.toFixed(2) : b.value}${unit.slice(1)}`
       : `${b.value}${unit}`;
     parts.push(`<text x="${x + barW / 2}" y="${(topY - 12).toFixed(1)}" font-family='${FONT}' font-size="28" font-weight="700" fill="${INK}" text-anchor="middle">${esc(valueLabel)}</text>`);
     // Bar labels are centred in a fixed slot and do not wrap on their own, so
