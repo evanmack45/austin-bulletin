@@ -1,0 +1,16 @@
+{
+  "type": "bars",
+  "date": "2026-09-18",
+  "slug": "school-tax-share",
+  "title": "What ending school property tax costs",
+  "subtitle": "Texas school maintenance and operations taxes, and the cost of replacing them",
+  "alt": "Bar chart of Texas school maintenance and operations property taxes. School districts collect about 29 billion dollars a year, according to the Legislative Budget Board. About 8.6 billion dollars of that is paid by homeowners, according to the state comptroller's chief revenue estimator, and that is what the state would have to spend each year to zero out homeowners' school tax bills. That replacement cost is projected to reach 12 billion dollars a year by 2032. Figures were presented to the Texas House Ways and Means Committee on September 15, 2026.",
+  "source": "Texas Legislative Budget Board and the comptroller's office, via Community Impact",
+  "unit": "$B",
+  "bars": [
+    { "label": "All school M&O taxes", "value": 29 },
+    { "label": "Homeowners' share", "value": 8.6 },
+    { "label": "Replacement cost, 2032", "value": 12 }
+  ],
+  "yMin": 0
+}

@@ -1,0 +1,16 @@
+{
+  "type": "bars",
+  "date": "2026-09-18",
+  "slug": "cosmos-water",
+  "title": "Water at the old 3M campus",
+  "subtitle": "Annual use under 3M, and the first fill for Project Cosmos's closed-loop chillers",
+  "alt": "Bar chart of water use at the former 3M campus at 6801 River Place Boulevard in northwest Austin. Austin Water said its historical records show 3M used roughly 24 million gallons a year at the low end and 36.6 million gallons a year at the high end between 2012 and 2018. SB Energy, which is building Project Cosmos on the site, told neighbors on September 17, 2026 that the project's overall water use will be at or below what 3M used, and that its closed-loop chillers need an initial fill of about 450,000 gallons, or 0.45 million gallons, which is then recirculated.",
+  "source": "Austin Water and SB Energy, via KVUE",
+  "unit": "M gal",
+  "bars": [
+    { "label": "3M, low year", "value": 24 },
+    { "label": "3M, high year", "value": 36.6 },
+    { "label": "Cosmos chiller first fill", "value": 0.45 }
+  ],
+  "yMin": 0
+}
