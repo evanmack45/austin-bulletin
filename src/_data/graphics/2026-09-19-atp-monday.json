@@ -1,0 +1,16 @@
+{
+  "type": "bars",
+  "date": "2026-09-19",
+  "slug": "atp-monday",
+  "title": "What ATP's board votes on Monday",
+  "subtitle": "Three light rail items before the Austin Transit Partnership board",
+  "alt": "Bar chart of three spending items before the Austin Transit Partnership board of directors on Monday, September 21, 2026, as reported by KXAN. The board will consider 122 million dollars for Austin Rail Constructors to continue designing and then building the light rail track, stations and system elements. It will consider 44 million dollars for Kiewit Austin Partnership to construct the light rail maintenance facility where trains are cleaned and prepared for service. And it will consider a lease costing just under 20 million dollars over four years to stay at 203 Colorado Street and expand into 201 Colorado Street next door, replacing an earlier plan to relocate the agency's headquarters for about 47 million dollars.",
+  "source": "Austin Transit Partnership board memo, via KXAN",
+  "unit": "$M",
+  "bars": [
+    { "label": "Design and build contract", "value": 122 },
+    { "label": "Maintenance facility", "value": 44 },
+    { "label": "HQ lease, four years", "value": 20 }
+  ],
+  "yMin": 0
+}

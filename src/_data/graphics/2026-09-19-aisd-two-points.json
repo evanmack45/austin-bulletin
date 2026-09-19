@@ -1,0 +1,15 @@
+{
+  "type": "bars",
+  "date": "2026-09-19",
+  "slug": "aisd-two-points",
+  "title": "How far short the two campuses fell",
+  "subtitle": "Points below the 60 needed for a D, preliminary 2026 ratings",
+  "alt": "Bar chart showing how far two Austin Independent School District middle schools fell short of a D rating in the preliminary 2026 Texas Education Agency accountability ratings. Austin Current reported that Burnet Middle School fell one point short of a D, scoring 59, and that Webb Middle School fell two points short, scoring 58. A score of 60 is required for a D. Each campus has now received five consecutive failing ratings, which under state law requires the education commissioner either to close the campus or to replace Austin ISD's elected school board with an appointed board of managers. The district appealed both ratings; the deadline to appeal was September 11, 2026.",
+  "source": "Texas Education Agency preliminary ratings, via Austin Current",
+  "unit": "",
+  "bars": [
+    { "label": "Burnet Middle School", "value": 1 },
+    { "label": "Webb Middle School", "value": 2 }
+  ],
+  "yMin": 0
+}
