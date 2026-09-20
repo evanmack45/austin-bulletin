@@ -22,11 +22,14 @@ Neutral. Factual. Clean.
 - Never weaken the neutrality or accuracy rules without an explicit,
   confirmed request from Evan.
 - Corrections to published bulletins are visible, never silent.
-- Bulletin Owner (Grok Bot) has full autonomy over content, design,
-  layout experiments, pipeline, and routines. The ONLY approval gate
-  is money — ask Evan before any new paid spend. Existing configured
-  project environment keys are fine to use. Brief Evan only on material
-  changes or paid asks; quiet otherwise.
+- The Claude Code cloud routine "austin-bulletin-daily" is the
+  autonomous publisher/operator of the daily edition (2026-09-19: the
+  Grok Bot "Bulletin Owner" transfer never took effect and the bot no
+  longer exists — see Standing decisions). It has full autonomy over
+  content, design, layout experiments, pipeline, and routines. The ONLY
+  approval gate is money — ask Evan before any new paid spend.
+  Existing configured project environment keys are fine to use. Brief
+  Evan only on material changes or paid asks; quiet otherwise.
 
 ## Standing decisions
 
@@ -53,9 +56,12 @@ Neutral. Factual. Clean.
   blocks outbound fetches). Manage or run it at
   https://claude.ai/code/routines. Manual catch-up: run /daily-bulletin in
   any session in this repo.
-  [Superseded 2026-09-08: ownership/publishing is now by Bulletin Owner
-  (Grok Bot); this routine entry is historical — do not rely on it for
-  morning ownership.]
+  [2026-09-19: the 2026-09-08 transfer to Bulletin Owner (Grok Bot)
+  never took effect — every daily bulletin commit since 2026-09-09 was
+  authored by this routine's GitHub app, and the Grok Bot no longer exists
+  (Evan). This routine is the owner of record for morning publishing. Do
+  not transfer ownership without Evan's explicit ask AND a verified
+  technical handoff, never on a paper entry alone.]
 - 2026-08-23 (Evan, late): the site is "clean, sterile, dead"; the model is
   now Jouster's aliveness done cleanly (docs/2026-08-23-alive-plan.md,
   mockup docs/mockup-2026-08-24-alive.html — Evan approved the shape):
@@ -437,36 +443,36 @@ Neutral. Factual. Clean.
   proxied. Paid analytics/tools require Evan's explicit OK — money is the
   only approval gate. The first‑party, no‑beacon return signal exposes
   non‑PII visit‑day counts via `data-ab-*` attributes; it does not send
-  data offsite. Bulletin Owner stays hands‑off on daily vanity numbers and
-  briefs Evan only on material changes or paid asks. Poteto delegation and
-  staffing rules are unchanged.
+  data offsite. The routine stays hands‑off on daily vanity numbers and
+  briefs Evan only on material changes or paid asks. (2026-09-19: the
+  Bulletin Owner and Poteto delegation entries below are rescinded —
+  see Standing decisions.)
 
-- 2026-09-08 (Evan): Grok Bot “Bulletin Owner” is the autonomous
-  publisher/operator of The Austin Bulletin.
-  Owner: Bulletin Owner (Grok Bot), with full autonomy over content,
-  design, pipeline, routines, and specialist bots when useful.
-  Site/repo: https://theaustinbulletin.com /
-  https://github.com/evanmack45/austin-bulletin.
-  Binding quality sources remain `EDITORIAL.md`, `PIPELINE.md`,
-  `CLAUDE.md` — update them when Evan feedback is accepted.
-  Supersedes the Claude Code routine “austin-bulletin-daily” — do not
-  rely on that routine for morning ownership; Bulletin Owner runs a
-  standing 6:15 a.m. America/Chicago ownership pass.
-  Ask Evan before any new paid spend; existing configured keys in the
-  project environment are fine to use.
-  Do not weaken neutrality/accuracy without his explicit ask; do not
-  invent quotes/sources; no email newsletter (standing no).
-  Brief Evan only on material changes or paid asks; quiet otherwise.
-  Bulletin Owner may staff specialist Grok Bots and set any routine cadence
-  freely. New Grok Bots for The Austin Bulletin are created via dr eggbot,
-  not by the Bulletin Owner directly. Do not weaken the hands-off rule or
-  the Poteto code‑gen delegation.
+- 2026-09-19 (Evan): RESCINDED — the 2026-09-08 transfer of ownership
+  to Grok Bot "Bulletin Owner". Verified 2026-09-19: it never took effect
+  (every daily bulletin commit from 2026-09-09 onward was authored by the
+  Claude Code routine's GitHub app; no Grok Bot ever pushed a run), and
+  the Grok Bot no longer exists. The Claude Code cloud routine
+  "austin-bulletin-daily" is the autonomous publisher/operator and the
+  owner of record for the morning run. All of the 2026-09-08 rules below
+  now bind the routine: full autonomy over content, design, pipeline, and
+  routines; site/repo https://theaustinbulletin.com /
+  https://github.com/evanmack45/austin-bulletin; the binding quality
+  sources remain `EDITORIAL.md`, `PIPELINE.md`, `CLAUDE.md` — update
+  them when Evan feedback is accepted; ask Evan before any new paid
+  spend, existing configured keys in the project environment are fine to
+  use; do not weaken neutrality/accuracy without his explicit ask; do not
+  invent quotes/sources; no email newsletter (standing no); brief Evan
+  only on material changes or paid asks, quiet otherwise. There is no
+  specialist-bot staffing and no bot-to-bot delegation — do not re-add
+  one without Evan's explicit ask and a verified technical handoff.
 
-- 2026-09-08 (Evan): Bulletin Owner (Grok Bot) delegates all code
-  generation for theaustinbulletin.com and this repository to Poteto
-  (Evan’s coding Grok Bot). Bulletin Owner must not launch CloudAgent
-  for coding. This delegation does not change any approval or autonomy
-  rules elsewhere in this document.
+- 2026-09-19 (Evan): RESCINDED — the 2026-09-08 delegation of code
+  generation to Poteto (a Grok Bot), rescinded with the bot. In practice
+  code changes have always come from Evan and Cursor Agent commits
+  (verified 2026-09-19); code work happens via Evan's coding agents as he
+  directs them. Do not re-delegate code generation to another agent
+  without Evan's explicit ask.
   
 - 2026-09-08 (mid roadmap — civic utilities path): A free, repeatable CLI
   pulls recent, attributable civic records from data.austintexas.gov (Socrata)
