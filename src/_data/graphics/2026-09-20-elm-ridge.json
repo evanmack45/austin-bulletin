@@ -1,0 +1,14 @@
+{
+  "type": "map",
+  "date": "2026-09-20",
+  "slug": "elm-ridge",
+  "title": "Elm Ridge Apartments",
+  "subtitle": "The 130-unit Airport Boulevard property up for a city housing note on Oct. 8",
+  "alt": "Map of east-central Austin marking Elm Ridge Apartments at 1190 Airport Boulevard, the roughly 130-unit low-income apartment property whose acquisition and rehabilitation the Austin Housing Finance Corporation will hold a public hearing on for a note issue of up to 33 million dollars on October 8, 2026",
+  "source": "Austin Housing Finance Corporation public hearing notice",
+  "center": "1190 Airport Blvd, Austin, TX 78702",
+  "zoom": 14,
+  "markers": [
+    { "label": "A", "place": "1190 Airport Blvd, Austin, TX 78702" }
+  ]
+}

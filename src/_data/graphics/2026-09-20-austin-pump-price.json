@@ -1,0 +1,29 @@
+{
+  "type": "bars",
+  "date": "2026-09-20",
+  "slug": "austin-pump-price",
+  "title": "A gallon of regular in Austin",
+  "subtitle": "AAA average for the Austin-San Marcos metro, read Sept. 20",
+  "alt": "Bar chart of the average price of a gallon of regular unleaded gasoline in the Austin-San Marcos metropolitan area, as published by the American Automobile Association (AAA) on September 20, 2026. A year ago the average was 2 dollars and 74 cents. A month ago it was 3 dollars and 57 cents. A week ago it was 3 dollars and 89 cents. On September 20, 2026 it was 3 dollars and 94 cents.",
+  "source": "AAA metro averages, gasprices.aaa.com",
+  "unit": "$",
+  "bars": [
+    {
+      "label": "A year ago",
+      "value": 2.74
+    },
+    {
+      "label": "A month ago",
+      "value": 3.57
+    },
+    {
+      "label": "A week ago",
+      "value": 3.89
+    },
+    {
+      "label": "Today",
+      "value": 3.94
+    }
+  ],
+  "yMin": 0
+}
