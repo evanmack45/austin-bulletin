@@ -1,0 +1,43 @@
+{
+  "type": "timeline",
+  "date": "2026-09-21",
+  "slug": "anderson-square",
+  "title": "Sunday on Anderson Square",
+  "subtitle": "The times officials gave for the ICE shooting in north Austin and what followed",
+  "alt": "Timeline of the September 20, 2026 shooting of a man by an Immigration and Customs Enforcement officer in north Austin. At about 12:50 p.m. the Texas Department of Public Safety says it was asked to help immigration officers with a vehicle pursuit near Anderson Square and Research Boulevard. At 12:56 p.m. Austin-Travis County Emergency Medical Services was notified of a shooting in the 8000 block of Anderson Square. Medics arrived about three and a half minutes later and found a man with a gunshot wound to the torso. He was taken to a trauma center within nine minutes of their arrival, in serious but stable condition. At 4 p.m. city leaders held a news conference and said the Austin Police Department was not involved in the shooting. At about 4:30 p.m. a hospital attorney told his lawyer he had been released into federal immigration custody.",
+  "source": "Texas Department of Public Safety and Austin-Travis County EMS accounts, via KXAN and FOX 7 Austin",
+  "events": [
+    {
+      "date": "12:50 p.m.",
+      "label": "DPS asked to help ICE with a pursuit",
+      "note": "Near Anderson Square and Research Boulevard"
+    },
+    {
+      "date": "12:56 p.m.",
+      "label": "EMS notified of a shooting",
+      "note": "8000 block of Anderson Square"
+    },
+    {
+      "date": "About 3.5 min later",
+      "label": "Medics find a man shot in the torso"
+    },
+    {
+      "date": "Within 9 min",
+      "label": "Taken to a trauma center",
+      "note": "Serious but stable condition"
+    },
+    {
+      "date": "4 p.m.",
+      "label": "City news conference",
+      "note": "Austin police were not involved in the shooting, officials said"
+    },
+    {
+      "date": "About 4:30 p.m.",
+      "label": "Released from hospital into ICE custody",
+      "note": "A hospital attorney told his lawyer"
+    }
+  ],
+  "next": {
+    "label": "Austin police, the Texas Rangers and Homeland Security Investigations are all expected to investigate"
+  }
+}

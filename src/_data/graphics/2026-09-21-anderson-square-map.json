@@ -1,0 +1,14 @@
+{
+  "type": "map",
+  "date": "2026-09-21",
+  "slug": "anderson-square-map",
+  "title": "Anderson Square",
+  "subtitle": "The north Austin shopping center where Sunday's shooting happened, off Research Boulevard",
+  "alt": "Map of north Austin marking Anderson Square, the shopping center off Research Boulevard where an Immigration and Customs Enforcement officer shot a man on September 20, 2026",
+  "source": "Austin-Travis County EMS location, via FOX 7 Austin",
+  "center": "8000 Anderson Square, Austin, TX 78757",
+  "zoom": 14,
+  "markers": [
+    { "label": "A", "place": "8000 Anderson Square, Austin, TX 78757" }
+  ]
+}
