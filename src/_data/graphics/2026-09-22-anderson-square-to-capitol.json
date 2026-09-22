@@ -1,0 +1,44 @@
+{
+  "type": "timeline",
+  "date": "2026-09-22",
+  "slug": "anderson-square-to-capitol",
+  "title": "From Anderson Square to the Capitol",
+  "subtitle": "The thirty hours after an ICE officer shot a delivery driver in north Austin",
+  "alt": "Timeline of the thirty hours after a U.S. Immigration and Customs Enforcement officer shot a DoorDash driver in north Austin on September 20, 2026. At 5:30 p.m. Sunday Austin police responded to hundreds of people gathered at Research Boulevard and Anderson Square. Through Sunday evening people in the crowd threw rocks, bottles and pieces of concrete, three police vehicles were damaged and three officers suffered minor injuries. At 10:15 p.m. Texas Department of Public Safety troopers cleared the intersection after using pepper ball projectiles. At 10:30 p.m. the crowd dispersed, with four people arrested in all, three by Austin police and one by state troopers. On Monday afternoon Wilber Rafael Garces Perez called into a news conference from the Pearsall detention center, his attorney saying the bullet was still lodged in his body. On Monday evening about 100 people gathered at the front gates of the Texas Capitol.",
+  "source": "Austin Police Department and Texas Department of Public Safety accounts, via KXAN and CBS Austin",
+  "events": [
+    {
+      "date": "Sun. 5:30 p.m.",
+      "label": "Police meet hundreds at the intersection",
+      "note": "Research Boulevard service road and Anderson Square"
+    },
+    {
+      "date": "Sun. evening",
+      "label": "Rocks, bottles and concrete thrown",
+      "note": "Three police vehicles damaged, three officers hurt"
+    },
+    {
+      "date": "Sun. 10:15 p.m.",
+      "label": "State troopers clear the intersection",
+      "note": "After pepper ball projectiles and orders to disperse"
+    },
+    {
+      "date": "Sun. 10:30 p.m.",
+      "label": "Crowd disperses; four arrested in all",
+      "note": "Three by Austin police, one by state troopers"
+    },
+    {
+      "date": "Mon. afternoon",
+      "label": "The man shot calls in from Pearsall",
+      "note": "His attorney says the bullet is still lodged in his body"
+    },
+    {
+      "date": "Mon. evening",
+      "label": "About 100 gather at the Capitol gates",
+      "note": "The demonstration stayed peaceful"
+    }
+  ],
+  "next": {
+    "label": "Homeland Security Investigations, the FBI, Austin police and the Texas Rangers are all expected to investigate"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "bars",
+  "date": "2026-09-22",
+  "slug": "travis-budget-adds",
+  "title": "What Travis County's budget adds",
+  "subtitle": "Selected new spending in the plan commissioners vote on Sept. 29",
+  "alt": "Bar chart of selected new spending in Travis County's proposed budget, which commissioners are scheduled to adopt on September 29, 2026: 15 million dollars held in reserve for the county's mental health jail diversion programs, 2 million dollars for supportive housing services for residents at risk of returning to jail or homelessness, more than 2 million dollars earmarked for an expansion of the county's contract with Axon Enterprise that could pay for new security drones, and 1 million dollars for the county's juvenile justice program.",
+  "source": "Travis County preliminary budget, via Austin Current",
+  "unit": "$M",
+  "bars": [
+    { "label": "Mental health jail diversion (reserve)", "value": 15 },
+    { "label": "Supportive housing services", "value": 2 },
+    { "label": "Axon expansion (proposed, at least)", "value": 2 },
+    { "label": "Juvenile justice program", "value": 1 }
+  ]
+}
