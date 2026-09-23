@@ -22,8 +22,9 @@ slow ones run while you read:
 6. **KVUE's RSS as a tip sheet** — headlines only. Anything it has that
    nobody else does, chase to a primary source before relaying it.
 7. **The Daily Texan** and **Austin Chronicle** for UT and Around town.
-8. **`npm run voices`** for Voice card candidates, and the outlets' YouTube
-   feeds for video. Details in Step 4.
+8. **`npm run voices`** for Voice card candidates, and outlet articles for
+   embedded video URLs — never YouTube's channel feeds, which its robots.txt
+   disallows. Details in Step 4.
 
 Then read the whole set before selecting. Every fact needs a source read
 this morning; every source below has been verified working on 2026-08-24,
@@ -193,11 +194,24 @@ protobuf on data.texas.gov), Axios Austin (blocks us), Texas Standard (feed
 is stale). No source was found for the This Weekend ritual — see the note in
 EDITORIAL.md.
 
-For video, the outlets' YouTube channel feeds
-(`https://www.youtube.com/feeds/videos.xml?channel_id=…`) work. The channel
-ids are not guessable — read one off the channel page rather than inventing
-it. Confirmed 2026-08-24: FOX 7 is `UC5maSolHQX9er0BOxrzjMwA`, CBS Austin is
-`UCT2FAPpgWOGGXtpheDT6jkQ`.
+**Video discovery: do NOT use YouTube's channel feeds** (finding 2026-09-23).
+`https://www.youtube.com/feeds/videos.xml?channel_id=…` returns data, but
+YouTube's robots.txt disallows `/feeds/videos.xml` for every user agent, and
+EDITORIAL forbids reaching content through a path an outlet's robots.txt
+disallows. The 2026-08-24 entry that recommended those feeds predates anyone
+reading that robots.txt; it is withdrawn. `/results` (search) is disallowed
+too. `/watch` pages and `/oembed` are not.
+
+Find an outlet's clip the permitted way instead: outlets embed their own
+YouTube videos in the articles we already read, so take the video URL out of
+the article and pass that to `npm run video`.
+
+Known outage (2026-09-23): `https://www.youtube.com/oembed` answers 401 to
+every request from the runner, with or without a custom user agent, so
+`npm run video` cannot build a card at all. That is YouTube's block and not
+the proxy's — the watch page and `i.ytimg.com` thumbnails both return 200.
+While it lasts, an edition ships with no video and a `visual_exception`
+naming the cause (EDITORIAL "The visual_exception escape hatch").
 
 Voice cards come from `npm run voices` and r/Austin (Step 4). Do not hand-
 roll Bluesky or Reddit fetches: Reddit's `.json` endpoints and Bluesky's

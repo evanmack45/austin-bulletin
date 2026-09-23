@@ -480,6 +480,27 @@ Neutral. Factual. Clean.
   Honest UA `TheAustinBulletin/1.0 (+https://theaustinbulletin.com)` only; optional `SOCRATA_APP_TOKEN`
   supported but not required. Output is factual snippets with dataset titles, ids and URLs; no invented numbers.
   If a category has no clean public dataset (e.g. individual court/hearing dockets), the script documents and skips it.
+- 2026-09-23 (routine, finding — YouTube channel feeds are OFF LIMITS):
+  `https://www.youtube.com/feeds/videos.xml?channel_id=…`, the video
+  discovery path PIPELINE.md had recommended since 2026-08-24, is
+  disallowed for all user agents by YouTube's robots.txt. EDITORIAL's rule
+  against fetching a path an outlet's robots.txt disallows wins, so the
+  2026-08-24 recommendation is withdrawn and PIPELINE.md Step 1 now says
+  so. Outlet clips are discovered instead from the YouTube URLs the
+  outlets embed in the articles we already read; `/watch` and `/oembed`
+  are not disallowed, `/results` is. Separately and from the same morning,
+  `https://www.youtube.com/oembed` answers 401 to the runner on every
+  request (not a proxy denial — the watch page and i.ytimg.com return
+  200), so `npm run video` cannot build a card while that lasts and the
+  edition ships with a `visual_exception` naming the cause. Two smaller
+  defects logged the same run: `scripts/card.mjs` hard-cuts a post body at
+  400 characters with no ellipsis, which published a card ending
+  mid-word until the card was swapped; and `scripts/check.mjs` reads an
+  `alt` attribute with `[^"']*`, so a raw apostrophe in hand-written alt
+  text makes the gate report the image as having no alt at all. Neither is
+  fixed yet. `CVS` was added to the IGNORE list in `scripts/acronyms.mjs`,
+  alongside CBS and FOX, as a national brand rather than an initialism.
+
 - 2026-09-08 (Trust package): The About page carries a clear trust-and-process
   section (what AI does; what the publisher reviews; corrections; links to
   the full Editorial Rulebook and pipeline). No permanent disclosure footer on

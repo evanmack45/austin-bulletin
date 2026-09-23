@@ -1,0 +1,14 @@
+{
+  "type": "bars",
+  "date": "2026-09-23",
+  "slug": "aisd-failing-ratings",
+  "title": "Austin ISD campuses at four failing years",
+  "subtitle": "After the state moved six closed schools' records onto the campuses that took them",
+  "alt": "Bar chart showing the number of Austin Independent School District campuses carrying four consecutive unacceptable state accountability ratings. Before the Texas Education Agency reassigned the rating histories of six recently closed schools, three campuses carried four failing ratings: Dobie Middle School, Pecan Springs Elementary and Linder Elementary. After the reassignment, nine campuses do, adding Guerrero Thompson Elementary, Galindo Elementary, Kealing Middle School, Blackshear Elementary, Rodriguez Elementary and Bailey Middle School.",
+  "source": "Texas Education Agency letter to Austin ISD, via Austin Current",
+  "unit": "",
+  "bars": [
+    { "label": "Before the state reassigned ratings", "value": 3 },
+    { "label": "After the state reassigned ratings", "value": 9 }
+  ]
+}

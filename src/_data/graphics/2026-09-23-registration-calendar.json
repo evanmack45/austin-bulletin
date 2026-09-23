@@ -1,0 +1,41 @@
+{
+  "type": "timeline",
+  "date": "2026-09-23",
+  "slug": "registration-calendar",
+  "title": "The registration calendar, and a gap",
+  "subtitle": "Texas says it is now delivering license-portal registrations it never forwarded",
+  "alt": "Timeline of Texas voter registration for the November 3, 2026 election. Since September 2020, after voting rights groups sued the state, Texans renewing a driver's license or updating an address online could also register to vote through the same Department of Public Safety portal; about 6 million Texans used it between 2020 and 2024. Last week the secretary of state's office learned that an unknown number of those applications were never sent on to county voter registrars because the records were incomplete. On September 22 the state said it would begin delivering the unsent registrations to counties overnight. The registration deadline is October 5. Early voting runs October 19 through October 30. Election Day is November 3.",
+  "source": "Texas secretary of state's office and DPS, via KXAN; Texas election calendar",
+  "events": [
+    {
+      "date": "Sept. 2020",
+      "label": "Registering through the license portal begins",
+      "note": "About 6 million Texans used it from 2020 through 2024"
+    },
+    {
+      "date": "Last week",
+      "label": "The state learns applications never arrived",
+      "note": "Records were incomplete, so counties never received them"
+    },
+    {
+      "date": "Sept. 22",
+      "label": "Texas starts sending the backlog to counties",
+      "note": "Overnight, into the busiest stretch of the calendar"
+    },
+    {
+      "date": "Oct. 5",
+      "label": "Registration deadline"
+    },
+    {
+      "date": "Oct. 19-30",
+      "label": "Early voting"
+    },
+    {
+      "date": "Nov. 3",
+      "label": "Election Day"
+    }
+  ],
+  "next": {
+    "label": "A voter who registered at DPS but is not on the rolls may cast a provisional ballot, the secretary of state's office says"
+  }
+}
