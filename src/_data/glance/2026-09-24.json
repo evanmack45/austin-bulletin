@@ -1,0 +1,57 @@
+{
+  "date": "2026-09-24",
+  "fetchedAt": "2026-09-24T12:22:15.442Z",
+  "weather": {
+    "high": 99,
+    "low": 77,
+    "summary": "Partly Sunny",
+    "alerts": [],
+    "blurb": "Ninety-nine again, heat index near 106. Go early or go after supper.",
+    "source": "https://www.weather.gov/ewx/"
+  },
+  "air": {
+    "aqi": 60,
+    "category": "Moderate",
+    "pm25": 12.5,
+    "ozone": 54,
+    "blurb": "Fine for most of us. If your lungs are touchy, take it a little easy.",
+    "source": "https://open-meteo.com/en/docs/air-quality-api"
+  },
+  "lake": {
+    "percentFull": 90.3,
+    "elevationFt": 675.2,
+    "weekNote": "−1.5 pts vs. last week",
+    "blurb": "Close to full, which is good for boats and for the water supply. Down a touch.",
+    "source": "https://www.waterdatafortexas.org/reservoirs/individual/travis"
+  },
+  "pollen": {
+    "index": 4,
+    "category": "High",
+    "tree": 4,
+    "grass": 3,
+    "weed": 4,
+    "plants": [
+      "Elm",
+      "Ragweed",
+      "Grasses"
+    ],
+    "note": "Tree 4 · Grass 3 · Weed 4 · Elm, Ragweed, Grasses",
+    "blurb": "Elm and ragweed and grasses are heavy today. Windows closed, meds early.",
+    "source": "https://developers.google.com/maps/documentation/pollen"
+  },
+  "grid": {
+    "forecastPeakMw": 81600,
+    "peakHourEnding": 17,
+    "availableMw": 106300,
+    "condition": "Normal",
+    "blurb": "A busy afternoon: demand near 81,600 megawatts, with 106,300 on hand.",
+    "source": "https://www.ercot.com/gridmktinfo/dashboards/systemwidedemand"
+  },
+  "sun": {
+    "sunrise": "7:20 a.m.",
+    "sunset": "7:24 p.m.",
+    "blurb": "The sun is up for 12 hours and 4 minutes today, and down by 7:24 p.m.",
+    "source": "https://open-meteo.com/"
+  },
+  "errors": {}
+}

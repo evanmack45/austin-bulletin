@@ -1,0 +1,39 @@
+{
+  "type": "timeline",
+  "date": "2026-09-24",
+  "slug": "aisd-hvac-failures",
+  "title": "Four campuses, one month, no cooling",
+  "subtitle": "Every reported air conditioning failure since classes began",
+  "alt": "Timeline of air conditioning failures reported at Austin Independent School District campuses during the 2026-27 school year. In late August, multiple classrooms at McCallum High School went without air conditioning, the first campus to report trouble this year. On September 1, Anderson High School sent students home early after the principal said the system was cooling only 40 percent of the building and classroom temperatures reached the low to mid 80s. On September 8, Lamar Middle School sent students home early after the principal said the chiller needed immediate replacement. On September 9, Kealing Middle School told families its unit could not cool the building and maintenance installed a temporary chiller and a new pump. On September 22, Kealing reported chiller trouble again and the district said it was repaired. The district said bond-funded air conditioning work was completed at 15 campuses over the summer.",
+  "source": "Austin ISD principals' letters to families and district statements, via KXAN",
+  "events": [
+    {
+      "date": "Late Aug.",
+      "label": "McCallum High School",
+      "note": "The first campus to report trouble this year"
+    },
+    {
+      "date": "Sept. 1",
+      "label": "Anderson High School sends students home",
+      "note": "The principal said it cooled 40% of the building; rooms hit the mid-80s"
+    },
+    {
+      "date": "Sept. 8",
+      "label": "Lamar Middle School sends students home",
+      "note": "The principal said the chiller needed immediate replacement"
+    },
+    {
+      "date": "Sept. 9",
+      "label": "Kealing Middle School installs a temporary chiller",
+      "note": "Staff had noticed the unit failing about a week earlier"
+    },
+    {
+      "date": "Sept. 22",
+      "label": "Kealing's chiller fails again",
+      "note": "The district said it was repaired"
+    }
+  ],
+  "next": {
+    "label": "Bond-funded cooling work was finished at 15 campuses over the summer"
+  }
+}

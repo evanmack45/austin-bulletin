@@ -1,0 +1,24 @@
+{
+  "type": "bars",
+  "date": "2026-09-24",
+  "slug": "voter-backlog-counties",
+  "title": "The registration backlog, by county",
+  "subtitle": "Records the state delivered this week, in the three counties that gave a figure",
+  "alt": "Bar chart of backlogged voter registration records delivered to Texas counties this week after the Texas Department of Public Safety said certain online records were incomplete and not fully transmitted. Nexstar asked two dozen counties for figures and six responded. Collin County reported receiving at least 40,000 records, Travis County approximately 32,000, and Brazoria County more than 9,000. State officials have not said how many records were affected statewide.",
+  "source": "County election offices, via KXAN and Nexstar",
+  "unit": "records",
+  "bars": [
+    {
+      "label": "Collin County",
+      "value": 40000
+    },
+    {
+      "label": "Travis County",
+      "value": 32000
+    },
+    {
+      "label": "Brazoria County",
+      "value": 9000
+    }
+  ]
+}

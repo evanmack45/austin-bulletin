@@ -11,7 +11,7 @@ const IGNORE = new Set([
   "US", "USA", "TV", "AI", "CEO", "CFO", "ID", "AM", "PM", "CT", "UT", "HVAC",
   "OK", "II", "III", "IV", "SUV", "DNA", "FBI", "NASA", "HUD", "DPS", "EMS",
   "KXAN", "KUT", "KVUE", "CBS", "FOX", "NBC", "ABC", "NPR", "NWS", "PGA",
-  "SXSW", "ACL", "AT", "AP", "DA", "PD", "HOA", "RSS", "CVS",
+  "SXSW", "ACL", "AT", "AP", "DA", "PD", "HOA", "RSS", "CVS", "TX", "VOCAL",
   // Texas road designators — not local jargon, just how routes are named.
   "SH", "FM", "CR", "RM",
   // Nationally understood terms; not the local jargon this check exists for.

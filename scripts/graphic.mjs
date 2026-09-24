@@ -157,9 +157,19 @@ function renderBarsSvg(spec) {
     // A currency amount with cents keeps both of them: JavaScript prints 49.5
     // for 49.50, and "$49.5" on the 2026-09-17 fare chart read as a typo. When
     // any bar in a "$" chart carries cents, every label gets two decimals.
+    // Four-figure values need separators: the 2026-09-24 registration-backlog
+    // chart printed "40000records", which reads as one unbroken token.
+    const grouped = (n, decimals) =>
+      n.toLocaleString("en-US", {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals,
+      });
+    // A word unit ("records", "MW") needs a space off the number; a symbol
+    // ("%", "\u00b0") stays tight against it.
+    const unitGap = unit && /^[A-Za-z]/.test(unit) ? " " : "";
     const valueLabel = unit.startsWith("$")
-      ? `$${centsShown ? b.value.toFixed(2) : b.value}${unit.slice(1)}`
-      : `${b.value}${unit}`;
+      ? `$${grouped(b.value, centsShown ? 2 : 0)}${unit.slice(1)}`
+      : `${grouped(b.value, Number.isInteger(b.value) ? 0 : 1)}${unitGap}${unit}`;
     parts.push(`<text x="${x + barW / 2}" y="${(topY - 12).toFixed(1)}" font-family='${FONT}' font-size="28" font-weight="700" fill="${INK}" text-anchor="middle">${esc(valueLabel)}</text>`);
     // Bar labels are centred in a fixed slot and do not wrap on their own, so
     // a long one (2026-09-14: "Austin Community College") runs into its
