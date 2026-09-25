@@ -1,0 +1,16 @@
+{
+  "type": "bars",
+  "date": "2026-09-25",
+  "slug": "aisd-students-left",
+  "title": "Where the students who left went",
+  "subtitle": "Share of the 6,400 Austin ISD students who did not return this year, by destination",
+  "alt": "Bar chart of where the roughly 6,400 Austin Independent School District students who finished last school year and did not return for 2026-27 went, as Chief Financial Officer Katrina Montgomery reported to trustees on September 24, 2026. Forty-one percent left to a destination the district cannot identify. Thirty-nine percent relocated outside the district, the state or the country. Twenty percent transferred to charter, private, virtual or home schooling. The figures exclude students who graduated.",
+  "source": "Austin ISD, via Austin Current",
+  "unit": "%",
+  "yMin": 0,
+  "bars": [
+    { "label": "Unknown", "value": 41 },
+    { "label": "Moved away", "value": 39 },
+    { "label": "Charter, private, home", "value": 20 }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "type": "bars",
+  "date": "2026-09-25",
+  "slug": "water-rates-tiers",
+  "title": "What water costs, now and on Oct. 1",
+  "subtitle": "Austin Water residential volume charge, dollars per 1,000 gallons used a month",
+  "alt": "Bar chart comparing Austin Water's current residential volume charge per 1,000 gallons with the charge that takes effect October 1, 2026, for the first three monthly usage tiers, from the utility's rate schedule filed with the Austin City Council. For the first 2,000 gallons the charge goes from 3 dollars 27 cents to 3 dollars 57 cents. For 2,001 to 6,000 gallons it goes from 5 dollars 57 cents to 6 dollars 9 cents. For 6,001 to 11,000 gallons it goes from 10 dollars 26 cents to 11 dollars 24 cents. The schedule raises the charge at all five tiers; the two highest tiers, not shown, rise to 18 dollars 6 cents and 22 dollars 21 cents.",
+  "source": "City of Austin, Austin Water rate schedule",
+  "unit": "$",
+  "yMin": 0,
+  "bars": [
+    {
+      "label": "0-2,000 now",
+      "value": 3.27
+    },
+    {
+      "label": "0-2,000 Oct.",
+      "value": 3.57
+    },
+    {
+      "label": "2-6,000 now",
+      "value": 5.57
+    },
+    {
+      "label": "2-6,000 Oct.",
+      "value": 6.09
+    },
+    {
+      "label": "6-11,000 now",
+      "value": 10.26
+    },
+    {
+      "label": "6-11,000 Oct.",
+      "value": 11.24
+    }
+  ]
+}

@@ -512,11 +512,18 @@ async function main() {
   // escaped-but-non-empty alt is valid as-is, no unescaping needed.
   const htmlImgs = [...text.matchAll(/<img\b[^>]*>/gi)];
   for (const [tag] of htmlImgs) {
-    const srcMatch = tag.match(/\bsrc\s*=\s*(["'])(\/images\/[^"']+)\1/i);
+    // One pattern per quote style. A single (["'])([^"']*)\1 pattern cannot
+    // express "anything but the delimiter", so a double-quoted alt holding a
+    // raw apostrophe — "Austin Water's rate schedule" — did not match at all
+    // and the image was reported as having no alt (found 2026-09-23).
+    const attr = (name, value) =>
+      tag.match(new RegExp(`\\b${name}\\s*=\\s*"(${value.replace(/Q/g, '[^"]')})"`, "i")) ||
+      tag.match(new RegExp(`\\b${name}\\s*=\\s*'(${value.replace(/Q/g, "[^']")})'`, "i"));
+    const srcMatch = attr("src", "\\/images\\/Q+");
     if (!srcMatch) continue;
-    const src = srcMatch[2];
-    const altMatch = tag.match(/\balt\s*=\s*(["'])([^"']*)\1/i);
-    const alt = altMatch ? altMatch[2] : "";
+    const src = srcMatch[1];
+    const altMatch = attr("alt", "Q*");
+    const alt = altMatch ? altMatch[1] : "";
     if (!alt.trim()) bad("images", `image has empty alt text: ${src}`);
     if (!(await exists(path.join(repoRoot, "src", src.replace(/^\//, ""))))) {
       bad("images", `file not found: src${src}`);

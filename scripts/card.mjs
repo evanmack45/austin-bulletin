@@ -309,6 +309,21 @@ async function bulletinsUsing(repoRoot, id) {
 
 // True for the scraped remains of Reddit's per-entry footer, in any order:
 // "submitted by /u/name [link] [comments]".
+// A card quotes a post, so a body cut mid-word reads as our mistake rather
+// than the poster's. Cut at the last sentence end inside the budget when
+// there is one, else the last word break, and mark the cut with an ellipsis.
+// (2026-09-23: a card shipped ending "Weekly " because the old code sliced
+// at exactly 400 characters and said nothing.)
+function excerpt(body, limit) {
+  if (body.length <= limit) return body;
+  const head = body.slice(0, limit);
+  const sentence = Math.max(head.lastIndexOf(". "), head.lastIndexOf("! "), head.lastIndexOf("? "));
+  if (sentence >= limit * 0.6) return head.slice(0, sentence + 1);
+  const word = head.lastIndexOf(" ");
+  const cut = word > 0 ? head.slice(0, word) : head;
+  return cut.replace(/[\s,;:.\-—]+$/, "") + "…";
+}
+
 function isRedditFooter(s) {
   if (!s) return false;
   const t = s.toLowerCase();
@@ -355,7 +370,7 @@ async function fetchReddit(url) {
   if (isRedditFooter(body)) body = "";
 
   let text = title;
-  if (body) text += "\n\n" + body.slice(0, 400);
+  if (body) text += "\n\n" + excerpt(body, 400);
   const hasBody = Boolean(body);
 
   return {
