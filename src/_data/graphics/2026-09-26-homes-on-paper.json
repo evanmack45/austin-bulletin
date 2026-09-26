@@ -1,0 +1,25 @@
+{
+  "type": "bars",
+  "date": "2026-09-26",
+  "slug": "homes-on-paper",
+  "title": "Homes cleared on paper this week",
+  "subtitle": "Units at two Austin sites, neither of them under construction",
+  "alt": "Bar chart of housing units cleared on paper at two Austin sites in the week of September 21, 2026. At the former Rosedale School site at 2117 West 49th Street, Austin City Council gave final approval on September 24 to rezoning that allows a 435-unit apartment building; the sale of the campus still depends on Austin Independent School District winning a lawsuit over a 1938 deed restriction, and no trial date is set. At the St. John redevelopment at 800 East St. John Avenue, a $6.4 million investment announced September 25 by Airbnb is meant to fund 201 affordable units, with a companion project of 325 mixed-income units on the same city-owned site, which has sat vacant for nearly two decades. Neither project has broken ground.",
+  "source": "Community Impact and FOX 7 Austin",
+  "unit": "units",
+  "bars": [
+    {
+      "label": "Rosedale School",
+      "value": 435
+    },
+    {
+      "label": "St. John, affordable",
+      "value": 201
+    },
+    {
+      "label": "St. John, mixed-income",
+      "value": 325
+    }
+  ],
+  "yMin": 0
+}

@@ -1,0 +1,25 @@
+{
+  "type": "bars",
+  "date": "2026-09-26",
+  "slug": "small-business-package",
+  "title": "Austin’s $2.18 million for small business",
+  "subtitle": "Three contracts Austin City Council advanced on Sept. 24, 2026",
+  "yMin": 0,
+  "alt": "Bar chart of the three small business contracts Austin City Council advanced on September 24, 2026, totaling 2.18 million dollars, as reported by Community Impact from the city agenda. Up to 1.5 million dollars goes to a loan interest buydown pilot run by the Austin nonprofit PeopleFund, which the city expects to support 75 to 100 businesses in its first year. A 432,000 dollar contract goes to the San Francisco nonprofit Kiva to manage matching revolving funds for crowdfunded microloans. A 250,000 dollar contract goes to the McCombs School of Business at the University of Texas at Austin to build a small business pitch competition.",
+  "source": "City of Austin agenda, via Community Impact",
+  "unit": "$",
+  "bars": [
+    {
+      "label": "PeopleFund loan buydown",
+      "value": 1500000
+    },
+    {
+      "label": "Kiva microloan match",
+      "value": 432000
+    },
+    {
+      "label": "UT McCombs pitch contest",
+      "value": 250000
+    }
+  ]
+}
