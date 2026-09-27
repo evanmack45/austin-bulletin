@@ -1,0 +1,34 @@
+{
+  "type": "timeline",
+  "date": "2026-09-27",
+  "slug": "ramos-six-days",
+  "title": "Six days from a protest to an arrest",
+  "subtitle": "The Misael Ramos case, as reported by five Austin newsrooms",
+  "alt": "Timeline of the arrest of Austin City Council District 1 candidate Misael Ramos. On September 20, 2026, an Immigration and Customs Enforcement officer shot Wilber Rafael Garces Perez in North Austin, and Austin police say at least four people were arrested at the protest that followed. On the morning of September 26, at about 8:45, Texas Department of Public Safety troopers arrested Ramos, 40, in the 2400 block of Manor Road while he was walking his dog. He was booked into the Travis County Jail at 9:31 that morning on a charge of riot participation, a Class B misdemeanor. At 4 in the afternoon supporters rallied outside the jail on West 10th Street, with crowd estimates ranging from more than 100 to about 300. Ramos was released just after 5 that afternoon on a 1,000 dollar bond.",
+  "source": "KUT, KXAN, CBS Austin and the Austin Chronicle",
+  "events": [
+    {
+      "date": "Sept. 20",
+      "label": "An ICE officer shoots a man in North Austin",
+      "note": "Austin police say at least four people were arrested at the protest"
+    },
+    {
+      "date": "Sept. 26, 8:45 a.m.",
+      "label": "DPS troopers arrest Misael Ramos on Manor Road",
+      "note": "The District 1 council candidate was walking his dog near Stafford St."
+    },
+    {
+      "date": "9:31 a.m.",
+      "label": "Ramos is booked into the Travis County Jail",
+      "note": "The charge is riot participation, a Class B misdemeanor"
+    },
+    {
+      "date": "4 p.m.",
+      "label": "Supporters rally outside the jail on West 10th Street",
+      "note": "Crowd estimates ran from more than 100 to about 300 people"
+    }
+  ],
+  "next": {
+    "label": "Ramos walked out just after 5 p.m. on a $1,000 bond"
+  }
+}

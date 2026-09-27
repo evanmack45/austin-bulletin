@@ -1,0 +1,41 @@
+{
+  "type": "bars",
+  "date": "2026-09-27",
+  "slug": "backlog-seven-counties",
+  "title": "Seven counties have now given a figure",
+  "subtitle": "Delayed registration records each county says it received this week",
+  "alt": "Bar chart of backlogged voter registration records Texas counties say they received this week, after the Texas Department of Public Safety said a third party vendor software update in October 2025 cut off portions of online records. Nexstar asked counties across the state for figures and seven had responded as of Friday, September 25, 2026. Harris County reported approximately 108,000 records, Collin County at least 40,000, Travis County approximately 32,000, Brazoria County over 9,000, Hays County 8,100, Gregg County approximately 8,000 and Cameron County 5,000. Four of those seven counties reported for the first time this week. State officials have not said how many records were affected statewide. The deadline to register for the November 3 election is October 5.",
+  "source": "County election offices, via KXAN and Nexstar",
+  "bars": [
+    {
+      "label": "Harris",
+      "value": 108000
+    },
+    {
+      "label": "Collin",
+      "value": 40000
+    },
+    {
+      "label": "Travis",
+      "value": 32000
+    },
+    {
+      "label": "Brazoria",
+      "value": 9000
+    },
+    {
+      "label": "Hays",
+      "value": 8100
+    },
+    {
+      "label": "Gregg",
+      "value": 8000
+    },
+    {
+      "label": "Cameron",
+      "value": 5000
+    }
+  ],
+  "yMin": 0,
+  "unit": ""
+}
