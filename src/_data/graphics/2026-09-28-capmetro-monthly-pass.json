@@ -1,0 +1,22 @@
+{
+  "type": "bars",
+  "date": "2026-09-28",
+  "slug": "capmetro-monthly-pass",
+  "title": "What a CapMetro monthly pass would cost",
+  "subtitle": "Today, under the Jan. 10, 2027 step, and under the January 2029 step",
+  "alt": "Bar chart of CapMetro calendar-month pass prices under the fare proposal its board votes on September 28, 2026, taken from CapMetro's published fare table. A Local pass, covering bus, Pickup and UT Shuttle, costs 41 dollars and 25 cents today, would cost 49 dollars and 50 cents on January 10, 2027, and 66 dollars in January 2029. A Commuter pass, covering all Local service plus Rail and Express, costs 96 dollars and 25 cents today, would cost 110 dollars in 2027 and 137 dollars and 50 cents in 2029. An Access pass, the agency's paratransit service, costs 46 dollars and 50 cents today, would cost 60 dollars in 2027 and 87 dollars in 2029. It would be the first system-wide fare change since 2015. The 50 percent reduced-fare discount for seniors, riders with disabilities, Medicare card holders and eligible military personnel would continue.",
+  "source": "CapMetro",
+  "unit": "$",
+  "yMin": 0,
+  "bars": [
+    { "label": "Local now", "value": 41.25 },
+    { "label": "Local '27", "value": 49.50 },
+    { "label": "Local '29", "value": 66.00 },
+    { "label": "Commuter now", "value": 96.25 },
+    { "label": "Commuter '27", "value": 110.00 },
+    { "label": "Commuter '29", "value": 137.50 },
+    { "label": "Access now", "value": 46.50 },
+    { "label": "Access '27", "value": 60.00 },
+    { "label": "Access '29", "value": 87.00 }
+  ]
+}

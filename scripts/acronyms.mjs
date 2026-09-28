@@ -12,6 +12,10 @@ const IGNORE = new Set([
   "OK", "II", "III", "IV", "SUV", "DNA", "FBI", "NASA", "HUD", "DPS", "EMS",
   "KXAN", "KUT", "KVUE", "KTBC", "CBS", "FOX", "NBC", "ABC", "NPR", "NWS", "PGA",
   "SXSW", "ACL", "AT", "AP", "DA", "PD", "HOA", "RSS", "CVS", "TX", "VOCAL", "OMG",
+  // Roman numerals in statute names ("Title VI"), like II/III/IV above.
+  "VI",
+  // Performers whose names are simply spelled in capitals.
+  "XCX",
   // Texas road designators — not local jargon, just how routes are named.
   "SH", "FM", "CR", "RM",
   // Nationally understood terms; not the local jargon this check exists for.

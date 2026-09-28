@@ -1,0 +1,15 @@
+{
+  "type": "bars",
+  "date": "2026-09-28",
+  "slug": "aisd-diesel",
+  "title": "Austin ISD's diesel bill nearly doubled",
+  "subtitle": "What the district spent on diesel in the first month of school",
+  "alt": "Bar chart comparing what Austin Independent School District spent on diesel fuel in the first month of the school year, as Chief Financial Officer Katrina Montgomery told trustees at a September 24, 2026 board meeting. In the first month of the 2025-26 school year the district spent 186,447 dollars. In the first month of the 2026-27 school year it spent 364,369 dollars, almost twice as much, and ridership was lower this year than last. Montgomery expects the district's diesel costs to rise by 1.9 million dollars over the full year. Austin ISD cut about 1.8 million dollars from transportation spending this year, including moving high school buses to a hub model instead of neighborhood stops.",
+  "source": "Austin ISD, via the Austin American-Statesman",
+  "unit": "$",
+  "yMin": 0,
+  "bars": [
+    { "label": "First month, 2025-26", "value": 186447 },
+    { "label": "First month, 2026-27", "value": 364369 }
+  ]
+}
