@@ -1,0 +1,19 @@
+{
+  "type": "bars",
+  "date": "2026-09-29",
+  "slug": "rain-chance-week",
+  "title": "Austin's chance of rain, day by day",
+  "subtitle": "National Weather Service daytime forecast, issued Sept. 29",
+  "alt": "Bar chart of the National Weather Service daytime chance of precipitation for Austin, from the Austin-San Antonio forecast office grid point for central Austin, issued the morning of September 29, 2026. Tuesday is 20 percent, Wednesday 50 percent, Thursday 100 percent, Friday 90 percent, Saturday 60 percent and Sunday 50 percent. Thursday's forecast high is 91 degrees and Friday's is 84, down from 97 on Tuesday and Wednesday. The first weekend of the Austin City Limits Music Festival runs Friday through Sunday at Zilker Park. No weather alerts were active for Travis County when the forecast was read.",
+  "source": "National Weather Service",
+  "unit": "%",
+  "yMin": 0,
+  "bars": [
+    { "label": "Tue", "value": 20 },
+    { "label": "Wed", "value": 50 },
+    { "label": "Thu", "value": 100 },
+    { "label": "Fri", "value": 90 },
+    { "label": "Sat", "value": 60 },
+    { "label": "Sun", "value": 50 }
+  ]
+}

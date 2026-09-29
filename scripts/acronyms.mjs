@@ -19,7 +19,10 @@ const IGNORE = new Set([
   // Texas road designators — not local jargon, just how routes are named.
   "SH", "FM", "CR", "RM",
   // Nationally understood terms; not the local jargon this check exists for.
-  "ICE", "FEMA", "DHS", "SNAP", "CHIP", "STEM", "NFL", "NOAA", "LGBTQ", "GED"
+  "ICE", "FEMA", "DHS", "SNAP", "CHIP", "STEM", "NFL", "NOAA", "LGBTQ", "GED",
+  // Brand names that are simply written in capitals, not initialisms to expand:
+  // a soccer club's "FC", and the charter network IDEA, whose name is the word.
+  "FC", "IDEA"
 ]);
 
 function stripAttribution(text) {

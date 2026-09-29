@@ -1,0 +1,25 @@
+{
+  "type": "bars",
+  "date": "2026-09-29",
+  "slug": "burnet-webb-ratings",
+  "title": "Burnet and Webb, against the passing line",
+  "subtitle": "Preliminary 2025-26 state accountability scores, against the 60 that pauses intervention",
+  "alt": "Bar chart of the preliminary Texas Education Agency accountability scores for the 2025-26 school year at two Austin Independent School District middle schools, as reported by Austin Current. Burnet Middle School scored 59, four points higher than the year before. Webb Middle School scored 58. A score of 60 or above would have paused the state accountability clock and held off state intervention. Both schools received preliminary failing ratings for a fifth consecutive time, which triggers a law requiring the education commissioner to intervene once the ratings are final. The district is appealing both ratings. Parents have until October 15, 2026 to petition the commissioner to close the campuses.",
+  "source": "Austin Current",
+  "yMin": 0,
+  "bars": [
+    {
+      "label": "Burnet",
+      "value": 59
+    },
+    {
+      "label": "Webb",
+      "value": 58
+    },
+    {
+      "label": "Clock pauses at",
+      "value": 60
+    }
+  ],
+  "unit": ""
+}
