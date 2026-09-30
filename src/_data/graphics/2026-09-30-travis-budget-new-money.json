@@ -1,0 +1,29 @@
+{
+  "type": "bars",
+  "date": "2026-09-30",
+  "slug": "travis-budget-new-money",
+  "title": "New money in Travis County's budget",
+  "subtitle": "Figures for the year commissioners adopted on Sept. 29",
+  "alt": "Bar chart of four figures in the 2.3 billion dollar Travis County budget adopted by Commissioners Court on September 29, 2026, as reported by KUT. The county's reserve fund for disasters is set at 35 million dollars, up from 18 million; County Judge Andy Brown said the county zeroed the fund out responding to the July 2025 floods. The mental health diversion program, which sends people accused of low-level crimes to in-patient facilities instead of jail, gets about 15 million dollars, which Brown called the biggest investment the county has made in it. Hiring more lawyers to represent indigent clients gets 3 million dollars, of which 1.6 million is for senior lawyers handling complex felony cases. Building affordable housing units for people at risk of becoming homeless gets 2 million dollars. The budget also puts 200,000 dollars toward a study of a passenger rail line between Austin and San Antonio.",
+  "source": "KUT",
+  "unit": "$M",
+  "yMin": 0,
+  "bars": [
+    {
+      "label": "Disaster reserve",
+      "value": 35
+    },
+    {
+      "label": "Mental health diversion",
+      "value": 15
+    },
+    {
+      "label": "Indigent defense lawyers",
+      "value": 3
+    },
+    {
+      "label": "Affordable housing",
+      "value": 2
+    }
+  ]
+}

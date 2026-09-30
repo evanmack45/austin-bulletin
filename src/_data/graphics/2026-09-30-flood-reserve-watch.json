@@ -1,0 +1,40 @@
+{
+  "type": "timeline",
+  "date": "2026-09-30",
+  "slug": "flood-reserve-watch",
+  "title": "Travis County's flood money, and the rain",
+  "subtitle": "What the county set aside, and when the water is due",
+  "alt": "Timeline of five dated events tying Travis County's flood spending to the storm forecast for the week of September 30, 2026. In July 2025, floods killed nine people in Travis County and destroyed nearly 200 homes, and the county spent its disaster savings account down to zero on the response. On September 29, 2026, commissioners adopted a 2.3 billion dollar budget that sets the disaster reserve at 35 million dollars, up from 18 million. At 5:47 p.m. that same day, the National Weather Service issued a Flood Watch covering Travis County and much of South Central Texas. The watch takes effect at 7 p.m. on September 30 and forecasts 2 to 4 inches of rain with isolated amounts up to 8 inches. It ends at 7 p.m. on October 2, hours after the Austin City Limits Music Festival opens its gates at Zilker Park. Next: Travis County owes the Texas Water Development Board its flood siren plan by December 31, 2026.",
+  "source": "KUT · National Weather Service",
+  "events": [
+    {
+      "date": "July 2025",
+      "label": "Floods kill nine in Travis County",
+      "note": "The county spends its disaster savings down to zero on the response"
+    },
+    {
+      "date": "Sept. 29",
+      "label": "A $2.3 billion county budget is adopted",
+      "note": "The disaster reserve is set at $35 million, up from $18 million"
+    },
+    {
+      "date": "Sept. 29, 5:47 p.m.",
+      "label": "A Flood Watch is issued",
+      "note": "Travis County and much of South Central Texas are covered"
+    },
+    {
+      "date": "Sept. 30, 7 p.m.",
+      "label": "The watch takes effect",
+      "note": "2 to 4 inches of rain, isolated amounts up to 8"
+    },
+    {
+      "date": "Oct. 2, 7 p.m.",
+      "label": "The watch ends",
+      "note": "Zilker Park's festival gates open earlier that day"
+    }
+  ],
+  "next": {
+    "date": "Dec. 31",
+    "label": "The county's siren plan is due Dec. 31"
+  }
+}
