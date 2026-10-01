@@ -10,7 +10,8 @@
 const IGNORE = new Set([
   "US", "USA", "TV", "AI", "CEO", "CFO", "ID", "AM", "PM", "CT", "UT", "HVAC",
   "OK", "II", "III", "IV", "SUV", "DNA", "FBI", "NASA", "HUD", "DPS", "EMS",
-  "KXAN", "KUT", "KVUE", "KTBC", "CBS", "FOX", "NBC", "ABC", "NPR", "NWS", "PGA",
+  "KXAN", "KUT", "KUTX", "KVUE", "KTBC", "CBS", "FOX", "NBC", "ABC", "NPR", "NWS", "PBS",
+  "PGA",
   "SXSW", "ACL", "AT", "AP", "DA", "PD", "HOA", "RSS", "CVS", "TX", "VOCAL", "OMG",
   // Roman numerals in statute names ("Title VI"), like II/III/IV above.
   "VI",

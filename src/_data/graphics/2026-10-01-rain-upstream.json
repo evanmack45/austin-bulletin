@@ -1,0 +1,33 @@
+{
+  "type": "bars",
+  "date": "2026-10-01",
+  "slug": "rain-upstream",
+  "title": "Upstream has already taken more rain",
+  "subtitle": "Inches measured by 5 a.m. Thursday, then Austin's forecast",
+  "alt": "Bar chart comparing rain already measured in the western Hill Country early Thursday, October 1, 2026, with the rain the National Weather Service forecasts for Austin. CBS Austin meteorologist Avery Tomasco reported that more than 5 inches had fallen at Junction by 5 a.m. and that Mason County had picked up 2.5 to 3 inches, with the Llano River the biggest concern of the day as that water heads downstream toward the Highland Lakes. The National Weather Service forecast for Austin calls for new rainfall of three quarters of an inch to one inch today, 2 to 3 inches tonight, and three quarters of an inch to one inch on Friday. The Mason County and Austin bars show the top of each published range; the Junction bar is drawn at 5 inches, the floor of a total CBS Austin described as more than 5 inches. The Flood Watch covering Travis County runs until 7 p.m. Friday and puts totals from Wednesday night through Friday at 1 to 4 inches, with isolated amounts up to 8 inches possible.",
+  "source": "CBS Austin · National Weather Service",
+  "unit": "in",
+  "yMin": 0,
+  "bars": [
+    {
+      "label": "Junction, by 5 a.m.",
+      "value": 5
+    },
+    {
+      "label": "Mason County, by 5 a.m.",
+      "value": 3
+    },
+    {
+      "label": "Austin, tonight",
+      "value": 3
+    },
+    {
+      "label": "Austin, today",
+      "value": 1
+    },
+    {
+      "label": "Austin, Friday",
+      "value": 1
+    }
+  ]
+}

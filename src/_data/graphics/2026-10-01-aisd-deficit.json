@@ -1,0 +1,25 @@
+{
+  "type": "bars",
+  "date": "2026-10-01",
+  "slug": "aisd-deficit",
+  "title": "Austin ISD's projected deficit jumped",
+  "subtitle": "What the district projected, and what it now says it must cut",
+  "alt": "Bar chart of three Austin Independent School District budget figures reported by KXAN on September 30, 2026, after the district's chief financial officer Katrina Montgomery briefed the school board. The district's projected deficit for this year rose from 19 million dollars to 105 million dollars after enrollment came in lower than it expected and attendance revenue fell short. Austin ISD says it anticipates cutting about 60 million dollars next year. Enrollment this school year is 66,032 students, down from about 69,000 in 2025-26, and the district counts 6,469 student departures and non-returning students, not including graduates.",
+  "source": "KXAN",
+  "unit": "$M",
+  "yMin": 0,
+  "bars": [
+    {
+      "label": "Deficit projected now",
+      "value": 105
+    },
+    {
+      "label": "Cuts anticipated next year",
+      "value": 60
+    },
+    {
+      "label": "Deficit projected earlier",
+      "value": 19
+    }
+  ]
+}
