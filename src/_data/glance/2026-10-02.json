@@ -1,0 +1,55 @@
+{
+  "date": "2026-10-02",
+  "fetchedAt": "2026-10-02T12:26:03.228Z",
+  "weather": {
+    "high": 81,
+    "low": 72,
+    "summary": "Showers And Thunderstorms Likely",
+    "alerts": [
+      "Flood Watch until 7:00 p.m. Friday"
+    ],
+    "blurb": "Flood watch. Low-water crossings fill fast — turn around, don't drown.",
+    "source": "https://www.weather.gov/ewx/"
+  },
+  "air": {
+    "aqi": 22,
+    "category": "Good",
+    "pm25": 0.8,
+    "ozone": 34,
+    "blurb": "Three days of rain scrubbed the air clean. Shame about the sky.",
+    "source": "https://open-meteo.com/en/docs/air-quality-api"
+  },
+  "lake": {
+    "percentFull": 89.7,
+    "elevationFt": 674.85,
+    "weekNote": "−0.4 pts vs. last week",
+    "blurb": "Rising, not falling: LCRA expects Llano River water to lift it a foot or two.",
+    "source": "https://www.waterdatafortexas.org/reservoirs/individual/travis"
+  },
+  "pollen": {
+    "index": 1,
+    "category": "Very Low",
+    "tree": 1,
+    "grass": 1,
+    "weed": 1,
+    "plants": [],
+    "note": "Tree 1 · Grass 1 · Weed 1",
+    "blurb": "Almost nothing in the air. Breathe easy.",
+    "source": "https://developers.google.com/maps/documentation/pollen"
+  },
+  "grid": {
+    "forecastPeakMw": 63700,
+    "peakHourEnding": 15,
+    "availableMw": 92500,
+    "condition": "Normal",
+    "blurb": "Demand peaks near 63,700 megawatts; ERCOT has 92,500 ready and room to spare.",
+    "source": "https://www.ercot.com/gridmktinfo/dashboards/systemwidedemand"
+  },
+  "sun": {
+    "sunrise": "7:25 a.m.",
+    "sunset": "7:14 p.m.",
+    "blurb": "Just under 12 hours of daylight today, and most of it behind cloud.",
+    "source": "https://open-meteo.com/"
+  },
+  "errors": {}
+}

@@ -1,0 +1,25 @@
+{
+  "type": "bars",
+  "date": "2026-10-02",
+  "slug": "llano-crest",
+  "title": "Friday's Llano crest, against the big ones",
+  "subtitle": "River height in feet at Llano, as the water heads for the Highland Lakes",
+  "alt": "Bar chart comparing the Llano River crest forecast for early Friday, Oct. 2, 2026, with two earlier floods, as reported by CBS Austin. CBS Austin meteorologists said the river was expected to crest early Friday in Llano County at just over 12 feet, a moderate flood. That compares with a crest of 20 feet in July 2026 and more than 40 feet in October 2018. The October 2018 bar is drawn at 40 feet, the floor of a crest CBS Austin described as more than 40 feet. The Lower Colorado River Authority opened a floodgate at Starcke Dam early Friday and expected to open another at Wirtz Dam later in the morning to pass the water downstream, and said some parts of the Hill Country had received more than 7 inches of rain since Wednesday. Lake Travis stood at about 675 feet early Friday and was forecast to rise 1 to 2 feet, staying below its full capacity of 681 feet.",
+  "source": "CBS Austin",
+  "unit": "ft",
+  "yMin": 0,
+  "bars": [
+    {
+      "label": "Friday, forecast",
+      "value": 12
+    },
+    {
+      "label": "July 2026",
+      "value": 20
+    },
+    {
+      "label": "Oct. 2018",
+      "value": 40
+    }
+  ]
+}

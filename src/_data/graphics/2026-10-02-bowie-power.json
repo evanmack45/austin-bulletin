@@ -1,0 +1,29 @@
+{
+  "type": "timeline",
+  "date": "2026-10-02",
+  "slug": "bowie-power",
+  "title": "A two-week displacement became six",
+  "subtitle": "What tenants of The Bowie were told, and when",
+  "alt": "Timeline of the displacement of tenants at The Bowie, a downtown Austin high-rise, as reported by KXAN. Around midnight on Sept. 18, 2026, the Austin Fire Department responded to overheated wires and equipment on the 33rd floor of the building near West Fifth Street and Bowie Street, and an incident report said building management verified that displaced tenants of several apartments would be accommodated. Property management told tenants by email that repairs would require a full de-energization of the building and that the best case for restoring power was Sept. 21. A follow-up email on Sept. 30 told tenants the earliest electricity may return is between Oct. 23 and Oct. 31. Tenant Gracie Schulte estimates her stays at various short-term rentals could cost 9,000 dollars by Oct. 4, and tenants say they are concerned about whether the building will follow through on reimbursement commitments.",
+  "source": "KXAN",
+  "events": [
+    {
+      "date": "Sept. 18",
+      "label": "A fire on the 33rd floor empties apartments",
+      "note": "Austin Fire found overheated wires near W. Fifth and Bowie streets"
+    },
+    {
+      "date": "Sept. 21",
+      "label": "The best case management first gave for power",
+      "note": "Repairs required shutting off the whole building"
+    },
+    {
+      "date": "Sept. 30",
+      "label": "A new email moves power to Oct. 23 at the earliest",
+      "note": "One tenant puts her hotel and rental costs near $9,000"
+    }
+  ],
+  "next": {
+    "label": "Management now says power may not return until Oct. 31"
+  }
+}

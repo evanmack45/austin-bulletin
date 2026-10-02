@@ -1,0 +1,29 @@
+{
+  "type": "timeline",
+  "date": "2026-10-02",
+  "slug": "ice-shooting-so-far",
+  "title": "The Austin ICE shooting, so far",
+  "subtitle": "Shot Sept. 20, charged, denied bond, operated on Oct. 1",
+  "alt": "Timeline of the Austin shooting by a U.S. Immigration and Customs Enforcement officer, as reported by KUT. On Sept. 20, 2026, an ICE officer shot Wilber Garces Perez in the back in north Austin after he fled a traffic stop; a Department of Homeland Security special agent testified that the officer who fired was not wearing a body camera and that the second officer at the scene had turned his own camera off before arriving. On Sept. 30, U.S. Magistrate Judge Dustin M. Howell ruled Garces Perez a flight risk and kept him in federal custody, while disagreeing with prosecutors that he was a danger to the community; the same DHS agent testified he had never interviewed the officer who fired. On Oct. 1, surgeons removed the bullet that had been lodged in his back for about 11 days. A separate Homeland Security unit is still investigating the shooting itself.",
+  "source": "KUT",
+  "events": [
+    {
+      "date": "Sept. 20",
+      "label": "An ICE officer shoots Wilber Garces Perez in the back",
+      "note": "He fled a traffic stop; the officer who fired wore no body camera"
+    },
+    {
+      "date": "Sept. 30",
+      "label": "A federal judge keeps him in custody as a flight risk",
+      "note": "A Homeland Security agent never interviewed the officer who fired"
+    },
+    {
+      "date": "Oct. 1",
+      "label": "Surgeons remove the bullet, lodged about 11 days",
+      "note": "His lawyers said ICE kept his wife out of the operating room"
+    }
+  ],
+  "next": {
+    "label": "A separate Homeland Security unit is still investigating the shooting"
+  }
+}
