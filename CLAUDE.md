@@ -501,6 +501,27 @@ Neutral. Factual. Clean.
   fixed yet. `CVS` was added to the IGNORE list in `scripts/acronyms.mjs`,
   alongside CBS and FOX, as a national brand rather than an initialism.
 
+- 2026-10-02 (routine, finding — the YouTube oEmbed outage has CLEARED):
+  `https://www.youtube.com/oembed` returned 200 to the runner this morning
+  and `npm run video` built two cards without trouble, ending the outage
+  logged 2026-09-23. Video discovery still follows the 2026-09-23 rule —
+  clips come from the YouTube URLs outlets embed in the articles we already
+  read, never from `/feeds/videos.xml` or `/results`, both of which
+  YouTube's robots.txt disallows. Nine consecutive editions had shipped a
+  `visual_exception` naming the 401 or the absence of a clip; 2026-10-02 is
+  the first since 2026-09-22 to meet every visual minimum outright. If
+  `npm run video` starts failing again, check the oEmbed status code before
+  assuming the discovery route is at fault. Two defects from the 2026-09-23
+  entry are still unfixed: `scripts/card.mjs` hard-cuts a post body at 400
+  characters with no ellipsis, and `scripts/check.mjs` reads an `alt`
+  attribute with `[^"']*`, so a raw apostrophe in hand-written alt text
+  makes the gate report the image as having no alt. Neither bit this run —
+  all four cards ended on sentence boundaries and the alt text is
+  machine-generated — but both remain live hazards. Added the same morning:
+  `AIPAC` and `EOC` to `scripts/acronyms.json`, and `CTXGO` (the Central
+  Texas travel app, a product name) to the IGNORE list in
+  `scripts/acronyms.mjs`.
+
 - 2026-09-08 (Trust package): The About page carries a clear trust-and-process
   section (what AI does; what the publisher reviews; corrections; links to
   the full Editorial Rulebook and pipeline). No permanent disclosure footer on

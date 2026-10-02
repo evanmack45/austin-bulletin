@@ -13,6 +13,8 @@ const IGNORE = new Set([
   "KXAN", "KUT", "KUTX", "KVUE", "KTBC", "CBS", "FOX", "NBC", "ABC", "NPR", "NWS", "PBS",
   "PGA",
   "SXSW", "ACL", "AT", "AP", "DA", "PD", "HOA", "RSS", "CVS", "TX", "VOCAL", "OMG",
+  // Product/brand names written in capitals: the Central Texas travel app.
+  "CTXGO",
   // Roman numerals in statute names ("Title VI"), like II/III/IV above.
   "VI",
   // Performers whose names are simply spelled in capitals.
