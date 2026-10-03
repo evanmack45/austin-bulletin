@@ -1,0 +1,35 @@
+{
+  "type": "timeline",
+  "date": "2026-10-03",
+  "slug": "ballot-paperwork",
+  "title": "Austin's ballot, and the paperwork behind it",
+  "subtitle": "Two disclosure deadlines missed, 35,000 registrations late, Monday is the cutoff",
+  "alt": "Timeline of the paperwork behind Austin's November 3, 2026 ballot, as reported by Community Impact and KXAN. Austin City Council candidates had to file a Statement of Financial Information by August 24, 2026, and eight candidates missed that deadline. They had to file a Personal Financial Statement by September 8, and seven missed that one; the city's Ethics Review Commission said missed filings are a recurring pattern election after election. Overnight on September 22 and 23, about 32,000 voter registration records that the Texas Department of Public Safety had failed to forward arrived at the Travis County Tax Office in one batch, pushing the county's total of delayed DPS records past 35,000; some had been submitted nearly a year earlier. The deadline to register to vote in the November 3 election is Monday, October 5. Early voting begins October 19, and Election Day is November 3, when Austin voters decide five City Council races, a bond election and Proposition I.",
+  "source": "Community Impact · KXAN",
+  "events": [
+    {
+      "date": "Aug. 24",
+      "label": "Council candidates' city disclosure forms were due",
+      "note": "Eight candidates across the five races missed this deadline"
+    },
+    {
+      "date": "Sept. 8",
+      "label": "Their state financial statements were due",
+      "note": "Seven missed it; the ethics commission calls the pattern recurring"
+    },
+    {
+      "date": "Sept. 22-23",
+      "label": "32,000 delayed registrations land in one overnight batch",
+      "note": "Travis County's backlog of records the state never sent tops 35,000"
+    },
+    {
+      "date": "Oct. 5",
+      "label": "Monday is the last day to register for this election",
+      "note": "A paper application still works if your record looks wrong"
+    }
+  ],
+  "next": {
+    "label": "Early voting opens Oct. 19; Election Day is Nov. 3",
+    "note": "Five council seats, a bond election and Proposition I are on it"
+  }
+}

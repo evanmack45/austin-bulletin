@@ -1,0 +1,25 @@
+{
+  "type": "bars",
+  "date": "2026-10-03",
+  "slug": "texas-september-gas",
+  "title": "Texas just set a September gas record",
+  "subtitle": "Statewide average for a gallon of regular unleaded, in dollars",
+  "alt": "Bar chart of three Texas statewide average prices for a gallon of regular unleaded gasoline, as reported by AAA Texas through FOX 7 Austin. The average for September 2026 was 3.94 dollars, the most expensive September on record in Texas. The previous September record, set in 2012, was 3.63 dollars. Texas' highest statewide average for any month remains 4.69 dollars, set in June 2022. AAA Texas spokesperson Daniel Armbruster said crude oil prices had eased back into the 90-dollar-per-barrel range while gasoline prices remained unusually high for the time of year, and noted that the September figure is a September record rather than an all-time record.",
+  "source": "AAA Texas via FOX 7 Austin",
+  "unit": "$",
+  "yMin": 0,
+  "bars": [
+    {
+      "label": "Sept. 2012",
+      "value": 3.63
+    },
+    {
+      "label": "Sept. 2026",
+      "value": 3.94
+    },
+    {
+      "label": "June 2022 peak",
+      "value": 4.69
+    }
+  ]
+}

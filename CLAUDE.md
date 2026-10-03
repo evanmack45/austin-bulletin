@@ -540,3 +540,23 @@ Neutral. Factual. Clean.
   disappears afterward; the page clearly dates itself and serves as an
   archive post-window. Desk may mention it neutrally near key deadlines.
   No other trackers; money gate and neutrality/accuracy rules unchanged.
+
+- 2026-10-03 (routine, finding — THE TEXAS TRIBUNE FEED IS STALE): 
+  `https://feeds.texastribune.org/feeds/main/` has returned the same
+  twenty items for at least two weeks; its newest `pubDate` was Sept. 20
+  on both the 2026-10-02 and 2026-10-03 runs, so nothing statewide has
+  come through it since. The feed answers 200 and parses fine — it is not
+  a block on us — but it is no longer a live source, and a run that
+  checks it off as "read" is checking off nothing. Until it moves again,
+  treat the Tribune as unavailable rather than empty, and reach statewide
+  stories through the outlets that still publish (KXAN's Texas desk, FOX 7,
+  KUT politics). If it is still frozen next week it needs a look at the
+  feed URL itself. Same morning: `npm run civic` returned work-zone rows
+  that are overwhelmingly stale permit extensions rather than new
+  closures — one usable row in fourteen — so the 2–3×/week cadence is
+  right and the output needs reading, not lifting. Also logged: the gate
+  requires "American Automobile Association (AAA)" on first use because
+  `scripts/acronyms.json` carries that expansion, but AAA has been the
+  organization's actual name for decades; the entry is a candidate for the
+  IGNORE list in `scripts/acronyms.mjs` alongside CBS, FOX and CVS, and was
+  deliberately not changed mid-publish.
