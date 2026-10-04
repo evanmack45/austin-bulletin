@@ -6,7 +6,7 @@ permalink: "/vote-2026/"
 
 ## November 2026 voting in Austin
 
-This page covers the November 2026 general election for Austin residents. It lists the key dates and points you to the official places to register, check your status, and find where and when to vote. No endorsements; no ads.
+This page covers the November 2026 general election, with voting-location guidance for Austin residents registered in Travis County. If you are registered in Hays or Williamson County, use your own county’s election information; the <a href="{{ vote2026.links.cityVoterResources }}">City of Austin voter resources</a> link to each county. Find official registration instructions, status checks and key dates below. No endorsements; no ads.
 
 ### Key dates
 
@@ -14,23 +14,27 @@ This page covers the November 2026 general election for Austin residents. It lis
 - Early voting: **Monday, October 19 – Friday, October 30, 2026**
 - Election Day: **Tuesday, November 3, 2026**
 
-Sources: <a href="{{ vote2026.links.myVoterPortal }}">Texas Secretary of State — My Voter Portal</a>; <a href="{{ vote2026.links.travisCurrentElection }}">Travis County Elections — Current Election</a>.
+Sources: <a href="{{ vote2026.links.register }}">VoteTexas — Voter Registration</a>; <a href="{{ vote2026.links.travisCurrentElection }}">Travis County Elections — Current Election</a>.
 
 ### Do these first
 
-- Register or check if you’re registered: <a href="{{ vote2026.links.register }}">VoteTexas — Register to vote</a> and <a href="{{ vote2026.links.myVoterPortal }}">My Voter Portal</a>.
+- Register: Start with <a href="{{ vote2026.links.register }}">VoteTexas — official registration instructions</a>. If you use the SOS new-registration application, print, sign, and mail or deliver the completed form to your county voter registrar as instructed. Filling out that form online alone does not complete registration. The <a href="{{ vote2026.links.registrationInstructions }}">official registration and update instructions</a> also explain online name/address updates for existing voters and registration through qualifying DPS license or ID transactions.
+- Check your registration status: <a href="{{ vote2026.links.myVoterPortal }}">Texas Secretary of State — Am I Registered?</a>. If the lookup does not load, use the <a href="{{ vote2026.links.register }}">official VoteTexas registration page</a> for current links and county registrar contacts.
 - Travis County election info: <a href="{{ vote2026.links.travisCurrentElection }}">Current Election (VoteTravis.gov)</a> — dates, sites and hours when posted, and county contacts.
-- Where to vote and sample ballot: <a href="{{ vote2026.links.myVoterPortal }}">My Voter Portal</a> (polling places populate close to voting).
+- Where to vote and sample ballots: <a href="{{ vote2026.links.travisCurrentElection }}">Travis County — Current Election</a>. Open the Sample Ballots tab for the consolidated ballot and the county’s accessible ballot link; use Polling Locations for sites and hours.
+
+<!-- Remove this deadline-day paragraph after October 5 during normal guide maintenance. -->
+**Monday, October 5, 2026 only:** The Nelda Wells Spears Building, **2433 Ridgepoint Drive**, accepts voter registration from **8 a.m. to midnight**, according to the <a href="{{ vote2026.links.travisRegistrationDeadline }}">Travis County Tax Office deadline notice</a>. These extended hours apply only to this location; check that notice for the other offices’ hours and delivery options.
 
 ### Early voting (Oct 19–30)
 
-Any registered voter in Travis County may vote early in person at any early voting site in the county. Dates and hours are published by the county and may vary by location. Check <a href="{{ vote2026.links.travisCurrentElection }}">VoteTravis.gov — Current Election</a> for the official list and hours, and use <a href="{{ vote2026.links.myVoterPortal }}">My Voter Portal</a> to confirm sites once they’re live.
+Any registered voter in Travis County may vote early in person at any early voting site in the county. Dates and hours are published by the county and may vary by location. Check <a href="{{ vote2026.links.travisCurrentElection }}">VoteTravis.gov — Current Election</a> for the official list and hours.
 
 Reference: <a href="{{ vote2026.links.earlyVotingFAQ }}">VoteTexas — Early voting FAQs</a>.
 
 ### Election Day (Nov 3)
 
-On Election Day, Travis County uses countywide vote centers — you can vote at any site showing the “Vote Here/Aquí” sign. Find locations and wait times on <a href="{{ vote2026.links.travisCurrentElection }}">VoteTravis.gov</a> and confirm your polling place in <a href="{{ vote2026.links.myVoterPortal }}">My Voter Portal</a>.
+Voters registered in Travis County can vote at any Travis County vote center on Election Day. Find locations, hours and wait times on <a href="{{ vote2026.links.travisCurrentElection }}">VoteTravis.gov — Current Election</a>. If you are registered in another county, use that county’s election information through the <a href="{{ vote2026.links.cityVoterResources }}">City of Austin voter resources</a>.
 
 ### ID, mail ballots, accessibility
 

@@ -2,7 +2,7 @@
 // This file exposes global data used by templates, including whether to
 // surface a navigation link during the election window.
 //
-// Sources verified 2026-09-08:
+// Dates verified 2026-10-04; official links checked in local Chrome:
 // - Texas SOS: 2026 November General Election — Tuesday, Nov 3, 2026
 // - Registration deadline: Monday, Oct 5, 2026 (postmarked/received)
 // - Early voting: Mon, Oct 19 – Fri, Oct 30, 2026
@@ -23,8 +23,11 @@ export default {
   links: {
     voteTexasHome: "https://www.votetexas.gov/",
     register: "https://www.votetexas.gov/register-to-vote/",
-    myVoterPortal: "https://teamrv-mvp.sos.texas.gov/MVP/mvp.do",
+    myVoterPortal: "https://goelect.txelections.civixapps.com/ivis-mvp-ui/#/login",
     travisCurrentElection: "https://votetravis.gov/current-election-information/current-election/",
+    registrationInstructions: "https://www.votetexas.gov/register-to-vote/update-voter-registration.html",
+    cityVoterResources: "https://www.austintexas.gov/voterresources",
+    travisRegistrationDeadline: "https://tax-office.traviscountytx.gov/about-us/newsroom/2026/272-voter-registration-ends-monday-for-nov-3-election",
     travisHome: "https://votetravis.gov/",
     earlyVotingFAQ: "https://www.votetexas.gov/faq/early-voting.html",
     registrationFAQ: "https://www.votetexas.gov/faq/registration.html"
