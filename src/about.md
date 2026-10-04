@@ -22,7 +22,7 @@ a week. It covers Austin and Texas. It reports facts, not opinions.
   clean top to bottom. If a check fails, we fix it or cut the item; an edition that
   cannot pass is not published.
 - <strong>How we gather</strong>: We identify ourselves honestly on fetches
-  (<code>TheAustinBulletin/1.0 (+https://theaustinbulletin.com)</code>), read an outlet’s
+  (<code class="crawler-user-agent">TheAustinBulletin/1.0 (+https://theaustinbulletin.com)</code>), read an outlet’s
   <code>robots.txt</code> before adding a path, and don’t engineer around a site’s stated policy.
   KVUE stories are read through their official MSN syndication when available; otherwise
   we cite another readable source or, as a last resort, run a clearly labeled one‑sentence
@@ -80,6 +80,11 @@ We never silently erase errors.
 
 Feedback and corrections are welcome. Email Evan McMillan, the publisher, at
 <contact@theaustinbulletin.com>.
+
+## Council records
+
+For Austin City Council agendas, votes and source records, visit
+[Y’all, City Hall](https://yallcityhall.org/).
 
 ## Follow
 
