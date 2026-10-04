@@ -1,0 +1,143 @@
+{
+  "date": "2026-10-04",
+  "reviewedAt": "2026-10-04T20:46:41.201248+00:00",
+  "lead": {
+    "key": "voter-registration",
+    "record": "/vote-2026/",
+    "sourceHash": "ebeec6b547d54c50fa32a08e1c8e2a64ada9b7e508214378640c8756deb6ce7c",
+    "title": "Voter registration closes Monday",
+    "summary": "The registration deadline for the November 3 election is Monday, October 5, 2026. Check your registration and the official instructions before the deadline.",
+    "asOf": "Source reviewed October 4, 2026",
+    "sources": [
+      {
+        "name": "Travis County Tax Office",
+        "url": "https://tax-office.traviscountytx.gov/about-us/newsroom/2026/272-voter-registration-ends-monday-for-nov-3-election"
+      }
+    ],
+    "action": {
+      "label": "Check registration & how to submit",
+      "url": "/vote-2026/"
+    },
+    "detail": "October 5 only: the Nelda Wells Spears Building, 2433 Ridgepoint Drive, accepts registration from 8 a.m. to midnight. Those extended hours apply to this location, not every county office.",
+    "expiresOn": "2026-10-05"
+  },
+  "access": {
+    "key": "zilker-access",
+    "record": "/zilker-park-access/",
+    "sourceHash": "7b384226edcf4eb80f18e8e9120aecf9a04c793c2931a40a124e632542e9ce09",
+    "title": "What’s open at Zilker during ACL?",
+    "summary": "The City lists Barton Springs Pool, the trail and the Greenbelt as open. On festival weekends, enter the pool from Azie Morton Road only.",
+    "asOf": "Guide checked October 4, 12:53 p.m. CDT",
+    "sources": [
+      {
+        "name": "City of Austin",
+        "url": "https://www.austintexas.gov/parks/parks-and-recreation-facilities-closures"
+      }
+    ],
+    "action": {
+      "label": "Entrances, closures & parking",
+      "url": "/zilker-park-access/"
+    },
+    "detail": "The sources checked for our guide do not confirm a Great Lawn reopening date. Open amenities do not mean normal parking or access to festival grounds.",
+    "expiresOn": "2026-10-18"
+  },
+  "developments": [
+    {
+      "key": "school-support",
+      "record": "/2026/10/04/",
+      "sourceHash": "e2ebb2188b4c308f357b2dddea0c0682f82d423c2b503d211f467401aa7f6d7a",
+      "title": "The people behind the school day",
+      "summary": "AISD’s October 3 hiring fair targeted about 70 support positions, from buses to kitchens. Its talent officer told KXAN that people who missed the fair can still apply through the district’s careers site.",
+      "asOf": "KXAN report · October 3, 2026",
+      "sources": [
+        {
+          "name": "KXAN",
+          "url": "https://www.kxan.com/news/local/austin/austin-isd-hosts-hiring-fair-to-fill-support-staff-positions/"
+        }
+      ],
+      "action": {
+        "label": "Read the hiring report",
+        "url": "https://www.kxan.com/news/local/austin/austin-isd-hosts-hiring-fair-to-fill-support-staff-positions/"
+      }
+    },
+    {
+      "key": "southeast-crash",
+      "record": "/2026/10/04/",
+      "sourceHash": "e2ebb2188b4c308f357b2dddea0c0682f82d423c2b503d211f467401aa7f6d7a",
+      "title": "A fatal crash southeast of the airport",
+      "summary": "One adult died and two were injured in a two-vehicle crash near Pearce Lane and FM 973 on Saturday, October 3, CBS Austin reported. The account attributes the response to Austin-Travis County EMS.",
+      "asOf": "CBS Austin report · October 3, 2026",
+      "sources": [
+        {
+          "name": "CBS Austin",
+          "url": "https://cbsaustin.com/news/local/one-dead-two-others-injured-in-se-austin-crash"
+        }
+      ],
+      "action": {
+        "label": "Read the Saturday report",
+        "url": "https://cbsaustin.com/news/local/one-dead-two-others-injured-in-se-austin-crash"
+      }
+    },
+    {
+      "key": "austin-musicians",
+      "record": "/2026/10/04/",
+      "sourceHash": "e2ebb2188b4c308f357b2dddea0c0682f82d423c2b503d211f467401aa7f6d7a",
+      "title": "An Austin band’s long road to ACL",
+      "summary": "After nearly a decade together, Flight By Nothing’s members spoke with The Daily Texan about their first ACL booking, years of small stages and preparing a debut album. The interview captures an Austin band preparing for a bigger stage.",
+      "asOf": "Interview published October 3, 2026",
+      "sources": [
+        {
+          "name": "The Daily Texan",
+          "url": "https://thedailytexan.com/2026/10/03/flight-by-nothing-talks-growing-up-together-first-acl-performance/"
+        }
+      ],
+      "action": {
+        "label": "Read the band interview",
+        "url": "https://thedailytexan.com/2026/10/03/flight-by-nothing-talks-growing-up-together-first-acl-performance/"
+      }
+    }
+  ],
+  "feature": {
+    "key": "park-restoration",
+    "record": "/2026/10/04/",
+    "sourceHash": "e2ebb2188b4c308f357b2dddea0c0682f82d423c2b503d211f467401aa7f6d7a",
+    "title": "After the music, who repairs the lawn?",
+    "summary": "The festival’s contract requires restoration of Zilker’s Great Lawn and surrounding areas, the Parks Department told KXAN. Damaged sod is to be replaced and temporary mulch removed. That responsibility matters beyond a muddy festival weekend.",
+    "asOf": "KXAN report · October 3, 2026",
+    "sources": [
+      {
+        "name": "KXAN",
+        "url": "https://www.kxan.com/acl/acl-festivals-muddy-great-lawn-raises-concern-for-austin-parks-future/"
+      },
+      {
+        "name": "City of Austin",
+        "url": "https://www.austintexas.gov/emergency-management/news/fall-festival-season-returns-austin"
+      }
+    ],
+    "action": {
+      "label": "Read the restoration reporting",
+      "url": "https://www.kxan.com/acl/acl-festivals-muddy-great-lawn-raises-concern-for-austin-parks-future/"
+    },
+    "next": "Next: the October 9–11 festival weekend, then restoration. We’re following the responsibility to return a repaired public park.",
+    "image": "/images/2026-10-04/zilker-restoration.png",
+    "imageAlt": "A sourced timeline of ACL festival dates and the festival’s restoration obligation; no public reopening date is promised."
+  },
+  "goodThing": {
+    "key": "recycling-art",
+    "record": "/2026/10/04/",
+    "sourceHash": "e2ebb2188b4c308f357b2dddea0c0682f82d423c2b503d211f467401aa7f6d7a",
+    "title": "A little cleanup, a little local art",
+    "summary": "FOX 7 describes ACL’s Rock and Recycle exchange: a full green bag of recyclables earns a limited-edition T-shirt designed by a local artist. A small way to leave something useful behind.",
+    "asOf": "FOX 7 report · October 3, 2026",
+    "sources": [
+      {
+        "name": "FOX 7 Austin",
+        "url": "https://www.fox7austin.com/news/mud-rain-delay-doors-acl-saturday"
+      }
+    ],
+    "action": {
+      "label": "Read about Rock and Recycle",
+      "url": "https://www.fox7austin.com/news/mud-rain-delay-doors-acl-saturday"
+    }
+  }
+}

@@ -67,3 +67,18 @@ exceptional user communication; no routine approvals or artifacts for Evan.
   and its last-checked timestamp during the existing daily editorial run. Do not
   create another scheduled task for guide review or present planned access as
   a personal on-site observation. Preserve dated editions.
+
+## Front-page delivery
+
+Follow EDITORIAL.md's edited-front-page contract during the existing morning run.
+Keep the current deadline/action/source visible before scroll at 1440x900 and
+390x844, clickable Zilker guidance immediately accessible and 320px usable.
+Check missing packet, Chicago date/expiry and changed-source fallback through
+focused tests; review selected facts separately. Preserve dated editions, feeds,
+canonicals and election navigation. Curation expires only when rebuilt, so daily
+review must remove obsolete instructions; do not add a midnight automation.
+
+When a current dated NWS snapshot warrants the top warning, give it precedence.
+The warning and lead title remain on the first screen; the downstream first-fold
+budget includes the warning height. Browser tests exercise a populated warning
+as well as normal conditions so legitimate warnings cannot block daily checks.

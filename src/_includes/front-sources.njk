@@ -1,0 +1,2 @@
+{% if card.sources.length %}<p class="front-sources">{% for source in card.sources %}<a href="{{ source.url | escape }}">{{ source.name | escape }}</a>{% if not loop.last %} · {% endif %}{% endfor %}</p>{% endif %}
+<p class="front-asof">{{ card.asOf | escape }}</p>

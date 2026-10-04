@@ -560,3 +560,72 @@ h2#the-back-page {
 }
 .to-top a { color: var(--accent); text-decoration: none; }
 .to-top a:hover { text-decoration: underline; }
+
+/* Edited front page only; dated editions keep their original presentation. */
+.home-front main { max-width: 74rem; padding: 0 1.5rem 3rem; }
+.home-front .front-masthead { max-width: 74rem; margin: auto; padding: 1.1rem 1.5rem .8rem; display: grid; grid-template-columns: 1fr auto; align-items: center; border-bottom: 2px solid var(--ink); }
+.home-front .front-masthead .wordmark { font-size: 3.2rem; text-align: left; }
+.home-front .front-masthead nav { display: flex; gap: .7rem; }
+.home-front .front-masthead nav a { min-height: 44px; display: inline-flex; align-items: center; padding: .15rem .3rem; font-size: .9rem; }
+.home-front .front-masthead p { grid-column: 1 / -1; margin: .3rem 0 0; font-size: .8rem; color: var(--muted); }
+.home-front .edited-front p { margin: .65rem 0; }
+.home-front .front-priorities { display: grid; grid-template-columns: 1.4fr 1fr; gap: 2.5rem; padding: 1.35rem 0 1.7rem; border-bottom: 1px solid var(--ink); }
+.home-front .front-lead h1 { font-size: clamp(2rem, 4.6vw, 3.8rem); line-height: 1.06; margin: .2rem 0 .8rem; letter-spacing: -.025em; max-width: 14ch; }
+.home-front .front-kicker { color: var(--accent); font-size: .75rem; font-weight: 800; text-transform: uppercase; letter-spacing: .14em; }
+.home-front .front-deck { font-size: 1.2rem; line-height: 1.5; }
+.home-front .front-detail { font-size: .95rem; line-height: 1.5; }
+.home-front .front-access { border-left: 1px solid var(--rule); padding-left: 2.2rem; }
+.home-front h2 { font-size: 1.8rem; letter-spacing: -.015em; text-transform: none; display: block; margin: .25rem 0 .8rem; }
+.home-front h2::after { content: none; }
+.home-front .front-access h2 { font-size: 2rem; line-height: 1.15; }
+.home-front .front-access h2 a { color: var(--ink); text-decoration: none; }
+.home-front .front-access h2 a:hover { text-decoration: underline; }
+.home-front .front-access p { line-height: 1.5; }
+.home-front .front-sources { font-size: .88rem; font-weight: 700; }
+.home-front .front-sources a { display: inline-flex; min-height: 44px; align-items: center; }
+.home-front .front-asof { font-size: .75rem; color: var(--muted); line-height: 1.5; }
+.home-front .front-action { display: inline-flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 44px; padding: .6rem .9rem; background: var(--accent); color: var(--bg); font-size: .95rem; font-weight: 700; line-height: 1.35; text-decoration: none; }
+.home-front .front-action:hover { text-decoration: underline; }
+.home-front .front-action--quiet { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+.home-front .front-text-link { display: inline-flex; align-items: center; min-height: 44px; font-size: .9rem; font-weight: 700; }
+.home-front a:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+.home-front .front-action:focus-visible { outline-color: var(--ink); }
+.home-front .front-section-label { font-size: .8rem; text-transform: uppercase; letter-spacing: .14em; margin: 1.7rem 0 1rem; }
+.home-front .front-story-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1.7rem; }
+.home-front .front-story-grid article + article { border-left: 1px solid var(--rule); padding-left: 1.7rem; }
+.home-front h3 { font-size: 1.4rem; margin: 0 0 .5rem; line-height: 1.2; }
+.home-front .front-story-grid p { font-size: .98rem; line-height: 1.5; }
+.home-front .front-feature { display: grid; grid-template-columns: 1.2fr 1fr; gap: 2.5rem; border-top: 1px solid var(--ink); margin-top: 2rem; padding-top: 1.5rem; }
+.home-front .front-feature figure { margin: 0; align-self: center; }
+.home-front .front-feature figcaption { font-size: .72rem; color: var(--muted); margin-top: .5rem; }
+.home-front .front-next { border-left: 3px solid var(--accent); padding-left: .8rem; font-weight: 650; }
+.home-front .front-edition { margin-top: 2rem; padding: 1.2rem 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
+.home-front .front-lower { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; margin-top: 1.5rem; }
+.home-front .front-lower ul { padding-left: 1.15rem; }
+.home-front .front-lower li a { display: inline-flex; align-items: center; min-height: 44px; }
+.home-front .front-conditions { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--rule); }
+.home-front .front-conditions h2 { font-size: 1rem; }
+.home-front .site-footer { max-width: 74rem; }
+@media (max-width: 650px) {
+  .home-front main { padding: 0 1rem 2rem; }
+  .home-front .front-masthead { display: block; padding: .65rem 1rem .5rem; }
+  .home-front .front-masthead .wordmark { font-size: clamp(1.9rem,8.6vw,2.3rem); white-space: nowrap; }
+  .home-front .front-masthead nav { justify-content: space-between; gap: .3rem; }
+  .home-front .front-masthead nav a { padding: 0 .15rem; font-size: .82rem; }
+  .home-front .front-masthead p { margin: 0; font-size: .72rem; }
+  .home-front .front-priorities { display: block; padding: 1rem 0; }
+  .home-front .front-lead h1 { font-size: 2.2rem; max-width: 17ch; margin-bottom: .65rem; }
+  .home-front .front-deck { font-size: 1.08rem; }
+  .home-front .front-detail { font-size: .88rem; }
+  .home-front .front-sources { margin: .2rem 0 0; }
+  .home-front .front-asof { margin-top: 0; }
+  .home-front .front-access { border-left: none; border-top: 1px solid var(--rule); padding: 1rem 0 0; margin-top: 1.4rem; }
+  .home-front .front-access h2 { font-size: 1.65rem; }
+  .home-front .front-story-grid, .home-front .front-feature, .home-front .front-lower { display: block; }
+  .home-front .front-story-grid article + article { border-left: none; border-top: 1px solid var(--rule); padding: 1rem 0 0; margin-top: 1rem; }
+  .home-front .front-feature figure { margin-top: 1rem; }
+  .home-front .front-lower section + section { margin-top: 1.5rem; }
+}
+
+.home-front .front-weather-warning { border: 2px solid var(--accent); padding: .75rem 1rem; margin-bottom: 1.2rem; }
+.home-front .front-weather-warning h2 { font-size: 1.25rem; margin: 0; }

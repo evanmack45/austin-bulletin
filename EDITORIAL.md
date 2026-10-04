@@ -492,3 +492,36 @@ pass the gate is not published; log why.
   a story when there is no news hook.
 - Sunset: the page remains accessible as an archive after the window and
   clearly dates itself; the nav link and any standing mentions go away.
+
+## Edited front page (October 4, 2026)
+
+The homepage is a daily selection, not a second copy of the full edition. Choose
+one consequential lead with a practical next step; retain an immediately
+accessible Zilker guide while useful; add zero to three distinct developments,
+one story to understand, the full-edition link and One Good Thing. Normal
+conditions and Morning Note belong below the news or in the dated edition.
+Avoid repeated park/recycling fragments and unrelated social inserts.
+
+Author `src/_data/frontpages/YYYY-MM-DD.json` for the latest edition. Reuse
+maintained guides or that edition as `record`; do not rewrite published editions.
+Each card needs a unique key, plain title/summary, explicit date context (`asOf`),
+visible named HTTPS sources, an action and a SHA256 of its source file. Use
+`expiresOn` for deadline/access guidance, inclusive in America/Chicago. Add
+`detail`, `next`, `image` and descriptive `imageAlt` only when supported. Read
+actual sources, especially hours, locations, access exceptions and official
+outcomes; record an actual `reviewedAt`, then obtain independent editorial and
+visual review. Hashes and JSON validation prove structure/version, not truth.
+
+Use October 4's packet as the format example, not reusable news. Do not carry
+registration hours into later days. Missing, expired or changed-source cards
+are excluded on the next build; a remaining development can become the lead.
+A current uncurated edition may supply its sourced lead. Stale/unsafe selections
+fall back to a neutral dated full-edition link and a generic access-guide link.
+Expiry is build-time: this static homepage cannot change at midnight without a
+build. Review these transitions within the existing daily routine; no new job.
+
+An NWS alert snapshot may appear above the lead only when its edition and actual
+gathering timestamp fall on the current Chicago date and its source is the
+existing official NWS URL. Label it as a dated forecast snapshot with a current
+NWS link; it does not establish that an alert is still active at reading time.
+Normal weather stays below the news. Never reuse a stale alert as a live warning.

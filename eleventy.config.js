@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+import { chicagoDate, forecastAlerts, selectFrontpage } from "./scripts/frontpage.mjs";
 import { HtmlBasePlugin } from "@11ty/eleventy";
 import { feedPlugin } from "@11ty/eleventy-plugin-rss";
 import markdownItAnchor from "markdown-it-anchor";
@@ -90,6 +92,20 @@ export default function (eleventyConfig) {
   eleventyConfig.amendLibrary("md", (lib) => {
     md = lib.use(markdownItAnchor, { slugify: beatSlug });
     return md;
+  });
+
+  eleventyConfig.addFilter("forecastAlerts", forecastAlerts);
+
+  eleventyConfig.addFilter("editedFrontpage", (latest, bundle, all, officialLinks) => {
+    const wanted = new Set([latest.url, ...[bundle?.lead, bundle?.access, ...(bundle?.developments ?? []), bundle?.feature, bundle?.goodThing].filter(Boolean).map(card => card.record)]);
+    const records = {};
+    for (const item of all) {
+      if (item.url === "/" || !wanted.has(item.url)) continue;
+      records[item.url] = { raw: readFileSync(item.inputPath, "utf8"), urls: item.url === "/vote-2026/" ? Object.values(officialLinks ?? {}) : [] };
+    }
+    const front = selectFrontpage({ curation: bundle, editionDate: latest.date.toISOString().slice(0, 10), editionUrl: latest.url, editionHTML: latest.templateContent, records, today: chicagoDate() });
+    for (const notice of front.notices) console.warn(`frontpage: ${notice}`);
+    return front;
   });
 
   eleventyConfig.addCollection("bulletins", (api) =>

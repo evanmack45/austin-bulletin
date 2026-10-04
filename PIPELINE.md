@@ -533,3 +533,18 @@ removes itself afterward. During the window, the Desk may:
   load‑bearing fact of an item.
 
 Outside the window, do not mention it; the page remains as a dated archive.
+
+## Homepage curation in the daily run
+
+After completing/source-reviewing the edition, prepare its optional front-page
+packet using EDITORIAL.md's contract. Compute hashes from the referenced raw
+source files (`shasum -a 256 ...`); never treat matching hashes as source review.
+The Eleventy filter checks record/version/source pointers and uses safe fallback
+for missing or expired selections. `npm run check -- YYYY-MM-DD` also validates
+all packet shapes; source reading and independent copy review remain separate.
+Build before tests. The browser regression uses the actual selected lead/action,
+real installed Chrome fonts, no JavaScript and desktop/mobile sizes; it does not
+assume today's registration story. Inspect the page for editorial hierarchy and
+source placement as well as overflow. Publish only after all normal gates and
+review, then verify the deployed commit and live homepage/archive. No additional
+news fetch, paid model call or competing schedule is needed for curation.

@@ -32,8 +32,13 @@
   <meta name="theme-color" content="#7a1f1f">
   <link rel="alternate" type="application/atom+xml" title="The Austin Bulletin" href="/feed.xml">
 </head>
-<body id="top">
-  <header class="site-header">
+<body{% if homeFront %} class="home-front"{% endif %} id="top">
+{% if homeFront %}  <header class="front-masthead">
+    <a class="wordmark" href="/">The Austin Bulletin</a>
+    <nav aria-label="Publication"><a href="/archive/">Archive</a><a href="/archive/#search">Search</a><a href="/feed.xml">Follow by RSS</a></nav>
+    {% set latestFront = collections.bulletins | first %}
+    <p>What matters in Austin <span aria-hidden="true">·</span> {{ latestFront.date | readableDate }}</p>
+  </header>{% else %}  <header class="site-header">
     <p class="masthead-kicker">Every morning, for the city</p>
     <a class="wordmark" href="/">The Austin Bulletin</a>
     <div class="folio">
@@ -48,7 +53,7 @@
         <a href="/feed.xml" class="rss-link" rel="alternate" type="application/atom+xml" aria-label="RSS feed">RSS</a>
       </nav>
     </div>
-  </header>
+  </header>{% endif %}
   <main>
     {{ content | safe }}
   </main>
