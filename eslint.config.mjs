@@ -13,7 +13,7 @@
 // for `npm run lint` until that task happens.
 export default [
   {
-    files: ["scripts/river.mjs", "scripts/acronyms.mjs", "scripts/kvue.mjs", "tests/**/*.mjs"],
+    files: ["scripts/river.mjs", "scripts/acronyms.mjs", "scripts/kvue.mjs", "scripts/metadata.mjs", "tests/**/*.mjs"],
     languageOptions: {
       ecmaVersion: 2023,
       sourceType: "module"

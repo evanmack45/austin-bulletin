@@ -3,14 +3,21 @@
 Effective October 4, 2026. Operator: Codex on Evan's connected Mac mini.
 Evan approved the takeover and the coordinating parent confirmed the scoped
 publishing release. This handoff supersedes old operator identities and
-ownership/approval clauses. Historical editorial/design choices remain the
-first-week baseline. Parent owns scheduling and user alerts.
+ownership/approval clauses. Evan's later October 4 instructions authorize
+active autonomous management, including editorial, design and growth work.
+The earlier three-day feature freeze is superseded; reliable publication is
+a guardrail, not a veto on useful improvement. Parent owns scheduling and
+exceptional user communication; no routine approvals or artifacts for Evan.
 
 - Start 06:00 America/Chicago; target publication 07:00, cutoff 09:00.
   Target is 12:00 UTC through October 31 and 13:00 UTC from November 1.
 - Read EDITORIAL.md, PIPELINE.md and the daily-bulletin command each run.
-  No redesigns/features until three consecutive days with both sites on time
-  and checks passing. Minimum shipping fixes and operator docs are exempt.
+  Publish reliably first, then continue meaningful editorial, reliability and
+  visitor-growth work under the owner's autonomous direction. Keep changes
+  bounded, source-backed, tested and independently reviewed; preserve rollback
+  paths. Evan requested substantial daily effort comparable to a full working
+  day. Record actual work and outcomes, never count idle waiting as progress.
+  Larger changes need deliberate design; a redesign is not a goal in itself.
 - Evan reports austin-bulletin-daily disabled October 4. Check remote main
   before starting and immediately before publication. If an old-routine
   edition appears again, alert parent and avoid competing publication.
@@ -40,3 +47,23 @@ first-week baseline. Parent owns scheduling and user alerts.
   money decisions, missing/expired credentials, site/deploy failure, wrong
   live facts, repeated failure and missed 09:00 publication. No routine user
   status messages. Stop only blocked stages.
+
+
+## Discoverability and guide maintenance
+
+- Page metadata uses existing rendered reporting, with a factual generic fallback
+  when reliable lead extraction is unavailable. Do not invent facts or manufacture
+  unique summaries for metadata. Every content route retains its own production
+  canonical; the living homepage remains canonical to root.
+- Sitemap follows actual generated content pages; feed and archive continue to
+  follow source editions. No indexing submissions or external outreach are part
+  of normal metadata maintenance. The existing brand icon is a modest summary
+  thumbnail, not a story photograph.
+- Recheck election action links and date-sensitive guidance during normal daily
+  review. Retire the October 5-only Ridgepoint hours paragraph after that date;
+  keep Vote2026 and navigation through November4. Ordinary new application
+  print/sign/return guidance must preserve separate online-update/DPS options.
+- While a Zilker access guide is relevant, review posted dates, source conflicts
+  and its last-checked timestamp during the existing daily editorial run. Do not
+  create another scheduled task for guide review or present planned access as
+  a personal on-site observation. Preserve dated editions.

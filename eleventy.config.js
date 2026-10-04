@@ -3,7 +3,8 @@ import { feedPlugin } from "@11ty/eleventy-plugin-rss";
 import markdownItAnchor from "markdown-it-anchor";
 import { slug as beatSlug } from "./scripts/river.mjs";
 
-const SITE_URL = "https://theaustinbulletin.com/";
+import { SITE_URL, canonicalUrl, pageMetadata, sitemapPages, xmlEscape }
+  from "./scripts/metadata.mjs";
 
 // Inline SVG glyphs (24x24, currentColor) for each Voice-card platform.
 const GLYPH = {
@@ -68,6 +69,11 @@ function textToHtml(text) {
 
 export default function (eleventyConfig) {
   eleventyConfig.addPlugin(HtmlBasePlugin);
+  eleventyConfig.addGlobalData("siteOrigin", SITE_URL);
+  eleventyConfig.addFilter("canonicalUrl", canonicalUrl);
+  eleventyConfig.addFilter("pageMetadata", pageMetadata);
+  eleventyConfig.addFilter("sitemapPages", sitemapPages);
+  eleventyConfig.addFilter("xmlEscape", xmlEscape);
   eleventyConfig.addPassthroughCopy("src/css");
   eleventyConfig.addPassthroughCopy("src/images");
   // Site icons, served from the root where browsers look for them.

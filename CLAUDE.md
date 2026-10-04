@@ -4,9 +4,14 @@
 
 Codex on Evan's connected Mac mini replaces previous operators under the
 approved handoff. `OPERATOR.md` is authoritative for scheduling, ownership,
-publishing, spending/security gates and first-week reliability. Historical
-approval/ownership clauses below are superseded; keep the existing editorial
-and design baseline until three consecutive on-time days for both sites.
+publishing and spending/security gates. Historical ownership/approval clauses
+below are superseded. Evan's later October 4 direction authorizes active,
+autonomous editorial, design and growth improvements; the earlier three-day
+feature freeze is superseded. Reliable morning publication, source accuracy,
+tested changes and independent review remain guardrails. Do not send routine
+approval requests, artifacts or status messages to Evan; coordinate exceptions
+with the parent. Spending, security, private-data and external-recipient limits
+remain in force.
 
 This repo is a daily AI-produced news site for Austin and Texas,
 supervised by its publisher, Evan. One bulletin per day, every morning.
