@@ -1,5 +1,13 @@
 # The Austin Bulletin — Project Instructions
 
+## Current operator — October 4, 2026
+
+Codex on Evan's connected Mac mini replaces previous operators under the
+approved handoff. `OPERATOR.md` is authoritative for scheduling, ownership,
+publishing, spending/security gates and first-week reliability. Historical
+approval/ownership clauses below are superseded; keep the existing editorial
+and design baseline until three consecutive on-time days for both sites.
+
 This repo is a daily AI-produced news site for Austin and Texas,
 supervised by its publisher, Evan. One bulletin per day, every morning.
 Neutral. Factual. Clean.
@@ -51,8 +59,8 @@ Neutral. Factual. Clean.
   no path prefix automatically.
 - 2026-08-23: The daily run is a Claude Code cloud routine,
   "austin-bulletin-daily" (cron 0 11 * * * UTC ≈ 6:07 a.m. Central,
-  model claude-opus-5, environment "Default" env_01DhnuLgA3G72Zm18AVxJDHh —
-  the environment with network egress; the "Default Cloud Environment"
+  model claude-opus-5, the existing environment with network egress;
+  the "Default Cloud Environment"
   blocks outbound fetches). Manage or run it at
   https://claude.ai/code/routines. Manual catch-up: run /daily-bulletin in
   any session in this repo.
@@ -90,14 +98,11 @@ Neutral. Factual. Clean.
   verified to show the story's exact subject; otherwise a photorealistic
   AI image from Nano Banana 2 via `npm run illustrate` (he rejected the
   wood-engraving style — never propose illustrated/stylized art again);
-  generated files live in src/images/. The Gemini key is the 1Password
-  item "Gemini API Credential"; the cloud routine's environment "Default"
-  carries it as GEMINI_API_KEY.
-- 2026-08-23: Allergy data comes from Google's Pollen API. Google Cloud
-  project "austin-bulletin" (billing: My Billing Account 2 — Account 1 is
-  at its project quota), key restricted to the Pollen API, stored in the
-  1Password item "Google Pollen API Key" (vault Personal). The cloud
-  routine's environment needs it as POLLEN_API_KEY.
+  generated files live in src/images/. The publishing process needs
+  GEMINI_API_KEY for generation; secure credential references remain private.
+- 2026-08-23: Allergy data comes from Google's Pollen API. The publishing
+  process needs POLLEN_API_KEY, restricted to the Pollen API;
+  secure storage and billing metadata remain private.
 - 2026-08-24 (Evan, approved): gather identifies itself honestly —
   `TheAustinBulletin/1.0 (+https://theaustinbulletin.com)` on every fetch,
   never a browser UA we are not, never posing as a named crawler; read an
@@ -151,11 +156,11 @@ Neutral. Factual. Clean.
   matches the word "Austin" so it surfaces people with that name, and one is
   dominated by Democratic officeholders. Search is now wired in too: set
   `BLUESKY_HANDLE` and `BLUESKY_APP_PASSWORD` in the routine's environment
-  (env_01DhnuLgA3G72Zm18AVxJDHh "Default", alongside GEMINI_API_KEY and
-  POLLEN_API_KEY) and `npm run voices` searches as well as reading feeds;
-  `--search "<term>"` chases one story. The app password is the 1Password
-  item "Bluesky austinbulletin App Password" — it belongs in the environment,
-  never in the repo. Without credentials, or with stale ones, the script
+  (alongside GEMINI_API_KEY and POLLEN_API_KEY) and `npm run voices` searches
+  as well as reading feeds;
+  `--search "<term>"` chases one story. The app password belongs in the process
+  environment, never in the repo; credential references remain private.
+  Without credentials, or with stale ones, the script
   reports it and falls back to feeds rather than failing the run. The search
   path was confirmed working against live credentials on 2026-08-24.
 - 2026-08-24 (Evan): X is a daily source. `npm run voices` searches X when

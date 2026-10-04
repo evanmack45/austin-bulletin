@@ -1,0 +1,21 @@
+{
+  "type": "bars",
+  "date": "2026-10-04",
+  "slug": "aisd-hiring-fair",
+  "title": "A Saturday line for school jobs",
+  "subtitle": "People registered and people through the door by 10 a.m.; separate counts",
+  "source": "KXAN · Austin ISD talent officer Woodrow Bailey",
+  "alt": "Bar chart of two attendance counts at the October 3 Austin Independent School District support staff hiring fair, reported by talent officer Woodrow Bailey to KXAN. About 300 people registered and roughly 200 had arrived by 10 a.m. These are not final attendance or hiring counts. The district reported about 70 open support positions.",
+  "unit": "",
+  "yMin": 0,
+  "bars": [
+    {
+      "label": "Registered",
+      "value": 300
+    },
+    {
+      "label": "Arrived by 10 a.m.",
+      "value": 200
+    }
+  ]
+}

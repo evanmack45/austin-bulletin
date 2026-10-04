@@ -1,5 +1,13 @@
 # Daily Pipeline — The Austin Bulletin
 
+## Current operator — October 4, 2026
+
+Codex on Evan's connected Mac mini replaces previous operators under the
+approved handoff. `OPERATOR.md` is authoritative for scheduling, ownership,
+publishing, spending/security gates and first-week reliability. Historical
+approval/ownership clauses below are superseded; keep the existing editorial
+and design baseline until three consecutive on-time days for both sites.
+
 Run this procedure once each morning. Also runnable any time on demand.
 Before starting, read `EDITORIAL.md` in full.
 

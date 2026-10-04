@@ -1,0 +1,30 @@
+{
+  "type": "timeline",
+  "date": "2026-10-04",
+  "slug": "zilker-restoration",
+  "title": "Zilker, before and after the music",
+  "subtitle": "Saturday brought a delay and a reminder of the restoration contract",
+  "source": "KXAN · FOX 7 Austin · City of Austin",
+  "alt": "Timeline of the 2026 Austin City Limits Music Festival at Zilker Park. The first weekend runs October 2 through 4. On October 3 the gates opened at 2 p.m. instead of noon because of wet grounds. The second weekend runs October 9 through 11. The Parks Department says the festival contract requires restoration of the Great Lawn and surrounding areas after the event, including replacement grass where needed; no reopening date is promised here.",
+  "events": [
+    {
+      "date": "Oct. 2–4",
+      "label": "First weekend at Zilker Park",
+      "note": "Rain and foot traffic leave the Great Lawn muddy"
+    },
+    {
+      "date": "Oct. 3",
+      "label": "Saturday gates open at 2 p.m., instead of noon",
+      "note": "Crews remove standing water and spread mulch"
+    },
+    {
+      "date": "Oct. 9–11",
+      "label": "The second festival weekend",
+      "note": "The city lists another three days of music at Zilker"
+    }
+  ],
+  "next": {
+    "label": "After the festival: restore the grounds",
+    "note": "The contract requires repairs; no reopening date is given"
+  }
+}
