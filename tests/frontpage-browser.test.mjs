@@ -178,3 +178,64 @@ test("edited homepage keeps the selected lead and action visible with real fonts
 		await new Promise((resolve) => server.close(resolve));
 	}
 });
+
+test("guide action fragments reach the answer by keyboard without JavaScript", {
+	skip: !chrome && "an installed Chromium is required for browser regression",
+}, async () => {
+	const server = await serveBuiltSite();
+	const browser = await puppeteer.launch({
+		executablePath: chrome,
+		headless: true,
+		args: process.platform === "linux" ? ["--no-sandbox"] : [],
+	});
+	try {
+		const page = await browser.newPage();
+		await page.setViewport({ width: 390, height: 844 });
+		await page.setJavaScriptEnabled(false);
+		const home = `http://127.0.0.1:${server.address().port}/`;
+		await page.goto(home, { waitUntil: "networkidle0" });
+		const actions = await page.evaluate(() =>
+			[...document.querySelectorAll(".front-lead .front-action, .front-access .front-action")]
+				.map((link) => link.getAttribute("href"))
+				.filter((href) => href.startsWith("/") && href.includes("#")),
+		);
+		for (const target of actions) {
+			await page.goto(home, { waitUntil: "networkidle0" });
+			await reachByKeyboard(page, [target]);
+			await page.keyboard.press("Enter");
+			await page.waitForFunction(
+				(expected) => location.pathname + location.hash === expected,
+				{},
+				target,
+			);
+			const result = await page.evaluate((fragment) => {
+				const heading = document.getElementById(fragment);
+				const box = heading?.getBoundingClientRect();
+				return {
+					found: !!heading,
+					text: heading?.textContent,
+					top: box?.top,
+					bottom: box?.bottom,
+					focused: document.activeElement === heading,
+				};
+			}, target.split("#")[1]);
+			assert.ok(result.found && result.focused, JSON.stringify(result));
+			// Fragment scrolling rounds fractional heading offsets to whole CSS pixels.
+			assert.ok(result.top >= -1 && result.bottom <= 844, JSON.stringify(result));
+			await page.keyboard.press("Tab");
+			const answerLink = await page.evaluate(() =>
+				document.activeElement?.getAttribute("href"),
+			);
+			assert.match(answerLink, /^https:\/\//, "next Tab reaches a source within the answer");
+		}
+		const accessTitle = await page.goto(home, { waitUntil: "networkidle0" });
+		assert.ok(accessTitle.ok());
+		assert.equal(
+			await page.$eval(".front-access h2 a", (link) => link.getAttribute("href")),
+			"/zilker-park-access/",
+		);
+	} finally {
+		await browser.close();
+		await new Promise((resolve) => server.close(resolve));
+	}
+});

@@ -162,3 +162,16 @@ test("official weather alert snapshots appear only for the current Chicago date"
 	assert.deepEqual(forecastAlerts(undefined, date), []);
 	assert.deepEqual(forecastAlerts({ ...glance, fetchedAt: "invalid" }, date), []);
 });
+
+test("practical guide actions point to existing answer sections", async () => {
+	const { readFileSync } = await import("node:fs");
+	const curated = JSON.parse(readFileSync("src/_data/frontpages/2026-10-04.json", "utf8"));
+	assert.equal(curated.lead.action.url, "/vote-2026/#do-these-first");
+	assert.equal(curated.access.action.url, "/zilker-park-access/#what-can-you-use");
+	for (const card of [curated.lead, curated.access]) {
+		const [route, fragment] = card.action.url.split("#");
+		const html = readFileSync(`_site${route}index.html`, "utf8");
+		assert.match(html, new RegExp(`id="${fragment}" tabindex="-1"`));
+		assert.equal(card.record, route, "source reference remains the guide top");
+	}
+});

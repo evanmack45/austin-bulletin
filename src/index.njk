@@ -24,7 +24,7 @@ homeFront: true
     {% if front.access %}
     <section class="front-access" aria-labelledby="front-access-title">
       <p class="front-kicker">Before you go</p>
-      <h2 id="front-access-title"><a href="{{ front.access.action.url | escape }}">{{ front.access.title | escape }}</a></h2>
+      <h2 id="front-access-title"><a href="{{ front.access.record | escape }}">{{ front.access.title | escape }}</a></h2>
       <p>{{ front.access.summary | escape }}</p>
       {% if front.access.detail %}<p class="front-detail">{{ front.access.detail | escape }}</p>{% endif %}
       {% set card = front.access %}{% include "front-sources.njk" %}

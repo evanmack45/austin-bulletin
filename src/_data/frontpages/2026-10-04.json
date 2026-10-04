@@ -16,7 +16,7 @@
     ],
     "action": {
       "label": "Check registration & how to submit",
-      "url": "/vote-2026/"
+      "url": "/vote-2026/#do-these-first"
     },
     "detail": "October 5 only: the Nelda Wells Spears Building, 2433 Ridgepoint Drive, accepts registration from 8 a.m. to midnight. Those extended hours apply to this location, not every county office.",
     "expiresOn": "2026-10-05"
@@ -36,7 +36,7 @@
     ],
     "action": {
       "label": "Entrances, closures & parking",
-      "url": "/zilker-park-access/"
+      "url": "/zilker-park-access/#what-can-you-use"
     },
     "detail": "The sources checked for our guide do not confirm a Great Lawn reopening date. Open amenities do not mean normal parking or access to festival grounds.",
     "expiresOn": "2026-10-18"
