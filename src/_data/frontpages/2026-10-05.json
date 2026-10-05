@@ -1,6 +1,6 @@
 {
   "date": "2026-10-05",
-  "reviewedAt": "2026-10-05T11:42:15.529148+00:00",
+  "reviewedAt": "2026-10-05T12:31:17.340224+00:00",
   "lead": {
     "key": "voter-registration",
     "record": "/vote-2026/",
@@ -98,22 +98,31 @@
     }
   ],
   "feature": {
-    "key": "band-transport",
-    "record": "/2026/10/05/",
-    "sourceHash": "1445123abddeb6d1cc72c1c693c123a13623bf0b93de7d09205bf02efdfc4f9c",
-    "title": "When the school budget reaches the band trailer",
-    "summary": "Band parents told KXAN they are improvising equipment transport and leaving equipment behind. The district says transportation reductions limit its fine arts budget; most principals chose district-paid transport for five regular-season football games.",
-    "asOf": "Sources reviewed October 5, 2026",
+    "key": "council-oct8-preview",
+    "record": "/council/2026-10-08-preview/",
+    "sourceHash": "e65c5181b636a22c755fa5bfaa230458ab1a444ce1d59d0248098613abc5548f",
+    "title": "Austin Council on October 8: three questions worth following",
+    "summary": "Housing near Lost Creek, easements for Eubank Tributary work and an ATXFloods contract are pending proposals. Read what each would authorize, what remains unsettled and what to check after the meeting.",
+    "asOf": "Official records reviewed October 5, 2026",
     "sources": [
       {
-        "name": "KXAN",
-        "url": "https://www.kxan.com/news/local/austin/austin-isd-parents-raise-concerns-over-band-equipment-transportation-challenges/"
+        "name": "City of Austin \u2014 item 29",
+        "url": "https://austintexas.legistar.com/LegislationDetail.aspx?ID=8237569&GUID=AC590203-F77E-4619-A273-766BDBF7979F&G=4BED8896-C64D-4912-8005-D624C5197AA5&Options=&Search="
+      },
+      {
+        "name": "City of Austin \u2014 item 24",
+        "url": "https://austintexas.legistar.com/LegislationDetail.aspx?ID=8239390&GUID=FF5FF2B8-0B2C-405E-8851-D890273A3351&G=4BED8896-C64D-4912-8005-D624C5197AA5&Options=&Search="
+      },
+      {
+        "name": "City of Austin \u2014 item 9",
+        "url": "https://austintexas.legistar.com/LegislationDetail.aspx?ID=8239379&GUID=C2377752-5A95-4C47-AC07-1157D559D27D&G=4BED8896-C64D-4912-8005-D624C5197AA5&Options=&Search="
       }
     ],
     "action": {
-      "label": "Read the parents\u2019 concerns & district response",
-      "url": "https://www.kxan.com/news/local/austin/austin-isd-parents-raise-concerns-over-band-equipment-transportation-challenges/"
-    }
+      "label": "Read the three questions & official records",
+      "url": "/council/2026-10-08-preview/"
+    },
+    "expiresOn": "2026-10-08"
   },
   "goodThing": {
     "key": "birthday-donation",
