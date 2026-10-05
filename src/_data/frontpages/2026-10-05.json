@@ -1,6 +1,6 @@
 {
   "date": "2026-10-05",
-  "reviewedAt": "2026-10-05T12:31:17.340224+00:00",
+  "reviewedAt": "2026-10-05T13:17:21.649991+00:00",
   "lead": {
     "key": "voter-registration",
     "record": "/vote-2026/",
@@ -24,7 +24,7 @@
   "access": {
     "key": "zilker-access",
     "record": "/zilker-park-access/",
-    "sourceHash": "402048e92fdb40304e2acb9f670836726a2517973e2375e111285d784f0ddbd5",
+    "sourceHash": "fd121d56c1135cdfa350ede6c1a2a36f560721a6029f26da8e246e4b7d585b08",
     "title": "Zilker access this week",
     "summary": "The City lists the pool, trail and Greenbelt as open, while multiple park parking lots stay closed through October 18. A posted road-closure endpoint is not confirmation of reopening.",
     "asOf": "Sources reviewed October 5, 2026",

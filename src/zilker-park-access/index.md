@@ -46,4 +46,10 @@ These facility dates do not establish when the Great Lawn reopens.
 
 In its October 3 [report on the muddy Great Lawn](https://www.kxan.com/acl/acl-festivals-muddy-great-lawn-raises-concern-for-austin-parks-future/), an Austin Parks and Recreation spokesperson told KXAN that temporary mulch would be removed after the festival and damaged sod replaced. That is an attributed restoration plan, not confirmation that work is complete. The sources checked here do not settle the lawn’s reopening date or final repair cost.
 
+**Contract section reviewed: October 5, 2026, 8:17 a.m. CDT.** Access notices above retain their earlier check time.
+
+The [publicly posted redacted City–C3 agreement](https://www.documentcloud.org/documents/26197550-2025-acl-contract-c282677-pard-final-contract-template-redacted-copy/), linked by [Austin Free Press](https://austinfreepress.org/acl-palooza/), bears August 29, 2025 signatures. Under §2.C (page 2), C3 pays for remediation required by the parks director, except damage to the extent caused by the City or its officers, directors, employees, agents or representatives. Under §5.A.1 (pages 6–7), the director determines damage, C3’s responsibility and reasonable repair costs.
+
+The base agreement has a December 31, 2040 end date (§2.D), but each festival needs an event permit and annual scope of work (§2.B/E). A scope can expressly override particular agreement terms (§2.F). An executed 2026 scope, applicable amendments, completed 2026 inspection and final repair bill remain unverified here. This publicly posted copy cannot establish this year’s full obligations, what was paid or when the lawn will reopen.
+
 We will recheck these notices during the Bulletin’s regular daily editorial review while the closures remain relevant.
