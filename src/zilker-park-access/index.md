@@ -7,7 +7,7 @@ permalink: "/zilker-park-access/"
 
 ## Zilker Park access during ACL
 
-**Last checked: October 5, 2026, 6:42 a.m. CDT (City park and road notice).** This guide describes posted plans, not an on-site inspection. Check the linked City notices before traveling; follow signs, barriers and staff directions.
+**Last checked: October 5, 2026, 12:10 p.m. CDT (City park and road notice).** This guide describes posted plans, not an on-site inspection. Check the linked City notices before traveling; follow signs, barriers and staff directions.
 
 ### What can you use?
 
@@ -46,7 +46,9 @@ These facility dates do not establish when the Great Lawn reopens.
 
 In its October 3 [report on the muddy Great Lawn](https://www.kxan.com/acl/acl-festivals-muddy-great-lawn-raises-concern-for-austin-parks-future/), an Austin Parks and Recreation spokesperson told KXAN that temporary mulch would be removed after the festival and damaged sod replaced. That is an attributed restoration plan, not confirmation that work is complete. The sources checked here do not settle the lawn’s reopening date or final repair cost.
 
-**Contract section reviewed: October 5, 2026, 8:17 a.m. CDT.** Access notices above retain their earlier check time.
+**Between-weekend plans, reported October 5:** [KXAN’s report](https://www.kxan.com/acl/acl-festival-says-its-committed-to-leaving-zilker-park-better-than-we-found-it/) attributes to ACL Festival plans to bring in extra resources to remove temporary turf and ground protection, limit activity on the grounds before the second weekend, and meet with Austin Parks and Recreation daily about restoration after the event. KXAN reports that a grounds assessment was underway. This does not establish completed work, a completed inspection, a public reopening date or final repair costs.
+
+**Contract section reviewed: October 5, 2026, 8:17 a.m. CDT.** Access notices above have their separately stated check time.
 
 The [publicly posted redacted City–C3 agreement](https://www.documentcloud.org/documents/26197550-2025-acl-contract-c282677-pard-final-contract-template-redacted-copy/), linked by [Austin Free Press](https://austinfreepress.org/acl-palooza/), bears August 29, 2025 signatures. Under §2.C (page 2), C3 pays for remediation required by the parks director, except damage to the extent caused by the City or its officers, directors, employees, agents or representatives. Under §5.A.1 (pages 6–7), the director determines damage, C3’s responsibility and reasonable repair costs.
 

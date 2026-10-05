@@ -24,10 +24,10 @@
   "access": {
     "key": "zilker-access",
     "record": "/zilker-park-access/",
-    "sourceHash": "fd121d56c1135cdfa350ede6c1a2a36f560721a6029f26da8e246e4b7d585b08",
+    "sourceHash": "90ae195df395bf41e64ed4bce89aebef6512dbcabc8e88ddc4bea48d754ad331",
     "title": "Zilker access this week",
     "summary": "The City lists the pool, trail and Greenbelt as open, while multiple park parking lots stay closed through October 18. A posted road-closure endpoint is not confirmation of reopening.",
-    "asOf": "Sources reviewed October 5, 2026",
+    "asOf": "City notices reviewed October 5, 2026, at 12:10 p.m. CDT",
     "sources": [
       {
         "name": "City of Austin",
