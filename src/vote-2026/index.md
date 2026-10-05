@@ -26,6 +26,8 @@ Sources: <a href="{{ vote2026.links.register }}">VoteTexas — Voter Registratio
 <!-- Remove this deadline-day paragraph after October 5 during normal guide maintenance. -->
 **Monday, October 5, 2026 only:** The Nelda Wells Spears Building, **2433 Ridgepoint Drive**, accepts voter registration from **8 a.m. to midnight**, according to the <a href="{{ vote2026.links.travisRegistrationDeadline }}">Travis County Tax Office deadline notice</a>. These extended hours apply only to this location; check that notice for the other offices’ hours and delivery options.
 
+Mailed registration applications must be postmarked **October 5 or earlier**. The [Travis County deadline notice](https://tax-office.traviscountytx.gov/about-us/newsroom/2026/272-voter-registration-ends-monday-for-nov-3-election) recommends requesting a manual postmark at the postal counter; a collection-box deposit may receive a later postmark. Check [official eligibility requirements](https://www.votetexas.gov/register-to-vote/eligibility-for-registration.html) and contact your county registrar for questions about your record.
+
 ### Early voting (Oct 19–30)
 
 Any registered voter in Travis County may vote early in person at any early voting site in the county. Dates and hours are published by the county and may vary by location. Check <a href="{{ vote2026.links.travisCurrentElection }}">VoteTravis.gov — Current Election</a> for the official list and hours.

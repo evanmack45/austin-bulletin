@@ -1,0 +1,45 @@
+{
+  "date": "2026-10-05",
+  "fetchedAt": "2026-10-05T11:40:54.629Z",
+  "weather": {
+    "high": 85,
+    "low": 68,
+    "summary": "Sunny",
+    "alerts": [],
+    "blurb": "A sunny Monday; the official forecast may change during the day.",
+    "source": "https://www.weather.gov/ewx/"
+  },
+  "air": {
+    "aqi": 25,
+    "category": "Good",
+    "pm25": 7.7,
+    "ozone": 39,
+    "blurb": "The morning air-quality snapshot is in the Good category.",
+    "source": "https://open-meteo.com/en/docs/air-quality-api"
+  },
+  "lake": {
+    "percentFull": 94.5,
+    "elevationFt": 677.79,
+    "weekNote": "+4.9 pts vs. last week",
+    "blurb": "A reservoir snapshot; check the source for changing lake conditions.",
+    "source": "https://www.waterdatafortexas.org/reservoirs/individual/travis"
+  },
+  "pollen": null,
+  "grid": {
+    "forecastPeakMw": 67400,
+    "peakHourEnding": 17,
+    "availableMw": 95800,
+    "condition": "Normal",
+    "blurb": "The operator reports normal grid conditions in the morning snapshot.",
+    "source": "https://www.ercot.com/gridmktinfo/dashboards/systemwidedemand"
+  },
+  "sun": {
+    "sunrise": "7:26 a.m.",
+    "sunset": "7:11 p.m.",
+    "blurb": "Morning light arrives at 7:26 a.m.; sunset is listed at 7:11 p.m.",
+    "source": "https://open-meteo.com/"
+  },
+  "errors": {
+    "pollen": "POLLEN_API_KEY is not set"
+  }
+}

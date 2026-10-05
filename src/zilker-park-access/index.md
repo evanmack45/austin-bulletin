@@ -7,7 +7,7 @@ permalink: "/zilker-park-access/"
 
 ## Zilker Park access during ACL
 
-**Last checked: October 4, 2026, 12:53 p.m. CDT.** This guide describes posted plans, not an on-site inspection. Check the linked City notices before traveling; follow signs, barriers and staff directions.
+**Last checked: October 5, 2026, 6:42 a.m. CDT (City park and road notice).** This guide describes posted plans, not an on-site inspection. Check the linked City notices before traveling; follow signs, barriers and staff directions.
 
 ### What can you use?
 
@@ -29,11 +29,11 @@ The [organizer’s 2026 neighborhood letter](https://bartonhills.org/wp-content/
 
 According to the [City’s street and parking closure schedule](https://www.austintexas.gov/parks/parks-and-recreation-facilities-closures):
 
-- **Barton Springs Road** is scheduled closed until **6 a.m. Monday, October 5**, and again from **7 p.m. Thursday, October 8, through 6 a.m. Monday, October 12**.
+- **Barton Springs Road:** the first weekend’s closure was scheduled to have ended at **6 a.m. Monday, October 5**; this guide does not confirm that reopening on site. The next closure is scheduled from **7 p.m. Thursday, October 8, through 6 a.m. Monday, October 12**.
 - The road then has scheduled **reduced lanes October 12–16**, from 9 a.m. to 6 p.m. daily.
 - Multiple Zilker parking lots remain closed through October 18, including disc golf and playscape parking. Allow for a different arrival plan even when your destination is listed as open.
 
-**Source conflicts:** The organizer’s road map and text give different closure endpoints; this guide uses the City’s posted Barton Springs Road schedule. City sources disagree on the exact Stratford Drive reopening time, so this guide does not give one. For current route details, consult the [City’s ACL Mobility Guide](https://experience.arcgis.com/experience/ebf5da1be2464916b70916644d8d363d/page/ACL-Event-Weekend-Closures/) and posted traffic controls.
+**Source conflicts:** The organizer’s road map and text give different closure endpoints; this guide uses the City’s posted Barton Springs Road schedule. City sources disagree on the October 12 Stratford Drive reopening time (6 a.m. in the park notice and 6 p.m. in the mobility guide). Both list October 5 at 6 a.m.; this guide does not give one as a confirmed reopening time and does not confirm either reopening on site. For current route details, consult the [City’s ACL Mobility Guide](https://experience.arcgis.com/experience/ebf5da1be2464916b70916644d8d363d/page/ACL-Event-Weekend-Closures/) and posted traffic controls.
 
 ### Nearby facilities have separate schedules
 

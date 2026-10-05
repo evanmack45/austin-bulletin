@@ -1,0 +1,26 @@
+{
+  "type": "timeline",
+  "date": "2026-10-05",
+  "slug": "walk-in-court-hours",
+  "title": "Walk-in court hours stay the same",
+  "subtitle": "Main Courthouse · 6800 Burleson Road, Building 310, Suite 175",
+  "source": "City of Austin Municipal Court",
+  "alt": "Unchanged Austin Municipal Court walk-in mitigation hours: Monday through Thursday from 8:30 to 11 a.m. and 1:30 to 3:30 p.m., plus Thursday from 6 to 8 p.m., at the Main Courthouse, 6800 Burleson Road, Building 310, Suite 175. The attorney appearance and jury trial schedule changes separately, effective October 5.",
+  "events": [
+    {
+      "date": "Mon.–Thu.",
+      "label": "Morning: 8:30–11 a.m.",
+      "note": "Discuss cases and options with a judge or prosecutor"
+    },
+    {
+      "date": "Mon.–Thu.",
+      "label": "Afternoon: 1:30–3:30 p.m.",
+      "note": "Main Courthouse walk-in mitigation docket"
+    },
+    {
+      "date": "Thursday",
+      "label": "Evening: 6–8 p.m.",
+      "note": "The later Thursday docket remains available"
+    }
+  ]
+}

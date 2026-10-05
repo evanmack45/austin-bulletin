@@ -204,7 +204,11 @@ test("guide action fragments reach the answer by keyboard without JavaScript", {
 			await reachByKeyboard(page, [target]);
 			await page.keyboard.press("Enter");
 			await page.waitForFunction(
-				(expected) => location.pathname + location.hash === expected,
+				(expected) => {
+					const heading = document.getElementById(expected.split("#")[1]);
+					return location.pathname + location.hash === expected &&
+						document.readyState === "complete" && document.activeElement === heading;
+				},
 				{},
 				target,
 			);
@@ -237,5 +241,37 @@ test("guide action fragments reach the answer by keyboard without JavaScript", {
 	} finally {
 		await browser.close();
 		await new Promise((resolve) => server.close(resolve));
+	}
+});
+
+test("dated edition navigation stays within a 320px viewport", {
+	skip: !chrome && "an installed Chromium is required for browser regression",
+}, async () => {
+	const edition = readFileSync("_site/index.html", "utf8")
+		.match(/href="(\/\d{4}\/\d{2}\/\d{2}\/)/)?.[1];
+	assert.ok(edition, "the homepage links to its dated edition");
+	const server = await serveBuiltSite();
+	const browser = await puppeteer.launch({ executablePath: chrome, headless: true,
+		args: process.platform === "linux" ? ["--no-sandbox"] : [] });
+	try {
+		const page = await browser.newPage();
+		await page.setViewport({ width: 320, height: 800 });
+		await page.setJavaScriptEnabled(false);
+		await page.goto(`http://127.0.0.1:${server.address().port}${edition}`, {
+			waitUntil: "networkidle0",
+		});
+		await page.evaluate(() => document.fonts.ready);
+		const links = await page.evaluate(() => [...document.querySelectorAll(".folio-nav a")]
+			.map(link => ({ text: link.textContent, href: link.getAttribute("href"),
+				left: link.getBoundingClientRect().left,
+				right: link.getBoundingClientRect().right })));
+		assert.ok(links.length >= 4);
+		for (const link of links) {
+			assert.ok(link.left >= 0 && link.right <= 320, JSON.stringify(link));
+		}
+		await reachByKeyboard(page, links.map(link => link.href));
+	} finally {
+		await browser.close();
+		await new Promise(resolve => server.close(resolve));
 	}
 });

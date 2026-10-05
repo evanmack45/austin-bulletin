@@ -1,0 +1,26 @@
+{
+  "type": "timeline",
+  "date": "2026-10-05",
+  "slug": "registration-deadline",
+  "title": "Registration closes today",
+  "subtitle": "November 3 election · Official Travis County deadline-day options",
+  "source": "Travis County Tax Office",
+  "alt": "Deadline-day submission guidance for Monday, October 5, 2026: take a completed application to a Travis County tax office; the Nelda Wells Spears Building at 2433 Ridgepoint Drive has special hours from 8 a.m. to midnight today only; or mail an application postmarked October 5 or earlier. The county recommends requesting a manual postmark at the postal counter.",
+  "events": [
+    {
+      "date": "Today",
+      "label": "Deliver a completed registration application",
+      "note": "Check the county notice for each tax office’s hours"
+    },
+    {
+      "date": "8 a.m.–midnight",
+      "label": "Special hours at 2433 Ridgepoint Drive",
+      "note": "October 5 only · Nelda Wells Spears Building"
+    },
+    {
+      "date": "Oct. 5 postmark",
+      "label": "Mail: request a manual postmark at the counter",
+      "note": "Dropping a form in a collection box may mean a later postmark"
+    }
+  ]
+}

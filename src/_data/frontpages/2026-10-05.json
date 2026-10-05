@@ -1,0 +1,136 @@
+{
+  "date": "2026-10-05",
+  "reviewedAt": "2026-10-05T11:42:15.529148+00:00",
+  "lead": {
+    "key": "voter-registration",
+    "record": "/vote-2026/",
+    "sourceHash": "d80dde526ce0e0590cfc8e14bbccb7615ae8dc0d076ea4727aba44cd23845aae",
+    "title": "Voter registration closes today",
+    "summary": "Mailed applications need an October 5-or-earlier postmark for the November 3 election. Request a manual postmark at the postal counter; mailbox pickup may be too late.",
+    "asOf": "Sources reviewed October 5, 2026",
+    "sources": [
+      {
+        "name": "Travis County Tax Office",
+        "url": "https://tax-office.traviscountytx.gov/about-us/newsroom/2026/272-voter-registration-ends-monday-for-nov-3-election"
+      }
+    ],
+    "action": {
+      "label": "Check registration & how to submit",
+      "url": "/vote-2026/#do-these-first"
+    },
+    "detail": "October 5 only: the Nelda Wells Spears Building, 2433 Ridgepoint Drive, accepts registration from 8 a.m. to midnight. Other county offices have different hours.",
+    "expiresOn": "2026-10-05"
+  },
+  "access": {
+    "key": "zilker-access",
+    "record": "/zilker-park-access/",
+    "sourceHash": "402048e92fdb40304e2acb9f670836726a2517973e2375e111285d784f0ddbd5",
+    "title": "Zilker access this week",
+    "summary": "The City lists the pool, trail and Greenbelt as open, while multiple park parking lots stay closed through October 18. A posted road-closure endpoint is not confirmation of reopening.",
+    "asOf": "Sources reviewed October 5, 2026",
+    "sources": [
+      {
+        "name": "City of Austin",
+        "url": "https://www.austintexas.gov/parks/parks-and-recreation-facilities-closures"
+      }
+    ],
+    "action": {
+      "label": "Entrances, closures & parking",
+      "url": "/zilker-park-access/#what-can-you-use"
+    },
+    "detail": "The next Barton Springs Road closure is scheduled for Thursday, October 8, at 7 p.m. The sources checked do not confirm a Great Lawn reopening date.",
+    "expiresOn": "2026-10-18"
+  },
+  "developments": [
+    {
+      "key": "airport-departures",
+      "record": "/2026/10/05/",
+      "sourceHash": "1445123abddeb6d1cc72c1c693c123a13623bf0b93de7d09205bf02efdfc4f9c",
+      "title": "Flying today? Leave time before departure",
+      "summary": "The airport expects a busy Monday and recommends arriving at least 2.5 hours before domestic flights or 3 hours before international flights, plus time for bags or rental-car returns.",
+      "asOf": "Sources reviewed October 5, 2026",
+      "sources": [
+        {
+          "name": "Austin-Bergstrom International Airport",
+          "url": "https://www.flyaustin.com/news/austin-bergstrom-international-airport-encourages-travelers-prepare-increased-passenger-0"
+        }
+      ],
+      "action": {
+        "label": "Read the airport\u2019s travel advisory",
+        "url": "https://www.flyaustin.com/news/austin-bergstrom-international-airport-encourages-travelers-prepare-increased-passenger-0"
+      }
+    },
+    {
+      "key": "court-schedule",
+      "record": "/2026/10/05/",
+      "sourceHash": "1445123abddeb6d1cc72c1c693c123a13623bf0b93de7d09205bf02efdfc4f9c",
+      "title": "Municipal Court changes its docket schedule",
+      "summary": "Effective today, attorney appearance dockets and jury trials move to Tuesdays. Walk-in mitigation hours remain unchanged at the Main Courthouse on Burleson Road.",
+      "asOf": "Sources reviewed October 5, 2026",
+      "sources": [
+        {
+          "name": "City of Austin",
+          "url": "https://www.austintexas.gov/communications/news/austin-municipal-court-streamlines-docket-schedule"
+        }
+      ],
+      "action": {
+        "label": "Check the new schedule & walk-in hours",
+        "url": "https://www.austintexas.gov/communications/news/austin-municipal-court-streamlines-docket-schedule"
+      }
+    },
+    {
+      "key": "school-jobs",
+      "record": "/2026/10/05/",
+      "sourceHash": "1445123abddeb6d1cc72c1c693c123a13623bf0b93de7d09205bf02efdfc4f9c",
+      "title": "School support jobs: current application links",
+      "summary": "Austin ISD\u2019s careers page currently features food service managers, custodians and bus drivers. Saturday\u2019s hiring fair is over; use the district\u2019s application links for current opportunities.",
+      "asOf": "Sources reviewed October 5, 2026",
+      "sources": [
+        {
+          "name": "Austin ISD",
+          "url": "https://www.austinisd.org/hc/careers"
+        }
+      ],
+      "action": {
+        "label": "See jobs & apply through the district",
+        "url": "https://www.austinisd.org/hc/careers"
+      }
+    }
+  ],
+  "feature": {
+    "key": "band-transport",
+    "record": "/2026/10/05/",
+    "sourceHash": "1445123abddeb6d1cc72c1c693c123a13623bf0b93de7d09205bf02efdfc4f9c",
+    "title": "When the school budget reaches the band trailer",
+    "summary": "Band parents told KXAN they are improvising equipment transport and leaving equipment behind. The district says transportation reductions limit its fine arts budget; most principals chose district-paid transport for five regular-season football games.",
+    "asOf": "Sources reviewed October 5, 2026",
+    "sources": [
+      {
+        "name": "KXAN",
+        "url": "https://www.kxan.com/news/local/austin/austin-isd-parents-raise-concerns-over-band-equipment-transportation-challenges/"
+      }
+    ],
+    "action": {
+      "label": "Read the parents\u2019 concerns & district response",
+      "url": "https://www.kxan.com/news/local/austin/austin-isd-parents-raise-concerns-over-band-equipment-transportation-challenges/"
+    }
+  },
+  "goodThing": {
+    "key": "birthday-donation",
+    "record": "/2026/10/05/",
+    "sourceHash": "1445123abddeb6d1cc72c1c693c123a13623bf0b93de7d09205bf02efdfc4f9c",
+    "title": "A birthday tradition that gives something back",
+    "summary": "Chloe Brown turned 19 at a September 29 campus blood drive. In a Sunday report, she told The Daily Texan why she gives blood on her birthday each year.",
+    "asOf": "Sources reviewed October 5, 2026",
+    "sources": [
+      {
+        "name": "The Daily Texan",
+        "url": "https://thedailytexan.com/2026/10/04/students-donate-blood-give-back-at-natural-history-museum/"
+      }
+    ],
+    "action": {
+      "label": "Read the birthday tradition",
+      "url": "https://thedailytexan.com/2026/10/04/students-donate-blood-give-back-at-natural-history-museum/"
+    }
+  }
+}

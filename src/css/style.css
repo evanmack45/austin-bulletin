@@ -58,7 +58,7 @@ img { width: 100%; height: auto; display: block; }
   text-transform: uppercase;
 }
 .folio-note { color: var(--muted); }
-.folio-nav { display: flex; gap: 1.4rem; }
+.folio-nav { display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; }
 .folio-nav a { color: var(--accent); text-decoration: none; }
 .folio-nav a:hover { text-decoration: underline; }
 .folio-nav .rss-link { letter-spacing: 0.16em; }
