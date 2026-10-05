@@ -16,15 +16,17 @@ homeFront: true
     <section class="front-lead" aria-labelledby="front-lead-title">
       <p class="front-kicker">{% if front.lead.neutral %}The latest available briefing{% else %}The priority{% endif %}</p>
       <h1 id="front-lead-title">{{ front.lead.title | escape }}</h1>
+      {% set card = front.lead %}{% include "front-photo.njk" %}
       <p class="front-deck">{{ front.lead.summary | escape }}</p>
       {% if front.lead.detail %}<p class="front-detail">{{ front.lead.detail | escape }}</p>{% endif %}
       {% set card = front.lead %}{% include "front-sources.njk" %}
       <a class="front-action" href="{{ front.lead.action.url | escape }}">{{ front.lead.action.label | escape }} <span aria-hidden="true">→</span></a>
     </section>
     {% if front.access %}
-    <section class="front-access" aria-labelledby="front-access-title">
-      <p class="front-kicker">Before you go</p>
+    <section class="front-access{% if front.access.photo %} front-access--photo{% endif %}" aria-labelledby="front-access-title">
+      {% if not front.access.photo %}<p class="front-kicker">Before you go</p>{% endif %}
       <h2 id="front-access-title"><a href="{{ front.access.record | escape }}">{{ front.access.title | escape }}</a></h2>
+      {% set card = front.access %}{% include "front-photo.njk" %}
       <p>{{ front.access.summary | escape }}</p>
       {% if front.access.detail %}<p class="front-detail">{{ front.access.detail | escape }}</p>{% endif %}
       {% set card = front.access %}{% include "front-sources.njk" %}

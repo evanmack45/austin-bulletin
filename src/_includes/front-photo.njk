@@ -1,0 +1,8 @@
+{% if card.photo %}
+{% set photo = card.photo %}
+<figure class="story-photo">
+  <figcaption>{{ photo.caption | escape }} <a href="{{ photo.source | escape }}">{{ photo.credit | escape }}</a> · <a href="{{ photo.licenseUrl | escape }}">{{ photo.license | escape }}</a> · cropped and resized.</figcaption>
+  <img src="{{ photo.src | escape }}" srcset="{{ photo.smallSrc | escape }} {{ photo.smallWidth }}w, {{ photo.src | escape }} {{ photo.width }}w" sizes="(max-width: 650px) calc(100vw - 32px), 440px" width="{{ photo.width }}" height="{{ photo.height }}" alt="{{ photo.alt | escape }}" loading="eager" decoding="async">
+
+</figure>
+{% endif %}

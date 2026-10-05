@@ -17,6 +17,11 @@ The [City’s park closure notice](https://www.austintexas.gov/parks/parks-and-r
 - **Ann and Roy Butler Hike-and-Bike Trail** and **Barton Creek Greenbelt** — listed as open; nearby festival access restrictions still apply.
 - **Zilker disc golf course** and **playscape** — listed as open, but their **parking lots are closed through October 18**.
 
+<figure class="guide-photo">
+<img src="/images/photos/barton-springs-960.webp" srcset="/images/photos/barton-springs-480.webp 480w, /images/photos/barton-springs-960.webp 960w" sizes="(max-width: 800px) calc(100vw - 32px), 760px" width="960" height="320" alt="Barton Springs Pool and its grassy banks, photographed in March 2016." loading="eager" decoding="async">
+<figcaption>File photo: Barton Springs Pool, March 4, 2016. <a href="https://commons.wikimedia.org/wiki/File:Barton_Springs_Pool_March_2016_2.JPG">Fredlyfish4</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> · cropped and resized.</figcaption>
+</figure>
+
 The City’s [ACL event page](https://www.austintexas.gov/ace/events/austin-city-limits-weekend-one) uses broad ticket-only park-access wording. Its more specific parks notice names the open amenities above. Do not treat those exceptions as permission to enter the festival grounds.
 
 ### When can you return to the Great Lawn?

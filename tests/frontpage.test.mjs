@@ -175,3 +175,27 @@ test("practical guide actions point to existing answer sections", async () => {
 		assert.equal(card.record, route, "source reference remains the guide top");
 	}
 });
+
+test("optional story photos require local responsive assets, dimensions and linked rights", () => {
+  const b = bundle();
+  b.access.photo = { src: "/images/photos/pool-960.webp", smallSrc: "/images/photos/pool-480.webp", width: 960, height: 320, smallWidth: 480, alt: "Archival pool photograph", caption: "File photo, March 2016", credit: "Fredlyfish4", source: "https://commons.wikimedia.org/wiki/File:Pool", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/" };
+  assert.equal(validateCuration(b), b);
+  for (const change of [
+    p => p.width = 0, p => p.src = "https://tracker.example/photo",
+    p => p.alt = "", p => p.licenseUrl = "javascript:bad",
+  ]) {
+    const bad = structuredClone(b); change(bad.access.photo);
+    assert.throws(() => validateCuration(bad), /photo/i);
+  }
+  assert.equal(select(b).access, null, "unbound photo cannot follow a story source");
+  const boundRaw = [raw, b.access.photo.src, b.access.photo.smallSrc,
+    b.access.photo.source].join(" ");
+  b.access.sourceHash = sourceHash(boundRaw);
+  const boundRecords = { ...records, "/zilker-park-access/": { raw: boundRaw, html } };
+  assert.equal(select(b, date, boundRecords).access.photo.src, b.access.photo.src);
+  const changedRecords = { ...records,
+    "/zilker-park-access/": { raw: boundRaw + " Changed.", html } };
+  assert.equal(select(b, date, changedRecords).access, null);
+  b.access.expiresOn = "2026-10-04";
+  assert.equal(select(b, "2026-10-05", boundRecords).access, null);
+});

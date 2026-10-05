@@ -24,9 +24,9 @@
   "access": {
     "key": "zilker-access",
     "record": "/zilker-park-access/",
-    "sourceHash": "90ae195df395bf41e64ed4bce89aebef6512dbcabc8e88ddc4bea48d754ad331",
+    "sourceHash": "e094ef86222ed36bb9d768559e3c587e16a5291b9e73fcf6995eb3ae425710d3",
     "title": "Zilker access this week",
-    "summary": "The City lists the pool, trail and Greenbelt as open, while multiple park parking lots stay closed through October 18. A posted road-closure endpoint is not confirmation of reopening.",
+    "summary": "The City lists the pool, trail and Greenbelt as open; parking restrictions remain. This guide has no confirmed Great Lawn reopening date.",
     "asOf": "City notices reviewed October 5, 2026, at 12:10 p.m. CDT",
     "sources": [
       {
@@ -38,8 +38,20 @@
       "label": "Entrances, closures & parking",
       "url": "/zilker-park-access/#what-can-you-use"
     },
-    "detail": "The next Barton Springs Road closure is scheduled for Thursday, October 8, at 7 p.m. The sources checked do not confirm a Great Lawn reopening date.",
-    "expiresOn": "2026-10-18"
+    "expiresOn": "2026-10-18",
+    "photo": {
+      "src": "/images/photos/barton-springs-960.webp",
+      "smallSrc": "/images/photos/barton-springs-480.webp",
+      "width": 960,
+      "height": 320,
+      "smallWidth": 480,
+      "alt": "Barton Springs Pool and its grassy banks, photographed in March 2016.",
+      "caption": "File photo: Barton Springs Pool, March 4, 2016.",
+      "credit": "Fredlyfish4",
+      "source": "https://commons.wikimedia.org/wiki/File:Barton_Springs_Pool_March_2016_2.JPG",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
+    }
   },
   "developments": [
     {
@@ -92,7 +104,7 @@
       "record": "/2026/10/05/",
       "sourceHash": "1445123abddeb6d1cc72c1c693c123a13623bf0b93de7d09205bf02efdfc4f9c",
       "title": "School support jobs: current application links",
-      "summary": "Austin ISD\u2019s careers page currently features food service managers, custodians and bus drivers. Saturday\u2019s hiring fair is over; use the district\u2019s application links for current opportunities.",
+      "summary": "Austin ISD’s careers page currently features food service managers, custodians and bus drivers. Saturday’s hiring fair is over; use the district’s application links for current opportunities.",
       "asOf": "Sources reviewed October 5, 2026",
       "sources": [
         {
@@ -115,15 +127,15 @@
     "asOf": "Official records reviewed October 5, 2026",
     "sources": [
       {
-        "name": "City of Austin \u2014 item 29",
+        "name": "City of Austin — item 29",
         "url": "https://austintexas.legistar.com/LegislationDetail.aspx?ID=8237569&GUID=AC590203-F77E-4619-A273-766BDBF7979F&G=4BED8896-C64D-4912-8005-D624C5197AA5&Options=&Search="
       },
       {
-        "name": "City of Austin \u2014 item 24",
+        "name": "City of Austin — item 24",
         "url": "https://austintexas.legistar.com/LegislationDetail.aspx?ID=8239390&GUID=FF5FF2B8-0B2C-405E-8851-D890273A3351&G=4BED8896-C64D-4912-8005-D624C5197AA5&Options=&Search="
       },
       {
-        "name": "City of Austin \u2014 item 9",
+        "name": "City of Austin — item 9",
         "url": "https://austintexas.legistar.com/LegislationDetail.aspx?ID=8239379&GUID=C2377752-5A95-4C47-AC07-1157D559D27D&G=4BED8896-C64D-4912-8005-D624C5197AA5&Options=&Search="
       }
     ],

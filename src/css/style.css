@@ -629,3 +629,13 @@ h2#the-back-page {
 
 .home-front .front-weather-warning { border: 2px solid var(--accent); padding: .75rem 1rem; margin-bottom: 1.2rem; }
 .home-front .front-weather-warning h2 { font-size: 1.25rem; margin: 0; }
+
+/* Licensed archival photographs; dated edition content is unchanged. */
+.home-front .story-photo, .guide-photo { margin: .65rem 0 1rem; }
+.home-front .story-photo img, .guide-photo img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 1; }
+.home-front .story-photo figcaption, .guide-photo figcaption { font-size: .78rem; line-height: 1.45; margin-top: .4rem; color: var(--muted); }
+
+.home-front .story-photo figcaption { margin: 0 0 .4rem; }
+@media (max-width: 650px) {
+  .home-front .front-access--photo { margin-top: .8rem; padding-top: .65rem; }
+}

@@ -62,6 +62,16 @@ export function validateCuration(bundle) {
 			!plain(card.asOf)
 		)
 			throw new Error("Invalid curation card/reference");
+		if (card.photo !== undefined) {
+			const p = card.photo;
+			if (!p || !local(p.src) || !local(p.smallSrc) ||
+				!Number.isInteger(p.width) || p.width <= 0 ||
+				!Number.isInteger(p.height) || p.height <= 0 ||
+				!Number.isInteger(p.smallWidth) || p.smallWidth <= 0 || p.smallWidth >= p.width ||
+				![p.alt, p.caption, p.credit, p.license].every(plain) ||
+				!https(p.source) || !https(p.licenseUrl))
+				throw new Error("Invalid story photo/rights");
+		}
 		if (card.image !== undefined && (!local(card.image) || !plain(card.imageAlt)))
 			throw new Error("Invalid story image");
 		if (card.detail !== undefined && (!plain(card.detail) || card.detail.length > 500))
@@ -149,6 +159,8 @@ export function selectFrontpage({
 			!record ||
 			sourceHash(record.raw) !== card.sourceHash ||
 			(card.image && !record.raw.includes(card.image)) ||
+			(card.photo && [card.photo.src, card.photo.smallSrc, card.photo.source]
+				.some(value => !record.raw.includes(value))) ||
 			card.sources.some((s) => !record.raw.includes(s.url) && !record.urls?.includes(s.url))
 		) {
 			notices.push(`Source review needed: ${card.key}`);
