@@ -1,6 +1,6 @@
 {
   "date": "2026-10-05",
-  "reviewedAt": "2026-10-05T13:17:21.649991+00:00",
+  "reviewedAt": "2026-10-05T14:03:40.825777+00:00",
   "lead": {
     "key": "voter-registration",
     "record": "/vote-2026/",
@@ -44,21 +44,30 @@
   "developments": [
     {
       "key": "airport-departures",
-      "record": "/2026/10/05/",
-      "sourceHash": "1445123abddeb6d1cc72c1c693c123a13623bf0b93de7d09205bf02efdfc4f9c",
-      "title": "Flying today? Leave time before departure",
-      "summary": "The airport expects a busy Monday and recommends arriving at least 2.5 hours before domestic flights or 3 hours before international flights, plus time for bags or rental-car returns.",
-      "asOf": "Sources reviewed October 5, 2026",
+      "record": "/aus-early-flights/",
+      "sourceHash": "a0023f5a3d08374c2c7c58351c2186405947edb1a1af9f0006cc14221015f668",
+      "title": "An early AUS flight? Check what opens when",
+      "summary": "First checkpoints typically open at 3 a.m.; airline counters have their own rules. Keep the airport’s arrival buffer and check your airline’s deadlines before leaving home.",
+      "asOf": "Airport and airline sources reviewed October 5, 2026",
       "sources": [
         {
-          "name": "Austin-Bergstrom International Airport",
-          "url": "https://www.flyaustin.com/news/austin-bergstrom-international-airport-encourages-travelers-prepare-increased-passenger-0"
+          "name": "AUS Travel & Security",
+          "url": "https://www.flyaustin.com/travel-security-austin-bergstrom-international-airport"
+        },
+        {
+          "name": "American Airlines",
+          "url": "https://www.aa.com/pubcontent/en_US/travelInformation/destinationInformation/aus-airport.html"
+        },
+        {
+          "name": "Southwest Airlines",
+          "url": "https://www.southwest.com/airport-information/"
         }
       ],
       "action": {
-        "label": "Read the airport\u2019s travel advisory",
-        "url": "https://www.flyaustin.com/news/austin-bergstrom-international-airport-encourages-travelers-prepare-increased-passenger-0"
-      }
+        "label": "Security opening, bag drop & arrival advice",
+        "url": "/aus-early-flights/"
+      },
+      "expiresOn": "2026-10-11"
     },
     {
       "key": "court-schedule",
