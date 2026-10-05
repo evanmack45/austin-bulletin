@@ -22,30 +22,38 @@ test("About crawler identifier fits at 360px and stays readable and copyable", {
     await page.setJavaScriptEnabled(false);
     await page.setRequestInterception(true);
     page.on("request", request => request.abort());
-    for (const width of [360, 390, 1440]) {
-      await page.setViewport({ width, height: 900 });
-      await page.setContent(html, { waitUntil: "domcontentloaded" });
-      const result = await page.evaluate(expected => {
-        const code = [...document.querySelectorAll("code")].find(el => el.textContent === expected);
-        if (!code) throw new Error("Crawler identifier is missing or altered");
-        const range = document.createRange(); range.selectNodeContents(code);
-        const rectangles = [...range.getClientRects()].map(r => ({
-          left: r.left, right: r.right, height: r.height
-        }));
-        const selection = window.getSelection();
-        selection.removeAllRanges(); selection.addRange(range);
-        return { documentWidth: document.documentElement.scrollWidth, viewport: innerWidth,
-          text: code.textContent, selected: selection.toString(), rectangles };
-      }, agent);
-      assert.ok(result.documentWidth <= width,
-        `${width}px viewport, ${result.documentWidth}px document`);
-      assert.equal(result.text, agent);
-      assert.equal(result.selected, agent);
-      assert.ok(result.rectangles.length > 0);
-      assert.ok(result.rectangles.every(r => r.left >= 0 && r.right <= width && r.height > 0),
-        `identifier must remain inside ${width}px`);
-      if (width === 1440) {
-        assert.equal(result.rectangles.length, 1, "desktop identifier remains on one line");
+    // The test blocks font requests. Linux can fall back to a Times-style serif
+    // where Mac uses Georgia; exercise both line-break contexts explicitly.
+    for (const fallback of [null, "Times New Roman"]) {
+      for (const width of [360, 390, 1440]) {
+        await page.setViewport({ width, height: 900 });
+        const fontStyle = fallback
+          ? `<style>body { font-family: "${fallback}", serif; }</style>` : "";
+        await page.setContent(html + fontStyle, { waitUntil: "domcontentloaded" });
+        const result = await page.evaluate(expected => {
+          const code = [...document.querySelectorAll("code")]
+            .find(el => el.textContent === expected);
+          if (!code) throw new Error("Crawler identifier is missing or altered");
+          const range = document.createRange(); range.selectNodeContents(code);
+          const rectangles = [...range.getClientRects()].map(r => ({
+            left: r.left, right: r.right, height: r.height
+          }));
+          const selection = window.getSelection();
+          selection.removeAllRanges(); selection.addRange(range);
+          return { documentWidth: document.documentElement.scrollWidth, viewport: innerWidth,
+            text: code.textContent, selected: selection.toString(), rectangles };
+        }, agent);
+        assert.ok(result.documentWidth <= width,
+          `${width}px viewport, ${result.documentWidth}px document`);
+        assert.equal(result.text, agent);
+        assert.equal(result.selected, agent);
+        assert.ok(result.rectangles.length > 0);
+        assert.ok(result.rectangles.every(r => r.left >= 0 && r.right <= width && r.height > 0),
+          `identifier must remain inside ${width}px`);
+        if (width === 1440) {
+          assert.equal(result.rectangles.length, 1,
+            `desktop identifier remains on one line (${fallback || "default fallback"})`);
+        }
       }
     }
   } finally { await browser.close(); }

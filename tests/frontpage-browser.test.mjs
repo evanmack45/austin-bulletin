@@ -202,7 +202,11 @@ test("guide action fragments reach the answer by keyboard without JavaScript", {
 		for (const target of actions) {
 			await page.goto(home, { waitUntil: "networkidle0" });
 			await reachByKeyboard(page, [target]);
-			await page.keyboard.press("Enter");
+			// Register before activation so the focus check targets the new document.
+			await Promise.all([
+				page.waitForNavigation({ waitUntil: "networkidle0" }),
+				page.keyboard.press("Enter"),
+			]);
 			await page.waitForFunction(
 				(expected) => {
 					const heading = document.getElementById(expected.split("#")[1]);
