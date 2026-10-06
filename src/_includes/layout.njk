@@ -37,7 +37,8 @@
     <a class="wordmark" href="/">The Austin Bulletin</a>
     <nav aria-label="Publication"><a href="/archive/">Archive</a><a href="/archive/#search">Search</a><a href="/feed.xml">Follow by RSS</a></nav>
     {% set latestFront = collections.bulletins | first %}
-    <p>What matters in Austin <span aria-hidden="true">·</span> {{ latestFront.date | readableDate }}</p>
+    {% set previousFront = collections.bulletins[1] | previousPublishedEdition(latestFront) %}
+    <p>{{ latestFront.date | longDate }}{% if previousFront %} <span aria-hidden="true">·</span> Previous edition: <a href="{{ previousFront.url | escape }}">{{ previousFront.date | monthDay }}</a>{% endif %}</p>
   </header>{% else %}  <header class="site-header">
     <p class="masthead-kicker">Every morning, for the city</p>
     <a class="wordmark" href="/">The Austin Bulletin</a>

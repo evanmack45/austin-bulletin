@@ -525,3 +525,5 @@ gathering timestamp fall on the current Chicago date and its source is the
 existing official NWS URL. Label it as a dated forecast snapshot with a current
 NWS link; it does not establish that an alert is still active at reading time.
 Normal weather stays below the news. Never reuse a stale alert as a live warning.
+
+A reviewed “Since the previous edition” cue may replace selected homepage summary or guide-link copy, never add a duplicate briefing block. At most three manual entries distinguish new reporting, updated guidance and still-unresolved questions, with explicit compared edition dates. Source/version checks cannot establish significance. Missing or invalid comparison review leaves the ordinary homepage intact and does not block publishing. The masthead's previous-edition link is navigation, not a claim that every homepage story changed. Preserve historical editions, useful first-visit guidance, first-screen imagery and primary actions.

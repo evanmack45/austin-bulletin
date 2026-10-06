@@ -7,17 +7,17 @@ homeFront: true
 ---
 {% set latest = collections.bulletins | first %}
 {% set editionDate = latest.date | isoDate %}
-{% set front = latest | editedFrontpage(frontpages[editionDate], collections.all, vote2026.links) %}
+{% set front = latest | editedFrontpage(frontpages[editionDate], collections.all, vote2026.links, collections.bulletins[1], vote2026.showNav) %}
 {% set glanceData = glance[editionDate] %}
 {% set warnings = glanceData | forecastAlerts %}
 <article class="edited-front" data-neutral="{{ front.lead.neutral or false }}">
   {% if warnings.length %}<aside class="front-weather-warning" aria-label="Dated National Weather Service alert snapshot"><h2>NWS alerts in the {{ latest.date | readableDate }} forecast</h2><p>{{ warnings | join("; ") | escape }}</p><p class="front-asof">Gathered {{ glanceData.fetchedAt | escape }}. <a href="https://www.weather.gov/ewx/">Check current National Weather Service notices</a>.</p></aside>{% endif %}
   <div class="front-priorities">
     <section class="front-lead" aria-labelledby="front-lead-title">
-      <p class="front-kicker">{% if front.lead.neutral %}The latest available briefing{% else %}The priority{% endif %}</p>
+      <p class="front-kicker">{% if front.lead.comparisonKind %}Since the previous edition{% elif front.lead.neutral %}The latest available briefing{% else %}The priority{% endif %}</p>
       <h1 id="front-lead-title">{{ front.lead.title | escape }}</h1>
       {% set card = front.lead %}{% include "front-photo.njk" %}
-      <p class="front-deck">{{ front.lead.summary | escape }}</p>
+      <p class="front-deck">{% if front.lead.comparisonKind %}<strong>{{ front.lead.comparisonKind | escape }}:</strong> {% endif %}{{ front.lead.summary | escape }}</p>
       {% if front.lead.detail %}<p class="front-detail">{{ front.lead.detail | escape }}</p>{% endif %}
       {% set card = front.lead %}{% include "front-sources.njk" %}
       <a class="front-action" href="{{ front.lead.action.url | escape }}">{{ front.lead.action.label | escape }} <span aria-hidden="true">→</span></a>
@@ -27,7 +27,7 @@ homeFront: true
       {% if not front.access.photo %}<p class="front-kicker">Before you go</p>{% endif %}
       <h2 id="front-access-title"><a href="{{ front.access.record | escape }}">{{ front.access.title | escape }}</a></h2>
       {% set card = front.access %}{% include "front-photo.njk" %}
-      <p>{{ front.access.summary | escape }}</p>
+      <p>{% if front.access.comparisonKind %}{% if not front.lead.comparisonKind %}<span class="front-asof">Since the previous edition · </span>{% endif %}<strong>{{ front.access.comparisonKind | escape }}:</strong> {% endif %}{{ front.access.summary | escape }}</p>
       {% if front.access.detail %}<p class="front-detail">{{ front.access.detail | escape }}</p>{% endif %}
       {% set card = front.access %}{% include "front-sources.njk" %}
       <a class="front-action front-action--quiet" href="{{ front.access.action.url | escape }}">{{ front.access.action.label | escape }} <span aria-hidden="true">→</span></a>
@@ -69,7 +69,7 @@ homeFront: true
   </section>
 
   <div class="front-lower">
-    <section aria-labelledby="guides-title"><h2 id="guides-title">Keep these close</h2><ul><li><a href="/zilker-park-access/">Zilker entrances, closures & parking</a></li>{% if vote2026.showNav %}<li><a href="/vote-2026/">Vote 2026: dates & official instructions</a></li>{% endif %}<li><a href="/archive/#search">Search past briefings</a></li><li><a href="/feed.xml">Follow the morning editions by RSS</a></li></ul><p class="front-asof">No signup. A direct route back to the next briefing.</p></section>
+    <section aria-labelledby="guides-title"><h2 id="guides-title">Keep these close</h2><ul><li><a href="/zilker-park-access/">Zilker entrances, closures & parking</a></li>{% if vote2026.showNav %}<li>{% if front.voteGuide %}{% if not front.lead.comparisonKind and not front.access.comparisonKind %}<span class="front-asof">Since the previous edition · </span>{% endif %}<strong>{{ front.voteGuide.comparisonKind | escape }}:</strong> {{ front.voteGuide.summary | escape }} <a href="{{ front.voteGuide.action.url | escape }}">{{ front.voteGuide.action.label | escape }}</a>. {% for source in front.voteGuide.sources %}<a href="{{ source.url | escape }}">{{ source.name | escape }}</a>{% if not loop.last %}; {% endif %}{% endfor %}{% else %}<a href="/vote-2026/">Vote 2026: dates & official instructions</a>{% endif %}</li>{% endif %}<li><a href="/archive/#search">Search past briefings</a></li><li><a href="/feed.xml">Follow the morning editions by RSS</a></li></ul><p class="front-asof">No signup. A direct route back to the next briefing.</p></section>
     {% if front.goodThing %}{% set card = front.goodThing %}<section aria-labelledby="good-title"><p class="front-kicker">One Good Thing</p><h2 id="good-title">{{ card.title | escape }}</h2><p>{{ card.summary | escape }}</p>{% include "front-sources.njk" %}<a class="front-text-link" href="{{ card.action.url | escape }}">{{ card.action.label | escape }} →</a></section>{% endif %}
   </div>
   {% set glanceData = glance[editionDate] %}

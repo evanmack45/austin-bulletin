@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { createServer } from "node:http";
 import path from "node:path";
 import puppeteer from "puppeteer-core";
@@ -63,6 +63,7 @@ async function measureFirstFold(page) {
 			action: rect(".front-lead .front-action"),
 			source: rect(".front-lead .front-sources"),
 			access: rect(".front-access h2 a"),
+			photo: rect(".front-access .story-photo img"),
 			h1s: document.querySelectorAll("h1").length,
 			fonts: [...document.fonts]
 				.filter((font) => font.status === "loaded")
@@ -92,12 +93,21 @@ function assertFirstFold(result, width, height) {
 		"real masthead font must load",
 	);
 	assertPriorities(result, width, height);
+	assertPhotoFirstFold(result, height);
 	if (width <= 390) assert.ok(result.header.height <= 150);
 	if (!result.neutral) assert.ok(result.sourceName.trim(), "factual leads need attribution");
 	assert.equal(result.actionColor, "rgb(246, 239, 226)");
 	assert.equal(result.actionBg, "rgb(122, 31, 31)");
 	assert.ok(result.action.height >= 44);
 	assert.ok(result.nav.every((link) => link.height >= 44));
+}
+
+function assertPhotoFirstFold(result, height) {
+	if (result.photo) {
+		assert.ok(result.photo.top >= 0 &&
+			result.photo.bottom <= height + (result.warning?.outerHeight ?? 0),
+			"archival image stays in the first fold: " + JSON.stringify(result));
+	}
 }
 
 function assertPriorities(result, width, height) {
@@ -143,6 +153,7 @@ test("edited homepage keeps the selected lead and action visible with real fonts
 			[1440, 900],
 			[1165, 747],
 			[390, 844],
+			[360, 800],
 			[320, 800],
 		]) {
 			const page = await browser.newPage();
@@ -278,4 +289,38 @@ test("dated edition navigation stays within a 320px viewport", {
 		await browser.close();
 		await new Promise(resolve => server.close(resolve));
 	}
+});
+
+
+test("previous edition is direct keyboard navigation independent of optional comparison", {
+  skip: !chrome && "an installed Chromium is required for browser regression",
+}, async () => {
+  const dates = readdirSync("src/bulletins").filter(name => /^\d{4}-\d{2}-\d{2}\.md$/.test(name))
+    .sort().reverse();
+  const prior = dates[1]?.slice(0, 10);
+  if (!prior) return;
+  const href = `/${prior.replaceAll("-", "/")}/`;
+  const server = await serveBuiltSite();
+  const browser = await puppeteer.launch({ executablePath: chrome, headless: true,
+    args: process.platform === "linux" ? ["--no-sandbox"] : [] });
+  try {
+    const page = await browser.newPage();
+    await page.setJavaScriptEnabled(false);
+    await page.setViewport({ width: 320, height: 800 });
+    await page.goto(`http://127.0.0.1:${server.address().port}/`, { waitUntil: "networkidle0" });
+    const link = await page.$eval(".front-masthead p a", element => ({
+      href: element.getAttribute("href"), text: element.textContent,
+      context: element.parentElement.textContent,
+    }));
+    assert.equal(link.href, href);
+    assert.ok(link.context.includes("Previous edition:"));
+    assert.ok(!link.context.includes("Since"), "ordinary dateline makes no change claim");
+    await reachByKeyboard(page, [href]);
+    await Promise.all([page.waitForNavigation({ waitUntil: "networkidle0" }),
+      page.keyboard.press("Enter")]);
+    assert.equal(new URL(page.url()).pathname, href);
+    assert.ok((await page.content()).includes(prior.split("-")[2].replace(/^0/, "")));
+  } finally {
+    await browser.close(); await new Promise(resolve => server.close(resolve));
+  }
 });

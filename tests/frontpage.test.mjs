@@ -199,3 +199,145 @@ test("optional story photos require local responsive assets, dimensions and link
   b.access.expiresOn = "2026-10-04";
   assert.equal(select(b, "2026-10-05", boundRecords).access, null);
 });
+
+const previous = {
+	date: "2026-10-02",
+	url: "/2026/10/02/",
+	raw: "The preceding published edition",
+};
+const comparisonBundle = () => ({
+	...bundle(),
+	comparison: {
+		previousDate: previous.date,
+		previousSourceHash: sourceHash(previous.raw),
+		editionSourceHash: sourceHash(raw),
+		reviewedAt: "2026-10-04T12:00:00Z",
+		entries: [
+			{
+				slot: "lead",
+				key: "deadline",
+				kind: "development",
+				record: "/vote-2026/",
+				sourceHash: sourceHash(raw),
+				summary: "A newly reported proposal remains pending.",
+				sources: [{ name: "City", url: "https://example.org/report" }],
+			},
+			{
+				slot: "access",
+				key: "park-access",
+				kind: "unresolved",
+				record: "/zilker-park-access/",
+				sourceHash: sourceHash(raw),
+				summary: "The reopening date remains unconfirmed.",
+				sources: [{ name: "City", url: "https://example.org/report" }],
+			},
+			{
+				slot: "voteGuide",
+				key: "voter-guide",
+				kind: "guidance",
+				record: "/vote-2026/",
+				sourceHash: sourceHash(raw),
+				summary: "The dated deadline passed; check your registration record.",
+				sources: [{ name: "City", url: "https://example.org/report" }],
+			},
+		],
+	},
+});
+const compare = (curation, p = previous, r = records) =>
+	selectFrontpage({
+		curation,
+		editionDate: date,
+		editionUrl: url,
+		editionHTML: html,
+		records: r,
+		today: date,
+		previousEdition: p,
+		showVoteGuide: true,
+	});
+test("reviewed comparisons replace selected copy across a publication gap", () => {
+	const front = compare(comparisonBundle());
+	assert.equal(front.lead.summary, "A newly reported proposal remains pending.");
+	assert.equal(front.lead.comparisonKind, "New reporting");
+	assert.equal(front.access.comparisonKind, "Still unresolved");
+	assert.equal(front.voteGuide.comparisonKind, "Guidance updated");
+	assert.equal(front.voteGuide.action.url, "/vote-2026/#do-these-first");
+	assert.equal(front.lead.action.url, bundle().lead.action.url);
+	assert.equal(front.developments[0].summary, bundle().developments[0].summary);
+	assert.deepEqual(front.previousEdition, { date: previous.date, url: previous.url });
+});
+test("missing or malformed optional comparison cannot break ordinary curation", () => {
+	for (const mutate of [
+		(b) => delete b.comparison,
+		(b) => (b.comparison = null),
+		(b) => (b.comparison.reviewedAt = "invented"),
+		(b) => (b.comparison.previousDate = "2026-10-03"),
+		(b) => (b.comparison.previousSourceHash = "a".repeat(64)),
+		(b) => (b.comparison.editionSourceHash = "a".repeat(64)),
+		(b) => b.comparison.entries.push(b.comparison.entries[0]),
+		(b) => (b.comparison.entries = "not reviewed"),
+	]) {
+		const b = comparisonBundle();
+		mutate(b);
+		const front = compare(b);
+		assert.equal(front.lead.summary, bundle().lead.summary);
+		assert.equal(front.lead.comparisonKind, undefined);
+		assert.equal(front.voteGuide, null);
+	}
+	for (const p of [null, { ...previous, date }, { ...previous, url: "//example.org" }]) {
+		const front = compare(comparisonBundle(), p);
+		assert.equal(front.lead.comparisonKind, undefined);
+		assert.equal(front.previousEdition, null);
+	}
+});
+test("unsafe stale or unknown comparison entries omit independently", () => {
+	for (const mutate of [
+		(e) => (e.key = "unknown"),
+		(e) => (e.slot = "invented"),
+		(e) => (e.kind = "breaking"),
+		(e) => (e.kind = { toString: null }),
+		(e) => (e.record = { toString: null }),
+		(e) => (e.record = "/unknown/"),
+		(e) => (e.sourceHash = "a".repeat(64)),
+		(e) => (e.summary = "<img src=x>"),
+		(e) => (e.summary = "Long ".repeat(50)),
+		(e) => (e.sources = [{ name: "Unsafe", url: "javascript:alert(1)" }]),
+		(e) => (e.sources = [{ name: "Unknown", url: "https://example.org/unreviewed" }]),
+	]) {
+		const b = comparisonBundle();
+		mutate(b.comparison.entries[0]);
+		const front = compare(b);
+		assert.equal(front.lead.summary, bundle().lead.summary);
+		assert.equal(front.lead.comparisonKind, undefined);
+		assert.equal(front.access.comparisonKind, "Still unresolved");
+	}
+	const b = comparisonBundle();
+	b.comparison.entries[1].slot = "lead";
+	const front = compare(b);
+	assert.equal(front.lead.comparisonKind, undefined);
+	assert.equal(front.voteGuide.comparisonKind, "Guidance updated");
+});
+test("changed guides and hidden voter navigation suppress comparison", () => {
+	const changed = { ...records, "/vote-2026/": { raw: "Revised source" } };
+	assert.equal(compare(comparisonBundle(), previous, changed).voteGuide, null);
+	assert.equal(compare(undefined).lead.comparisonKind, undefined);
+	const front = selectFrontpage({
+		curation: comparisonBundle(),
+		editionDate: date,
+		editionUrl: url,
+		editionHTML: html,
+		records,
+		today: date,
+		previousEdition: previous,
+		showVoteGuide: false,
+	});
+	assert.equal(front.voteGuide, null);
+});
+
+test("ordinary cards cannot smuggle an unreviewed comparison label", () => {
+  const b = bundle();
+  b.lead.comparisonKind = "New reporting";
+  b.access.comparisonKind = "Still unresolved";
+  const front = compare(b);
+  assert.equal(front.lead.comparisonKind, undefined);
+  assert.equal(front.access.comparisonKind, undefined);
+});

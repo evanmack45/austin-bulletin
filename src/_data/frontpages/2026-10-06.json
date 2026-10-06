@@ -5,7 +5,7 @@
     "key": "insurance-roofs",
     "record": "/2026/10/06/",
     "sourceHash": "ea19a7028be4363c68adb11b48ed85cbd7ff28b41544926cffc8f97fe6cbca32",
-    "title": "Texas insurance costs put roof upgrades on the agenda",
+    "title": "Texas weighs grants for stronger roofs",
     "summary": "Monday’s hearing considered stronger roofs and possible incentives. The current state overview gives a preliminary statewide premium figure; no new grant or guaranteed discount is established.",
     "asOf": "October 5 hearing; sources reviewed October 6, 2026",
     "sources": [
@@ -19,7 +19,7 @@
       }
     ],
     "action": {
-      "label": "Read costs & proposed roof incentives",
+      "label": "Read costs & roof proposals",
       "url": "/2026/10/06/#texas-insurance-costs-put-roof-upgrades-on-lawmakers-agenda"
     }
   },
@@ -155,5 +155,59 @@
       "label": "Read the home bakers’ story",
       "url": "https://thedailytexan.com/2026/10/05/austin-cookie-fest-highlights-home-bakers/"
     }
+  },
+  "comparison": {
+    "previousDate": "2026-10-05",
+    "previousSourceHash": "1445123abddeb6d1cc72c1c693c123a13623bf0b93de7d09205bf02efdfc4f9c",
+    "editionSourceHash": "ea19a7028be4363c68adb11b48ed85cbd7ff28b41544926cffc8f97fe6cbca32",
+    "reviewedAt": "2026-10-06T12:54:46.944624+00:00",
+    "entries": [
+      {
+        "slot": "lead",
+        "key": "insurance-roofs",
+        "kind": "development",
+        "record": "/2026/10/06/",
+        "sourceHash": "ea19a7028be4363c68adb11b48ed85cbd7ff28b41544926cffc8f97fe6cbca32",
+        "summary": "October 5’s hearing considered grants for stronger roofs; no new grant or guaranteed discount is established.",
+        "sources": [
+          {
+            "name": "Community Impact",
+            "url": "https://communityimpact.com/central-austin/texas-legislature/experts-hardening-homes-against-disasters-could-drive-down-texas-home-insurance-costs/"
+          }
+        ]
+      },
+      {
+        "slot": "access",
+        "key": "zilker-access",
+        "kind": "unresolved",
+        "record": "/zilker-park-access/",
+        "sourceHash": "f3405c3d50f75fef54698e7acbe6907d835c7c92f1aa4226eca35bc2e457efc7",
+        "summary": "Great Lawn reopening is unconfirmed. Pool, trail and Greenbelt remain listed open with parking limits. KXAN reports City restoration oversight; organizer recovery plans remain.",
+        "sources": [
+          {
+            "name": "City of Austin",
+            "url": "https://www.austintexas.gov/parks/parks-and-recreation-facilities-closures"
+          },
+          {
+            "name": "KXAN — City and organizer statements",
+            "url": "https://www.kxan.com/acl/acl-festival-says-its-committed-to-leaving-zilker-park-better-than-we-found-it/"
+          }
+        ]
+      },
+      {
+        "slot": "voteGuide",
+        "key": "voter-guide",
+        "kind": "guidance",
+        "record": "/vote-2026/",
+        "sourceHash": "6c1f81c5ee5d1547a423aec84ce12463ba18ea65d5d47a428afdc8c6d83915c4",
+        "summary": "The October 5 registration deadline has passed.",
+        "sources": [
+          {
+            "name": "Travis County deadline notice",
+            "url": "https://tax-office.traviscountytx.gov/about-us/newsroom/2026/272-voter-registration-ends-monday-for-nov-3-election"
+          }
+        ]
+      }
+    ]
   }
 }

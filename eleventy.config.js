@@ -1,5 +1,5 @@
 import { readFileSync } from "node:fs";
-import { chicagoDate, forecastAlerts, selectFrontpage } from "./scripts/frontpage.mjs";
+import { chicagoDate, forecastAlerts, selectFrontpage, previousPublishedEdition } from "./scripts/frontpage.mjs";
 import { HtmlBasePlugin } from "@11ty/eleventy";
 import { feedPlugin } from "@11ty/eleventy-plugin-rss";
 import markdownItAnchor from "markdown-it-anchor";
@@ -95,15 +95,18 @@ export default function (eleventyConfig) {
   });
 
   eleventyConfig.addFilter("forecastAlerts", forecastAlerts);
+  eleventyConfig.addFilter("previousPublishedEdition", (previous, latest) => previous ?
+    previousPublishedEdition({ date: previous.date.toISOString().slice(0, 10), url: previous.url,
+      raw: readFileSync(previous.inputPath, "utf8") }, latest.date.toISOString().slice(0, 10)) : null);
 
-  eleventyConfig.addFilter("editedFrontpage", (latest, bundle, all, officialLinks) => {
-    const wanted = new Set([latest.url, ...[bundle?.lead, bundle?.access, ...(bundle?.developments ?? []), bundle?.feature, bundle?.goodThing].filter(Boolean).map(card => card.record)]);
+  eleventyConfig.addFilter("editedFrontpage", (latest, bundle, all, officialLinks, previous, showVoteGuide) => {
+    const wanted = new Set([latest.url, "/vote-2026/", ...[bundle?.lead, bundle?.access, ...(bundle?.developments ?? []), bundle?.feature, bundle?.goodThing].filter(Boolean).map(card => card.record)]);
     const records = {};
     for (const item of all) {
       if (item.url === "/" || !wanted.has(item.url)) continue;
       records[item.url] = { raw: readFileSync(item.inputPath, "utf8"), urls: item.url === "/vote-2026/" ? Object.values(officialLinks ?? {}) : [] };
     }
-    const front = selectFrontpage({ curation: bundle, editionDate: latest.date.toISOString().slice(0, 10), editionUrl: latest.url, editionHTML: latest.templateContent, records, today: chicagoDate() });
+    const front = selectFrontpage({ curation: bundle, editionDate: latest.date.toISOString().slice(0, 10), editionUrl: latest.url, editionHTML: latest.templateContent, records, today: chicagoDate(), showVoteGuide, previousEdition: previous ? { date: previous.date.toISOString().slice(0, 10), url: previous.url, raw: readFileSync(previous.inputPath, "utf8") } : null });
     for (const notice of front.notices) console.warn(`frontpage: ${notice}`);
     return front;
   });
@@ -140,6 +143,7 @@ export default function (eleventyConfig) {
       weekday: "long", year: "numeric", month: "long", day: "numeric", timeZone: "UTC"
     })
   );
+  eleventyConfig.addFilter("monthDay", (d) => new Date(d).toLocaleDateString("en-US", { month: "long", day: "numeric", timeZone: "UTC" }));
   eleventyConfig.addFilter("weekday", (d) =>
     new Date(d).toLocaleDateString("en-US", { weekday: "long", timeZone: "UTC" })
   );

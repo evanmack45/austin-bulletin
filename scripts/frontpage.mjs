@@ -136,6 +136,95 @@ function editionFallback(editionDate, editionUrl, html, allowLead) {
 	};
 }
 
+export function previousPublishedEdition(reference, editionDate) {
+  return reference && iso(reference.date) && reference.date < editionDate &&
+    reference.url === `/${reference.date.replaceAll("-", "/")}/` &&
+    typeof reference.raw === "string" && reference.raw.trim() ? reference : null;
+}
+
+// Optional comparison is manually authored; hashes establish versions, not significance.
+function comparisonCopy(front, curation, records, previous, showVoteGuide) {
+	const comparison = curation?.comparison;
+	const timestamp = comparison?.reviewedAt;
+	if (
+		!comparison ||
+		!previous ||
+		comparison.previousDate !== previous.date ||
+		sourceHash(previous.raw) !== comparison.previousSourceHash ||
+		sourceHash(records[front.editionUrl]?.raw ?? "") !== comparison.editionSourceHash ||
+		typeof timestamp !== "string" ||
+		!/^\d{4}-\d{2}-\d{2}T/.test(timestamp) ||
+		!Number.isFinite(Date.parse(timestamp)) ||
+		chicagoDate(new Date(timestamp)) !== front.editionDate ||
+		!Array.isArray(comparison.entries) ||
+		comparison.entries.length > 3
+	) {
+		if (comparison) front.notices.push("Optional comparison omitted: review/version needed");
+		return front;
+	}
+	const kinds = {
+		development: "New reporting",
+		guidance: "Guidance updated",
+		unresolved: "Still unresolved",
+	};
+	const slots = ["lead", "access", "voteGuide"];
+	for (const slot of slots) {
+		const entries = comparison.entries.filter((entry) => entry && entry.slot === slot);
+		if (entries.length !== 1) continue;
+		const entry = entries[0];
+		if (typeof entry.record !== "string" || typeof entry.kind !== "string") {
+			front.notices.push(`Optional comparison omitted: ${slot}`);
+			continue;
+		}
+		const card =
+			slot === "voteGuide"
+				? showVoteGuide
+					? {
+							key: "voter-guide",
+							record: "/vote-2026/",
+							action: {
+								label: "Check your record and voting dates",
+								url: "/vote-2026/#do-these-first",
+							},
+						}
+					: null
+				: front[slot];
+		const record = records[entry.record];
+		if (
+			!card ||
+			!Object.hasOwn(kinds, entry.kind) ||
+			entry.key !== card.key ||
+			entry.record !== card.record ||
+			!plain(entry.summary) ||
+			entry.summary.length > 300 ||
+			entry.summary.trim().split(/\s+/).length > 35 ||
+			!record ||
+			typeof record.raw !== "string" ||
+			sourceHash(record.raw) !== entry.sourceHash ||
+			!Array.isArray(entry.sources) ||
+			entry.sources.length < 1 ||
+			entry.sources.length > 3 ||
+			entry.sources.some(
+				(source) =>
+					!source ||
+					!plain(source.name) ||
+					!https(source.url) ||
+					(!record.raw.includes(source.url) && !record.urls?.includes(source.url)),
+			)
+		) {
+			front.notices.push(`Optional comparison omitted: ${slot}`);
+			continue;
+		}
+		front[slot] = {
+			...card,
+			summary: entry.summary,
+			sources: entry.sources,
+			comparisonKind: kinds[entry.kind],
+		};
+	}
+	return front;
+}
+
 export function selectFrontpage({
 	curation,
 	editionDate,
@@ -143,6 +232,8 @@ export function selectFrontpage({
 	editionHTML,
 	records,
 	today,
+	previousEdition,
+	showVoteGuide = false,
 }) {
 	if (!iso(today) || !iso(editionDate)) throw new Error("Invalid build/edition date");
 	const notices = [];
@@ -157,6 +248,7 @@ export function selectFrontpage({
 		const record = records[card.record];
 		if (
 			!record ||
+			typeof record.raw !== "string" ||
 			sourceHash(record.raw) !== card.sourceHash ||
 			(card.image && !record.raw.includes(card.image)) ||
 			(card.photo && [card.photo.src, card.photo.smallSrc, card.photo.source]
@@ -166,7 +258,9 @@ export function selectFrontpage({
 			notices.push(`Source review needed: ${card.key}`);
 			return null;
 		}
-		return card;
+		const reviewedCard = { ...card };
+		delete reviewedCard.comparisonKind;
+		return reviewedCard;
 	};
 	const developments = matches ? curation.developments.map(active).filter(Boolean) : [];
 	let lead = matches ? active(curation.lead) : null;
@@ -179,7 +273,10 @@ export function selectFrontpage({
 		editionHTML,
 		editionDate === today && !expiredSource,
 	);
-	return {
+	const previous = previousPublishedEdition(previousEdition, editionDate);
+  const front = {
+    voteGuide: null,
+    previousEdition: previous ? { date: previous.date, url: previous.url } : null,
 		lead,
 		access: matches ? active(curation.access) : null,
 		developments,
@@ -190,6 +287,7 @@ export function selectFrontpage({
 		curated: matches,
 		notices,
 	};
+  return comparisonCopy(front, matches ? curation : null, records, previous, showVoteGuide);
 }
 
 // A dated NWS snapshot, never an assertion that an alert is still active now.
