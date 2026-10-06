@@ -35,7 +35,7 @@
 </head>
 <body{% if homeFront %} class="home-front"{% endif %} id="top">
 {% if homeFront %}  <header class="front-masthead">
-    <a class="wordmark" href="/">The Austin<br>Bulletin<span class="masthead-dot" aria-hidden="true">.</span></a>
+    <a class="wordmark" href="/">The Austin<span class="masthead-break"><br></span> Bulletin<span class="masthead-dot" aria-hidden="true">.</span></a>
     <div class="front-promise"><strong>Austin, up close.</strong><span>A daily selection of local reporting.</span></div>
     <nav aria-label="Publication"><a href="/archive/">Archive</a><a href="/archive/#search">Search</a><a href="/feed.xml">Follow by RSS</a></nav>
     {% set latestFront = collections.bulletins | first %}

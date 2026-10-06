@@ -29,3 +29,23 @@
 @media(min-width:761px){.home-front .front-masthead .wordmark{font-size:48px}.home-front .front-masthead{padding-top:16px;padding-bottom:10px}.front-cover-grid{padding-top:20px}.home-front .front-lead h1{font-size:50px}.cover-art img{height:280px}.home-front .rail-story{padding:14px 0}.home-front .rail-story h2{font-size:27px;margin:6px 0 9px}.home-front .rail-story p:not(.front-kicker){font-size:14px;margin-bottom:6px}.home-front .rail-good{padding:16px 18px;margin-top:16px}.home-front .rail-good h2{font-size:30px}.cover-attribution{display:flex;flex-wrap:wrap;align-items:center;gap:0 4px}.cover-attribution .front-asof{flex-basis:100%;margin-top:-4px!important}.cover-attribution .front-sources{margin-left:0}}
 .home-front .edited-front .front-kicker{margin:0 0 9px}.home-front .edited-front .front-section-label{margin:0}.home-front .edited-front .front-deck{margin:12px 0 6px}.home-front .edited-front .front-detail{margin:0 0 10px}.home-front .edited-front .front-sources{margin:4px 0 0}.home-front .edited-front .front-asof{margin:2px 0 8px}.home-front .edited-front .rail-story p:not(.front-kicker){margin:0 0 6px}.home-front .cover-attribution .front-sources{margin-left:4px}
 @media(max-width:760px){.home-front .front-masthead{gap:10px}.home-front .front-masthead .wordmark{font-size:42px}.front-promise strong{font-size:22px;line-height:1.2}.front-promise span{line-height:1.3}.home-front .front-lead h1{font-size:39px}}
+
+.mobile-publication-promise{display:none}
+@media(max-width:760px){
+ .home-front .front-masthead{padding:14px 20px 10px;gap:4px}
+ .home-front .front-masthead .wordmark{font-size:32px;line-height:1;white-space:nowrap}
+ .masthead-break,.front-promise{display:none}
+ .home-front .front-masthead nav{gap:24px}
+ .home-front .front-masthead nav a[href="/feed.xml"]{display:none}
+ .home-front .front-masthead p{font-size:11px;line-height:1.5}
+ .front-cover-grid{padding-top:20px}
+ .cover-art img{height:205px;aspect-ratio:auto;object-fit:cover;object-position:50% 65%}
+ .home-front .front-deck{font-size:17px;line-height:1.45}
+ .home-front .edited-front .front-detail{font-size:14px;margin:0 0 10px}
+ .cover-reading{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+ .home-front .cover-attribution{display:flex;align-items:center}
+ .home-front .cover-attribution>span,.home-front .cover-attribution .front-asof{display:none}
+ .home-front .edited-front .cover-attribution .front-sources{margin:0}
+ .home-front .cover-reading .front-action{font-size:14px;gap:16px}
+ .home-front .mobile-publication-promise{display:block;font-size:14px;margin:22px 0}
+}

@@ -39,6 +39,7 @@ homeFront: true
     <p class="front-asof">Dates and deadlines apply to the edition shown. This is a dated briefing, not a live alert; check the linked official notices before acting.</p>
   </section>
 
+  <p class="mobile-publication-promise"><strong>Austin, up close.</strong> A daily selection of local reporting.</p>
   <div class="front-lower">
     <section aria-labelledby="guides-title"><h2 id="guides-title">Keep these close</h2><ul><li><a href="/zilker-park-access/">Zilker entrances, closures & parking</a></li>{% if vote2026.showNav %}<li>{% if front.voteGuide %}{% if not front.lead.comparisonKind and not front.access.comparisonKind %}<span class="front-asof">Since the previous edition · </span>{% endif %}<strong>{{ front.voteGuide.comparisonKind | escape }}:</strong> {{ front.voteGuide.summary | escape }} <a href="{{ front.voteGuide.action.url | escape }}">{{ front.voteGuide.action.label | escape }}</a>. {% for source in front.voteGuide.sources %}<a href="{{ source.url | escape }}">{{ source.name | escape }}</a>{% if not loop.last %}; {% endif %}{% endfor %}{% else %}<a href="/vote-2026/">Vote 2026: dates & official instructions</a>{% endif %}</li>{% endif %}<li><a href="/archive/#search">Search past briefings</a></li><li><a href="/feed.xml">Follow the morning editions by RSS</a></li></ul><p class="front-asof">No signup. A direct route back to the next briefing.</p></section>
 

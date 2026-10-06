@@ -64,12 +64,14 @@ async function measureFirstFold(page) {
 			source: rect(".front-lead .front-sources"),
 			access: rect(".front-access h2 a"),
 			photo: rect(".front-access .story-photo img"),
+            art: rect(".cover-art img"),
 			h1s: document.querySelectorAll("h1").length,
 			fonts: [...document.fonts]
 				.filter((font) => font.status === "loaded")
 				.map((font) => font.family),
 			sourceName: document.querySelector(".front-lead .front-sources")?.textContent ?? "",
-			nav: [...document.querySelectorAll(".front-masthead nav a")].map((link) => ({
+			nav: [...document.querySelectorAll(".front-masthead nav a")]
+                .filter(link => link.getBoundingClientRect().height > 0).map((link) => ({
 				label: link.textContent,
 				href: link.getAttribute("href"),
 				height: link.getBoundingClientRect().height,
@@ -81,6 +83,12 @@ async function measureFirstFold(page) {
 	});
 }
 
+function assertMobileCover(result, height) {
+ assert.ok(result.header.height <= 140, JSON.stringify(result));
+ assert.ok(result.action.bottom <= height, JSON.stringify(result));
+ if (result.art) assert.ok(result.art.height >= 200 && result.art.height <= 210);
+}
+
 function assertFirstFold(result, width, height) {
  assert.equal(result.h1s, 1);
  assert.ok(result.documentWidth <= width, JSON.stringify(result));
@@ -90,6 +98,7 @@ function assertFirstFold(result, width, height) {
  assert.ok(result.action.height >= 44);
  assert.ok(result.nav.every(link => link.height >= 44));
  if (!result.neutral) assert.ok(result.sourceName.trim(), "factual leads need attribution");
+ if (width === 390 && !result.warning) assertMobileCover(result, height);
  if (width >= 1400 && !result.warning) {
   for (const key of ["lead", "action", "source"]) {
    assert.ok(result[key].bottom <= height, `${key}: ${JSON.stringify(result)}`);
