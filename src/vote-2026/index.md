@@ -10,7 +10,7 @@ This page covers the November 2026 general election, with voting-location guidan
 
 ### Key dates
 
-- Voter registration deadline: **Monday, October 5, 2026**
+- Voter registration deadline (passed): **Monday, October 5, 2026**
 - Early voting: **Monday, October 19 – Friday, October 30, 2026**
 - Election Day: **Tuesday, November 3, 2026**
 
@@ -18,15 +18,12 @@ Sources: <a href="{{ vote2026.links.register }}">VoteTexas — Voter Registratio
 
 ### Do these first
 
-- Register: Start with <a href="{{ vote2026.links.register }}">VoteTexas — official registration instructions</a>. If you use the SOS new-registration application, print, sign, and mail or deliver the completed form to your county voter registrar as instructed. Filling out that form online alone does not complete registration. The <a href="{{ vote2026.links.registrationInstructions }}">official registration and update instructions</a> also explain online name/address updates for existing voters and registration through qualifying DPS license or ID transactions.
+**The October 5 registration deadline for the November 3 election has passed.** Check your registration status using the official links and contact your county registrar with questions about your record. Early voting is October 19–30; Election Day is November 3.
+
 - Check your registration status: <a href="{{ vote2026.links.myVoterPortal }}">Texas Secretary of State — Am I Registered?</a>. If the lookup does not load, use the <a href="{{ vote2026.links.register }}">official VoteTexas registration page</a> for current links and county registrar contacts.
+- General registration guidance for future elections and updates: Start with <a href="{{ vote2026.links.register }}">VoteTexas — official registration instructions</a>. If you use the SOS new-registration application, print, sign, and mail or deliver the completed form to your county voter registrar as instructed. Filling out that form online alone does not complete registration. The <a href="{{ vote2026.links.registrationInstructions }}">official registration and update instructions</a> also explain online name/address updates for existing voters and registration through qualifying DPS license or ID transactions.
 - Travis County election info: <a href="{{ vote2026.links.travisCurrentElection }}">Current Election (VoteTravis.gov)</a> — dates, sites and hours when posted, and county contacts.
 - Where to vote and sample ballots: <a href="{{ vote2026.links.travisCurrentElection }}">Travis County — Current Election</a>. Open the Sample Ballots tab for the consolidated ballot and the county’s accessible ballot link; use Polling Locations for sites and hours.
-
-<!-- Remove this deadline-day paragraph after October 5 during normal guide maintenance. -->
-**Monday, October 5, 2026 only:** The Nelda Wells Spears Building, **2433 Ridgepoint Drive**, accepts voter registration from **8 a.m. to midnight**, according to the <a href="{{ vote2026.links.travisRegistrationDeadline }}">Travis County Tax Office deadline notice</a>. These extended hours apply only to this location; check that notice for the other offices’ hours and delivery options.
-
-Mailed registration applications must be postmarked **October 5 or earlier**. The [Travis County deadline notice](https://tax-office.traviscountytx.gov/about-us/newsroom/2026/272-voter-registration-ends-monday-for-nov-3-election) recommends requesting a manual postmark at the postal counter; a collection-box deposit may receive a later postmark. Check [official eligibility requirements](https://www.votetexas.gov/register-to-vote/eligibility-for-registration.html) and contact your county registrar for questions about your record.
 
 ### Early voting (Oct 19–30)
 

@@ -1,0 +1,45 @@
+{
+  "date": "2026-10-06",
+  "fetchedAt": "2026-10-06T11:44:59.983Z",
+  "weather": {
+    "high": 88,
+    "low": 66,
+    "summary": "Sunny",
+    "alerts": [],
+    "blurb": "Sunny today and clear tonight; high near 88, low near 66.",
+    "source": "https://www.weather.gov/ewx/"
+  },
+  "air": {
+    "aqi": 30,
+    "category": "Good",
+    "pm25": 3.4,
+    "ozone": 50,
+    "blurb": "Good. The current air-quality snapshot puts AQI at 30.",
+    "source": "https://open-meteo.com/en/docs/air-quality-api"
+  },
+  "lake": {
+    "percentFull": 94.8,
+    "elevationFt": 677.94,
+    "weekNote": null,
+    "blurb": "Lake Travis is 94.8% full in the current reservoir report.",
+    "source": "https://www.waterdatafortexas.org/reservoirs/individual/travis"
+  },
+  "pollen": null,
+  "grid": {
+    "forecastPeakMw": 69300,
+    "peakHourEnding": 17,
+    "availableMw": 98700,
+    "condition": "Normal",
+    "blurb": "Normal. ERCOT forecasts demand near 69,300 megawatts, with 98,700 available.",
+    "source": "https://www.ercot.com/gridmktinfo/dashboards/systemwidedemand"
+  },
+  "sun": {
+    "sunrise": "7:27 a.m.",
+    "sunset": "7:10 p.m.",
+    "blurb": "Sunrise 7:27 a.m.; sunset 7:10 p.m.",
+    "source": "https://open-meteo.com/"
+  },
+  "errors": {
+    "pollen": "POLLEN_API_KEY is not set"
+  }
+}

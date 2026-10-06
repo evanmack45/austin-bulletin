@@ -1,0 +1,26 @@
+{
+  "type": "timeline",
+  "date": "2026-10-06",
+  "slug": "fifth-lavaca-work",
+  "title": "Fifth and Lavaca: utility work ahead",
+  "subtitle": "City-posted sequence \u00b7 durations approximate",
+  "source": "Austin Transportation and Public Works",
+  "alt": "City-posted construction sequence: starting the week of October 12, Fifth Street has one lane from9 a.m. to 4 p.m. daily for about six weeks; afterward Lavaca has two lanes for about four weeks, with around-the-clock work. No exact second-phase start date confirmed.",
+  "events": [
+    {
+      "date": "Week of Oct. 12",
+      "label": "Utility work begins at Fifth and Lavaca",
+      "note": "Scheduled start; follow posted work-zone controls"
+    },
+    {
+      "date": "Fifth phase",
+      "label": "One lane \u00b7 9 a.m.\u20134 p.m. daily",
+      "note": "Approximately six weeks"
+    },
+    {
+      "date": "Then Lavaca",
+      "label": "Two lanes \u00b7 around-the-clock work",
+      "note": "About four weeks; Fifth Street has two lanes open"
+    }
+  ]
+}

@@ -7,7 +7,7 @@ permalink: "/zilker-park-access/"
 
 ## Zilker Park access during ACL
 
-**Last checked: October 5, 2026, 12:10 p.m. CDT (City park and road notice).** This guide describes posted plans, not an on-site inspection. Check the linked City notices before traveling; follow signs, barriers and staff directions.
+**Last checked: October 6, 2026, 6:44 a.m. CDT (City park, road and facility notices).** This guide describes posted plans, not an on-site inspection. Check the linked City notices before traveling; follow signs, barriers and staff directions.
 
 ### What can you use?
 
@@ -52,6 +52,8 @@ These facility dates do not establish when the Great Lawn reopens.
 In its October 3 [report on the muddy Great Lawn](https://www.kxan.com/acl/acl-festivals-muddy-great-lawn-raises-concern-for-austin-parks-future/), an Austin Parks and Recreation spokesperson told KXAN that temporary mulch would be removed after the festival and damaged sod replaced. That is an attributed restoration plan, not confirmation that work is complete. The sources checked here do not settle the lawn’s reopening date or final repair cost.
 
 **Between-weekend plans, reported October 5:** [KXAN’s report](https://www.kxan.com/acl/acl-festival-says-its-committed-to-leaving-zilker-park-better-than-we-found-it/) attributes to ACL Festival plans to bring in extra resources to remove temporary turf and ground protection, limit activity on the grounds before the second weekend, and meet with Austin Parks and Recreation daily about restoration after the event. KXAN reports that a grounds assessment was underway. This does not establish completed work, a completed inspection, a public reopening date or final repair costs.
+
+**City statement update, checked October 6:** The updated [KXAN report](https://www.kxan.com/acl/acl-festival-says-its-committed-to-leaving-zilker-park-better-than-we-found-it/) attributes to a Monday-night City statement daily turf-health and drainage work with event organizers, City oversight of a multi-stage rehabilitation process and provisions for reimbursing staff time and restoration costs. The statement says sections will reopen as work allows, with a partial closure for Trail of Lights. These are attributed plans and obligations, not a verified public reopening date or final bill; the contract limits and unverified annual documents below still apply.
 
 **Contract section reviewed: October 5, 2026, 8:17 a.m. CDT.** Access notices above have their separately stated check time.
 

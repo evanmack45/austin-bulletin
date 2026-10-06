@@ -1,0 +1,21 @@
+{
+  "type": "bars",
+  "date": "2026-10-06",
+  "slug": "texas-insurance-premiums",
+  "title": "Texas homeowners insurance premiums",
+  "subtitle": "Statewide annual average · 2025 preliminary, not an Austin household quote",
+  "source": "Texas Department of Insurance",
+  "unit": "$",
+  "yMin": 0,
+  "alt": "Texas Department of Insurance annual homeowners-premium chart: $1,791 in 2016 and preliminary $3,489 in 2025. Source: Texas Statistical Plan for Residential Risks. These are statewide averages, not an Austin household quote or a 2026 renewal estimate.",
+  "bars": [
+    {
+      "label": "2016",
+      "value": 1791
+    },
+    {
+      "label": "2025 preliminary",
+      "value": 3489
+    }
+  ]
+}
