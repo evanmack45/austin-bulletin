@@ -3,6 +3,29 @@
 Read this file at the start of every daily run. These rules are not
 suggestions. Every rule binds the writing.
 
+## Homepage cover (October 6, 2026)
+
+The approved homepage uses one source-backed local cover, two local news
+selections and one local-life selection. Reuse the existing curation slots:
+lead, developments (two), goodThing; put broader explanatory coverage in
+feature below them and practical access guidance in the related text section.
+The full dated edition, its chart/photo rules and archive presentation remain.
+
+Original stylized editorial illustration is permitted on this homepage under
+the October 6 direction, superseding earlier homepage art preferences. Label
+it “Editorial illustration”; never present it as a documentary photograph,
+an actual route or evidence of a reported person's experience. Existing photo
+rights and source requirements still apply. Keep licensed local font notices.
+
+Art is optional. The illustration contract binds kind, confined local raster
+path, SHA-256, dimensions, alt/credit, rights notice path, selected story key
+and edition date. The loader verifies actual bytes/dimensions and a local
+provenance notice before selection. Missing, altered, wrong-story or expired
+art disappears without blocking valid copy; the cover uses a native motif.
+Do not modify a dated edition to make a new asset pass its historical guard.
+Dates, uncertainty and attribution stay beside the claim. Mobile stories
+follow naturally; do not squeeze all modules into one small screen.
+
 ## Voice
 
 - The morning note is warm and local — a friendly Austinite. It may
