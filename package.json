@@ -19,7 +19,7 @@
     "kvue": "node scripts/kvue.mjs",
     "civic": "node scripts/civic.mjs",
     "test": "node --test tests/*.test.mjs",
-    "lint": "eslint scripts/river.mjs scripts/acronyms.mjs scripts/kvue.mjs scripts/metadata.mjs scripts/frontpage.mjs scripts/check-frontpage.mjs tests/"
+    "lint": "eslint scripts/river.mjs scripts/acronyms.mjs scripts/kvue.mjs scripts/metadata.mjs scripts/frontpage.mjs scripts/front-art.mjs scripts/check-frontpage.mjs tests/"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0",

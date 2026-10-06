@@ -2,25 +2,34 @@
   "date": "2026-10-06",
   "reviewedAt": "2026-10-06T11:46:36.909799+00:00",
   "lead": {
-    "key": "insurance-roofs",
     "record": "/2026/10/06/",
     "sourceHash": "ea19a7028be4363c68adb11b48ed85cbd7ff28b41544926cffc8f97fe6cbca32",
-    "title": "Texas weighs grants for stronger roofs",
-    "summary": "Monday’s hearing considered stronger roofs and possible incentives. The current state overview gives a preliminary statewide premium figure; no new grant or guaranteed discount is established.",
-    "asOf": "October 5 hearing; sources reviewed October 6, 2026",
+    "key": "acl-accessibility",
+    "title": "Wheelchair users struggled in ACL’s mud.",
+    "summary": "KUT reports muddy grounds challenged wheelchair users during Weekend One. Organizer C3 says it added accessibility mats and ground protection.",
+    "detail": "Weekend Two starts Friday, October 9.",
+    "asOf": "October 5 reporting; reviewed October 6, 2026",
     "sources": [
       {
-        "name": "Texas Department of Insurance",
-        "url": "https://www.tdi.texas.gov/general/texas-homeowners-insurance-market-overview.html"
-      },
-      {
-        "name": "Community Impact",
-        "url": "https://communityimpact.com/central-austin/texas-legislature/experts-hardening-homes-against-disasters-could-drive-down-texas-home-insurance-costs/"
+        "name": "KUT",
+        "url": "https://www.kut.org/austin/2026-10-05/acl-fest-mud-ada-austin-city-limits-music-festival-disability-accessibility"
       }
     ],
     "action": {
-      "label": "Read costs & roof proposals",
-      "url": "/2026/10/06/#texas-insurance-costs-put-roof-upgrades-on-lawmakers-agenda"
+      "label": "Read KUT’s reporting",
+      "url": "https://www.kut.org/austin/2026-10-05/acl-fest-mud-ada-austin-city-limits-music-festival-disability-accessibility"
+    },
+    "illustration": {
+      "kind": "editorial-illustration",
+      "src": "/images/editorial/acl-access-mud-2026-10-06.webp",
+      "sha256": "efa68a185b7d1633e6747fb10a21e9d6dcd9c05fe5b19b307543a6f2094548e0",
+      "width": 1586,
+      "height": 992,
+      "alt": "Editorial illustration: a wheelchair wheel in mud beside temporary access matting, with abstract festival tents and pennants beyond.",
+      "credit": "The Austin Bulletin",
+      "rightsPath": "/images/editorial/acl-access-mud-2026-10-06-rights.txt",
+      "storyKey": "acl-accessibility",
+      "editionDate": "2026-10-06"
     }
   },
   "access": {
@@ -57,10 +66,28 @@
   },
   "developments": [
     {
+      "record": "/2026/10/06/",
+      "sourceHash": "ea19a7028be4363c68adb11b48ed85cbd7ff28b41544926cffc8f97fe6cbca32",
+      "key": "voter-records",
+      "title": "Travis County: about 8,000 voter records remained Monday.",
+      "summary": "Registrar Celia Israel expected processing to finish by October 19. This is a dated count of records awaiting processing.",
+      "asOf": "October 5 reporting; reviewed October 6, 2026",
+      "sources": [
+        {
+          "name": "KXAN",
+          "url": "https://www.kxan.com/news/texas-politics/texas-counties-work-through-dps-voter-registration-backlog-on-deadline-day/"
+        }
+      ],
+      "action": {
+        "label": "Read the registration report",
+        "url": "https://www.kxan.com/news/texas-politics/texas-counties-work-through-dps-voter-registration-backlog-on-deadline-day/"
+      }
+    },
+    {
       "key": "school-review",
       "record": "/2026/10/06/",
       "sourceHash": "ea19a7028be4363c68adb11b48ed85cbd7ff28b41544926cffc8f97fe6cbca32",
-      "title": "Austin ISD selected for a spending review",
+      "title": "AISD selected for a state spending review.",
       "summary": "The state review has a December 31 report deadline. Selection does not establish wrongdoing; the announced review and political response remain distinct.",
       "asOf": "Sources reviewed October 6, 2026",
       "sources": [
@@ -73,76 +100,35 @@
         "label": "Read the selection & responses",
         "url": "https://www.kxan.com/news/local/austin/austin-isd-spending-investigation/"
       }
-    },
-    {
-      "key": "fifth-lavaca",
-      "record": "/2026/10/06/",
-      "sourceHash": "ea19a7028be4363c68adb11b48ed85cbd7ff28b41544926cffc8f97fe6cbca32",
-      "title": "Fifth Street lane reductions start next week",
-      "summary": "Utility work at Fifth and Lavaca begins the week of October 12. The City gives approximate phases; use posted controls as work progresses.",
-      "asOf": "Sources reviewed October 6, 2026",
-      "sources": [
-        {
-          "name": "Austin Transportation and Public Works",
-          "url": "https://mailchi.mp/austintexas/austin-mobility-news-10-05-26#mctoc2"
-        }
-      ],
-      "action": {
-        "label": "Check the City’s dated construction plan",
-        "url": "https://mailchi.mp/austintexas/austin-mobility-news-10-05-26#mctoc2"
-      }
-    },
-    {
-      "key": "water-users",
-      "record": "/2026/10/06/",
-      "sourceHash": "ea19a7028be4363c68adb11b48ed85cbd7ff28b41544926cffc8f97fe6cbca32",
-      "title": "Large water users: proposals after the open house",
-      "summary": "Austin Water gathered input Monday on conservation requirements. No new rules were adopted at the meeting; recommendations would go to Council.",
-      "asOf": "Sources reviewed October 6, 2026",
-      "sources": [
-        {
-          "name": "CBS Austin",
-          "url": "https://cbsaustin.com/news/local/community-weighs-in-as-austin-considers-tougher-rules-for-major-water-users"
-        }
-      ],
-      "action": {
-        "label": "Read what was discussed & what remains pending",
-        "url": "https://cbsaustin.com/news/local/community-weighs-in-as-austin-considers-tougher-rules-for-major-water-users"
-      }
     }
   ],
   "feature": {
-    "key": "council-oct8-preview",
-    "record": "/council/2026-10-08-preview/",
-    "sourceHash": "e65c5181b636a22c755fa5bfaa230458ab1a444ce1d59d0248098613abc5548f",
-    "title": "Austin Council on October 8: three questions worth following",
-    "summary": "Housing near Lost Creek, easements for Eubank Tributary work and an ATXFloods contract are pending proposals. Read what each would authorize, what remains unsettled and what to check after the meeting.",
-    "asOf": "Official records reviewed October 6, 2026",
+    "key": "insurance-roofs",
+    "record": "/2026/10/06/",
+    "sourceHash": "ea19a7028be4363c68adb11b48ed85cbd7ff28b41544926cffc8f97fe6cbca32",
+    "title": "Texas weighs grants for stronger roofs",
+    "summary": "Monday’s hearing considered stronger roofs and possible incentives. The current state overview gives a preliminary statewide premium figure; no new grant or guaranteed discount is established.",
+    "asOf": "October 5 hearing; sources reviewed October 6, 2026",
     "sources": [
       {
-        "name": "City of Austin — item 29",
-        "url": "https://austintexas.legistar.com/LegislationDetail.aspx?ID=8237569&GUID=AC590203-F77E-4619-A273-766BDBF7979F&G=4BED8896-C64D-4912-8005-D624C5197AA5&Options=&Search="
+        "name": "Texas Department of Insurance",
+        "url": "https://www.tdi.texas.gov/general/texas-homeowners-insurance-market-overview.html"
       },
       {
-        "name": "City of Austin — item 24",
-        "url": "https://austintexas.legistar.com/LegislationDetail.aspx?ID=8239390&GUID=FF5FF2B8-0B2C-405E-8851-D890273A3351&G=4BED8896-C64D-4912-8005-D624C5197AA5&Options=&Search="
-      },
-      {
-        "name": "City of Austin — item 9",
-        "url": "https://austintexas.legistar.com/LegislationDetail.aspx?ID=8239379&GUID=C2377752-5A95-4C47-AC07-1157D559D27D&G=4BED8896-C64D-4912-8005-D624C5197AA5&Options=&Search="
+        "name": "Community Impact",
+        "url": "https://communityimpact.com/central-austin/texas-legislature/experts-hardening-homes-against-disasters-could-drive-down-texas-home-insurance-costs/"
       }
     ],
     "action": {
-      "label": "Read the three questions & official records",
-      "url": "/council/2026-10-08-preview/"
-    },
-    "expiresOn": "2026-10-08"
+      "label": "Read costs & roof proposals",
+      "url": "/2026/10/06/#texas-insurance-costs-put-roof-upgrades-on-lawmakers-agenda"
+    }
   },
   "goodThing": {
     "key": "cookie-discard",
     "record": "/2026/10/06/",
     "sourceHash": "ea19a7028be4363c68adb11b48ed85cbd7ff28b41544926cffc8f97fe6cbca32",
-    "title": "Sourdough leftovers win a cookie audience",
+    "title": "Sourdough scraps win at Austin Cookie Fest.",
     "summary": "Amanda Ransom used sourdough discard in the chocolate-chip cookie that won audience and judge votes at Sunday’s Austin Cookie Fest.",
     "asOf": "October 5 report; sources reviewed October 6, 2026",
     "sources": [
@@ -162,20 +148,6 @@
     "editionSourceHash": "ea19a7028be4363c68adb11b48ed85cbd7ff28b41544926cffc8f97fe6cbca32",
     "reviewedAt": "2026-10-06T12:54:46.944624+00:00",
     "entries": [
-      {
-        "slot": "lead",
-        "key": "insurance-roofs",
-        "kind": "development",
-        "record": "/2026/10/06/",
-        "sourceHash": "ea19a7028be4363c68adb11b48ed85cbd7ff28b41544926cffc8f97fe6cbca32",
-        "summary": "October 5’s hearing considered grants for stronger roofs; no new grant or guaranteed discount is established.",
-        "sources": [
-          {
-            "name": "Community Impact",
-            "url": "https://communityimpact.com/central-austin/texas-legislature/experts-hardening-homes-against-disasters-could-drive-down-texas-home-insurance-costs/"
-          }
-        ]
-      },
       {
         "slot": "access",
         "key": "zilker-access",

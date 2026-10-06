@@ -96,6 +96,24 @@ export function validateCuration(bundle) {
 	return bundle;
 }
 
+// Original artwork is independently reviewed and does not alter historical records.
+// Invalid optional art is omitted; source-current text can still publish.
+export function selectedIllustration(card, editionDate, assets = {}) {
+  const art = card?.illustration;
+  if (!art || typeof art !== "object" || art.kind !== "editorial-illustration" ||
+    ![art.src, art.rightsPath, art.sha256].every(value => typeof value === "string") ||
+    !/^\/images\/editorial\/[a-z0-9][a-z0-9._-]*\.(png|webp)$/.test(art.src ?? "") ||
+    !/^\/images\/editorial\/[A-Za-z0-9][A-Za-z0-9._-]*\.txt$/.test(art.rightsPath ?? "") ||
+    !/^[a-f0-9]{64}$/.test(art.sha256 ?? "") ||
+    ![art.alt, art.credit].every(plain) ||
+    ![art.width, art.height].every(value =>
+      Number.isInteger(value) && value > 0 && value <= 10000) ||
+    art.storyKey !== card.key || art.editionDate !== editionDate) return undefined;
+  const asset = assets[art.src];
+  return asset && asset.sha256 === art.sha256 && asset.width === art.width &&
+    asset.height === art.height && asset.rightsPath === art.rightsPath ? { ...art } : undefined;
+}
+
 function text(html) {
 	return String(html ?? "")
 		.replace(/<[^>]*>/g, " ")
@@ -227,6 +245,7 @@ function comparisonCopy(front, curation, records, previous, showVoteGuide) {
 
 export function selectFrontpage({
 	curation,
+  illustrationAssets = {},
 	editionDate,
 	editionUrl,
 	editionHTML,
@@ -260,6 +279,9 @@ export function selectFrontpage({
 		}
 		const reviewedCard = { ...card };
 		delete reviewedCard.comparisonKind;
+    delete reviewedCard.illustration;
+    const illustration = selectedIllustration(card, editionDate, illustrationAssets);
+    if (illustration) reviewedCard.illustration = illustration;
 		return reviewedCard;
 	};
 	const developments = matches ? curation.developments.map(active).filter(Boolean) : [];

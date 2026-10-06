@@ -1,4 +1,5 @@
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
+import { loadIllustrationAssets } from "./scripts/front-art.mjs";
 import { chicagoDate, forecastAlerts, selectFrontpage, previousPublishedEdition } from "./scripts/frontpage.mjs";
 import { HtmlBasePlugin } from "@11ty/eleventy";
 import { feedPlugin } from "@11ty/eleventy-plugin-rss";
@@ -7,6 +8,10 @@ import { slug as beatSlug } from "./scripts/river.mjs";
 
 import { SITE_URL, canonicalUrl, pageMetadata, sitemapPages, xmlEscape }
   from "./scripts/metadata.mjs";
+
+const illustrationAssets = await loadIllustrationAssets(readdirSync("src/_data/frontpages")
+  .filter(name => name.endsWith(".json"))
+  .map(name => JSON.parse(readFileSync(`src/_data/frontpages/${name}`, "utf8"))));
 
 // Inline SVG glyphs (24x24, currentColor) for each Voice-card platform.
 const GLYPH = {
@@ -77,6 +82,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("sitemapPages", sitemapPages);
   eleventyConfig.addFilter("xmlEscape", xmlEscape);
   eleventyConfig.addPassthroughCopy("src/css");
+  eleventyConfig.addPassthroughCopy("src/fonts");
   eleventyConfig.addPassthroughCopy("src/images");
   // Site icons, served from the root where browsers look for them.
   // Generated from src/favicon.svg by `npm run favicon`.
@@ -106,7 +112,7 @@ export default function (eleventyConfig) {
       if (item.url === "/" || !wanted.has(item.url)) continue;
       records[item.url] = { raw: readFileSync(item.inputPath, "utf8"), urls: item.url === "/vote-2026/" ? Object.values(officialLinks ?? {}) : [] };
     }
-    const front = selectFrontpage({ curation: bundle, editionDate: latest.date.toISOString().slice(0, 10), editionUrl: latest.url, editionHTML: latest.templateContent, records, today: chicagoDate(), showVoteGuide, previousEdition: previous ? { date: previous.date.toISOString().slice(0, 10), url: previous.url, raw: readFileSync(previous.inputPath, "utf8") } : null });
+    const front = selectFrontpage({ illustrationAssets, curation: bundle, editionDate: latest.date.toISOString().slice(0, 10), editionUrl: latest.url, editionHTML: latest.templateContent, records, today: chicagoDate(), showVoteGuide, previousEdition: previous ? { date: previous.date.toISOString().slice(0, 10), url: previous.url, raw: readFileSync(previous.inputPath, "utf8") } : null });
     for (const notice of front.notices) console.warn(`frontpage: ${notice}`);
     return front;
   });

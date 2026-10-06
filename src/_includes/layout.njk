@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+{% if not homeFront %}  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..800;1,8..60,400..800&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..800;1,8..60,400..800&display=swap">{% endif %}
   {% set meta = page.url | pageMetadata(title, content, description) %}
   <title>{{ meta.title | escape }}</title>
   <meta name="description" content="{{ meta.description | escape }}">
@@ -24,7 +24,8 @@
   <meta name="twitter:description" content="{{ meta.description | escape }}">
   <meta name="twitter:image" content="{{ meta.image | escape }}">
   <meta name="twitter:image:alt" content="{{ meta.imageAlt | escape }}">
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/style.css">{% if homeFront %}
+  <link rel="stylesheet" href="/css/front-cover.css">{% endif %}
   <link rel="icon" href="/favicon.ico" sizes="32x32">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -34,7 +35,8 @@
 </head>
 <body{% if homeFront %} class="home-front"{% endif %} id="top">
 {% if homeFront %}  <header class="front-masthead">
-    <a class="wordmark" href="/">The Austin Bulletin</a>
+    <a class="wordmark" href="/">The Austin<br>Bulletin<span class="masthead-dot" aria-hidden="true">.</span></a>
+    <div class="front-promise"><strong>Austin, up close.</strong><span>A daily selection of local reporting.</span></div>
     <nav aria-label="Publication"><a href="/archive/">Archive</a><a href="/archive/#search">Search</a><a href="/feed.xml">Follow by RSS</a></nav>
     {% set latestFront = collections.bulletins | first %}
     {% set previousFront = collections.bulletins[1] | previousPublishedEdition(latestFront) %}

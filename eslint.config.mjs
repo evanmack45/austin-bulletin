@@ -15,7 +15,7 @@
 // Apply line limits here; its branch count is covered by focused invalid-input tests.
 export default [
   {
-    files: ["scripts/frontpage.mjs"],
+    files: ["scripts/frontpage.mjs", "scripts/front-art.mjs"],
     languageOptions: { ecmaVersion: 2023, sourceType: "module" },
     rules: { "max-len": ["error", { code: 100, ignoreUrls: true }] }
   },

@@ -1,0 +1,9 @@
+<aside class="front-news-rail" aria-labelledby="rail-title">
+  <p class="front-section-label" id="rail-title">Around Austin <span aria-hidden="true">↘</span></p>
+  {% for card in front.developments %}
+  <article class="rail-story"><p class="front-kicker">{{ card.sources[0].name | escape }} / Local reporting</p><h2>{{ card.title | escape }}</h2><p>{{ card.summary | escape }}</p><a class="front-text-link" href="{{ card.action.url | escape }}">{{ card.action.label | escape }} ↗</a></article>
+  {% endfor %}
+  {% if front.goodThing %}{% set card = front.goodThing %}
+  <article class="rail-story rail-good"><p class="front-kicker">One good thing / {{ card.sources[0].name | escape }}</p><h2>{{ card.title | escape }}</h2><p>{{ card.summary | escape }}</p><a class="front-text-link" href="{{ card.action.url | escape }}">{{ card.action.label | escape }} ↗</a></article>
+  {% endif %}
+</aside>
