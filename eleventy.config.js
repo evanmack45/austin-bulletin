@@ -6,7 +6,7 @@ import { feedPlugin } from "@11ty/eleventy-plugin-rss";
 import markdownItAnchor from "markdown-it-anchor";
 import { slug as beatSlug } from "./scripts/river.mjs";
 
-import { SITE_URL, canonicalUrl, pageMetadata, sitemapPages, xmlEscape }
+import { SITE_URL, articleJsonLd, canonicalUrl, pageMetadata, sitemapPages, xmlEscape }
   from "./scripts/metadata.mjs";
 
 const illustrationAssets = await loadIllustrationAssets(readdirSync("src/_data/frontpages")
@@ -79,6 +79,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addGlobalData("siteOrigin", SITE_URL);
   eleventyConfig.addFilter("canonicalUrl", canonicalUrl);
   eleventyConfig.addFilter("pageMetadata", pageMetadata);
+  eleventyConfig.addFilter("articleJsonLd", articleJsonLd);
   eleventyConfig.addFilter("sitemapPages", sitemapPages);
   eleventyConfig.addFilter("xmlEscape", xmlEscape);
   eleventyConfig.addPassthroughCopy("src/css");

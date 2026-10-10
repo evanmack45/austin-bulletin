@@ -93,8 +93,27 @@ export function pageMetadata(route, originalTitle, content, description) {
     indexable: normalized !== "/404.html",
     type: dated ? "article" : "website",
     image: `${SITE_URL}icon-512.png`, imageAlt: "The Austin Bulletin brand icon",
-    card: "summary"
+    card: "summary", headline: dated ? lead.heading : ""
   };
+}
+
+// NewsArticle structured data for a dated edition, built only from its metadata.
+export function articleJsonLd(meta, date) {
+  if (meta?.type !== "article") return "";
+  const publisher = {
+    "@type": "NewsMediaOrganization", name: "The Austin Bulletin", url: SITE_URL,
+    logo: { "@type": "ImageObject", url: `${SITE_URL}icon-512.png` }
+  };
+  const data = {
+    "@context": "https://schema.org", "@type": "NewsArticle",
+    headline: excerpt(meta.headline || meta.title).slice(0, 110),
+    description: meta.description, url: meta.canonical,
+    mainEntityOfPage: meta.canonical, image: [meta.image],
+    datePublished: new Date(date).toISOString().slice(0, 10),
+    isAccessibleForFree: true, inLanguage: "en-US",
+    author: publisher, publisher
+  };
+  return JSON.stringify(data).replace(/</g, "\\u003c");
 }
 
 export function sitemapPages(items) {

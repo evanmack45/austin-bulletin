@@ -1,6 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { canonicalUrl, pageMetadata, sitemapPages, xmlEscape } from "../scripts/metadata.mjs";
+import { articleJsonLd, canonicalUrl, pageMetadata, sitemapPages, xmlEscape }
+  from "../scripts/metadata.mjs";
 
 const body = `<h1 class="edition-date">October 4, 2026</h1>
 <section class="big-story"><h3>Park access &amp; repairs</h3>
@@ -62,4 +63,17 @@ test("sitemap includes unique content HTML routes, omitting errors and machine r
   }));
   assert.deepEqual(sitemapPages(items), ["/", "/2026/10/04/", "/about/", "/archive/",
     "/vote-2026/", "/zilker-park-access/"]);
+});
+
+test("dated editions get NewsArticle data from their lead; other pages get none", () => {
+  const meta = pageMetadata("/2026/10/04/", "Edition", `${body}<p>x</p>`);
+  const data = JSON.parse(articleJsonLd(meta, new Date("2026-10-04T00:00:00Z")));
+  assert.equal(data["@type"], "NewsArticle");
+  assert.equal(data.headline, "Park access & repairs");
+  assert.equal(data.datePublished, "2026-10-04");
+  assert.equal(data.url, "https://theaustinbulletin.com/2026/10/04/");
+  assert.equal(data.publisher.name, "The Austin Bulletin");
+  assert.equal(articleJsonLd(pageMetadata("/about/", "About", ""), new Date()), "");
+  const risky = articleJsonLd({ ...meta, headline: "</script><b>" }, new Date("2026-10-04"));
+  assert.ok(!risky.includes("<"));
 });
