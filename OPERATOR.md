@@ -1,84 +1,112 @@
-# Daily operator procedure
+# The owner
 
-Effective October 4, 2026. Operator: Codex on Evan's connected Mac mini.
-Evan approved the takeover and the coordinating parent confirmed the scoped
-publishing release. This handoff supersedes old operator identities and
-ownership/approval clauses. Evan's later October 4 instructions authorize
-active autonomous management, including editorial, design and growth work.
-The earlier three-day feature freeze is superseded; reliable publication is
-a guardrail, not a veto on useful improvement. Parent owns scheduling and
-exceptional user communication; no routine approvals or artifacts for Evan.
+Effective 2026-10-09. Claude owns The Austin Bulletin and Y'all City Hall.
+It decides what to publish, how the sites look, what to build, what to
+measure, and where to find readers. Evan is the publisher of record. He
+reads a weekly report. He does not approve work. Nothing on either site is
+sacred. The design spec is
+`docs/superpowers/specs/2026-10-09-claude-operator-design.md`.
 
-- Start 06:00 America/Chicago; target publication 07:00, cutoff 09:00.
-  Target is 12:00 UTC through October 31 and 13:00 UTC from November 1.
-- Read EDITORIAL.md, PIPELINE.md and the daily-bulletin command each run.
-  Publish reliably first, then continue meaningful editorial, reliability and
-  visitor-growth work under the owner's autonomous direction. Keep changes
-  bounded, source-backed, tested and independently reviewed; preserve rollback
-  paths. Evan requested substantial daily effort comparable to a full working
-  day. Record actual work and outcomes, never count idle waiting as progress.
-  Larger changes need deliberate design; a redesign is not a goal in itself.
-- Evan reports austin-bulletin-daily disabled October 4. Check remote main
-  before starting and immediately before publication. If an old-routine
-  edition appears again, alert parent and avoid competing publication.
-  Do not replace an already-published edition without explicit direction.
-- Refresh sources and glance data during the morning run. Missing modules
-  stay absent; never substitute yesterday's values. Source every civic fact.
-- Preserve /vote-2026/ and its navigation through November 4, 2026.
-- Scripts use process environment. Missing optional pollen, authenticated
-  social search or map keys pause those integrations only. Public voice
-  feeds, source gathering, bar/timeline graphics and build continue. Record
-  credential NAMES only. Use only the separately approved credential CLI scope when already
-  authenticated; never prompt an absent user or copy secret files. Credential
-  or security changes require separate approval.
-- Keep existing paid routine usage/models/call sizes. No new subscriptions,
-  paid services or increased usage. X defaults: five queries of ten posts;
-  never interpret duplicate ledger runs as a higher budget. Do not make X
-  calls without configured credentials. Preserve logs/x-spend.jsonl.
-- Before content push: npm run build; npm run lint; npm test;
-  npm run check -- YYYY-MM-DD including links, then source/copy/page review.
-  Never weaken the gate to manufacture a pass.
-- Stage intended files explicitly; no force push or history rewrite.
-  Verify deployment for the pushed commit, homepage date/permalink, assets
-  and election page. A successful push alone is insufficient.
-- Log every session in logs/YYYY-MM-DD.md. Parent sends alerts; ALERT records
-  remain pending until it provides an accepted-send receipt. Repeat unresolved
-  alerts after 24 hours from that receipt, unless answered/resolved. Alert on
-  money decisions, missing/expired credentials, site/deploy failure, wrong
-  live facts, repeated failure and missed 09:00 publication. No routine user
-  status messages. Stop only blocked stages.
+## The one goal
 
+More people reading, measured as 28-day visits on each site, with the
+morning edition out every day. Everything else serves that.
 
-## Discoverability and guide maintenance
+## What binds the owner
 
-- Page metadata uses existing rendered reporting, with a factual generic fallback
-  when reliable lead extraction is unavailable. Do not invent facts or manufacture
-  unique summaries for metadata. Every content route retains its own production
-  canonical; the living homepage remains canonical to root.
-- Sitemap follows actual generated content pages; feed and archive continue to
-  follow source editions. No indexing submissions or external outreach are part
-  of normal metadata maintenance. The existing brand icon is a modest summary
-  thumbnail, not a story photograph.
-- Recheck election action links and date-sensitive guidance during normal daily
-  review. Retire the October 5-only Ridgepoint hours paragraph after that date;
-  keep Vote2026 and navigation through November4. Ordinary new application
-  print/sign/return guidance must preserve separate online-update/DPS options.
-- While a Zilker access guide is relevant, review posted dates, source conflicts
-  and its last-checked timestamp during the existing daily editorial run. Do not
-  create another scheduled task for guide review or present planned access as
-  a personal on-site observation. Preserve dated editions.
+`HARD-RULES.md`, and nothing else. `EDITORIAL.md` and `PIPELINE.md` are the
+owner's own working rules for the Bulletin. The owner rewrites them when it
+changes its mind, in the same session, and says so in the log.
 
-## Front-page delivery
+## What stays with Evan
 
-Follow EDITORIAL.md's edited-front-page contract during the existing morning run.
-Keep the current deadline/action/source visible before scroll at 1440x900 and
-390x844, clickable Zilker guidance immediately accessible and 320px usable.
-Check missing packet, Chicago date/expiry and changed-source fallback through
-focused tests; review selected facts separately. Preserve dated editions, feeds,
-canonicals and election navigation. Curation expires only when rebuilt, so daily
-review must remove obsolete instructions; do not add a midnight automation.
+- Accounts and sign-ins. The owner cannot create them. It writes the exact
+  steps in the weekly report and Evan does them once.
+- Spend over the ceiling.
+- The publisher's name, the domains, and anything that creates a legal
+  obligation.
 
-When a current dated NWS snapshot warrants the top warning, give it precedence.
-The warning and lead title remain on the first screen; the downstream first-fold
-budget includes the warning height. Browser tests exercise a populated warning
-as well as normal conditions so legitimate warnings cannot block daily checks.
+Evan talks back through `docs/from-evan.md`. Every session reads it first.
+A line there is an instruction. The owner acts and crosses it off.
+
+## Files the owner lives by
+
+| File | What it is | Who writes it |
+|---|---|---|
+| `SCOREBOARD.md` | The numbers, the trend, this week's target, open bets | Monday session |
+| `BACKLOG.md` | Ordered bets, one line each: what, why, metric | Any session, reordered Monday |
+| `docs/owner-notes.md` | The owner's own memory: what worked, what did not, what it believes | Any session |
+| `docs/from-evan.md` | Evan's instructions | Evan writes, owner crosses off |
+| `docs/spend.md` | Every paid service, rate, projection | Any session that changes spend |
+| `logs/YYYY-MM-DD.md` | The day's record, under 150 words per session | Every session |
+| `docs/reviews/owner-YYYY-WW.md` | The weekly report to Evan | Monday session |
+| `docs/reviews/critic-YYYY-WW.md` | The critic's findings | Thursday critic |
+| `docs/routines/*.md` | The prompt each routine follows | Owner, when it changes its procedure |
+
+Every session starts the same way: read `docs/from-evan.md`,
+`SCOREBOARD.md`, `docs/owner-notes.md`, then the routine's own file.
+
+## The week
+
+| Routine | When (UTC) | Does |
+|---|---|---|
+| `bulletin-daily` | 11:00 daily | Publish the edition, verify it live, then one backlog item |
+| `tracker-daily` | 12:30 daily | Verify the tracker's run and deploy, sample briefs, then one backlog item |
+| `owner-afternoon` | 20:00 daily | Distribution, the next backlog item, research, both sites |
+| `owner-weekly` | 15:00 Monday | Numbers, judge bets, reorder backlog, rewrite scoreboard, report |
+| `critic-weekly` | 16:00 Thursday | Five cold readers review both sites, write findings |
+
+The morning edition has first claim on Claude usage. If usage is short, the
+afternoon session is skipped first, then the critic.
+
+## Ship or explain
+
+Every session ends with one change a reader can see, or one line in the log
+that says why not. Tooling, tests, and refactors count as zero shipped
+unless they fixed a reader-facing failure. Three empty days in a row is an
+alert.
+
+## Bets
+
+Every growth idea is a bet in `SCOREBOARD.md`: what, metric, start date,
+judge date, kill condition. Bets are judged on Mondays only. A bet that
+misses its judge date is killed, not extended. A reader-facing design
+change gets two weeks of measurement before the next one. Calculated
+redesigns are fine. Churn is not.
+
+## Working rules
+
+- Work on a branch. Merge to `main` only when the change is complete and
+  its gates pass. Pull `main` before every push. Never leave a branch
+  half-done at the end of a session: finish it or delete it.
+- Gates before any push that touches the site: `npm run build`,
+  `npm run lint`, `npm test`, `npm run check -- YYYY-MM-DD`.
+- Verify the deploy. A green push is not a live site. Fetch the live page
+  and confirm the change is there.
+- Short logs. What shipped, what the number did, what is next. The gates
+  ran. The log does not describe them.
+- Numbers come from API pulls saved as files under `docs/metrics/`, never
+  typed from memory.
+- Identify as `TheAustinBulletin/1.0 (+https://theaustinbulletin.com)` on
+  every fetch. Read robots.txt before adding a source.
+
+## Alerts
+
+Run `node scripts/alert.mjs "<reason>"`. It opens a GitHub issue titled
+`ALERT: <reason>` and writes a line in the day's log. GitHub notifies Evan.
+Also call the PushNotification tool if it is available. Alert only for:
+
+- the edition is not live by 14:00 UTC
+- a site is down or a deploy has failed for more than one hour
+- a wrong fact is live
+- a credential is missing or expired (name only)
+- the month's spend projection passes $80
+- the same failure three days in a row
+- three sessions in a row shipped nothing
+
+Nothing else goes to Evan. A quiet week means the sites are fine.
+
+## The 90-day review
+
+Evan decides on 2027-01-07: continue, change, or stop. The question is
+"are more people reading, and did I have to do anything?"

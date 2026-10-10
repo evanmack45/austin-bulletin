@@ -1,0 +1,46 @@
+name: Heartbeat
+# Checks both live sites from outside Claude. A failed run notifies Evan.
+on:
+  schedule:
+    - cron: "30 14 * * *" # 9:30 a.m. Central in summer, 8:30 a.m. in winter
+  workflow_dispatch:
+    inputs:
+      bulletin_url:
+        description: Bulletin URL (test override)
+        default: https://theaustinbulletin.com/
+      tracker_url:
+        description: Tracker URL (test override)
+        default: https://yallcityhall.org/
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Bulletin is live and carries today's edition
+        env:
+          URL: ${{ inputs.bulletin_url || 'https://theaustinbulletin.com/' }}
+        run: |
+          set -euo pipefail
+          today=$(TZ=America/Chicago date +%Y-%m-%d)
+          yesterday=$(TZ=America/Chicago date -d yesterday +%Y-%m-%d)
+          hour=$(date -u +%H)
+          code=$(curl -s -o page.html -w '%{http_code}' -A 'TheAustinBulletin-heartbeat/1.0' "$URL")
+          echo "HTTP $code from $URL"
+          [ "$code" = "200" ] || { echo "::error::Bulletin returned $code"; exit 1; }
+          if grep -q "$today" page.html; then echo "Today's edition ($today) is live"; exit 0; fi
+          if [ "$hour" -lt 13 ] && grep -q "$yesterday" page.html; then
+            echo "Before 13:00 UTC and yesterday's edition is live; acceptable"; exit 0; fi
+          echo "::error::Bulletin homepage does not show today's edition ($today)"; exit 1
+      - name: Tracker is live and built recently
+        if: always()
+        env:
+          URL: ${{ inputs.tracker_url || 'https://yallcityhall.org/' }}
+        run: |
+          set -euo pipefail
+          code=$(curl -s -o page.html -w '%{http_code}' -A 'TheAustinBulletin-heartbeat/1.0' "$URL")
+          echo "HTTP $code from $URL"
+          [ "$code" = "200" ] || { echo "::error::Tracker returned $code"; exit 1; }
+          for d in 0 1 2; do
+            stamp=$(TZ=America/Chicago date -d "-$d day" '+%B %-d, %Y')
+            if grep -q "$stamp" page.html; then echo "Tracker shows build date $stamp"; exit 0; fi
+          done
+          echo "::error::Tracker footer shows no build date within two days"; exit 1
