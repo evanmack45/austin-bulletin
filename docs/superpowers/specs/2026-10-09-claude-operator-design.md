@@ -45,7 +45,8 @@ returning readers across days. `docs/return-visit-proxies.md` in the Bulletin
 repo lists the free proxies for reader loyalty.
 
 **Keys.** The cloud environment "Default" (`env_01DhnuLgA3G72Zm18AVxJDHh`)
-holds `GEMINI_API_KEY`, `POLLEN_API_KEY`, `BLUESKY_*`, and `X_BEARER_TOKEN`.
+held `GEMINI_API_KEY`, `POLLEN_API_KEY`, `BLUESKY_*`, and `X_BEARER_TOKEN`
+when the old routine last ran on October 3. Claude confirms this in week 1.
 GitHub secrets hold `OPENROUTER_API_KEY` and `CLOUDFLARE_API_TOKEN` for the
 tracker. Claude reads only key names, never values.
 
@@ -115,7 +116,9 @@ Done inside the daily routines, and in the weekly routine when larger.
 ### Layer 3: Grow readership
 
 A cloud routine named `growth-weekly` runs once a week for both sites. One
-run, both repos, so cross-site work (section 6) is one job.
+run, both repos, so cross-site work (section 6) is one job. Week 1 confirms
+that one routine can work in two repositories. If it cannot, the routine
+runs in the Bulletin repo and clones the tracker.
 
 The loop:
 
@@ -189,8 +192,8 @@ month. Claude Code usage is not counted in this ceiling.
 ## 8. How Claude reaches Evan
 
 - **Weekly digest file** in the Bulletin repo (section 5). Normal channel.
-- **Alert** by a push notification from the routine, plus a line at the top
-  of the day's log. Used only for: a missed 9:00 a.m. publication, a site
+- **Alert** by a push notification from the routine, if routines can send
+  one (section 13), plus a line at the top of the day's log. Used only for: a missed 9:00 a.m. publication, a site
   down or deploy failed for more than one hour, a wrong live fact, an
   expired credential, a spend projection over $80, or a repeated failure
   on three days in a row.
@@ -210,7 +213,9 @@ Replace, do not stack. One live operating document per repo.
   `docs/history/standing-decisions-2026-08.md`. `CLAUDE.md` keeps only the
   technical guide and a pointer to `OPERATOR.md`.
 - `EDITORIAL.md` and `PIPELINE.md` stay as the Bulletin's content rules.
-  Claude edits them when it changes a rule, in the same session.
+  They still encode the August rules, and the daily run obeys them until
+  the growth loop changes one. Claude edits them when it changes a rule,
+  in the same session. Tomorrow's paper looks like today's.
 - `docs/journal/` (tracker) and `logs/` (Bulletin) stay as the daily record.
 
 ## 10. Routines to create
@@ -227,8 +232,11 @@ in one file.
 
 ## 11. First week
 
-1. Publish today's Bulletin by hand from this session and verify it live.
-   October 7, 8, and 9 stay uncovered.
+1. Create `bulletin-daily` the evening Evan approves, so its first run
+   fires at 11:00 UTC the next morning. Claude reads that run's log before
+   it trusts the schedule. October 7, 8, and 9: Claude recommends leaving
+   them uncovered. Three full runs for three stale days has low reader
+   value. Evan can ask for a backfill.
 2. Rewrite `OPERATOR.md` in both repos. Delete `CHARTER.md`. Move the
    standing decisions to history.
 3. Create the three routines. Run each once by hand and read its log.
@@ -248,7 +256,7 @@ Reviewed in the digest. Judged at 90 days (2027-01-07).
 |---|---|
 | Bulletin published by 9:00 a.m. Central | 100% of days |
 | Tracker data current | Footer date within 1 day of the last meeting |
-| Visits, 28-day, each site | Up 50% against the week-1 baseline |
+| Visits, 28-day, each site | Placeholder: up 50% against the week-1 baseline. The real target is set in the first digest, once the baseline exists. |
 | Search impressions, each site | Up, once Search Console exists |
 | Feed loads | Up, each month |
 | Spend | Under $100 every month |
