@@ -134,11 +134,14 @@ Verified 2026-10-09: in a cloud routine, `gh` and `GH_TOKEN` do not work
 works. So the cloud path is:
 
 1. Call PushNotification with one line. It reaches Evan's phone.
-2. ToolSearch "github issue", then create an issue in the repo titled
-   `ALERT: <reason>` with label `alert`, body: what happened, when, what
-   you tried. If an open issue with the same title exists, comment on it.
-3. ToolSearch "github workflow dispatch", then dispatch `alert.yml` on
-   `main` with inputs `reason` and `issue` (the issue URL). That run fails
+2. ToolSearch "github issue", then `mcp__github__issue_write` (method
+   `create`) in the repo, title `ALERT: <reason>`, label `alert`, body:
+   what happened, when, what you tried. If an open issue with the same
+   title exists, `mcp__github__add_issue_comment` on it instead.
+3. ToolSearch "github workflow dispatch", then
+   `mcp__github__actions_run_trigger` (method `run_workflow`,
+   `workflow_id` `alert.yml`, ref `main`) with inputs `reason` and `issue`
+   (the issue URL). Verified from the cloud on 2026-10-09. That run fails
    on purpose so GitHub emails Evan. GitHub does not email him about an
    issue his own account opens, so step 3 is the bell.
 4. Write `**ALERT** <reason>` at the top of the day's log or journal.
