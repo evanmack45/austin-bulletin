@@ -1,6 +1,6 @@
 # Claude as owner-operator of The Austin Bulletin and Y'all City Hall
 
-Date: 2026-10-09, revised the same evening. Status: draft for Evan's review.
+Date: 2026-10-09, revised the same evening. Status: approved by Evan 2026-10-09.
 
 Claude runs both sites the way an owner runs a small publication. Claude
 decides what to publish, how the sites look, what to build, what to measure,
@@ -21,6 +21,11 @@ the money and the keys. He reads a weekly report. He does not approve work.
    GitHub Actions.
 5. Evan's words: "run the sites fully like a real owner." The approval tiers
    from the first draft are gone. Section 4 says what that means.
+6. Standing authorization: Claude posts as The Austin Bulletin and Y'all
+   City Hall on the channels Evan creates, without asking each time.
+7. Evan does the one-time account setup in section 10 when Claude sends the
+   steps.
+8. Alerts go by push notification in the Claude app.
 
 ## 2. What exists today
 
@@ -100,7 +105,7 @@ one.
 
 **Every morning, Bulletin (`bulletin-daily`, 11:00 UTC).** Publish the
 edition. Confirm it is live. Fix what broke. Then keep working: one
-improvement from the backlog (section 7), shipped and verified, before the
+improvement from the backlog (section 8), shipped and verified, before the
 session ends. Log it.
 
 **Every morning, tracker (`tracker-daily`, 12:30 UTC).** Read the GitHub
@@ -135,7 +140,7 @@ in.
 
 1. **Baseline, week 1.** 28 days of Cloudflare numbers for both sites.
 2. **Search.** Search Console and Bing Webmaster Tools (Evan creates the
-   properties, step 4 in section 10). Sitemaps, index coverage, crawl
+   properties, step 4 in section 11). Sitemaps, index coverage, crawl
    errors, page titles and descriptions from each page's own content,
    structured data for editions and council meetings.
 3. **Evergreen guide pages.** One question Austin residents search for,
@@ -161,14 +166,44 @@ in.
 10. **Tracker front page.** Measure the October 6 field-guide homepage
     against its predecessor and iterate.
 
-## 7. The backlog
+## 7. What keeps the owner honest
+
+A routine run is a fresh session with no memory except the repo. These six
+structures make sessions compound instead of repeat.
+
+1. **The scoreboard.** `SCOREBOARD.md` in the Bulletin repo: 28-day visits
+   for each site, the trend, this week's target, the open bets. Every
+   routine prompt starts with "read the scoreboard, then work." The Monday
+   session rewrites it.
+2. **Ship or explain.** Every session ends with one change a reader can see,
+   or one line in the log that says why not. The Monday session counts
+   them. Three empty days in a row is an alert.
+3. **Bets with kill dates.** Every growth idea is a bet: what, metric,
+   deadline, kill condition. A bet that misses its date is killed, not
+   extended. Bets live in `SCOREBOARD.md`.
+4. **The weekly critic.** A fifth routine, `critic-weekly` (Thursday
+   16:00 UTC), acts as five Austin readers who land cold on each site and
+   report confusion, friction, and what they came for and did not find. It
+   writes `docs/reviews/critic-YYYY-WW.md`. The next owner session answers
+   every finding: fix, reject with a reason, or add to the backlog.
+5. **The owner's notes.** `docs/owner-notes.md`: what the owner tried, what
+   moved the number, what did not, and what it believes about the readers.
+   Written by the owner, for the owner, read at the start of every session.
+6. **The 90-day review.** Evan decides on 2027-01-07: continue, change, or
+   stop. Every routine prompt says so in plain words.
+
+Logs are short. Each session's log entry is under 150 words: what shipped,
+what the number did, what is next. The gates run. The log does not describe
+them.
+
+## 8. The backlog
 
 Claude keeps one file per repo, `BACKLOG.md`, ordered by expected value
 over effort. Every item has one line: what, why, how it is measured. The
 daily and afternoon sessions take the top item. The Monday session
 reorders. Evan can read it any time and add or strike lines.
 
-## 8. Spend
+## 9. Spend
 
 | Item | Site | Current rate | Notes |
 |---|---|---|---|
@@ -182,27 +217,27 @@ its rate, and the month's projection. Claude can add a service inside the
 ceiling on its own. If the projection passes $80, Claude slows the cause or
 alerts Evan.
 
-## 9. How Claude reaches Evan
+## 10. How Claude reaches Evan
 
 - **Weekly report** (section 5), Monday. Information only. It lists what
   shipped, what the numbers did, what Claude decided for the week, and any
   request in the "Accounts" category of section 4.
-- **Alert**, by push notification if routines can send one, plus a line at
+- **Alert**, by push notification in the Claude app, plus a line at
   the top of the day's log. Only for: a missed 9:00 a.m. publication, a site
   down for more than one hour, a wrong live fact, an expired credential, a
   spend projection over $80, or the same failure three days in a row.
 - Nothing else. A quiet week means the sites are fine.
 
-## 10. First week
+## 11. First week
 
 1. Create `bulletin-daily` the evening Evan approves, so its first run
    fires at 11:00 UTC the next morning. Claude reads that run's log before
    it trusts the schedule.
-2. Create the other three routines and run each once by hand.
+2. Create the other four routines and run each once by hand.
 3. Rewrite `OPERATOR.md` in both repos as the owner procedure. Delete
    `CHARTER.md`. Move the Bulletin's standing decisions to
-   `docs/history/standing-decisions-2026-08.md`. Create `BACKLOG.md` and
-   `docs/spend.md`.
+   `docs/history/standing-decisions-2026-08.md`. Create `BACKLOG.md`,
+   `SCOREBOARD.md`, `docs/owner-notes.md`, and `docs/spend.md`.
 4. Evan, one time: a read-only Cloudflare analytics token in the cloud
    environment as `CLOUDFLARE_ANALYTICS_TOKEN`, Search Console and Bing
    properties for both domains with a read token, and Bluesky and X accounts
@@ -211,7 +246,7 @@ alerts Evan.
 5. Baseline and first targets in the first Monday report.
 6. Claude decides whether to backfill October 7, 8, and 9.
 
-## 11. Success
+## 12. Success
 
 Claude sets numeric targets in the first Monday report, once the baseline
 exists, and reports against them every week. The fixed measures:
@@ -225,11 +260,3 @@ exists, and reports against them every week. The fixed measures:
 
 Evan judges the whole arrangement at 90 days (2027-01-07) on one question:
 are more people reading, and did he have to do anything?
-
-## 12. What Evan confirms in his reply
-
-1. Standing authorization: Claude posts as The Austin Bulletin and Y'all
-   City Hall on channels Evan creates, without asking each time.
-2. He will do the one-time account steps in section 10, step 4, when Claude
-   sends them.
-3. Alerts by push notification in the Claude app, or email.
