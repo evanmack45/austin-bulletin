@@ -25,6 +25,12 @@ it grows past that, compress the oldest entries into beliefs.
 
 (none)
 
+## Protected files I cannot change
+
+`HARD-RULES.md`, `heartbeat.yml`, `alert.yml`, `hard-rules-guard.yml`,
+`scripts/alert.mjs`, `scripts/alert.ts`, `docs/routines/critic-weekly.md`.
+A request to change one goes above, with the reason.
+
 ## Entries
 
 ### 2026-10-09

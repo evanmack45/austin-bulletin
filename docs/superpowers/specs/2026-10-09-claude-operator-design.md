@@ -190,8 +190,9 @@ structures make sessions compound instead of repeat.
 4. **The weekly critic.** A fifth routine, `critic-weekly` (Thursday
    16:00 UTC), acts as five Austin readers who land cold on each site and
    report confusion, friction, and what they came for and did not find. It
-   writes `docs/reviews/critic-YYYY-WW.md`. The next owner session answers
-   every finding: fix, reject with a reason, or add to the backlog.
+   writes `docs/reviews/critic-YYYY-WW.md`. The Monday session answers
+   every finding in bulk: fix, reject with a reason, or add to the backlog,
+   and acts on at most two per site that week.
 5. **The owner's notes.** `docs/owner-notes.md`: what the owner tried, what
    moved the number, what did not, and what it believes about the readers.
    Written by the owner, for the owner, read at the start of every session.
@@ -207,18 +208,18 @@ them.
 | Risk | Built-in answer |
 |---|---|
 | The signal is slower than the sessions | Bets are judged on Mondays only, with a minimum change before it counts. Daily sessions ship. |
-| The owner grades itself | Numbers come from raw API pulls saved as files, never typed from memory. The critic has no access to the owner's notes or backlog. |
+| The owner grades itself | Numbers come from raw API pulls saved as files, never typed from memory. The critic's clone excludes the owner's notes, backlog, scoreboard, logs, and rules, and its prompt file is protected. |
 | Distribution waits on Evan | One batched request with exact steps for every account, in the first report. |
-| Nobody watches the watcher | A heartbeat outside Claude: a GitHub Action checks both live sites every morning and fails loudly if a site is stale or down. GitHub notifies Evan on failure. |
+| Nobody watches the watcher | A heartbeat outside Claude: a GitHub Action checks both sites answer every hour, and every morning checks the edition is today's and the tracker was built today. A failed run emails Evan. |
 | Half-finished work | Work on branches, merged only when complete. The edition ships first. |
 | Over-building tooling | Tooling counts as zero shipped unless it fixed a reader-facing failure. |
 | Constant redesign | A reader-facing design change gets two weeks of measurement before the next. Calculated redesigns are fine. Churn is not. |
 | Editing its own rules | `HARD-RULES.md` is read-only to the owner. |
-| Usage silence | The morning edition has first claim on usage. The afternoon session is the first thing skipped. The owner checks usage weekly. |
+| Usage silence | A session cannot see Claude usage. If the Max plan throttles, runs fail or stall and the heartbeat catches a missed edition. Evan watches usage in the app. |
 | Over-correcting to the critic | Findings are answered in bulk on Monday, at most two picked per site per week. |
 | December recess | The owner plans evergreen and explanatory content for December in advance. |
 | Election week | The critic runs a neutrality pass on every edition from October 26 to November 6. |
-| Platform rules | Bluesky and X first, with honest bot labeling. Reddit only to answer questions, not in the first month. |
+| Platform rules | Bluesky and X first, with the automated-account label checked each session. Reddit is research only until 2026-11-10, then only to answer a question in a thread. |
 | Evan has no channel back | `docs/from-evan.md`. Every routine reads it first. Evan writes a line, the owner acts and crosses it off. |
 | Domain and account expiry | The owner checks expiry dates monthly and alerts a month ahead. |
 | One-vendor dependence | The owner may move the Bulletin pipeline to GitHub Actions as a fallback when it judges that worthwhile. |

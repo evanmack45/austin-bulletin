@@ -1,0 +1,21 @@
+name: Alert
+# The owner dispatches this to reach Evan. The job always fails on purpose,
+# so GitHub sends Evan a failed-workflow email even though the run was
+# started from his own account (GitHub does not notify you about issues you
+# open yourself). The ALERT issue is the record; this is the bell.
+on:
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: Why Evan needs to look
+        required: true
+      issue:
+        description: Link to the ALERT issue
+        default: ""
+jobs:
+  ring:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "::error::ALERT: ${{ inputs.reason }} ${{ inputs.issue }}"
+          exit 1

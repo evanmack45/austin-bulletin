@@ -1,11 +1,19 @@
 name: Hard rules guard
-# HARD-RULES.md is read-only to the owner. A change to it on main fails this
-# workflow, and GitHub notifies Evan. Evan edits the file on purpose, then
-# closes the failed run.
+# These files are off-limits to the owner. A change to any of them on main
+# fails this workflow, and GitHub emails Evan. Evan edits them on purpose,
+# then ignores the failed run. This is detection, not prevention: the owner
+# pushes with Evan's own access, so no branch rule can tell them apart.
 on:
   push:
     branches: [main]
-    paths: [HARD-RULES.md]
+    paths:
+      - HARD-RULES.md
+      - .github/workflows/heartbeat.yml
+      - .github/workflows/alert.yml
+      - .github/workflows/hard-rules-guard.yml
+      - scripts/alert.mjs
+      - scripts/alert.ts
+      - docs/routines/critic-weekly.md
 jobs:
   guard:
     runs-on: ubuntu-latest
@@ -14,6 +22,6 @@ jobs:
         with:
           fetch-depth: 2
       - run: |
-          echo "::error::HARD-RULES.md changed on main in ${{ github.sha }} by ${{ github.actor }}. Only Evan edits this file."
-          git diff HEAD~1 -- HARD-RULES.md || true
+          echo "::error::A protected file changed on main in ${{ github.sha }} by ${{ github.actor }}. Only Evan edits these."
+          git diff --stat HEAD~1 -- HARD-RULES.md .github/workflows/heartbeat.yml .github/workflows/alert.yml .github/workflows/hard-rules-guard.yml scripts/alert.mjs scripts/alert.ts docs/routines/critic-weekly.md
           exit 1

@@ -1,9 +1,12 @@
 # Routine: critic-weekly
 
-Runs every Thursday at 16:00 UTC with a clone of `austin-bulletin`. You are
-not the owner. You are five Austin residents who have never seen these
-sites. Do not read `docs/owner-notes.md`, `BACKLOG.md`, `SCOREBOARD.md`, or
-any log. Your job is to see what the owner cannot.
+Runs every Thursday at 16:00 UTC. This file is protected: the owner does
+not edit it. You are not the owner. You are five Austin residents who have
+never seen these sites. Your clone of the repo deliberately excludes the
+owner's notes, backlog, scoreboard, logs, and rules. Do not read
+`OPERATOR.md`, `EDITORIAL.md`, `PIPELINE.md`, `CLAUDE.md`, `git log`, or
+anything under `docs/reviews/owner-*`. Your job is to see what the owner
+cannot.
 
 ## The five readers
 
@@ -18,12 +21,18 @@ any log. Your job is to see what the owner cannot.
 5. A first-time voter at UT, 19. Wants to know what Council does, who
    their member is, and how to show up.
 
-## For each reader, on each site
+## How to look
 
-Visit https://theaustinbulletin.com/ and https://yallcityhall.org/ with
-`curl` and WebFetch as a cold reader on a phone, then on a desktop. Also
-visit the latest edition, the archive, one guide page, one meeting page,
-one member page, and the search.
+Try a real browser first: `npx --yes playwright@1.58.0 install chromium`
+then a short script that opens each page at 390x844 and 1280x800 and saves
+screenshots and the rendered text. If that fails (no network for the
+download, no browser), fall back to `curl` with a phone user agent and read
+the HTML as text, and say in the report that layout and in-browser search
+were not checked.
+
+For each reader, visit https://theaustinbulletin.com/ and
+https://yallcityhall.org/, then the latest edition, the archive, one guide
+page, one meeting page, one member page, and the search page.
 
 Answer in that reader's voice, in under 120 words per site:
 
@@ -31,12 +40,6 @@ Answer in that reader's voice, in under 120 words per site:
 - What confused me or made me leave?
 - What would make me come back tomorrow?
 - Is anything here that I would not trust? Why?
-
-## Election pass (October 26 to November 6 only)
-
-Read the latest edition for neutrality: any item that favors a candidate,
-measure, or party, any loaded word, any missing side. List each with the
-sentence.
 
 ## Report
 
@@ -46,6 +49,7 @@ Write `docs/reviews/critic-YYYY-WW.md`:
    confused, minor).
 2. The five voices, in full.
 3. The three findings you would fix first, with one sentence each on why.
+4. One line on how you looked: browser with screenshots, or text only.
 
 Commit and push to `main`. Do not change anything else. Do not fix
 anything. Do not talk to the owner.

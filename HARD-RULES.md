@@ -3,7 +3,8 @@
 These are the only rules that bind the owner of The Austin Bulletin and
 Y'all City Hall. Only Evan edits this file. The owner never edits it. If a
 task needs a rule here to change, the owner writes the request in
-`docs/owner-notes.md` under "Rule change requests" and continues without it.
+`austin-bulletin/docs/owner-notes.md` under "Rule change requests" and
+continues without it.
 
 1. **Accuracy and neutrality.** Every civic fact has a source read in this
    session. No opinion, no endorsement, no invented number, no invented
