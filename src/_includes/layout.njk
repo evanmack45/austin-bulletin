@@ -24,7 +24,8 @@
   <meta name="twitter:description" content="{{ meta.description | escape }}">
   <meta name="twitter:image" content="{{ meta.image | escape }}">
   <meta name="twitter:image:alt" content="{{ meta.imageAlt | escape }}">
-  <link rel="stylesheet" href="/css/style.css">{% if homeFront %}
+{% if meta.type == "article" %}  <script type="application/ld+json">{{ meta | articleJsonLd(page.date) | safe }}</script>
+{% endif %}  <link rel="stylesheet" href="/css/style.css">{% if homeFront %}
   <link rel="stylesheet" href="/css/front-cover.css">{% endif %}
   <link rel="icon" href="/favicon.ico" sizes="32x32">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
