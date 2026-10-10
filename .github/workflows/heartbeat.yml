@@ -63,6 +63,6 @@ jobs:
           code=$(curl -s -o page.html -w '%{http_code}' -A 'TheAustinBulletin-heartbeat/1.0' "$URL")
           echo "HTTP $code from $URL"
           [ "$code" = "200" ] || { echo "::error::Tracker returned $code"; exit 1; }
-          stamp=$(TZ=America/Chicago date '+%B %-d, %Y')
+          stamp=$(TZ=America/Chicago date '+%A, %B %-d, %Y')
           if grep -q "Site built $stamp" page.html; then echo "Tracker footer: Site built $stamp"; exit 0; fi
           echo "::error::Tracker footer does not say 'Site built $stamp'"; grep -o 'Site built [^<]*' page.html | head -1; exit 1

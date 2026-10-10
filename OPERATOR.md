@@ -28,7 +28,7 @@ requests".
 
 Two contracts the heartbeat depends on. Every Bulletin page keeps
 `<meta name="edition-date" content="YYYY-MM-DD">` for the newest edition.
-The tracker footer keeps the text `Site built <Month D, YYYY>`.
+The tracker footer keeps the text `Site built <Weekday>, <Month D, YYYY>`.
 
 ## What stays with Evan
 
