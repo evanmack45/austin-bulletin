@@ -73,7 +73,7 @@ These rules do not change without Evan's written instruction.
 | Tier | What | Who decides |
 |---|---|---|
 | Ships alone | Code, tests, pipeline fixes, metadata, sitemaps, feeds, speed, accessibility, source changes, below-the-fold layout, new evergreen guide pages | Claude |
-| Propose first | Front page or masthead changes, new top-level sections, cutting a section, a new recurring feature, anything a returning reader would notice at once | Claude writes a one-page proposal with a mockup. Evan says yes or no. |
+| Propose first | Front page or masthead changes, new top-level sections, cutting a section, a new recurring feature, anything a returning reader notices at once | Claude writes a one-page proposal with a mockup. Evan says yes or no. |
 | Evan only | New spend, new channel (social, email), new tracker or cookie, DNS, credentials | Evan |
 
 A "propose first" item waits in the weekly digest. Silence is not approval.
