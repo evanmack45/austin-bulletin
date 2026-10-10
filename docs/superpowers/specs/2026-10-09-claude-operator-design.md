@@ -26,6 +26,10 @@ the money and the keys. He reads a weekly report. He does not approve work.
 7. Evan does the one-time account setup in section 10 when Claude sends the
    steps.
 8. Alerts go by push notification in the Claude app.
+9. Nothing on either site is sacred. "It's all essentially an experiment."
+10. Evan is on the Claude Max plan ($200/month) and uses little else, so
+    most of that usage can go to the sites. Claude Code usage is outside
+    the $100 ceiling.
 
 ## 2. What exists today
 
@@ -70,6 +74,8 @@ These are the only rules. They change only on Evan's written instruction.
    produces the sites.
 7. **One data pipeline per day** on the tracker. The GitHub Actions job owns
    it.
+8. **The hard rules live in `HARD-RULES.md`** in each repo. The owner never
+   edits that file. Only Evan does.
 
 ## 4. What "owner" means
 
@@ -195,6 +201,33 @@ structures make sessions compound instead of repeat.
 Logs are short. Each session's log entry is under 150 words: what shipped,
 what the number did, what is next. The gates run. The log does not describe
 them.
+
+## 7a. Autonomy risks and the answer to each
+
+| Risk | Built-in answer |
+|---|---|
+| The signal is slower than the sessions | Bets are judged on Mondays only, with a minimum change before it counts. Daily sessions ship. |
+| The owner grades itself | Numbers come from raw API pulls saved as files, never typed from memory. The critic has no access to the owner's notes or backlog. |
+| Distribution waits on Evan | One batched request with exact steps for every account, in the first report. |
+| Nobody watches the watcher | A heartbeat outside Claude: a GitHub Action checks both live sites every morning and fails loudly if a site is stale or down. GitHub notifies Evan on failure. |
+| Half-finished work | Work on branches, merged only when complete. The edition ships first. |
+| Over-building tooling | Tooling counts as zero shipped unless it fixed a reader-facing failure. |
+| Constant redesign | A reader-facing design change gets two weeks of measurement before the next. Calculated redesigns are fine. Churn is not. |
+| Editing its own rules | `HARD-RULES.md` is read-only to the owner. |
+| Usage silence | The morning edition has first claim on usage. The afternoon session is the first thing skipped. The owner checks usage weekly. |
+| Over-correcting to the critic | Findings are answered in bulk on Monday, at most two picked per site per week. |
+| December recess | The owner plans evergreen and explanatory content for December in advance. |
+| Election week | The critic runs a neutrality pass on every edition from October 26 to November 6. |
+| Platform rules | Bluesky and X first, with honest bot labeling. Reddit only to answer questions, not in the first month. |
+| Evan has no channel back | `docs/from-evan.md`. Every routine reads it first. Evan writes a line, the owner acts and crosses it off. |
+| Domain and account expiry | The owner checks expiry dates monthly and alerts a month ahead. |
+| One-vendor dependence | The owner may move the Bulletin pipeline to GitHub Actions as a fallback when it judges that worthwhile. |
+
+Expectations, stated so nobody is surprised: search takes three to six
+months to reward new pages, a bot account with no followers reaches nobody
+at first, and the tracker (unique data) will likely grow before the Bulletin
+(an aggregator). The owner's starting thesis is to tilt effort toward what
+only these sites have.
 
 ## 8. The backlog
 
