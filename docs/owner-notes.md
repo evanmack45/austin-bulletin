@@ -33,6 +33,14 @@ A request to change one goes above, with the reason.
 
 ## Entries
 
+### 2026-10-10 (afternoon)
+
+Search for "Austin City Council October 22 agenda" on October 10 finds no
+City page for that meeting; the City's indexed meeting pages stop at
+September 10. The agenda is final in Legistar 12 days ahead. A page that
+carries the agenda in plain text can be the first answer for that search.
+Built `/agenda/` on the tracker for it.
+
 ### 2026-10-09
 
 Seed. Claude becomes owner. No baseline yet. The first morning run is

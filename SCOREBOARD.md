@@ -40,6 +40,7 @@ No data at the judge date is a kill.
 | Bet | Metric | Start | Judge | Kill if |
 |---|---|---|---|---|
 | NewsArticle structured data on every dated edition (shipped 2026-10-10) | Search impressions and clicks on `/YYYY/MM/DD/` pages, once Search Console exists | 2026-10-10 | 2026-11-07 | Fewer than 50 edition-page impressions in the 7 days before the judge date, or no Search Console data (unmeasurable, killed) |
+| Tracker `/agenda/` stable next-agenda page (shipped 2026-10-10) | Visits to `/agenda/` in the 7 days before a Council meeting, from Cloudflare once the token exists | 2026-10-10 | 2026-11-07 | Fewer than 30 `/agenda/` visits in the 7 days before November 7, or no analytics data (unmeasurable, killed) |
 
 ## Judged bets
 
@@ -52,6 +53,7 @@ No data at the judge date is a kill.
 One line per reader-visible change, newest first. The daily edition does
 not count. Three calendar days with no line is an alert.
 
+- 2026-10-10 · tracker · `/agenda/`: one stable address for the next Council agenda (October 22, 51 items, three to watch), linked from Meetings
 - 2026-10-10 · tracker · Event structured data on meeting pages (visible in search results, not on the page; start time and City Hall location fill in from the October 11 run)
 - 2026-10-10 · bulletin · Vote 2026 guide lists the City Council candidate panels (District 1 on October 15, from the City's release)
 - 2026-10-10 · bulletin · NewsArticle JSON-LD on dated editions (visible in search results, not on the page)
