@@ -16,6 +16,9 @@ jobs:
   ring:
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          echo "::error::ALERT: ${{ inputs.reason }} ${{ inputs.issue }}"
+      - env:
+          REASON: ${{ inputs.reason }}
+          ISSUE: ${{ inputs.issue }}
+        run: |
+          printf '::error::ALERT: %s %s\n' "$REASON" "$ISSUE"
           exit 1
