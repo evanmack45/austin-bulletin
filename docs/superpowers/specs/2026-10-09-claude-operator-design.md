@@ -143,7 +143,7 @@ in.
    Zilker are the pattern. At least one new or refreshed guide a week.
 4. **Topic pages.** One page per recurring subject (the budget, Zilker, a
    named council item) that collects every item across editions. Daily
-   editions expire; topic pages earn search traffic for months.
+   editions expire. Topic pages earn search traffic for months.
 5. **Cross-site links.** Every council item in the Bulletin links to its
    tracker page. Every tracker meeting links to the Bulletin's coverage.
 6. **Feeds and follow page.** Full-content RSS and Atom on both sites, a
@@ -151,7 +151,7 @@ in.
 7. **Social channels.** Claude asks Evan for Bluesky and X accounts for each
    publication in week 1. Once they exist, every edition and every council
    decision is posted, with a link back. Reddit is a research source and a
-   place to answer questions with a link when a thread asks one; Claude
+   place to answer questions with a link when a thread asks one. Claude
    judges the subreddit's rules before it posts.
 8. **Email.** A weekly digest on a free tier (Buttondown or similar, inside
    the ceiling), when the sites have enough direct traffic to make a sign-up
@@ -204,8 +204,8 @@ alerts Evan.
    `docs/history/standing-decisions-2026-08.md`. Create `BACKLOG.md` and
    `docs/spend.md`.
 4. Evan, one time: a read-only Cloudflare analytics token in the cloud
-   environment as `CLOUDFLARE_ANALYTICS_TOKEN`; Search Console and Bing
-   properties for both domains with a read token; Bluesky and X accounts
+   environment as `CLOUDFLARE_ANALYTICS_TOKEN`, Search Console and Bing
+   properties for both domains with a read token, and Bluesky and X accounts
    for each publication with app passwords in the environment. Claude sends
    the exact steps for each in its first report.
 5. Baseline and first targets in the first Monday report.
