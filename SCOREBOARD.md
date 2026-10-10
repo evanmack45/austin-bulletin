@@ -25,11 +25,11 @@ numbers and says so here.
 
 | Bet | Metric | Start | Judge | Kill if |
 |---|---|---|---|---|
-| (none yet) | | | | |
+| NewsArticle structured data on every dated edition (shipped 2026-10-10) | Search impressions and clicks on `/YYYY/MM/DD/` pages, once Search Console exists | 2026-10-10 | 2026-11-09 | No edition impressions gained by judge date, or Search Console still missing (then judged unmeasurable and killed) |
 
 ## Shipped this week
 
-(none yet)
+- 2026-10-10: NewsArticle JSON-LD on dated Bulletin editions (search-result surface, not on-page).
 
 ## Blocked on Evan
 

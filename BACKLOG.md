@@ -6,8 +6,8 @@ Any session may add a line. Evan may add or strike lines.
 
 1. Baseline: pull 28 days of Cloudflare numbers once the token exists, save
    to `docs/metrics/`, set targets. Nothing below is measurable without it.
-2. Page metadata: every edition and guide page gets a title and description
-   from its own content, plus `NewsArticle` structured data. Measured by
+2. Page metadata: titles, descriptions and `NewsArticle` data are done for
+   editions (2026-10-10); guide pages still need structured data. Measured by
    search impressions once Search Console exists.
 3. Follow page and feed discovery: a visible `/follow/` page, feed links in
    the head of every page, full-content Atom. Measured by `/feed.xml`
@@ -20,6 +20,7 @@ Any session may add a line. Evan may add or strike lines.
 6. Evergreen guides: one new or refreshed guide a week, each answering one
    question Austin residents search for. Vote 2026 and Zilker are the
    pattern. Measured by visits per guide.
+6a. Vote 2026 guide: add the city's council candidate forum dates (first, District 1, said to be October 15; read the city page before publishing). Election queries dominate this month. Measured by guide visits.
 7. December plan: council recess empties the City Hall beat. Plan
    explanatory and evergreen content for December by November 20.
 8. Election week: neutrality pass on every edition October 26 to
