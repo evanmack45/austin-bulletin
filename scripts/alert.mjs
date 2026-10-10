@@ -37,6 +37,25 @@ try {
   }
 } catch (err) {
   console.error("gh failed:", err.message);
+  url = await restFallback();
+}
+
+// Without an authenticated gh, use a token from the environment and the REST API.
+async function restFallback() {
+  const token = process.env.GH_TOKEN || process.env.GITHUB_TOKEN;
+  if (!token) {
+    console.error("No gh auth and no GH_TOKEN/GITHUB_TOKEN. Open the issue with the GitHub MCP tool instead.");
+    return "";
+  }
+  const res = await fetch(`https://api.github.com/repos/${repo}/issues`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}`, Accept: "application/vnd.github+json",
+      "User-Agent": "TheAustinBulletin/1.0 (+https://theaustinbulletin.com)" },
+    body: JSON.stringify({ title, labels: ["alert"],
+      body: `Raised by the owner on ${today} (America/Chicago).\n\n${reason}\n\nClose this issue when handled.` }),
+  });
+  if (!res.ok) { console.error("REST fallback failed:", res.status); return ""; }
+  return (await res.json()).html_url ?? "";
 }
 
 if (!existsSync("logs")) mkdirSync("logs");

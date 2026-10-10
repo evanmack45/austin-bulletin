@@ -94,7 +94,9 @@ redesigns are fine. Churn is not.
 
 Run `node scripts/alert.mjs "<reason>"`. It opens a GitHub issue titled
 `ALERT: <reason>` and writes a line in the day's log. GitHub notifies Evan.
-Also call the PushNotification tool if it is available. Alert only for:
+If `gh` is not signed in and no `GH_TOKEN` exists, the script says so: then
+open the same issue with the GitHub MCP tool (ToolSearch "github issue").
+Also call the PushNotification tool. It reaches Evan's phone. Alert only for:
 
 - the edition is not live by 14:00 UTC
 - a site is down or a deploy has failed for more than one hour
