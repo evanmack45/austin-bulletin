@@ -69,4 +69,5 @@ Write `docs/reviews/owner-YYYY-WW.md`, under 400 words plus one table:
    approval of work.
 
 Commit and push both clones. Then call PushNotification with one line:
-"Weekly report ready: <two-number summary>."
+"Weekly report ready: <two-number summary>." Alerts follow `OPERATOR.md`
+"Alerts" (PushNotification, then the GitHub MCP tool).

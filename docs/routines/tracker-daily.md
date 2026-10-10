@@ -25,8 +25,8 @@ question: are more people reading, and did he have to do anything?
 The GitHub Actions workflow `daily-pipeline` ran at 11:00 UTC. Never start
 a second full pipeline today.
 
-1. `gh run list --workflow=daily.yml --limit 3` (or the GitHub MCP tool if
-   `gh` is not signed in) and read today's run. If it failed, read its log,
+1. Read today's `daily-pipeline` run with the GitHub MCP tool (ToolSearch
+   "github actions"; `gh` is not signed in in the cloud). If it failed, read its log,
    find the cause, fix it for tomorrow on a branch, and merge. If the cause
    is a credential, alert with the key's name only.
 2. Read `data/status.json` for per-source health.
@@ -51,7 +51,7 @@ rendering changed, merge, verify live. Append a "Shipped" line to
 `SCOREBOARD.md` in the Bulletin clone and push it.
 
 Check the shipped ledger: if the last three calendar days have no line,
-alert `Three days with nothing shipped`.
+alert `Three days with nothing shipped` the way `OPERATOR.md` "Alerts" says.
 
 ## End
 

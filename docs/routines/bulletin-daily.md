@@ -28,9 +28,9 @@ or any missing side, and fix each before publishing.
 Push the edition to `main` yourself. A finished edition sitting on a branch
 is a failed run. Then fetch https://theaustinbulletin.com/ and confirm the
 `edition-date` meta tag carries today's date. Target 12:00 UTC. If it is
-not live by 14:00 UTC, run
-`node scripts/alert.mjs "Bulletin not live by 14:00 UTC"`, call
-PushNotification, and keep going.
+not live by 14:00 UTC, alert
+`Bulletin not live by 14:00 UTC` the way `OPERATOR.md` "Alerts" says
+(PushNotification, then the GitHub MCP tool), and keep going.
 
 If a step fails, follow "Failure behavior" in `PIPELINE.md`: push the log
 only, never a broken edition.
@@ -47,7 +47,7 @@ it was one. If nothing fits the time, pick the smallest reader-visible
 improvement you noticed while publishing today.
 
 Check the shipped ledger: if the last three calendar days have no line,
-alert `Three days with nothing shipped`.
+alert `Three days with nothing shipped` the way `OPERATOR.md` "Alerts" says.
 
 ## End
 

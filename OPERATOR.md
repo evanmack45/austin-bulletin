@@ -129,13 +129,25 @@ asks for the figure and the limit in every report until they exist.
 
 ## Alerts
 
-Run `node scripts/alert.mjs "<reason>"` from the Bulletin clone (or
-`bun scripts/alert.ts "<reason>"` from the tracker clone). It opens an
-`ALERT:` issue as the record, dispatches the `Alert` workflow, which fails
-on purpose so GitHub emails Evan, and writes a log line. It exits non-zero
-if no channel worked. Then also call the PushNotification tool, which
-reaches Evan's phone. If the script exits non-zero, open the issue and
-dispatch `alert.yml` with the GitHub MCP tool (ToolSearch "github").
+Verified 2026-10-09: in a cloud routine, `gh` and `GH_TOKEN` do not work
+(the token is invalid there), but pushes work and the GitHub MCP tool
+works. So the cloud path is:
+
+1. Call PushNotification with one line. It reaches Evan's phone.
+2. ToolSearch "github issue", then create an issue in the repo titled
+   `ALERT: <reason>` with label `alert`, body: what happened, when, what
+   you tried. If an open issue with the same title exists, comment on it.
+3. ToolSearch "github workflow dispatch", then dispatch `alert.yml` on
+   `main` with inputs `reason` and `issue` (the issue URL). That run fails
+   on purpose so GitHub emails Evan. GitHub does not email him about an
+   issue his own account opens, so step 3 is the bell.
+4. Write `**ALERT** <reason>` at the top of the day's log or journal.
+
+`node scripts/alert.mjs "<reason>"` and `bun scripts/alert.ts "<reason>"`
+do the same three things from a machine where `gh` is signed in, such as
+Evan's Mac. They exit non-zero in the cloud. If Evan adds a working
+fine-grained token with issues and actions write access as `GH_TOKEN` in
+the cloud environment, the scripts work there too.
 
 Alert only for:
 

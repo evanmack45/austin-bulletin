@@ -58,6 +58,9 @@ not count. Three calendar days with no line is an alert.
 
 - `CLOUDFLARE_ANALYTICS_TOKEN` in the cloud environment (read-only
   Analytics token).
+- Optional: a working fine-grained GitHub token (issues and actions write
+  on both repos) as `GH_TOKEN` in the cloud environment, so the alert
+  scripts work there. Without it the owner uses the GitHub MCP tool.
 - The OpenRouter monthly figure, and a hard monthly credit limit on the
   OpenRouter account, so the $100 ceiling can be enforced.
 - Google Search Console and Bing Webmaster Tools properties for both

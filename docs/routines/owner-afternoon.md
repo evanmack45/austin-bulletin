@@ -21,9 +21,14 @@ reviews the arrangement on 2027-01-07.
 
 ## Distribution (15 minutes)
 
-List the credential names in the environment (`env | cut -d= -f1`, names
-only). A publication account is one whose name says so, for example
-`BULLETIN_BLUESKY_HANDLE` or `TRACKER_X_TOKEN`. The search-only
+Check whether publication accounts exist by testing named variables, for
+example `[ -n "${BULLETIN_BLUESKY_HANDLE:-}" ] && echo bulletin-bluesky`.
+Never print values and never list the whole environment. The names the
+owner looks for: `BULLETIN_BLUESKY_HANDLE`, `BULLETIN_BLUESKY_APP_PASSWORD`,
+`TRACKER_BLUESKY_HANDLE`, `TRACKER_BLUESKY_APP_PASSWORD`,
+`BULLETIN_X_ACCESS_TOKEN`, `BULLETIN_X_ACCESS_SECRET`,
+`TRACKER_X_ACCESS_TOKEN`, `TRACKER_X_ACCESS_SECRET`, plus the shared
+`X_API_KEY` and `X_API_SECRET`. The search-only
 `BLUESKY_*` and `X_BEARER_TOKEN` keys are not posting accounts. For every
 publication account that exists: confirm the profile carries the
 platform's automated-account label (set it once if the API allows), then
@@ -57,7 +62,7 @@ in `docs/owner-notes.md` only if it changes a belief.
 ## End
 
 Check the shipped ledger: if the last three calendar days have no line,
-alert `Three days with nothing shipped`. Append to `logs/YYYY-MM-DD.md`
+alert `Three days with nothing shipped` the way `OPERATOR.md` "Alerts" says. Append to `logs/YYYY-MM-DD.md`
 (Bulletin) and `docs/journal/YYYY-WW.md` (tracker) as applicable, under
 150 words each: what shipped, what is next. If nothing shipped, one line
 saying why. Commit and push both clones. Leave no half-done branch.
