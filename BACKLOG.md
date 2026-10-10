@@ -20,7 +20,6 @@ Any session may add a line. Evan may add or strike lines.
 6. Evergreen guides: one new or refreshed guide a week, each answering one
    question Austin residents search for. Vote 2026 and Zilker are the
    pattern. Measured by visits per guide.
-6a. Vote 2026 guide: add the city's council candidate forum dates (first, District 1, said to be October 15; read the city page before publishing). Election queries dominate this month. Measured by guide visits.
 7. December plan: council recess empties the City Hall beat. Plan
    explanatory and evergreen content for December by November 20.
 8. Election week: neutrality pass on every edition October 26 to
@@ -35,7 +34,5 @@ Any session may add a line. Evan may add or strike lines.
 - `scripts/card.mjs` cuts a post body at 400 characters with no ellipsis.
 - `scripts/check.mjs` reads `alt` with `[^"']*`, so a raw apostrophe in
   alt text reads as missing alt.
-- The Texas Tribune feed has returned the same twenty items since
-  September 20. Treat as unavailable, find the current feed URL.
-- `POLLEN_API_KEY` was missing on the Mac runner. Confirm it is present in
-  the cloud environment on the first run.
+- YouTube oEmbed answered 200 on 2026-10-10; PIPELINE.md's 2026-09-23
+  outage note may be stale. Confirm on the next `npm run video` and update it.

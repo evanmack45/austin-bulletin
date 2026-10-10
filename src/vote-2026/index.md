@@ -25,6 +25,18 @@ Sources: <a href="{{ vote2026.links.register }}">VoteTexas — Voter Registratio
 - Travis County election info: <a href="{{ vote2026.links.travisCurrentElection }}">Current Election (VoteTravis.gov)</a> — dates, sites and hours when posted, and county contacts.
 - Where to vote and sample ballots: <a href="{{ vote2026.links.travisCurrentElection }}">Travis County — Current Election</a>. Open the Sample Ballots tab for the consolidated ballot and the county’s accessible ballot link; use Polling Locations for sites and hours.
 
+### City Council candidate panels
+
+The City, its Ethics Review Commission and the League of Women Voters Austin Area sponsor one panel for each Council district on the November 3 ballot. Each starts at 6:30 p.m. and airs live on ATXN.TV and KAZI FM 88.7.
+
+- **District 1: Thursday, October 15**, Asian American Resource Center, 8401 Cameron Rd. (the last one still ahead)
+- Already held: District 5 (September 17), District 8 (September 21), District 9 (September 29), District 3 (October 1)
+- Runoff panel, if one is needed: November 20, City Hall Council Chambers, 301 W. 2nd St.
+
+To suggest a question, email candidateforums@lwvaustin.org or call 512-451-6710. For interpretation, call 3-1-1 at least five days ahead. Not sure of your district? Use the City's district lookup through its voter resources.
+
+Source: <a href="https://www.austintexas.gov/communications/news/public-invited-attend-2026-austin-city-council-candidate-panels">City of Austin, September 14 release</a> (read October 10, 2026).
+
 ### Early voting (Oct 19–30)
 
 Any registered voter in Travis County may vote early in person at any early voting site in the county. Dates and hours are published by the county and may vary by location. Check <a href="{{ vote2026.links.travisCurrentElection }}">VoteTravis.gov — Current Election</a> for the official list and hours.
