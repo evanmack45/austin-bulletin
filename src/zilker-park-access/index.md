@@ -7,7 +7,7 @@ permalink: "/zilker-park-access/"
 
 ## Zilker Park access during ACL
 
-**Last checked: October 6, 2026, 6:44 a.m. CDT (City park, road and facility notices).** This guide describes posted plans, not an on-site inspection. Check the linked City notices before traveling; follow signs, barriers and staff directions.
+**Last checked: October 11, 2026, 6:30 a.m. CDT (the City's park closure notice and its October 9 Parks and Recreation release). Road and nearby-facility notices were last checked October 6, 2026.** This guide describes posted plans, not an on-site inspection. Check the linked City notices before traveling; follow signs, barriers and staff directions.
 
 ### What can you use?
 
@@ -25,6 +25,11 @@ The [City’s park closure notice](https://www.austintexas.gov/parks/parks-and-r
 The City’s [ACL event page](https://www.austintexas.gov/ace/events/austin-city-limits-weekend-one) uses broad ticket-only park-access wording. Its more specific parks notice names the open amenities above. Do not treat those exceptions as permission to enter the festival grounds.
 
 ### When can you return to the Great Lawn?
+
+**After the festival, reported by the City on October 9:** Once organizers finish post-event load-out, the City says, portions of the Great Lawn will remain closed so crews can restore nutrients to the soil and trees and relieve compaction from festival traffic. Sections will reopen as work allows. The customary partial closure for Parks and Recreation's annual maintenance window and the Trail of Lights stays in effect. The City says its goal is to reopen the lawn on a timeframe similar to previous years, and that organizers have committed to restore the lawn and nearby areas to their previous condition or better "at no cost to taxpayers." Reopening updates are posted at [AustinTexas.gov/parkclosures](https://www.austintexas.gov/parks/parks-and-recreation-facilities-closures). Read the [City's October 9 release](https://www.austintexas.gov/parks/news/austin-parks-and-recreation-prepares-zilker-park-acl-fest-weekend-two).
+
+Between the two weekends, the City says, crews pulled up temporary turf, removed trash and buried hardware, cleared mulch from stage areas, leveled ruts with rollers, aerated the lawn, inspected irrigation and began watering.
+
 
 **The sources checked for this guide do not confirm a Great Lawn reopening date.** The City lists a scheduled closure from **September 21 through October 18**. That posted end date is **not a guarantee** that the lawn will be ready for public use immediately afterward.
 
