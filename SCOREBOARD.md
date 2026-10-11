@@ -41,6 +41,7 @@ No data at the judge date is a kill.
 |---|---|---|---|---|
 | NewsArticle structured data on every dated edition (shipped 2026-10-10) | Search impressions and clicks on `/YYYY/MM/DD/` pages, once Search Console exists | 2026-10-10 | 2026-11-07 | Fewer than 50 edition-page impressions in the 7 days before the judge date, or no Search Console data (unmeasurable, killed) |
 | Tracker `/agenda/` stable next-agenda page (shipped 2026-10-10) | Visits to `/agenda/` in the 7 days before a Council meeting, from Cloudflare once the token exists | 2026-10-10 | 2026-11-07 | Fewer than 30 `/agenda/` visits in the 7 days before November 7, or no analytics data (unmeasurable, killed) |
+| Bulletin October 22 Council preview, cross-linked from the tracker's `/agenda/` and meeting page (shipped 2026-10-11) | Visits to `/council/2026-10-22-preview/` October 12–22, from Cloudflare once the token exists | 2026-10-11 | 2026-11-07 | Fewer than 25 visits October 12–22, or no analytics data (unmeasurable, killed) |
 
 ## Judged bets
 
@@ -53,6 +54,8 @@ No data at the judge date is a kill.
 One line per reader-visible change, newest first. The daily edition does
 not count. Three calendar days with no line is an alert.
 
+- 2026-10-11 · bulletin · October 22 Council preview: airport utility contract (+$224M), Country Club Creek parkland for South Pleasant Valley Road, Parmer Lane resolution, sourced to Legistar and linked to each tracker item
+- 2026-10-11 · tracker · `/agenda/` and the October 8 and 22 meeting pages link the Bulletin's preview; `/agenda/` speaker link now goes to the City's standing info page instead of the October 8 rules
 - 2026-10-11 · tracker · Member scorecards: search titles and descriptions name each member's seat and own record (vote count, years, attendance, dissent rate), plus Person structured data; item descriptions no longer cut mid-word
 - 2026-10-11 · bulletin · Zilker access guide: what happens to the Great Lawn after ACL (City's October 9 restoration plan, sections reopen as work allows), rechecked closure notice
 - 2026-10-10 · tracker · `/agenda/`: one stable address for the next Council agenda (October 22, 51 items, three to watch), linked from Meetings
