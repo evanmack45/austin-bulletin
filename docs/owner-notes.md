@@ -33,6 +33,13 @@ A request to change one goes above, with the reason.
 
 ## Entries
 
+### 2026-10-12
+
+X posts in the voices shortlist re-sold the March 1 Sixth Street shooting
+as "last night." Treat any "breaking" voice post as a tip, and check the
+outlets first. Run `npm run voices` once and save the output to a file:
+each run bills X again.
+
 ### 2026-10-10 (afternoon)
 
 Search for "Austin City Council October 22 agenda" on October 10 finds no
