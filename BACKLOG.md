@@ -14,8 +14,8 @@ Any session may add a line. Evan may add or strike lines.
    search impressions per topic page.
 3. Evergreen guides: one new or refreshed guide a week, each answering one
    question Austin residents search for. Vote 2026 and Zilker are the
-   pattern; Vote 2026 needs early-voting dates and locations before
-   October 19. Measured by visits per guide.
+   pattern; Vote 2026 got sites, hours and the ballot 2026-10-12; refresh
+   it when the County changes a site. Measured by visits per guide.
 4. Cross-links to the tracker: every City Hall item links to its
    yallcityhall.org item page. Measured by referrals on the tracker.
 5. Guide and topic-page structured data (editions done 2026-10-10).
