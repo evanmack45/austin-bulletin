@@ -33,6 +33,14 @@ A request to change one goes above, with the reason.
 
 ## Entries
 
+### 2026-10-12 (afternoon)
+
+FOX 7 and Community Impact already run "City of Austin propositions"
+explainers, so a bare list of Props A–J is not a first answer. What they
+lack is each prop's Council vote record (the bond package passed 8-3 on
+August 6, per Community Impact): the bond topic page should lead with the
+tracker's vote links.
+
 ### 2026-10-12 (weekly)
 
 First Monday, and it brought no numbers. Every bet so far is unmeasurable,
