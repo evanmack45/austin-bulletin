@@ -33,6 +33,13 @@ A request to change one goes above, with the reason.
 
 ## Entries
 
+### 2026-10-12 (weekly)
+
+First Monday, and it brought no numbers. Every bet so far is unmeasurable,
+so a missing token turns all of them into kills. Until the token arrives,
+pick work for reasons that hold without data: being first to answer a dated
+civic question, as with the October 22 agenda.
+
 ### 2026-10-12
 
 X posts in the voices shortlist re-sold the March 1 Sixth Street shooting
