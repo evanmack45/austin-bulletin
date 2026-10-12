@@ -23,6 +23,7 @@ const IGNORE = new Set([
   "SH", "FM", "CR", "RM",
   // Nationally understood terms; not the local jargon this check exists for.
   "ICE", "FEMA", "DHS", "SNAP", "CHIP", "STEM", "NFL", "NOAA", "LGBTQ", "GED",
+  "LGBT", "AIDS", "HIV",
   // Brand names that are simply written in capitals, not initialisms to expand:
   // a soccer club's "FC", and the charter network IDEA, whose name is the word.
   "FC", "IDEA"
