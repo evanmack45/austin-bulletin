@@ -22,6 +22,8 @@ As of October 13, the City had not said how much each named park project would g
 - If both pass, the City expects to issue about **$49 million in debt a year from 2027 to 2032**. Repaying the $295 million would add nearly **$220 million in projected interest**. [Community Impact, October 13](https://communityimpact.com/central-austin/election/parks-library-funding-on-the-austin-ballot/)
 - Debt service taxes for the typical homeowner passed **$500** this year, just over 23% of the city property tax bill, and are expected to keep rising into the 2030s whatever the outcome. The City has nearly $2.4 billion in outstanding debt, and more than $760 million from 2016–22 bonds is unspent. [Community Impact, October 13](https://communityimpact.com/central-austin/election/parks-library-funding-on-the-austin-ballot/)
 
+The bonds would come on top of the City budget adopted in August, which raised the City property tax rate the most allowed without an election. See [Austin's 2026-27 city budget](/austin-city-budget-2027/).
+
 ### How did the Council vote?
 
 - **August 4:** The Council voted 8-3 to direct the City Manager to prepare a bond election ordinance. Mayor Kirk Watson and Council Members Marc Duchen and José Velásquez voted no. An amendment adding the Colony Park branch library passed, with Duchen voting no. [Y'all, City Hall: August 4, item 2](https://yallcityhall.org/meetings/2026-08-04/#item-2)
