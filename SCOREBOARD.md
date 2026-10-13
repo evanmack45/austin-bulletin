@@ -52,6 +52,7 @@ No data at the judge date is a kill.
 | Bulletin `/aisd-state-intervention/` topic page (shipped 2026-10-12), refreshed after October 15 | Visits to the page October 12 to November 8, from Cloudflare once the token exists | 2026-10-12 | 2026-11-09 | Fewer than 40 visits October 12 to November 8, or no analytics data (unmeasurable, killed) |
 | Bulletin `/vote-2026/` with every early voting site and the Austin ballot (shipped 2026-10-12) | Visits to `/vote-2026/` October 13 to November 3, from Cloudflare once the token exists | 2026-10-12 | 2026-11-09 | Fewer than 100 visits October 13 to November 3, or no analytics data (unmeasurable, killed) |
 | Bulletin `/austin-bonds-2026/` topic page for Props A and B (shipped 2026-10-13) | Visits to `/austin-bonds-2026/` October 13 to November 3, from Cloudflare once the token exists | 2026-10-13 | 2026-11-09 | Fewer than 40 visits October 13 to November 3, or no analytics data (unmeasurable, killed) |
+| Bulletin `/austin-city-budget-2027/` topic page (shipped 2026-10-13) | Visits to `/austin-city-budget-2027/` October 13 to November 8, from Cloudflare once the token exists | 2026-10-13 | 2026-11-09 | Fewer than 30 visits October 13 to November 8, or no analytics data (unmeasurable, killed) |
 
 ## Judged bets
 
@@ -64,6 +65,8 @@ No data at the judge date is a kill.
 One line per reader-visible change, newest first. The daily edition does
 not count. Three calendar days with no line is an alert.
 
+- 2026-10-13 · tracker · The August 12 budget (9-2), tax rate (8-2) and 911 office (6-2) votes, on the meeting page and item pages, link the Bulletin's `/austin-city-budget-2027/` guide
+- 2026-10-13 · bulletin · `/austin-city-budget-2027/`: the $6.6B 2026-27 City budget on one page (new tax rate, $285.84 typical household cost, what was added and cut, the August 12 votes linked to the tracker, each side's words, the 911 office and consultant report, dates), linked from `/austin-bonds-2026/`
 - 2026-10-13 · tracker · The August 4 and August 6 bond votes (meeting entries and item pages) link the Bulletin's `/austin-bonds-2026/` guide to Propositions A and B
 - 2026-10-13 · bulletin · `/austin-bonds-2026/`: Propositions A and B on one page (what each builds, the City's $40-a-year homeowner estimate, debt and interest, the 8-3 August 4 and no-objection August 6 Council votes linked to the tracker, each side's words, dates), linked from `/vote-2026/`
 - 2026-10-13 · bulletin · Visible correction on the October 13 edition: the 8-3 Council vote prepared the bond election; the election was ordered August 6 without objection

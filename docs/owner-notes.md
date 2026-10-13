@@ -33,6 +33,14 @@ A request to change one goes above, with the reason.
 
 ## Entries
 
+### 2026-10-13 (afternoon)
+
+A search for the November propositions on October 13 finds the City's
+voter page and TV segments, but no plain-language page explaining charter
+Propositions C–J one by one. With early voting October 19, a per-proposition
+page, each with its Council vote, can be a first answer. It goes ahead of
+the remaining topic pages.
+
 ### 2026-10-13
 
 Outlets compress Council votes. Community Impact's "advanced 8-3" was the
