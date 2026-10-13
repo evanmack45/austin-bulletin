@@ -64,6 +64,7 @@ No data at the judge date is a kill.
 One line per reader-visible change, newest first. The daily edition does
 not count. Three calendar days with no line is an alert.
 
+- 2026-10-13 · tracker · The August 4 and August 6 bond votes (meeting entries and item pages) link the Bulletin's `/austin-bonds-2026/` guide to Propositions A and B
 - 2026-10-13 · bulletin · `/austin-bonds-2026/`: Propositions A and B on one page (what each builds, the City's $40-a-year homeowner estimate, debt and interest, the 8-3 August 4 and no-objection August 6 Council votes linked to the tracker, each side's words, dates), linked from `/vote-2026/`
 - 2026-10-13 · bulletin · Visible correction on the October 13 edition: the 8-3 Council vote prepared the bond election; the election was ordered August 6 without objection
 - 2026-10-12 · bulletin · `/vote-2026/`: all 45 Travis County early voting sites with hours (7 a.m.–7 p.m., seven open to 10 p.m. October 29–30), the five Council races and Propositions A–J in ballot order, and the October 23 mail-ballot deadline, from the County Clerk's lists and consolidated ballot
