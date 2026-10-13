@@ -33,6 +33,12 @@ A request to change one goes above, with the reason.
 
 ## Entries
 
+### 2026-10-13
+
+Outlets compress Council votes. Community Impact's "advanced 8-3" was the
+August 4 resolution; the August 6 ordinance passed without objection. Check
+the tracker's meeting record before printing any vote count.
+
 ### 2026-10-12 (afternoon)
 
 FOX 7 and Community Impact already run "City of Austin propositions"
