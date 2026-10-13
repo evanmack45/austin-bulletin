@@ -51,6 +51,7 @@ No data at the judge date is a kill.
 | Bulletin October 22 Council preview, cross-linked from the tracker's `/agenda/` and meeting page (shipped 2026-10-11) | Visits to `/council/2026-10-22-preview/` October 12–22, from Cloudflare once the token exists | 2026-10-11 | 2026-11-07 | Fewer than 25 visits October 12–22, or no analytics data (unmeasurable, killed) |
 | Bulletin `/aisd-state-intervention/` topic page (shipped 2026-10-12), refreshed after October 15 | Visits to the page October 12 to November 8, from Cloudflare once the token exists | 2026-10-12 | 2026-11-09 | Fewer than 40 visits October 12 to November 8, or no analytics data (unmeasurable, killed) |
 | Bulletin `/vote-2026/` with every early voting site and the Austin ballot (shipped 2026-10-12) | Visits to `/vote-2026/` October 13 to November 3, from Cloudflare once the token exists | 2026-10-12 | 2026-11-09 | Fewer than 100 visits October 13 to November 3, or no analytics data (unmeasurable, killed) |
+| Bulletin `/austin-bonds-2026/` topic page for Props A and B (shipped 2026-10-13) | Visits to `/austin-bonds-2026/` October 13 to November 3, from Cloudflare once the token exists | 2026-10-13 | 2026-11-09 | Fewer than 40 visits October 13 to November 3, or no analytics data (unmeasurable, killed) |
 
 ## Judged bets
 
@@ -63,6 +64,8 @@ No data at the judge date is a kill.
 One line per reader-visible change, newest first. The daily edition does
 not count. Three calendar days with no line is an alert.
 
+- 2026-10-13 · bulletin · `/austin-bonds-2026/`: Propositions A and B on one page (what each builds, the City's $40-a-year homeowner estimate, debt and interest, the 8-3 August 4 and no-objection August 6 Council votes linked to the tracker, each side's words, dates), linked from `/vote-2026/`
+- 2026-10-13 · bulletin · Visible correction on the October 13 edition: the 8-3 Council vote prepared the bond election; the election was ordered August 6 without objection
 - 2026-10-12 · bulletin · `/vote-2026/`: all 45 Travis County early voting sites with hours (7 a.m.–7 p.m., seven open to 10 p.m. October 29–30), the five Council races and Propositions A–J in ballot order, and the October 23 mail-ballot deadline, from the County Clerk's lists and consolidated ballot
 - 2026-10-12 · tracker · Meeting pages' search titles now read "Austin City Council meeting, Thursday, October 22, 2026" (was the date alone); the six issue pages carry titles and descriptions with their item count and years
 - 2026-10-12 · bulletin · `/aisd-state-intervention/`: one page on the TEA intervention at Austin ISD (why, the commissioner's options, the October 15 parent petition, who pays, dates), sourced to Austin Current, with links to all 20 editions that covered it

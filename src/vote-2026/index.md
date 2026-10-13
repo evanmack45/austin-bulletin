@@ -118,6 +118,8 @@ Travis County's consolidated ballot lists every contest in the county; your own 
 - **Proposition A:** $260 million in bonds for citywide park, recreation, aquatic and open-space improvements.
 - **Proposition B:** $35 million in bonds for library facilities.
 
+What the two bonds would build and cost, and how the Council voted: [Austin's 2026 parks and library bonds](/austin-bonds-2026/).
+
 **City Charter amendments**, in the ballot's own terms:
 
 - **Proposition C:** Clarify that the Independent Citizens Redistricting Commission is independent of Council control; let it review districts after the City's boundaries change; add exceptions for student members; set an effective date for its plan; enlarge its applicant pool; clarify how vacancies are filled; and let City staff talk with it outside meetings within the Texas Open Meetings Act.
