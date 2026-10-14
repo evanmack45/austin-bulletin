@@ -131,6 +131,8 @@ What the two bonds would build and cost, and how the Council voted: [Austin's 20
 - **Proposition I:** Require an Independent Affordability and Efficiency Initiative on a regular basis and before any tax rate increase election, with the contractor required to find annual and multi-year savings larger than its cost.
 - **Proposition J:** Non-substantive corrections to typos, punctuation and sentence structure, and changes to language made moot or unenforceable by state law or a final court order.
 
+Our [guide to Propositions C through J](/austin-charter-2026/) explains each charter amendment in plain words, with what each side says about Proposition I.
+
 The same ballot carries federal, state, judicial, county, appraisal district and other cities' contests. Source: <a href="{{ vote2026.links.consolidatedBallot }}">Travis County consolidated ballot, November 3, 2026</a>, read October 12, 2026.
 
 ### Election Day (Nov 3)
