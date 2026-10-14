@@ -113,6 +113,8 @@ Travis County's consolidated ballot lists every contest in the county; your own 
 - **District 8:** Jeffery Bowen, Selena Xie
 - **District 9:** Rich Heyman, Katie Kam, Zohaib “Zo” Qadri, Dave Thadani, Kai Huang
 
+Two seats are open (Districts 1 and 8). The three incumbents running, and how they voted this year: [Austin City Council races 2026](/austin-council-races-2026/).
+
 **City bonds.** Both carry the ballot words "THIS IS A TAX INCREASE."
 
 - **Proposition A:** $260 million in bonds for citywide park, recreation, aquatic and open-space improvements.
