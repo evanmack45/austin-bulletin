@@ -9,6 +9,8 @@ permalink: "/austin-bonds-2026/"
 
 **Last checked: October 13, 2026.** This page collects what has been reported about the two City of Austin bond measures on the November 3, 2026 ballot. It explains what is proposed, not how to vote. The Austin Bulletin does not endorse.
 
+The eight City Charter amendments on the same ballot, Propositions C through J, are explained on [their own page](/austin-charter-2026/).
+
 ### What is on the ballot?
 
 - **Proposition A: $260 million for parks.** More than two dozen named projects to build or improve trails, recreation centers, pools, playgrounds and other facilities, plus citywide money to buy green space, build electrical infrastructure and improve community gardens.
