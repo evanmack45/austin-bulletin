@@ -66,6 +66,7 @@ No data at the judge date is a kill.
 One line per reader-visible change, newest first. The daily edition does
 not count. Three calendar days with no line is an alert.
 
+- 2026-10-14 · tracker · The August 6 charter election order (item 4), on the meeting page and its item page, links the Bulletin's `/austin-charter-2026/` guide to Propositions C–J
 - 2026-10-14 · bulletin · `/austin-charter-2026/`: charter Propositions C–J one at a time (official ballot question, plain-words meaning, the August 6 Council order linked to the tracker, each side's words on the Prop I audit, dates), linked from `/vote-2026/` and `/austin-bonds-2026/`
 - 2026-10-13 · tracker · The August 12 budget (9-2), tax rate (8-2) and 911 office (6-2) votes, on the meeting page and item pages, link the Bulletin's `/austin-city-budget-2027/` guide
 - 2026-10-13 · bulletin · `/austin-city-budget-2027/`: the $6.6B 2026-27 City budget on one page (new tax rate, $285.84 typical household cost, what was added and cut, the August 12 votes linked to the tracker, each side's words, the 911 office and consultant report, dates), linked from `/austin-bonds-2026/`
