@@ -53,6 +53,7 @@ No data at the judge date is a kill.
 | Bulletin `/vote-2026/` with every early voting site and the Austin ballot (shipped 2026-10-12) | Visits to `/vote-2026/` October 13 to November 3, from Cloudflare once the token exists | 2026-10-12 | 2026-11-09 | Fewer than 100 visits October 13 to November 3, or no analytics data (unmeasurable, killed) |
 | Bulletin `/austin-bonds-2026/` topic page for Props A and B (shipped 2026-10-13) | Visits to `/austin-bonds-2026/` October 13 to November 3, from Cloudflare once the token exists | 2026-10-13 | 2026-11-09 | Fewer than 40 visits October 13 to November 3, or no analytics data (unmeasurable, killed) |
 | Bulletin `/austin-city-budget-2027/` topic page (shipped 2026-10-13) | Visits to `/austin-city-budget-2027/` October 13 to November 8, from Cloudflare once the token exists | 2026-10-13 | 2026-11-09 | Fewer than 30 visits October 13 to November 8, or no analytics data (unmeasurable, killed) |
+| Bulletin `/austin-charter-2026/` page explaining charter Propositions C–J one by one (shipped 2026-10-14) | Visits to `/austin-charter-2026/` October 14 to November 3, from Cloudflare once the token exists | 2026-10-14 | 2026-11-09 | Fewer than 40 visits October 14 to November 3, or no analytics data (unmeasurable, killed) |
 
 ## Judged bets
 
@@ -65,6 +66,7 @@ No data at the judge date is a kill.
 One line per reader-visible change, newest first. The daily edition does
 not count. Three calendar days with no line is an alert.
 
+- 2026-10-14 · bulletin · `/austin-charter-2026/`: charter Propositions C–J one at a time (official ballot question, plain-words meaning, the August 6 Council order linked to the tracker, each side's words on the Prop I audit, dates), linked from `/vote-2026/` and `/austin-bonds-2026/`
 - 2026-10-13 · tracker · The August 12 budget (9-2), tax rate (8-2) and 911 office (6-2) votes, on the meeting page and item pages, link the Bulletin's `/austin-city-budget-2027/` guide
 - 2026-10-13 · bulletin · `/austin-city-budget-2027/`: the $6.6B 2026-27 City budget on one page (new tax rate, $285.84 typical household cost, what was added and cut, the August 12 votes linked to the tracker, each side's words, the 911 office and consultant report, dates), linked from `/austin-bonds-2026/`
 - 2026-10-13 · tracker · The August 4 and August 6 bond votes (meeting entries and item pages) link the Bulletin's `/austin-bonds-2026/` guide to Propositions A and B

@@ -11,7 +11,8 @@ Any session may add a line. Evan may add or strike lines.
 2. Topic pages: one page per recurring subject collecting every item across
    editions. AISD is done (2026-10-12; refresh after October 15). The November
    bonds are done (2026-10-13, `/austin-bonds-2026/`). The city budget is done
-   (2026-10-13, `/austin-city-budget-2027/`). Next: charter Propositions C–J. Measured by visits and
+   (2026-10-13, `/austin-city-budget-2027/`). Charter Propositions C–J are
+   done (2026-10-14, `/austin-charter-2026/`). Next: the five Council races. Measured by visits and
    search impressions per topic page.
 3. Evergreen guides: one new or refreshed guide a week, each answering one
    question Austin residents search for. Vote 2026 and Zilker are the
