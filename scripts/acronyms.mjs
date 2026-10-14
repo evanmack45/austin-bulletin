@@ -26,7 +26,10 @@ const IGNORE = new Set([
   "LGBT", "AIDS", "HIV",
   // Brand names that are simply written in capitals, not initialisms to expand:
   // a soccer club's "FC", and the charter network IDEA, whose name is the word.
-  "FC", "IDEA"
+  "FC", "IDEA",
+  // An Austin construction-technology company and a musicians' mental health
+  // nonprofit named for Sims Ellison: both names, not initialisms.
+  "ICON", "SIMS"
 ]);
 
 function stripAttribution(text) {
