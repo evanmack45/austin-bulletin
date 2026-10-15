@@ -56,6 +56,7 @@ No data at the judge date is a kill.
 | Bulletin `/austin-charter-2026/` page explaining charter Propositions C–J one by one (shipped 2026-10-14) | Visits to `/austin-charter-2026/` October 14 to November 3, from Cloudflare once the token exists | 2026-10-14 | 2026-11-09 | Fewer than 40 visits October 14 to November 3, or no analytics data (unmeasurable, killed) |
 | Bulletin `/austin-council-races-2026/` with every candidate and the incumbents' 2026 votes, linked from five tracker scorecards (shipped 2026-10-14) | Visits to `/austin-council-races-2026/` October 14 to November 3, from Cloudflare once the token exists | 2026-10-14 | 2026-11-09 | Fewer than 60 visits October 14 to November 3, or no analytics data (unmeasurable, killed) |
 | Bulletin `/muny-2026/` explaining the proposed City–UT deal for Lions Municipal Golf Course, with the October 21, October 27 and November 19 meetings (shipped 2026-10-15) | Visits to `/muny-2026/` October 15 to November 12, from Cloudflare once the token exists | 2026-10-15 | 2026-11-12 | Fewer than 40 visits October 15 to November 12, or no analytics data (unmeasurable, killed) |
+| Home page links to the seven guides and the October 22 preview (shipped 2026-10-15) | Share of visits to the seven guide pages that arrive from `/`, from Cloudflare once the token exists | 2026-10-15 | 2026-11-12 | Under 10% of guide-page visits October 15 to November 12 come from the home page, or no analytics data (unmeasurable, killed) |
 
 ## Judged bets
 
@@ -68,6 +69,7 @@ No data at the judge date is a kill.
 One line per reader-visible change, newest first. The daily edition does
 not count. Three calendar days with no line is an alert.
 
+- 2026-10-15 · bulletin · Home page: the empty "Around Austin" rail now carries the edition's four City Desk leads, each with its source and a link into the edition, whenever no curated front-page packet exists (none since October 6); "Keep these close" now links the October 22 preview, the Council races, Props A–B, Props C–J, the budget, AISD and Muny guides (critic findings 1 and 2; a fix, not a design change)
 - 2026-10-15 · tracker · `/scorecards/` search title and description name the 11 current and 3 former members and the 76,087 official vote records (2023–2026), plus GovernmentOrganization data listing each current member's seat and scorecard (visible in search results)
 - 2026-10-15 · bulletin · `/muny-2026/`: the proposed City–UT deal for Lions Municipal Golf Course on one page (what changes for Muny, WAYA and the Brackenridge land, the numbers, each party's words, history since 1924, the October 21, October 27 and November 19 meetings)
 - 2026-10-14 · tracker · Scorecards of the five members whose seats are on the 2026 ballot (Harper-Madison, Velásquez, Alter, Ellis, Qadri) link the Bulletin's `/austin-council-races-2026/`

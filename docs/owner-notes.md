@@ -33,6 +33,15 @@ A request to change one goes above, with the reason.
 
 ## Entries
 
+### 2026-10-15 (afternoon)
+
+The critic found that no reader reached the guides from the home page; the
+best pages were sitemap-only. A page nobody links to is a page nobody
+reads, search or not. Every new guide gets a home-page link the day it
+ships. Four days before early voting, the City's own voter page still
+lists the County's early-voting schedule as pending; `/vote-2026/` has all
+45 sites.
+
 ### 2026-10-13 (afternoon)
 
 A search for the November propositions on October 13 finds the City's
