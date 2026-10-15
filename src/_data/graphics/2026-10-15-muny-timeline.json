@@ -1,0 +1,18 @@
+{
+  "type": "timeline",
+  "date": "2026-10-15",
+  "slug": "muny-timeline",
+  "title": "A century of Muny, and the steps ahead",
+  "subtitle": "UT owns the land; the City has run the course since 1937",
+  "source": "City of Austin; Community Impact",
+  "alt": "Timeline of Lions Municipal Golf Course, from the City of Austin and Community Impact: the course opened in 1924 on University of Texas land; the City took over the lease in 1937; in 1950 it became the first public golf course in the South to integrate; the City and UT signed the Brackenridge Development Agreement in 1989; on October 14, 2026 the City announced it is close to a deal to take ownership; the Environmental Commission hears it October 21, the Planning Commission October 27, and the City Council takes it up November 19.",
+  "events": [
+    { "date": "1924", "label": "Muny opens on UT land", "note": "More than 140 acres along today's Lady Bird Lake" },
+    { "date": "1937", "label": "The City takes over the lease", "note": "It has run the course ever since" },
+    { "date": "1950", "label": "First public course in the South to integrate", "note": "Now a civil rights landmark" },
+    { "date": "1989", "label": "Brackenridge Development Agreement", "note": "Sets how UT may develop its land along Lake Austin Boulevard" },
+    { "date": "Oct. 14, 2026", "label": "City says it is close to owning Muny", "note": "Anonymous donors' gift to UT opens the deal" },
+    { "date": "Oct. 21 and 27", "label": "Environmental and Planning commissions", "note": "Briefings on the amended agreement" }
+  ],
+  "next": { "label": "City Council takes up the agreement November 19" }
+}

@@ -29,7 +29,10 @@ const IGNORE = new Set([
   "FC", "IDEA",
   // An Austin construction-technology company and a musicians' mental health
   // nonprofit named for Sims Ellison: both names, not initialisms.
-  "ICON", "SIMS"
+  "ICON", "SIMS",
+  // "Unlock MLS" is a listing service's name, "ZIP code" a common noun, and
+  // "512-238-VOTE" a phone number.
+  "MLS", "ZIP", "VOTE"
 ]);
 
 function stripAttribution(text) {
