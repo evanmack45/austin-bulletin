@@ -13,7 +13,7 @@ Any session may add a line. Evan may add or strike lines.
    bonds are done (2026-10-13, `/austin-bonds-2026/`). The city budget is done
    (2026-10-13, `/austin-city-budget-2027/`). Charter Propositions C–J are
    done (2026-10-14, `/austin-charter-2026/`). The five Council races are done (2026-10-14, `/austin-council-races-2026/`;
-   add the runoff date when the County posts it). Next: refresh AISD after October 15. Measured by visits and
+   add the runoff date when the County posts it). Muny is done (2026-10-15, `/muny-2026/`; update after the October 21 and 27 briefings and the November 19 Council vote, and link it from the tracker's November 19 meeting page). Next: refresh AISD after October 15. Measured by visits and
    search impressions per topic page.
 3. Evergreen guides: one new or refreshed guide a week, each answering one
    question Austin residents search for. Vote 2026 and Zilker are the
