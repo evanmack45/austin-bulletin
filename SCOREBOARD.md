@@ -68,6 +68,7 @@ No data at the judge date is a kill.
 One line per reader-visible change, newest first. The daily edition does
 not count. Three calendar days with no line is an alert.
 
+- 2026-10-15 · tracker · `/scorecards/` search title and description name the 11 current and 3 former members and the 76,087 official vote records (2023–2026), plus GovernmentOrganization data listing each current member's seat and scorecard (visible in search results)
 - 2026-10-15 · bulletin · `/muny-2026/`: the proposed City–UT deal for Lions Municipal Golf Course on one page (what changes for Muny, WAYA and the Brackenridge land, the numbers, each party's words, history since 1924, the October 21, October 27 and November 19 meetings)
 - 2026-10-14 · tracker · Scorecards of the five members whose seats are on the 2026 ballot (Harper-Madison, Velásquez, Alter, Ellis, Qadri) link the Bulletin's `/austin-council-races-2026/`
 - 2026-10-14 · bulletin · `/austin-council-races-2026/`: the five Council races in ballot order, why Districts 1 and 8 are open (Ellis's petition 62 signatures short), each incumbent's attendance and 2026 bond and budget votes linked to the tracker, the October 15 District 1 panel; linked from `/vote-2026/`
