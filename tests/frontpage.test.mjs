@@ -341,3 +341,22 @@ test("ordinary cards cannot smuggle an unreviewed comparison label", () => {
   assert.equal(front.lead.comparisonKind, undefined);
   assert.equal(front.access.comparisonKind, undefined);
 });
+test("without a packet, the rail carries the same-day edition's City Desk leads", () => {
+	const page =
+		html +
+		'<h5 id="crash" tabindex="-1">Two killed in rollover</h5>\n<p>Two people died, the fire department said. <span class="src"><a href="https://example.org/crash" target="_blank">KXAN</a></span></p>' +
+		'<h5 id="nolink">No source</h5>\n<p>Unsourced text.</p>';
+	const args = {
+		curation: undefined, editionDate: date, editionUrl: url, editionHTML: page, records,
+	};
+	const front = selectFrontpage({ ...args, today: date });
+	assert.equal(front.developments.length, 1);
+	assert.equal(front.developments[0].title, "Two killed in rollover");
+	assert.equal(front.developments[0].summary, "Two people died, the fire department said.");
+	assert.deepEqual(front.developments[0].sources, [
+		{ name: "KXAN", url: "https://example.org/crash" },
+	]);
+	assert.equal(front.developments[0].action.url, "/2026/10/04/#crash");
+	const stale = selectFrontpage({ ...args, today: "2026-10-05" });
+	assert.equal(stale.developments.length, 0);
+});

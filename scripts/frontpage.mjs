@@ -154,6 +154,33 @@ function editionFallback(editionDate, editionUrl, html, allowLead) {
 	};
 }
 
+// With no reviewed curation packet, the rail carries the edition's own
+// City Desk leads (h5 + first paragraph + its source link), linked back into
+// the edition. Same-day only, like the fallback lead.
+export function editionLeads(editionUrl, html, limit = 4) {
+	const leads = [];
+	for (const m of (html ?? "").matchAll(
+		/<h5\b[^>]*\bid="([^"]+)"[^>]*>([\s\S]*?)<\/h5>\s*<p\b[^>]*>([\s\S]*?)<\/p>/gi,
+	)) {
+		const link = m[3].match(
+			/<span class="src">\s*<a\b[^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/i,
+		);
+		const title = text(m[2]);
+		const summary = text(m[3].replace(/<span class="src">[\s\S]*?<\/span>/gi, ""));
+		if (!link || !https(link[1]) || !title || !summary) continue;
+		leads.push({
+			key: `edition-lead-${m[1]}`,
+			record: editionUrl,
+			title,
+			summary,
+			sources: [{ name: text(link[2]), url: link[1] }],
+			action: { label: "Read it in the edition", url: `${editionUrl}#${m[1]}` },
+		});
+		if (leads.length === limit) break;
+	}
+	return leads;
+}
+
 export function previousPublishedEdition(reference, editionDate) {
   return reference && iso(reference.date) && reference.date < editionDate &&
     reference.url === `/${reference.date.replaceAll("-", "/")}/` &&
@@ -295,6 +322,8 @@ export function selectFrontpage({
 		editionHTML,
 		editionDate === today && !expiredSource,
 	);
+	if (!matches && editionDate === today && !lead.neutral)
+		developments.push(...editionLeads(editionUrl, editionHTML));
 	const previous = previousPublishedEdition(previousEdition, editionDate);
   const front = {
     voteGuide: null,
