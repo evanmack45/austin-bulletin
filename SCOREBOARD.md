@@ -55,6 +55,7 @@ No data at the judge date is a kill.
 | Bulletin `/austin-city-budget-2027/` topic page (shipped 2026-10-13) | Visits to `/austin-city-budget-2027/` October 13 to November 8, from Cloudflare once the token exists | 2026-10-13 | 2026-11-09 | Fewer than 30 visits October 13 to November 8, or no analytics data (unmeasurable, killed) |
 | Bulletin `/austin-charter-2026/` page explaining charter Propositions C–J one by one (shipped 2026-10-14) | Visits to `/austin-charter-2026/` October 14 to November 3, from Cloudflare once the token exists | 2026-10-14 | 2026-11-09 | Fewer than 40 visits October 14 to November 3, or no analytics data (unmeasurable, killed) |
 | Bulletin `/austin-council-races-2026/` with every candidate and the incumbents' 2026 votes, linked from five tracker scorecards (shipped 2026-10-14) | Visits to `/austin-council-races-2026/` October 14 to November 3, from Cloudflare once the token exists | 2026-10-14 | 2026-11-09 | Fewer than 60 visits October 14 to November 3, or no analytics data (unmeasurable, killed) |
+| Bulletin `/muny-2026/` explaining the proposed City–UT deal for Lions Municipal Golf Course, with the October 21, October 27 and November 19 meetings (shipped 2026-10-15) | Visits to `/muny-2026/` October 15 to November 12, from Cloudflare once the token exists | 2026-10-15 | 2026-11-12 | Fewer than 40 visits October 15 to November 12, or no analytics data (unmeasurable, killed) |
 
 ## Judged bets
 
@@ -67,6 +68,7 @@ No data at the judge date is a kill.
 One line per reader-visible change, newest first. The daily edition does
 not count. Three calendar days with no line is an alert.
 
+- 2026-10-15 · bulletin · `/muny-2026/`: the proposed City–UT deal for Lions Municipal Golf Course on one page (what changes for Muny, WAYA and the Brackenridge land, the numbers, each party's words, history since 1924, the October 21, October 27 and November 19 meetings)
 - 2026-10-14 · tracker · Scorecards of the five members whose seats are on the 2026 ballot (Harper-Madison, Velásquez, Alter, Ellis, Qadri) link the Bulletin's `/austin-council-races-2026/`
 - 2026-10-14 · bulletin · `/austin-council-races-2026/`: the five Council races in ballot order, why Districts 1 and 8 are open (Ellis's petition 62 signatures short), each incumbent's attendance and 2026 bond and budget votes linked to the tracker, the October 15 District 1 panel; linked from `/vote-2026/`
 - 2026-10-14 · tracker · The August 6 charter election order (item 4), on the meeting page and its item page, links the Bulletin's `/austin-charter-2026/` guide to Propositions C–J
