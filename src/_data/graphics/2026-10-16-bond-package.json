@@ -1,0 +1,16 @@
+{
+  "type": "bars",
+  "date": "2026-10-16",
+  "slug": "bond-package",
+  "title": "What the $295 million bonds would pay for",
+  "subtitle": "Propositions A and B, in millions of dollars",
+  "source": "KUT",
+  "unit": "$M",
+  "yMin": 0,
+  "alt": "Bar chart of the City of Austin's November bond package, from KUT: Proposition A, $260 million for parks; from Proposition B's $35 million for libraries, about $20 million for the Hampton Branch at Oak Hill and $15 million for a new Colony Park branch.",
+  "bars": [
+    { "label": "Prop A: parks", "value": 260 },
+    { "label": "Prop B: Hampton Branch", "value": 20 },
+    { "label": "Prop B: Colony Park", "value": 15 }
+  ]
+}

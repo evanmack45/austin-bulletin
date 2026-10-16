@@ -1,0 +1,17 @@
+{
+  "type": "bars",
+  "date": "2026-10-16",
+  "slug": "council-candidates",
+  "title": "Candidates on the ballot, by Council district",
+  "subtitle": "Four of the five Austin City Council races on the November 3 ballot",
+  "source": "KUT; Austin Current",
+  "unit": "",
+  "yMin": 0,
+  "alt": "Bar chart of candidates on the November 3 ballot in four Austin City Council races, from KUT and Austin Current: six in District 1, an open seat; four in District 5; two in District 8, an open seat; and five in District 9.",
+  "bars": [
+    { "label": "District 1 (open)", "value": 6 },
+    { "label": "District 5", "value": 4 },
+    { "label": "District 8 (open)", "value": 2 },
+    { "label": "District 9", "value": 5 }
+  ]
+}
