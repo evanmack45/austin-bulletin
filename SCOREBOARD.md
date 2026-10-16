@@ -69,6 +69,7 @@ No data at the judge date is a kill.
 One line per reader-visible change, newest first. The daily edition does
 not count. Three calendar days with no line is an alert.
 
+- 2026-10-16 · bulletin · `/austin-council-races-2026/`: "Where candidates stand on the bonds and Prop I" table for Districts 5, 8 and 9 (each candidate's stated position on Props A–B and Prop I, sourced to Austin Current), a link to KUT's District 1 Q&A, and the October 15 panel moved to past tense
 - 2026-10-15 · tracker · Agenda search matches word starts and whole numbers: "rent" no longer returns "currently", "East 6th" no longer returns East 15th or Southeast (critic finding 3)
 - 2026-10-15 · bulletin · Home page: the empty "Around Austin" rail now carries the edition's four City Desk leads, each with its source and a link into the edition, whenever no curated front-page packet exists (none since October 6); "Keep these close" now links the October 22 preview, the Council races, Props A–B, Props C–J, the budget, AISD and Muny guides (critic findings 1 and 2; a fix, not a design change)
 - 2026-10-15 · tracker · `/scorecards/` search title and description name the 11 current and 3 former members and the 76,087 official vote records (2023–2026), plus GovernmentOrganization data listing each current member's seat and scorecard (visible in search results)

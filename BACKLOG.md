@@ -45,5 +45,3 @@ Any session may add a line. Evan may add or strike lines.
   alt text reads as missing alt.
 - `npm run voices` ran twice on 2026-10-12 and billed X twice. Guard
   against a second same-day run.
-- YouTube oEmbed answered 200 on 2026-10-10; PIPELINE.md's 2026-09-23
-  outage note may be stale. Confirm on the next `npm run video` and update it.
