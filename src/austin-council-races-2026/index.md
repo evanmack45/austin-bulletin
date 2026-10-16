@@ -1,13 +1,13 @@
 ---
 layout: layout.njk
 title: "Austin City Council races 2026: Districts 1, 3, 5, 8 and 9"
-description: "Who is running for Austin City Council on November 3, 2026, district by district, in ballot order: the two open seats, the three incumbents seeking re-election and how they voted on this year's bonds and budget."
+description: "Who is running for Austin City Council on November 3, 2026, district by district, in ballot order: the two open seats, the three incumbents seeking re-election, how they voted on this year's bonds and budget, and where candidates stand on Props A, B and I."
 permalink: "/austin-council-races-2026/"
 ---
 
 ## Austin City Council races 2026: Districts 1, 3, 5, 8 and 9
 
-**Last checked: October 14, 2026.** Five of Austin's ten Council districts are on the November 3, 2026 ballot. Two seats are open. Three incumbents are seeking re-election. This page lists every candidate in ballot order and links each incumbent's voting record. It does not say how to vote. The Austin Bulletin does not endorse.
+**Last checked: October 16, 2026.** Five of Austin's ten Council districts are on the November 3, 2026 ballot. Two seats are open. Three incumbents are seeking re-election. This page lists every candidate in ballot order and links each incumbent's voting record. It does not say how to vote. The Austin Bulletin does not endorse.
 
 Not sure which district you live in? Look up your address on [Y'all, City Hall: Your District](https://yallcityhall.org/district/). Only voters in Districts 1, 3, 5, 8 and 9 see a Council race on their ballot this year. The mayor is not on the ballot.
 
@@ -25,6 +25,25 @@ Early voting runs **October 19–30**, and Election Day is **November 3**. Sites
 
 Candidate names and order are from the [Travis County consolidated ballot](https://votetravis.gov/wp-content/uploads/G26-Bedsheet-Ballot-Final-FINAL.pdf), read October 14, 2026. Incumbents are from the [Austin Chronicle, updated October 13](https://www.austinchronicle.com/news/whos-running-for-city-council-this-fall).
 
+### Where candidates stand on the bonds and Prop I
+
+What candidates told Austin Current and KUT at forums and in interviews this month. Propositions A and B are the $295 million parks and library bonds; Proposition I would require independent outside audits of every City department every five years. "Not reported" means the source did not give that candidate's position.
+
+| District | Candidate | Props A and B (bonds) | Prop I (audits) |
+|---|---|---|---|
+| 5 | Ryan Alter (incumbent) | Supports | Opposes |
+| 5 | David Weinberg | Supports | Supports |
+| 5 | Farrah Abraham | Supports "strategic investments," but "taxpayers deserve complete transparency before approving new debt" | Supports |
+| 5 | Liz Brink | Not reported | Not reported |
+| 8 | Selena Xie | Supports | Not reported; proposes an audit every five years |
+| 8 | Jeffery Bowen | Opposes, citing the City's debt | Not reported |
+| 9 | Rich Heyman | Supports | Opposes |
+| 9 | Katie Kam | Undecided | Supports |
+| 9 | Zo Qadri (incumbent) | Hopes both pass | Opposes |
+| 9 | Dave Thadani, Kai Huang | Did not respond to Austin Current | Did not respond |
+
+Sources: [Austin Current, District 5, October 14](https://austincurrent.org/2026/10/14/austin-tx-district-5-city-council-race-november-election/) · [Austin Current, District 8, October 15](https://austincurrent.org/2026/10/15/austin-tx-city-council-district-8-november-election/) · [Austin Current, District 9, October 15](https://austincurrent.org/2026/10/15/austin-election-city-council-downtown-district-9/). KUT asked all six District 1 candidates the same six questions, including Prop I: [KUT, October 16](https://www.kut.org/politics/2026-10-16/austin-city-council-district-1-candidates-election-2026).
+
 ### District 1 (open seat)
 
 - Steven Brown
@@ -36,7 +55,7 @@ Candidate names and order are from the [Travis County consolidated ballot](https
 
 Natasha Harper-Madison has represented District 1 since 2018 and is not on the ballot this year. [Austin Chronicle](https://www.austinchronicle.com/news/whos-running-for-city-council-this-fall) · Her record: [Y'all, City Hall: Natasha Harper-Madison](https://yallcityhall.org/scorecards/natasha-harper-madison/)
 
-The District 1 candidate panel is **Thursday, October 15, 6:30 p.m.**, at the Asian American Resource Center, 8401 Cameron Rd., live on ATXN.TV and KAZI FM 88.7. It is the last of the five district panels. [City of Austin](https://www.austintexas.gov/communications/news/public-invited-attend-2026-austin-city-council-candidate-panels)
+The District 1 candidate panel was Thursday, October 15, at the Asian American Resource Center, the last of the five district panels. [City of Austin](https://www.austintexas.gov/communications/news/public-invited-attend-2026-austin-city-council-candidate-panels)
 
 ### District 3
 
