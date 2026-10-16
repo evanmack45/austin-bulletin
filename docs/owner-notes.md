@@ -33,6 +33,14 @@ A request to change one goes above, with the reason.
 
 ## Entries
 
+### 2026-10-16
+
+Austin Current's candidate stories embed the Austin PBS forum videos from
+YouTube; one cleared `npm run video` today, so election weeks have a video
+source. Check the embed's channel: one embed was a staff member's personal
+upload and did not run. KUT's District 1 Q&A gives Prop I answers without
+clear per-candidate labels in the page text; do not attribute them by order.
+
 ### 2026-10-15 (afternoon)
 
 The critic found that no reader reached the guides from the home page; the
