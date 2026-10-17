@@ -69,6 +69,7 @@ No data at the judge date is a kill.
 One line per reader-visible change, newest first. The daily edition does
 not count. Three calendar days with no line is an alert.
 
+- 2026-10-17 · tracker · `/agenda/feed.xml`: RSS feed of the next Council agenda (October 22, 52 items), one entry per item in the City's wording, linked to the item on its meeting page; linked from `/agenda/` and How to read
 - 2026-10-17 · bulletin · `/austin-bonds-2026/`: "Where earlier bond money stands" from the City's new bond dashboard ($1.72B of $2.45B spent, per-program figures for 2016–2022, KXAN); Prop A's five-way split; Prop B now quotes the ballot language and shows that reports of the Hampton/Colony Park split differ ($20M/$15M vs $25M/$10M) instead of stating one
 - 2026-10-16 · bulletin · `/aisd-state-intervention/` refreshed after the October 15 deadline: the Burnet and Webb petitions were filed and received, ACPTA's stated goals (299 and 174), no official count yet, the October 30 enrollment match, the December 1 report to TEA, the January 30, 2027 closure-plan date, and parents' concerns about pressure, pre-filled forms and withdrawing a signature (KUT)
 - 2026-10-16 · tracker · The October 22 meeting page, `/agenda/` and the home page say how and when to sign up to speak: online registration opens Monday, October 19 at 10 a.m. and closes Wednesday, October 21 at noon; City Hall kiosks close Thursday at 9:15 a.m., linked to the City's rules (critic finding 4)
