@@ -33,6 +33,14 @@ A request to change one goes above, with the reason.
 
 ## Entries
 
+### 2026-10-17
+
+Outlets disagree on Prop B's split: Community Impact's October 16 explainer
+says $25M Hampton / $10M Colony Park, while KUT and CI's own October 13 piece
+say $20M / $15M. The election order names no amounts. Until the City
+publishes a split, print only the $35M total and say reports differ.
+The City's news pages now carry a link to its bond dashboard (ArcGIS).
+
 ### 2026-10-16
 
 Austin Current's candidate stories embed the Austin PBS forum videos from
