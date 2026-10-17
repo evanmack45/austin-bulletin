@@ -1,0 +1,16 @@
+{
+  "type": "bars",
+  "date": "2026-10-17",
+  "slug": "bond-dashboard",
+  "title": "Where a decade of Austin bond money stands",
+  "subtitle": "The $2.45 billion voters approved in 2016, 2018, 2020 and 2022, in millions of dollars",
+  "source": "KXAN",
+  "unit": "$M",
+  "yMin": 0,
+  "alt": "Bar chart of the $2.45 billion in City of Austin bonds voters approved in 2016, 2018, 2020 and 2022, from KXAN's reading of the City's new bond dashboard: $1.72 billion spent, $240 million committed to existing projects but not spent, and about $490 million remaining.",
+  "bars": [
+    { "label": "Spent", "value": 1720 },
+    { "label": "Committed, not spent", "value": 240 },
+    { "label": "Remaining", "value": 490 }
+  ]
+}

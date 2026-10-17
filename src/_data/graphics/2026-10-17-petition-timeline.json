@@ -1,0 +1,15 @@
+{
+  "type": "timeline",
+  "date": "2026-10-17",
+  "slug": "petition-timeline",
+  "title": "What happens to the Burnet and Webb petitions",
+  "subtitle": "Parents asked the state to close two middle schools instead of a takeover",
+  "source": "KUT; Austin Current",
+  "alt": "Timeline of the Burnet and Webb middle school parent petitions, from KUT and Austin Current: petitions were filed by the October 15 midnight deadline; signatures are checked against the October 30 statewide enrollment snapshot; the superintendent must send verified petitions to the Texas Education Agency by December 1; if the commissioner accepts them, a closure plan is due January 30, 2027.",
+  "events": [
+    { "date": "Oct. 15", "label": "Petitions filed by midnight", "note": "The district confirmed it received them" },
+    { "date": "Oct. 30", "label": "Statewide enrollment snapshot", "note": "Signatures must match enrolled students" },
+    { "date": "Dec. 1", "label": "Verified petitions due to the state", "note": "Superintendent Matias Segura sends them to the state" }
+  ],
+  "next": { "label": "If accepted, a closure plan is due January 30, 2027" }
+}
