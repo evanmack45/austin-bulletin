@@ -1,7 +1,7 @@
 ---
 layout: layout.njk
 title: "Vote 2026 — Austin & Travis County"
-description: "Early voting in Travis County runs October 19–30, 7 a.m.–7 p.m., at 45 sites. Every site, the Austin Council races, and Propositions A–J on the November 3 ballot."
+description: "Early voting in Travis County runs October 19–30, 7 a.m.–7 p.m., at 45 sites. Every site, the seven accepted voter IDs, the Austin Council races, and Propositions A–J on the November 3 ballot."
 permalink: "/vote-2026/"
 ---
 
@@ -31,8 +31,7 @@ Sources: <a href="{{ vote2026.links.register }}">VoteTexas — Voter Registratio
 
 The City, its Ethics Review Commission and the League of Women Voters Austin Area sponsor one panel for each Council district on the November 3 ballot. Each starts at 6:30 p.m. and airs live on ATXN.TV and KAZI FM 88.7.
 
-- **District 1: Thursday, October 15**, Asian American Resource Center, 8401 Cameron Rd. (the last one still ahead)
-- Already held: District 5 (September 17), District 8 (September 21), District 9 (September 29), District 3 (October 1)
+- The five district panels were scheduled for September 17 (District 5), September 21 (District 8), September 29 (District 9), October 1 (District 3) and October 15 (District 1). No district panel remains before Election Day.
 - Runoff panel, if one is needed: November 20, City Hall Council Chambers, 301 W. 2nd St.
 
 To suggest a question, email candidateforums@lwvaustin.org or call 512-451-6710. For interpretation, call 3-1-1 at least five days ahead. Not sure of your district? Use the City's district lookup through its voter resources.
@@ -41,7 +40,7 @@ Source: <a href="https://www.austintexas.gov/communications/news/public-invited-
 
 ### Early voting (Oct 19–30)
 
-Any registered Travis County voter may vote early at any of the sites below. Hours are **7 a.m. to 7 p.m., Monday through Sunday, October 19 to 30.** Bring an accepted photo ID (see <a href="{{ vote2026.links.voteTexasHome }}">VoteTexas.gov</a>).
+Any registered Travis County voter may vote early at any of the sites below. Hours are **7 a.m. to 7 p.m., Monday through Sunday, October 19 to 30.** Bring one of the seven accepted photo IDs listed under [What to bring](#what-to-bring).
 
 **Open until 10 p.m. on Thursday, October 29 and Friday, October 30.** The County's list marks these seven sites for its extended hours on the last two days:
 
@@ -135,17 +134,41 @@ What the two bonds would build and cost, and how the Council voted: [Austin's 20
 
 Our [guide to Propositions C through J](/austin-charter-2026/) explains each charter amendment in plain words, with what each side says about Proposition I.
 
-The same ballot carries federal, state, judicial, county, appraisal district and other cities' contests. Source: <a href="{{ vote2026.links.consolidatedBallot }}">Travis County consolidated ballot, November 3, 2026</a>, read October 12, 2026.
+The same ballot carries federal, state, judicial, county, appraisal district and other cities' contests. Source: <a href="{{ vote2026.links.consolidatedBallot }}">Travis County consolidated ballot, November 3, 2026</a> (corrected October 15; the Austin contests did not change), read October 17, 2026.
 
 ### Election Day (Nov 3)
 
 Voters registered in Travis County can vote at any Travis County vote center on Election Day, 7 a.m. to 7 p.m. The County's <a href="{{ vote2026.links.electionDaySites }}">Election Day sites (PDF)</a> lists them. Find locations, hours and wait times on <a href="{{ vote2026.links.travisCurrentElection }}">VoteTravis.gov — Current Election</a>. If you are registered in another county, use that county’s election information through the <a href="{{ vote2026.links.cityVoterResources }}">City of Austin voter resources</a>.
 
-### ID, mail ballots, accessibility
+<h3 id="what-to-bring">What to bring</h3>
 
-- Voter ID: See requirements and alternatives at <a href="{{ vote2026.links.voteTexasHome }}">VoteTexas.gov</a>.
+**One of these seven photo IDs**, if you have one:
+
+- Texas driver license (DPS)
+- Texas Election Identification Certificate (DPS)
+- Texas personal identification card (DPS)
+- Texas handgun license (DPS)
+- U.S. military ID card with your photo
+- U.S. citizenship certificate with your photo
+- U.S. passport (book or card)
+
+If you are 18 to 69, the ID can be expired up to four years. If you are 70 or older, it can be expired for any length of time. A citizenship certificate does not expire. Election Identification Certificates are free at DPS driver license offices.
+
+**No photo ID and can't reasonably get one?** You can still vote a regular ballot. Show one supporting document with your name: your voter registration certificate or another government document with your name and an address, a current utility bill, a bank statement, a government check, a paycheck, or a certified U.S. birth certificate. Then sign a Reasonable Impediment Declaration at the polls. The impediments the form accepts are lack of transportation, disability or illness, lack of a birth certificate or other documents needed to get an ID, work schedule, family responsibilities, a lost or stolen ID, or an ID applied for but not yet received. A false statement on the form is perjury.
+
+**Have a photo ID but left it at home?** You can go back for it and return before the polls close, or vote a provisional ballot and show the ID to the voter registrar within six days of the election.
+
+**At the polls:** you may not use a phone, camera, tablet or laptop in the room where people vote, or record sound or images within 100 feet of a voting station. Campaign signs and literature are not allowed within 100 feet of the entrance. You may not wear clothing about a candidate, measure or party, and you may be asked to cover it.
+
+**Curbside voting:** if you can't enter the building, every site has a marked curbside space with a number to call or text, and an election officer brings the ballot to your car. This works during early voting and on Election Day.
+
+Sources: <a href="{{ vote2026.links.voterIdTexas }}">VoteTexas — Voter ID</a>, <a href="{{ vote2026.links.voterIdTravis }}">Travis County Clerk — Voter ID Requirements</a>, <a href="{{ vote2026.links.atThePolls }}">VoteTexas — What's allowed at the polling place</a> and <a href="{{ vote2026.links.curbside }}">VoteTexas — Curbside voting</a>, all read October 17, 2026.
+
+### Mail ballots and accessibility
+
 - Voting by mail: the deadline to apply in Travis County is **Friday, October 23**. You qualify if you are 65 or older on Election Day, sick or disabled, expecting to give birth within three weeks of Election Day, away from the county during early voting and on Election Day, or confined in jail but eligible to vote. Forms, mailing address and the ballot tracker are at <a href="{{ vote2026.links.ballotByMail }}">VoteTravis.gov — Ballot by Mail</a> (read October 12, 2026).
-- Accessibility and curbside voting: Contact the Travis County elections office via <a href="{{ vote2026.links.travisHome }}">VoteTravis.gov</a>.
+- Wait times and turnout: the County's <a href="{{ vote2026.links.travisCurrentElection }}">Current Election page</a> has a Wait Times tab and a live turnout tracker.
+- Other accessibility questions: contact the Travis County elections office at (512) 238-8683 or through <a href="{{ vote2026.links.travisHome }}">VoteTravis.gov</a>.
 
 ---
 
