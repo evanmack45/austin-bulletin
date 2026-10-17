@@ -69,6 +69,7 @@ No data at the judge date is a kill.
 One line per reader-visible change, newest first. The daily edition does
 not count. Three calendar days with no line is an alert.
 
+- 2026-10-17 · bulletin · `/austin-bonds-2026/`: "Where earlier bond money stands" from the City's new bond dashboard ($1.72B of $2.45B spent, per-program figures for 2016–2022, KXAN); Prop A's five-way split; Prop B now quotes the ballot language and shows that reports of the Hampton/Colony Park split differ ($20M/$15M vs $25M/$10M) instead of stating one
 - 2026-10-16 · bulletin · `/aisd-state-intervention/` refreshed after the October 15 deadline: the Burnet and Webb petitions were filed and received, ACPTA's stated goals (299 and 174), no official count yet, the October 30 enrollment match, the December 1 report to TEA, the January 30, 2027 closure-plan date, and parents' concerns about pressure, pre-filled forms and withdrawing a signature (KUT)
 - 2026-10-16 · tracker · The October 22 meeting page, `/agenda/` and the home page say how and when to sign up to speak: online registration opens Monday, October 19 at 10 a.m. and closes Wednesday, October 21 at noon; City Hall kiosks close Thursday at 9:15 a.m., linked to the City's rules (critic finding 4)
 - 2026-10-16 · bulletin · `/austin-council-races-2026/`: "Where candidates stand on the bonds and Prop I" table for Districts 5, 8 and 9 (each candidate's stated position on Props A–B and Prop I, sourced to Austin Current), a link to KUT's District 1 Q&A, and the October 15 panel moved to past tense
