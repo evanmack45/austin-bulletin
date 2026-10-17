@@ -57,6 +57,7 @@ No data at the judge date is a kill.
 | Bulletin `/austin-council-races-2026/` with every candidate and the incumbents' 2026 votes, linked from five tracker scorecards (shipped 2026-10-14) | Visits to `/austin-council-races-2026/` October 14 to November 3, from Cloudflare once the token exists | 2026-10-14 | 2026-11-09 | Fewer than 60 visits October 14 to November 3, or no analytics data (unmeasurable, killed) |
 | Bulletin `/muny-2026/` explaining the proposed City–UT deal for Lions Municipal Golf Course, with the October 21, October 27 and November 19 meetings (shipped 2026-10-15) | Visits to `/muny-2026/` October 15 to November 12, from Cloudflare once the token exists | 2026-10-15 | 2026-11-12 | Fewer than 40 visits October 15 to November 12, or no analytics data (unmeasurable, killed) |
 | Home page links to the seven guides and the October 22 preview (shipped 2026-10-15) | Share of visits to the seven guide pages that arrive from `/`, from Cloudflare once the token exists | 2026-10-15 | 2026-11-12 | Under 10% of guide-page visits October 15 to November 12 come from the home page, or no analytics data (unmeasurable, killed) |
+| Bulletin `/vote-2026/` "What to bring" voter ID section, two days before early voting (shipped 2026-10-17) | Visits to `/vote-2026/` arriving from search October 17 to November 3, from Cloudflare once the token exists | 2026-10-17 | 2026-11-14 | Fewer than 50 search-referred visits to `/vote-2026/` October 17 to November 3, or no analytics data (unmeasurable, killed) |
 
 ## Judged bets
 
@@ -69,6 +70,7 @@ No data at the judge date is a kill.
 One line per reader-visible change, newest first. The daily edition does
 not count. Three calendar days with no line is an alert.
 
+- 2026-10-17 · bulletin · `/vote-2026/` "What to bring": the seven accepted photo IDs and expiry rules, the no-ID route (supporting documents and the Reasonable Impediment Declaration), forgotten-ID options, phone and campaign-clothing rules at the polls, curbside voting (VoteTexas, Travis County Clerk); links the County's October 15 corrected ballot (Austin contests unchanged); candidate panels now past tense
 - 2026-10-17 · tracker · `/agenda/feed.xml`: RSS feed of the next Council agenda (October 22, 52 items), one entry per item in the City's wording, linked to the item on its meeting page; linked from `/agenda/` and How to read
 - 2026-10-17 · bulletin · `/austin-bonds-2026/`: "Where earlier bond money stands" from the City's new bond dashboard ($1.72B of $2.45B spent, per-program figures for 2016–2022, KXAN); Prop A's five-way split; Prop B now quotes the ballot language and shows that reports of the Hampton/Colony Park split differ ($20M/$15M vs $25M/$10M) instead of stating one
 - 2026-10-16 · bulletin · `/aisd-state-intervention/` refreshed after the October 15 deadline: the Burnet and Webb petitions were filed and received, ACPTA's stated goals (299 and 174), no official count yet, the October 30 enrollment match, the December 1 report to TEA, the January 30, 2027 closure-plan date, and parents' concerns about pressure, pre-filled forms and withdrawing a signature (KUT)

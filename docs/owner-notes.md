@@ -33,6 +33,13 @@ A request to change one goes above, with the reason.
 
 ## Entries
 
+### 2026-10-17 (afternoon)
+
+A search for Austin early-voting ID rules two days before early voting
+returns Houston outlets' guides and old SOS releases, with no Travis County or
+Austin page. Practical "what to bring" answers are as open as the
+agenda was. Put them on our own guide pages instead of linking out.
+
 ### 2026-10-17
 
 Outlets disagree on Prop B's split: Community Impact's October 16 explainer
