@@ -70,6 +70,7 @@ No data at the judge date is a kill.
 One line per reader-visible change, newest first. The daily edition does
 not count. Three calendar days with no line is an alert.
 
+- 2026-10-18 · tracker · Topic pages `/topics/…/`: every official Council vote since 2023 on Project Connect (26 items), I-35 Capital Express and cap and stitch (35), homelessness (139), the property tax rate (21) and bond elections (10), in the City's wording with outcome, tally and a link to the roll call; linked from Issues
 - 2026-10-18 · bulletin · October 22 Council preview rechecked against the City's final agenda: now 53 numbered items, item 2 removed, and the added items 52 (Gallup contract extension, +$1,257,000) and 53 (Texas Municipal League Region 10 vote) listed (Legistar)
 - 2026-10-17 · bulletin · `/vote-2026/` "What to bring": the seven accepted photo IDs and expiry rules, the no-ID route (supporting documents and the Reasonable Impediment Declaration), forgotten-ID options, phone and campaign-clothing rules at the polls, curbside voting (VoteTexas, Travis County Clerk); links the County's October 15 corrected ballot (Austin contests unchanged); candidate panels now past tense
 - 2026-10-17 · tracker · `/agenda/feed.xml`: RSS feed of the next Council agenda (October 22, 52 items), one entry per item in the City's wording, linked to the item on its meeting page; linked from `/agenda/` and How to read
