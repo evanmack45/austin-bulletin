@@ -1,0 +1,16 @@
+{
+  "type": "bars",
+  "date": "2026-10-18",
+  "slug": "voter-records",
+  "title": "Voter records Travis County had to catch up on",
+  "subtitle": "Batches its voter registrar has reported this fall, in records",
+  "source": "KXAN",
+  "unit": "",
+  "yMin": 0,
+  "alt": "Bar chart of three batches of voter records Travis County's voter registrar has reported this fall, from KXAN: 32,000 registration records sent by the Texas Department of Public Safety, which the county finished updating about a week before October 17; 20,000 paper registration applications the registrar said were still being reviewed at that time; and 1,100 name and address updates from the Texas Secretary of State, received by October 17.",
+  "bars": [
+    { "label": "From DPS (updated)", "value": 32000 },
+    { "label": "Paper applications", "value": 20000 },
+    { "label": "State address updates", "value": 1100 }
+  ]
+}
