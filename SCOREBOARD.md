@@ -58,6 +58,7 @@ No data at the judge date is a kill.
 | Bulletin `/muny-2026/` explaining the proposed City–UT deal for Lions Municipal Golf Course, with the October 21, October 27 and November 19 meetings (shipped 2026-10-15) | Visits to `/muny-2026/` October 15 to November 12, from Cloudflare once the token exists | 2026-10-15 | 2026-11-12 | Fewer than 40 visits October 15 to November 12, or no analytics data (unmeasurable, killed) |
 | Home page links to the seven guides and the October 22 preview (shipped 2026-10-15) | Share of visits to the seven guide pages that arrive from `/`, from Cloudflare once the token exists | 2026-10-15 | 2026-11-12 | Under 10% of guide-page visits October 15 to November 12 come from the home page, or no analytics data (unmeasurable, killed) |
 | Bulletin `/vote-2026/` "What to bring" voter ID section, two days before early voting (shipped 2026-10-17) | Visits to `/vote-2026/` arriving from search October 17 to November 3, from Cloudflare once the token exists | 2026-10-17 | 2026-11-14 | Fewer than 50 search-referred visits to `/vote-2026/` October 17 to November 3, or no analytics data (unmeasurable, killed) |
+| Bulletin `/austin-bonds-2026/` cost and Prop B split settled from the City's Bond 2026 page, early voting eve (shipped 2026-10-18) | Search-referred visits to `/austin-bonds-2026/` October 19 to November 3, from Cloudflare once the token exists | 2026-10-18 | 2026-11-14 | Fewer than 25 search-referred visits October 19 to November 3, or no analytics data (unmeasurable, killed) |
 
 ## Judged bets
 
@@ -70,6 +71,7 @@ No data at the judge date is a kill.
 One line per reader-visible change, newest first. The daily edition does
 not count. Three calendar days with no line is an alert.
 
+- 2026-10-18 · bulletin · `/austin-bonds-2026/` settles the homeowner cost: a projected $41.60 a year by 2033, built up as about $49M of debt is issued yearly (Community Impact, August 6), with KUT's $40 shown as the City's same estimate for a $495,000 home. Prop B's split is now the City's own ($20M Hampton, $15M Colony Park, Bond 2026 page), and Prop A's allocation cites the City instead of a report
 - 2026-10-18 · tracker · Topic pages `/topics/…/`: every official Council vote since 2023 on Project Connect (26 items), I-35 Capital Express and cap and stitch (35), homelessness (139), the property tax rate (21) and bond elections (10), in the City's wording with outcome, tally and a link to the roll call; linked from Issues
 - 2026-10-18 · bulletin · October 22 Council preview rechecked against the City's final agenda: now 53 numbered items, item 2 removed, and the added items 52 (Gallup contract extension, +$1,257,000) and 53 (Texas Municipal League Region 10 vote) listed (Legistar)
 - 2026-10-17 · bulletin · `/vote-2026/` "What to bring": the seven accepted photo IDs and expiry rules, the no-ID route (supporting documents and the Reasonable Impediment Declaration), forgotten-ID options, phone and campaign-clothing rules at the polls, curbside voting (VoteTexas, Travis County Clerk); links the County's October 15 corrected ballot (Austin contests unchanged); candidate panels now past tense
