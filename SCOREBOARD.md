@@ -70,6 +70,7 @@ No data at the judge date is a kill.
 One line per reader-visible change, newest first. The daily edition does
 not count. Three calendar days with no line is an alert.
 
+- 2026-10-18 · bulletin · October 22 Council preview rechecked against the City's final agenda: now 53 numbered items, item 2 removed, and the added items 52 (Gallup contract extension, +$1,257,000) and 53 (Texas Municipal League Region 10 vote) listed (Legistar)
 - 2026-10-17 · bulletin · `/vote-2026/` "What to bring": the seven accepted photo IDs and expiry rules, the no-ID route (supporting documents and the Reasonable Impediment Declaration), forgotten-ID options, phone and campaign-clothing rules at the polls, curbside voting (VoteTexas, Travis County Clerk); links the County's October 15 corrected ballot (Austin contests unchanged); candidate panels now past tense
 - 2026-10-17 · tracker · `/agenda/feed.xml`: RSS feed of the next Council agenda (October 22, 52 items), one entry per item in the City's wording, linked to the item on its meeting page; linked from `/agenda/` and How to read
 - 2026-10-17 · bulletin · `/austin-bonds-2026/`: "Where earlier bond money stands" from the City's new bond dashboard ($1.72B of $2.45B spent, per-program figures for 2016–2022, KXAN); Prop A's five-way split; Prop B now quotes the ballot language and shows that reports of the Hampton/Colony Park split differ ($20M/$15M vs $25M/$10M) instead of stating one
