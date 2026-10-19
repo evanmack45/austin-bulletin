@@ -7,7 +7,7 @@ permalink: "/austin-council-races-2026/"
 
 ## Austin City Council races 2026: Districts 1, 3, 5, 8 and 9
 
-**Last checked: October 16, 2026.** Five of Austin's ten Council districts are on the November 3, 2026 ballot. Two seats are open. Three incumbents are seeking re-election. This page lists every candidate in ballot order and links each incumbent's voting record. It does not say how to vote. The Austin Bulletin does not endorse.
+**Last checked: October 19, 2026.** Five of Austin's ten Council districts are on the November 3, 2026 ballot. Two seats are open. Three incumbents are seeking re-election. This page lists every candidate in ballot order and links each incumbent's voting record. It does not say how to vote. The Austin Bulletin does not endorse.
 
 Not sure which district you live in? Look up your address on [Y'all, City Hall: Your District](https://yallcityhall.org/district/). Only voters in Districts 1, 3, 5, 8 and 9 see a Council race on their ballot this year. The mayor is not on the ballot.
 
@@ -40,9 +40,10 @@ What candidates told Austin Current and KUT at forums and in interviews this mon
 | 9 | Rich Heyman | Supports | Opposes |
 | 9 | Katie Kam | Undecided | Supports |
 | 9 | Zo Qadri (incumbent) | Hopes both pass | Opposes |
-| 9 | Dave Thadani, Kai Huang | Did not respond to Austin Current | Did not respond |
+| 9 | Kai Huang | Was not familiar with the bonds, KUT reported | Supports |
+| 9 | Dave Thadani | Did not respond to Austin Current or KUT | Did not respond |
 
-Sources: [Austin Current, District 5, October 14](https://austincurrent.org/2026/10/14/austin-tx-district-5-city-council-race-november-election/) · [Austin Current, District 8, October 15](https://austincurrent.org/2026/10/15/austin-tx-city-council-district-8-november-election/) · [Austin Current, District 9, October 15](https://austincurrent.org/2026/10/15/austin-election-city-council-downtown-district-9/). KUT asked all six District 1 candidates the same six questions, including Prop I: [KUT, October 16](https://www.kut.org/politics/2026-10-16/austin-city-council-district-1-candidates-election-2026).
+Sources: [Austin Current, District 5, October 14](https://austincurrent.org/2026/10/14/austin-tx-district-5-city-council-race-november-election/) · [Austin Current, District 8, October 15](https://austincurrent.org/2026/10/15/austin-tx-city-council-district-8-november-election/) · [Austin Current, District 9, October 15](https://austincurrent.org/2026/10/15/austin-election-city-council-downtown-district-9/). KUT asked all six District 1 candidates the same six questions, including Prop I: [KUT, October 16](https://www.kut.org/politics/2026-10-16/austin-city-council-district-1-candidates-election-2026). Kai Huang's positions: [KUT, District 9, October 19](https://www.kut.org/politics/2026-10-19/austin-city-council-district-9-candidates-election-2026).
 
 ### District 1 (open seat)
 
@@ -92,6 +93,17 @@ Paige Ellis has served two four-year terms, the Charter's limit unless a member 
 - Zohaib "Zo" Qadri (incumbent)
 - Dave Thadani
 - Kai Huang
+
+District 9 takes in downtown, UT Austin, Cherrywood and Hyde Park. What four of the candidates told KUT, in their words or KUT's summary of them ([KUT, October 19](https://www.kut.org/politics/2026-10-19/austin-city-council-district-9-candidates-election-2026)):
+
+| Candidate | Affordability and housing | Project Connect | Homelessness |
+|---|---|---|---|
+| Rich Heyman | Stop "giving tax breaks to wealthy corporations and billionaires" and back small, local businesses; more subsidized housing | Wants the City to take a critical look at whether the plan still makes sense | Prevent evictions and add low-income housing |
+| Katie Kam | Expand the Mueller affordable housing program; "We shouldn't be raising taxes" | Did not vote for it; prefers an elevated monorail to street-level light rail | Continue "compassionate cleanups" of encampments and the City's No Wrong Door initiative |
+| Zo Qadri (incumbent) | Keep working on "housing and parking reforms" under a land development code not fully updated since 1984 | A "huge supporter," but says the current plan does not go far enough | Opposes police "sweeps" of encampments, calling them "extremely inhumane" |
+| Kai Huang | More apartments and cheaper student housing near campus; reform permitting | Does not support it; would rather invest in "AI infrastructure" for traffic | Tax incentives for downtown builders who fund housing for homeless people elsewhere |
+
+Dave Thadani did not respond to KUT. Heyman, Kam and Qadri met at a forum hosted by Austin Current, KUT and Austin PBS: [watch the District 9 forum](https://www.youtube.com/watch?v=hpOmEy9hG1k) (The Texas Tribune on YouTube).
 
 **Zo Qadri's record:** 98% attendance from January 2023 to August 27, 2026. He voted **yes** on the August 4 bond resolution and on the August 6 bond and charter election ordinances. On the August 12 budget, which passed 9-2 with Mayor Kirk Watson and Council Member Marc Duchen voting no, he said: "This budget isn't perfect, but I'm proud that we were able to protect some of the services Austinites depend on most." Full record: [Y'all, City Hall: Zo Qadri](https://yallcityhall.org/scorecards/zohaib-zo-qadri/) · [August 4, item 2](https://yallcityhall.org/meetings/2026-08-04/#item-2) · [Austin Current, August 12](https://austincurrent.org/2026/08/12/austin-city-budget-taxes-texas/)
 
