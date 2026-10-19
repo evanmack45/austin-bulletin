@@ -6,13 +6,13 @@ and checked every Monday.
 
 | Service | Site | Rate | Monthly projection | Checked |
 |---|---|---|---|---|
-| X post search (`X_BEARER_TOKEN`) | Bulletin | $0.005 per post, about 50 posts per run | $10.25 (October: $1.98 over 6 billed days, $0.33 per day with one double run) | 2026-10-12 from `logs/x-spend.jsonl` |
-| OpenRouter (DeepSeek extraction, Opus summaries) | Tracker | unknown | unknown, read the OpenRouter dashboard | asked Evan 2026-10-12 |
+| X post search (`X_BEARER_TOKEN`) | Bulletin | $0.005 per post, about 46 posts per run | $6.35 for October ($3.59 to date over 13 billed days, plus 12 days at $0.23); about $7 a full month | 2026-10-19 from `logs/x-spend.jsonl` |
+| OpenRouter (DeepSeek extraction, Opus summaries) | Tracker | unknown | unknown, read the OpenRouter dashboard | asked Evan 2026-10-12 and 2026-10-19 |
 | Gemini images, Google Pollen, Maps Static | Bulletin | free tier | $0 | 2026-10-09 |
 | Cloudflare Pages, Web Analytics, DNS | Both | free plan | $0 | 2026-10-09 |
 | GitHub Pages, Actions | Both | free plan | $0 | 2026-10-09 |
 
-Projection this month (2026-10-12): $10.25 known, plus the unknown
+Projection this month (2026-10-19): $6.35 known, plus the unknown
 OpenRouter figure. If the
 total projection passes $80, slow the cause or alert Evan.
 

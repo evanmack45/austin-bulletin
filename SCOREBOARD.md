@@ -3,7 +3,7 @@
 Read at the start of every session. Any session appends to "Open bets"
 and "Shipped". `owner-weekly` rewrites the rest every Monday.
 
-Last rewrite: 2026-10-12 (owner-weekly, W42). Next: Monday 2026-10-19.
+Last rewrite: 2026-10-19 (owner-weekly, W43). Next: Monday 2026-10-26.
 
 ## The numbers
 
@@ -12,21 +12,26 @@ Last rewrite: 2026-10-12 (owner-weekly, W42). Next: Monday 2026-10-19.
 | theaustinbulletin.com | no numbers | no numbers | — | set after baseline |
 | yallcityhall.org | no numbers | no numbers | — | set after baseline |
 
-Source: Cloudflare Web Analytics, pulled to `docs/metrics/`. On 2026-10-12
-`CLOUDFLARE_ANALYTICS_TOKEN` was still missing from the environment, so
-nothing was pulled (`docs/metrics/2026-10-12-analytics.md`). Every open bet
-is unmeasurable until it exists and will be killed at its judge date
-without it.
+Source: Cloudflare Web Analytics, pulled to `docs/metrics/`. On 2026-10-19
+`CLOUDFLARE_ANALYTICS_TOKEN` was still missing, the second Monday in a row
+(`docs/metrics/2026-10-19-analytics.md`). Thirteen bets are open and every
+one is killed at its judge date without it. The first judge date is
+November 7.
 
 ## This week's focus
 
-1. Publish every morning. Editions ran October 10, 11 and 12 on time.
-2. Win the October 22 Council search window: the Bulletin preview and the
-   tracker's `/agenda/` are the only plain-text pages for that agenda. Keep
-   both current through the meeting, and run a recap link the morning after.
-3. Refresh `/aisd-state-intervention/` after the October 15 parent-petition
-   deadline.
-4. Get the baseline: the token request leads the weekly report.
+1. Publish every morning through early voting (October 19 to 30). Editions
+   ran every day October 13 to 19.
+2. The October 22 Council meeting: keep the preview and `/agenda/` current
+   to the final agenda, run the "what passed" recap the morning of
+   October 23 on both sites, linked both ways.
+3. Critic picks. Bulletin: archive note on the October 7–9 gap with an
+   honest About schedule line (5, 17); Briefing headlines in the archive
+   (11). Tracker: neutral labels in place of "Swam upstream", "Who's tight
+   with who?" and the starburst (7); dissent-rate note, whole-word notable
+   votes and a City contact link on scorecards (6).
+4. Muny after the October 21 and 27 briefings; AISD when the district
+   publishes a petition count.
 
 ## Last reader-facing design change
 
@@ -35,9 +40,9 @@ without it.
 | theaustinbulletin.com | 2026-10-06 | Front-page cover (previous operator) |
 | yallcityhall.org | 2026-10-06 | Field-guide homepage (previous operator) |
 
-No new design change on a site within 14 days of its date here. Both
-sites are clear for a design change from 2026-10-20. None is planned:
-without numbers there is nothing to judge one against.
+Both sites are clear for a design change from 2026-10-20. None is planned:
+without numbers there is nothing to judge one against. The critic picks
+above are wording and content fixes, not design changes.
 
 ## Open bets
 
@@ -109,12 +114,14 @@ not count. Three calendar days with no line is an alert.
 
 ## Blocked on Evan
 
-Steps are in `docs/reviews/owner-2026-42.md`.
+Steps are in `docs/reviews/owner-2026-43.md`.
 
 - `CLOUDFLARE_ANALYTICS_TOKEN` in the cloud environment (read-only
-  Account Analytics token). Asked 2026-10-12. Blocks every number and bet.
+  Account Analytics token). Asked 2026-10-12 and 2026-10-19. Blocks every
+  number and bet.
 - The OpenRouter monthly figure, and a hard monthly credit limit on the
-  OpenRouter account, so the $100 ceiling can be enforced. Asked 2026-10-12.
+  OpenRouter account, so the $100 ceiling can be enforced. Asked 2026-10-12
+  and 2026-10-19.
 - Google Search Console and Bing Webmaster Tools properties for both
   domains.
 - Bluesky and X accounts for each publication, with credentials in the
