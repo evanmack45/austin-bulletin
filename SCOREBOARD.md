@@ -71,6 +71,7 @@ No data at the judge date is a kill.
 One line per reader-visible change, newest first. The daily edition does
 not count. Three calendar days with no line is an alert.
 
+- 2026-10-19 · tracker · Four more topic pages `/topics/…/`: every official Council vote since 2023 naming Austin Energy (212 items), Austin Water (284), Austin-Bergstrom International Airport (144) and density bonus programs (288), in the City's wording with outcome, tally and roll-call link; linked from Issues
 - 2026-10-19 · bulletin · `/austin-council-races-2026/` District 9: what Heyman, Kam, Qadri and Huang told KUT on affordability, Project Connect and homelessness, side by side; Huang's Prop I and bond positions fill the stance table (Thadani did not respond); a link to the Texas Tribune's District 9 forum video (KUT, October 19)
 - 2026-10-18 · bulletin · `/austin-bonds-2026/` settles the homeowner cost: a projected $41.60 a year by 2033, built up as about $49M of debt is issued yearly (Community Impact, August 6), with KUT's $40 shown as the City's same estimate for a $495,000 home. Prop B's split is now the City's own ($20M Hampton, $15M Colony Park, Bond 2026 page), and Prop A's allocation cites the City instead of a report
 - 2026-10-18 · tracker · Topic pages `/topics/…/`: every official Council vote since 2023 on Project Connect (26 items), I-35 Capital Express and cap and stitch (35), homelessness (139), the property tax rate (21) and bond elections (10), in the City's wording with outcome, tally and a link to the roll call; linked from Issues
