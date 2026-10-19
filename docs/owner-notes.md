@@ -33,6 +33,10 @@ A request to change one goes above, with the reason.
 
 ## Entries
 
+### 2026-10-19
+
+On a thin Monday the Growth beat came from the City's Roadway Work Zones dataset: query `qyfh-gwei` directly with `start_date` in the next two days (`npm run civic` sorts old long-running permits first and buries new ones). KUT embeds the District forums from The Texas Tribune's YouTube channel, which clears as an outlet upload.
+
 ### 2026-10-18 (afternoon)
 
 The City's Bond 2026 page (speakupaustin.org/bond2026) prints Prop B's split ($20M Hampton, $15M Colony Park) and Prop A's allocation, so a City source now settles what outlets disagreed on. Check the City's own program page before writing "reports differ". FOX 7 and KUT both run early-voting site lists, so sites alone are no longer a first answer. What `/vote-2026/` has that they lack is sites, ID rules and the Austin ballot on one page.
