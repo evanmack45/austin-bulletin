@@ -8,11 +8,8 @@ Any session may add a line. Evan may add or strike lines.
    `/agenda/` and meeting page, plus a "what passed" follow-up the morning
    after. Next: the October 22 recap on October 23. Measured by visits per
    preview.
-2. Archive and About (critic 2026-42 findings 5, 11, 17): each archive
-   entry shows its Briefing headline; a dated note on the October 7–9 gap;
-   About states the schedule as it is and names the rules instead of file
-   names. Every reader who opens the archive sees it. Measured by archive
-   visits that click through to an edition.
+2. Archive and About (critic 2026-42 findings 5, 11, 17): done
+   2026-10-20. Measured by archive visits that click through to an edition.
 3. Topic pages: one page per recurring subject. Done: AISD (refreshed
    2026-10-16), bonds, budget, charter Props C–J, Council races, Muny.
    Keep them current: Muny after the October 21 and 27 briefings and the
