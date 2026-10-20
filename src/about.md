@@ -6,8 +6,10 @@ permalink: "/about/"
 
 # About The Austin Bulletin
 
-The Austin Bulletin publishes one news bulletin every morning, seven days
-a week. It covers Austin and Texas. It reports facts, not opinions.
+The Austin Bulletin publishes one news bulletin each morning, seven days
+a week. It covers Austin and Texas. It reports facts, not opinions. When a
+morning's edition does not run, as on October 7–9, 2026, the
+[archive](/archive/) marks the missing days.
 
 <h2 id="trust">Trust & how we work</h2>
 
@@ -16,8 +18,9 @@ a week. It covers Austin and Texas. It reports facts, not opinions.
   life in Austin, and writes short, neutral summaries with links back to the
   reporting. It never calculates new figures or invents quotes; numbers are quoted
   from sources, and every fact traces to something we read that morning.
-- <strong>What a human checks</strong>: The publisher (Evan McMillan) supervises the system,
-  reviews the edition, and is responsible for it. The pre‑publish gate checks links,
+- <strong>Who is responsible</strong>: The publisher, Evan McMillan, is responsible for the site
+  and oversees the system. He does not review each edition before it publishes. The
+  pre‑publish gate checks links,
   sourcing, item lengths and counts, initialisms, visuals, and that the page reads
   clean top to bottom. If a check fails, we fix it or cut the item; an edition that
   cannot pass is not published.
@@ -33,10 +36,9 @@ a week. It covers Austin and Texas. It reports facts, not opinions.
   only when the sourcing is stated in the item’s prose.
 - <strong>Corrections</strong>: When we get something wrong, we fix it with a visible note in the
   bulletin (see “Corrections” below). We never silently erase an error.
-- <strong>Full policy</strong>: Read our Editorial Rulebook and daily procedure for the complete,
-  binding rules:
-  <br>• Editorial Rulebook: <a href="https://github.com/evanmack45/austin-bulletin/blob/main/EDITORIAL.md">EDITORIAL.md</a>
-  <br>• The daily pipeline: <a href="https://github.com/evanmack45/austin-bulletin/blob/main/PIPELINE.md">PIPELINE.md</a>
+- <strong>Full policy</strong>: The complete rules are public:
+  <br>• <a href="https://github.com/evanmack45/austin-bulletin/blob/main/EDITORIAL.md">Editorial Rulebook</a>: voice, neutrality, accuracy, images and corrections
+  <br>• <a href="https://github.com/evanmack45/austin-bulletin/blob/main/PIPELINE.md">Daily procedure</a>: how each morning's edition is gathered, written, checked and published
 
 ## How this site is made
 
