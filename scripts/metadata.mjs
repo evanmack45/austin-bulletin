@@ -128,3 +128,25 @@ export function xmlEscape(value) {
   return String(value).replace(/&/g, "&amp;").replace(/</g, "&lt;")
     .replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
 }
+
+// The Briefing's ### headline from an edition's markdown source, as plain text.
+export function briefingHeadline(markdown) {
+  const match = /^### +(.+)$/m.exec(String(markdown ?? ""));
+  return match ? plainText(match[1]).replace(/[*_`]/g, "").trim() : "";
+}
+
+const DAY_MS = 86400000;
+const gapDate = (ms, opts) =>
+  new Date(ms).toLocaleDateString("en-US", { timeZone: "UTC", ...opts });
+
+// Days with no edition between two newer-first neighbors: "October 7–9", or "" when none.
+export function editionGap(newer, older) {
+  const start = Date.parse(older) + DAY_MS;
+  const end = Date.parse(newer) - DAY_MS;
+  if (!(end >= start)) return "";
+  const first = gapDate(start, { month: "long", day: "numeric" });
+  if (end === start) return first;
+  const sameMonth = gapDate(start, { month: "long" }) === gapDate(end, { month: "long" });
+  const last = gapDate(end, sameMonth ? { day: "numeric" } : { month: "long", day: "numeric" });
+  return `${first}–${last}`;
+}

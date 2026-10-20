@@ -1,6 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { articleJsonLd, canonicalUrl, pageMetadata, sitemapPages, xmlEscape }
+import { articleJsonLd, briefingHeadline, canonicalUrl, editionGap, pageMetadata, sitemapPages,
+  xmlEscape }
   from "../scripts/metadata.mjs";
 
 const body = `<h1 class="edition-date">October 4, 2026</h1>
@@ -76,4 +77,18 @@ test("dated editions get NewsArticle data from their lead; other pages get none"
   assert.equal(articleJsonLd(pageMetadata("/about/", "About", ""), new Date()), "");
   const risky = articleJsonLd({ ...meta, headline: "</script><b>" }, new Date("2026-10-04"));
   assert.ok(!risky.includes("<"));
+});
+
+test("archive reads the Briefing headline from an edition's markdown", () => {
+  const md = "---\ntitle: x\n---\n\n## The Briefing\n\n{% bigstory %}\n"
+    + "### Prices &amp; bills, *again*\n\n#### Beat\n";
+  assert.equal(briefingHeadline(md), "Prices & bills, again");
+  assert.equal(briefingHeadline("## The Briefing\n\nno headline"), "");
+});
+
+test("archive names the days with no edition between neighbors", () => {
+  assert.equal(editionGap(new Date("2026-10-10"), new Date("2026-10-06")), "October 7–9");
+  assert.equal(editionGap(new Date("2026-10-08"), new Date("2026-10-06")), "October 7");
+  assert.equal(editionGap(new Date("2026-11-02"), new Date("2026-10-30")), "October 31–November 1");
+  assert.equal(editionGap(new Date("2026-10-07"), new Date("2026-10-06")), "");
 });
