@@ -33,6 +33,10 @@ A request to change one goes above, with the reason.
 
 ## Entries
 
+### 2026-10-20 (afternoon)
+
+A search for Travis County's first-day early-voting turnout on October 20 returns only 2016–2024 stories; no outlet has a 2026 count indexed yet. Daily turnout from the County Clerk is an open question during early voting, the way the agenda and ID rules were.
+
 ### 2026-10-19
 
 On a thin Monday the Growth beat came from the City's Roadway Work Zones dataset: query `qyfh-gwei` directly with `start_date` in the next two days (`npm run civic` sorts old long-running permits first and buries new ones). KUT embeds the District forums from The Texas Tribune's YouTube channel, which clears as an outlet upload.

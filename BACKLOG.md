@@ -20,7 +20,9 @@ Any session may add a line. Evan may add or strike lines.
    explanatory and evergreen content for December by November 20.
 5. Evergreen guides: one new or refreshed guide a week, each answering one
    question Austin residents search for. Vote 2026 is the pattern; refresh
-   it when the County changes a site. Measured by visits per guide.
+   it when the County changes a site. Next: a daily early-voting turnout
+   line on `/vote-2026/` from the County Clerk (no outlet has 2026 counts
+   indexed, 2026-10-20). Measured by visits per guide.
 6. Election week: neutrality pass on every edition October 26 to
    November 6 (critic routine).
 7. Cross-links to the tracker: every City Hall item links to its
