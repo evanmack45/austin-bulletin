@@ -42,6 +42,10 @@ Source: <a href="https://www.austintexas.gov/communications/news/public-invited-
 
 Any registered Travis County voter may vote early at any of the sites below. Hours are **7 a.m. to 7 p.m., Monday through Sunday, October 19 to 30.** Bring one of the seven accepted photo IDs listed under [What to bring](#what-to-bring).
 
+**Turnout so far.** Nearly 41,000 Travis County voters cast a ballot on Monday, October 19, the first day of early voting: about 4.3% of the county's 952,713 registered voters. That beat every first day of a midterm this century (4.14% in 2018, 2.8% in 2022). By Tuesday evening, statewide turnout was about 3.7%.
+
+Sources: <a href="https://www.kut.org/austin/2026-10-20/travis-county-austin-tx-first-day-early-voting-turnout-midterm-election">KUT, from Texas Secretary of State data</a>; <a href="https://www.kxan.com/news/your-local-election-hq/nov-2026-turnout-tracker/">KXAN turnout tracker</a> (read October 21, 2026).
+
 **Open until 10 p.m. on Thursday, October 29 and Friday, October 30.** The County's list marks these seven sites for its extended hours on the last two days:
 
 - **Ben Hur Shrine Center**, 7811 Rockwood Ln, Austin 78757 (Ballroom) · bus route
