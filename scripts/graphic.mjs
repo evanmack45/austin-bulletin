@@ -164,12 +164,14 @@ function renderBarsSvg(spec) {
         minimumFractionDigits: decimals,
         maximumFractionDigits: decimals,
       });
+    // A non-integer keeps the source's own decimals: the 2026-10-21 turnout
+    // chart printed KUT's 4.14% as "4.1%".
     // A word unit ("records", "MW") needs a space off the number; a symbol
     // ("%", "\u00b0") stays tight against it.
     const unitGap = unit && /^[A-Za-z]/.test(unit) ? " " : "";
     const valueLabel = unit.startsWith("$")
       ? `$${grouped(b.value, centsShown ? 2 : 0)}${unit.slice(1)}`
-      : `${grouped(b.value, Number.isInteger(b.value) ? 0 : 1)}${unitGap}${unit}`;
+      : `${grouped(b.value, Math.max(Number.isInteger(b.value) ? 0 : 1, (String(b.value).split(".")[1] || "").length))}${unitGap}${unit}`;
     parts.push(`<text x="${x + barW / 2}" y="${(topY - 12).toFixed(1)}" font-family='${FONT}' font-size="28" font-weight="700" fill="${INK}" text-anchor="middle">${esc(valueLabel)}</text>`);
     // Bar labels are centred in a fixed slot and do not wrap on their own, so
     // a long one (2026-09-14: "Austin Community College") runs into its

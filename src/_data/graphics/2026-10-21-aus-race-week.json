@@ -1,0 +1,15 @@
+{
+  "type": "timeline",
+  "date": "2026-10-21",
+  "slug": "aus-race-week",
+  "title": "A busy stretch at Austin's airport",
+  "subtitle": "Race-week travel and the start of a utility project",
+  "source": "KXAN; CBS Austin",
+  "alt": "Timeline from KXAN and CBS Austin: on October 19 Austin-Bergstrom International Airport began a campus-wide utility project; its busiest travel days run Thursday, October 22, through Tuesday, October 27; Monday, October 26, the day after the Formula 1 race, is expected to be the single busiest day; the utility project is expected to be finished in 2029.",
+  "events": [
+    { "date": "Oct. 19", "label": "Utility project begins", "note": "Power, drainage and water upgrades" },
+    { "date": "Oct. 22", "label": "Busy travel stretch starts", "note": "Runs through Tuesday, Oct. 27" },
+    { "date": "Oct. 26", "label": "Expected busiest day", "note": "The Monday after the race" }
+  ],
+  "next": { "label": "2029: utility project expected to finish" }
+}
