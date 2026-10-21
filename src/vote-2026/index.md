@@ -42,9 +42,11 @@ Source: <a href="https://www.austintexas.gov/communications/news/public-invited-
 
 Any registered Travis County voter may vote early at any of the sites below. Hours are **7 a.m. to 7 p.m., Monday through Sunday, October 19 to 30.** Bring one of the seven accepted photo IDs listed under [What to bring](#what-to-bring).
 
-**Turnout so far.** Nearly 41,000 Travis County voters cast a ballot on Monday, October 19, the first day of early voting: about 4.3% of the county's 952,713 registered voters. That beat every first day of a midterm this century (4.14% in 2018, 2.8% in 2022). By Tuesday evening, statewide turnout was about 3.7%.
+**Turnout so far.** Through Tuesday, October 20, the second day of early voting, 90,955 Travis County voters had cast a ballot: 81,136 in person at the early voting sites, 9,680 mail ballots received and 139 limited ballots. That is 9.59% of the County's 948,575 registered voters. In-person voting held steady: 40,777 on Monday and 40,359 on Tuesday. Monday's first day beat every first day of a midterm this century (4.14% in 2018, 2.8% in 2022, per KUT). Statewide turnout was about 3.7% by Tuesday evening.
 
-Sources: <a href="https://www.kut.org/austin/2026-10-20/travis-county-austin-tx-first-day-early-voting-turnout-midterm-election">KUT, from Texas Secretary of State data</a>; <a href="https://www.kxan.com/news/your-local-election-hq/nov-2026-turnout-tracker/">KXAN turnout tracker</a> (read October 21, 2026).
+**Busiest and quietest sites.** Over the first two days the busiest sites were Bee Cave City Hall (3,392 voters), Ben Hur Shrine Center (3,190), PfISD Rock Gym (3,119), Austin Energy Headquarters (2,895) and Austin Oaks Church (2,685). The quietest public sites were the Travis County Civil and Family Courts Facility (969), Cepeda Branch Library (1,029) and Chinatown Center (1,072). The County's <a href="https://updates.electionlink.net/widgets/travistx/2026-11-03/index.html">live turnout tracker</a> shows the day's count as it comes in.
+
+Sources: <a href="https://votetravis.gov/wp-content/uploads/G26-Daily-Totals-10202026.pdf">Travis County Clerk, unofficial early voting totals through October 20</a>; <a href="https://www.kut.org/austin/2026-10-20/travis-county-austin-tx-first-day-early-voting-turnout-midterm-election">KUT, from Texas Secretary of State data</a>; <a href="https://www.kxan.com/news/your-local-election-hq/nov-2026-turnout-tracker/">KXAN turnout tracker</a> (read October 21, 2026).
 
 **Open until 10 p.m. on Thursday, October 29 and Friday, October 30.** The County's list marks these seven sites for its extended hours on the last two days:
 
