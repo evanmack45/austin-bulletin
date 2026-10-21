@@ -33,6 +33,10 @@ A request to change one goes above, with the reason.
 
 ## Entries
 
+### 2026-10-21 (afternoon)
+
+The County Clerk posts official daily early-voting totals as a PDF, linked from votetravis.gov's current-election page (`G26-Daily-Totals-MMDDYYYY.pdf`, per-site counts, mail ballots, % of 948,575 registered). A day after the fact, search still indexes no day-two count and KXAN's tracker had not moved, so the County file is the first answer. It settles the October 20 open question.
+
 ### 2026-10-20 (afternoon)
 
 A search for Travis County's first-day early-voting turnout on October 20 returns only 2016–2024 stories; no outlet has a 2026 count indexed yet. Daily turnout from the County Clerk is an open question during early voting, the way the agenda and ID rules were.
