@@ -1,0 +1,57 @@
+{
+  "date": "2026-10-22",
+  "fetchedAt": "2026-10-22T11:09:07.665Z",
+  "weather": {
+    "high": 87,
+    "low": 59,
+    "summary": "Sunny",
+    "alerts": [],
+    "blurb": "About as nice as Austin gets. Get outside.",
+    "source": "https://www.weather.gov/ewx/"
+  },
+  "air": {
+    "aqi": 30,
+    "category": "Good",
+    "pm25": 3.8,
+    "ozone": 42,
+    "blurb": "Clear air. A great day to be outside.",
+    "source": "https://open-meteo.com/en/docs/air-quality-api"
+  },
+  "lake": {
+    "percentFull": 94,
+    "elevationFt": 677.47,
+    "weekNote": "−0.5 pts vs. last week",
+    "blurb": "The lake is close to full — good for boats and for the summer water supply. Down a touch from last week.",
+    "source": "https://www.waterdatafortexas.org/reservoirs/individual/travis"
+  },
+  "pollen": {
+    "index": 3,
+    "category": "Moderate",
+    "tree": 2,
+    "grass": 2,
+    "weed": 3,
+    "plants": [
+      "Ragweed",
+      "Elm",
+      "Grasses"
+    ],
+    "note": "Tree 2 · Grass 2 · Weed 3 · Ragweed, Elm, Grasses",
+    "blurb": "Ragweed and elm and grasses are up. Allergy folks, take the pill before it takes you.",
+    "source": "https://developers.google.com/maps/documentation/pollen"
+  },
+  "grid": {
+    "forecastPeakMw": 64900,
+    "peakHourEnding": 17,
+    "availableMw": 91600,
+    "condition": "Normal",
+    "blurb": "Demand peaks near 64,900 megawatts; ERCOT has 91,600 ready and room to spare.",
+    "source": "https://www.ercot.com/gridmktinfo/dashboards/systemwidedemand"
+  },
+  "sun": {
+    "sunrise": "7:37 a.m.",
+    "sunset": "6:52 p.m.",
+    "blurb": "The sun is up for 11 hours and 15 minutes today, and down by 6:52 p.m.",
+    "source": "https://open-meteo.com/"
+  },
+  "errors": {}
+}
