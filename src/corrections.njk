@@ -1,0 +1,26 @@
+---
+layout: layout.njk
+title: "Corrections"
+permalink: "/corrections/"
+---
+
+# Corrections
+
+<p>We correct errors publicly, date every correction, and link the source.</p>
+
+{% if (corrections | length) == 0 %}
+<p><em>No corrections yet.</em> Spot an error? <a href="mailto:contact@theaustinbulletin.com">Tell us</a>.</p>
+{% else %}
+<section class="corrections-list">
+  {% for c in corrections | sort(attribute='date') | reverse %}
+  <article class="correction">
+    <h3><time datetime="{{ c.date | isoDate }}">{{ c.date | longDate }}</time></h3>
+    <p><strong>Page:</strong> <a href="{{ c.url | escape }}">{{ c.url | escape }}</a></p>
+    <p><strong>What was wrong:</strong> {{ c.wrong | escape }}</p>
+    <p><strong>What it says now:</strong> {{ c.now | escape }}</p>
+    <p><strong>Source:</strong> <a href="{{ c.source | escape }}">{{ c.source | escape }}</a></p>
+  </article>
+  {% endfor %}
+  </section>
+{% endif %}
+
