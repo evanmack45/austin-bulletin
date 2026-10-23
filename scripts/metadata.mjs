@@ -94,8 +94,27 @@ export function pageMetadata(route, originalTitle, content, description) {
     indexable: normalized !== "/404.html",
     type: dated ? "article" : "website",
     image: `${SITE_URL}icon-512.png`, imageAlt: "The Austin Bulletin brand icon",
-    card: "summary"
+    card: "summary", headline: dated ? lead.heading : ""
   };
+}
+
+// NewsArticle structured data for a dated edition, built only from its metadata.
+export function articleJsonLd(meta, date) {
+  if (meta?.type !== "article") return "";
+  const publisher = {
+    "@type": "NewsMediaOrganization", name: "The Austin Bulletin", url: SITE_URL,
+    logo: { "@type": "ImageObject", url: `${SITE_URL}icon-512.png` }
+  };
+  const data = {
+    "@context": "https://schema.org", "@type": "NewsArticle",
+    headline: excerpt(meta.headline || meta.title).slice(0, 110),
+    description: meta.description, url: meta.canonical,
+    mainEntityOfPage: meta.canonical, image: [meta.image],
+    datePublished: new Date(date).toISOString().slice(0, 10),
+    isAccessibleForFree: true, inLanguage: "en-US",
+    author: publisher, publisher
+  };
+  return JSON.stringify(data).replace(/</g, "\\u003c");
 }
 
 export function sitemapPages(items) {
@@ -109,4 +128,26 @@ export function sitemapPages(items) {
 export function xmlEscape(value) {
   return String(value).replace(/&/g, "&amp;").replace(/</g, "&lt;")
     .replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
+}
+
+// The Briefing's ### headline from an edition's markdown source, as plain text.
+export function briefingHeadline(markdown) {
+  const match = /^### +(.+)$/m.exec(String(markdown ?? ""));
+  return match ? plainText(match[1]).replace(/[*_`]/g, "").trim() : "";
+}
+
+const DAY_MS = 86400000;
+const gapDate = (ms, opts) =>
+  new Date(ms).toLocaleDateString("en-US", { timeZone: "UTC", ...opts });
+
+// Days with no edition between two newer-first neighbors: "October 7–9", or "" when none.
+export function editionGap(newer, older) {
+  const start = Date.parse(older) + DAY_MS;
+  const end = Date.parse(newer) - DAY_MS;
+  if (!(end >= start)) return "";
+  const first = gapDate(start, { month: "long", day: "numeric" });
+  if (end === start) return first;
+  const sameMonth = gapDate(start, { month: "long" }) === gapDate(end, { month: "long" });
+  const last = gapDate(end, sameMonth ? { day: "numeric" } : { month: "long", day: "numeric" });
+  return `${first}–${last}`;
 }

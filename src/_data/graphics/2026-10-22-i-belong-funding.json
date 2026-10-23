@@ -1,0 +1,16 @@
+{
+  "type": "bars",
+  "date": "2026-10-22",
+  "slug": "i-belong-funding",
+  "title": "Eviction help, before and after the cut",
+  "subtitle": "I Belong in Austin funding, in millions of dollars",
+  "source": "KXAN; City of Austin Council agenda, item 22",
+  "unit": "$M",
+  "yMin": 0,
+  "alt": "Bar chart from KXAN and the City of Austin's October 22 Council agenda: the I Belong in Austin eviction-prevention program had a $4 million budget until Council trimmed it to $3 million last year; on October 22 Council considers adding $2.25 million to the program's contract.",
+  "bars": [
+    { "label": "Before the cut", "value": 4 },
+    { "label": "After last year's cut", "value": 3 },
+    { "label": "Thursday's request", "value": 2.25 }
+  ]
+}

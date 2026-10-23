@@ -1,0 +1,17 @@
+{
+  "type": "bars",
+  "date": "2026-10-10",
+  "slug": "bathhouse-cost",
+  "title": "Barton Springs bathhouse: the price climbed",
+  "subtitle": "Millions of dollars, from the 2023 estimate to today's total appropriations",
+  "source": "KUT News, from City of Austin records",
+  "unit": "$M",
+  "yMin": 0,
+  "alt": "Bar chart of the Barton Springs bathhouse rehabilitation's cost, as reported by KUT: city staff estimated about $9.3 million in early 2023; the lower construction bid was $16.9 million; the City Council approved an $18.6 million contract; total appropriations including design and exhibits now stand at $21.98 million.",
+  "bars": [
+    { "label": "2023 estimate", "value": 9.3 },
+    { "label": "Low bid", "value": 16.9 },
+    { "label": "Contract", "value": 18.6 },
+    { "label": "Total appropriated", "value": 21.98 }
+  ]
+}

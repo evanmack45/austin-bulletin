@@ -1,0 +1,15 @@
+{
+  "type": "bars",
+  "date": "2026-10-11",
+  "slug": "traffic-deaths",
+  "title": "Austin traffic deaths, January 1 to October 4",
+  "subtitle": "People killed in crashes, same date each year",
+  "source": "Austin Police Department",
+  "unit": "",
+  "yMin": 0,
+  "alt": "Bar chart of Austin traffic deaths from January 1 through October 4, as reported by the Austin Police Department: 79 people were killed in 75 fatal crashes by that date in 2025, and 64 people in 63 fatal crashes by that date in 2026.",
+  "bars": [
+    { "label": "2025", "value": 79 },
+    { "label": "2026", "value": 64 }
+  ]
+}

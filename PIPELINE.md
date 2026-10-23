@@ -1,18 +1,5 @@
 # Daily Pipeline — The Austin Bulletin
 
-## Current operator — October 4, 2026
-
-Codex on Evan's connected Mac mini replaces previous operators under the
-approved handoff. `OPERATOR.md` is authoritative for scheduling, ownership,
-publishing and spending/security gates. Historical ownership/approval clauses
-below are superseded. Evan's later October 4 direction authorizes active,
-autonomous editorial, design and growth improvements; the earlier three-day
-feature freeze is superseded. Reliable morning publication, source accuracy,
-tested changes and independent review remain guardrails. Do not send routine
-approval requests, artifacts or status messages to Evan; coordinate exceptions
-with the parent. Spending, security, private-data and external-recipient limits
-remain in force.
-
 Run this procedure once each morning. Also runnable any time on demand.
 Before starting, read `EDITORIAL.md` in full.
 
@@ -219,12 +206,11 @@ Find an outlet's clip the permitted way instead: outlets embed their own
 YouTube videos in the articles we already read, so take the video URL out of
 the article and pass that to `npm run video`.
 
-Known outage (2026-09-23): `https://www.youtube.com/oembed` answers 401 to
-every request from the runner, with or without a custom user agent, so
-`npm run video` cannot build a card at all. That is YouTube's block and not
-the proxy's — the watch page and `i.ytimg.com` thumbnails both return 200.
-While it lasts, an edition ships with no video and a `visual_exception`
-naming the cause (EDITORIAL "The visual_exception escape hatch").
+Past outage (2026-09-23 to early October): `https://www.youtube.com/oembed`
+answered 401 to every request from the runner. It answered 200 on 2026-10-10,
+and on 2026-10-16 `npm run video` built a card. If it returns 401
+again, the edition ships with no video and a `visual_exception` naming the
+cause (EDITORIAL "The visual_exception escape hatch").
 
 Voice cards come from `npm run voices` and r/Austin (Step 4). Do not hand-
 roll Bluesky or Reddit fetches: Reddit's `.json` endpoints and Bluesky's

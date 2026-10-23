@@ -30,7 +30,15 @@ export default {
     travisRegistrationDeadline: "https://tax-office.traviscountytx.gov/about-us/newsroom/2026/272-voter-registration-ends-monday-for-nov-3-election",
     travisHome: "https://votetravis.gov/",
     earlyVotingFAQ: "https://www.votetexas.gov/faq/early-voting.html",
-    registrationFAQ: "https://www.votetexas.gov/faq/registration.html"
+    registrationFAQ: "https://www.votetexas.gov/faq/registration.html",
+    earlyVotingSites: "https://votetravis.gov/wp-content/uploads/G26-Early-Voting-Flyer-9.21.pdf",
+    electionDaySites: "https://votetravis.gov/wp-content/uploads/G26-Election-Day-Flyer-FINAL-Website-wNotice.pdf",
+    consolidatedBallot: "https://votetravis.gov/wp-content/uploads/G26-Bedsheet-Ballot-Corrected-Final2.pdf",
+    voterIdTexas: "https://www.votetexas.gov/voting/need-id.html",
+    voterIdTravis: "https://votetravis.gov/voter-information/voter-id-requirements/",
+    atThePolls: "https://www.votetexas.gov/voting/allowed-at-the-polling-place.html",
+    curbside: "https://www.votetexas.gov/voting/curbside-voting.html",
+    ballotByMail: "https://votetravis.gov/voter-information/ballot-by-mail/"
   },
   showNav: (() => {
     const today = new Date();

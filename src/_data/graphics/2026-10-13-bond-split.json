@@ -1,0 +1,16 @@
+{
+  "type": "bars",
+  "date": "2026-10-13",
+  "slug": "bond-split",
+  "title": "What $295 million in city bonds would build",
+  "subtitle": "Proposition A covers parks; Proposition B splits between two library branches",
+  "source": "Community Impact",
+  "unit": "$",
+  "yMin": 0,
+  "alt": "Bar chart of the two City of Austin bond propositions on the November 3 ballot, as reported by Community Impact: Proposition A, $260 million for park improvements and expansions; Proposition B, $20 million to improve and expand the Hampton Branch at Oak Hill and $15 million for a future branch in Colony Park.",
+  "bars": [
+    { "label": "Prop A: parks", "value": 260000000 },
+    { "label": "Prop B: Hampton Branch", "value": 20000000 },
+    { "label": "Prop B: Colony Park branch", "value": 15000000 }
+  ]
+}

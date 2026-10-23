@@ -1,0 +1,13 @@
+{
+  "type": "map",
+  "date": "2026-10-19",
+  "slug": "work-zones",
+  "title": "Two street closures starting Monday",
+  "subtitle": "A: lanes close at 7320 Burnet Road through Friday. B: Blue Meadow Drive's 1900–2110 block closes eastbound through December",
+  "alt": "Map of Austin marking two work zones that begin October 19 in the City's Roadway Work Zones dataset: A, a water line tie-in across Burnet Road at 7320 Burnet Road in North Austin; B, a wastewater line repair closing all eastbound lanes on the 1900–2110 block of Blue Meadow Drive in South Austin.",
+  "source": "City of Austin, Roadway Work Zones (qyfh-gwei)",
+  "markers": [
+    { "label": "A", "place": "7320 Burnet Rd, Austin, TX 78757" },
+    { "label": "B", "lat": 30.18337, "lng": -97.76813 }
+  ]
+}

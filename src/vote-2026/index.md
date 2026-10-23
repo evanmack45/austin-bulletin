@@ -1,6 +1,7 @@
 ---
 layout: layout.njk
 title: "Vote 2026 — Austin & Travis County"
+description: "Early voting in Travis County runs October 19–30, 7 a.m.–7 p.m., at 45 sites. Every site, the seven accepted voter IDs, the Austin Council races, and Propositions A–J on the November 3 ballot."
 permalink: "/vote-2026/"
 ---
 
@@ -11,10 +12,11 @@ This page covers the November 2026 general election, with voting-location guidan
 ### Key dates
 
 - Voter registration deadline (passed): **Monday, October 5, 2026**
-- Early voting: **Monday, October 19 – Friday, October 30, 2026**
+- Last day to apply for a ballot by mail: **Friday, October 23, 2026**
+- Early voting: **Monday, October 19 – Friday, October 30, 2026**, 7 a.m.–7 p.m. every day
 - Election Day: **Tuesday, November 3, 2026**
 
-Sources: <a href="{{ vote2026.links.register }}">VoteTexas — Voter Registration</a>; <a href="{{ vote2026.links.travisCurrentElection }}">Travis County Elections — Current Election</a>.
+Sources: <a href="{{ vote2026.links.register }}">VoteTexas — Voter Registration</a>; <a href="{{ vote2026.links.travisCurrentElection }}">Travis County Elections — Current Election</a> (read October 12, 2026).
 
 ### Do these first
 
@@ -25,21 +27,154 @@ Sources: <a href="{{ vote2026.links.register }}">VoteTexas — Voter Registratio
 - Travis County election info: <a href="{{ vote2026.links.travisCurrentElection }}">Current Election (VoteTravis.gov)</a> — dates, sites and hours when posted, and county contacts.
 - Where to vote and sample ballots: <a href="{{ vote2026.links.travisCurrentElection }}">Travis County — Current Election</a>. Open the Sample Ballots tab for the consolidated ballot and the county’s accessible ballot link; use Polling Locations for sites and hours.
 
+### City Council candidate panels
+
+The City, its Ethics Review Commission and the League of Women Voters Austin Area sponsor one panel for each Council district on the November 3 ballot. Each starts at 6:30 p.m. and airs live on ATXN.TV and KAZI FM 88.7.
+
+- The five district panels were scheduled for September 17 (District 5), September 21 (District 8), September 29 (District 9), October 1 (District 3) and October 15 (District 1). No district panel remains before Election Day.
+- Runoff panel, if one is needed: November 20, City Hall Council Chambers, 301 W. 2nd St.
+
+To suggest a question, email candidateforums@lwvaustin.org or call 512-451-6710. For interpretation, call 3-1-1 at least five days ahead. Not sure of your district? Use the City's district lookup through its voter resources.
+
+Source: <a href="https://www.austintexas.gov/communications/news/public-invited-attend-2026-austin-city-council-candidate-panels">City of Austin, September 14 release</a> (read October 10, 2026).
+
 ### Early voting (Oct 19–30)
 
-Any registered voter in Travis County may vote early in person at any early voting site in the county. Dates and hours are published by the county and may vary by location. Check <a href="{{ vote2026.links.travisCurrentElection }}">VoteTravis.gov — Current Election</a> for the official list and hours.
+Any registered Travis County voter may vote early at any of the sites below. Hours are **7 a.m. to 7 p.m., Monday through Sunday, October 19 to 30.** Bring one of the seven accepted photo IDs listed under [What to bring](#what-to-bring).
 
-Reference: <a href="{{ vote2026.links.earlyVotingFAQ }}">VoteTexas — Early voting FAQs</a>.
+**Turnout so far.** Through Wednesday, October 21, the third day of early voting, 131,689 Travis County voters had cast a ballot: 120,626 in person at the early voting sites, 10,816 mail ballots received and 247 limited ballots. That is 13.88% of the County's 948,575 registered voters. In-person voting has held near 40,000 a day: 40,777 on Monday, 40,359 on Tuesday and 39,490 on Wednesday. Monday's first day beat every first day of a midterm this century (4.14% in 2018, 2.8% in 2022, per KUT). Statewide turnout was about 3.7% by Tuesday evening.
+
+**Busiest and quietest sites.** Over the first three days the busiest sites were Bee Cave City Hall (4,985 voters), Ben Hur Shrine Center (4,907), PfISD Rock Gym (4,659), Austin Energy Headquarters (4,253) and Austin Oaks Church (4,004). The quietest public sites were the Travis County Civil and Family Courts Facility (1,496), Cepeda Branch Library (1,508) and Chinatown Center (1,590). The County's <a href="https://updates.electionlink.net/widgets/travistx/2026-11-03/index.html">live turnout tracker</a> shows the day's count as it comes in.
+
+Sources: <a href="https://votetravis.gov/wp-content/uploads/G26-Daily-Totals-10212026.pdf">Travis County Clerk, unofficial early voting totals through October 21</a>; <a href="https://www.kut.org/austin/2026-10-20/travis-county-austin-tx-first-day-early-voting-turnout-midterm-election">KUT, from Texas Secretary of State data</a>; <a href="https://www.kxan.com/news/your-local-election-hq/nov-2026-turnout-tracker/">KXAN turnout tracker</a> (read October 21, 2026).
+
+**Open until 10 p.m. on Thursday, October 29 and Friday, October 30.** The County's list marks these seven sites for its extended hours on the last two days:
+
+- **Ben Hur Shrine Center**, 7811 Rockwood Ln, Austin 78757 (Ballroom) · bus route
+- **Lakeway Activity Center**, 105 Cross Creek, Lakeway 78734 (Room F)
+- **Millennium Youth Entertainment Complex**, 1156 Hargrave St, Austin 78702 (East Media and Confrence Room) · bus route
+- **PfISD Rock Gym**, 702 W Pecan St, Pflugerville 78660 (Gymnasium)
+- **Randalls Brodie**, 9911 Brodie Ln, Austin 78748 (Café)
+- **Travis County Clerk**, 5501 Airport Blvd, Austin 78751 (Early Voting Room) · bus route
+- **UT Texas Union**, 2308 Whitis Ave, Austin 78712 (Room 2.214) · bus route
+
+**All other early voting sites** (7 a.m.–7 p.m.):
+
+- **Austin City Hall**, 301 W 2nd St, Austin 78701 (Media Room 1034) · bus route
+- **Austin Energy Headquarters**, 4815 Mueller Blvd, Austin 78723 (Capital Training Room) · bus route
+- **Austin Oaks Church**, 4220 Monterey Oaks Blvd, Austin 78749 (Family Life Foyer)
+- **Austin Permitting and Development Center**, 6310 Wilhelmina Delco Dr, Austin 78752 (Room 1407)
+- **Austin Recreation Center**, 1301 Shoal Creek Blvd, Austin 78701 (Dance Studio) · bus route
+- **Balcones Bingo**, 13096 US 183, Austin 78750 (Main Hall)
+- **Bedichek Middle School**, 6800 Bill Hughes Rd, Austin 78745 (Small Gymnasium) · bus route
+- **Bee Cave City Hall**, 4000 Galleria Pkwy, Bee Cave 78738 (Community Room A and B)
+- **Carver Branch Library**, 1161 Angelina St, Austin 78702 (Meeting Room 2) · bus route
+- **Cepeda Branch Library**, 651 N Pleasant Valley Rd, Austin 78702 (Meeting Room 1) · bus route
+- **Chinatown Center**, 10901 N Lamar Blvd, Austin 78753 (Building B-1 former bank) · bus route
+- **Christ Episcopal Church**, 3520 W Whitestone Blvd, Cedar Park 78613 (Outreach Center)
+- **Circle C Community Center**, 7817 La Crosse Ave, Austin 78739 (Meeting Room 2)
+- **Community Center At Del Valle**, 3518 S FM 973, Del Valle 78617 (Activity Room Bldg D) · bus route
+- **Community Center at Oak Hill**, 8656 W State Hwy 71, Austin 78735 (Community Room)
+- **Dan Ruiz Branch Library**, 1600 Grove Blvd, Austin 78741 (Meeting Rooms 1 and 2) · bus route
+- **Disability Rights Texas**, 2222 W Braker Ln, Austin 78758 (Board Rooms) · bus route
+- **Former Verizon**, 9705 Research Blvd, Austin 78759 (Suite 9705D)
+- **George Morales Dove Springs Recreation Center**, 5801 Ainez Dr, Austin 78744 (Dance Studio)
+- **Gus Garcia Recreation Center**, 1201 E Runberg Ln, Austin 78753 (Senior Room) · bus route
+- **Lago Vista Public Library**, 5803 Thunderbird St Ste 40, Lago Vista 78645 (Meeting Room) · bus route
+- **LBJ School Of Public Affairs**, 2315 Red River St, Austin 78712 (Lobby) · bus route
+- **Manor ISD Admin Building**, 10335 Hwy 290, Manor 78653 (Technology Room)
+- **Menchaca Road Branch Public Library**, 5500 Menchaca Rd, Austin 78745 (Meeting Room) · bus route
+- **Northwest Recreation Center**, 2913 Northland Dr, Austin 78757 (Classroom 2) · bus route
+- **Pfluger Hall and Conference Center**, 203 E Pecan St, Pflugerville 78660 (Great Hall)
+- **Randalls Flagship West Lake Hills**, 3300 Bee Caves Rd, West Lake Hills 78746 (Café) · bus route
+- **Randalls Steiner Ranch**, 5145 N FM 620, Austin 78732 (Café)
+- **Riata Trace**, 12221 Riata Trace Pkwy, Austin 78727 (Suite 120)
+- **Riverbend Centre**, 4214 N Capital of Texas Hwy, Austin 78746 (Quad3ABCD)
+- **RRISD Hartfield Performing Arts Center**, 5800 McNeil Dr, Austin 78729 (Lobby)
+- **Shops at Arbor Walk**, 10515 N Mopac Expy, Austin 78759 (Suite L) · bus route
+- **South Austin Recreation Center**, 1100 Cumberland Rd, Austin 78704 (Lobby) · bus route
+- **Travis County Civil and Family Courts Facility**, 1700 Guadalupe St, Austin 78701 (Conference Room) · bus route
+- **Typhoon Texas Waterpark**, 18500 TX 130 Service Rd, Pflugerville 78660 (Main Lobby)
+- **Westoak Woods Baptist Church**, 2900 W Slaughter Ln, Austin 78748 (CMB Room 104) · bus route
+- **Wheatsville Food Coop South Lamar**, 4001 S Lamar Blvd, Austin 78704 (Community Kitchen) · bus route
+
+**Friday, October 30 only:**
+
+- **TCC Complex**, 3614 Bill Price Rd, Del Valle 78617 (Lobby) · bus route
+
+"Bus route" is the County's own column on its list. Moved here from another Texas county and not registered in Travis County yet? A limited ballot may be available during early voting only, at the County Clerk, 5501 Airport Blvd. Call (512) 238-8683 to check.
+
+Source: <a href="{{ vote2026.links.earlyVotingSites }}">Travis County Clerk, early voting sites (PDF)</a> and <a href="{{ vote2026.links.travisCurrentElection }}">Current Election page</a>, read October 12, 2026. Sites can change; check the County's list before you go. Reference: <a href="{{ vote2026.links.earlyVotingFAQ }}">VoteTexas — Early voting FAQs</a>.
+
+### What is on the Austin ballot
+
+Travis County's consolidated ballot lists every contest in the county; your own ballot shows only the ones where you live. Look yours up with <a href="https://tx.omniballot.us/sites/48453/default/app/home">the County's accessible ballot tool</a> or the <a href="{{ vote2026.links.consolidatedBallot }}">consolidated ballot (PDF)</a>. Candidates are listed here in ballot order.
+
+**City Council** (five of ten districts are on the ballot):
+
+- **District 1:** Steven Brown, Alexandria Anderson, Amber K. Goodwin, Michael Nahas, Portia Riggins, Misael Ramos
+- **District 3:** Eduardo “Lalito” Romero, Brock Skinner, José Velásquez, Gavin Fernandez Jr., Neha Shah
+- **District 5:** Liz Brink, David Weinberg, Ryan Alter, Farrah Abraham
+- **District 8:** Jeffery Bowen, Selena Xie
+- **District 9:** Rich Heyman, Katie Kam, Zohaib “Zo” Qadri, Dave Thadani, Kai Huang
+
+Two seats are open (Districts 1 and 8). The three incumbents running, and how they voted this year: [Austin City Council races 2026](/austin-council-races-2026/).
+
+**City bonds.** Both carry the ballot words "THIS IS A TAX INCREASE."
+
+- **Proposition A:** $260 million in bonds for citywide park, recreation, aquatic and open-space improvements.
+- **Proposition B:** $35 million in bonds for library facilities.
+
+What the two bonds would build and cost, and how the Council voted: [Austin's 2026 parks and library bonds](/austin-bonds-2026/).
+
+**City Charter amendments**, in the ballot's own terms:
+
+- **Proposition C:** Clarify that the Independent Citizens Redistricting Commission is independent of Council control; let it review districts after the City's boundaries change; add exceptions for student members; set an effective date for its plan; enlarge its applicant pool; clarify how vacancies are filled; and let City staff talk with it outside meetings within the Texas Open Meetings Act.
+- **Proposition D:** Delete the language that the Council shall meet at least once each week.
+- **Proposition E:** Delete the language requiring the Council to set its rules and order of business by ordinance.
+- **Proposition F:** Clarify the meaning of "election" and adjust campaign contribution and spending limits each year by January 1 instead of with the budget.
+- **Proposition G:** Hold citizen-initiative and petitioned charter elections on the next available November election in an even-numbered year.
+- **Proposition H:** The Council appoints and removes the City Attorney.
+- **Proposition I:** Require an Independent Affordability and Efficiency Initiative on a regular basis and before any tax rate increase election, with the contractor required to find annual and multi-year savings larger than its cost.
+- **Proposition J:** Non-substantive corrections to typos, punctuation and sentence structure, and changes to language made moot or unenforceable by state law or a final court order.
+
+Our [guide to Propositions C through J](/austin-charter-2026/) explains each charter amendment in plain words, with what each side says about Proposition I.
+
+The same ballot carries federal, state, judicial, county, appraisal district and other cities' contests. Source: <a href="{{ vote2026.links.consolidatedBallot }}">Travis County consolidated ballot, November 3, 2026</a> (corrected October 15; the Austin contests did not change), read October 17, 2026.
 
 ### Election Day (Nov 3)
 
-Voters registered in Travis County can vote at any Travis County vote center on Election Day. Find locations, hours and wait times on <a href="{{ vote2026.links.travisCurrentElection }}">VoteTravis.gov — Current Election</a>. If you are registered in another county, use that county’s election information through the <a href="{{ vote2026.links.cityVoterResources }}">City of Austin voter resources</a>.
+Voters registered in Travis County can vote at any Travis County vote center on Election Day, 7 a.m. to 7 p.m. The County's <a href="{{ vote2026.links.electionDaySites }}">Election Day sites (PDF)</a> lists them. Find locations, hours and wait times on <a href="{{ vote2026.links.travisCurrentElection }}">VoteTravis.gov — Current Election</a>. If you are registered in another county, use that county’s election information through the <a href="{{ vote2026.links.cityVoterResources }}">City of Austin voter resources</a>.
 
-### ID, mail ballots, accessibility
+<h3 id="what-to-bring">What to bring</h3>
 
-- Voter ID: See requirements and alternatives at <a href="{{ vote2026.links.voteTexasHome }}">VoteTexas.gov</a>.
-- Voting by mail: Deadlines and eligibility at <a href="{{ vote2026.links.voteTexasHome }}">VoteTexas.gov</a>; county instructions at <a href="{{ vote2026.links.travisHome }}">VoteTravis.gov</a>.
-- Accessibility and curbside voting: Contact the Travis County elections office via <a href="{{ vote2026.links.travisHome }}">VoteTravis.gov</a>.
+**One of these seven photo IDs**, if you have one:
+
+- Texas driver license (DPS)
+- Texas Election Identification Certificate (DPS)
+- Texas personal identification card (DPS)
+- Texas handgun license (DPS)
+- U.S. military ID card with your photo
+- U.S. citizenship certificate with your photo
+- U.S. passport (book or card)
+
+If you are 18 to 69, the ID can be expired up to four years. If you are 70 or older, it can be expired for any length of time. A citizenship certificate does not expire. Election Identification Certificates are free at DPS driver license offices.
+
+**No photo ID and can't reasonably get one?** You can still vote a regular ballot. Show one supporting document with your name: your voter registration certificate or another government document with your name and an address, a current utility bill, a bank statement, a government check, a paycheck, or a certified U.S. birth certificate. Then sign a Reasonable Impediment Declaration at the polls. The impediments the form accepts are lack of transportation, disability or illness, lack of a birth certificate or other documents needed to get an ID, work schedule, family responsibilities, a lost or stolen ID, or an ID applied for but not yet received. A false statement on the form is perjury.
+
+**Have a photo ID but left it at home?** You can go back for it and return before the polls close, or vote a provisional ballot and show the ID to the voter registrar within six days of the election.
+
+**At the polls:** you may not use a phone, camera, tablet or laptop in the room where people vote, or record sound or images within 100 feet of a voting station. Campaign signs and literature are not allowed within 100 feet of the entrance. You may not wear clothing about a candidate, measure or party, and you may be asked to cover it.
+
+**Curbside voting:** if you can't enter the building, every site has a marked curbside space with a number to call or text, and an election officer brings the ballot to your car. This works during early voting and on Election Day.
+
+Sources: <a href="{{ vote2026.links.voterIdTexas }}">VoteTexas — Voter ID</a>, <a href="{{ vote2026.links.voterIdTravis }}">Travis County Clerk — Voter ID Requirements</a>, <a href="{{ vote2026.links.atThePolls }}">VoteTexas — What's allowed at the polling place</a> and <a href="{{ vote2026.links.curbside }}">VoteTexas — Curbside voting</a>, all read October 17, 2026.
+
+### Mail ballots and accessibility
+
+- Voting by mail: the deadline to apply in Travis County is **Friday, October 23**. You qualify if you are 65 or older on Election Day, sick or disabled, expecting to give birth within three weeks of Election Day, away from the county during early voting and on Election Day, or confined in jail but eligible to vote. Forms, mailing address and the ballot tracker are at <a href="{{ vote2026.links.ballotByMail }}">VoteTravis.gov — Ballot by Mail</a> (read October 12, 2026).
+- Wait times and turnout: the County's <a href="{{ vote2026.links.travisCurrentElection }}">Current Election page</a> has a Wait Times tab and a live turnout tracker.
+- Other accessibility questions: contact the Travis County elections office at (512) 238-8683 or through <a href="{{ vote2026.links.travisHome }}">VoteTravis.gov</a>.
 
 ---
 

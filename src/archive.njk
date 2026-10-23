@@ -5,7 +5,7 @@ permalink: "/archive/"
 ---
 <h1>Archive</h1>
 {% set first = collections.bulletins | last %}
-<p class="archive-note">Publishing every morning since {{ first.date | readableDate }}.</p>
+<p class="archive-note">One edition each morning since {{ first.date | readableDate }}. Days without an edition are marked in the list.</p>
 <link href="{{ '/pagefind/pagefind-ui.css' | url }}" rel="stylesheet">
 <script src="{{ '/pagefind/pagefind-ui.js' | url }}"></script>
 <div id="search"></div>
@@ -16,6 +16,13 @@ permalink: "/archive/"
 </script>
 <ul class="archive-list">
 {% for b in collections.bulletins %}
-  <li><a href="{{ b.url }}">{{ b.data.title }}</a></li>
+  {% set older = collections.bulletins[loop.index] %}
+  <li><a href="{{ b.url }}">{{ b.data.title }}</a>
+    {%- set headline = b.inputPath | briefingHeadline %}
+    {%- if headline %}<span class="archive-headline">{{ headline }}</span>{% endif %}</li>
+  {%- if older %}{% set gap = b.date | editionGap(older.date) %}
+  {%- if gap %}
+  <li class="archive-gap">No edition {{ gap }}.</li>
+  {%- endif %}{% endif %}
 {% endfor %}
 </ul>

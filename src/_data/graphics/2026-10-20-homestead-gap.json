@@ -1,0 +1,17 @@
+{
+  "type": "bars",
+  "date": "2026-10-20",
+  "slug": "homestead-gap",
+  "title": "Homeowners who may lack a homestead exemption",
+  "subtitle": "Estimates by county, in households",
+  "source": "Texas Tribune",
+  "unit": "",
+  "yMin": 0,
+  "alt": "Bar chart of homeowners who may be eligible for the Texas homestead exemption but are not claiming it, from The Texas Tribune: about 113,000 in Harris County, about 60,000 each in Travis and Bexar counties, and 57,000 in Dallas County. In Travis County that is about 1 in 5 households.",
+  "bars": [
+    { "label": "Harris", "value": 113000 },
+    { "label": "Travis", "value": 60000 },
+    { "label": "Bexar", "value": 60000 },
+    { "label": "Dallas", "value": 57000 }
+  ]
+}

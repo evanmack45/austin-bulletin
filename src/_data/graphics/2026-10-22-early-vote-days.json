@@ -1,0 +1,16 @@
+{
+  "type": "bars",
+  "date": "2026-10-22",
+  "slug": "early-vote-days",
+  "title": "In-person early votes in Travis County",
+  "subtitle": "Voters at early voting sites, first three days",
+  "source": "Travis County Clerk, unofficial daily totals",
+  "unit": "",
+  "yMin": 0,
+  "alt": "Bar chart from the Travis County Clerk's unofficial daily totals: 40,777 people voted in person at early voting sites on Monday, October 19; 40,359 on Tuesday, October 20; and 39,490 on Wednesday, October 21.",
+  "bars": [
+    { "label": "Mon., Oct. 19", "value": 40777 },
+    { "label": "Tue., Oct. 20", "value": 40359 },
+    { "label": "Wed., Oct. 21", "value": 39490 }
+  ]
+}

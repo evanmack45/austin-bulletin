@@ -1,0 +1,15 @@
+{
+  "type": "timeline",
+  "date": "2026-10-11",
+  "slug": "large-water-users",
+  "title": "Rules for Austin's biggest water users",
+  "subtitle": "Where Austin Water's proposal stands, and what is due next",
+  "source": "Austin Chronicle, from Austin Water",
+  "alt": "Timeline of Austin Water's proposed rules for high-impact water users: in July 2026 the City Council passed a resolution on large water users; on October 5 Austin Water held an open house proposing rules for customers using more than 85 million gallons a year; recommendations are due to the Council's Climate, Water, Environment and Parks Committee by December 9; the first report on large users' water consumption is due by May 2027.",
+  "events": [
+    { "date": "July 2026", "label": "Council resolution on large water users", "note": "Asks the city manager for recommendations" },
+    { "date": "Oct. 5", "label": "Austin Water open house", "note": "Draft: rules for users above 85 million gallons a year" },
+    { "date": "Dec. 9", "label": "Recommendations due", "note": "To the Climate, Water, Environment and Parks Committee" },
+    { "date": "May 2027", "label": "First report on large users' consumption" }
+  ]
+}

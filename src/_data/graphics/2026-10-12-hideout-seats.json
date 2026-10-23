@@ -1,0 +1,16 @@
+{
+  "type": "bars",
+  "date": "2026-10-12",
+  "slug": "hideout-seats",
+  "title": "The Hideout Theatre's seats, before and after",
+  "subtitle": "Seats per theater at the old Congress Avenue home and the North Lamar annex",
+  "source": "KUT",
+  "unit": "",
+  "yMin": 0,
+  "alt": "Bar chart of Hideout Theatre seating, as reported by KUT: the former Congress Avenue home had an 89-seat theater downstairs and a 49-seat theater upstairs; the temporary annex on North Lamar has one 40-seat theater.",
+  "bars": [
+    { "label": "Congress, downstairs", "value": 89 },
+    { "label": "Congress, upstairs", "value": 49 },
+    { "label": "North Lamar annex", "value": 40 }
+  ]
+}

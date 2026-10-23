@@ -1,0 +1,15 @@
+{
+  "type": "timeline",
+  "date": "2026-10-20",
+  "slug": "webb-petition",
+  "title": "Austin ISD's fall calendar",
+  "subtitle": "The Webb and Burnet petitions and the school board election",
+  "source": "Austin Current; KXAN",
+  "alt": "Timeline from Austin Current and KXAN: parent petitions to close Webb and Burnet middle schools were due October 15; on October 19 the Texas Education Agency confirmed it received a complaint from the Webb Parent-Teacher Association, and early voting opened for five Austin Independent School District board seats; Election Day is November 3; Superintendent Matias Segura has until December 1 to verify the petition signatures.",
+  "events": [
+    { "date": "Oct. 15", "label": "Petitions due", "note": "Parents at Webb and Burnet asked the state to close the schools" },
+    { "date": "Oct. 19", "label": "TEA confirms Webb PTA complaint", "note": "Early voting opens for five board seats" },
+    { "date": "Nov. 3", "label": "Election Day", "note": "13 candidates for five seats" }
+  ],
+  "next": { "label": "Dec. 1: deadline to verify the signatures" }
+}

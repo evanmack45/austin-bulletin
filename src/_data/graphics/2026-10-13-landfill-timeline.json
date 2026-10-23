@@ -1,0 +1,16 @@
+{
+  "type": "timeline",
+  "date": "2026-10-13",
+  "slug": "landfill-timeline",
+  "title": "The county landfill under a flea market",
+  "subtitle": "Forty years of leaking leachate, and three lawsuits",
+  "source": "Community Impact, from Travis County records",
+  "alt": "Timeline of Travis County's closed landfill on East US 290, as reported by Community Impact: the county ran it from 1968 to 1982; the Austin Country Flea Market opened on the property in 1986; the state sued the county in May 2025 and the landowner sued in July 2025; the county sued to take the property in December 2025; commissioners approved up to $5.65 million on October 6, 2026; a federal jury trial is set for June 2027.",
+  "events": [
+    { "date": "1968–1982", "label": "Travis County runs the landfill", "note": "Its largest closed landfill" },
+    { "date": "1986", "label": "Flea market opens on the property", "note": "About 21 acres sit on top of the landfill" },
+    { "date": "2025", "label": "Three lawsuits", "note": "The state in May, the landowner in July, the county to take the land in December" },
+    { "date": "Oct. 6, 2026", "label": "Commissioners approve up to $5.65 million", "note": "For repairs and legal costs" }
+  ],
+  "next": { "label": "Federal jury trial set for June 2027" }
+}

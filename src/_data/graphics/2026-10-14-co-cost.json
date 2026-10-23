@@ -1,0 +1,16 @@
+{
+  "type": "bars",
+  "date": "2026-10-14",
+  "slug": "co-cost",
+  "title": "What August's certificates of obligation cost",
+  "subtitle": "Certificates of obligation approved in August, with the estimated interest",
+  "source": "Austin Current",
+  "unit": "$",
+  "yMin": 0,
+  "alt": "Bar chart of the certificates of obligation the Austin City Council approved in August 2026, as reported by Austin Current: $142.6 million borrowed, an estimated $86.2 million in interest over the life of the debt, and a total estimated cost of nearly $229 million.",
+  "bars": [
+    { "label": "Amount borrowed", "value": 142600000 },
+    { "label": "Estimated interest", "value": 86200000 },
+    { "label": "Total estimated cost", "value": 229000000 }
+  ]
+}

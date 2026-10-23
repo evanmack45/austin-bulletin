@@ -1,0 +1,16 @@
+{
+  "type": "bars",
+  "date": "2026-10-18",
+  "slug": "ghost-sightings",
+  "title": "Austin led a count of reported ghost sightings",
+  "subtitle": "Reported sightings in the three top cities of a 74-city study",
+  "source": "KXAN",
+  "unit": "",
+  "yMin": 0,
+  "alt": "Bar chart of reported ghost sightings in Vivint's 2026 study of 74 U.S. cities, from KXAN: Austin 115, Dallas 64 and Houston 48, the three highest counts in the study.",
+  "bars": [
+    { "label": "Austin", "value": 115 },
+    { "label": "Dallas", "value": 64 },
+    { "label": "Houston", "value": 48 }
+  ]
+}

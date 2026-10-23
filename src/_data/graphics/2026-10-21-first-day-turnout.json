@@ -1,0 +1,16 @@
+{
+  "type": "bars",
+  "date": "2026-10-21",
+  "slug": "first-day-turnout",
+  "title": "Travis County turnout on day one",
+  "subtitle": "Share of registered voters who voted on day one, midterm years",
+  "source": "KUT, from Texas Secretary of State data",
+  "unit": "%",
+  "yMin": 0,
+  "alt": "Bar chart from KUT, using Texas Secretary of State data: on the first day of early voting in Travis County, 4.14% of registered voters cast a ballot in the 2018 midterm, 2.8% in 2022 and about 4.3% in 2026.",
+  "bars": [
+    { "label": "2018", "value": 4.14 },
+    { "label": "2022", "value": 2.8 },
+    { "label": "2026", "value": 4.3 }
+  ]
+}

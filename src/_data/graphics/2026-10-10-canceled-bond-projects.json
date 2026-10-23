@@ -1,0 +1,29 @@
+{
+  "type": "bars",
+  "date": "2026-10-10",
+  "slug": "canceled-bond-projects",
+  "title": "Canceled bond projects, by bond year",
+  "subtitle": "KXAN's count from the city's new bond dashboard; a city memo counts 61",
+  "source": "KXAN, from the Austin Bond Dashboard",
+  "yMin": 0,
+  "alt": "Bar chart of canceled voter-approved bond projects as counted by KXAN from the City of Austin's bond dashboard: 20 from the 2016 transportation bond, 27 from the 2018 bond, 16 from the 2020 transportation bond and 3 from the 2022 affordable housing bond. A city memo cited by CBS Austin counts 61 canceled projects of 1,426.",
+  "bars": [
+    {
+      "label": "2016",
+      "value": 20
+    },
+    {
+      "label": "2018",
+      "value": 27
+    },
+    {
+      "label": "2020",
+      "value": 16
+    },
+    {
+      "label": "2022",
+      "value": 3
+    }
+  ],
+  "unit": ""
+}

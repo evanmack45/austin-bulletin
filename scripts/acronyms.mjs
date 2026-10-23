@@ -23,9 +23,16 @@ const IGNORE = new Set([
   "SH", "FM", "CR", "RM",
   // Nationally understood terms; not the local jargon this check exists for.
   "ICE", "FEMA", "DHS", "SNAP", "CHIP", "STEM", "NFL", "NOAA", "LGBTQ", "GED",
+  "LGBT", "AIDS", "HIV",
   // Brand names that are simply written in capitals, not initialisms to expand:
   // a soccer club's "FC", and the charter network IDEA, whose name is the word.
-  "FC", "IDEA"
+  "FC", "IDEA",
+  // An Austin construction-technology company and a musicians' mental health
+  // nonprofit named for Sims Ellison: both names, not initialisms.
+  "ICON", "SIMS",
+  // "Unlock MLS" is a listing service's name, "ZIP code" a common noun, and
+  // "512-238-VOTE" a phone number.
+  "MLS", "ZIP", "VOTE"
 ]);
 
 function stripAttribution(text) {

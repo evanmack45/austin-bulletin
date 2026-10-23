@@ -179,6 +179,8 @@ figcaption { font-size: 0.85rem; color: var(--muted); }
 .archive-list a { text-decoration: none; }
 .archive-list a:hover { text-decoration: underline; }
 .archive-note { margin: 0 0 1.5rem; color: var(--muted); font-style: italic; }
+.archive-headline { display: block; margin-top: 0.2rem; color: var(--muted); font-size: 0.95rem; }
+.archive-gap { color: var(--muted); font-style: italic; font-size: 0.95rem; }
 
 /* Pagefind search UI, themed to the broadsheet */
 #search {

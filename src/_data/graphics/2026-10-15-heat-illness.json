@@ -1,0 +1,15 @@
+{
+  "type": "bars",
+  "date": "2026-10-15",
+  "slug": "heat-illness",
+  "title": "Heat-related illness calls and ER visits",
+  "subtitle": "Emergency medical calls and emergency department visits, combined",
+  "source": "Austin Chronicle, from Austin Public Health data",
+  "unit": "",
+  "yMin": 0,
+  "alt": "Bar chart of heat-related illness emergency medical calls and emergency department visits in Austin, from Austin Public Health data reported by the Austin Chronicle: 657 last year and 1,200 this year as of October 10.",
+  "bars": [
+    { "label": "Last year", "value": 657 },
+    { "label": "2026 to Oct. 10", "value": 1200 }
+  ]
+}

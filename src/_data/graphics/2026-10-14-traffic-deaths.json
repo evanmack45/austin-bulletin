@@ -1,0 +1,17 @@
+{
+  "type": "bars",
+  "date": "2026-10-14",
+  "slug": "traffic-deaths",
+  "title": "Traffic deaths in Austin by year",
+  "subtitle": "2026 counts deaths reported through October 10",
+  "source": "KXAN",
+  "unit": "",
+  "yMin": 0,
+  "alt": "Bar chart of traffic fatalities reported in Austin, as tracked by KXAN: a record 122 in 2022, 103 in 2024, 99 in 2025, and 65 in 2026 through October 10.",
+  "bars": [
+    { "label": "2022", "value": 122 },
+    { "label": "2024", "value": 103 },
+    { "label": "2025", "value": 99 },
+    { "label": "2026 to Oct. 10", "value": 65 }
+  ]
+}

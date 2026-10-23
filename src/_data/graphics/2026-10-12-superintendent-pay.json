@@ -1,0 +1,16 @@
+{
+  "type": "bars",
+  "date": "2026-10-12",
+  "slug": "superintendent-pay",
+  "title": "Superintendent base pay under state control",
+  "subtitle": "Austin ISD today against Houston ISD's state-appointed chief",
+  "source": "Austin Current",
+  "unit": "$",
+  "yMin": 0,
+  "alt": "Bar chart of superintendent base salaries, as reported by Austin Current: Austin ISD Superintendent Matias Segura earns $362,000; Houston ISD's state-appointed superintendent Mike Miles was hired in 2023 at $380,000; his base pay has since been raised to $462,000.",
+  "bars": [
+    { "label": "Austin ISD now", "value": 362000 },
+    { "label": "Houston, 2023 hire", "value": 380000 },
+    { "label": "Houston now", "value": 462000 }
+  ]
+}
