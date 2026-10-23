@@ -100,7 +100,9 @@ function assertFirstFold(result, width, height) {
  if (!result.neutral) assert.ok(result.sourceName.trim(), "factual leads need attribution");
  if (width === 390 && !result.warning) assertMobileCover(result, height);
  if (width >= 1400 && !result.warning) {
-  for (const key of ["lead", "action", "source"]) {
+  // A neutral lead omits the source line. Attribution is checked above.
+  const foldKeys = result.neutral ? ["lead", "action"] : ["lead", "action", "source"];
+  for (const key of foldKeys) {
    assert.ok(result[key].bottom <= height, `${key}: ${JSON.stringify(result)}`);
   }
  }

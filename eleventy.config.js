@@ -115,7 +115,13 @@ export default function (eleventyConfig) {
       if (item.url === "/" || !wanted.has(item.url)) continue;
       records[item.url] = { raw: readFileSync(item.inputPath, "utf8"), urls: item.url === "/vote-2026/" ? Object.values(officialLinks ?? {}) : [] };
     }
-    const front = selectFrontpage({ illustrationAssets, curation: bundle, editionDate: latest.date.toISOString().slice(0, 10), editionUrl: latest.url, editionHTML: latest.templateContent, records, today: chicagoDate(), showVoteGuide, previousEdition: previous ? { date: previous.date.toISOString().slice(0, 10), url: previous.url, raw: readFileSync(previous.inputPath, "utf8") } : null });
+    // Eleventy v3 may throw when templateContent is accessed before render.
+    // Fall back to reading the source file; selectFrontpage only uses editionHTML
+    // when the curated lead is missing, so raw source suffices for that fallback.
+    let editionHTML;
+    try { editionHTML = latest.templateContent; }
+    catch { try { editionHTML = readFileSync(latest.inputPath, "utf8"); } catch { editionHTML = ""; } }
+    const front = selectFrontpage({ illustrationAssets, curation: bundle, editionDate: latest.date.toISOString().slice(0, 10), editionUrl: latest.url, editionHTML, records, today: chicagoDate(), showVoteGuide, previousEdition: previous ? { date: previous.date.toISOString().slice(0, 10), url: previous.url, raw: readFileSync(previous.inputPath, "utf8") } : null });
     for (const notice of front.notices) console.warn(`frontpage: ${notice}`);
     return front;
   });
