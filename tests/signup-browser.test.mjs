@@ -13,6 +13,7 @@ const TYPES = {
   ".svg": "image/svg+xml", ".png": "image/png", ".ico": "image/x-icon",
   ".woff2": "font/woff2", ".xml": "application/xml", ".webmanifest": "application/manifest+json"
 };
+const EMBED = "https://the-austin-bulletin.kit.com/e956043af1/index.js";
 
 function startServer() {
   const root = path.resolve("_site");
@@ -41,46 +42,24 @@ async function open(page, origin, route, width) {
   await page.waitForSelector("html[data-signup-ready]");
 }
 
-const KIT = "https://app.kit.com/";
-const SUCCESS = "Almost done — check your inbox to confirm.";
-
-function kitHeaders() {
-  return {
-    "access-control-allow-origin": "*",
-    "access-control-allow-methods": "POST, OPTIONS",
-    "access-control-allow-headers": "content-type, accept"
-  };
-}
-
-async function mockKit(page, status) {
-  const hits = [];
-  await page.setRequestInterception(true);
-  page.on("request", request => {
-    if (!request.url().startsWith(KIT)) {
+function blockKit(page) {
+  const posts = [];
+  return page.setRequestInterception(true).then(() => {
+    page.on("request", request => {
+      const url = request.url();
+      const kit = url.includes("kit.com") || url.includes("convertkit.com");
+      if (kit && request.method() === "POST") posts.push(url);
+      if (kit) {
+        request.abort();
+        return;
+      }
       request.continue();
-      return;
-    }
-    if (request.method() === "OPTIONS") {
-      request.respond({ status: 204, headers: kitHeaders() });
-      return;
-    }
-    hits.push({
-      url: request.url(),
-      method: request.method(),
-      body: request.postData() || "",
-      continued: false
     });
-    request.respond({
-      status,
-      contentType: "application/json",
-      headers: kitHeaders(),
-      body: JSON.stringify({ status: status === 200 ? "success" : "error" })
-    });
+    return posts;
   });
-  return hits;
 }
 
-test("signup posts to Kit through a mock, stays under the lead, and the bar can close", {
+test("the Kit embed sits under the lead and the phone bar can close", {
   skip: !chrome && "an installed Chromium is required for signup layout"
 }, async () => {
   const server = await startServer();
@@ -91,8 +70,7 @@ test("signup posts to Kit through a mock, stays under the lead, and the bar can 
   });
   try {
     await assertDesktopLead(browser, origin);
-    await assertMobileSubmit(browser, origin);
-    await assertMobileFailure(browser, origin);
+    await assertMobileLead(browser, origin);
     await assertMobileBar(browser, origin);
   } finally {
     await browser.close();
@@ -102,86 +80,59 @@ test("signup posts to Kit through a mock, stays under the lead, and the bar can 
 
 async function assertDesktopLead(browser, origin) {
   const page = await browser.newPage();
+  const posts = await blockKit(page);
   await open(page, origin, "/", 1280);
-  const box = await page.evaluate(() => {
-    const form = document.querySelector(".signup--lead");
+  const box = await page.evaluate(embed => {
+    const block = document.querySelector(".signup--lead");
+    const script = block.querySelector("script[data-uid='e956043af1']");
     const action = document.querySelector(".front-lead .front-action");
     return {
       width: document.documentElement.scrollWidth,
-      below: form.getBoundingClientRect().top >= action.getBoundingClientRect().bottom - 1,
-      value: form.querySelector(".signup-value").textContent,
+      below: block.getBoundingClientRect().top >= action.getBoundingClientRect().bottom - 1,
+      value: block.querySelector(".signup-value").textContent,
+      src: script?.src || "",
       barFixed: !!document.querySelector(".signup--bar.is-fixed")
     };
-  });
+  }, EMBED);
   assert.ok(box.width <= 1280, String(box.width));
   assert.equal(box.below, true);
   assert.match(box.value, /in your inbox each morning/);
+  assert.equal(box.src, EMBED);
   assert.equal(box.barFixed, false);
+  assert.equal(posts.length, 0);
   await page.close();
 }
 
-async function submitLead(page, email) {
+async function assertMobileLead(browser, origin) {
+  const page = await browser.newPage();
+  const posts = await blockKit(page);
+  await open(page, origin, "/", 390);
   await page.evaluate(() => {
     document.querySelector(".signup--lead").scrollIntoView({ block: "center" });
   });
   await page.waitForFunction(() => !document.querySelector(".signup--bar.is-fixed"));
-  await page.locator(".signup--lead input[type=email]").fill(email);
-  await page.locator(".signup--lead button[type=submit]").click();
-  await page.waitForFunction(() => {
-    const text = document.querySelector(".signup--lead .signup-status").textContent;
-    return text && !text.startsWith("Sending");
+  const result = await page.evaluate(() => {
+    const block = document.querySelector(".signup--lead");
+    const action = document.querySelector(".front-lead .front-action");
+    const bar = document.querySelector(".signup--bar.is-fixed");
+    const overlap = bar && action
+      ? action.getBoundingClientRect().bottom > bar.getBoundingClientRect().top
+        && action.getBoundingClientRect().top < bar.getBoundingClientRect().bottom
+      : false;
+    return {
+      src: block.querySelector("script[data-uid='e956043af1']")?.getAttribute("src"),
+      path: location.pathname,
+      width: document.documentElement.scrollWidth,
+      overlap,
+      inputs: block.querySelectorAll("input[type=email]").length
+    };
   });
-}
-
-async function assertMobileSubmit(browser, origin) {
-  const page = await browser.newPage();
-  const hits = await mockKit(page, 200);
-  await open(page, origin, "/", 390);
-  await submitLead(page, "reader@example.com");
-  const result = await page.evaluate(() => ({
-    status: document.querySelector(".signup--lead .signup-status").textContent,
-    kept: document.querySelector(".signup--lead input[type=email]").value,
-    path: location.pathname,
-    done: localStorage.getItem("abSignupDone"),
-    width: document.documentElement.scrollWidth,
-    overlap: (() => {
-      const bar = document.querySelector(".signup--bar.is-fixed");
-      const action = document.querySelector(".front-lead .front-action");
-      if (!bar || !action) return false;
-      const a = action.getBoundingClientRect();
-      const b = bar.getBoundingClientRect();
-      return a.bottom > b.top && a.top < b.bottom;
-    })()
-  }));
-  assert.equal(result.status, SUCCESS);
-  assert.equal(result.kept, "reader@example.com");
+  assert.equal(result.src, EMBED);
   assert.equal(result.path, "/");
-  assert.equal(result.done, "1");
-  assert.equal(hits.length, 1);
-  assert.equal(hits[0].continued, false);
-  assert.equal(hits[0].method, "POST");
-  assert.match(hits[0].url, /^https:\/\/app\.kit\.com\/forms\/10083630\/subscriptions/);
-  assert.match(hits[0].body, /email_address=reader%40example\.com/);
+  assert.equal(result.inputs, 0);
   assert.ok(result.width <= 390, String(result.width));
   assert.equal(result.overlap, false);
-  await page.close();
-}
-
-async function assertMobileFailure(browser, origin) {
-  const page = await browser.newPage();
-  const hits = await mockKit(page, 502);
-  await open(page, origin, "/", 390);
-  await page.evaluate(() => localStorage.removeItem("abSignupDone"));
-  await submitLead(page, "signup-retry@example.com");
-  const result = await page.evaluate(() => ({
-    status: document.querySelector(".signup--lead .signup-status").textContent,
-    done: localStorage.getItem("abSignupDone")
-  }));
-  assert.match(result.status, /Please try again/);
-  assert.equal(result.done, null);
-  assert.equal(hits.length, 1);
-  assert.equal(hits[0].continued, false);
-  assert.match(hits[0].body, /email_address=signup-retry%40example\.com/);
+  assert.equal(posts.length, 0);
   await page.close();
 }
 
@@ -189,17 +140,20 @@ async function assertMobileBar(browser, origin) {
   const home = readFileSync("_site/index.html", "utf8");
   const edition = home.match(/href="(\/\d{4}\/\d{2}\/\d{2}\/)/)[1];
   const page = await browser.newPage();
+  const posts = await blockKit(page);
   await open(page, origin, edition, 390);
   await page.evaluate(() => window.scrollTo(0, 700));
   await page.waitForSelector(".signup--bar.is-fixed");
   const shown = await page.evaluate(() => ({
     width: document.documentElement.scrollWidth,
     label: document.querySelector(".signup--bar .signup-dismiss").textContent,
-    value: document.querySelector(".signup--bar .signup-value").textContent
+    value: document.querySelector(".signup--bar .signup-value").textContent,
+    src: document.querySelector(".signup--bar script[data-uid='e956043af1']")?.src || ""
   }));
   assert.ok(shown.width <= 390, String(shown.width));
   assert.equal(shown.label, "Close");
   assert.match(shown.value, /Free\.$/);
+  assert.equal(shown.src, EMBED);
   await page.locator(".signup--bar .signup-dismiss").click();
   await page.waitForSelector(".signup--bar.is-fixed", { hidden: true });
   const dismissed = await page.evaluate(() => localStorage.getItem("abSignupBarDismissed"));
@@ -207,7 +161,8 @@ async function assertMobileBar(browser, origin) {
   await page.reload({ waitUntil: "domcontentloaded" });
   await page.evaluate(() => window.scrollTo(0, 700));
   await page.waitForFunction(() => {
-    return document.querySelector("form[data-signup='bar']")?.hidden === true;
+    return document.querySelector("[data-signup='bar']")?.hidden === true;
   });
+  assert.equal(posts.length, 0);
   await page.close();
 }

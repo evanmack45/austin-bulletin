@@ -8,6 +8,10 @@ const edition = readFileSync(`_site/${editionDate.replaceAll("-", "/")}/index.ht
 const about = readFileSync("_site/about/index.html", "utf8");
 const subscribe = readFileSync("_site/subscribe/index.html", "utf8");
 const VALUE = "What matters in Austin, in your inbox each morning. Free.";
+const EMBED = "<script async data-uid=\"e956043af1\" "
+  + "src=\"https://the-austin-bulletin.kit.com/e956043af1/index.js\"></script>";
+const NOSCRIPT = "<noscript><a href=\"https://the-austin-bulletin.kit.com/e956043af1\" "
+  + "target=\"_blank\" rel=\"noopener\">Subscribe by email</a></noscript>";
 
 function sliceBetween(html, start, end) {
   const from = html.indexOf(start);
@@ -16,34 +20,45 @@ function sliceBetween(html, start, end) {
   return html.slice(from, to);
 }
 
+function count(html, needle) {
+  return html.split(needle).length - 1;
+}
+
 test("the homepage signup sits under the lead story, before the news rail", () => {
   const lead = sliceBetween(home, 'class="front-lead"', 'class="front-news-rail"');
   const actionAt = lead.indexOf('class="front-action"');
   const signupAt = lead.indexOf('class="signup signup--lead"');
   assert.ok(actionAt !== -1 && signupAt > actionAt);
   assert.match(lead, new RegExp(VALUE.replace(/[.]/g, "\\.")));
-  assert.match(lead, /for="signup-lead-email"/);
-  assert.match(lead, /id="signup-lead-email"[^>]*type="email"/);
+  assert.match(lead, /The morning edition/);
   assert.match(lead, /data-signup-inline/);
-  assert.match(lead, /aria-live="polite"/);
-  assert.match(lead, /name="email_address"/);
-  assert.match(lead, /action="https:\/\/app\.kit\.com\/forms\/10083630\/subscriptions"/);
-  assert.match(lead, /data-endpoint="https:\/\/app\.kit\.com\/forms\/10083630\/subscriptions"/);
-  assert.doesNotMatch(lead, /name="source"/);
+  assert.match(lead, /One email each morning, after you confirm/);
+  assert.match(lead, /href="\/feed\.xml"/);
+  assert.equal(count(lead, EMBED), 1);
+  assert.equal(count(lead, NOSCRIPT), 1);
+  assert.doesNotMatch(lead, /action="https:\/\/app\.kit\.com\/forms\/10083630\/subscriptions"/);
   assert.doesNotMatch(home, /No signup|not saved|does not save|not connected/i);
   assert.match(home, /http-equiv="Content-Security-Policy"/);
+  assert.match(home, /script-src[^"]*https:\/\/the-austin-bulletin\.kit\.com/);
+  assert.match(home, /script-src[^"]*https:\/\/f\.convertkit\.com/);
   assert.match(home, /connect-src[^"]*https:\/\/app\.kit\.com/);
   assert.match(home, /form-action[^"]*https:\/\/app\.kit\.com/);
+  assert.match(home, /img-src[^"]*https:\/\/pages\.convertkit\.com/);
+  assert.match(home, /static\.cloudflareinsights\.com\/beacon\.min\.js/);
+  assert.equal(count(home, EMBED), 2);
 });
 
 test("every edition ends with a compact signup and the mobile bar is dismissible", () => {
   assert.match(edition, /class="signup signup--edition"/);
   assert.match(edition, new RegExp(VALUE.replace(/[.]/g, "\\.")));
   assert.ok(edition.indexOf('class="signup signup--edition"') > edition.indexOf("One Good Thing"));
+  assert.equal(count(edition, EMBED), 2);
+  assert.equal(count(edition, NOSCRIPT), 2);
   assert.match(edition, /data-signup="bar"/);
   assert.match(edition, /data-signup-dismiss/);
   assert.match(edition, />Close</);
   assert.match(edition, /src="\/js\/signup\.js"/);
+  assert.doesNotMatch(edition, /action="https:\/\/app\.kit\.com\/forms\/10083630\/subscriptions"/);
   const footer = edition.match(/<footer[\s\S]*?<\/footer>/)?.[0] ?? "";
   assert.doesNotMatch(footer, /newsletter/i);
 });
@@ -51,6 +66,8 @@ test("every edition ends with a compact signup and the mobile bar is dismissible
 test("the subscribe page explains the confirmation email", () => {
   assert.match(subscribe, /Kit emails a confirmation link/);
   assert.match(subscribe, /href="\/feed\.xml"/);
+  assert.match(subscribe, /class="signup signup--page"/);
+  assert.equal(count(subscribe, EMBED), 2);
   assert.match(about, /Kit sends a confirmation email first/);
   assert.match(home, /after you confirm/);
   const pages = `${home}\n${about}\n${subscribe}`;
