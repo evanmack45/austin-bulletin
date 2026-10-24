@@ -446,7 +446,10 @@ a `license` name, and an https `licenseUrl`. The page prints the alt
 text on the image and a visible caption with the credit and license
 links. Leave the field off, or leave a story out of the list, and that
 spot renders the skyline illustration instead of a photograph. The
-October 24, 2026 edition is the worked example. `npm run check` rejects
+October 24, 2026 edition is the worked example: its photographs are
+Wikimedia Commons files under Creative Commons Attribution or
+Attribution-ShareAlike. A photograph from austintexas.gov is not usable;
+the city's legal notice requires written permission to republish. `npm run check` rejects
 a record that is missing credit, alt, a local file, or an https source.
 
 ## Step 5 — Build & publish

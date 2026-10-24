@@ -93,15 +93,20 @@ test("duplicate story keys are rejected", () => {
   assert.ok(problems.some((item) => /repeats place/.test(item)));
 });
 
-test("October 24 rights files name the city release and the Commons license", () => {
+test("October 24 rights files name Commons licenses and no city photograph", () => {
   const rights = readFileSync("src/images/2026-10-24/LICENSE.txt", "utf8");
+  assert.match(rights, /CC BY-SA 2\.0/);
+  assert.match(rights, /CC BY 4\.0/);
   assert.match(rights, /CC BY-SA 4\.0/);
+  assert.match(rights, /That Other Paper/);
+  assert.match(rights, /Larry D\. Moore/);
   assert.match(rights, /Sydney Wisner/);
-  assert.match(rights, /cropped/);
-  assert.match(rights, /City of Austin/);
   assert.match(rights, /Zilker/);
   assert.match(rights, /Esther/);
+  assert.match(rights, /cropped/);
   assert.match(rights, /scaled only, not cropped/);
+  assert.doesNotMatch(rights, /austintexas\.gov/);
+  assert.doesNotMatch(rights, /written permission/);
   const skyline = readFileSync("src/images/fallback/LICENSE.txt", "utf8");
   assert.match(skyline, /Original illustration/);
   assert.match(skyline, /Not a photograph/);
@@ -124,12 +129,16 @@ test("built October 24 pages credit the lead and do not illustrate the library d
   const home = readFileSync("_site/index.html", "utf8");
   const edition = readFileSync("_site/2026/10/24/index.html", "utf8");
   const tree = "/images/2026-10-24/zilker-tree-1200.webp";
-  const release = "austin-energy-crews-complete-60th-annual-zilker-holiday-tree-installation";
   for (const html of [home, edition]) {
     assert.ok(html.includes(tree), "lead tree photograph");
-    assert.ok(html.includes("City of Austin"));
-    assert.ok(html.includes(release));
-    assert.ok(html.includes("An aerial night view of the Zilker Holiday Tree in 2019"));
+    assert.ok(html.includes("That Other Paper"));
+    assert.ok(html.includes("File:Trail_of_Lights_Austin.jpg"));
+    assert.ok(html.includes("creativecommons.org/licenses/by-sa/2.0"));
+    assert.ok(html.includes("People walking at night under the Zilker Holiday Tree"));
+    assert.ok(html.includes("Larry D. Moore"));
+    assert.ok(html.includes("File:Esthers_follies_austin_tx_2014.jpg"));
+    assert.ok(html.includes("creativecommons.org/licenses/by/4.0"));
+    assert.doesNotMatch(html, /src="[^"]*austintexas\.gov/);
   }
   assert.ok(home.includes("class=\"rail-thumb\""));
   assert.ok(edition.includes("class=\"story-thumb\""));
