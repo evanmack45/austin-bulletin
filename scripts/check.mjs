@@ -24,7 +24,10 @@
 // gate. Everything here was checked by hand at least once; none of it should
 // be.
 
+import { existsSync } from "node:fs";
 import { readFile, readdir, access } from "node:fs/promises";
+import yaml from "js-yaml";
+import { editionImageLinks, editionImageProblems } from "./edition-images.mjs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { execFile } from "node:child_process";
@@ -493,6 +496,20 @@ async function main() {
   }
 
   // --- images -------------------------------------------------------------
+  const imageLinks = [];
+  if (fm && /^images\s*:/m.test(fm)) {
+    let data = null;
+    try {
+      data = yaml.load(fm);
+    } catch (err) {
+      bad("images", `could not read images front matter (${err.message})`);
+    }
+    if (data && data.images) {
+      const imageFile = (src) => existsSync(path.join(repoRoot, "src", src.replace(/^\//, "")));
+      for (const problem of editionImageProblems(data.images, imageFile)) bad("images", problem);
+      imageLinks.push(...editionImageLinks(data.images));
+    }
+  }
   const imgs = [...text.matchAll(/!\[([^\]]*)\]\((\/images\/[^)]+)\)/g)];
   for (const [, alt, src] of imgs) {
     if (!alt.trim()) bad("images", `image has empty alt text: ${src}`);
@@ -537,7 +554,10 @@ async function main() {
 
   // --- links --------------------------------------------------------------
   if (!args.noLinks) {
-    const urls = [...new Set([...text.matchAll(/href="(https?:\/\/[^"]+)"/g)].map((m) => m[1]))];
+    const urls = [...new Set([
+      ...[...text.matchAll(/href="(https?:\/\/[^"]+)"/g)].map((m) => m[1]),
+      ...imageLinks,
+    ])];
     process.stderr.write(`check: verifying ${urls.length} links…\n`);
     for (const url of urls) {
       const code = await curl(url);

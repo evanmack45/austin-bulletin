@@ -6,6 +6,7 @@ permalink: "/"
 homeFront: true
 ---
 {% set latest = collections.bulletins | first %}
+{% set editionImages = latest.data.images or {} %}
 {% set editionDate = latest.date | isoDate %}
 {% set front = latest | editedFrontpage(frontpages[editionDate], collections.all, vote2026.links, collections.bulletins[1], vote2026.showNav) %}
 {% set glanceData = glance[editionDate] %}

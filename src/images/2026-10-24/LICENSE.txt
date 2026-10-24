@@ -1,0 +1,43 @@
+Photographs used with the October 24, 2026 edition. Derivatives are
+WebP files made by The Austin Bulletin for this site. Each picture on the
+page has alt text, a visible credit, and a source or license link.
+No City of Austin photograph is in this folder.
+
+zilker-tree-1200.webp (1200×798) and zilker-tree-640.webp (640×426)
+Subject: people under the Zilker Holiday Tree during the Trail of Lights
+in Austin on December 18, 2006. Not the 2026 stringing.
+Photographer: That Other Paper.
+Source: https://commons.wikimedia.org/wiki/File:Trail_of_Lights_Austin.jpg
+Original: https://upload.wikimedia.org/wikipedia/commons/0/07/Trail_of_Lights_Austin.jpg
+Flickr: https://www.flickr.com/photos/90822422@N00/334997500
+License: Creative Commons Attribution-ShareAlike 2.0.
+https://creativecommons.org/licenses/by-sa/2.0/
+Original pixels: 3008×2000. These derivatives are scaled only, not cropped.
+Both are distributed under CC BY-SA 2.0.
+This image license does not change the license of unrelated site content.
+
+esthers-follies-960.webp (960×720) and esthers-follies-480.webp (480×360)
+Subject: Esther's Follies theater on Sixth Street, April 16, 2014.
+Photographer: Larry D. Moore.
+Source: https://commons.wikimedia.org/wiki/File:Esthers_follies_austin_tx_2014.jpg
+Original: https://upload.wikimedia.org/wikipedia/commons/2/26/Esthers_follies_austin_tx_2014.jpg
+License: Creative Commons Attribution 4.0.
+https://creativecommons.org/licenses/by/4.0/
+Original pixels: 1816×1211. Crop left 0, top 0, width 1615, height 1211,
+then scaled. Both derivatives are distributed under CC BY 4.0.
+This image license does not change the license of unrelated site content.
+
+viva-la-vida-960.webp (960×640) and viva-la-vida-480.webp (480×320)
+Subject: Ginger Rodriguez performing at the Viva La Vida Festival in Austin
+on October 30, 2022. Not the October 24, 2026 parade.
+Photographer: Sydney Wisner. Commons artist: Jyng3r.
+Source: https://commons.wikimedia.org/wiki/File:Gingerrodriguezvivalavidafest2022.jpg
+Original: https://upload.wikimedia.org/wikipedia/commons/3/30/Gingerrodriguezvivalavidafest2022.jpg
+License: Creative Commons Attribution-ShareAlike 4.0 International.
+https://creativecommons.org/licenses/by-sa/4.0/
+Original pixels: 3648×5472. Crop left 200, top 1500, width 3248, height 2165,
+then scaled. Both derivatives are distributed under CC BY-SA 4.0.
+This image license does not change the license of unrelated site content.
+
+No usable photograph was found for the Central Library death investigation
+or the Tampere agreement. Those stories use the skyline illustration.

@@ -641,3 +641,66 @@ h2#the-back-page {
 @media (max-width: 650px) {
   .home-front .front-access--photo { margin-top: .8rem; padding-top: .65rem; }
 }
+
+/* Photo-led edition. The skyline illustration stands in when a lead or
+   top story has no photograph. */
+body:has(article.bulletin) main,
+body:has(article.bulletin) .site-header,
+body:has(article.bulletin) .site-footer { max-width: 48rem; }
+body:has(article.bulletin) .wordmark { color: var(--accent); }
+body:has(article.bulletin) .folio { border-bottom: 4px solid var(--accent); }
+.bulletin .lead-photo { margin: 1rem 0 .35rem; }
+.bulletin .lead-photo img {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  max-height: 32rem;
+  object-fit: cover;
+  object-position: center 42%;
+  border: 1px solid var(--ink);
+  background: #14312a;
+}
+.bulletin .lead-photo figcaption { margin-top: .35rem; font-size: .82rem; line-height: 1.4; }
+.bulletin .lead-photo--fallback img {
+  object-fit: contain;
+  aspect-ratio: 16 / 9;
+  max-height: 16rem;
+  background: #14312a;
+}
+.bulletin h2::before {
+  content: "";
+  width: .55rem;
+  height: .55rem;
+  background: var(--accent);
+  flex: none;
+}
+.bulletin h2.glance-title::before { content: none; }
+.bulletin h3:first-of-type { font-size: clamp(2.15rem, 6vw, 2.85rem); }
+.bulletin .river h4 { border-top: 3px solid var(--accent); clear: both; }
+.bulletin .river h5,
+.bulletin .river .brief-slug { clear: both; }
+.bulletin .story-thumb { margin: .35rem 0 .8rem; }
+.bulletin .story-thumb img {
+  width: 100%;
+  height: 11rem;
+  object-fit: cover;
+  object-position: center top;
+  border: 1px solid var(--ink);
+  background: #14312a;
+}
+.bulletin .story-thumb figcaption { font-size: .75rem; line-height: 1.35; margin-top: .25rem; }
+.bulletin .story-thumb--fallback { border-left: 4px solid var(--accent); }
+.bulletin .story-thumb--fallback img { object-fit: contain; height: 7.5rem; background: #14312a; }
+.bulletin .beat-money-bills { border-left-color: #2f6b45; }
+.bulletin .beat-public-safety-courts { border-left-color: #7a1f1f; }
+.bulletin .beat-growth-infrastructure { border-left-color: #2a5570; }
+.bulletin .beat-city-hall-county { border-left-color: #8a6a12; }
+.bulletin .beat-business-street-life { border-left-color: #c44e2b; }
+@media (min-width: 40rem) {
+  .bulletin .story-thumb { float: right; width: 13.5rem; margin: .15rem 0 .6rem 1rem; }
+  .bulletin .story-thumb img { height: 9rem; }
+  .bulletin .story-thumb--fallback img { height: 7rem; }
+}
+@media (max-width: 40rem) {
+  .bulletin .lead-photo { width: calc(100% + 2.5rem); margin-left: -1.25rem; margin-right: -1.25rem; }
+  .bulletin .lead-photo figcaption { padding: 0 1.25rem; }
+}

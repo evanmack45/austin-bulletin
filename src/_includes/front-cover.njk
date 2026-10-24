@@ -1,9 +1,9 @@
 <section class="front-lead" aria-labelledby="front-lead-title">
   <p class="front-kicker">{% if front.lead.neutral %}The latest available briefing{% else %}The cover story{% endif %}</p>
-  <h1 id="front-lead-title">{{ front.lead.title | escape }}</h1>
-  {% if front.lead.illustration %}{% set art = front.lead.illustration %}
+  {% if front.lead.illustration and not editionImages.lead %}{% set art = front.lead.illustration %}
   <figure class="cover-art"><img src="{{ art.src | escape }}" alt="{{ art.alt | escape }}" width="{{ art.width }}" height="{{ art.height }}" fetchpriority="high"><figcaption>Editorial illustration · {{ art.credit | escape }}</figcaption></figure>
-  {% else %}<div class="cover-motif" aria-hidden="true"><span>Austin,<br>up close.</span><i>↗</i></div>{% endif %}
+  {% else %}{{ editionImages | leadMarkup | safe }}{% endif %}
+  <h1 id="front-lead-title">{{ front.lead.title | escape }}</h1>
   <p class="front-deck">{{ front.lead.summary | escape }}</p>
   {% if front.lead.detail %}<p class="front-detail">{{ front.lead.detail | escape }}</p>{% endif %}
   <div class="cover-reading">{% set card = front.lead %}<div class="cover-attribution">{% if not card.neutral %}<span>Reported by</span>{% endif %}{% include "front-sources.njk" %}</div>
