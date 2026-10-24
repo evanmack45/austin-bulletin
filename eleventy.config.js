@@ -86,6 +86,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("briefingHeadline", (inputPath) => briefingHeadline(readFileSync(inputPath, "utf8")));
   eleventyConfig.addFilter("editionGap", editionGap);
   eleventyConfig.addPassthroughCopy("src/css");
+  eleventyConfig.addPassthroughCopy("src/js");
   eleventyConfig.addPassthroughCopy("src/fonts");
   eleventyConfig.addPassthroughCopy("src/images");
   // Site icons, served from the root where browsers look for them.

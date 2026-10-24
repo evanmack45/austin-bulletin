@@ -704,3 +704,51 @@ body:has(article.bulletin) .folio { border-bottom: 4px solid var(--accent); }
   .bulletin .lead-photo { width: calc(100% + 2.5rem); margin-left: -1.25rem; margin-right: -1.25rem; }
   .bulletin .lead-photo figcaption { padding: 0 1.25rem; }
 }
+
+/* Email signup. The mobile bar is hidden until script marks it fixed,
+   so it never covers the lead button without JavaScript. */
+.signup { margin: 0; }
+.signup-bar-top { display: block; }
+.signup-value { margin: 0 0 .65rem; font-size: 1.05rem; line-height: 1.45; }
+.signup-row { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+.signup-label {
+  font-size: .78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+}
+.signup input[type="email"] {
+  flex: 1 1 12rem; min-width: 0; width: 100%; min-height: 44px; padding: .5rem .65rem;
+  border: 1px solid var(--ink); border-radius: 0; background: var(--bg); color: var(--ink);
+  font: inherit; font-size: 16px; line-height: 1.3;
+}
+.signup-submit, .signup-dismiss {
+  min-height: 44px; padding: .5rem .9rem; border-radius: 0; font: inherit; font-size: 16px;
+  font-weight: 700; cursor: pointer;
+}
+.signup-submit { background: var(--ink); color: var(--bg); border: 1px solid var(--ink); }
+.signup-submit:disabled { opacity: .72; }
+.signup-note, .signup-status { margin: .55rem 0 0; font-size: .88rem; line-height: 1.45; }
+.signup-status:empty { margin: 0; }
+.signup-note a { text-underline-offset: .15em; }
+.signup :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.signup--edition, .signup--page { margin-top: .5rem; }
+.signup--bar { display: none; }
+@media (max-width: 760px) {
+  .signup--lead .signup-row, .signup--edition .signup-row, .signup--page .signup-row {
+    display: grid; grid-template-columns: 1fr;
+  }
+  .signup--bar.is-fixed {
+    display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; margin: 0;
+    padding: .65rem .75rem calc(.65rem + env(safe-area-inset-bottom));
+    background: var(--ink); color: var(--bg); border-top: 3px solid var(--bg);
+  }
+  body.signup-bar-stuck { padding-bottom: calc(11rem + env(safe-area-inset-bottom)); }
+  .signup--bar .signup-bar-top { display: flex; align-items: flex-start; gap: .5rem; margin-bottom: .5rem; }
+  .signup--bar .signup-value { flex: 1; margin: 0; font-size: .95rem; }
+  .signup--bar .signup-row { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: .5rem; }
+  .signup--bar .signup-label, .signup--bar .signup-note, .signup--bar .signup-status { color: var(--bg); }
+  .signup--bar input[type="email"] { background: var(--bg); color: var(--ink); border-color: var(--bg); }
+  .signup--bar .signup-submit { background: var(--bg); color: var(--ink); border-color: var(--bg); }
+  .signup--bar .signup-dismiss {
+    background: transparent; color: var(--bg); border: 1px solid var(--bg); flex: 0 0 auto;
+  }
+  .signup--bar :focus-visible { outline-color: var(--bg); }
+}

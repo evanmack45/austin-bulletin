@@ -33,6 +33,10 @@ A request to change one goes above, with the reason.
 
 ## Entries
 
+### 2026-10-24
+
+Email signup is under the homepage lead, at the end of each edition, and on a dismissible mobile bar. No list exists in the repo: GitHub Pages cannot store a POST, and there is no Buttondown, Mailchimp, or other account. The forms say an address is not saved. Set `NEWSLETTER_ENDPOINT` (optional `NEWSLETTER_EMAIL_FIELD`) and the deploy build will post there. That account is Evan's step. The August 23 "no email edition" note stays history; this request asked for the signup.
+
 ### 2026-10-21 (afternoon)
 
 The County Clerk posts official daily early-voting totals as a PDF, linked from votetravis.gov's current-election page (`G26-Daily-Totals-MMDDYYYY.pdf`, per-site counts, mail ballots, % of 948,575 registered). A day after the fact, search still indexes no day-two count and KXAN's tracker had not moved, so the County file is the first answer. It settles the October 20 open question.

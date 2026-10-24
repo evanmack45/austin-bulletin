@@ -1,0 +1,19 @@
+---
+layout: layout.njk
+title: "Email the morning edition"
+description: "The morning edition by email or RSS. Free."
+permalink: "/subscribe/"
+---
+
+<h1>Email the morning edition</h1>
+
+{% if newsletter.configured %}
+<p>The form sends your address to the morning-edition list. One email each morning.</p>
+{% else %}
+<p>Mail delivery is not connected yet. An address typed into a signup form on this site is not saved and is not sent anywhere. Nothing submitted here is stored.</p>
+{% endif %}
+
+<p>Follow each morning by RSS: <a href="/feed.xml">theaustinbulletin.com/feed.xml</a>.</p>
+
+{% set signupId = "page" %}
+{% include "signup.njk" %}

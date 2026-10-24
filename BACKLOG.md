@@ -36,9 +36,12 @@ Any session may add a line. Evan may add or strike lines.
 10. Social posting scripts: when Bluesky and X publication credentials
     exist, post each edition with a link. Blocked on Evan. Measured by
     referrals.
-11. `/follow/` page: feed links and the About "Follow" section already
+11. Connect a mail list: the signup UI is in the templates, and it stores
+    nothing until `NEWSLETTER_ENDPOINT` is set. Blocked on an account Evan
+    creates. Measured by addresses saved.
+12. `/follow/` page: feed links and the About "Follow" section already
     exist (2026-10-11). A dedicated page waits for social accounts.
-12. Heartbeat fallback: consider moving the daily pipeline to GitHub Actions
+13. Heartbeat fallback: consider moving the daily pipeline to GitHub Actions
     as a backup if cloud routines miss two mornings in a month.
 
 ## Known defects (fix when touched)

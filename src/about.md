@@ -92,3 +92,12 @@ For Austin City Council agendas, votes and source records, visit
 
 Subscribe by RSS: add <https://theaustinbulletin.com/feed.xml> to any feed
 reader and each morning's bulletin will arrive on its own.
+
+{% if newsletter.configured %}
+The front page and the end of each edition also take an email address for
+that same morning edition.
+{% else %}
+The front page and the end of each edition also show an email form.
+Mail delivery is not connected yet, so an address entered there is not
+saved. RSS is the follow path that works today.
+{% endif %}

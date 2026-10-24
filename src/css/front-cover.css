@@ -75,3 +75,17 @@
  .home-front .lead-photo figcaption{padding:0 20px}
  .home-front .lead-photo img{height:240px}
 }
+.home-front .signup--lead{margin-top:18px;padding:16px 16px 14px;background:#16332b;color:#f3efe5}
+.home-front .signup--lead h2{color:#f3efe5;font-size:26px;line-height:1.1;margin:0 0 8px}
+.home-front .edited-front .signup--lead p{margin:0 0 8px;color:#f3efe5}
+.home-front .signup--lead .signup-value{font-size:17px;line-height:1.4}
+.home-front .signup--lead .signup-note,.home-front .signup--lead .signup-status{font-size:13px;line-height:1.45}
+.home-front .signup--lead a{color:#f3efe5}
+.home-front .signup--lead .signup-label{color:#f3efe5}
+.home-front .signup--lead input[type="email"]{background:#f3efe5;color:#16332b;border:0}
+.home-front .signup--lead .signup-submit{background:#c44e2b;color:#fff;border:0}
+.home-front .signup--lead :focus-visible{outline-color:#f3efe5}
+@media(min-width:761px){
+ .home-front .signup--lead .signup-row{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center}
+ .home-front .signup--lead .signup-label{grid-column:1/-1}
+}

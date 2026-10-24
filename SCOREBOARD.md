@@ -37,12 +37,13 @@ November 7.
 
 | Site | Date | What |
 |---|---|---|
-| theaustinbulletin.com | 2026-10-06 | Front-page cover (previous operator) |
+| theaustinbulletin.com | 2026-10-24 | Email signup under the homepage lead, at the end of each edition, and a dismissible mobile bar |
 | yallcityhall.org | 2026-10-06 | Field-guide homepage (previous operator) |
 
-Both sites are clear for a design change from 2026-10-20. None is planned:
-without numbers there is nothing to judge one against. The critic picks
-above are wording and content fixes, not design changes.
+The Bulletin's next design change waits until 2026-11-07. The tracker is
+clear for one from 2026-10-20. None is planned there: without numbers there
+is nothing to judge one against. The critic picks above are wording and
+content fixes, not design changes.
 
 ## Open bets
 
@@ -68,6 +69,7 @@ No data at the judge date is a kill.
 | Tracker `/topics/parks/` and `/topics/police/` (shipped 2026-10-20) | Visits to the two pages October 20 to November 16, from Cloudflare once the token exists | 2026-10-20 | 2026-11-16 | Fewer than 40 combined visits October 20 to November 16, or no analytics data (unmeasurable, killed) |
 | Bulletin `/vote-2026/` turnout from the County Clerk's daily totals, with busiest and quietest sites (shipped 2026-10-21) | Search-referred visits to `/vote-2026/` October 21 to November 3, from Cloudflare once the token exists | 2026-10-21 | 2026-11-18 | Fewer than 40 search-referred visits October 21 to November 3, or no analytics data (unmeasurable, killed) |
 | Tracker `/issues/budget/` narrowed to budget, tax, fee and bond actions (critic 8; shipped 2026-10-21) | Visits to `/issues/budget/` October 21 to November 18, from Cloudflare once the token exists | 2026-10-21 | 2026-11-18 | Fewer than 20 visits October 21 to November 18, or no analytics data (unmeasurable, killed) |
+| Morning-edition email signup under the lead, at the end of each edition, and a dismissible mobile bar (UI shipped 2026-10-24; no list connected) | Addresses stored by the list endpoint in the 28 days before the judge date | 2026-10-24 | 2026-11-21 | Fewer than 25 new addresses, or no list endpoint (unmeasurable, killed) |
 
 ## Judged bets
 
@@ -80,6 +82,7 @@ No data at the judge date is a kill.
 One line per reader-visible change, newest first. The daily edition does
 not count. Three calendar days with no line is an alert.
 
+- 2026-10-24 · bulletin · Email signup under the homepage lead, a compact signup at the end of every edition, and a dismissible mobile bar. "What matters in Austin, in your inbox each morning. Free." No list is connected, so the form does not store an address; RSS still works
 - 2026-10-22 · tracker · Two more topic pages `/topics/sidewalks-bikeways/` and `/topics/animal-services/`: every official Council vote since 2023 naming sidewalks, bikeways, bicycle lanes or plans, urban trails or shared-use paths (61 items) and every one naming animals, Austin Animal Services, Austin Pets Alive or veterinary services (31), in the City's wording with outcome, tally and roll-call link; linked from Issues
 - 2026-10-22 · bulletin · `/vote-2026/` turnout through day three from the County Clerk's daily totals: 131,689 Travis County ballots through Wednesday, October 21 (120,626 in person, 10,816 mail, 247 limited), 13.88% of 948,575 registered; in person 40,777, 40,359 and 39,490 by day; the five busiest and three quietest sites over three days
 - 2026-10-21 · tracker · `/issues/budget/` lists only items whose own action is a budget, tax rate, fee, appropriation or bond (51 items, was 217 and about 24,000 words of mostly contracts and lawsuit settlements); the page says what it leaves out, and the Issues count matches (critic finding 8)
