@@ -92,3 +92,7 @@ For Austin City Council agendas, votes and source records, visit
 
 Subscribe by RSS: add <https://theaustinbulletin.com/feed.xml> to any feed
 reader and each morning's bulletin will arrive on its own.
+
+The front page and the end of each edition also take an email address for
+that same morning edition. Kit sends a confirmation email first. The
+briefing starts after you confirm.

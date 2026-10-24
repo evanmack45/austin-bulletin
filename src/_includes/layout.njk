@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="{{ newsletter.csp | escape }}">
   {%- set latestEditionMeta = collections.bulletins | first %}{% if latestEditionMeta %}
   <meta name="edition-date" content="{{ latestEditionMeta.date | isoDate }}">{% endif %}
 {% if not homeFront %}  <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -63,6 +64,8 @@
   <main>
     {{ content | safe }}
   </main>
+  {% set signupId = "bar" %}
+  {% include "signup.njk" %}
   <footer class="site-footer">
     <p>© The Austin Bulletin · Published by Evan McMillan, Austin, Texas · <a href="/about/">About this site</a> · <a href="/corrections/">Corrections</a> · <a href="/feed.xml">RSS</a></p>
     <p>Council records: <a href="https://yallcityhall.org/">Y’all, City Hall</a></p>
@@ -105,5 +108,6 @@
       }
     }());
   </script>
+  <script type="module" src="/js/signup.js"></script>
 </body>
 </html>

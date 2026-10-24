@@ -1,0 +1,16 @@
+{# signupId: lead | edition | page | bar. newsletter global data picks the endpoint. #}
+{% set signupNote = newsletter.barNote if signupId == "bar" else newsletter.note %}
+<form class="signup signup--{{ signupId }}" data-signup="{{ signupId }}"{% if signupId != "bar" %} data-signup-inline{% endif %}{% if signupId == "bar" %} aria-label="Email the morning edition"{% else %} aria-labelledby="signup-{{ signupId }}-title"{% endif %} method="{% if newsletter.configured %}post{% else %}get{% endif %}" action="{{ newsletter.action | escape }}" data-endpoint="{% if newsletter.configured %}{{ newsletter.action | escape }}{% endif %}">
+  {% if signupId != "bar" %}<h2 id="signup-{{ signupId }}-title">The morning edition</h2>{% endif %}
+  <div class="signup-bar-top">
+    <p class="signup-value" id="signup-{{ signupId }}-value">{{ newsletter.valueLine | escape }}</p>
+    {% if signupId == "bar" %}<button type="button" class="signup-dismiss" data-signup-dismiss>Close</button>{% endif %}
+  </div>
+  <div class="signup-row">
+    <label class="signup-label" for="signup-{{ signupId }}-email">Email</label>
+    <input id="signup-{{ signupId }}-email" type="email" inputmode="email" autocomplete="email" autocapitalize="none" autocorrect="off" spellcheck="false" maxlength="254" required{% if newsletter.configured %} name="{{ newsletter.emailField | escape }}"{% endif %} aria-describedby="signup-{{ signupId }}-value signup-{{ signupId }}-note signup-{{ signupId }}-status">
+    <button class="signup-submit" type="submit">Subscribe</button>
+  </div>
+  <p class="signup-note" id="signup-{{ signupId }}-note">{{ signupNote | escape }}{% if signupId != "bar" %} <a href="/feed.xml">Or follow by RSS</a>.{% endif %}</p>
+  <p class="signup-status" id="signup-{{ signupId }}-status" data-signup-status role="status" aria-live="polite"></p>
+</form>

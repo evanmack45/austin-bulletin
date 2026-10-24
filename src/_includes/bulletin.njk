@@ -10,3 +10,5 @@ layout: layout.njk
   {% include "glance.njk" %}
   {{ content | withStoryPhotos(images) | safe }}
 </article>
+{% set signupId = "edition" %}
+{% include "signup.njk" %}
