@@ -1,5 +1,6 @@
 // Edition photographs declared in bulletin front matter.
-// A lead or City Desk story with no record renders the skyline illustration.
+// A lead photo renders only when its key is the lead story's heading slug.
+// A story with no record renders the skyline illustration.
 
 const FALLBACK_SRC = "/images/fallback/austin-skyline.svg";
 const FALLBACK_ALT =
@@ -62,6 +63,7 @@ export function photoProblems(photo, label) {
     requirePlain(photo, label, field, problems);
   }
   for (const field of ["source", "licenseUrl"]) requireHttps(photo, label, field, problems);
+  if (photo.key != null && !storyKey(photo.key)) problems.push(`${label} key is invalid`);
   return problems;
 }
 
@@ -186,17 +188,44 @@ function checked(images, exists) {
   return read;
 }
 
-export function leadMarkup(images, exists) {
-  const read = checked(images, exists);
-  if (!read.lead) {
+function renderLead(photo) {
+  if (!photo) {
     return fallbackMarkup({ className: "lead-photo lead-photo--fallback", loading: "eager" });
   }
-  return photoMarkup(read.lead, {
+  return photoMarkup(photo, {
     className: "lead-photo",
     loading: "eager",
     fetchPriority: "high",
     sizes: "(max-width: 760px) calc(100vw - 40px), 760px",
   });
+}
+
+// An unkeyed lead belongs only to a one-story headline. A keyed lead or a
+// story record is used only when the key is that story.
+export function leadPhotoFor(images, key, exists) {
+  const read = checked(images, exists);
+  if (storyKey(key)) {
+    if (read.lead?.key === key) return read.lead;
+    return read.byKey[key] ?? null;
+  }
+  if (read.lead && read.lead.key == null) return read.lead;
+  return null;
+}
+
+export function hasStoryPhoto(images, key, exists = () => true) {
+  try {
+    return leadPhotoFor(images, key, exists) != null;
+  } catch {
+    return false;
+  }
+}
+
+export function leadForStory(images, key, exists) {
+  return renderLead(leadPhotoFor(images, key, exists));
+}
+
+export function leadMarkup(images, exists) {
+  return leadForStory(images, "", exists);
 }
 
 export function storyThumb(images, url, exists) {

@@ -1,8 +1,10 @@
 <section class="front-lead" aria-labelledby="front-lead-title">
   <p class="front-kicker">{% if front.lead.neutral %}The latest available briefing{% else %}The cover story{% endif %}</p>
-  {% if front.lead.illustration and not editionImages.lead %}{% set art = front.lead.illustration %}
+  {% if front.lead.storyKey and (editionImages | hasStoryPhoto(front.lead.storyKey)) %}
+  {{ editionImages | leadForStory(front.lead.storyKey) | safe }}
+  {% elif front.lead.illustration %}{% set art = front.lead.illustration %}
   <figure class="cover-art"><img src="{{ art.src | escape }}" alt="{{ art.alt | escape }}" width="{{ art.width }}" height="{{ art.height }}" fetchpriority="high"><figcaption>Editorial illustration · {{ art.credit | escape }}</figcaption></figure>
-  {% else %}{{ editionImages | leadMarkup | safe }}{% endif %}
+  {% else %}{{ editionImages | leadForStory(front.lead.storyKey) | safe }}{% endif %}
   <h1 id="front-lead-title">{{ front.lead.title | escape }}</h1>
   <p class="front-deck">{{ front.lead.summary | escape }}</p>
   {% if front.lead.detail %}<p class="front-detail">{{ front.lead.detail | escape }}</p>{% endif %}

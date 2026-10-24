@@ -12,5 +12,8 @@ test("cover keeps native source actions and its styles out of dated editions", (
  const edition=html.match(/data-edition="([0-9-]+)"/)?.[1];
  assert.ok(edition);
  const archive=readFileSync(`_site/${edition.replaceAll("-","/")}/index.html`,"utf8");
- assert.ok(!archive.includes("/css/front-cover.css"),"archive keeps its own presentation");
+ assert.match(archive, /class="wordmark"/);
+ assert.match(archive, /class="site-menu"/);
+ assert.match(archive, /class="edition-lead-title"/);
+ assert.doesNotMatch(archive, /Unifraktur|class="folio-nav"|class="edition-head"|Vol\. I/);
 });

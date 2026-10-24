@@ -437,18 +437,21 @@ without an image and say so in the log.
 ### Photographs in the edition front matter
 
 A verified photograph can ride in the bulletin's front matter so the
-homepage and the edition share one record. `images.lead` is the large
-picture. `images.stories` is a list of the same fields plus `key`, the
-heading slug of a City Desk lead (`#####`). Each record needs `src` and
+homepage and the edition share one record. `images.stories` is a list of
+records plus `key`, the heading slug of one City Desk lead (`#####`).
+The homepage lead is that one story, not a briefing headline that lists
+several. Its photograph is the record whose key is that story. An
+optional `images.lead` uses the same fields plus `key`, and only renders
+when that key is the lead story. Each record needs `src` and
 `smallSrc` under `/images/` (webp), pixel `width`, `height`, and
 `smallWidth`, plus plain `alt`, `caption`, `credit`, an https `source`,
 a `license` name, and an https `licenseUrl`. The page prints the alt
 text on the image and a visible caption with the credit and license
-links. Leave the field off, or leave a story out of the list, and that
-spot renders the skyline illustration instead of a photograph. The
-October 24, 2026 edition is the worked example: its photographs are
-Wikimedia Commons files under Creative Commons Attribution or
-Attribution-ShareAlike. A photograph from austintexas.gov is not usable;
+links. Leave a story out of the list, and that spot renders the skyline
+illustration instead of a photograph. The October 24, 2026 edition is
+the worked example: the parade photograph belongs to the Viva La Vida
+story, and the tree photograph belongs to the holiday-tree story. A
+photograph from austintexas.gov is not usable;
 the city's legal notice requires written permission to republish. `npm run check` rejects
 a record that is missing credit, alt, a local file, or an https source.
 
