@@ -11,7 +11,6 @@
     <input id="signup-{{ signupId }}-email" type="email" inputmode="email" autocomplete="email" autocapitalize="none" autocorrect="off" spellcheck="false" maxlength="254" required{% if newsletter.configured %} name="{{ newsletter.emailField | escape }}"{% endif %} aria-describedby="signup-{{ signupId }}-value signup-{{ signupId }}-note signup-{{ signupId }}-status">
     <button class="signup-submit" type="submit">Subscribe</button>
   </div>
-  <p class="signup-note" id="signup-{{ signupId }}-note">{{ signupNote | escape }}{% if not newsletter.configured and signupId != "bar" %} <a href="/feed.xml">Follow by RSS</a>.{% endif %}</p>
+  <p class="signup-note" id="signup-{{ signupId }}-note">{{ signupNote | escape }}{% if signupId != "bar" %} <a href="/feed.xml">Or follow by RSS</a>.{% endif %}</p>
   <p class="signup-status" id="signup-{{ signupId }}-status" data-signup-status role="status" aria-live="polite"></p>
-  {% if newsletter.configured %}<input type="hidden" name="source" value="{{ signupId }}">{% endif %}
 </form>

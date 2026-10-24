@@ -1,18 +1,20 @@
-// Build-time slot for a mail-list endpoint. No provider is wired in this
-// repo. Set NEWSLETTER_ENDPOINT to a URL that accepts POST field `email`
-// (or NEWSLETTER_EMAIL_FIELD) and returns 2xx only after the address is saved.
-// Leave it unset and the forms stay honest: nothing is stored.
-import { CONFIGURED_NOTE, resolveSignup, safeFieldName, UNCONFIGURED_BAR_NOTE,
-  UNCONFIGURED_NOTE, VALUE_LINE } from "../js/signup.js";
+// Kit's public form is the default list. NEWSLETTER_ENDPOINT overrides the
+// URL. NEWSLETTER_EMAIL_FIELD overrides the field name (Kit uses email_address).
+// A blank secret in deploy keeps this default. Double opt-in stays on at Kit.
+import { CONFIGURED_NOTE, contentSecurityPolicy, KIT_ENDPOINT, KIT_FIELD,
+  resolveSignup, safeFieldName, UNAVAILABLE_NOTE, VALUE_LINE } from "../js/signup.js";
 
-const plan = resolveSignup(process.env.NEWSLETTER_ENDPOINT || "");
+const override = String(process.env.NEWSLETTER_ENDPOINT || "").trim();
+const plan = resolveSignup(override || KIT_ENDPOINT);
+const fieldSource = process.env.NEWSLETTER_EMAIL_FIELD || KIT_FIELD;
 
 export default {
   configured: plan.configured,
   action: plan.action,
   mode: plan.mode,
-  emailField: safeFieldName(process.env.NEWSLETTER_EMAIL_FIELD),
+  emailField: safeFieldName(fieldSource),
   valueLine: VALUE_LINE,
-  note: plan.configured ? CONFIGURED_NOTE : UNCONFIGURED_NOTE,
-  barNote: plan.configured ? CONFIGURED_NOTE : UNCONFIGURED_BAR_NOTE
+  note: plan.configured ? CONFIGURED_NOTE : UNAVAILABLE_NOTE,
+  barNote: plan.configured ? CONFIGURED_NOTE : UNAVAILABLE_NOTE,
+  csp: contentSecurityPolicy(plan.action)
 };

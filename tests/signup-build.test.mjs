@@ -26,10 +26,14 @@ test("the homepage signup sits under the lead story, before the news rail", () =
   assert.match(lead, /id="signup-lead-email"[^>]*type="email"/);
   assert.match(lead, /data-signup-inline/);
   assert.match(lead, /aria-live="polite"/);
-  assert.doesNotMatch(lead, /name="email"/);
-  assert.match(home, /data-endpoint=""/);
-  assert.match(home, /action="\/subscribe\/"/);
-  assert.doesNotMatch(home, /No signup/);
+  assert.match(lead, /name="email_address"/);
+  assert.match(lead, /action="https:\/\/app\.kit\.com\/forms\/10083630\/subscriptions"/);
+  assert.match(lead, /data-endpoint="https:\/\/app\.kit\.com\/forms\/10083630\/subscriptions"/);
+  assert.doesNotMatch(lead, /name="source"/);
+  assert.doesNotMatch(home, /No signup|not saved|does not save|not connected/i);
+  assert.match(home, /http-equiv="Content-Security-Policy"/);
+  assert.match(home, /connect-src[^"]*https:\/\/app\.kit\.com/);
+  assert.match(home, /form-action[^"]*https:\/\/app\.kit\.com/);
 });
 
 test("every edition ends with a compact signup and the mobile bar is dismissible", () => {
@@ -44,11 +48,11 @@ test("every edition ends with a compact signup and the mobile bar is dismissible
   assert.doesNotMatch(footer, /newsletter/i);
 });
 
-test("the subscribe page says an unconnected form stores nothing", () => {
-  assert.match(subscribe, /not saved and is not sent anywhere/);
-  assert.match(subscribe, /Nothing submitted here is stored/);
+test("the subscribe page explains the confirmation email", () => {
+  assert.match(subscribe, /Kit emails a confirmation link/);
   assert.match(subscribe, /href="\/feed\.xml"/);
-  assert.match(about, /Mail delivery is not connected yet/);
-  assert.match(home, /does not save your address/);
-  assert.doesNotMatch(home, /You're in/);
+  assert.match(about, /Kit sends a confirmation email first/);
+  assert.match(home, /after you confirm/);
+  const pages = `${home}\n${about}\n${subscribe}`;
+  assert.doesNotMatch(pages, /not saved|No signup|You're in|not connected/i);
 });

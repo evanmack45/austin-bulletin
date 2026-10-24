@@ -36,9 +36,10 @@ Any session may add a line. Evan may add or strike lines.
 10. Social posting scripts: when Bluesky and X publication credentials
     exist, post each edition with a link. Blocked on Evan. Measured by
     referrals.
-11. Connect a mail list: the signup UI is in the templates, and it stores
-    nothing until `NEWSLETTER_ENDPOINT` is set. Blocked on an account Evan
-    creates. Measured by addresses saved.
+11. Mail list: the signup posts to Kit's public form
+    (`https://app.kit.com/forms/10083630/subscriptions`, field
+    `email_address`, double opt-in). `NEWSLETTER_ENDPOINT` still overrides
+    that URL. Measured by confirmed addresses.
 12. `/follow/` page: feed links and the About "Follow" section already
     exist (2026-10-11). A dedicated page waits for social accounts.
 13. Heartbeat fallback: consider moving the daily pipeline to GitHub Actions

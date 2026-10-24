@@ -35,7 +35,7 @@ A request to change one goes above, with the reason.
 
 ### 2026-10-24
 
-Email signup is under the homepage lead, at the end of each edition, and on a dismissible mobile bar. No list exists in the repo: GitHub Pages cannot store a POST, and there is no Buttondown, Mailchimp, or other account. The forms say an address is not saved. Set `NEWSLETTER_ENDPOINT` (optional `NEWSLETTER_EMAIL_FIELD`) and the deploy build will post there. That account is Evan's step. The August 23 "no email edition" note stays history; this request asked for the signup.
+Email signup is under the homepage lead, at the end of each edition, and on a dismissible mobile bar. The default post is Kit's public form at `https://app.kit.com/forms/10083630/subscriptions` with field `email_address`. Double opt-in is on, so the page asks the reader to confirm. `NEWSLETTER_ENDPOINT` still overrides that URL, and `NEWSLETTER_EMAIL_FIELD` overrides the field name. A blank deploy secret keeps the Kit default. The August 23 "no email edition" note stays history; this request asked for the signup.
 
 ### 2026-10-21 (afternoon)
 

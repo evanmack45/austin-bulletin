@@ -41,15 +41,46 @@ async function open(page, origin, route, width) {
   await page.waitForSelector("html[data-signup-ready]");
 }
 
-function watchEmail(page, leaks) {
-  page.on("request", request => {
-    const blob = `${request.url()} ${request.postData() || ""}`;
-    const hit = blob.includes("reader@example.com") || blob.includes("reader%40example.com");
-    if (hit) leaks.push(blob);
-  });
+const KIT = "https://app.kit.com/";
+const SUCCESS = "Almost done — check your inbox to confirm.";
+
+function kitHeaders() {
+  return {
+    "access-control-allow-origin": "*",
+    "access-control-allow-methods": "POST, OPTIONS",
+    "access-control-allow-headers": "content-type, accept"
+  };
 }
 
-test("signup submits nothing, stays under the lead, and the mobile bar can close", {
+async function mockKit(page, status) {
+  const hits = [];
+  await page.setRequestInterception(true);
+  page.on("request", request => {
+    if (!request.url().startsWith(KIT)) {
+      request.continue();
+      return;
+    }
+    if (request.method() === "OPTIONS") {
+      request.respond({ status: 204, headers: kitHeaders() });
+      return;
+    }
+    hits.push({
+      url: request.url(),
+      method: request.method(),
+      body: request.postData() || "",
+      continued: false
+    });
+    request.respond({
+      status,
+      contentType: "application/json",
+      headers: kitHeaders(),
+      body: JSON.stringify({ status: status === 200 ? "success" : "error" })
+    });
+  });
+  return hits;
+}
+
+test("signup posts to Kit through a mock, stays under the lead, and the bar can close", {
   skip: !chrome && "an installed Chromium is required for signup layout"
 }, async () => {
   const server = await startServer();
@@ -61,6 +92,7 @@ test("signup submits nothing, stays under the lead, and the mobile bar can close
   try {
     await assertDesktopLead(browser, origin);
     await assertMobileSubmit(browser, origin);
+    await assertMobileFailure(browser, origin);
     await assertMobileBar(browser, origin);
   } finally {
     await browser.close();
@@ -88,20 +120,24 @@ async function assertDesktopLead(browser, origin) {
   await page.close();
 }
 
-async function assertMobileSubmit(browser, origin) {
-  const page = await browser.newPage();
-  const leaks = [];
-  watchEmail(page, leaks);
-  await open(page, origin, "/", 390);
+async function submitLead(page, email) {
   await page.evaluate(() => {
     document.querySelector(".signup--lead").scrollIntoView({ block: "center" });
   });
   await page.waitForFunction(() => !document.querySelector(".signup--bar.is-fixed"));
-  await page.locator(".signup--lead input[type=email]").fill("reader@example.com");
+  await page.locator(".signup--lead input[type=email]").fill(email);
   await page.locator(".signup--lead button[type=submit]").click();
   await page.waitForFunction(() => {
-    return document.querySelector(".signup--lead .signup-status").textContent;
+    const text = document.querySelector(".signup--lead .signup-status").textContent;
+    return text && !text.startsWith("Sending");
   });
+}
+
+async function assertMobileSubmit(browser, origin) {
+  const page = await browser.newPage();
+  const hits = await mockKit(page, 200);
+  await open(page, origin, "/", 390);
+  await submitLead(page, "reader@example.com");
   const result = await page.evaluate(() => ({
     status: document.querySelector(".signup--lead .signup-status").textContent,
     kept: document.querySelector(".signup--lead input[type=email]").value,
@@ -117,13 +153,35 @@ async function assertMobileSubmit(browser, origin) {
       return a.bottom > b.top && a.top < b.bottom;
     })()
   }));
-  assert.match(result.status, /Nothing was sent/);
+  assert.equal(result.status, SUCCESS);
   assert.equal(result.kept, "reader@example.com");
   assert.equal(result.path, "/");
-  assert.equal(result.done, null);
-  assert.deepEqual(leaks, []);
+  assert.equal(result.done, "1");
+  assert.equal(hits.length, 1);
+  assert.equal(hits[0].continued, false);
+  assert.equal(hits[0].method, "POST");
+  assert.match(hits[0].url, /^https:\/\/app\.kit\.com\/forms\/10083630\/subscriptions/);
+  assert.match(hits[0].body, /email_address=reader%40example\.com/);
   assert.ok(result.width <= 390, String(result.width));
   assert.equal(result.overlap, false);
+  await page.close();
+}
+
+async function assertMobileFailure(browser, origin) {
+  const page = await browser.newPage();
+  const hits = await mockKit(page, 502);
+  await open(page, origin, "/", 390);
+  await page.evaluate(() => localStorage.removeItem("abSignupDone"));
+  await submitLead(page, "signup-retry@example.com");
+  const result = await page.evaluate(() => ({
+    status: document.querySelector(".signup--lead .signup-status").textContent,
+    done: localStorage.getItem("abSignupDone")
+  }));
+  assert.match(result.status, /Please try again/);
+  assert.equal(result.done, null);
+  assert.equal(hits.length, 1);
+  assert.equal(hits[0].continued, false);
+  assert.match(hits[0].body, /email_address=signup-retry%40example\.com/);
   await page.close();
 }
 
