@@ -1,0 +1,14 @@
+{
+  "type": "timeline",
+  "date": "2026-10-23",
+  "slug": "city-releases",
+  "title": "Three City releases this week",
+  "subtitle": "Housing, police tips, and a school award",
+  "source": "City of Austin",
+  "alt": "Timeline from City of Austin releases: on October 20 the school district was recognized at Bowie High School; on October 21 police asked for tips on copper thefts near Mueller and 51st Street; on October 22 the City said Council and the Austin Housing Finance Corporation approved funding for five affordable rental developments.",
+  "events": [
+    { "date": "Oct. 20", "label": "School food award at Bowie", "note": "Good Food Leader: Silver" },
+    { "date": "Oct. 21", "label": "Police seek copper-theft tips", "note": "Mueller and 51st Street" },
+    { "date": "Oct. 22", "label": "Housing funding approved", "note": "Five affordable rental projects" }
+  ]
+}
