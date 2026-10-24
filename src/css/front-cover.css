@@ -46,6 +46,32 @@
  .home-front .cover-attribution{display:flex;align-items:center}
  .home-front .cover-attribution>span,.home-front .cover-attribution .front-asof{display:none}
  .home-front .edited-front .cover-attribution .front-sources{margin:0}
- .home-front .cover-reading .front-action{font-size:14px;gap:16px}
+ .home-front .cover-reading .front-action{order:-1;font-size:14px;gap:16px}
+ .home-front .cover-attribution{flex-basis:100%}
  .home-front .mobile-publication-promise{display:block;font-size:14px;margin:22px 0}
+}
+.home-front .front-kicker{color:var(--accent)}
+.home-front .front-kicker::before{content:"";display:inline-block;width:.55em;height:.55em;margin-right:.45em;background:var(--accent);vertical-align:.05em}
+.home-front .front-section-label{border-bottom:3px solid var(--accent)}
+.home-front .lead-photo{margin:0 0 12px}
+.home-front .lead-photo img{display:block;width:100%;height:250px;object-fit:cover;object-position:center 42%;background:#14312a}
+.home-front .lead-photo figcaption{font-size:12px;line-height:1.35;margin-top:6px;color:#3e5248}
+.home-front .lead-photo figcaption a{color:var(--accent)}
+.home-front .lead-photo--fallback img{object-fit:contain;height:180px;background:#14312a}
+.home-front .rail-story{display:grid;grid-template-columns:112px minmax(0,1fr);gap:10px 12px;align-items:start}
+.home-front .rail-thumb{margin:0}
+.home-front .rail-thumb img{width:112px;height:84px;object-fit:cover;display:block;background:#14312a}
+.home-front .rail-thumb figcaption{font-size:10px;line-height:1.3;margin-top:4px;color:#3e5248}
+.home-front .rail-thumb figcaption a{color:var(--accent)}
+.home-front .rail-thumb--fallback img{object-fit:contain;background:#14312a}
+@media (min-width:761px){
+ .home-front .lead-photo img{height:360px}
+ .home-front .lead-photo--fallback img{height:220px}
+ .home-front .cover-reading{display:flex;align-items:center;justify-content:space-between;gap:8px 16px;flex-wrap:wrap}
+ .home-front .cover-attribution{flex:1 1 280px}
+}
+@media (max-width:760px){
+ .home-front .lead-photo{width:calc(100% + 40px);margin-left:-20px;margin-right:-20px}
+ .home-front .lead-photo figcaption{padding:0 20px}
+ .home-front .lead-photo img{height:240px}
 }

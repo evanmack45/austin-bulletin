@@ -1,4 +1,5 @@
-import { readFileSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
+import { leadMarkup, storyThumb, withStoryPhotos } from "./scripts/edition-images.mjs";
 import { loadIllustrationAssets } from "./scripts/front-art.mjs";
 import { chicagoDate, forecastAlerts, selectFrontpage, previousPublishedEdition } from "./scripts/frontpage.mjs";
 import { HtmlBasePlugin } from "@11ty/eleventy";
@@ -103,6 +104,11 @@ export default function (eleventyConfig) {
     return md;
   });
 
+  const editionImageExists = (src) => existsSync(`src${src}`);
+  eleventyConfig.addFilter("leadMarkup", (images) => leadMarkup(images, editionImageExists));
+  eleventyConfig.addFilter("storyThumb", (images, url) => storyThumb(images, url, editionImageExists));
+  eleventyConfig.addFilter("withStoryPhotos", (content, images) =>
+    withStoryPhotos(content, images, editionImageExists));
   eleventyConfig.addFilter("forecastAlerts", forecastAlerts);
   eleventyConfig.addFilter("previousPublishedEdition", (previous, latest) => previous ?
     previousPublishedEdition({ date: previous.date.toISOString().slice(0, 10), url: previous.url,

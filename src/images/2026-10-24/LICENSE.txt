@@ -1,0 +1,41 @@
+Photographs used with the October 24, 2026 edition. Derivatives are
+WebP files made by The Austin Bulletin for this site. Alt text, a visible
+credit, and a source or license link are printed with each picture.
+
+zilker-tree-1200.webp (1200×799) and zilker-tree-640.webp (640×426)
+Subject: the Zilker Holiday Tree at night in 2019, downtown Austin behind it.
+This is an earlier season, not the 2026 stringing.
+Publisher: City of Austin, featured image on the news release
+"Austin Energy crews complete 60th annual Zilker Holiday Tree installation"
+https://www.austintexas.gov/communications/news/austin-energy-crews-complete-60th-annual-zilker-holiday-tree-installation
+Source file: Communications and Engagement — Web, drone pic of Zilker 2019 tree
+https://austin.widen.net/content/2dab35b6-e726-4451-88cb-3f500282e87f/web/Communications%20and%20Engagement%20-%20Web_drone%20pic%20of%20zilker%202019%20tree.jpg
+Original pixels: 2048×1364. These derivatives are scaled only, not cropped.
+The City of Austin legal notice says many austintexas.gov images are
+copyrighted and that resizing needs written permission:
+https://www.austintexas.gov/legal-notice
+The Bulletin's image rules allow a photo a government agency releases with
+its statement, credited to the agency. Credit on the page: City of Austin.
+
+esthers-follies-960.webp (960×649) and esthers-follies-480.webp (480×324)
+Subject: Esther's Follies, northeast side of the building on Sixth Street.
+Publisher: City of Austin, photograph inside the news release
+"Council greenlights incentives to sustain legacy Austin businesses"
+https://www.austintexas.gov/economic-development/news/council-greenlights-incentives-sustain-legacy-austin-businesses
+Downloaded rendition: 1600×1081, then scaled only, not cropped.
+Same rights note as the Zilker derivatives. Credit on the page: City of Austin.
+
+viva-la-vida-960.webp (960×640) and viva-la-vida-480.webp (480×320)
+Subject: Ginger Rodriguez performing at the Viva La Vida Festival in Austin
+on October 30, 2022. Not the October 24, 2026 parade.
+Photographer: Sydney Wisner. Commons artist: Jyng3r.
+Source: https://commons.wikimedia.org/wiki/File:Gingerrodriguezvivalavidafest2022.jpg
+Original: https://upload.wikimedia.org/wikipedia/commons/3/30/Gingerrodriguezvivalavidafest2022.jpg
+License: Creative Commons Attribution-ShareAlike 4.0 International.
+https://creativecommons.org/licenses/by-sa/4.0/
+Original pixels: 3648×5472. Crop left 200, top 1500, width 3248, height 2165,
+then scaled. Both derivatives are distributed under CC BY-SA 4.0.
+This image license does not change the license of unrelated site content.
+
+No usable photograph was found for the Central Library death investigation
+or the Tampere agreement. Those stories use the skyline illustration.

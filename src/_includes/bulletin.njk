@@ -5,7 +5,8 @@ layout: layout.njk
   {% set editionDate = page.date %}
   {% set editionUrl = page.url %}
   {% include "edition-head.njk" %}
+  {{ images | leadMarkup | safe }}
   {% set glanceData = glance[editionDate | isoDate] %}
   {% include "glance.njk" %}
-  {{ content | safe }}
+  {{ content | withStoryPhotos(images) | safe }}
 </article>
