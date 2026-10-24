@@ -1,4 +1,5 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs";
+import { analyticsBeacon, analyticsSiteToken } from "./scripts/analytics.mjs";
 import { leadMarkup, storyThumb, withStoryPhotos } from "./scripts/edition-images.mjs";
 import { loadIllustrationAssets } from "./scripts/front-art.mjs";
 import { chicagoDate, forecastAlerts, selectFrontpage, previousPublishedEdition } from "./scripts/frontpage.mjs";
@@ -78,6 +79,7 @@ function textToHtml(text) {
 export default function (eleventyConfig) {
   eleventyConfig.addPlugin(HtmlBasePlugin);
   eleventyConfig.addGlobalData("siteOrigin", SITE_URL);
+  eleventyConfig.addGlobalData("analyticsSiteToken", analyticsSiteToken);
   eleventyConfig.addFilter("canonicalUrl", canonicalUrl);
   eleventyConfig.addFilter("pageMetadata", pageMetadata);
   eleventyConfig.addFilter("articleJsonLd", articleJsonLd);
@@ -85,6 +87,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("xmlEscape", xmlEscape);
   eleventyConfig.addFilter("briefingHeadline", (inputPath) => briefingHeadline(readFileSync(inputPath, "utf8")));
   eleventyConfig.addFilter("editionGap", editionGap);
+  eleventyConfig.addFilter("analyticsBeacon", analyticsBeacon);
   eleventyConfig.addPassthroughCopy("src/css");
   eleventyConfig.addPassthroughCopy("src/fonts");
   eleventyConfig.addPassthroughCopy("src/images");
