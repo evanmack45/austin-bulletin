@@ -18,7 +18,7 @@ homeFront: true
         <h1 id="front-lead-title">{{ desk.headline | escape }}</h1>
         {% if desk.deck %}<p class="front-deck">{{ desk.deck | escape }}</p>{% endif %}
         {% if desk.action %}
-        <p class="if-you">{% if desk.action.label %}<strong>{{ desk.action.label | escape }}</strong> {% endif %}{{ desk.action.text | escape }}{% if desk.action.href %} <a class="front-action" href="{{ desk.action.href | escape }}">{{ desk.action.linkLabel | escape }}</a>{% endif %}</p>
+        <p class="if-you">{% if desk.action.label %}<strong>{{ desk.action.label | escape }}</strong> {% endif %}{{ desk.action.text | escape }}{% if desk.action.href %} <a href="{{ desk.action.href | escape }}" class="front-action">{{ desk.action.linkLabel | escape }}</a>{% endif %}</p>
         {% endif %}
         {% if desk.source %}<p class="src front-sources">Source: <a href="{{ desk.source.href | escape }}">{{ desk.source.name | escape }}</a></p>{% endif %}
       </section>
