@@ -72,6 +72,15 @@ briefs. An item earns a headline if it meets any of these tests:
 At most two per beat. If nothing in a beat meets the test, nothing in that beat
 gets a headline. You can check any morning's bulletin against this list.
 
+## Dates, deadlines, and guides
+
+Each morning's edition is a dated briefing, not a live alert. Dates and
+deadlines apply to the edition shown. Check the linked official notices
+before acting.
+
+Standing guides — Zilker access, the 2026 ballot, the city budget, and
+the rest — are listed on the [archive](/archive/#guides).
+
 ## Corrections
 
 When we get something wrong, we fix it with a visible note in the

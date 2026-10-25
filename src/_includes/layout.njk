@@ -31,34 +31,30 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
-  <meta name="theme-color" content="#16332b">
+  <meta name="theme-color" content="#1b1b1b">
   <link rel="alternate" type="application/atom+xml" title="The Austin Bulletin" href="/feed.xml">
 </head>
 <body{% if homeFront %} class="home-front"{% endif %} id="top">
   <header class="front-masthead">
-    <a class="wordmark" href="/">The Austin<span class="masthead-break"><br></span> Bulletin<span class="masthead-dot" aria-hidden="true">.</span></a>
-    <div class="front-promise"><strong>Austin, up close.</strong><span>A daily selection of local reporting.</span></div>
+    <a class="wordmark" href="/">Austin Bulletin<span class="masthead-dot" aria-hidden="true">.</span></a>
+    {% if homeFront %}
+    {% set latestFront = collections.bulletins | first %}
+    {% set previousFront = collections.bulletins[1] | previousPublishedEdition(latestFront) %}
+    {% set deskLine = latestFront.inputPath | homeDesk %}
+    <p class="masthead-dateline">{{ latestFront.date | weekday }}, {{ latestFront.date | shortMonthDay }}{% if deskLine.weather %} · {{ deskLine.weather | escape }}{% endif %}{% if previousFront %} <span class="prev-edition">· Previous edition: <a href="{{ previousFront.url | escape }}">{{ previousFront.date | monthDay }}</a></span>{% endif %}</p>
+    {% endif %}
     <nav class="site-nav" aria-label="Publication">
       <div class="site-menu">
         <input class="site-menu-toggle" type="checkbox" id="site-menu-toggle" aria-label="Menu">
         <label class="site-menu-button" for="site-menu-toggle">Menu</label>
         <div class="site-menu-panel">
           <a href="/">Today</a>
+          <a href="/vote-2026/">Election</a>
           <a href="/archive/">Archive</a>
-          <a href="/archive/#search">Search</a>
-          <a href="/about/">About</a>
-          {% if vote2026 and vote2026.showNav %}
-          <a href="/vote-2026/">Vote 2026</a>
-          {% endif %}
-          <a href="/feed.xml" rel="alternate" type="application/atom+xml">RSS</a>
+          <a href="/subscribe/">Subscribe</a>
         </div>
       </div>
     </nav>
-    {% if homeFront %}
-    {% set latestFront = collections.bulletins | first %}
-    {% set previousFront = collections.bulletins[1] | previousPublishedEdition(latestFront) %}
-    <p class="masthead-dateline">{{ latestFront.date | longDate }}{% if previousFront %} <span aria-hidden="true">·</span> Previous edition: <a href="{{ previousFront.url | escape }}">{{ previousFront.date | monthDay }}</a>{% endif %}</p>
-    {% endif %}
   </header>
   <main>
     {{ content | safe }}

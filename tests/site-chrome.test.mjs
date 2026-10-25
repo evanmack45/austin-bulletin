@@ -35,8 +35,10 @@ test("topic pages and the October 24 edition share that menu", async () => {
     "muny-2026/index.html", "2026/10/24/index.html"]) {
     const html = await readFile(`_site/${route}`, "utf8");
     assert.match(html, /class="wordmark"/);
-    assert.match(html, /Austin, up close/);
+    assert.match(html, /Austin Bulletin/);
+    assert.doesNotMatch(html, /Austin, up close/);
     assert.match(html, /href="\/vote-2026\/"/);
+    assert.match(html, /href="\/subscribe\/"/);
   }
   const edition = await readFile("_site/2026/10/24/index.html", "utf8");
   assert.match(edition, /class="edition-lead-title"/);

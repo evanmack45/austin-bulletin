@@ -45,7 +45,7 @@ const contrastScript = `(() => {
       if (solid) return [Number(m[1]), Number(m[2]), Number(m[3])];
       node = node.parentElement;
     }
-    return [243, 239, 229];
+    return [251, 248, 242];
   };
   const failures = [];
   const nodes = document.querySelectorAll(

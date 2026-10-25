@@ -3,28 +3,38 @@
 Read this file at the start of every daily run. These rules are not
 suggestions. Every rule binds the writing.
 
-## Homepage cover (October 6, 2026)
+## Homepage (October 25, 2026)
 
-The approved homepage uses one source-backed local cover, two local news
-selections and one local-life selection. Reuse the existing curation slots:
-lead, developments (two), goodThing; put broader explanatory coverage in
-feature below them and practical access guidance in the related text section.
-The full dated edition, its chart/photo rules and archive presentation remain.
+The homepage prints one lead from that morning's briefing, then the items
+marked as deadlines, then the items marked for the week. A story appears
+once. The full edition is one link, not a second copy of the headline.
 
-Original stylized editorial illustration is permitted on this homepage under
-the October 6 direction, superseding earlier homepage art preferences. Label
-it “Editorial illustration”; never present it as a documentary photograph,
-an actual route or evidence of a reported person's experience. Existing photo
-rights and source requirements still apply. Keep licensed local font notices.
+Headlines say why the item matters and use a verb. Each homepage item
+carries one "If you…" line: a date, a place, or a document already in the
+sourced copy. That line is a practical next step, not an endorsement and
+not a new fact. It does not count toward the briefing word cap or a lead's
+word cap.
 
-Art is optional. The illustration contract binds kind, confined local raster
-path, SHA-256, dimensions, alt/credit, rights notice path, selected story key
-and edition date. The loader verifies actual bytes/dimensions and a local
-provenance notice before selection. Missing, altered, wrong-story or expired
-art disappears without blocking valid copy; the cover uses a native motif.
-Do not modify a dated edition to make a new asset pass its historical guard.
-Dates, uncertainty and attribution stay beside the claim. Mobile stories
-follow naturally; do not squeeze all modules into one small screen.
+Markers live in the bulletin so the homepage and the edition share one
+copy: `desk:kicker`, `desk:figure`, `desk:closes`, and `desk:week`. A
+deadline chip is the source's own date, written in title case. The page
+uppercases it. Do not calculate a day count the copy does not state.
+
+A lead photograph runs only when the edition names a real, credited photo
+of that story. No City of Austin image. No illustration in place of a
+missing photo. If none fits, the lead has no image. The skyline file stays
+in the repo as a credited illustration; pages do not insert it.
+
+The dated-briefing line lives on About. Standing guides live on the
+archive, under "Keep these close." The masthead is four links: Today,
+Election, Archive, Subscribe. About and RSS stay in the footer.
+
+Older curation packets under `src/_data/frontpages/` still have to
+validate. They do not print. Do not modify a dated edition to make an old
+asset pass. Dates, uncertainty, and attribution stay beside the claim.
+
+Type: warm paper, bold headlines, one red accent. The signup stays Kit's
+embed. The line is "Austin in 5 minutes, every morning. Free."
 
 ## Voice
 
@@ -508,45 +518,20 @@ pass the gate is not published; log why.
   beyond “register/check status” and “where/when to vote”.
 - Dates are quoted from the official pages and linked; never invented.
 - Design: fits the broadsheet style; no additional trackers or embeds.
-- Surfacing: a dedicated dated page (e.g., `/vote-2026/`) exists; a light
-  masthead nav link may appear only during the window and must disappear
-  after it. Desk may mention the page neutrally in The Briefing’s “What’s
-  next” or in City Hall & county near key deadlines; do not inflate it into
-  a story when there is no news hook.
+- Surfacing: a dedicated dated page (e.g., `/vote-2026/`) exists. The
+  four-item masthead keeps an Election link to that page. Desk may mention
+  the page neutrally in The Briefing’s “What’s next” or in City Hall &
+  county near key deadlines; do not inflate it into a story when there is
+  no news hook.
 - Sunset: the page remains accessible as an archive after the window and
-  clearly dates itself; the nav link and any standing mentions go away.
+  clearly dates itself. Standing mentions in the briefing go away. The
+  Election link stays, because the masthead is four items.
 
-## Edited front page (October 4, 2026)
+## Edited front page (superseded October 25, 2026)
 
-The homepage is a daily selection, not a second copy of the full edition. Choose
-one consequential lead with a practical next step; retain an immediately
-accessible Zilker guide while useful; add zero to three distinct developments,
-one story to understand, the full-edition link and One Good Thing. Normal
-conditions and Morning Note belong below the news or in the dated edition.
-Avoid repeated park/recycling fragments and unrelated social inserts.
-
-Author `src/_data/frontpages/YYYY-MM-DD.json` for the latest edition. Reuse
-maintained guides or that edition as `record`; do not rewrite published editions.
-Each card needs a unique key, plain title/summary, explicit date context (`asOf`),
-visible named HTTPS sources, an action and a SHA256 of its source file. Use
-`expiresOn` for deadline/access guidance, inclusive in America/Chicago. Add
-`detail`, `next`, `image` and descriptive `imageAlt` only when supported. Read
-actual sources, especially hours, locations, access exceptions and official
-outcomes; record an actual `reviewedAt`, then obtain independent editorial and
-visual review. Hashes and JSON validation prove structure/version, not truth.
-
-Use October 4's packet as the format example, not reusable news. Do not carry
-registration hours into later days. Missing, expired or changed-source cards
-are excluded on the next build; a remaining development can become the lead.
-A current uncurated edition may supply its sourced lead. Stale/unsafe selections
-fall back to a neutral dated full-edition link and a generic access-guide link.
-Expiry is build-time: this static homepage cannot change at midnight without a
-build. Review these transitions within the existing daily routine; no new job.
-
-An NWS alert snapshot may appear above the lead only when its edition and actual
-gathering timestamp fall on the current Chicago date and its source is the
-existing official NWS URL. Label it as a dated forecast snapshot with a current
-NWS link; it does not establish that an alert is still active at reading time.
-Normal weather stays below the news. Never reuse a stale alert as a live warning.
-
-A reviewed “Since the previous edition” cue may replace selected homepage summary or guide-link copy, never add a duplicate briefing block. At most three manual entries distinguish new reporting, updated guidance and still-unresolved questions, with explicit compared edition dates. Source/version checks cannot establish significance. Missing or invalid comparison review leaves the ordinary homepage intact and does not block publishing. The masthead's previous-edition link is navigation, not a claim that every homepage story changed. Preserve historical editions, useful first-visit guidance, first-screen imagery and primary actions.
+The homepage rules are in "Homepage (October 25, 2026)" above. Packets in
+`src/_data/frontpages/` still have to pass their structural check. They do
+not print. Do not author a new packet for the homepage. The masthead's
+previous-edition link is navigation, not a claim that every story changed.
+Weather in the dateline is the morning note's own high and fog clock, not
+a live alert.

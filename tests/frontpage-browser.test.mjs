@@ -106,8 +106,8 @@ function assertFirstFold(result, width, height) {
    assert.ok(result[key].bottom <= height, `${key}: ${JSON.stringify(result)}`);
   }
  }
- assert.equal(result.actionColor, "rgb(243, 239, 229)");
- assert.equal(result.actionBg, "rgb(22, 51, 43)");
+ assert.equal(result.actionColor, "rgb(27, 27, 27)");
+ assert.equal(result.actionBg, "rgba(0, 0, 0, 0)");
 }
 
 async function reachByKeyboard(page, targets) {
@@ -236,8 +236,8 @@ test("guide action fragments reach the answer by keyboard without JavaScript", {
 		const accessTitle = await page.goto(home, { waitUntil: "networkidle0" });
 		assert.ok(accessTitle.ok());
 		assert.equal(
-			await page.$eval(".front-access h2 a", (link) => link.getAttribute("href")),
-			"/zilker-park-access/",
+			await page.$eval(".front-lead .front-action", (link) => link.getAttribute("href")),
+			"https://votetravis.gov/current-election-information/current-election/",
 		);
 	} finally {
 		await browser.close();

@@ -82,21 +82,20 @@ async function assertDesktopLead(browser, origin) {
   const page = await browser.newPage();
   const posts = await blockKit(page);
   await open(page, origin, "/", 1280);
-  const box = await page.evaluate(embed => {
-    const block = document.querySelector(".signup--lead");
+  const box = await page.evaluate(() => {
+    const block = document.querySelector("aside .signup--lead");
     const script = block.querySelector("script[data-uid='e956043af1']");
-    const action = document.querySelector(".front-lead .front-action");
     return {
       width: document.documentElement.scrollWidth,
-      below: block.getBoundingClientRect().top >= action.getBoundingClientRect().bottom - 1,
+      placed: !!block,
       value: block.querySelector(".signup-value").textContent,
       src: script?.src || "",
       barFixed: !!document.querySelector(".signup--bar.is-fixed")
     };
-  }, EMBED);
+  });
   assert.ok(box.width <= 1280, String(box.width));
-  assert.equal(box.below, true);
-  assert.match(box.value, /in your inbox each morning/);
+  assert.equal(box.placed, true);
+  assert.match(box.value, /Austin in 5 minutes, every morning/);
   assert.equal(box.src, EMBED);
   assert.equal(box.barFixed, false);
   assert.equal(posts.length, 0);

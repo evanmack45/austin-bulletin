@@ -33,6 +33,10 @@ A request to change one goes above, with the reason.
 
 ## Entries
 
+### 2026-10-25
+
+The homepage is one lead, the deadlines, and this week's item. The same story no longer appears as a cover, a rail card, and an edition link, and a story with no photograph no longer gets the skyline illustration. "If you…" lines are practical next steps already in the sourced copy, and they do not count toward the briefing or lead word caps. Guides live on the archive. No lead photo: a 1918 registration photograph and a generic "I Voted" sticker would sit next to a 2026 turnout figure and read as this election. The design-change clock restarts at 2026-10-25; the next reader-facing change waits until 2026-11-08.
+
 ### 2026-10-24
 
 Email signup is under the homepage lead, at the end of each edition, and on a dismissible mobile bar. A direct POST to `https://app.kit.com/forms/10083630/subscriptions` was redirected to Kit's bot-protection page and created no subscriber. Each placement now loads Kit's official embed (`https://the-austin-bulletin.kit.com/e956043af1/index.js`), with a no-JavaScript link to `https://the-austin-bulletin.kit.com/e956043af1`. Double opt-in stays on at Kit. The August 23 "no email edition" note stays history; this request asked for the signup.

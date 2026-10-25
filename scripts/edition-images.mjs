@@ -1,6 +1,7 @@
 // Edition photographs declared in bulletin front matter.
 // A lead photo renders only when its key is the lead story's heading slug.
-// A story with no record renders the skyline illustration.
+// A story with no record renders nothing. fallbackMarkup remains for the
+// skyline file; pages do not insert it.
 
 const FALLBACK_SRC = "/images/fallback/austin-skyline.svg";
 const FALLBACK_ALT =
@@ -189,9 +190,6 @@ function checked(images, exists) {
 }
 
 function renderLead(photo) {
-  if (!photo) {
-    return fallbackMarkup({ className: "lead-photo lead-photo--fallback", loading: "eager" });
-  }
   return photoMarkup(photo, {
     className: "lead-photo",
     loading: "eager",
@@ -221,7 +219,9 @@ export function hasStoryPhoto(images, key, exists = () => true) {
 }
 
 export function leadForStory(images, key, exists) {
-  return renderLead(leadPhotoFor(images, key, exists));
+  const photo = leadPhotoFor(images, key, exists);
+  if (!photo) return "";
+  return renderLead(photo);
 }
 
 export function leadMarkup(images, exists) {
@@ -232,40 +232,31 @@ export function storyThumb(images, url, exists) {
   const read = checked(images, exists);
   const key = String(url ?? "").split("#").pop();
   const photo = key ? read.byKey[key] : null;
-  if (!photo) return fallbackMarkup({ className: "rail-thumb rail-thumb--fallback" });
+  if (!photo) return "";
   return photoMarkup(photo, { className: "rail-thumb", loading: "lazy", sizes: "112px" });
-}
-
-function safeBeat(id) {
-  return /^[a-z0-9-]+$/.test(id || "") ? id : "desk";
 }
 
 function headingId(attrs) {
   return attrs.match(/\sid="([^"]*)"/)?.[1] || "";
 }
 
-function storyFigure(photo, beat) {
-  if (photo) {
-    return photoMarkup(photo, {
-      className: "story-thumb",
-      loading: "lazy",
-      sizes: "(max-width: 640px) calc(100vw - 40px), 220px",
-    });
-  }
-  const className = `story-thumb story-thumb--fallback beat-${safeBeat(beat)}`;
-  return fallbackMarkup({ className });
+function storyFigure(photo) {
+  if (!photo) return "";
+  return photoMarkup(photo, {
+    className: "story-thumb",
+    loading: "lazy",
+    sizes: "(max-width: 640px) calc(100vw - 40px), 220px",
+  });
 }
 
-function replaceHeading(full, level, attrs, byKey, state) {
-  const id = headingId(attrs);
-  if (level === "4") state.beat = safeBeat(id);
+function replaceHeading(full, level, attrs, byKey) {
   if (level !== "5") return full;
-  return full + storyFigure(byKey[id], state.beat);
+  const figure = storyFigure(byKey[headingId(attrs)]);
+  return figure ? full + figure : full;
 }
 
 export function withStoryPhotos(html, images, exists) {
   const read = checked(images, exists);
-  const state = { beat: "desk" };
   return String(html ?? "").replace(/<h([45])\b([^>]*)>[\s\S]*?<\/h\1>/gi, (full, level, attrs) =>
-    replaceHeading(full, level, attrs, read.byKey, state));
+    replaceHeading(full, level, attrs, read.byKey));
 }

@@ -109,11 +109,15 @@ function isLeadBlock(block) {
   return LEAD_HEADING_RE.test(firstLine(block));
 }
 
+function countLeadWords(body) {
+  return wordCount(String(body).replace(/<p class="if-you">[\s\S]*?<\/p>/gi, " "));
+}
+
 function parseLeadBlock(block, current) {
   const [head, ...rest] = block.split("\n");
   const headline = head.match(LEAD_HEADING_RE)[1].trim();
   const body = rest.join("\n").trim();
-  return { kind: "lead", headline, body, words: wordCount(body), beat: current?.name ?? null };
+  return { kind: "lead", headline, body, words: countLeadWords(body), beat: current?.name ?? null };
 }
 
 function isBeatHeading(block) {

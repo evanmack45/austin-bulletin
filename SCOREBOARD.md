@@ -37,10 +37,10 @@ November 7.
 
 | Site | Date | What |
 |---|---|---|
-| theaustinbulletin.com | 2026-10-24 | Email signup under the homepage lead, at the end of each edition, and a dismissible mobile bar |
+| theaustinbulletin.com | 2026-10-25 | One lead, a deadline list, and a paper masthead. Guides moved to the archive |
 | yallcityhall.org | 2026-10-06 | Field-guide homepage (previous operator) |
 
-The Bulletin's next design change waits until 2026-11-07. The tracker is
+The Bulletin's next design change waits until 2026-11-08. The tracker is
 clear for one from 2026-10-20. None is planned there: without numbers there
 is nothing to judge one against. The critic picks above are wording and
 content fixes, not design changes.
@@ -82,6 +82,7 @@ No data at the judge date is a kill.
 One line per reader-visible change, newest first. The daily edition does
 not count. Three calendar days with no line is an alert.
 
+- 2026-10-25 · bulletin · Homepage is one lead, a "Before it closes" list, and a "This week" item. Headlines say why it matters, each with an "If you…" line drawn from the sourced copy. Disclaimers and "Keep these close" moved to About and the archive. Nav is Today, Election, Archive, Subscribe. Warm paper, bold headlines, one red. No lead photo: no credited Commons file shows this year's early voting. Signup line is "Austin in 5 minutes, every morning. Free."
 - 2026-10-24 · bulletin · Email signup under the homepage lead, a compact signup at the end of every edition, and a dismissible mobile bar. "What matters in Austin, in your inbox each morning. Free." Each placement is Kit's official embed, with a no-JavaScript link to the hosted form. RSS still works
 - 2026-10-22 · tracker · Two more topic pages `/topics/sidewalks-bikeways/` and `/topics/animal-services/`: every official Council vote since 2023 naming sidewalks, bikeways, bicycle lanes or plans, urban trails or shared-use paths (61 items) and every one naming animals, Austin Animal Services, Austin Pets Alive or veterinary services (31), in the City's wording with outcome, tally and roll-call link; linked from Issues
 - 2026-10-22 · bulletin · `/vote-2026/` turnout through day three from the County Clerk's daily totals: 131,689 Travis County ballots through Wednesday, October 21 (120,626 in person, 10,816 mail, 247 limited), 13.88% of 948,575 registered; in person 40,777, 40,359 and 39,490 by day; the five busiest and three quietest sites over three days
