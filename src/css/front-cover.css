@@ -81,6 +81,7 @@
  .home-front .front-lead{display:flex;flex-direction:column}
  .home-front .front-lead .cover-reading{order:1}
  .home-front .front-lead .front-detail,.home-front .front-lead .front-deck{order:2}
+ .home-front .front-lead .signup--lead{order:3}
 }
 .home-front .signup--lead{margin-top:18px;padding:16px 16px 14px;background:#16332b;color:#f3efe5}
 .home-front .signup--lead > h2{color:#f3efe5;font-size:26px;line-height:1.1;margin:0 0 8px}

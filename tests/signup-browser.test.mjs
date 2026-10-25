@@ -123,11 +123,13 @@ async function assertMobileLead(browser, origin) {
       src: block.querySelector("script[data-uid='e956043af1']")?.getAttribute("src"),
       path: location.pathname,
       width: document.documentElement.scrollWidth,
+      below: block.getBoundingClientRect().top >= action.getBoundingClientRect().bottom - 1,
       overlap,
       inputs: block.querySelectorAll("input[type=email]").length
     };
   });
   assert.equal(result.src, EMBED);
+  assert.equal(result.below, true);
   assert.equal(result.path, "/");
   assert.equal(result.inputs, 0);
   assert.ok(result.width <= 390, String(result.width));
