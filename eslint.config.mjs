@@ -20,7 +20,7 @@ export default [
     rules: { "max-len": ["error", { code: 100, ignoreUrls: true }] }
   },
   {
-    files: ["scripts/river.mjs", "scripts/acronyms.mjs", "scripts/kvue.mjs", "scripts/metadata.mjs", "scripts/edition-images.mjs", "tests/**/*.mjs", "scripts/check-frontpage.mjs", "src/js/**/*.js", "src/_data/newsletter.js"],
+    files: ["scripts/river.mjs", "scripts/acronyms.mjs", "scripts/kvue.mjs", "scripts/metadata.mjs", "scripts/edition-images.mjs", "scripts/desk.mjs", "tests/**/*.mjs", "scripts/check-frontpage.mjs", "src/js/**/*.js", "src/_data/newsletter.js"],
     languageOptions: {
       ecmaVersion: 2023,
       sourceType: "module"

@@ -4,13 +4,13 @@ import { readFile } from "node:fs/promises";
 
 const guide = await readFile(
   new URL("../src/zilker-park-access/index.md", import.meta.url), "utf8");
-const home = await readFile(new URL("../src/index.njk", import.meta.url), "utf8");
+const archive = await readFile(new URL("../src/archive.njk", import.meta.url), "utf8");
 
 test("access guide is a discoverable static page with an honest source timestamp", () => {
   assert.match(guide, /permalink: "\/zilker-park-access\/"/);
   assert.match(guide, /Last checked:/);
   assert.match(guide, /America\/Chicago|CDT/);
-  assert.match(home, /href="\/zilker-park-access\/"/);
+  assert.match(archive, /href="\/zilker-park-access\/"/);
 });
 
 test("open amenities preserve the festival entrance and closed parking distinction", () => {

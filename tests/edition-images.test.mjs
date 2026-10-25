@@ -5,6 +5,7 @@ import sharp from "sharp";
 import yaml from "js-yaml";
 import {
   editionImageProblems,
+  fallbackMarkup,
   leadForStory,
   leadMarkup,
   photoMarkup,
@@ -74,13 +75,15 @@ test("a lead photograph renders only for the story it belongs to", () => {
   assert.doesNotMatch(parade, /zilker-tree/);
   assert.match(leadForStory(images, "tree"), /zilker-tree-1200\.webp/);
   const missing = leadForStory(images, "library");
-  assert.match(missing, /austin-skyline\.svg/);
-  assert.match(missing, /Original illustration/);
-  assert.match(missing, /no photograph/i);
+  assert.equal(missing, "");
 });
 
-test("a missing lead renders the skyline illustration and its credit", () => {
-  const html = leadMarkup(undefined);
+test("a missing lead renders nothing on the page", () => {
+  assert.equal(leadMarkup(undefined), "");
+});
+
+test("the skyline helper still credits the illustration file", () => {
+  const html = fallbackMarkup({ className: "story-thumb", loading: "lazy" });
   assert.match(html, /\/images\/fallback\/austin-skyline\.svg/);
   assert.match(html, /Original illustration/);
   assert.match(html, /The Austin Bulletin/);
@@ -98,15 +101,15 @@ test("story photos attach only to the matching heading", () => {
   const thumbs = [...out.matchAll(/<figure class="story-thumb"/g)];
   assert.equal(thumbs.length, 1);
   assert.ok(thumbs[0].index > place && thumbs[0].index < other);
-  assert.match(out.slice(other), /austin-skyline\.svg/);
-  assert.match(out, /beat-money-bills/);
+  assert.doesNotMatch(out.slice(other), /austin-skyline\.svg/);
+  assert.doesNotMatch(out, /beat-money-bills/);
 });
 
-test("a heading with no image record still gets a credited illustration", () => {
+test("a heading with no image record renders nothing extra", () => {
   const out = withStoryPhotos("<h5 id=\"solo\">Solo</h5>", undefined);
-  assert.match(out, /austin-skyline\.svg/);
-  assert.match(out, /<figcaption>/);
-  assert.match(out, /Original illustration/);
+  assert.equal(out, "<h5 id=\"solo\">Solo</h5>");
+  assert.doesNotMatch(out, /austin-skyline\.svg/);
+  assert.doesNotMatch(out, /Original illustration/);
 });
 
 test("duplicate story keys are rejected", () => {
@@ -170,7 +173,9 @@ test("built October 24 pages credit the lead and do not illustrate the library d
   assert.ok(edition.includes("File:Esthers_follies_austin_tx_2014.jpg"));
   assert.ok(edition.includes("creativecommons.org/licenses/by/4.0"));
   assert.doesNotMatch(edition, /src="[^"]*austintexas\.gov/);
-  assert.ok(home.includes("class=\"rail-thumb"));
+  assert.ok(!home.includes("class=\"rail-thumb"));
+  assert.ok(!home.includes("Original illustration"));
+  assert.ok(!home.includes("austin-skyline.svg"));
   assert.ok(edition.includes("class=\"story-thumb\""));
   assert.ok(edition.includes("Ginger Rodriguez"));
   assert.ok(edition.includes("creativecommons.org/licenses/by-sa/4.0"));
@@ -178,6 +183,6 @@ test("built October 24 pages credit the lead and do not illustrate the library d
   const library = "library-assault-death-ruled-a-homicide-suspect-now-charged-with-murder";
   const tampere = "austin-signs-a-five-year-partnership-with-tampere-finland";
   const between = edition.slice(edition.indexOf(library), edition.indexOf(tampere));
-  assert.match(between, /austin-skyline\.svg/);
+  assert.doesNotMatch(between, /austin-skyline\.svg/);
   assert.doesNotMatch(between, /\.webp/);
 });

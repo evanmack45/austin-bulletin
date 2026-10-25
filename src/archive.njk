@@ -5,7 +5,22 @@ permalink: "/archive/"
 ---
 <h1>Archive</h1>
 {% set first = collections.bulletins | last %}
-<p class="archive-note">One edition each morning since {{ first.date | readableDate }}. Days without an edition are marked in the list.</p>
+<p class="archive-note">One edition each morning since {{ first.date | readableDate }}. Days without an edition are marked in the list. Dates in an edition apply to that morning. This is a dated briefing, not a live alert.</p>
+<section id="guides" aria-labelledby="guides-title">
+  <h2 id="guides-title">Keep these close</h2>
+  <ul class="guide-list">
+    <li><a href="/zilker-park-access/">Zilker entrances, closures & parking</a></li>
+    <li><a href="/vote-2026/">Vote 2026: dates & official instructions</a></li>
+    <li><a href="/council/2026-10-22-preview/">Council on October 22: what is on the agenda</a></li>
+    <li><a href="/austin-council-races-2026/">The five Council races on the 2026 ballot</a></li>
+    <li><a href="/austin-bonds-2026/">Propositions A and B: the parks and library bonds</a></li>
+    <li><a href="/austin-charter-2026/">Propositions C through J: the charter amendments</a></li>
+    <li><a href="/austin-city-budget-2027/">The 2026-27 city budget and what it costs you</a></li>
+    <li><a href="/aisd-state-intervention/">Austin ISD and the state: what happens next</a></li>
+    <li><a href="/muny-2026/">The Muny deal: Austin, UT and Lions Municipal</a></li>
+    <li><a href="/feed.xml">Follow the morning editions by RSS</a></li>
+  </ul>
+</section>
 <link href="{{ '/pagefind/pagefind-ui.css' | url }}" rel="stylesheet">
 <script src="{{ '/pagefind/pagefind-ui.js' | url }}"></script>
 <div id="search"></div>

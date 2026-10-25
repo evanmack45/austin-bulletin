@@ -2,7 +2,7 @@
 // the confirmation step. This module places the mobile bar and publishes
 // the content security policy that embed needs. It does not post an address.
 
-export const VALUE_LINE = "What matters in Austin, in your inbox each morning. Free.";
+export const VALUE_LINE = "Austin in 5 minutes, every morning. Free.";
 export const CONFIGURED_NOTE = "One email each morning, after you confirm.";
 export const DISMISS_KEY = "abSignupBarDismissed";
 export const MOBILE_QUERY = "(max-width: 760px)";

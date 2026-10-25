@@ -81,6 +81,13 @@ test("fails a lead outside 40-80 body words", () => {
   assert.ok(long.problems.some((p) => /lead is 81 words/.test(p.message)));
 });
 
+test("an If you line does not change a lead's word count", () => {
+  const action = "<p class=\"if-you\"><strong>If you have time:</strong> " +
+    `${Array(40).fill("extra").join(" ")}.</p>`;
+  const river = riverOf("Schools", [`##### A\n${brief(50)}\n${action}`]);
+  assert.equal(parseRiver(river).leads[0].words, 50);
+});
+
 test("passes a lead at exactly 40 or 80 body words", () => {
   const short = checkRiver(parseRiver(riverOf("Schools", [lead("A", 40)])));
   const long = checkRiver(parseRiver(riverOf("Schools", [lead("A", 80)])));

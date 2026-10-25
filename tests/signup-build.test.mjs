@@ -7,7 +7,7 @@ const editionDate = home.match(/data-edition="([0-9-]+)"/)?.[1];
 const edition = readFileSync(`_site/${editionDate.replaceAll("-", "/")}/index.html`, "utf8");
 const about = readFileSync("_site/about/index.html", "utf8");
 const subscribe = readFileSync("_site/subscribe/index.html", "utf8");
-const VALUE = "What matters in Austin, in your inbox each morning. Free.";
+const VALUE = "Austin in 5 minutes, every morning. Free.";
 const EMBED = "<script async data-uid=\"e956043af1\" "
   + "src=\"https://the-austin-bulletin.kit.com/e956043af1/index.js\"></script>";
 const NOSCRIPT = "<noscript><a href=\"https://the-austin-bulletin.kit.com/e956043af1\" "
@@ -24,11 +24,10 @@ function count(html, needle) {
   return html.split(needle).length - 1;
 }
 
-test("the homepage signup sits under the lead story, before the news rail", () => {
-  const lead = sliceBetween(home, 'class="front-lead"', 'class="front-news-rail"');
-  const actionAt = lead.indexOf('class="front-action"');
+test("the homepage signup sits in the side column", () => {
+  const lead = sliceBetween(home, 'class="paper-side"', 'class="signup signup--bar"');
   const signupAt = lead.indexOf('class="signup signup--lead"');
-  assert.ok(actionAt !== -1 && signupAt > actionAt);
+  assert.ok(signupAt !== -1);
   assert.match(lead, new RegExp(VALUE.replace(/[.]/g, "\\.")));
   assert.match(lead, /The morning edition/);
   assert.match(lead, /data-signup-inline/);

@@ -206,6 +206,7 @@ async function exists(p) {
 function checkFirstRead(big, fullText, bad) {
   const prose = big
     .replace(/^###.*$/gm, " ")
+    .replace(/<p class="if-you">[\s\S]*?<\/p>/g, " ")
     .replace(/<p class="whats-next"[\s\S]*$/, " ")
     .replace(/<figcaption[\s\S]*?<\/figcaption>/g, " ");
   const n = wordCount(prose);
