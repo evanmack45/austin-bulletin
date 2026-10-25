@@ -262,11 +262,16 @@ test("dated edition navigation stays within a 320px viewport", {
 			waitUntil: "networkidle0",
 		});
 		await page.evaluate(() => document.fonts.ready);
-		const links = await page.evaluate(() => [...document.querySelectorAll(".folio-nav a")]
+		const menuOpen = await page.$eval(".site-menu-button", (button) =>
+			getComputedStyle(button).display !== "none");
+		if (menuOpen) await page.click(".site-menu-button");
+		const links = await page.evaluate(() => [...document.querySelectorAll(".site-menu-panel a")]
 			.map(link => ({ text: link.textContent, href: link.getAttribute("href"),
 				left: link.getBoundingClientRect().left,
-				right: link.getBoundingClientRect().right })));
+				right: link.getBoundingClientRect().right,
+				height: link.getBoundingClientRect().height })));
 		assert.ok(links.length >= 4);
+		assert.ok(links.every((link) => link.height >= 44), JSON.stringify(links));
 		for (const link of links) {
 			assert.ok(link.left >= 0 && link.right <= 320, JSON.stringify(link));
 		}

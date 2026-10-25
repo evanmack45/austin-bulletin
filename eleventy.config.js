@@ -1,7 +1,7 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs";
-import { leadMarkup, storyThumb, withStoryPhotos } from "./scripts/edition-images.mjs";
+import { hasStoryPhoto, leadForStory, storyThumb, withStoryPhotos } from "./scripts/edition-images.mjs";
 import { loadIllustrationAssets } from "./scripts/front-art.mjs";
-import { chicagoDate, forecastAlerts, selectFrontpage, previousPublishedEdition } from "./scripts/frontpage.mjs";
+import { chicagoDate, editionLeadFromHtml, forecastAlerts, selectFrontpage, previousPublishedEdition } from "./scripts/frontpage.mjs";
 import { HtmlBasePlugin } from "@11ty/eleventy";
 import { feedPlugin } from "@11ty/eleventy-plugin-rss";
 import markdownItAnchor from "markdown-it-anchor";
@@ -106,7 +106,12 @@ export default function (eleventyConfig) {
   });
 
   const editionImageExists = (src) => existsSync(`src${src}`);
-  eleventyConfig.addFilter("leadMarkup", (images) => leadMarkup(images, editionImageExists));
+  eleventyConfig.addFilter("leadForStory", (images, key) =>
+    leadForStory(images, key, editionImageExists));
+  eleventyConfig.addFilter("hasStoryPhoto", (images, key) =>
+    hasStoryPhoto(images, key, editionImageExists));
+  eleventyConfig.addFilter("editionLead", (html, editionDate, editionUrl) =>
+    editionLeadFromHtml(html, editionDate, editionUrl));
   eleventyConfig.addFilter("storyThumb", (images, url) => storyThumb(images, url, editionImageExists));
   eleventyConfig.addFilter("withStoryPhotos", (content, images) =>
     withStoryPhotos(content, images, editionImageExists));

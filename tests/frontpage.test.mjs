@@ -82,6 +82,33 @@ test("missing fresh curation uses only actual edition lead, paragraph and source
 	assert.equal(front.lead.summary, "The city describes restoration work.");
 	assert.deepEqual(front.lead.sources, [{ name: "City", url: "https://example.org/report" }]);
 	assert.equal(front.curated, false);
+	assert.equal(front.lead.storyKey, "");
+});
+
+test("a briefing headline that lists several stories becomes one desk story", () => {
+	const roundup =
+		'<section class="big-story"><h3>Parade today, a library death, and a grant</h3>' +
+		"<p>Mexic-Arte Museum opens the Viva La Vida parade at noon and it is free.</p>" +
+		'<p class="source-line">Sources: <a href="https://example.org/report">City</a></p></section>' +
+		'<h5 id="grant">A grant for four shops</h5><p>Council approved the money. ' +
+		'<span class="src"><a href="https://example.org/grant">City</a></span></p>' +
+		'<h5 id="parade">The Viva La Vida parade is today</h5>' +
+		"<p>Mexic-Arte Museum opens the Viva La Vida parade at noon and it is free. " +
+		'<span class="src"><a href="https://example.org/parade">City</a></span></p>';
+	const front = selectFrontpage({
+		curation: undefined,
+		editionDate: date,
+		editionUrl: url,
+		editionHTML: roundup,
+		records,
+		today: date,
+	});
+	assert.equal(front.lead.storyKey, "parade");
+	assert.equal(front.lead.title, "The Viva La Vida parade is today");
+	assert.match(front.lead.summary, /Mexic-Arte/);
+	assert.equal(front.lead.sources[0].url, "https://example.org/parade");
+	assert.ok(front.developments.every((item) => item.storyKey !== "parade"));
+	assert.ok(front.developments.some((item) => item.storyKey === "grant"));
 });
 test("expired deadline cannot return through fallback to the same source record", () => {
 	const b = bundle();

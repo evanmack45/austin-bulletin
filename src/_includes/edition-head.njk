@@ -1,6 +1,9 @@
-{# Expects editionDate and editionUrl to be set by the including template. #}
-<header class="edition-head">
-  <p class="edition-weekday">{{ editionDate | weekday }}</p>
+{# Expects editionDate, editionUrl, and top (from editionLead). #}
+<header class="edition-lead">
+  <p class="edition-kicker"><span class="edition-weekday">{{ editionDate | weekday }}</span> · <time class="edition-date" datetime="{{ editionDate | isoDate }}">{{ editionDate | longDate }}</time></p>
+  {% if top and top.title and not top.neutral %}
+  <h1 class="edition-lead-title">{{ top.title | escape }}</h1>
+  {% else %}
   <h1 class="edition-date">{{ editionDate | longDate }}</h1>
-  <p class="edition-meta">Vol. {{ editionDate | volumeNumeral }} &middot; No. {{ editionUrl | editionNumber(collections.bulletins) }} &middot; <a href="#weather">Weather</a> &middot; <a href="#one-good-thing">One Good Thing</a></p>
+  {% endif %}
 </header>

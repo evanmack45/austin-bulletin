@@ -4,8 +4,10 @@ layout: layout.njk
 <article class="bulletin" data-pagefind-body>
   {% set editionDate = page.date %}
   {% set editionUrl = page.url %}
+  {% set editionIso = editionDate | isoDate %}
+  {% set top = content | editionLead(editionIso, editionUrl) %}
   {% include "edition-head.njk" %}
-  {{ images | leadMarkup | safe }}
+  {{ images | leadForStory(top.storyKey) | safe }}
   {% set glanceData = glance[editionDate | isoDate] %}
   {% include "glance.njk" %}
   {{ content | withStoryPhotos(images) | safe }}

@@ -125,11 +125,55 @@ function text(html) {
 		.replace(/\s+/g, " ")
 		.trim();
 }
+const STOP_WORDS = new Set(
+	("a an the and or of to for in on at by from with its it is this that " +
+		"says said city austin today as be are was were not no").split(" "),
+);
+
+function wordsOf(value) {
+	const found = String(value).toLowerCase().match(/[a-z0-9]+/g) ?? [];
+	return new Set(found.filter((word) => word.length > 2 && !STOP_WORDS.has(word)));
+}
+
+function sharedWords(left, right) {
+	const rightWords = wordsOf(right);
+	let score = 0;
+	for (const word of wordsOf(left)) if (rightWords.has(word)) score += 1;
+	return score;
+}
+
+// Two or more commas is a list of stories ("A, B, and C"), not one headline.
+function roundupTitle(title) {
+	return (String(title).match(/,/g) || []).length >= 2;
+}
+
+function storyParagraphs(section) {
+	return [...section.matchAll(/<p\b([^>]*)>([\s\S]*?)<\/p>/gi)]
+		.filter((match) => !/source-line|whats-next/.test(match[1]))
+		.map((match) => text(match[2]))
+		.filter((paragraph) => paragraph.split(/\s+/).length >= 12);
+}
+
+function oneDeskStory(paragraph, desks) {
+	let best = null;
+	let bestScore = 0;
+	for (const desk of desks) {
+		const score = sharedWords(paragraph, `${desk.title} ${desk.summary}`);
+		if (score > bestScore) {
+			best = desk;
+			bestScore = score;
+		}
+	}
+	if (bestScore >= 3) return best;
+	return desks[0] ?? null;
+}
+
 function editionFallback(editionDate, editionUrl, html, allowLead) {
 	const sectionPattern =
 		/<section\b[^>]*class="[^"]*\bbig-story\b[^"]*"[^>]*>([\s\S]*?)<\/section>/i;
 	const section = html.match(sectionPattern)?.[1] ?? "";
 	const title = text(section.match(/<h3\b[^>]*>([\s\S]*?)<\/h3>/i)?.[1]);
+	const paragraphs = storyParagraphs(section);
 	const paragraph = [...section.matchAll(/<p\b([^>]*)>([\s\S]*?)<\/p>/gi)].find(
 		(m) => !/source-line|whats-next/.test(m[1]),
 	);
@@ -139,8 +183,9 @@ function editionFallback(editionDate, editionUrl, html, allowLead) {
 		.filter((m) => https(m[1]))
 		.map((m) => ({ url: m[1], name: text(m[2]) }));
 	const neutral = !allowLead || !title || !paragraph || !sources.length;
-	return {
+	const lead = {
 		key: "edition-fallback",
+		storyKey: "",
 		record: editionUrl,
 		title: neutral ? `Latest available edition — ${editionDate}` : title,
 		summary: neutral
@@ -152,6 +197,23 @@ function editionFallback(editionDate, editionUrl, html, allowLead) {
 		action: { label: "Read the full edition", url: editionUrl },
 		neutral,
 	};
+	if (neutral || !roundupTitle(title)) return lead;
+	const story = oneDeskStory(paragraphs[0] || lead.summary, editionLeads(editionUrl, html, 12));
+	if (!story) return lead;
+	return {
+		...lead,
+		key: story.key,
+		storyKey: story.storyKey,
+		title: story.title,
+		summary: story.summary,
+		sources: story.sources,
+		action: story.action,
+	};
+}
+
+// The edition page and the homepage use the same single top story.
+export function editionLeadFromHtml(html, editionDate, editionUrl) {
+	return editionFallback(editionDate, editionUrl, html, true);
 }
 
 // With no reviewed curation packet, the rail carries the edition's own
@@ -159,9 +221,10 @@ function editionFallback(editionDate, editionUrl, html, allowLead) {
 // the edition. Same-day only, like the fallback lead.
 export function editionLeads(editionUrl, html, limit = 4) {
 	const leads = [];
-	for (const m of (html ?? "").matchAll(
-		/<h5\b[^>]*\bid="([^"]+)"[^>]*>([\s\S]*?)<\/h5>\s*<p\b[^>]*>([\s\S]*?)<\/p>/gi,
-	)) {
+	const deskLead =
+		/<h5\b[^>]*\bid="([^"]+)"[^>]*>([\s\S]*?)<\/h5>\s*/.source +
+		/(?:<figure\b[\s\S]*?<\/figure>\s*)?<p\b[^>]*>([\s\S]*?)<\/p>/.source;
+	for (const m of (html ?? "").matchAll(new RegExp(deskLead, "gi"))) {
 		const link = m[3].match(
 			/<span class="src">\s*<a\b[^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/i,
 		);
@@ -170,6 +233,7 @@ export function editionLeads(editionUrl, html, limit = 4) {
 		if (!link || !https(link[1]) || !title || !summary) continue;
 		leads.push({
 			key: `edition-lead-${m[1]}`,
+			storyKey: m[1],
 			record: editionUrl,
 			title,
 			summary,
@@ -323,7 +387,11 @@ export function selectFrontpage({
 		editionDate === today && !expiredSource,
 	);
 	if (!matches && editionDate === today && !lead.neutral)
-		developments.push(...editionLeads(editionUrl, editionHTML));
+		developments.push(
+			...editionLeads(editionUrl, editionHTML, 8)
+				.filter((item) => item.key !== lead.key)
+				.slice(0, 4),
+		);
 	const previous = previousPublishedEdition(previousEdition, editionDate);
   const front = {
     voteGuide: null,

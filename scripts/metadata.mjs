@@ -69,7 +69,7 @@ function leadFrom(content) {
 
 function titleFor(originalTitle, content, lead) {
   const date = reliableText(String(content ?? "").match(
-    /<h1\b[^>]*class="[^"]*\bedition-date\b[^"]*"[^>]*>([\s\S]*?)<\/h1>/i
+    /<(?:h1|p|time)\b[^>]*class="[^"]*\bedition-date\b[^"]*"[^>]*>([\s\S]*?)<\/(?:h1|p|time)>/i
   )?.[1]);
   if (lead.heading && date) return `${lead.heading} — ${date} | The Austin Bulletin`;
   const sourceTitle = reliableText(originalTitle) || "The Austin Bulletin";

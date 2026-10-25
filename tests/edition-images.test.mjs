@@ -5,6 +5,7 @@ import sharp from "sharp";
 import yaml from "js-yaml";
 import {
   editionImageProblems,
+  leadForStory,
   leadMarkup,
   photoMarkup,
   withStoryPhotos,
@@ -55,6 +56,27 @@ test("missing derivative files are reported", () => {
   const problems = editionImageProblems({ lead: photo }, () => false);
   assert.ok(problems.some((item) => item.includes(photo.src)));
   assert.ok(problems.some((item) => item.includes(photo.smallSrc)));
+});
+
+test("a lead photograph renders only for the story it belongs to", () => {
+  const tree = {
+    ...photo,
+    key: "tree",
+    src: "/images/2026-10-24/zilker-tree-1200.webp",
+    smallSrc: "/images/2026-10-24/zilker-tree-640.webp",
+    width: 1200,
+    height: 798,
+    smallWidth: 640,
+  };
+  const images = { lead: tree, stories: [{ ...photo, key: "parade" }] };
+  const parade = leadForStory(images, "parade");
+  assert.match(parade, /viva-la-vida-960\.webp/);
+  assert.doesNotMatch(parade, /zilker-tree/);
+  assert.match(leadForStory(images, "tree"), /zilker-tree-1200\.webp/);
+  const missing = leadForStory(images, "library");
+  assert.match(missing, /austin-skyline\.svg/);
+  assert.match(missing, /Original illustration/);
+  assert.match(missing, /no photograph/i);
 });
 
 test("a missing lead renders the skyline illustration and its credit", () => {
@@ -115,7 +137,7 @@ test("October 24 rights files name Commons licenses and no city photograph", () 
 test("October 24 derivatives match the front matter dimensions", async () => {
   const fm = readFileSync("src/bulletins/2026-10-24.md", "utf8").split("---")[1];
   const images = yaml.load(fm).images;
-  for (const item of [images.lead, ...images.stories]) {
+  for (const item of [images.lead, ...(images.stories ?? [])].filter(Boolean)) {
     const large = await sharp(`src${item.src}`).metadata();
     const small = await sharp(`src${item.smallSrc}`).metadata();
     assert.equal(large.width, item.width);
@@ -125,12 +147,22 @@ test("October 24 derivatives match the front matter dimensions", async () => {
   }
 });
 
+function leadFigure(html) {
+  return html.match(/<figure class="lead-photo">([\s\S]*?)<\/figure>/)?.[1] ?? "";
+}
+
 test("built October 24 pages credit the lead and do not illustrate the library death", () => {
   const home = readFileSync("_site/index.html", "utf8");
   const edition = readFileSync("_site/2026/10/24/index.html", "utf8");
   const tree = "/images/2026-10-24/zilker-tree-1200.webp";
+  const parade = "/images/2026-10-24/viva-la-vida-960.webp";
   for (const html of [home, edition]) {
-    assert.ok(html.includes(tree), "lead tree photograph");
+    assert.match(leadFigure(html), new RegExp(parade.replaceAll(".", "\\.")));
+    assert.doesNotMatch(leadFigure(html), /zilker-tree/);
+    const headline = html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)?.[1] ?? "";
+    assert.match(headline, /Viva La Vida parade and festival take over downtown today/);
+    assert.doesNotMatch(headline, /murder|\$1\.2 million/);
+    assert.ok(html.includes(tree), "tree photograph stays with its story");
     assert.ok(html.includes("That Other Paper"));
     assert.ok(html.includes("File:Trail_of_Lights_Austin.jpg"));
     assert.ok(html.includes("creativecommons.org/licenses/by-sa/2.0"));
