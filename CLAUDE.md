@@ -30,6 +30,7 @@ npm run build          # eleventy, then pagefind
 npm run lint           # eslint on scripts and tests
 npm test               # node --test
 npm run check -- YYYY-MM-DD   # the mechanical quality gate, with links
+npm run audit:links    # build, then write reports/link-audit.md (not a CI gate)
 npm run today | voices | card | video | graphic | illustrate | kvue | civic
 node scripts/alert.mjs "reason"   # open an ALERT issue for Evan
 ```
@@ -52,3 +53,6 @@ node scripts/alert.mjs "reason"   # open an ALERT issue for Evan
   ledger. Five queries of ten posts is the default.
 - Pagefind search works only on a full build, not `npm run serve`.
 - `npm run video` refuses a YouTube id an earlier edition already used.
+- `npm run audit:links` checks every outbound link in the built site and
+  writes `reports/link-audit.md`. It is report-only and is not part of
+  `ci.yml`, because external sites flake.
