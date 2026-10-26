@@ -334,9 +334,10 @@ specifically to catch that.
 These never bend, exception or not, because too many visuals is never a
 supply shortage: the voice-cards-per-beat cap (`voicePerBeat`), the
 voice-cards-per-edition cap (`voiceMax`), and the videos-per-edition cap
-(`videoMax`). Nothing outside the visual minimums is ever exceptable —
-item lengths, lead counts, item counts, the City Desk word budget, and every
-language rule stay hard failures under all circumstances.
+(`videoMax`). `visual_exception` never reaches past those four minimums.
+Item lengths, lead counts, the City Desk word budget, and every language
+rule stay hard failures under all circumstances. A thin approved copy has
+a separate hatch, next, and it does not relax those rules either.
 
 Use this only for genuine scarcity, never to skip the work of finding
 cards. The reason is written into the edition's own front matter, and
@@ -344,6 +345,31 @@ when the exception is invoked it is recorded in that morning's run log
 (PIPELINE.md Step 6) — quoted, with the minimums it covered — so the
 publisher can see how often the hatch is being used. A hatch nobody can
 audit is the drift this whole change exists to prevent.
+
+### The floor_exception escape hatch
+
+Publisher's ruling, 2026-10-26: do not repeat a sentence to manufacture a
+City Desk item, to fatten The Briefing, or to print an empty Weather
+heading. When the approved copy cannot reach those floors, say so in front
+matter: `floor_exception: "<reason>"`. The reason is held to the same
+substantive-sentence test as `visual_exception` (at least 4 distinct words
+of three or more letters, and 20 non-whitespace characters). A short or
+padded reason is its own failure.
+
+A substantive reason downgrades exactly three rules from FAILURE to WARNING:
+
+- the City Desk item-count floor (`itemsMin`, 20). The 40-item cap stays
+  a failure.
+- The Briefing's 120-word floor, down to 40 words — a real dek, not an
+  empty section. The 300-word cap stays a failure.
+- a missing `## Weather` heading, when the copy has no forecast. Do not
+  invent one, and do not leave the heading over an empty section.
+
+These stay hard failures with or without the hatch: lead length, brief
+length, source tags, lead caps, the City Desk word budget, language rules,
+and every visual cap. `visual_exception` still does not cover the item
+floor. Quote the reason in that morning's run log, with the three rules
+it covered.
 
 ## Neutrality rules
 
