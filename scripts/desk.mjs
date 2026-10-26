@@ -42,7 +42,10 @@ function strongLabel(cleaned) {
 function actionText(label, cleaned) {
   const withoutLink = stripTags(cleaned.replace(/<a[\s\S]*?<\/a>/gi, " "));
   const raw = label ? withoutLink.replace(label, " ") : withoutLink;
-  return raw.replace(/\s+/g, " ").trim().replace(/\s+\.$/, "");
+  // The period after the link is punctuation for the link, not a sentence.
+  // trim() runs first, so a line that is only a label and a link used to
+  // leave that period behind and the homepage printed "If you want to go: ."
+  return raw.replace(/\s+/g, " ").trim().replace(/(?:^|\s+)\.$/, "");
 }
 
 function hrefOf(link) {
