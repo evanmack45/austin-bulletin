@@ -24,6 +24,7 @@ import { mkdir, writeFile, readFile, readdir } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import sharp from "sharp";
+import { chicagoDate } from "./chicago-time.mjs";
 
 const TIMEOUT_MS = 20000;
 
@@ -42,7 +43,7 @@ function safeUrl(url) {
 }
 
 function computeDefaultDate() {
-  return new Intl.DateTimeFormat("en-CA", { timeZone: "America/Chicago" }).format(new Date());
+  return chicagoDate();
 }
 
 async function fetchJson(url, options = {}) {

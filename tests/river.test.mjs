@@ -57,6 +57,16 @@ test("excludes the trailing sources line from items", () => {
   assert.equal(p.items.length, 3);
 });
 
+test("a correction note beside an item is not itself an item", () => {
+  const note = [
+    '<p class="correction">',
+    "Update, Oct. 26, 2026: an earlier version said only that the man was located.",
+    "</p>"
+  ].join("");
+  const p = parseRiver(`${SAMPLE}\n${note}\n`);
+  assert.equal(p.items.length, 3);
+});
+
 function riverOf(beatName, items) {
   return `#### ${beatName}\n\n` + items.join("\n\n") + "\n";
 }

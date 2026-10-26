@@ -499,8 +499,7 @@ Its link check
 knows KXAN article pages 403 to every non-browser client and verifies those
 through the WordPress API by slug instead of calling them broken, so a clean
 run means the links are genuinely good. `--no-links` skips the network pass
-while drafting. A separate full-site pass, `npm run audit:links`, writes
-`reports/link-audit.md`. It is not part of this gate and not part of CI.
+while drafting.
 
 It exists because the 2026-08-25 run shipped six over-cap items into a draft
 and caught them only by hand. **It does not replace gate checks 2 and 6** —

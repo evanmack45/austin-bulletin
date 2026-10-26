@@ -1,6 +1,8 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { hasStoryPhoto, leadForStory, storyThumb, withStoryPhotos } from "./scripts/edition-images.mjs";
 import { loadIllustrationAssets } from "./scripts/front-art.mjs";
+import { isoDate, longDate, monthDay, readableDate, shortMonthDay, weekdayName }
+  from "./scripts/edition-dates.mjs";
 import { chicagoDate, editionLeadFromHtml, forecastAlerts, selectFrontpage, previousPublishedEdition } from "./scripts/frontpage.mjs";
 import { parseDesk } from "./scripts/desk.mjs";
 import { HtmlBasePlugin } from "@11ty/eleventy";
@@ -166,20 +168,10 @@ export default function (eleventyConfig) {
     }
   });
 
-  eleventyConfig.addFilter("readableDate", (d) =>
-    new Date(d).toLocaleDateString("en-US", {
-      weekday: "long", year: "numeric", month: "long", day: "numeric", timeZone: "UTC"
-    })
-  );
-  eleventyConfig.addFilter("monthDay", (d) => new Date(d).toLocaleDateString("en-US", { month: "long", day: "numeric", timeZone: "UTC" }));
-  eleventyConfig.addFilter("weekday", (d) =>
-    new Date(d).toLocaleDateString("en-US", { weekday: "long", timeZone: "UTC" })
-  );
-  eleventyConfig.addFilter("longDate", (d) =>
-    new Date(d).toLocaleDateString("en-US", {
-      year: "numeric", month: "long", day: "numeric", timeZone: "UTC"
-    })
-  );
+  eleventyConfig.addFilter("readableDate", readableDate);
+  eleventyConfig.addFilter("monthDay", monthDay);
+  eleventyConfig.addFilter("weekday", weekdayName);
+  eleventyConfig.addFilter("longDate", longDate);
   // Edition number: 1 for the oldest bulletin, counting up. `bulletins` is newest-first.
   eleventyConfig.addFilter("editionNumber", (url, bulletins) => {
     const i = bulletins.findIndex((b) => b.url === url);
@@ -260,13 +252,8 @@ export default function (eleventyConfig) {
     return out;
   });
 
-  eleventyConfig.addFilter("isoDate", (d) => new Date(d).toISOString().slice(0, 10));
-  eleventyConfig.addFilter("shortMonthDay", (d) => {
-    const date = new Date(d);
-    const months = ["Jan.", "Feb.", "March", "April", "May", "June",
-      "July", "Aug.", "Sept.", "Oct.", "Nov.", "Dec."];
-    return `${months[date.getUTCMonth()]} ${date.getUTCDate()}`;
-  });
+  eleventyConfig.addFilter("isoDate", isoDate);
+  eleventyConfig.addFilter("shortMonthDay", shortMonthDay);
   eleventyConfig.addFilter("homeDesk", (inputPath) => parseDesk(readFileSync(inputPath, "utf8")));
   eleventyConfig.addFilter("commas", (n) => Number(n).toLocaleString("en-US"));
 

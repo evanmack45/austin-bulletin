@@ -47,8 +47,21 @@ const select = (curation, today = date, r = records) =>
 test("Chicago calendar changes at local midnight including DST", () => {
 	assert.equal(chicagoDate(new Date("2026-10-05T00:30:00Z")), "2026-10-04");
 	assert.equal(chicagoDate(new Date("2026-10-05T05:00:00Z")), "2026-10-05");
+	assert.equal(chicagoDate(new Date("2026-10-27T01:30:00Z")), "2026-10-26");
 	assert.equal(chicagoDate(new Date("2026-11-02T05:30:00Z")), "2026-11-01");
 	assert.equal(chicagoDate(new Date("2026-11-02T06:00:00Z")), "2026-11-02");
+});
+test("a deadline ending October 26 stays open at 2026-10-27T01:30:00Z", () => {
+	const now = new Date("2026-10-27T01:30:00Z");
+	const today = chicagoDate(now);
+	const curated = bundle();
+	curated.lead.expiresOn = "2026-10-26";
+	assert.equal(select(curated, today).lead.key, "deadline");
+	const utcDay = now.toISOString().slice(0, 10);
+	assert.equal(utcDay, "2026-10-27");
+	assert.notEqual(select(curated, utcDay).lead.key, "deadline");
+	assert.notEqual(select(curated, chicagoDate(new Date("2026-10-27T05:00:00Z"))).lead.key,
+		"deadline");
 });
 test("reviewed curation is selected without duplicating story keys", () => {
 	const front = select(bundle());

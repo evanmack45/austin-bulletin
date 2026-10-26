@@ -22,6 +22,7 @@ import { mkdir, writeFile, readFile, readdir } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import crypto from "node:crypto";
+import { chicagoDate, CHICAGO } from "./chicago-time.mjs";
 import { execFile } from "node:child_process";
 import sharp from "sharp";
 
@@ -50,7 +51,7 @@ function safeUrl(url) {
 }
 
 function computeDefaultDate() {
-  return new Intl.DateTimeFormat("en-CA", { timeZone: "America/Chicago" }).format(new Date());
+  return chicagoDate();
 }
 
 async function fetchJson(url, options = {}) {
@@ -141,8 +142,8 @@ function stripTags(html) {
 // Formats a real Date/instant as "Aug. 21" in America/Chicago, AP-style.
 function formatApDate(date) {
   if (!date || Number.isNaN(date.getTime())) return null;
-  const month = new Intl.DateTimeFormat("en-US", { month: "long", timeZone: "America/Chicago" }).format(date);
-  const day = new Intl.DateTimeFormat("en-US", { day: "numeric", timeZone: "America/Chicago" }).format(date);
+  const month = new Intl.DateTimeFormat("en-US", { month: "long", timeZone: CHICAGO }).format(date);
+  const day = new Intl.DateTimeFormat("en-US", { day: "numeric", timeZone: CHICAGO }).format(date);
   return `${AP_MONTH[month] || month} ${day}`;
 }
 

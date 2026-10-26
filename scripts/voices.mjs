@@ -46,6 +46,7 @@
 import { mkdir, appendFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
+import { chicagoDate } from "./chicago-time.mjs";
 
 const API = "https://public.api.bsky.app/xrpc";
 const AUTH_API = "https://bsky.social/xrpc";
@@ -428,7 +429,7 @@ async function main() {
 async function recordXSpend(posts, usd, searchTerm) {
   const __dirname = path.dirname(fileURLToPath(import.meta.url));
   const ledger = path.join(path.resolve(__dirname, ".."), "logs", "x-spend.jsonl");
-  const date = new Intl.DateTimeFormat("en-CA", { timeZone: "America/Chicago" }).format(new Date());
+  const date = chicagoDate();
   const line = JSON.stringify({
     date,
     at: new Date().toISOString(),

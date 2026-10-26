@@ -159,11 +159,13 @@ function visualId(block) {
 }
 
 // Blocks that are structural noise, not content: embeds, the trailing
-// sources line, and figure captions.
+// sources line, figure captions, and a visible correction note. A
+// correction sits beside the item it fixes; it is not a new City Desk item.
 function isSkippableBlock(block) {
   return (
     block.startsWith("{%") ||
     block.startsWith('<p class="source-line"') ||
+    block.startsWith('<p class="correction"') ||
     block.startsWith("<figcaption")
   );
 }
