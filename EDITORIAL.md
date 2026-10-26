@@ -3,27 +3,33 @@
 Read this file at the start of every daily run. These rules are not
 suggestions. Every rule binds the writing.
 
-## Homepage (October 25, 2026)
+## Homepage (October 26, 2026)
 
 The homepage prints one lead from that morning's briefing, then the items
 marked as deadlines, then the items marked for the week. A story appears
 once. The full edition is one link, not a second copy of the headline.
 
-Headlines say why the item matters and use a verb. Each homepage item
-carries one "If you…" line: a date, a place, or a document already in the
-sourced copy. That line is a practical next step, not an endorsement and
-not a new fact. It does not count toward the briefing word cap or a lead's
-word cap.
+Headlines are 10 words or fewer. Put the number or the date in the headline
+or in the figure beside it. The practical next step is one plain sentence:
+a date, a place, or a document already in the sourced copy. It does not
+open with "If you…". One caveat per story. Do not add a fact the sourced
+edition does not already state. When the source says community development,
+write community development; do not substitute housing. The practical
+sentence does not count toward the briefing word cap or a lead's word cap.
 
 Markers live in the bulletin so the homepage and the edition share one
-copy: `desk:kicker`, `desk:figure`, `desk:closes`, and `desk:week`. A
-deadline chip is the source's own date, written in title case. The page
-uppercases it. Do not calculate a day count the copy does not state.
+copy: `desk:kicker`, `desk:figure`, `desk:photo`, `desk:closes`, and
+`desk:week`. A deadline is the source's own date. Do not calculate a day
+count the copy does not state.
 
-A lead photograph runs only when the edition names a real, credited photo
-of that story. No City of Austin image. No illustration in place of a
-missing photo. If none fits, the lead has no image. The skyline file stays
-in the repo as a credited illustration; pages do not insert it.
+A lead photograph runs only when `desk:photo` names a record in
+`src/_data/imageCredits.json`. The caption says what the picture shows.
+A photograph needs a credit. An illustration is labeled "Illustration" in
+the alt text and on the page. No City of Austin image. No illustration in
+place of a missing story photo. The masthead skyline is a labeled
+illustration, not a story photo. `npm run check` fails an edition from
+2026-10-26 on when an item starts with "If you", a homepage headline runs
+past 10 words, or an image lacks a credit or an illustration label.
 
 The dated-briefing line lives on About. Standing guides live on the
 archive, under "Keep these close." The masthead is four links: Today,

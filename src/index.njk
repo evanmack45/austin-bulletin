@@ -6,52 +6,62 @@ permalink: "/"
 homeFront: true
 ---
 {% set latest = collections.bulletins | first %}
-{% set editionImages = latest.data.images or {} %}
 {% set editionDate = latest.date | isoDate %}
 {% set desk = latest.inputPath | homeDesk %}
+{% set photo = imageCredits[desk.photo] %}
 <article class="edited-front paper" data-neutral="false" data-edition="{{ editionDate }}">
   <div class="paper-wrap">
     <div class="paper-main">
       <section class="front-lead" aria-labelledby="front-lead-title">
         {% if desk.kicker %}<p class="kicker">{{ desk.kicker | escape }}</p>{% endif %}
-        {% if desk.figure %}<p class="num">{{ desk.figure | escape }}</p>{% endif %}
         <h1 id="front-lead-title">{{ desk.headline | escape }}</h1>
-        {% if desk.deck %}<p class="front-deck">{{ desk.deck | escape }}</p>{% endif %}
+        {% if photo %}
+        <figure class="lead-photo">
+          <img src="{{ photo.file | escape }}" alt="{{ photo.alt | escape }}" width="{{ photo.width }}" height="{{ photo.height }}" loading="eager" fetchpriority="high" decoding="async">
+          <figcaption>{{ photo.caption | escape }}{% if photo.credit %} Photo: <a href="{{ photo.source | escape }}">{{ photo.credit | escape }}</a>.{% endif %}</figcaption>
+        </figure>
+        {% endif %}
+        <div class="lead-stat">
+          {% if desk.figure %}<p class="num">{{ desk.figure | escape }}</p>{% endif %}
+          {% if desk.deck %}<p class="front-deck">{{ desk.deck | escape }}</p>{% endif %}
+        </div>
         {% if desk.action %}
-        <p class="if-you">{% if desk.action.label %}<strong>{{ desk.action.label | escape }}</strong> {% endif %}{{ desk.action.text | escape }}{% if desk.action.href %} <a href="{{ desk.action.href | escape }}" class="front-action">{{ desk.action.linkLabel | escape }}</a>{% endif %}</p>
+        <p>{% if desk.action.text %}{{ desk.action.text | escape }}{% endif %}{% if desk.action.href %} <a href="{{ desk.action.href | escape }}" class="front-action">{{ desk.action.linkLabel | escape }}</a>{% endif %}</p>
         {% endif %}
         {% if desk.source %}<p class="src front-sources">Source: <a href="{{ desk.source.href | escape }}">{{ desk.source.name | escape }}</a></p>{% endif %}
       </section>
+      <p class="edition-jump"><a href="{{ latest.url }}">Full {{ latest.date | weekday }} edition</a></p>
+    </div>
+    <aside class="paper-side">
       {% if desk.closes.length %}
       <section class="closes" aria-labelledby="closes-title">
+        {% if imageCredits.closes %}
+        <figure class="spot-art">
+          <img src="{{ imageCredits.closes.file | escape }}" alt="{{ imageCredits.closes.alt | escape }}" width="{{ imageCredits.closes.width }}" height="{{ imageCredits.closes.height }}" decoding="async">
+          <figcaption>{{ imageCredits.closes.caption | escape }}</figcaption>
+        </figure>
+        {% endif %}
         <h2 class="kicker" id="closes-title">Before it closes</h2>
         {% for item in desk.closes %}
         <article class="card">
-          <span class="date-tag">{{ item.when | escape }}</span>
           <h2>{% if item.source %}<a href="{{ item.source.href | escape }}">{{ item.title | escape }}</a>{% else %}{{ item.title | escape }}{% endif %}</h2>
-          {% if item.action %}<p class="if-you">{% if item.action.label %}<strong>{{ item.action.label | escape }}</strong> {% endif %}{{ item.action.text | escape }}{% if item.action.href %} <a href="{{ item.action.href | escape }}">{{ item.action.linkLabel | escape }}</a>{% endif %}</p>{% endif %}
+          {% if item.action %}<p>{% if item.action.text %}{{ item.action.text | escape }}{% endif %}{% if item.action.href %} <a href="{{ item.action.href | escape }}">{{ item.action.linkLabel | escape }}</a>{% endif %}</p>{% endif %}
           {% if item.source %}<p class="src">{{ item.source.name | escape }}</p>{% endif %}
         </article>
         {% endfor %}
       </section>
       {% endif %}
-      <p class="edition-jump"><a href="{{ latest.url }}">Full {{ latest.date | weekday }} edition</a></p>
-    </div>
-    <aside class="paper-side" aria-labelledby="week-title">
-      {% if editionImages.lead %}
-      {% set photo = editionImages | leadForStory(editionImages.lead.key) %}
-      {% if photo %}{{ photo | safe }}{% endif %}
-      {% endif %}
       {% if desk.week.length %}
-      <h2 class="kicker" id="week-title">This week</h2>
-      {% for item in desk.week %}
-      <article class="card">
-        {% if item.when %}<span class="date-tag">{{ item.when | escape }}</span> {% endif %}
-        <h2>{% if item.source %}<a href="{{ item.source.href | escape }}">{{ item.title | escape }}</a>{% else %}{{ item.title | escape }}{% endif %}</h2>
-        {% if item.action %}<p class="if-you">{% if item.action.label %}<strong>{{ item.action.label | escape }}</strong> {% endif %}{{ item.action.text | escape }}{% if item.action.href %} <a href="{{ item.action.href | escape }}">{{ item.action.linkLabel | escape }}</a>{% endif %}</p>{% endif %}
-        {% if item.source %}<p class="src">{{ item.source.name | escape }}</p>{% endif %}
-      </article>
-      {% endfor %}
+      <section class="week-block" aria-labelledby="week-title">
+        <h2 class="kicker" id="week-title">This week{% if desk.week.length == 1 and desk.week[0].when %} · {{ desk.week[0].when | escape }}{% endif %}</h2>
+        {% for item in desk.week %}
+        <article class="card">
+          <h2>{% if item.source %}<a href="{{ item.source.href | escape }}">{{ item.title | escape }}</a>{% else %}{{ item.title | escape }}{% endif %}</h2>
+          {% if item.action %}<p>{% if item.action.text %}{{ item.action.text | escape }}{% endif %}{% if item.action.href %} <a href="{{ item.action.href | escape }}">{{ item.action.linkLabel | escape }}</a>{% endif %}</p>{% endif %}
+          {% if item.source %}<p class="src">{{ item.source.name | escape }}</p>{% endif %}
+        </article>
+        {% endfor %}
+      </section>
       {% endif %}
       {% set signupId = "lead" %}
       {% include "signup.njk" %}

@@ -37,10 +37,10 @@ November 7.
 
 | Site | Date | What |
 |---|---|---|
-| theaustinbulletin.com | 2026-10-25 | One lead, a deadline list, and a paper masthead. Guides moved to the archive |
+| theaustinbulletin.com | 2026-10-26 | Masthead illustration, a credited courthouse photo, and plain sentences in place of the "If you" formula |
 | yallcityhall.org | 2026-10-06 | Field-guide homepage (previous operator) |
 
-The Bulletin's next design change waits until 2026-11-08. The tracker is
+The Bulletin's next design change waits until 2026-11-09. The tracker is
 clear for one from 2026-10-20. None is planned there: without numbers there
 is nothing to judge one against. The critic picks above are wording and
 content fixes, not design changes.
@@ -82,6 +82,7 @@ No data at the judge date is a kill.
 One line per reader-visible change, newest first. The daily edition does
 not count. Three calendar days with no line is an alert.
 
+- 2026-10-26 · bulletin · Homepage alive pass: a labeled skyline illustration on the masthead, the Travis County Courthouse (Larry D. Moore, CC BY 4.0) on the election lead, spot art beside Before it closes, and plain sentences in place of the "If you" lines. Headlines are 10 words or fewer. The check fails an item that starts with "If you" or an image with no credit or illustration label
 - 2026-10-25 · bulletin · Homepage is one lead, a "Before it closes" list, and a "This week" item. Headlines say why it matters, each with an "If you…" line drawn from the sourced copy. Disclaimers and "Keep these close" moved to About and the archive. Nav is Today, Election, Archive, Subscribe. Warm paper, bold headlines, one red. No lead photo: no credited Commons file shows this year's early voting. Signup line is "Austin in 5 minutes, every morning. Free."
 - 2026-10-24 · bulletin · Email signup under the homepage lead, a compact signup at the end of every edition, and a dismissible mobile bar. "What matters in Austin, in your inbox each morning. Free." Each placement is Kit's official embed, with a no-JavaScript link to the hosted form. RSS still works
 - 2026-10-22 · tracker · Two more topic pages `/topics/sidewalks-bikeways/` and `/topics/animal-services/`: every official Council vote since 2023 naming sidewalks, bikeways, bicycle lanes or plans, urban trails or shared-use paths (61 items) and every one naming animals, Austin Animal Services, Austin Pets Alive or veterinary services (31), in the City's wording with outcome, tally and roll-call link; linked from Issues

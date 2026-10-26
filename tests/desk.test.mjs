@@ -52,23 +52,21 @@ test("October 25 desk is one lead, two deadlines, and one week item", () => {
   assert.doesNotMatch(desk.week[0].title, /100\+/);
 });
 
-test("October 26 if-you lines are not empty", () => {
+test("October 26 homepage lines are plain sentences", () => {
   const desk = parseDesk(readFileSync("src/bulletins/2026-10-26.md", "utf8"));
-  const actions = [
-    desk.action,
-    ...desk.closes.map((item) => item.action),
-    ...desk.week.map((item) => item.action)
-  ];
-  for (const action of actions) {
-    assert.ok(action, "missing if-you");
-    assert.notEqual(action.text, "", "empty if-you");
-    assert.notEqual(action.text, ".", "empty if-you");
-  }
+  assert.equal(desk.figure, "27%");
+  assert.equal(desk.photo, "courthouse");
+  assert.equal(desk.headline, "A quarter of Travis County has voted. Five days left.");
+  assert.equal(desk.action.label, "");
+  assert.match(desk.action.text, /^Polls are open/);
   assert.equal(
-    desk.week[0].action.text,
-    "the festival wraps up Sunday, Nov. 1, and the schedule is searchable " +
-    "by date and neighborhood at rootsandwingsfest.com."
+    desk.closes[0].title,
+    "Nov. 19: Comment on the county's federal community development report."
   );
+  assert.match(desk.closes[0].action.text, /^Comments open/);
+  assert.match(desk.week[0].action.text, /^Ends Sunday/);
+  const openers = [desk.headline, desk.action.text, desk.closes[0].title, desk.week[0].title];
+  for (const line of openers) assert.doesNotMatch(line, /^If you/i);
   assert.equal(
     desk.week[0].action.href,
     "https://www.austintexas.gov/climate/news/austin-invites-community-outdoors-9th-annual-roots-wings-festival"

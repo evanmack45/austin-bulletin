@@ -1,53 +1,104 @@
 /* Homepage. Loaded after style.css. Warm paper, one red, a two-column read. */
 .home-front {
-  background: #fbf8f2;
+  background: #f6f1e7;
   color: #1b1b1b;
 }
-.home-front main { max-width: 1180px; padding: 20px 20px 64px; }
+.home-front main { max-width: 1120px; margin: 0 auto; padding: 8px 32px 64px; }
 .home-front .front-masthead {
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 14px 20px;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  display: block;
+  border-bottom: 0;
+  background: #f6f1e7;
+}
+.masthead-banner {
+  position: relative;
+  height: 230px;
+  background: #efe8dc;
+  border-bottom: 3px double #1b1b1b;
+}
+.masthead-sky {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 62%;
+}
+.masthead-title {
+  position: absolute;
+  left: max(32px, calc((100% - 1120px) / 2 + 32px));
+  right: max(32px, calc((100% - 1120px) / 2 + 32px));
+  bottom: 16px;
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 8px 24px;
-  border-bottom: 3px solid #1b1b1b;
+  align-items: flex-end;
+  gap: 16px;
 }
-.home-front .wordmark {
-  font-family: Bricolage, "Helvetica Neue", Arial, sans-serif;
-  font-size: 34px;
-  font-weight: 800;
+.home-front .front-masthead .wordmark {
+  font-family: Bricolage, "Times New Roman", Times, serif;
+  font-size: 64px;
+  font-weight: 700;
   letter-spacing: -1px;
   line-height: 1;
   white-space: nowrap;
+  background: rgba(246, 241, 231, 0.9);
+  padding: 6px 14px;
 }
-.home-front .masthead-dateline {
-  flex: 1;
+.home-front .front-masthead .masthead-dateline {
+  flex: 0 1 auto;
   margin: 0;
   font-family: Hanken, Arial, sans-serif;
   font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   color: #1b1b1b;
-  text-align: center;
+  text-align: right;
+  background: rgba(246, 241, 231, 0.9);
+  padding: 4px 10px;
 }
-.home-front .site-nav { margin-left: auto; }
+.home-front .front-masthead .masthead-dateline a { color: #1b1b1b; }
+.masthead-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 4px 32px 0;
+  border-bottom: 1px solid #1b1b1b;
+}
+.home-front .front-masthead .masthead-label {
+  margin: 2px 0 0;
+  text-align: right;
+  font-family: Hanken, Arial, sans-serif;
+  font-size: 12px;
+  color: #3d3d3d;
+}
+.home-front .site-nav { margin: 0; }
+@media (min-width: 761px) {
+  .home-front .front-masthead .site-nav {
+    justify-self: start;
+    margin-left: 0;
+    margin-right: auto;
+  }
+}
 .home-front .site-menu-panel {
   max-width: none;
   width: auto;
-  gap: 0 14px;
+  gap: 0 22px;
   font-family: Hanken, Arial, sans-serif;
+  justify-content: flex-start;
 }
 .home-front .site-menu-panel a {
   margin-left: 0;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
+  min-height: 44px;
 }
 .paper-wrap {
   display: grid;
   grid-template-columns: minmax(0, 2fr) minmax(240px, 1fr);
-  gap: 32px;
+  gap: 40px;
   align-items: start;
+  margin-top: 26px;
 }
 .kicker, .home-front h2.kicker {
   font-family: Hanken, Arial, sans-serif;
@@ -58,31 +109,27 @@
   color: #c8102e;
   margin: 0;
 }
-.home-front h2.kicker { margin-top: 8px; }
+.home-front h2.kicker { margin-top: 0; }
+.lead-stat { overflow: auto; }
 .num {
-  font-family: Bricolage, Arial, sans-serif;
-  font-weight: 800;
-  font-size: 88px;
-  line-height: 1;
+  font-family: Bricolage, "Times New Roman", Times, serif;
+  font-weight: 700;
+  font-size: 72px;
+  line-height: 0.9;
   color: #c8102e;
-  margin: 6px 0 8px;
+  float: left;
+  margin: 4px 18px 4px 0;
 }
 .home-front .front-lead h1 {
-  font-family: Bricolage, "Helvetica Neue", Arial, sans-serif;
-  font-weight: 800;
-  font-size: 44px;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
+  font-family: Bricolage, "Times New Roman", Times, serif;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
   max-width: none;
   margin: 6px 0 12px;
 }
-.home-front .front-deck { font-size: 18px; line-height: 1.5; margin: 0 0 12px; max-width: 62ch; }
-.home-front .if-you {
-  border-left: 4px solid #c8102e;
-  margin: 12px 0;
-  padding: 2px 0 2px 12px;
-  font-size: 17px;
-}
+.home-front .front-deck { font-size: 18px; line-height: 1.5; margin: 0 0 12px; }
 .home-front .front-action {
   display: inline-flex;
   align-items: center;
@@ -103,67 +150,73 @@
   text-transform: none;
   white-space: normal;
 }
-.home-front .front-sources a { min-height: 44px; }
-.card { border-top: 1px solid #ccc; padding: 12px 0; }
+.home-front .front-sources a { min-height: 44px; color: #1b1b1b; }
+.home-front .lead-photo { margin: 0 0 14px; }
+.home-front .lead-photo img { width: 100%; height: auto; display: block; }
+.home-front .lead-photo figcaption,
+.home-front .spot-art figcaption {
+  font-family: Hanken, Arial, sans-serif;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #3d3d3d;
+  margin-top: 4px;
+}
+.home-front .lead-photo figcaption a { color: #1b1b1b; }
+.closes, .week-block {
+  border-top: 3px solid #1b1b1b;
+  padding-top: 10px;
+  margin-bottom: 28px;
+  overflow: auto;
+}
+.spot-art { width: 110px; float: right; margin: 0 0 6px 10px; }
+.spot-art img { width: 110px; height: auto; mix-blend-mode: multiply; }
+.home-front .closes .card,
+.home-front .week-block .card { border-top: 0; padding: 8px 0 0; }
 .home-front .card h2 {
-  font-family: Bricolage, Arial, sans-serif;
+  font-family: Bricolage, "Times New Roman", Times, serif;
   font-size: 22px;
-  font-weight: 800;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0;
   margin: 4px 0;
 }
 .home-front .card h2 a { color: inherit; }
-.date-tag {
-  font-family: Hanken, Arial, sans-serif;
-  font-weight: 700;
-  font-size: 13px;
-  line-height: 1.4;
-  background: #1b1b1b;
-  color: #fff;
-  padding: 2px 6px;
-  display: inline-block;
-  text-transform: uppercase;
-}
 .edition-jump { margin-top: 18px; font-family: Hanken, Arial, sans-serif; font-size: 14px; font-weight: 700; }
 .edition-jump a { display: inline-flex; align-items: center; min-height: 44px; }
 .home-front .signup--lead {
   background: #1b1b1b;
   color: #fff;
   padding: 18px;
-  margin-top: 20px;
+  margin-top: 0;
 }
 .home-front .signup--lead h2 {
-  font-family: Bricolage, Arial, sans-serif;
-  font-size: 20px;
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  font-family: Bricolage, "Times New Roman", Times, serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0;
   color: #fff;
   margin: 0 0 8px;
 }
 .home-front .signup--lead .signup-value,
 .home-front .signup--lead .signup-note { color: #fff; }
 .home-front .signup--lead a { color: #fff; }
-.home-front .lead-photo { margin: 0 0 14px; }
-.home-front .lead-photo img { width: 100%; height: 220px; object-fit: cover; }
-.home-front .lead-photo figcaption {
-  font-family: Hanken, Arial, sans-serif;
-  font-size: 12px;
-  color: #3d3d3d;
-  margin-top: 6px;
-}
 @media (max-width: 760px) {
-  .paper-wrap { grid-template-columns: 1fr; gap: 8px; }
-  .home-front .front-masthead {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-areas: "mark nav" "date date";
-    align-items: center;
-    padding: 14px 20px 10px;
+  .home-front main { padding: 8px 16px 64px; }
+  .paper-wrap { grid-template-columns: 1fr; gap: 8px; margin-top: 16px; }
+  .masthead-banner { height: auto; }
+  .masthead-sky { position: static; height: 120px; }
+  .masthead-title {
+    position: static;
+    left: auto;
+    right: auto;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 10px 16px 0;
   }
-  .home-front .wordmark { grid-area: mark; font-size: 28px; white-space: normal; }
-  .home-front .site-nav { grid-area: nav; margin-left: 0; justify-self: end; }
-  .home-front .masthead-dateline { grid-area: date; text-align: left; }
-  .num { font-size: 64px; }
+  .home-front .front-masthead .wordmark { font-size: 32px; white-space: normal; max-width: 100%; }
+  .home-front .front-masthead .masthead-dateline { text-align: left; }
+  .masthead-inner { padding: 0 16px; }
+  .num { font-size: 56px; }
   .home-front .front-lead h1 { font-size: 32px; }
 }
