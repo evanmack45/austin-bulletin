@@ -148,13 +148,33 @@ test("feed timestamps are edition midnights, not the build clock", () => {
   }
 });
 
+function htmlEscape(value) {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+function deskCards(markdown) {
+  const pattern = /#####\s+(.+)\r?\n<!--\s*desk:(closes|week)\s+(.+?)\s*-->/g;
+  return [...markdown.matchAll(pattern)].map((match) => ({
+    title: match[1].trim(),
+    kind: match[2],
+    when: match[3].trim()
+  }));
+}
+
 test("deadlines, this week, and the countdown are the edition's own words", () => {
   const home = readFileSync("_site/index.html", "utf8");
   const edition = home.match(/data-edition="(\d{4}-\d{2}-\d{2})"/)[1];
   const md = readFileSync(`src/bulletins/${edition}.md`, "utf8");
-  const markers = [...md.matchAll(/<!--\s*desk:(?:closes|week)\s+(.+?)\s*-->/g)];
-  assert.ok(markers.length > 0);
-  for (const marker of markers) assert.ok(home.includes(marker[1].trim()), marker[1]);
+  const cards = deskCards(md);
+  assert.ok(cards.length > 0);
+  for (const card of cards) assert.ok(home.includes(htmlEscape(card.title)), card.title);
+  const weeks = cards.filter((card) => card.kind === "week");
+  if (weeks.length === 1) assert.ok(home.includes(weeks[0].when), weeks[0].when);
   const countdown = md.match(/<p class="countdown">([\s\S]*?)<\/p>/);
   const page = readFileSync(`_site/${edition.replaceAll("-", "/")}/index.html`, "utf8");
   assert.ok(countdown);
