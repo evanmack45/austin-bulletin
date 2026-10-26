@@ -389,7 +389,7 @@ No new closures or openings today
 
 ##### County opens a comment window on the annual report next month.
 ${countedWords(leadWords)}
-<p class="if-you"><strong>If you want to comment:</strong> read the notice. <a href="https://example.com/notice">Read the notice</a>.</p>
+<p class="if-you">Comments stay open. <a href="https://example.com/notice">Read the notice</a>.</p>
 <span class="src"><a href="https://example.com/notice">County notice</a></span>
 {% endriver %}
 
@@ -435,6 +435,26 @@ test("a short floor_exception is its own failure and does not waive the floors",
   assert.notEqual(code, 0);
   assert.match(output, /floor_exception is too short/);
   assert.match(output, /FAIL\s+\[river\] 2 items, EDITORIAL wants/);
+});
+
+test("an item that starts with If you fails the alive pass", async () => {
+  const body = thinEdition().replace(
+    "<p class=\"if-you\">Comments stay open.",
+    "<p class=\"if-you\"><strong>If you want to comment:</strong> stay open."
+  );
+  const { code, output } = await runThin(body);
+  assert.notEqual(code, 0);
+  assert.match(output, /starts with "If you"/);
+});
+
+test("an image without a credit or illustration label fails", async () => {
+  const body = thinEdition().replace(
+    "<figcaption>Chart: The Austin Bulletin</figcaption>",
+    "<figcaption></figcaption>"
+  );
+  const { code, output } = await runThin(body);
+  assert.notEqual(code, 0);
+  assert.match(output, /lacks a credit or an illustration label/);
 });
 
 test("floor_exception does not waive lead length", async () => {

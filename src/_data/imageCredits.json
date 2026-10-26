@@ -1,0 +1,31 @@
+{
+  "masthead": {
+    "file": "/images/ill-masthead-v2.jpg",
+    "alt": "Illustration",
+    "caption": "Illustration",
+    "kind": "illustration",
+    "width": 1280,
+    "height": 720
+  },
+  "courthouse": {
+    "file": "/images/p-courthouse.jpg",
+    "alt": "Travis County Courthouse, 2011",
+    "caption": "Travis County Courthouse, 2011. The county runs local elections.",
+    "credit": "Larry D. Moore, CC BY 4.0, via Wikimedia Commons",
+    "author": "Larry D. Moore",
+    "license": "CC BY 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Travis_courthouse_2011.jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "kind": "photo",
+    "width": 1280,
+    "height": 853
+  },
+  "closes": {
+    "file": "/images/ill-before-it-closes.jpg",
+    "alt": "Illustration",
+    "caption": "Illustration",
+    "kind": "illustration",
+    "width": 640,
+    "height": 640
+  }
+}

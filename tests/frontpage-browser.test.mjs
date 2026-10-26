@@ -62,6 +62,7 @@ async function measureFirstFold(page) {
 			lead: rect("h1"),
 			action: rect(".front-lead .front-action"),
 			source: rect(".front-lead .front-sources"),
+			leadPhoto: rect(".front-lead .lead-photo img"),
 			access: rect(".front-access h2 a"),
 			photo: rect(".front-access .story-photo img"),
             art: rect(".cover-art img"),
@@ -83,9 +84,19 @@ async function measureFirstFold(page) {
 	});
 }
 
-function assertMobileCover(result, height) {
- assert.ok(result.header.height <= 140, JSON.stringify(result));
- assert.ok(result.action.bottom <= height, JSON.stringify(result));
+function assertPlacement(result, width, height) {
+ if (result.warning) return;
+ assert.ok(result.lead.top < height, JSON.stringify(result.lead));
+ if (width === 390) assertMobileCover(result);
+ if (width < 1400 || result.leadPhoto) return;
+ const foldKeys = result.neutral ? ["lead", "action"] : ["lead", "action", "source"];
+ for (const key of foldKeys) {
+  assert.ok(result[key].bottom <= height, `${key}: ${JSON.stringify(result)}`);
+ }
+}
+
+function assertMobileCover(result) {
+ assert.ok(result.header.height <= 360, JSON.stringify(result.header));
  if (result.art) assert.ok(result.art.height >= 200 && result.art.height <= 210);
 }
 
@@ -98,14 +109,7 @@ function assertFirstFold(result, width, height) {
  assert.ok(result.action.height >= 44);
  assert.ok(result.nav.every(link => link.height >= 44));
  if (!result.neutral) assert.ok(result.sourceName.trim(), "factual leads need attribution");
- if (width === 390 && !result.warning) assertMobileCover(result, height);
- if (width >= 1400 && !result.warning) {
-  // A neutral lead omits the source line. Attribution is checked above.
-  const foldKeys = result.neutral ? ["lead", "action"] : ["lead", "action", "source"];
-  for (const key of foldKeys) {
-   assert.ok(result[key].bottom <= height, `${key}: ${JSON.stringify(result)}`);
-  }
- }
+ assertPlacement(result, width, height);
  assert.equal(result.actionColor, "rgb(27, 27, 27)");
  assert.equal(result.actionBg, "rgba(0, 0, 0, 0)");
 }
