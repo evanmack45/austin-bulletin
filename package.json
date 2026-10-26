@@ -19,8 +19,9 @@
     "kvue": "node scripts/kvue.mjs",
     "civic": "node scripts/civic.mjs",
     "audit:links": "npm run build && node scripts/link-audit.mjs",
+    "live-check": "node scripts/live-check.mjs",
     "test": "node --test tests/*.test.mjs",
-    "lint": "eslint scripts/river.mjs scripts/acronyms.mjs scripts/kvue.mjs scripts/metadata.mjs scripts/frontpage.mjs scripts/front-art.mjs scripts/edition-images.mjs scripts/desk.mjs scripts/alive.mjs scripts/check-frontpage.mjs scripts/chicago-time.mjs scripts/edition-dates.mjs src/_includes/chicago-date.js src/js/signup.js src/_data/newsletter.js tests/"
+    "lint": "eslint scripts/river.mjs scripts/acronyms.mjs scripts/kvue.mjs scripts/metadata.mjs scripts/frontpage.mjs scripts/front-art.mjs scripts/edition-images.mjs scripts/desk.mjs scripts/alive.mjs scripts/check-frontpage.mjs scripts/chicago-time.mjs scripts/edition-dates.mjs scripts/live-check.mjs src/_includes/chicago-date.js src/js/signup.js src/_data/newsletter.js tests/"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0",
