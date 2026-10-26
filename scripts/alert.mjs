@@ -8,6 +8,7 @@ import { execFileSync } from "node:child_process";
 import { appendFileSync, existsSync, mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { chicagoDate } from "./chicago-time.mjs";
 
 const args = process.argv.slice(2);
 const repoIdx = args.indexOf("--repo");
@@ -19,7 +20,7 @@ if (!reason) {
 }
 
 const title = `ALERT: ${reason}`.slice(0, 200);
-const today = new Date().toLocaleDateString("en-CA", { timeZone: "America/Chicago" });
+const today = chicagoDate();
 const body = `Raised by the owner on ${today} (America/Chicago).\n\n${reason}\n\nClose this issue when handled.`;
 const gh = (...a) => execFileSync("gh", a, { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] }).trim();
 const token = process.env.GH_TOKEN || process.env.GITHUB_TOKEN;

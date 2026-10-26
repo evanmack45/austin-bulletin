@@ -1,4 +1,7 @@
 import { createHash } from "node:crypto";
+import { chicagoDate, deadlineStillOpen } from "./chicago-time.mjs";
+
+export { chicagoDate, deadlineStillOpen };
 
 export const sourceHash = (text) => createHash("sha256").update(text).digest("hex");
 const iso = (value) =>
@@ -16,18 +19,6 @@ const https = (value) => {
 		return false;
 	}
 };
-
-export function chicagoDate(now = new Date()) {
-	const parts = new Intl.DateTimeFormat("en-US", {
-		timeZone: "America/Chicago",
-		year: "numeric",
-		month: "2-digit",
-		day: "2-digit",
-	}).formatToParts(now);
-	return ["year", "month", "day"]
-		.map((type) => parts.find((p) => p.type === type).value)
-		.join("-");
-}
 
 // Shape, reference and source-version checks are not factual verification.
 // Editorial source reading and independent copy review remain separate gates.
@@ -351,7 +342,7 @@ export function selectFrontpage({
 	const matches = curation?.date === editionDate && curation.date <= today;
 	const active = (card) => {
 		if (!card) return null;
-		if (card.expiresOn && card.expiresOn < today) {
+		if (!deadlineStillOpen(card.expiresOn, today)) {
 			notices.push(`Expired: ${card.key}`);
 			return null;
 		}
@@ -377,8 +368,9 @@ export function selectFrontpage({
 	};
 	const developments = matches ? curation.developments.map(active).filter(Boolean) : [];
 	let lead = matches ? active(curation.lead) : null;
-	const expiredSource =
-		matches && curation.lead?.expiresOn < today && curation.lead.record === editionUrl;
+	const expiredSource = matches &&
+		!deadlineStillOpen(curation.lead?.expiresOn, today) &&
+		curation.lead.record === editionUrl;
 	if (!lead && developments.length) lead = developments.shift();
 	lead ??= editionFallback(
 		editionDate,

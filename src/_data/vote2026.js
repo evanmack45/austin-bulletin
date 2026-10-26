@@ -11,15 +11,26 @@
 // The nav link displays from Sep 15 through Nov 4, 2026 (inclusive).
 // Static builds run daily; this date gate makes the link appear only
 // near and during the election period and then naturally disappear.
+// The gate is the Chicago calendar day, so a build after 7 p.m. Central
+// does not start the next day early.
+import { chicagoDate } from "../_includes/chicago-date.js";
+
+const electionWindow = {
+  start: "2026-09-15",
+  registrationDeadline: "2026-10-05",
+  earlyVoteStart: "2026-10-19",
+  earlyVoteEnd: "2026-10-30",
+  electionDay: "2026-11-03",
+  end: "2026-11-04"
+};
+
+export function electionNavOpen(now = new Date(), bounds = electionWindow) {
+  const today = now instanceof Date ? chicagoDate(now) : now;
+  return today >= bounds.start && today <= bounds.end;
+}
+
 export default {
-  window: {
-    start: "2026-09-15",
-    registrationDeadline: "2026-10-05",
-    earlyVoteStart: "2026-10-19",
-    earlyVoteEnd: "2026-10-30",
-    electionDay: "2026-11-03",
-    end: "2026-11-04"
-  },
+  window: electionWindow,
   links: {
     voteTexasHome: "https://www.votetexas.gov/",
     register: "https://www.votetexas.gov/register-to-vote/",
@@ -40,11 +51,6 @@ export default {
     curbside: "https://www.votetexas.gov/voting/curbside-voting.html",
     ballotByMail: "https://votetravis.gov/voter-information/ballot-by-mail/"
   },
-  showNav: (() => {
-    const today = new Date();
-    const start = new Date("2026-09-15T00:00:00-05:00"); // CDT
-    const end = new Date("2026-11-05T00:00:00-06:00");   // CST, day after
-    return today >= start && today < end;
-  })()
+  showNav: electionNavOpen()
 };
 

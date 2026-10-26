@@ -25,6 +25,7 @@
 // be.
 
 import { existsSync } from "node:fs";
+import { chicagoDate } from "./chicago-time.mjs";
 import { readFile, readdir, access } from "node:fs/promises";
 import yaml from "js-yaml";
 import { editionImageLinks, editionImageProblems } from "./edition-images.mjs";
@@ -106,7 +107,7 @@ function warn(check, message) {
 }
 
 function todayCentral() {
-  return new Intl.DateTimeFormat("en-CA", { timeZone: "America/Chicago" }).format(new Date());
+  return chicagoDate();
 }
 
 function parseArgs(argv) {

@@ -18,6 +18,8 @@
 // - inspections: Food Establishment Inspection Scores (ecmv-9xxi)
 // - workzones: Roadway Work Zones (qyfh-gwei)
 
+import { chicagoDate } from "./chicago-time.mjs";
+
 const USER_AGENT = "TheAustinBulletin/1.0 (+https://theaustinbulletin.com)";
 const TIMEOUT_MS = 20000;
 const SOCRATA_BASE = "https://data.austintexas.gov";
@@ -73,19 +75,14 @@ function fail(message) {
   process.exit(1);
 }
 
-function chicagoDateString(d = new Date()) {
-  // YYYY-MM-DD in America/Chicago — matches repo style in scripts/today.mjs
-  return new Intl.DateTimeFormat("en-CA", { timeZone: "America/Chicago" }).format(d);
-}
-
 function startOfDayIsoLocalChicago(daysAgo = 0) {
-  const dateStr = chicagoDateString(new Date(Date.now() - daysAgo * 86400000));
+  const dateStr = chicagoDate(new Date(Date.now() - daysAgo * 86400000));
   // Socrata accepts ISO-like strings with no timezone offset for date filtering.
   return `${dateStr}T00:00:00.000`;
 }
 
 function endOfDayIsoLocalChicago(daysAhead = 0) {
-  const dateStr = chicagoDateString(new Date(Date.now() + daysAhead * 86400000));
+  const dateStr = chicagoDate(new Date(Date.now() + daysAhead * 86400000));
   return `${dateStr}T23:59:59.999`;
 }
 

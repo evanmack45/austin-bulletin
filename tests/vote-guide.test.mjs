@@ -1,7 +1,8 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import vote2026 from "../src/_data/vote2026.js";
+import vote2026, { electionNavOpen } from "../src/_data/vote2026.js";
+import { chicagoDate } from "../scripts/chicago-time.mjs";
 
 const guide = await readFile(new URL("../src/vote-2026/index.md", import.meta.url), "utf8");
 
@@ -37,7 +38,7 @@ test("polling-location guidance is explicitly limited to the registration county
 test("deadline-day extended hours are dated, location-specific and easy to retire", () => {
   // Routine editors can retire the temporary paragraph after the actual deadline
   // without making later daily checks require expired guidance.
-  const deadlinePassed = new Date().toISOString().slice(0, 10) > "2026-10-05";
+  const deadlinePassed = chicagoDate() > "2026-10-05";
   if (deadlinePassed && !guide.includes("2433 Ridgepoint Drive")) return;
   assert.match(guide, /Monday, October 5, 2026 only/);
   assert.match(guide, /2433 Ridgepoint Drive/);
@@ -45,6 +46,17 @@ test("deadline-day extended hours are dated, location-specific and easy to retir
   assert.match(guide, /extended hours apply only to this location/);
   assert.match(guide, /vote2026.links.travisRegistrationDeadline/);
   assert.match(guide, /Remove this deadline-day paragraph after October 5/);
+});
+
+test("election nav stays on the Chicago calendar through the published window", () => {
+  const late = new Date("2026-10-27T01:30:00Z");
+  assert.equal(chicagoDate(late), "2026-10-26");
+  assert.equal(electionNavOpen(late), true);
+  assert.equal(electionNavOpen(new Date("2026-09-15T04:30:00Z")), false);
+  assert.equal(electionNavOpen(new Date("2026-09-15T05:00:00Z")), true);
+  assert.equal(electionNavOpen(new Date("2026-11-05T05:30:00Z")), true);
+  assert.equal(electionNavOpen(new Date("2026-11-05T06:00:00Z")), false);
+  assert.equal(vote2026.showNav, electionNavOpen());
 });
 
 test("verified election dates and guide navigation window remain unchanged", () => {

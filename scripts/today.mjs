@@ -4,8 +4,7 @@
 // Usage:
 //   node scripts/today.mjs [YYYY-MM-DD]
 //
-// If no date is given, defaults to today in America/Chicago, computed with
-// new Intl.DateTimeFormat("en-CA", { timeZone: "America/Chicago" }).format(new Date()).
+// If no date is given, defaults to today in America/Chicago (scripts/chicago-time.mjs).
 //
 // Each of the six modules (weather, air, lake, pollen, grid, sun) is
 // independent: a failure leaves that module `null` in the output and
@@ -16,12 +15,13 @@
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import fs from "node:fs/promises";
+import { chicagoDate, CHICAGO } from "./chicago-time.mjs";
 
 const NWS_USER_AGENT = "TheAustinBulletin/1.0 (contact@theaustinbulletin.com)";
 const TIMEOUT_MS = 20000;
 
 function computeDefaultDate() {
-  return new Intl.DateTimeFormat("en-CA", { timeZone: "America/Chicago" }).format(new Date());
+  return chicagoDate();
 }
 
 // URL without its query string, for error messages (never echo API keys).
@@ -55,13 +55,13 @@ async function fetchText(url, options = {}) {
 function formatChicagoDateTime(iso) {
   const d = new Date(iso);
   const timeFmt = new Intl.DateTimeFormat("en-US", {
-    timeZone: "America/Chicago",
+    timeZone: CHICAGO,
     hour: "numeric",
     minute: "2-digit",
     hour12: true,
   });
   const weekdayFmt = new Intl.DateTimeFormat("en-US", {
-    timeZone: "America/Chicago",
+    timeZone: CHICAGO,
     weekday: "long",
   });
   let time = timeFmt.format(d);
