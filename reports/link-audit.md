@@ -1,8 +1,8 @@
 # Link audit
 
-Generated: 2026-10-26T17:37:30.713Z
+Generated: 2026-10-26T20:20:10.260Z
 
-Scanned 79 built HTML pages. 1781 unique external links.
+Scanned 79 built HTML pages. 1766 unique external links.
 Each link is requested with HEAD, then GET when HEAD is not a final 2xx or 3xx.
 Redirects are followed. Timeout is 15 seconds.
 Concurrency is 6, with one request at a time per host.
@@ -13,9 +13,9 @@ This report is not a CI gate. Re-run with `npm run audit:links`.
 
 | Class | Count |
 | --- | ---: |
-| OK | 1114 |
-| BROKEN | 8 |
-| BLOCKED | 659 |
+| OK | 1115 |
+| BROKEN | 1 |
+| BLOCKED | 650 |
 | ERROR | 0 |
 
 OK means the final response was 2xx or 3xx.
@@ -23,52 +23,13 @@ BROKEN means 404, 410, or DNS failure.
 BLOCKED means 401, 403, or 429, including bot walls such as KVUE and the Daily Texan.
 ERROR means a timeout, a 5xx, or another network failure.
 
-## BROKEN (8)
+## BROKEN (1)
 
-- `https://austintexas.legistar1.com/austintexas/attachments/dabdc3fa-fb09-47c4-a1a4-7768df57e120.pdf` — 404
+- `https://www.traviscountytx.gov/news/2026/2951-take-back-october-2026` — 404
   - `/2026/10/12/`
-  - `/council/2026-10-22-preview/`
-- `https://cbsaustin.com/news/local/suspect-taken-into-custody-hostage-released-after-swat-response-in-south-austin` — 404
-  - `/2026/09/06/`
-- `https://communityimpact.com/central-austin/education/aisds-financial-rating-slips-as-deficit-lands-at-105m/` — 404
-  - `/2026/09/05/`
-- `https://communityimpact.com/central-austin/education/new-coalition-opposes-state-takeover-we-are-fighting-to-keep-austins-schools-independent/` — 404
-  - `/2026/09/09/`
-- `https://communityimpact.com/central-austin/election/qa-meet-the-candidates-in-the-us-house-district-37-ahead-of-nov-3-election/` — 404
-  - `/2026/08/31/`
-- `https://votetravis.gov/wp-content/uploads/G26-Daily-Totals-10212026.pdf` — 404
-  - `/2026/10/22/`
-  - `/vote-2026/`
-- `https://votetravis.gov/wp-content/uploads/G26-Daily-Totals-10242026.pdf` — 404
-  - `/2026/10/25/`
-- `https://www.texastribune.org/2026/10/18/needs-to-be-like-this-no-spaces-short-2/` — 404
-  - `/2026/10/18/`
 
-## BLOCKED (659)
+## BLOCKED (650)
 
-- `https://austincurrent.org/2026/09/02/more-districts-at-risk-school-takeovers-ratings-2027/` — 403
-  - `/2026/09/03/`
-- `https://austincurrent.org/2026/09/03/austin-tx-adult-indoor-basketball-volleyball-outsourced-parks-and-recreation/` — 403
-  - `/2026/09/04/`
-  - `/austin-city-budget-2027/`
-- `https://austincurrent.org/2026/09/09/austin-austinisd-budget-cuts-nonprofits/` — 403
-  - `/2026/09/09/`
-  - `/2026/09/10/`
-- `https://austincurrent.org/2026/09/18/austin-austinisd-takeover-tea-ratings-burnet-webb/` — 403
-  - `/2026/09/19/`
-  - `/2026/09/21/`
-- `https://austincurrent.org/2026/09/22/timeline-austin-isds-path-to-state-intervention/` — 403
-  - `/2026/09/22/`
-- `https://austincurrent.org/2026/09/24/austin-isd-takeover-burnet-webb-petition-mayor/` — 403
-  - `/2026/09/25/`
-- `https://austincurrent.org/2026/09/28/webb-middle-school-austin-tx-closure-petition-parent-meeting-aisd-takeover/` — 403
-  - `/2026/09/29/`
-- `https://austincurrent.org/2026/10/01/austin-tx-zilker-botanical-garden-conservancy-cease-operations/` — 403
-  - `/2026/10/02/`
-- `https://austincurrent.org/2026/10/14/austin-tx-district-5-city-council-race-november-election/` — 403
-  - `/2026/10/15/`
-  - `/2026/10/16/`
-  - `/austin-council-races-2026/`
 - `https://www.aa.com/pubcontent/en_US/travelInformation/destinationInformation/aus-airport.html` — 403
   - `/aus-early-flights/`
 - `https://www.aa.com/web/i18n/travel-info/check-in-and-arrival.html` — 403
