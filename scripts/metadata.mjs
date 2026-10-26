@@ -1,4 +1,5 @@
 // Presentation metadata only: excerpts of already-rendered source text, never new prose.
+import { isoDate } from "./edition-dates.mjs";
 export const SITE_URL = "https://theaustinbulletin.com/";
 const GENERIC = "A daily, neutral news bulletin for Austin and Texas.";
 const ENTITIES = {
@@ -110,7 +111,7 @@ export function articleJsonLd(meta, date) {
     headline: excerpt(meta.headline || meta.title).slice(0, 110),
     description: meta.description, url: meta.canonical,
     mainEntityOfPage: meta.canonical, image: [meta.image],
-    datePublished: new Date(date).toISOString().slice(0, 10),
+    datePublished: isoDate(date),
     isAccessibleForFree: true, inLanguage: "en-US",
     author: publisher, publisher
   };
