@@ -24,7 +24,7 @@
 // gate. Everything here was checked by hand at least once; none of it should
 // be.
 
-import { existsSync } from "node:fs";
+import { existsSync, statSync } from "node:fs";
 import { readFile, readdir, access } from "node:fs/promises";
 import yaml from "js-yaml";
 import { editionImageLinks, editionImageProblems } from "./edition-images.mjs";
@@ -36,6 +36,7 @@ import {
   LEAD_HEADING_RE, slug, LIMITS, isSubstantiveException, substantiveWords
 } from "./river.mjs";
 import { checkAcronyms } from "./acronyms.mjs";
+import { ALIVE_FROM, aliveProblems } from "./alive.mjs";
 
 const UA = "TheAustinBulletin/1.0 (+https://theaustinbulletin.com)";
 
@@ -574,6 +575,25 @@ async function main() {
     if (!alt.trim()) bad("images", `image has empty alt text: ${src}`);
     if (!(await exists(path.join(repoRoot, "src", src.replace(/^\//, ""))))) {
       bad("images", `file not found: src${src}`);
+    }
+  }
+
+  // --- alive pass (2026-10-26) -------------------------------------------
+  // Homepage items no longer open with "If you". Photographs need a credit.
+  // Illustrations need that label. Earlier editions keep the old lines.
+  if (date >= ALIVE_FROM) {
+    let catalog = null;
+    try {
+      catalog = JSON.parse(await readFile(path.join(repoRoot, "src/_data/imageCredits.json"), "utf8"));
+    } catch (err) {
+      bad("alive", `could not read image credits (${err.message})`);
+    }
+    if (catalog) {
+      const fileAt = (rel) => path.join(repoRoot, rel);
+      for (const message of aliveProblems(text, catalog, {
+        exists: (rel) => existsSync(fileAt(rel)),
+        sizeOf: (rel) => statSync(fileAt(rel)).size
+      })) bad("alive", message);
     }
   }
 

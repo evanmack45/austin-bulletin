@@ -36,12 +36,21 @@
 </head>
 <body{% if homeFront %} class="home-front"{% endif %} id="top">
   <header class="front-masthead">
-    <a class="wordmark" href="/">Austin Bulletin<span class="masthead-dot" aria-hidden="true">.</span></a>
     {% if homeFront %}
     {% set latestFront = collections.bulletins | first %}
     {% set previousFront = collections.bulletins[1] | previousPublishedEdition(latestFront) %}
     {% set deskLine = latestFront.inputPath | homeDesk %}
-    <p class="masthead-dateline">{{ latestFront.date | weekday }}, {{ latestFront.date | shortMonthDay }}{% if deskLine.weather %} · {{ deskLine.weather | escape }}{% endif %}{% if previousFront %} <span class="prev-edition">· Previous edition: <a href="{{ previousFront.url | escape }}">{{ previousFront.date | monthDay }}</a></span>{% endif %}</p>
+    <div class="masthead-banner">
+      <img class="masthead-sky" src="{{ imageCredits.masthead.file | escape }}" alt="{{ imageCredits.masthead.alt | escape }}" width="{{ imageCredits.masthead.width }}" height="{{ imageCredits.masthead.height }}" decoding="async">
+      <div class="masthead-title">
+        <a class="wordmark" href="/">The Austin Bulletin<span class="masthead-dot" aria-hidden="true">.</span></a>
+        <p class="masthead-dateline">{{ latestFront.date | weekday }}, {{ latestFront.date | shortMonthDay }}{% if deskLine.weather %} · {{ deskLine.weather | escape }}{% endif %}{% if previousFront %} <span class="prev-edition">· Previous edition: <a href="{{ previousFront.url | escape }}">{{ previousFront.date | monthDay }}</a></span>{% endif %}</p>
+      </div>
+    </div>
+    <div class="masthead-inner">
+      <p class="masthead-label">{{ imageCredits.masthead.caption | escape }}</p>
+    {% else %}
+    <a class="wordmark" href="/">Austin Bulletin<span class="masthead-dot" aria-hidden="true">.</span></a>
     {% endif %}
     <nav class="site-nav" aria-label="Publication">
       <div class="site-menu">
@@ -55,6 +64,7 @@
         </div>
       </div>
     </nav>
+    {% if homeFront %}</div>{% endif %}
   </header>
   <main>
     {{ content | safe }}

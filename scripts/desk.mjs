@@ -2,9 +2,10 @@
 // homepage and the edition share one copy of each fact.
 //
 //   <!-- desk:kicker Election -->
-//   <!-- desk:figure 25% -->
-//   <p class="if-you"><strong>If you haven't voted:</strong> …</p>
-//   <!-- desk:closes Nov 20 -->
+//   <!-- desk:figure 27% -->
+//   <!-- desk:photo courthouse -->
+//   <p class="if-you">Polls are open …</p>
+//   <!-- desk:closes Nov 19 -->
 //   <!-- desk:week Thru Nov 1 -->
 
 function section(text, start, end) {
@@ -149,6 +150,7 @@ export function parseDesk(markdown) {
     deck: deckFrom(big),
     action: parseAction(big),
     source: firstLink(sources),
+    photo: commentValue(big, "photo"),
     weather: weatherStrip(note),
     closes: placed.closes,
     week: placed.week

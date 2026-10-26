@@ -33,6 +33,10 @@ A request to change one goes above, with the reason.
 
 ## Entries
 
+### 2026-10-26
+
+The alive pass shipped the day after the October 25 homepage, on an approved plan. The "If you" opener is retired. The next step is a plain sentence, one caveat, headlines of 10 words or fewer, and no fact that is not already in the edition. The masthead skyline is a labeled illustration, not a stand-in photo. A story photo needs a credit in `src/_data/imageCredits.json` and a caption that names what is shown. The courthouse stands in because no free photo of a polling place turned up; the caption names the courthouse. Do not print a day count the copy does not state. Early voting opened October 19, so October 26 is not day 13. The design-change clock restarts at 2026-10-26.
+
 ### 2026-10-25
 
 The homepage is one lead, the deadlines, and this week's item. The same story no longer appears as a cover, a rail card, and an edition link, and a story with no photograph no longer gets the skyline illustration. "If you…" lines are practical next steps already in the sourced copy, and they do not count toward the briefing or lead word caps. Guides live on the archive. No lead photo: a 1918 registration photograph and a generic "I Voted" sticker would sit next to a 2026 turnout figure and read as this election. The design-change clock restarts at 2026-10-25; the next reader-facing change waits until 2026-11-08.
