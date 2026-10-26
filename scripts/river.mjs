@@ -284,7 +284,7 @@ const WORD_TOKEN_RE = /^[A-Za-z]{3,}$/;
 // Counts real content, not whitespace — `.trim()` alone only strips the
 // ends, so "x" + 18 spaces + "y" would pass a plain length check at 20
 // chars while carrying 2 characters of actual reason.
-function substantiveChars(s) {
+export function substantiveChars(s) {
   return s.replace(/\s+/g, "").length;
 }
 
@@ -292,7 +292,7 @@ function substantiveChars(s) {
 // EXCEPTION_MIN_CHARS/EXCEPTION_MIN_DISTINCT_WORDS comment above for why
 // both distinctness and a minimum token length are required, not just an
 // alphanumeric-content check.
-function substantiveWords(s) {
+export function substantiveWords(s) {
   const seen = new Set();
   for (const token of s.split(/\s+/)) {
     if (WORD_TOKEN_RE.test(token)) seen.add(token.toLowerCase());
@@ -300,7 +300,7 @@ function substantiveWords(s) {
   return seen.size;
 }
 
-function isSubstantiveException(s) {
+export function isSubstantiveException(s) {
   return (
     substantiveChars(s) >= EXCEPTION_MIN_CHARS &&
     substantiveWords(s) >= EXCEPTION_MIN_DISTINCT_WORDS

@@ -484,9 +484,16 @@ minimums from FAILURE to WARNING, and the checker prints the reason
 prominently so it lands in this run's log.
 This is for genuine scarcity only: the voice-cards-per-beat cap, the
 voice-cards-per-edition cap, the videos-per-edition cap, and every rule
-outside the visual minimums (item lengths, lead counts, item counts, the
-City Desk word budget, language rules) can never be excepted — see EDITORIAL.md
-"The visual_exception escape hatch."
+outside the visual minimums (item lengths, lead counts, the City Desk word
+budget, language rules) can never be excepted by `visual_exception` — see
+EDITORIAL.md "The visual_exception escape hatch."
+
+Do not repeat sentences to hit the 20-item floor, the 120-word briefing
+floor, or to print an empty Weather heading. When the approved copy cannot
+reach those floors, add `floor_exception: "<real reason>"` under the same
+substantive-sentence test. It downgrades only those three rules to warnings
+(the 40-item cap, the 300-word briefing cap, lead length, and source tags
+stay failures). See EDITORIAL.md "The floor_exception escape hatch."
 
 Its link check
 knows KXAN article pages 403 to every non-browser client and verifies those
@@ -515,7 +522,8 @@ GitHub Pages deploys automatically.
 Write `logs/YYYY-MM-DD.md` (before the commit in Step 5) containing:
 published yes/no, story count, embeds used, images by type, any facts
 you were unsure about, any stories dropped and why. If a `visual_exception`
-was invoked, say so, quote the reason, and state which minimums it covered.
+or a `floor_exception` was invoked, say so, quote the reason, and state
+which minimums it covered.
 On Sundays, add the weekly balance check from EDITORIAL.md.
 
 ## Failure behavior

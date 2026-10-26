@@ -33,7 +33,7 @@ import path from "node:path";
 import { execFile } from "node:child_process";
 import {
   BEATS, BEATS_LEGACY, words, wordCount, parseRiver, checkRiver, BEAT_HEADING_RE,
-  LEAD_HEADING_RE, slug
+  LEAD_HEADING_RE, slug, LIMITS, isSubstantiveException, substantiveWords
 } from "./river.mjs";
 import { checkAcronyms } from "./acronyms.mjs";
 
@@ -85,6 +85,10 @@ const BIG_MAX = 700;
 // Target 150–250 words; the gate allows 120–300.
 const FIRSTREAD_MIN = 120;
 const FIRSTREAD_MAX = 300;
+// Publisher review, 2026-10-26: a thin approved copy may clear The Briefing
+// with a one- or two-sentence dek. floor_exception lowers only this floor.
+// The 300-word cap stays. See EDITORIAL "The floor_exception escape hatch."
+const FIRSTREAD_FLOOR_MIN = 40;
 
 const problems = [];
 const warnings = [];
@@ -203,15 +207,15 @@ async function exists(p) {
 // tried and rejected a routing brief full of in-page links on 2026-08-29
 // ("spammy"); links belong in the Sources line, and any in-page link that
 // does appear must land on an anchor that actually exists.
-function checkFirstRead(big, fullText, bad) {
+function checkFirstRead(big, fullText, bad, minWords = FIRSTREAD_MIN) {
   const prose = big
     .replace(/^###.*$/gm, " ")
     .replace(/<p class="if-you">[\s\S]*?<\/p>/g, " ")
     .replace(/<p class="whats-next"[\s\S]*$/, " ")
     .replace(/<figcaption[\s\S]*?<\/figcaption>/g, " ");
   const n = wordCount(prose);
-  if (n < FIRSTREAD_MIN || n > FIRSTREAD_MAX) {
-    bad("briefing", `${n} words, EDITORIAL wants ${FIRSTREAD_MIN}–${FIRSTREAD_MAX}`);
+  if (n < minWords || n > FIRSTREAD_MAX) {
+    bad("briefing", `${n} words, EDITORIAL wants ${minWords}–${FIRSTREAD_MAX}`);
   }
   if (!/^###\s+\S/m.test(big)) bad("briefing", "no ### headline stating the day's idea");
   if (!/<p class="whats-next">/.test(big)) bad("briefing", 'no "What\'s next" line');
@@ -257,6 +261,20 @@ async function main() {
   // to the front-matter block itself, not the whole file — reusing the same
   // `section()` mechanism the rest of front matter parsing already uses.
   const visualException = fm ? (fm.match(/^visual_exception:\s*"([^"]*)"\s*$/m) || [])[1] : undefined;
+  // Publisher review, 2026-10-26: do not repeat sentences to clear the item
+  // floor or the briefing word floor, and do not print an empty Weather
+  // heading. floor_exception records that choice. It does not relax lead
+  // length, brief length, source tags, the item-count cap, or the visual caps.
+  // checkRiver itself still fails a short City Desk; this file downgrades
+  // only that one problem when the reason is substantive.
+  const floorException = fm ? (fm.match(/^floor_exception:\s*"([^"]*)"\s*$/m) || [])[1] : undefined;
+  const floorOk = floorException != null && floorException !== "" && isSubstantiveException(floorException);
+  if (floorException != null && floorException !== "" && !floorOk) {
+    bad(
+      "front matter",
+      `floor_exception is too short (${substantiveWords(floorException)} distinct word(s) of 3+ letters) — needs a real sentence`
+    );
+  }
   if (!fm) {
     bad("front matter", "could not find front matter");
   } else {
@@ -297,7 +315,7 @@ async function main() {
     if (!/<p class="whats-next">/.test(big)) bad("big story", 'no "What\'s next" line');
     if (!/<p class="source-line">/.test(big)) bad("big story", "no Sources line");
   } else {
-    checkFirstRead(big, text, bad);
+    checkFirstRead(big, text, bad, floorOk ? FIRSTREAD_FLOOR_MIN : FIRSTREAD_MIN);
   }
 
   // --- City Desk ------------------------------------------------------------
@@ -365,7 +383,14 @@ async function main() {
 
     if (newShape) {
       const riverFindings = checkRiver(parsed, { visualException });
-      for (const p of riverFindings.problems) bad(p.check, p.message);
+      for (const p of riverFindings.problems) {
+        const lowCount = p.message.match(/^(\d+) items, EDITORIAL wants/);
+        if (floorOk && lowCount && Number(lowCount[1]) < LIMITS.itemsMin) {
+          warn(p.check, `${p.message} (floor_exception: ${floorException.trim()})`);
+          continue;
+        }
+        bad(p.check, p.message);
+      }
       for (const w of riverFindings.warnings) warn(w.check, w.message);
       if (riverFindings.exceptionApplied) {
         exceptionNotice = riverFindings.visualException;
@@ -395,7 +420,11 @@ async function main() {
   // Must be its own section outside the river wrapper (publisher's ruling,
   // 2026-08-24) and keep the id the masthead's "Skip to weather" link targets.
   if (!/^##\s+Weather\s*$/m.test(text)) {
-    bad("weather", "no `## Weather` heading");
+    if (floorOk) {
+      warn("weather", `no \`## Weather\` heading (floor_exception: ${floorException.trim()})`);
+    } else {
+      bad("weather", "no `## Weather` heading");
+    }
   } else if (river && /^##\s+Weather\s*$/m.test(river)) {
     bad("weather", "Weather is inside the {% river %} wrapper; it must be its own section");
   }
@@ -586,6 +615,9 @@ async function main() {
   // --- report -------------------------------------------------------------
   if (exceptionNotice) {
     console.error(`\n  *** VISUAL EXCEPTION invoked for ${date}: "${exceptionNotice}" ***`);
+  }
+  if (floorOk) {
+    console.error(`\n  *** FLOOR EXCEPTION invoked for ${date}: "${floorException.trim()}" ***`);
   }
   for (const w of warnings) console.error(`  warn  [${w.check}] ${w.message}`);
   if (problems.length === 0) {

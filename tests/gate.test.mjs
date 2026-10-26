@@ -323,3 +323,123 @@ test('a trailing "-ing analysis" clause fails the language check', async () => {
   assert.notEqual(code, 0, "expected the checker to fail on a gerund analysis clause");
   assert.match(output, /-ing analysis/, "expected the gerund-clause message to fire");
 });
+
+// Publisher review, 2026-10-26: do not repeat sentences to clear the item
+// floor, the briefing word floor, or an empty Weather heading. floor_exception
+// downgrades only those three. Lead length stays a hard failure, and a short
+// reason is its own failure. checkRiver's own 20-item test is unchanged.
+const THIN_DATE = "2099-01-03";
+const THIN_REASON =
+  "The approved copy has three items and no forecast, so this edition does not repeat sentences.";
+
+function titleFor(date) {
+  const want = new Intl.DateTimeFormat("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "UTC"
+  }).format(new Date(`${date}T12:00:00Z`));
+  return `The Austin Bulletin — ${want}`;
+}
+
+function countedWords(count) {
+  return Array.from({ length: count }, (_, i) => `word${i}`).join(" ");
+}
+
+function thinEdition({ floor = THIN_REASON, leadWords = 45, dekWords = 50 } = {}) {
+  const [, y, m, d] = THIN_DATE.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  const floorLine = floor == null ? "" : `floor_exception: "${floor}"\n`;
+  const visual = "The three items did not include a social post or a video, " +
+    "so the desk has no card and no clip.";
+  return `---
+layout: bulletin.njk
+title: "${titleFor(THIN_DATE)}"
+date: ${THIN_DATE}
+permalink: "/${y}/${m}/${d}/"
+visual_exception: "${visual}"
+${floorLine}---
+
+<p class="morning-note">Good morning.</p>
+
+## The Briefing
+
+{% bigstory %}
+### A thin day still needs a headline.
+
+<figure class="graphic">
+<img src="/images/2026-10-26/early-ballots.png" alt="Test chart">
+<figcaption>Chart: The Austin Bulletin</figcaption>
+</figure>
+
+${countedWords(dekWords)}
+
+<p class="whats-next"><strong>What's next:</strong> The window stays open.</p>
+<p class="source-line">Sources: <a href="https://example.com/notice">County notice</a></p>
+{% endbigstory %}
+
+## City Desk
+
+{% river %}
+#### Growth & infrastructure
+
+No new closures or openings today
+
+#### City Hall & county
+
+##### County opens a comment window on the annual report next month.
+${countedWords(leadWords)}
+<p class="if-you"><strong>If you want to comment:</strong> read the notice. <a href="https://example.com/notice">Read the notice</a>.</p>
+<span class="src"><a href="https://example.com/notice">County notice</a></span>
+{% endriver %}
+
+## The Back Page
+
+<aside class="the-number"><strong>The Number:</strong> 3 — items on a thin day.</aside>
+
+<p class="countdown">The window stays open.</p>
+
+<p class="good-thing"><strong>One Good Thing:</strong> The window stays open.</p>
+`;
+}
+
+async function runThin(body) {
+  let result;
+  await withTempDir(async (tmpDir) => {
+    await writeFile(path.join(tmpDir, `${THIN_DATE}.md`), body, "utf8");
+    result = await runCheck(THIN_DATE, tmpDir);
+  });
+  return result;
+}
+
+test("a substantive floor_exception passes a thin edition without repeated sentences", async () => {
+  const { code, output } = await runThin(thinEdition());
+  assert.equal(code, 0, output);
+  assert.match(output, /passes the mechanical gate/);
+  assert.match(output, /FLOOR EXCEPTION invoked/);
+  assert.match(output, /warn\s+\[river\] 2 items, EDITORIAL wants/);
+  assert.match(output, /warn\s+\[weather\] no `## Weather` heading/);
+  assert.doesNotMatch(output, /FAIL/);
+});
+
+test("without floor_exception a thin edition still fails those floors", async () => {
+  const { code, output } = await runThin(thinEdition({ floor: null }));
+  assert.notEqual(code, 0);
+  assert.match(output, /FAIL\s+\[river\] 2 items, EDITORIAL wants/);
+  assert.match(output, /FAIL\s+\[briefing\] \d+ words, EDITORIAL wants 120–300/);
+  assert.match(output, /FAIL\s+\[weather\] no `## Weather` heading/);
+});
+
+test("a short floor_exception is its own failure and does not waive the floors", async () => {
+  const { code, output } = await runThin(thinEdition({ floor: "no" }));
+  assert.notEqual(code, 0);
+  assert.match(output, /floor_exception is too short/);
+  assert.match(output, /FAIL\s+\[river\] 2 items, EDITORIAL wants/);
+});
+
+test("floor_exception does not waive lead length", async () => {
+  const { code, output } = await runThin(thinEdition({ leadWords: 4 }));
+  assert.notEqual(code, 0);
+  assert.match(output, /lead is \d+ words, wants 40–80/);
+  assert.doesNotMatch(output, /FAIL\s+\[river\] 2 items/);
+});
