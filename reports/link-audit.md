@@ -1,0 +1,1398 @@
+# Link audit
+
+Generated: 2026-10-26T17:37:30.713Z
+
+Scanned 79 built HTML pages. 1781 unique external links.
+Each link is requested with HEAD, then GET when HEAD is not a final 2xx or 3xx.
+Redirects are followed. Timeout is 15 seconds.
+Concurrency is 6, with one request at a time per host.
+User-Agent is a browser-like Chrome string.
+This report is not a CI gate. Re-run with `npm run audit:links`.
+
+## Summary
+
+| Class | Count |
+| --- | ---: |
+| OK | 1114 |
+| BROKEN | 8 |
+| BLOCKED | 659 |
+| ERROR | 0 |
+
+OK means the final response was 2xx or 3xx.
+BROKEN means 404, 410, or DNS failure.
+BLOCKED means 401, 403, or 429, including bot walls such as KVUE and the Daily Texan.
+ERROR means a timeout, a 5xx, or another network failure.
+
+## BROKEN (8)
+
+- `https://austintexas.legistar1.com/austintexas/attachments/dabdc3fa-fb09-47c4-a1a4-7768df57e120.pdf` — 404
+  - `/2026/10/12/`
+  - `/council/2026-10-22-preview/`
+- `https://cbsaustin.com/news/local/suspect-taken-into-custody-hostage-released-after-swat-response-in-south-austin` — 404
+  - `/2026/09/06/`
+- `https://communityimpact.com/central-austin/education/aisds-financial-rating-slips-as-deficit-lands-at-105m/` — 404
+  - `/2026/09/05/`
+- `https://communityimpact.com/central-austin/education/new-coalition-opposes-state-takeover-we-are-fighting-to-keep-austins-schools-independent/` — 404
+  - `/2026/09/09/`
+- `https://communityimpact.com/central-austin/election/qa-meet-the-candidates-in-the-us-house-district-37-ahead-of-nov-3-election/` — 404
+  - `/2026/08/31/`
+- `https://votetravis.gov/wp-content/uploads/G26-Daily-Totals-10212026.pdf` — 404
+  - `/2026/10/22/`
+  - `/vote-2026/`
+- `https://votetravis.gov/wp-content/uploads/G26-Daily-Totals-10242026.pdf` — 404
+  - `/2026/10/25/`
+- `https://www.texastribune.org/2026/10/18/needs-to-be-like-this-no-spaces-short-2/` — 404
+  - `/2026/10/18/`
+
+## BLOCKED (659)
+
+- `https://austincurrent.org/2026/09/02/more-districts-at-risk-school-takeovers-ratings-2027/` — 403
+  - `/2026/09/03/`
+- `https://austincurrent.org/2026/09/03/austin-tx-adult-indoor-basketball-volleyball-outsourced-parks-and-recreation/` — 403
+  - `/2026/09/04/`
+  - `/austin-city-budget-2027/`
+- `https://austincurrent.org/2026/09/09/austin-austinisd-budget-cuts-nonprofits/` — 403
+  - `/2026/09/09/`
+  - `/2026/09/10/`
+- `https://austincurrent.org/2026/09/18/austin-austinisd-takeover-tea-ratings-burnet-webb/` — 403
+  - `/2026/09/19/`
+  - `/2026/09/21/`
+- `https://austincurrent.org/2026/09/22/timeline-austin-isds-path-to-state-intervention/` — 403
+  - `/2026/09/22/`
+- `https://austincurrent.org/2026/09/24/austin-isd-takeover-burnet-webb-petition-mayor/` — 403
+  - `/2026/09/25/`
+- `https://austincurrent.org/2026/09/28/webb-middle-school-austin-tx-closure-petition-parent-meeting-aisd-takeover/` — 403
+  - `/2026/09/29/`
+- `https://austincurrent.org/2026/10/01/austin-tx-zilker-botanical-garden-conservancy-cease-operations/` — 403
+  - `/2026/10/02/`
+- `https://austincurrent.org/2026/10/14/austin-tx-district-5-city-council-race-november-election/` — 403
+  - `/2026/10/15/`
+  - `/2026/10/16/`
+  - `/austin-council-races-2026/`
+- `https://www.aa.com/pubcontent/en_US/travelInformation/destinationInformation/aus-airport.html` — 403
+  - `/aus-early-flights/`
+- `https://www.aa.com/web/i18n/travel-info/check-in-and-arrival.html` — 403
+  - `/aus-early-flights/`
+- `https://www.documentcloud.org/documents/26197550-2025-acl-contract-c282677-pard-final-contract-template-redacted-copy/` — 403
+  - `/zilker-park-access/`
+- `https://www.kxan.com/acl/acl-2026-load-in-brings-road-closures-parking-impacts-around-zilker-park/` — 403
+  - `/2026/09/16/`
+- `https://www.kxan.com/acl/acl-festival-guide-how-to-get-there-and-road-closures/` — 403
+  - `/2026/10/01/`
+- `https://www.kxan.com/acl/acl-festival-says-its-committed-to-leaving-zilker-park-better-than-we-found-it/` — 403
+  - `/2026/10/06/`
+  - `/zilker-park-access/`
+- `https://www.kxan.com/acl/acl-festivals-muddy-great-lawn-raises-concern-for-austin-parks-future/` — 403
+  - `/2026/10/04/`
+  - `/zilker-park-access/`
+- `https://www.kxan.com/acl/acl-preparing-for-potential-threat-of-heavy-rain-during-weekend-one/` — 403
+  - `/2026/09/29/`
+- `https://www.kxan.com/acl/how-to-get-involved-at-austin-city-limits-this-year/` — 403
+  - `/2026/08/31/`
+- `https://www.kxan.com/acl/is-zilker-park-ready-for-acl-weekend-2/` — 403
+  - `/2026/10/10/`
+- `https://www.kxan.com/acl/preparing-for-the-weather-at-acl-what-you-can-and-cant-bring-into-the-festival/` — 403
+  - `/2026/10/02/`
+- `https://www.kxan.com/austin-ice-shooting/garces-perez-indicted/` — 403
+  - `/2026/10/21/`
+- `https://www.kxan.com/austin-ice-shooting/protest-against-ice-happening-in-north-austin-sunday/` — 403
+  - `/2026/09/28/`
+- `https://www.kxan.com/austin-ice-shooting/wilber-garces-perez-bullet-surgery/` — 403
+  - `/2026/10/02/`
+- `https://www.kxan.com/burnet-county/all-flock-cameras-taken-down-in-burnet-county/` — 403
+  - `/2026/08/26/`
+- `https://www.kxan.com/cause-and-effect/burned-by-solar-new-texas-rules-target-bad-sales-practices/` — 403
+  - `/2026/09/11/`
+- `https://www.kxan.com/cause-and-effect/state-investigation-officer-exodus-raise-new-questions-over-leander-isd-police/` — 403
+  - `/2026/08/25/`
+- `https://www.kxan.com/cause-and-effect/texas-eyes-oversight-as-data-centers-boom-across-the-state/` — 403
+  - `/2026/10/18/`
+- `https://www.kxan.com/cause-and-effect/texas-schools-face-closure-even-as-some-earn-top-ratings/` — 403
+  - `/2026/08/27/`
+- `https://www.kxan.com/central-texas/anyone-can-be-a-conservationist-how-austins-hidden-wildlife-sanctuary-is-educating-the-next-generation/` — 403
+  - `/2026/09/13/`
+- `https://www.kxan.com/central-texas/goodwill-central-texas-completes-11-store-renovations-announces-ai-pricing/` — 403
+  - `/2026/08/29/`
+  - `/2026/08/31/`
+- `https://www.kxan.com/central-texas/txdot-stations-1200-crews-statewide-amid-flash-flood-threat-in-central-texas/` — 403
+  - `/2026/10/01/`
+- `https://www.kxan.com/clear-the-shelters/clear-the-shelters-nearly-2600-central-texas-animals-adopted-in-august/` — 403
+  - `/2026/09/15/`
+- `https://www.kxan.com/del-valle/del-valle-isd-superintendent-steps-down-for-houston-education-job/` — 403
+  - `/2026/10/16/`
+- `https://www.kxan.com/elon-musk/elon-musk-says-boring-company-working-on-austin-san-antonio-hyperloop-tunnel/` — 403
+  - `/2026/09/22/`
+- `https://www.kxan.com/hidden-history/hispanic-heritage-month/dont-forget-our-lived-experience-paul-saldana-reflects-on-austins-latino-history/` — 403
+  - `/2026/10/04/`
+- `https://www.kxan.com/hidden-history/hispanic-heritage-month/hispanic-heritage-advocate-remembers-austins-rainey-street-how-it-was/` — 403
+  - `/2026/10/05/`
+- `https://www.kxan.com/hill-politics/federal-judge-lifts-nationwide-block-on-mail-in-voting-restrictions/` — 403
+  - `/2026/08/27/`
+- `https://www.kxan.com/in-depth-insight/ut-austins-national-deaf-center-awarded-24-million-in-federal-funding/` — 403
+  - `/2026/10/16/`
+- `https://www.kxan.com/inside-austins-agenda/why-austins-mayor-voted-no-on-restructuring-911-the-city-budget/` — 403
+  - `/2026/08/28/`
+- `https://www.kxan.com/inside-the-investigation/qa-insights-from-a-two-year-investigation-into-texas-unexpected-deaths/` — 403
+  - `/2026/08/31/`
+- `https://www.kxan.com/inside-the-investigation/qa-kxan-investigates-familys-tough-choices-amid-ice-custody/` — 403
+  - `/2026/09/07/`
+- `https://www.kxan.com/inside-the-investigation/qa-solar-sales-under-scrutiny-as-texas-tightens-rules/` — 403
+  - `/2026/09/14/`
+- `https://www.kxan.com/investigations/5-year-old-and-father-deported-to-mexico-after-austin-ice-detainment-attorney-says/` — 403
+  - `/2026/08/27/`
+- `https://www.kxan.com/investigations/as-heat-lingers-homeless-pet-owners-face-limited-options-for-relief/` — 403
+  - `/2026/09/10/`
+- `https://www.kxan.com/investigations/austin-attorney-says-ice-shooting-victims-wife-devastated-kept-in-dark/` — 403
+  - `/2026/09/21/`
+- `https://www.kxan.com/investigations/austin-council-candidate-fired-by-the-city-says-shes-glad-termination-records-surfaced/` — 403
+  - `/2026/10/14/`
+- `https://www.kxan.com/investigations/austin-police-not-ice-requested-ems-for-man-wounded-in-ice-shooting-city-says/` — 403
+  - `/2026/09/23/`
+- `https://www.kxan.com/investigations/council-member-paige-ellis-third-term/` — 403
+  - `/2026/08/25/`
+- `https://www.kxan.com/investigations/federal-charge-filed-against-man-shot-by-ice-in-austin/` — 403
+  - `/2026/09/30/`
+- `https://www.kxan.com/investigations/ice-didnt-have-permission-to-stage-at-austin-site-property-owner-says/` — 403
+  - `/2026/10/22/`
+- `https://www.kxan.com/investigations/judge-dismisses-teacher-union-lawsuit-over-tea-commissioners-letter-following-kirk-assassination/` — 403
+  - `/2026/08/28/`
+- `https://www.kxan.com/investigations/make-it-right-new-texas-law-regulates-solar-retailers-and-salespeople/` — 403
+  - `/2026/09/08/`
+- `https://www.kxan.com/investigations/man-shot-by-ice-in-austin-to-appear-in-court-on-federal-criminal-charge/` — 403
+  - `/2026/10/01/`
+- `https://www.kxan.com/investigations/new-safety-steps-revealed-for-cotaland-drop-tower-ride/` — 403
+  - `/2026/09/26/`
+- `https://www.kxan.com/investigations/riders-stuck-again-on-cotaland-coaster-at-center-of-lawsuit/` — 403
+  - `/2026/09/29/`
+- `https://www.kxan.com/investigations/tesla-operating-robotaxi-service-in-texas-with-expired-state-license/` — 403
+  - `/2026/09/24/`
+- `https://www.kxan.com/investigations/who-investigates-when-texans-dielawmakers-rethink-states-death-system/` — 403
+  - `/2026/08/26/`
+- `https://www.kxan.com/lgbtq/austin-to-celebrate-national-coming-out-day-with-rainbow-ribbon-cutting/` — 403
+  - `/2026/10/12/`
+- `https://www.kxan.com/lgbtq/cultural-center-feasibility-qwell-community-centers/` — 403
+  - `/2026/08/27/`
+- `https://www.kxan.com/lgbtq/photos-thousands-celebrate-during-austin-pride-2026/` — 403
+  - `/2026/08/23/`
+- `https://www.kxan.com/news/austin-central-library-increases-security-as-apd-addresses-crime-concerns/` — 403
+  - `/2026/08/24/`
+- `https://www.kxan.com/news/austin-city-council-expanding-places-required-to-carry-life-saving-medical-device/` — 403
+  - `/2026/09/25/`
+- `https://www.kxan.com/news/austin-city-council-eyes-changes-to-no-wrong-door-homeless-approach/` — 403
+  - `/2026/10/14/`
+- `https://www.kxan.com/news/austin-funded-immigration-programs-meet-citys-expectations-amid-contract-increase/` — 403
+  - `/2026/09/26/`
+- `https://www.kxan.com/news/austin-game-developers-push-for-union-contract-amid-microsofts-xbox-layoffs/` — 403
+  - `/2026/08/29/`
+- `https://www.kxan.com/news/austins-former-3m-campus-set-for-data-center-following-1b-transformation/` — 403
+  - `/2026/09/16/`
+  - `/2026/09/18/`
+- `https://www.kxan.com/news/city-of-austin-considers-1-3m-pipe-system-for-trash-juice/` — 403
+  - `/2026/09/24/`
+- `https://www.kxan.com/news/city-of-austin-eyes-2m-for-supporting-renters-on-brink-of-eviction/` — 403
+  - `/2026/10/22/`
+- `https://www.kxan.com/news/crime/a-jerk-move-reports-of-repeat-tire-slashing-in-southeast-austin/` — 403
+  - `/2026/09/02/`
+- `https://www.kxan.com/news/crime/affidavit-austin-man-killed-two-women-during-visit-to-pay-for-sex/` — 403
+  - `/2026/09/29/`
+- `https://www.kxan.com/news/crime/austin-barricaded-suspect-swat/` — 403
+  - `/2026/10/21/`
+- `https://www.kxan.com/news/crime/austin-city-code-bans-hunting-feeding-deer/` — 403
+  - `/2026/10/14/`
+- `https://www.kxan.com/news/crime/austin-double-homicide-arrest/` — 403
+  - `/2026/09/26/`
+- `https://www.kxan.com/news/crime/austin-man-charged-with-murder-months-after-aggravated-assault-arrest-affidavit-says/` — 403
+  - `/2026/09/10/`
+- `https://www.kxan.com/news/crime/austin-man-sentenced-to-15-years-for-cocaine-psilocin-trafficking/` — 403
+  - `/2026/10/11/`
+- `https://www.kxan.com/news/crime/austin-police-arrest-bank-robbery-suspect-less-than-2-minutes-after-crime/` — 403
+  - `/2026/10/16/`
+- `https://www.kxan.com/news/crime/austin-police-arrest-four-suspects-in-months-long-operation-at-barking-springs/` — 403
+  - `/2026/10/03/`
+- `https://www.kxan.com/news/crime/austin-police-arrests-man-suspected-of-2021-murder-4-year-delay-in-cellphone-warrant/` — 403
+  - `/2026/08/26/`
+- `https://www.kxan.com/news/crime/austin-police-expect-to-wrap-ice-shooting-investigation-up-in-a-couple-of-weeks/` — 403
+  - `/2026/10/10/`
+- `https://www.kxan.com/news/crime/austin-police-search-for-robbery-suspects-accused-of-assaulting-employee-at-domain-store/` — 403
+  - `/2026/09/20/`
+- `https://www.kxan.com/news/crime/austin-police-search-for-suspect-after-person-on-e-bike-hit-by-car/` — 403
+  - `/2026/08/29/`
+- `https://www.kxan.com/news/crime/austin-police-searching-for-woman-tied-to-stolen-truck-hit-and-run-crash/` — 403
+  - `/2026/10/20/`
+- `https://www.kxan.com/news/crime/austin-police-seize-thousands-of-stolen-mail-pieces-arrest-woman/` — 403
+  - `/2026/09/02/`
+- `https://www.kxan.com/news/crime/austin-police-to-give-updates-in-july-4-murder-case/` — 403
+  - `/2026/10/21/`
+- `https://www.kxan.com/news/crime/austin-shooting-navarro-early-college-high-school/` — 403
+  - `/2026/10/01/`
+- `https://www.kxan.com/news/crime/crime-imprints/austin-gang-activity-trending-younger-more-violent-police-say/` — 403
+  - `/2026/08/23/`
+- `https://www.kxan.com/news/crime/dead-fetus-austin-parking-lot/` — 403
+  - `/2026/10/13/`
+- `https://www.kxan.com/news/crime/del-valle-isd-officer-indicted/` — 403
+  - `/2026/09/15/`
+- `https://www.kxan.com/news/crime/drag-your-body-through-the-streets-man-arrested-after-threats-sent-to-talaricos-campaign-office/` — 403
+  - `/2026/09/03/`
+- `https://www.kxan.com/news/crime/head-of-local-fbi-talks-of-massive-increase-in-crypto-scams-in-central-texas/` — 403
+  - `/2026/08/26/`
+- `https://www.kxan.com/news/crime/homicide-investigation-underway-in-northeast-austin-police-say/` — 403
+  - `/2026/08/29/`
+  - `/2026/08/30/`
+- `https://www.kxan.com/news/crime/large-piece-of-concrete-allegedly-used-by-austin-murder-suspect/` — 403
+  - `/2026/10/13/`
+- `https://www.kxan.com/news/crime/man-arrested-charged-with-murder-in-connection-with-2024-fentanyl-death/` — 403
+  - `/2026/08/27/`
+- `https://www.kxan.com/news/crime/man-arrested-for-making-threats-against-university-of-texas-local-church/` — 403
+  - `/2026/10/03/`
+- `https://www.kxan.com/news/crime/man-charged-with-murder-after-library-assault-victim-dies-months-later-affidavit-says/` — 403
+  - `/2026/10/20/`
+- `https://www.kxan.com/news/crime/man-killed-north-lamar-boulevard-crash/` — 403
+  - `/2026/10/15/`
+- `https://www.kxan.com/news/crime/man-pleads-guilty-in-fatal-crash-involving-bicyclist/` — 403
+  - `/2026/09/19/`
+- `https://www.kxan.com/news/crime/man-says-he-snapped-prior-to-shooting-at-north-austin-employment-agency/` — 403
+  - `/2026/09/18/`
+- `https://www.kxan.com/news/crime/man-sentenced-after-pleading-guilty-to-assaulting-ice-agent-in-austin/` — 403
+  - `/2026/10/17/`
+- `https://www.kxan.com/news/crime/man-sentenced-to-60-years-for-2023-murder/` — 403
+  - `/2026/09/03/`
+- `https://www.kxan.com/news/crime/man-sentenced-to-life-in-prison-for-sexual-abuse-of-a-child-da/` — 403
+  - `/2026/10/01/`
+- `https://www.kxan.com/news/crime/murder-suspect-told-austin-police-detective-that-victim-had-bad-vibes-affidavit-says/` — 403
+  - `/2026/09/02/`
+- `https://www.kxan.com/news/crime/police-investigating-homicide-in-east-austin-2/` — 403
+  - `/2026/08/31/`
+- `https://www.kxan.com/news/crime/police-searching-for-suspect-accused-of-stealing-copper-wire-in-east-austin/` — 403
+  - `/2026/10/22/`
+- `https://www.kxan.com/news/crime/police-searching-for-suspect-after-homicide-in-east-austin/` — 403
+  - `/2026/09/23/`
+- `https://www.kxan.com/news/crime/second-arrest-made-in-connection-with-24-year-old-austin-mans-death/` — 403
+  - `/2026/09/12/`
+- `https://www.kxan.com/news/crime/suspect-charged-with-aggravated-robbery-apd-says/` — 403
+  - `/2026/09/01/`
+- `https://www.kxan.com/news/crime/unsolved-central-texas/second-arrest-made-in-the-unsolved-death-of-a-24-year-old-austin-man/` — 403
+  - `/2026/09/25/`
+- `https://www.kxan.com/news/crime/we-will-kill-you-man-arrested-after-making-threats-towards-greg-abbott/` — 403
+  - `/2026/09/05/`
+- `https://www.kxan.com/news/displaced-tenants-feel-left-in-dark-since-fire-at-downtown-austin-high-rise/` — 403
+  - `/2026/10/02/`
+- `https://www.kxan.com/news/downtown-austin-narcan-overdose/` — 403
+  - `/2026/09/18/`
+- `https://www.kxan.com/news/education-freedom-accounts-and-the-texas-comptroller-race/` — 403
+  - `/2026/09/27/`
+- `https://www.kxan.com/news/education/aisd-families-push-back-against-possible-tea-takeover/` — 403
+  - `/2026/09/14/`
+- `https://www.kxan.com/news/education/texas-education-board-looks-into-3-year-college-degree-options/` — 403
+  - `/2026/08/27/`
+- `https://www.kxan.com/news/education/texas-sboe-moves-closer-to-vote-on-new-high-school-social-studies-standards/` — 403
+  - `/2026/09/02/`
+- `https://www.kxan.com/news/flock-safety-overhaul-keeps-pflugerville-skeptical-of-surveillance-cameras/` — 403
+  - `/2026/08/26/`
+- `https://www.kxan.com/news/gov-abbott-outlines-affordability-proposals-during-lubbock-stop/` — 403
+  - `/2026/09/06/`
+- `https://www.kxan.com/news/hays-county-sheriffs-office-considers-adding-ai-to-law-enforcement-technology/` — 403
+  - `/2026/08/28/`
+- `https://www.kxan.com/news/hot-humid-and-gusty-through-midweek/` — 403
+  - `/2026/10/13/`
+- `https://www.kxan.com/news/housing/austin-city-council-moves-to-make-it-easier-to-build-fourplexes/` — 403
+  - `/2026/09/04/`
+- `https://www.kxan.com/news/housing/austin-housing-market-data/` — 403
+  - `/2026/10/22/`
+- `https://www.kxan.com/news/housing/austin-metro-home-sales-up-7-from-2025/` — 403
+  - `/2026/09/01/`
+- `https://www.kxan.com/news/housing/report-texas-home-buyers-score-discounts-in-august/` — 403
+  - `/2026/09/11/`
+- `https://www.kxan.com/news/housing/taylors-first-condo-project/` — 403
+  - `/2026/08/27/`
+- `https://www.kxan.com/news/i-35-flooded-again-at-riverside-dr-is-this-the-new-norm/` — 403
+  - `/2026/10/03/`
+- `https://www.kxan.com/news/infrastructure-improvements-on-track-for-northwest-austin-rail-station/` — 403
+  - `/2026/09/06/`
+- `https://www.kxan.com/news/local/afd-on-scene-of-a-fire-at-flea-market-off-hwy-290/` — 403
+  - `/2026/08/23/`
+  - `/2026/08/24/`
+- `https://www.kxan.com/news/local/ai-giant-anthropic-in-talks-to-lease-massive-bastrop-county-data-center-sources-said/` — 403
+  - `/2026/08/25/`
+- `https://www.kxan.com/news/local/austin-car-hit-bicycle/` — 403
+  - `/2026/09/25/`
+- `https://www.kxan.com/news/local/austin/1-dead-after-being-hit-by-vehicle-off-sh-71/` — 403
+  - `/2026/10/15/`
+- `https://www.kxan.com/news/local/austin/12-hours-a-day-west-austin-neighbors-fed-up-with-loop-360-construction-noise/` — 403
+  - `/2026/09/17/`
+- `https://www.kxan.com/news/local/austin/140-year-old-east-austin-house-receives-historic-designation-against-owners-wishes/` — 403
+  - `/2026/09/02/`
+- `https://www.kxan.com/news/local/austin/19-year-old-arrested-accused-of-dwi-in-deadly-north-austin-crash/` — 403
+  - `/2026/09/29/`
+- `https://www.kxan.com/news/local/austin/1998-murder-convict-may-have-chance-to-get-out-of-prison/` — 403
+  - `/2026/09/10/`
+- `https://www.kxan.com/news/local/austin/2-dead-1-in-critical-condition-after-rollover-crash-vehicle-fire-in-east-austin/` — 403
+  - `/2026/10/15/`
+- `https://www.kxan.com/news/local/austin/4-hospitalized-after-suspected-overdoses-in-downtown-austin/` — 403
+  - `/2026/09/16/`
+- `https://www.kxan.com/news/local/austin/a-new-energy-how-an-austin-artist-is-reclaiming-space-for-bipoc-creators-through-art-clothing/` — 403
+  - `/2026/10/11/`
+- `https://www.kxan.com/news/local/austin/aac-without-ac/` — 403
+  - `/2026/08/24/`
+  - `/2026/08/25/`
+- `https://www.kxan.com/news/local/austin/abbott-orders-penalties-for-data-centers-that-fail-to-report-water-use/` — 403
+  - `/2026/09/15/`
+- `https://www.kxan.com/news/local/austin/acc-enrollment-numbers-continue-multi-year-rise/` — 403
+  - `/2026/08/26/`
+- `https://www.kxan.com/news/local/austin/affordable-parking-program-for-musicians-launches-in-austin/` — 403
+  - `/2026/10/21/`
+- `https://www.kxan.com/news/local/austin/after-abbotts-order-limiting-flock-cameras-dps-to-continue-using-its-vast-surveillance-network/` — 403
+  - `/2026/09/09/`
+- `https://www.kxan.com/news/local/austin/aisd-school-dealing-with-hvac-issues-as-triple-digits-continue/` — 403
+  - `/2026/08/29/`
+- `https://www.kxan.com/news/local/austin/anderson-high-school-experiences-a-c-issues-sends-students-home-early/` — 403
+  - `/2026/09/02/`
+- `https://www.kxan.com/news/local/austin/annual-haam-day-is-just-around-the-corner/` — 403
+  - `/2026/09/12/`
+- `https://www.kxan.com/news/local/austin/apd-homicide-investigation-underway-in-south-austin/` — 403
+  - `/2026/09/23/`
+- `https://www.kxan.com/news/local/austin/apd-identifies-woman-killed-in-motorcycle-crash-over-the-weekend/` — 403
+  - `/2026/08/27/`
+- `https://www.kxan.com/news/local/austin/apd-issues-83-citations-makes-8-arrests-during-dwi-initiative/` — 403
+  - `/2026/09/13/`
+- `https://www.kxan.com/news/local/austin/athenas-surviving-owlet-released-back-into-the-wild/` — 403
+  - `/2026/09/24/`
+- `https://www.kxan.com/news/local/austin/attorney-says-man-shot-by-ice-returned-to-detention-center-after-hospital-visit/` — 403
+  - `/2026/09/23/`
+- `https://www.kxan.com/news/local/austin/austin-311-data-2026/` — 403
+  - `/2026/10/13/`
+- `https://www.kxan.com/news/local/austin/austin-airport-breaks-ground-on-concourse-m-to-add-six-gates/` — 403
+  - `/2026/09/30/`
+- `https://www.kxan.com/news/local/austin/austin-airport/2026-aus-passenger-stats/` — 403
+  - `/2026/08/25/`
+  - `/2026/10/01/`
+  - `/2026/10/11/`
+- `https://www.kxan.com/news/local/austin/austin-airport/austin-airport-f1-weekend-tsa-times/` — 403
+  - `/2026/10/21/`
+- `https://www.kxan.com/news/local/austin/austin-airport/austin-airport-parking-garages-full/` — 403
+  - `/2026/10/10/`
+- `https://www.kxan.com/news/local/austin/austin-airport/austin-airport-warns-of-high-travel-volume-following-2026-acl-fest-weekends/` — 403
+  - `/2026/10/03/`
+- `https://www.kxan.com/news/local/austin/austin-airport/southwest-to-launch-7-new-routes-from-austin-in-june-including-3-international/` — 403
+  - `/2026/10/03/`
+- `https://www.kxan.com/news/local/austin/austin-airport/your-trek-to-rideshare-pickup-at-the-austin-airport-is-getting-shorter/` — 403
+  - `/2026/09/25/`
+- `https://www.kxan.com/news/local/austin/austin-based-women-led-cleaning-company-one-of-9-blue-collar-companies-to-get-grant-from-jobber/` — 403
+  - `/2026/09/05/`
+- `https://www.kxan.com/news/local/austin/austin-bond-dashboard-shows-20-of-voter-approved-funding-from-last-decade-yet-to-be-spent/` — 403
+  - `/2026/10/17/`
+  - `/austin-bonds-2026/`
+- `https://www.kxan.com/news/local/austin/austin-city-council-candidates-miss-disclosure-deadlines/` — 403
+  - `/2026/10/03/`
+- `https://www.kxan.com/news/local/austin/austin-city-limits-festival-safety-ems-warns-of-fentanyl-cyclorphine-overdose-risks/` — 403
+  - `/2026/10/01/`
+- `https://www.kxan.com/news/local/austin/austin-council-members-expected-to-vote-on-data-center-regulations/` — 403
+  - `/2026/08/28/`
+- `https://www.kxan.com/news/local/austin/austin-council-moves-to-regulate-standards-protocols-for-inspection-remediation-of-mold/` — 403
+  - `/2026/08/28/`
+- `https://www.kxan.com/news/local/austin/austin-donut-shop-says-catering-truck-was-stolen-over-the-weekend-found-within-24-hours/` — 403
+  - `/2026/10/14/`
+- `https://www.kxan.com/news/local/austin/austin-ed-fund-raises-700000-for-public-education-programs/` — 403
+  - `/2026/10/22/`
+- `https://www.kxan.com/news/local/austin/austin-energy-wants-to-help-pay-for-your-next-e-moto-bike-or-scooter/` — 403
+  - `/2026/10/17/`
+- `https://www.kxan.com/news/local/austin/austin-flea-market-vendors-begin-recovery-after-devastating-fire-cause-still-under-investigation/` — 403
+  - `/2026/08/25/`
+- `https://www.kxan.com/news/local/austin/austin-has-no-mold-specific-code-new-regulations-could-be-coming/` — 403
+  - `/2026/09/04/`
+- `https://www.kxan.com/news/local/austin/austin-home-explosion-report/` — 403
+  - `/2026/10/06/`
+- `https://www.kxan.com/news/local/austin/austin-hotels-could-reach-95-occupancy-as-formula-one-returns/` — 403
+  - `/2026/10/20/`
+- `https://www.kxan.com/news/local/austin/austin-humane-society-rescue-bastrop-dogs-cat/` — 403
+  - `/2026/10/15/`
+- `https://www.kxan.com/news/local/austin/austin-isd-enrollment-continues-to-fall/` — 403
+  - `/2026/10/01/`
+- `https://www.kxan.com/news/local/austin/austin-isd-families-race-to-meet-deadline-for-divisive-school-closure-petitions/` — 403
+  - `/2026/10/15/`
+- `https://www.kxan.com/news/local/austin/austin-isd-hosts-hiring-fair-to-fill-support-staff-positions/` — 403
+  - `/2026/10/04/`
+- `https://www.kxan.com/news/local/austin/austin-isd-parents-raise-concerns-over-band-equipment-transportation-challenges/` — 403
+  - `/2026/10/05/`
+- `https://www.kxan.com/news/local/austin/austin-isd-releases-dashboard-to-track-schools-with-unacceptable-ratings/` — 403
+  - `/2026/09/19/`
+- `https://www.kxan.com/news/local/austin/austin-isd-spending-investigation/` — 403
+  - `/2026/10/06/`
+- `https://www.kxan.com/news/local/austin/austin-launches-new-generation-atx-plan-to-improve-child-well-being/` — 403
+  - `/2026/08/25/`
+- `https://www.kxan.com/news/local/austin/austin-lawmakers-question-ice-body-camera-use-after-shooting-of-wilber-garces-perez/` — 403
+  - `/2026/09/24/`
+- `https://www.kxan.com/news/local/austin/austin-leaders-to-give-update-on-ice-shooting-investigation/` — 403
+  - `/2026/09/23/`
+- `https://www.kxan.com/news/local/austin/austin-nightclub-going-phone-free-heres-why-and-how/` — 403
+  - `/2026/10/22/`
+- `https://www.kxan.com/news/local/austin/austin-police-body-found-floating-in-lady-bird-lake-overnight/` — 403
+  - `/2026/10/17/`
+- `https://www.kxan.com/news/local/austin/austin-police-oversight-hosts-expo-highlights-accountability-efforts/` — 403
+  - `/2026/09/27/`
+- `https://www.kxan.com/news/local/austin/austin-police-tighten-oversight-on-e-moto-vehicles/` — 403
+  - `/2026/09/04/`
+- `https://www.kxan.com/news/local/austin/austin-proposes-banning-new-vape-shops-within-1000-feet-of-schools/` — 403
+  - `/2026/10/20/`
+- `https://www.kxan.com/news/local/austin/austin-spent-716k-in-26-days-cleaning-homeless-encampments-more-than-half-of-costs-were-for-staff-salaries/` — 403
+  - `/2026/09/15/`
+- `https://www.kxan.com/news/local/austin/austin-traffic-fatality-map-2026/` — 403
+  - `/2026/09/11/`
+  - `/2026/10/11/`
+- `https://www.kxan.com/news/local/austin/austin-wages-growth-texas/` — 403
+  - `/2026/09/09/`
+- `https://www.kxan.com/news/local/austin/austin-wants-to-be-the-best-place-in-america-for-kids-heres-the-plan-to-do-it/` — 403
+  - `/2026/10/20/`
+- `https://www.kxan.com/news/local/austin/austin-woman-quit-tech-to-make-non-toxic-candles-theyre-hitting-h-e-b-shelves-soon/` — 403
+  - `/2026/08/23/`
+- `https://www.kxan.com/news/local/austin/austin-woman-says-she-was-removed-from-q2-stadium-over-anti-ice-shirt-ties-incident-to-concerns-about-immigrant-treatment/` — 403
+  - `/2026/09/29/`
+- `https://www.kxan.com/news/local/austin/austins-bat-bridge-gets-upgrade-with-new-educational-experience/` — 403
+  - `/2026/08/24/`
+- `https://www.kxan.com/news/local/austin/austins-famous-all-girl-punk-band-makes-hometown-comeback-at-levitation-playing-ahead-of-bikini-kill/` — 403
+  - `/2026/09/13/`
+- `https://www.kxan.com/news/local/austin/austins-oldest-known-black-cemetery-finally-gets-landmark-designation/` — 403
+  - `/2026/09/06/`
+- `https://www.kxan.com/news/local/austin/benefits-this-weekend-for-young-mother-killed-in-double-homicide/` — 403
+  - `/2026/09/27/`
+- `https://www.kxan.com/news/local/austin/bold-plans-to-connect-budding-austin-san-antonio-metroplex/` — 403
+  - `/2026/10/02/`
+- `https://www.kxan.com/news/local/austin/book-shaped-ayn-rand-center-under-construction-set-to-open-in-2028/` — 403
+  - `/2026/09/11/`
+- `https://www.kxan.com/news/local/austin/caffeine-lovers-gather-for-annual-coffee-festival/` — 403
+  - `/2026/10/18/`
+- `https://www.kxan.com/news/local/austin/candidate-for-austin-city-council-arrested-following-ice-protest/` — 403
+  - `/2026/09/27/`
+- `https://www.kxan.com/news/local/austin/capmetro-3-year-agreement-reached-between-union-subcontractor/` — 403
+  - `/2026/09/05/`
+- `https://www.kxan.com/news/local/austin/central-health-considers-raising-travis-county-taxes-for-mental-health-resources/` — 403
+  - `/2026/09/05/`
+- `https://www.kxan.com/news/local/austin/challenges-with-tracking-effectiveness-of-drugged-drink-testing-programs/` — 403
+  - `/2026/09/11/`
+- `https://www.kxan.com/news/local/austin/city-audit-petition-certified-moves-forward-to-november-ballot/` — 403
+  - `/austin-charter-2026/`
+- `https://www.kxan.com/news/local/austin/city-council-presents-former-austin-fire-chief-with-distinguished-service-award-approves-interim-fire-chief/` — 403
+  - `/2026/08/28/`
+- `https://www.kxan.com/news/local/austin/city-council-sued-over-dogs-head-development/` — 403
+  - `/2026/09/25/`
+- `https://www.kxan.com/news/local/austin/city-council-to-consider-book-safe-harbor-designation-for-austin-public-library/` — 403
+  - `/2026/08/27/`
+  - `/2026/08/28/`
+- `https://www.kxan.com/news/local/austin/city-leaders-rename-plantation-road-to-tommie-lee-wyatt-lane/` — 403
+  - `/2026/10/22/`
+- `https://www.kxan.com/news/local/austin/city-of-austin-canceled-more-than-60-voter-approved-bond-projects-new-dashboard-shows/` — 403
+  - `/2026/10/10/`
+- `https://www.kxan.com/news/local/austin/city-of-austin-uses-at-least-8-types-of-surveillance-technology-data-shows/` — 403
+  - `/2026/10/16/`
+- `https://www.kxan.com/news/local/austin/city-officials-say-man-shot-injured-by-ice-agents-in-north-austin/` — 403
+  - `/2026/09/21/`
+- `https://www.kxan.com/news/local/austin/classrooms-in-mid-80s-aisd-hvac-issues-continue/` — 403
+  - `/2026/09/03/`
+- `https://www.kxan.com/news/local/austin/concerns-grow-over-safety-jet-ski-use-on-lake-austin/` — 403
+  - `/2026/09/07/`
+- `https://www.kxan.com/news/local/austin/could-air-taxis-help-austin-paramedics-beat-traffic-city-explores-evtol-program/` — 403
+  - `/2026/10/10/`
+- `https://www.kxan.com/news/local/austin/council-approves-12-month-contract-extensions-for-social-service-nonprofits/` — 403
+  - `/2026/09/25/`
+  - `/austin-city-budget-2027/`
+- `https://www.kxan.com/news/local/austin/council-members-discuss-question-911-call-center-feasibility-report/` — 403
+  - `/2026/09/23/`
+- `https://www.kxan.com/news/local/austin/ctxgo-app-launches-to-provide-central-texas-travel-updates/` — 403
+  - `/2026/10/02/`
+- `https://www.kxan.com/news/local/austin/curveball-lake-austin-to-lower-10-feet-this-fall-businesses-say-the-notice-came-too-late/` — 403
+  - `/2026/09/10/`
+- `https://www.kxan.com/news/local/austin/dawa-celebrates-7-years-of-giving-to-the-givers/` — 403
+  - `/2026/09/20/`
+- `https://www.kxan.com/news/local/austin/deadly-east-austin-motorcycle-crash-fm-949/` — 403
+  - `/2026/10/22/`
+- `https://www.kxan.com/news/local/austin/defense-secretary-pete-hegseth-to-visit-austin-college-station/` — 403
+  - `/2026/09/18/`
+- `https://www.kxan.com/news/local/austin/doctors-recovery-advocates-urge-residents-to-carry-narcan-after-5-overdoses-on-sixth-street/` — 403
+  - `/2026/09/17/`
+- `https://www.kxan.com/news/local/austin/dolly-parton-tributes-events-honoring-her-life-legacy-happening-across-austin/` — 403
+  - `/2026/08/29/`
+- `https://www.kxan.com/news/local/austin/downtown-austin-resident-raises-safety-concerns-after-falling-glass-damages-vehicle-near-high-rise/` — 403
+  - `/2026/09/01/`
+- `https://www.kxan.com/news/local/austin/drink-spike-prevention-in-austin-city-staff-will-seek-feedback-from-bars/` — 403
+  - `/2026/10/13/`
+- `https://www.kxan.com/news/local/austin/east-riverside-how-mobility-housing-changes-can-impact-public-safety/` — 403
+  - `/2026/09/01/`
+- `https://www.kxan.com/news/local/austin/family-grieves-beloved-homeowner-who-owned-one-of-last-homes-on-rainey-street/` — 403
+  - `/2026/09/01/`
+- `https://www.kxan.com/news/local/austin/family-of-teen-hopes-more-awareness-prevents-future-fentanyl-deaths/` — 403
+  - `/2026/09/19/`
+- `https://www.kxan.com/news/local/austin/fans-focus-on-football-over-excessive-heat-at-texas-ohio-state-showdown/` — 403
+  - `/2026/09/13/`
+- `https://www.kxan.com/news/local/austin/fatal-pedestrian-car-crash-texas/` — 403
+  - `/2026/10/14/`
+- `https://www.kxan.com/news/local/austin/fiesta-de-salud-brings-free-health-resources-culture-community-to-austin/` — 403
+  - `/2026/09/20/`
+- `https://www.kxan.com/news/local/austin/fire-at-perlas-on-south-congress-quickly-contained-no-injuries-reported/` — 403
+  - `/2026/09/08/`
+- `https://www.kxan.com/news/local/austin/fires-happened-at-neighboring-south-austin-car-dealerships-a-month-apart/` — 403
+  - `/2026/10/02/`
+- `https://www.kxan.com/news/local/austin/gas-line-break-closes-austin-road/` — 403
+  - `/2026/09/29/`
+- `https://www.kxan.com/news/local/austin/general-contractors-office-in-austin-raided-by-federal-authorities/` — 403
+  - `/2026/08/28/`
+- `https://www.kxan.com/news/local/austin/girl-scouts-of-central-texas-wgu-launch-ai-explorer-patch-program/` — 403
+  - `/2026/09/19/`
+- `https://www.kxan.com/news/local/austin/haam-day-festival-returns-with-largest-lineup-in-20-years/` — 403
+  - `/2026/09/22/`
+- `https://www.kxan.com/news/local/austin/hole-punch-cloud-spotted-in-austin-area-saturday/` — 403
+  - `/2026/10/18/`
+- `https://www.kxan.com/news/local/austin/hollywood-to-texas-austin-thrown-into-paramount-merger-fight/` — 403
+  - `/2026/08/28/`
+- `https://www.kxan.com/news/local/austin/housing-advocates-hope-city-of-austin-contract-switch-builds-on-affordability-momentum/` — 403
+  - `/2026/09/19/`
+- `https://www.kxan.com/news/local/austin/how-a-teen-diversion-program-is-working-so-far-in-travis-county/` — 403
+  - `/2026/10/21/`
+- `https://www.kxan.com/news/local/austin/ice-arrests-surge-in-austin-amid-increase-in-noncriminal-violations/` — 403
+  - `/2026/10/06/`
+- `https://www.kxan.com/news/local/austin/ice-poseidon-event-in-austin-what-is-it/` — 403
+  - `/2026/10/18/`
+- `https://www.kxan.com/news/local/austin/ice-says-woman-arrested-in-viral-video-released-because-shes-the-guardian-of-minors/` — 403
+  - `/2026/10/05/`
+- `https://www.kxan.com/news/local/austin/ice-shooting-victim-speaks/` — 403
+  - `/2026/09/22/`
+- `https://www.kxan.com/news/local/austin/ice-vehicle-chase-in-travis-county-leads-to-water-rescue-no-one-found/` — 403
+  - `/2026/10/16/`
+- `https://www.kxan.com/news/local/austin/investors-aim-to-bring-new-music-venue-to-former-empire-space-as-building-listed-for-7-million/` — 403
+  - `/2026/10/15/`
+- `https://www.kxan.com/news/local/austin/its-levitation-weekend-what-to-know-about-the-indie-austin-music-festival/` — 403
+  - `/2026/09/10/`
+- `https://www.kxan.com/news/local/austin/judge-blocks-deportation-of-man-shot-by-ice/` — 403
+  - `/2026/09/23/`
+- `https://www.kxan.com/news/local/austin/kealing-middle-school-is-latest-austin-isd-school-to-face-ac-issues-as-troubles-continue/` — 403
+  - `/2026/09/24/`
+- `https://www.kxan.com/news/local/austin/lake-austin-drawdown-canceled-following-pushback/` — 403
+  - `/2026/09/25/`
+- `https://www.kxan.com/news/local/austin/lake-austin-drawdown-could-cost-jobs-cancel-holiday-events/` — 403
+  - `/2026/09/19/`
+- `https://www.kxan.com/news/local/austin/lamar-middle-school-experiences-hvac-issues-sends-students-home-early/` — 403
+  - `/2026/09/09/`
+- `https://www.kxan.com/news/local/austin/lammes-candies-set-to-re-open-under-new-ownership/` — 403
+  - `/2026/09/30/`
+- `https://www.kxan.com/news/local/austin/levitation-faces-major-changes-just-weeks-ahead-of-festival/` — 403
+  - `/2026/08/29/`
+- `https://www.kxan.com/news/local/austin/man-dies-after-two-vehicle-crash-in-east-austin/` — 403
+  - `/2026/10/14/`
+- `https://www.kxan.com/news/local/austin/map-where-are-austins-most-dangerous-intersections/` — 403
+  - `/2026/09/17/`
+- `https://www.kxan.com/news/local/austin/mayor-creates-red-river-cultural-district-task-force-after-thousands-sign-districts-open-letter/` — 403
+  - `/2026/10/22/`
+- `https://www.kxan.com/news/local/austin/mayor-says-austin-isd-petition-to-close-schools-seems-to-have-enough-signatures/` — 403
+  - `/2026/10/17/`
+- `https://www.kxan.com/news/local/austin/mayors-from-across-u-s-unite-to-address-rising-cost-of-living/` — 403
+  - `/2026/10/16/`
+- `https://www.kxan.com/news/local/austin/more-money-allocated-to-citys-drink-spiking-test-strip-program/` — 403
+  - `/2026/08/28/`
+- `https://www.kxan.com/news/local/austin/multiple-lanes-closed-after-18-wheeler-hits-i-35-bridge-in-downtown-austin/` — 403
+  - `/2026/10/03/`
+- `https://www.kxan.com/news/local/austin/new-austin-stem-center-opens-with-hands-on-learning-experiences/` — 403
+  - `/2026/08/25/`
+- `https://www.kxan.com/news/local/austin/new-loop-360-main-lanes-opening-sunday-at-westlake-drive-cedar-street/` — 403
+  - `/2026/08/29/`
+  - `/2026/08/30/`
+- `https://www.kxan.com/news/local/austin/new-recording-studio-celebrating-grand-opening-in-west-austin/` — 403
+  - `/2026/09/10/`
+- `https://www.kxan.com/news/local/austin/no-funding-cuts-recommended-after-city-staff-review-133-social-service-agreements/` — 403
+  - `/2026/09/24/`
+- `https://www.kxan.com/news/local/austin/nonprofit-offering-free-therapy-sessions-for-nightlife-workers-impacted-by-red-river-closures/` — 403
+  - `/2026/10/16/`
+- `https://www.kxan.com/news/local/austin/north-austin-restaurant-damaged-after-car-crashes-into-dining-area/` — 403
+  - `/2026/10/15/`
+- `https://www.kxan.com/news/local/austin/old-west-austin-church-to-transform-into-bookstore/` — 403
+  - `/2026/10/17/`
+- `https://www.kxan.com/news/local/austin/one-dead-after-crash-on-south-lamar-boulevard/` — 403
+  - `/2026/09/24/`
+- `https://www.kxan.com/news/local/austin/one-person-dead-at-construction-site-in-downtown-austin-apd-says/` — 403
+  - `/2026/10/10/`
+- `https://www.kxan.com/news/local/austin/opposing-political-groups-go-head-to-head-on-austins-prop-i/` — 403
+  - `/austin-charter-2026/`
+- `https://www.kxan.com/news/local/austin/p-terrys-to-donate-all-profits-saturday/` — 403
+  - `/2026/09/24/`
+- `https://www.kxan.com/news/local/austin/pedestrian-killed-in-crash-on-sh-71-ramp-in-southeast-austin/` — 403
+  - `/2026/08/26/`
+- `https://www.kxan.com/news/local/austin/pedestrian-killed-in-n-fm-620-crash/` — 403
+  - `/2026/09/12/`
+- `https://www.kxan.com/news/local/austin/petition-to-ban-jet-skis-on-lake-austin-gains-momentum/` — 403
+  - `/2026/08/28/`
+- `https://www.kxan.com/news/local/austin/police-ask-for-help-finding-72-year-old-man-last-seen-in-west-austin/` — 403
+  - `/2026/09/06/`
+- `https://www.kxan.com/news/local/austin/police-searching-for-suspect-involved-in-fatal-auto-ped-crash-in-south-austin/` — 403
+  - `/2026/10/15/`
+- `https://www.kxan.com/news/local/austin/preservation-austin-names-businesses-to-be-featured-in-legacy-business-month-2026/` — 403
+  - `/2026/08/29/`
+- `https://www.kxan.com/news/local/austin/prosecutorial-protections-for-federal-officers/` — 403
+  - `/2026/09/29/`
+- `https://www.kxan.com/news/local/austin/recovery-in-the-park-spotlights-austinites-journeys-to-sobriety/` — 403
+  - `/2026/09/20/`
+- `https://www.kxan.com/news/local/austin/registration-opens-for-2026-lake-travis-cleanup-volunteer-event/` — 403
+  - `/2026/09/03/`
+- `https://www.kxan.com/news/local/austin/remembering-dolly-parton-queen-of-countrys-iconic-visits-to-texas-austin-through-the-years/` — 403
+  - `/2026/08/26/`
+- `https://www.kxan.com/news/local/austin/reported-ice-surge-in-austin-addressed-at-shooting-press-conference/` — 403
+  - `/2026/09/22/`
+- `https://www.kxan.com/news/local/austin/roger-beasley-longtime-austin-auto-dealer-dies-at-87/` — 403
+  - `/2026/09/01/`
+- `https://www.kxan.com/news/local/austin/salvation-army-sets-1m-goal-for-annual-day-of-giving-in-austin/` — 403
+  - `/2026/08/27/`
+- `https://www.kxan.com/news/local/austin/save-muny-austin-nears-deal-to-take-ownership-of-lions-municipal-golf-course/` — 403
+  - `/2026/10/15/`
+  - `/muny-2026/`
+- `https://www.kxan.com/news/local/austin/second-child-dies-after-sept-9-crash-in-southeast-austin/` — 403
+  - `/2026/09/16/`
+- `https://www.kxan.com/news/local/austin/some-austin-musicians-express-disappointment-in-changing-scene-feel-live-music-capital-is-no-more/` — 403
+  - `/2026/09/09/`
+- `https://www.kxan.com/news/local/austin/study-4-texas-cities-rank-among-nations-spookiest/` — 403
+  - `/2026/10/18/`
+- `https://www.kxan.com/news/local/austin/suspect-identified-arrested-in-connection-with-southeast-austin-homicide/` — 403
+  - `/2026/09/11/`
+- `https://www.kxan.com/news/local/austin/suspected-overdoses-in-downtown-austin-push-public-health-leaders-to-boost-resources/` — 403
+  - `/2026/09/17/`
+- `https://www.kxan.com/news/local/austin/tcso-no-one-hurt-after-school-bus-crash-in-northwest-austin/` — 403
+  - `/2026/08/29/`
+- `https://www.kxan.com/news/local/austin/texas-candidates-ramp-up-election-outreach-as-early-voting-looms/` — 403
+  - `/2026/10/11/`
+- `https://www.kxan.com/news/local/austin/texas-lawmakers-discuss-power-to-impeach-travis-county-district-attorney-jose-garza-other-rouge-das/` — 403
+  - `/2026/10/01/`
+- `https://www.kxan.com/news/local/austin/texas-ohio-state-match-up-drives-high-ticket-prices-boosts-austins-economy/` — 403
+  - `/2026/09/12/`
+- `https://www.kxan.com/news/local/austin/texas-voter-registration-deadline-coming-up-on-oct-5/` — 403
+  - `/2026/10/03/`
+- `https://www.kxan.com/news/local/austin/the-austin-high-red-jackets-celebrate-100-year-legacy/` — 403
+  - `/2026/10/10/`
+- `https://www.kxan.com/news/local/austin/the-field-reached-160-degrees-triple-digit-heat-takes-a-toll-on-ut-fans-during-home-opener/` — 403
+  - `/2026/09/08/`
+- `https://www.kxan.com/news/local/austin/traffic-alert-serious-crash-shuts-down-i-35-at-woodward/` — 403
+  - `/2026/09/10/`
+- `https://www.kxan.com/news/local/austin/travis-county-firefighters-deployed-across-texas-to-battle-wildfires/` — 403
+  - `/2026/09/09/`
+- `https://www.kxan.com/news/local/austin/travis-county-leaders-hold-briefing-to-discuss-fire-conditions-preparedness-efforts/` — 403
+  - `/2026/08/26/`
+- `https://www.kxan.com/news/local/austin/travis-county-looking-for-election-workers-hosting-job-fairs-ahead-of-midterms/` — 403
+  - `/2026/08/27/`
+- `https://www.kxan.com/news/local/austin/try-things-they-would-have-never-gotten-to-try-inside-asmbly-austins-nonprofit-makerspace/` — 403
+  - `/2026/10/18/`
+- `https://www.kxan.com/news/local/austin/ut-austin-didnt-violate-students-rights-in-handling-of-pro-palestinian-protest-judge-rules/` — 403
+  - `/2026/09/26/`
+- `https://www.kxan.com/news/local/austin/ut-austin-tower-restoration-update-by-the-numbers/` — 403
+  - `/2026/09/30/`
+- `https://www.kxan.com/news/local/austin/ut-flyover-pilot-asks-austin-community-to-help-find-lost-stetson-hat/` — 403
+  - `/2026/10/21/`
+- `https://www.kxan.com/news/local/austin/valhalla-announces-imminent-closure-due-to-building-sale/` — 403
+  - `/2026/08/29/`
+- `https://www.kxan.com/news/local/austin/violent-crime-has-dropped-in-austin-since-2024-but-much-slower-than-other-texas-cities/` — 403
+  - `/2026/08/24/`
+- `https://www.kxan.com/news/local/austin/violent-crimes-prosecuted-at-federal-level-increased-in-austin/` — 403
+  - `/2026/08/26/`
+- `https://www.kxan.com/news/local/austin/waymo-racks-up-123-parking-tickets-in-austin/` — 403
+  - `/2026/09/17/`
+- `https://www.kxan.com/news/local/austin/west-campus-church-to-serve-as-new-polling-location-on-election-day/` — 403
+  - `/2026/10/17/`
+- `https://www.kxan.com/news/local/austin/wheatsville-food-co-op-to-close-guadalupe-store/` — 403
+  - `/2026/10/13/`
+- `https://www.kxan.com/news/local/austin/white-flowers-pop-up-across-austin-after-rain-what-are-they/` — 403
+  - `/2026/10/11/`
+- `https://www.kxan.com/news/local/austin/why-did-austin-parks-and-recreation-cut-indoor-adult-sports-funding/` — 403
+  - `/2026/08/27/`
+- `https://www.kxan.com/news/local/austin/window-falls-rainey-street-high-riseunning/` — 403
+  - `/2026/08/29/`
+- `https://www.kxan.com/news/local/austin/woman-hospitalized-by-alleged-drunk-driver-suspect-was-out-on-bond/` — 403
+  - `/2026/10/10/`
+- `https://www.kxan.com/news/local/austin/woman-sues-over-cow-tooth-in-taco/` — 403
+  - `/2026/10/16/`
+- `https://www.kxan.com/news/local/austin/zilker-great-lawn-closes-for-austin-city-limits-festival-reopens-mid-october/` — 403
+  - `/2026/09/23/`
+- `https://www.kxan.com/news/local/bastrop-county/bastrop-county-firefighters-respond-to-brush-fire-near-paige/` — 403
+  - `/2026/08/25/`
+- `https://www.kxan.com/news/local/central-texas-food-insecurity/` — 403
+  - `/2026/08/26/`
+- `https://www.kxan.com/news/local/hays/hays-county-commissioners-approve-voter-petition-for-possible-hospital-district/` — 403
+  - `/2026/08/26/`
+- `https://www.kxan.com/news/local/hutto/6-men-arrested-for-child-exploitation-multi-agency-sting-in-hutto-area/` — 403
+  - `/2026/08/25/`
+- `https://www.kxan.com/news/local/hutto/hutto-fire-rescue-announces-location-for-fire-station-6/` — 403
+  - `/2026/08/23/`
+- `https://www.kxan.com/news/local/hutto/hutto-fire-rescue-responds-to-structure-fire/` — 403
+  - `/2026/08/25/`
+- `https://www.kxan.com/news/local/lago-vista-votes-to-remove-flock-cameras/` — 403
+  - `/2026/08/26/`
+- `https://www.kxan.com/news/local/lake-austin-to-be-lowered-10-feet-this-fall-after-hydrilla-debate/` — 403
+  - `/2026/08/23/`
+- `https://www.kxan.com/news/local/light-rail-project-threatens-closure-of-southeast-austins-jds-supermarket/` — 403
+  - `/2026/10/10/`
+- `https://www.kxan.com/news/local/pflugerville/pflugerville-covers-flock-cameras-turns-off-system/` — 403
+  - `/2026/08/26/`
+- `https://www.kxan.com/news/local/pflugerville/pflugerville-says-hundreds-unauthorized-agencies-accessed-flock-system/` — 403
+  - `/2026/08/28/`
+- `https://www.kxan.com/news/local/san-marcos/texas-state-students-deal-with-dorm-flooding-during-first-week-of-semester/` — 403
+  - `/2026/08/27/`
+- `https://www.kxan.com/news/local/severe-weather-overnight-causes-storm-damage-in-luling/` — 403
+  - `/2026/08/29/`
+- `https://www.kxan.com/news/local/sky-high-diesel-prices-crash-the-party-for-one-austin-business-owner/` — 403
+  - `/2026/09/30/`
+- `https://www.kxan.com/news/local/studentnewsnow/student-news-now-austin-isd-group-rallies-against-a-potential-tea-takeover/` — 403
+  - `/2026/09/17/`
+- `https://www.kxan.com/news/local/studentnewsnow/student-news-now-austin-wants-to-be-americas-best-city-for-kids/` — 403
+  - `/2026/10/22/`
+- `https://www.kxan.com/news/local/studentnewsnow/student-news-now-fewer-students-are-enrolling-in-austin-isd/` — 403
+  - `/2026/10/11/`
+- `https://www.kxan.com/news/local/studentnewsnow/student-news-now-lake-austin-to-drop-by-10-feet-sparking-concern/` — 403
+  - `/2026/09/24/`
+- `https://www.kxan.com/news/local/travis-county-clerk-begins-logic-and-accuracy-testing-ahead-of-nov-3-elections/` — 403
+  - `/2026/09/15/`
+- `https://www.kxan.com/news/local/travis-county/10m-contract-with-axon-proposed/` — 403
+  - `/2026/09/11/`
+- `https://www.kxan.com/news/local/travis-county/at-least-lake-travis-isd-3-schools-without-water-pressure/` — 403
+  - `/2026/08/28/`
+- `https://www.kxan.com/news/local/travis-county/body-of-lake-travis-swimmer-who-went-missing-saturday-recovered-late-sunday-morning/` — 403
+  - `/2026/08/23/`
+- `https://www.kxan.com/news/local/travis-county/central-health-board-approves-tax-increase-to-fund-mental-health-programs/` — 403
+  - `/2026/09/12/`
+  - `/2026/09/14/`
+- `https://www.kxan.com/news/local/travis-county/county-commissioners-seek-name-suggestions-for-del-valle-park/` — 403
+  - `/2026/09/23/`
+- `https://www.kxan.com/news/local/travis-county/search-warrant-issued-for-vehicle-allegedly-involved-in-deadly-hit-and-run-affidavit-says/` — 403
+  - `/2026/09/15/`
+- `https://www.kxan.com/news/local/travis-county/travis-county-approves-central-health-tax-rate-increase-unlocking-127-5m-investment-in-mental-health-care/` — 403
+  - `/2026/09/16/`
+- `https://www.kxan.com/news/local/ut-austin-launches-30-million-effort-to-study-what-happens-when-robots-move-into-everyday-life/` — 403
+  - `/2026/09/12/`
+- `https://www.kxan.com/news/local/williamson-county/liberty-hill/liberty-hill-prepares-community-discussion-on-flock-cameras-amid-central-texas-pushback/` — 403
+  - `/2026/08/27/`
+- `https://www.kxan.com/news/local/williamson-county/williamson-county-blood-drive-aims-to-boost-supply/` — 403
+  - `/2026/08/27/`
+- `https://www.kxan.com/news/national-news/new-snap-benefit-amounts-take-effect-oct-1-heres-how-much/` — 403
+  - `/2026/10/02/`
+- `https://www.kxan.com/news/rising-diesel-prices-impacting-school-districts/` — 403
+  - `/2026/09/25/`
+- `https://www.kxan.com/news/san-marcos-cisd-works-to-improve-ratings-as-board-considers-interim-superintendent/` — 403
+  - `/2026/08/25/`
+- `https://www.kxan.com/news/science/ut-students-create-biodegradable-clothing-coating-from-corn-and-beeswax/` — 403
+  - `/2026/09/03/`
+- `https://www.kxan.com/news/september-heat-for-labor-day-more-hundreds-this-week/` — 403
+  - `/2026/09/07/`
+- `https://www.kxan.com/news/simplehealth/austins-hi-how-are-you-project-launches-free-mental-wellness-app/` — 403
+  - `/2026/10/13/`
+- `https://www.kxan.com/news/simplehealth/estrogen-patch-shortage-leaves-patients-frustrated/` — 403
+  - `/2026/09/14/`
+- `https://www.kxan.com/news/snap-benefits-are-changing-in-october-what-to-know/` — 403
+  - `/2026/09/18/`
+- `https://www.kxan.com/news/texas-dps-failed-to-send-voter-registration-applications-to-county-election-officials/` — 403
+  - `/2026/09/23/`
+- `https://www.kxan.com/news/texas-politics/can-texas-trust-its-water-planning-process-report-calls-for-changes/` — 403
+  - `/2026/08/24/`
+- `https://www.kxan.com/news/texas-politics/data-centers-and-the-texas-gubernatorial-race/` — 403
+  - `/2026/09/21/`
+- `https://www.kxan.com/news/texas-politics/federal-judge-pauses-texas-republicans-bid-to-close-primaries/` — 403
+  - `/2026/09/21/`
+- `https://www.kxan.com/news/texas-politics/gov-abbott-white-house-launch-cybersecurity-project-to-secure-texas-water/` — 403
+  - `/2026/09/01/`
+- `https://www.kxan.com/news/texas-politics/james-talarico-leads-ken-paxton-poll/` — 403
+  - `/2026/08/26/`
+- `https://www.kxan.com/news/texas-politics/lawmakers-examine-billions-in-costs-tied-to-school-tax-relief/` — 403
+  - `/2026/09/16/`
+- `https://www.kxan.com/news/texas-politics/lt-gov-candidate-goodwin-reports-dan-patrick-social-media-deepfakes-to-travis-county-sheriff/` — 403
+  - `/2026/09/22/`
+- `https://www.kxan.com/news/texas-politics/quite-a-success-texas-senators-praise-early-self-driving-vehicle-data/` — 403
+  - `/2026/08/26/`
+- `https://www.kxan.com/news/texas-politics/several-texas-republicans-condemn-bo-frenchs-racist-posts-calling-asian-students-at-ut-a-problem/` — 403
+  - `/2026/09/14/`
+- `https://www.kxan.com/news/texas-politics/texas-counties-uncover-100000-delayed-voter-records-dating-back-to-october-2025/` — 403
+  - `/2026/09/24/`
+- `https://www.kxan.com/news/texas-politics/texas-counties-work-through-dps-voter-registration-backlog-on-deadline-day/` — 403
+  - `/2026/10/06/`
+- `https://www.kxan.com/news/texas-politics/texas-election-officials-praise-state-aid-blame-vendor-for-registration-backlog/` — 403
+  - `/2026/09/29/`
+- `https://www.kxan.com/news/texas-politics/the-race-for-texas-railroad-commission-bo-french-v-jon-rosenthal/` — 403
+  - `/2026/10/12/`
+- `https://www.kxan.com/news/texas-politics/travis-county-receives-more-backlogged-voter-records-following-state-issue/` — 403
+  - `/2026/10/18/`
+- `https://www.kxan.com/news/texas-politics/whos-investigating-the-austin-ice-shooting-heres-what-we-know/` — 403
+  - `/2026/09/23/`
+- `https://www.kxan.com/news/texas/5th-circuit-to-hear-university-of-texas-systems-appeal-of-campus-speech-law-injunction/` — 403
+  - `/2026/10/03/`
+- `https://www.kxan.com/news/texas/abbott-motion-dismiss-capitol-ban-lawsuit-moot/` — 403
+  - `/2026/09/06/`
+- `https://www.kxan.com/news/texas/abbott-orders-halt-to-texas-data-center-permits-pending-grid-water-audits/` — 403
+  - `/2026/09/22/`
+- `https://www.kxan.com/news/texas/abbott-to-hold-flood-threat-press-conference-ahead-of-severe-weather-this-week/` — 403
+  - `/2026/09/29/`
+- `https://www.kxan.com/news/texas/austin-company-helping-filmmakers-who-choose-to-film-in-lone-star-state/` — 403
+  - `/2026/10/12/`
+- `https://www.kxan.com/news/texas/congressmen-casar-castro-meet-with-man-shot-by-ice/` — 403
+  - `/2026/09/24/`
+- `https://www.kxan.com/news/texas/county-treasurers-tax-assessors-ask-texas-lawmakers-for-guidance-on-the-end-of-penny-production/` — 403
+  - `/2026/08/31/`
+- `https://www.kxan.com/news/texas/early-voting-begins-in-texas-what-central-texans-should-know/` — 403
+  - `/2026/10/20/`
+- `https://www.kxan.com/news/texas/federal-government-allows-return-of-u-s-citizen-deported-after-traffic-stop-in-central-texas/` — 403
+  - `/2026/08/31/`
+- `https://www.kxan.com/news/texas/gas-prices-near-4-in-texas-as-calls-grow-to-suspend-state-gas-tax/` — 403
+  - `/2026/09/20/`
+- `https://www.kxan.com/news/texas/gov-abbott-blocks-state-agencies-from-spending-money-on-flock-cameras/` — 403
+  - `/2026/08/29/`
+- `https://www.kxan.com/news/texas/hundreds-of-texas-data-centers-under-investigation-after-failing-to-report-water-usage/` — 403
+  - `/2026/09/25/`
+- `https://www.kxan.com/news/texas/ken-paxton-investigates-unitedhealth-over-alleged-coverage-denials/` — 403
+  - `/2026/10/06/`
+- `https://www.kxan.com/news/texas/killeen-private-school-doubles-enrollment-with-new-education-savings-account-program/` — 403
+  - `/2026/08/25/`
+- `https://www.kxan.com/news/texas/lawsuit-thc-testing-hemp-products-tro-hearing/` — 403
+  - `/2026/08/29/`
+- `https://www.kxan.com/news/texas/ross-fire-in-palo-pinto-county-experiences-significant-growth-overnight/` — 403
+  - `/2026/08/27/`
+- `https://www.kxan.com/news/texas/texans-experience-temporary-issues-checking-voter-registration-status/` — 403
+  - `/2026/09/16/`
+- `https://www.kxan.com/news/texas/texas-765-power-lines/` — 403
+  - `/2026/09/12/`
+- `https://www.kxan.com/news/texas/texas-allows-dyed-diesel-on-roads-as-fuel-prices-surge/` — 403
+  - `/2026/09/29/`
+- `https://www.kxan.com/news/texas/texas-dps-to-increase-enforcement-during-labor-day-weekend/` — 403
+  - `/2026/09/04/`
+- `https://www.kxan.com/news/texas/texas-glo-wants-to-offer-state-land-for-power-projects/` — 403
+  - `/2026/09/18/`
+- `https://www.kxan.com/news/texas/texas-regulators-approve-two-massive-west-texas-transmission-lines-amid-outcry-from-landowners/` — 403
+  - `/2026/08/29/`
+- `https://www.kxan.com/news/texas/texas-rejected-an-ai-driven-schools-bid-to-open-a-charter-then-the-state-approved-it-for-the-voucher-program/` — 403
+  - `/2026/09/05/`
+- `https://www.kxan.com/news/travis-county-leaders-weigh-in-as-early-voting-approaches/` — 403
+  - `/2026/10/19/`
+- `https://www.kxan.com/news/tropical-storm-edouard-power-outages/` — 403
+  - `/2026/09/02/`
+- `https://www.kxan.com/news/your-local-election-hq/austinites-to-vote-on-295m-bonds-city-charter-amendments/` — 403
+  - `/2026/10/18/`
+- `https://www.kxan.com/news/your-local-election-hq/how-much-money-do-austin-city-council-candidates-have-going-into-early-voting/` — 403
+  - `/2026/10/20/`
+- `https://www.kxan.com/news/your-local-election-hq/nov-2026-turnout-tracker/` — 403
+  - `/2026/10/21/`
+  - `/vote-2026/`
+- `https://www.kxan.com/news/your-local-election-hq/running-to-represent-you-meet-austin-isds-school-board-candidates/` — 403
+  - `/2026/10/20/`
+- `https://www.kxan.com/sports-general/horns-report/colin-simmons-headlines-texas-deep-defensive-front/` — 403
+  - `/2026/08/24/`
+- `https://www.kxan.com/sports-general/horns-report/steve-sarkisian-weighs-in-on-daequan-wrights-return-to-college-football/` — 403
+  - `/2026/08/25/`
+- `https://www.kxan.com/sports-general/mccallum-opens-season-against-navarro-on-kxan-com/` — 403
+  - `/2026/08/28/`
+- `https://www.kxan.com/sports/arch-manning-trash-talk-nice-guy/` — 403
+  - `/2026/08/26/`
+- `https://www.kxan.com/sports/austin-fc-deals-first-homegrown-player/` — 403
+  - `/2026/08/27/`
+- `https://www.kxan.com/sports/cedar-ridge-east-view-take-center-stage-on-kbvo/` — 403
+  - `/2026/08/28/`
+- `https://www.kxan.com/sports/f1-austin/formula-1-themed-events-happening-around-austin-as-grand-prix-heads-to-cota/` — 403
+  - `/2026/10/22/`
+- `https://www.kxan.com/state-of-texas/state-of-texas-big-bend-construction-paused-but-for-how-long/` — 403
+  - `/2026/08/23/`
+- `https://www.kxan.com/state-of-texas/state-of-texas-congressman-takes-fight-over-flock-cameras-to-d-c/` — 403
+  - `/2026/09/07/`
+- `https://www.kxan.com/state-of-texas/state-of-texas-counties-race-to-process-delayed-voter-registration-records/` — 403
+  - `/2026/09/27/`
+- `https://www.kxan.com/state-of-texas/state-of-texas-tight-races-test-voters-parties-and-a-new-political-map/` — 403
+  - `/2026/10/18/`
+- `https://www.kxan.com/technology/uts-massive-820m-engineering-expansion-nears-finish/` — 403
+  - `/2026/09/19/`
+- `https://www.kxan.com/things-to-do/free-event-series-aims-to-up-visits-to-austin-parks/` — 403
+  - `/2026/09/03/`
+- `https://www.kxan.com/things-to-do/more-than-30-museums-offering-free-admission-on-sunday/` — 403
+  - `/2026/09/18/`
+- `https://www.kxan.com/top-stories/austin-house-collapse/` — 403
+  - `/2026/08/28/`
+- `https://www.kxan.com/top-stories/diesel-prices-hit-record-high/` — 403
+  - `/2026/09/07/`
+- `https://www.kxan.com/top-stories/report-over-half-of-texas-families-say-childcare-costs-made-them-have-fewer-kids/` — 403
+  - `/2026/08/27/`
+- `https://www.kxan.com/traffic/apd-looking-at-ways-to-improve-traffic-flow-on-rainey-street/` — 403
+  - `/2026/09/03/`
+- `https://www.kxan.com/traffic/congress-avenue-upgrade-triggers-new-traffic-impacts-for-austin-drivers/` — 403
+  - `/2026/08/26/`
+- `https://www.kxan.com/traffic/longhorns-vs-bobcats-game-sees-fewer-construction-closures/` — 403
+  - `/2026/09/04/`
+- `https://www.kxan.com/traffic/traffic-alert-person-riding-scooter-on-mopac-dies-in-crash/` — 403
+  - `/2026/08/26/`
+- `https://www.kxan.com/traffic/traffic-projects/central-texas-leaders-look-to-miami-for-passenger-rail-lessons/` — 403
+  - `/2026/10/17/`
+- `https://www.kxan.com/traffic/traffic-projects/old-san-antonio-road-puryear-road-closure-planned/` — 403
+  - `/2026/09/19/`
+- `https://www.kxan.com/traffic/transportation/air-taxis-begin-taking-flight-in-texas-this-fall/` — 403
+  - `/2026/09/14/`
+- `https://www.kxan.com/traffic/transportation/atp-to-vote-on-whether-to-drop-relocation-plan-expand-existing-light-rail-headquarters/` — 403
+  - `/2026/09/19/`
+- `https://www.kxan.com/traffic/transportation/austin-driver-stuck-with-300-bill-after-rock-strikes-car-near-loop-360-project/` — 403
+  - `/2026/10/21/`
+- `https://www.kxan.com/traffic/transportation/austin-light-rail-still-needs-billions-in-federal-funding/` — 403
+  - `/2026/10/14/`
+- `https://www.kxan.com/traffic/transportation/capmetro-directors-consider-fare-increase-monday/` — 403
+  - `/2026/09/28/`
+  - `/2026/09/29/`
+- `https://www.kxan.com/traffic/transportation/txdot-138-billion-dollar-plan/` — 403
+  - `/2026/08/27/`
+- `https://www.kxan.com/traffic/transportation/waymo-driverless-cars-now-allowed-on-austin-freeways/` — 403
+  - `/2026/09/23/`
+- `https://www.kxan.com/weather/2026-central-texas-wildfire-map/` — 403
+  - `/2026/10/20/`
+- `https://www.kxan.com/weather/austin-100-degree-stats/` — 403
+  - `/2026/08/24/`
+  - `/2026/08/29/`
+  - `/2026/09/12/`
+- `https://www.kxan.com/weather/central-texas-storm-videos/` — 403
+  - `/2026/08/28/`
+- `https://www.kxan.com/weather/drought-reaches-extreme-for-first-time-since-june-in-central-texas/` — 403
+  - `/2026/09/25/`
+- `https://www.kxan.com/weather/forecast/a-few-long-weekend-showers-above-normal-heat-returns/` — 403
+  - `/2026/09/05/`
+  - `/2026/09/06/`
+- `https://www.kxan.com/weather/forecast/a-few-more-hot-days-cold-front-brings-rain-next-week/` — 403
+  - `/2026/09/27/`
+- `https://www.kxan.com/weather/forecast/air-quality-alert-today-with-sunny-warm-afternoon/` — 403
+  - `/2026/10/21/`
+- `https://www.kxan.com/weather/forecast/blue-sky-days-ahead-as-warming-trend-gets-underway/` — 403
+  - `/2026/10/19/`
+- `https://www.kxan.com/weather/forecast/chilly-mornings-and-mild-afternoons-warmer-next-week/` — 403
+  - `/2026/10/18/`
+- `https://www.kxan.com/weather/forecast/cold-front-brings-high-winds-dry-air-and-40s/` — 403
+  - `/2026/10/16/`
+- `https://www.kxan.com/weather/forecast/cool-mornings-warming-afternoons-on-the-way-this-week/` — 403
+  - `/2026/10/19/`
+- `https://www.kxan.com/weather/forecast/handful-of-afternoon-showers-and-more-triple-digit-heat/` — 403
+  - `/2026/09/10/`
+- `https://www.kxan.com/weather/forecast/heat-relief-and-rain-chances-in-sight/` — 403
+  - `/2026/09/24/`
+- `https://www.kxan.com/weather/forecast/heavy-rain-flash-flood-risk-today/` — 403
+  - `/2026/10/01/`
+- `https://www.kxan.com/weather/forecast/heavy-rain-flood-risk-severe-threat-late-week/` — 403
+  - `/2026/09/29/`
+- `https://www.kxan.com/weather/forecast/hit-and-miss-showers-through-midweek-hot-next-7-days/` — 403
+  - `/2026/09/22/`
+- `https://www.kxan.com/weather/forecast/hot-and-humid-to-start-the-week-cold-front-on-the-way/` — 403
+  - `/2026/10/12/`
+- `https://www.kxan.com/weather/forecast/lower-humidity-next-48-hours-but-not-feeling-like-fall-yet/` — 403
+  - `/2026/09/18/`
+- `https://www.kxan.com/weather/forecast/major-pattern-change-brings-heavy-rain-flood-risk-this-week/` — 403
+  - `/2026/09/28/`
+- `https://www.kxan.com/weather/forecast/more-90s-than-triple-digits-this-week/` — 403
+  - `/2026/08/30/`
+- `https://www.kxan.com/weather/forecast/more-triple-digit-heat-before-changes-come-late-week/` — 403
+  - `/2026/09/14/`
+- `https://www.kxan.com/weather/forecast/nearing-record-heat-again-with-minimal-rain/` — 403
+  - `/2026/09/16/`
+- `https://www.kxan.com/weather/forecast/one-more-round-of-spotty-rain-before-the-weekend/` — 403
+  - `/2026/08/28/`
+- `https://www.kxan.com/weather/forecast/rain-chances-increase-late-week-temps-tick-down/` — 403
+  - `/2026/08/26/`
+- `https://www.kxan.com/weather/forecast/rain-chances-slim-with-triple-digits-dominant-this-weekend/` — 403
+  - `/2026/09/11/`
+- `https://www.kxan.com/weather/forecast/rain-starts-today-flood-risk-and-severe-threat-arrives-late-night/` — 403
+  - `/2026/09/30/`
+- `https://www.kxan.com/weather/forecast/scattered-rain-likely-for-some-this-afternoon/` — 403
+  - `/2026/08/27/`
+- `https://www.kxan.com/weather/forecast/spotty-afternoon-rain-amid-hot-humid-conditions/` — 403
+  - `/2026/09/09/`
+- `https://www.kxan.com/weather/forecast/spotty-rain-shaves-a-couple-degrees-off-temps/` — 403
+  - `/2026/09/17/`
+- `https://www.kxan.com/weather/forecast/stagnant-heat-but-spotty-rain-returns-for-some/` — 403
+  - `/2026/09/23/`
+- `https://www.kxan.com/weather/forecast/sticky-heat-all-week-with-minimal-rain/` — 403
+  - `/2026/09/08/`
+- `https://www.kxan.com/weather/forecast/temperatures-running-a-fever-next-7-days/` — 403
+  - `/2026/09/15/`
+- `https://www.kxan.com/weather/forecast/temps-slow-to-fall-spotty-rain-humidity-return-late-week/` — 403
+  - `/2026/08/25/`
+- `https://www.kxan.com/weather/forecast/temps-still-running-hot-but-cold-front-on-the-way/` — 403
+  - `/2026/09/25/`
+- `https://www.kxan.com/weather/forecast/tropical-downpours-possible-today-and-friday/` — 403
+  - `/2026/09/03/`
+- `https://www.kxan.com/weather/forecast/tropical-fueled-showers-possible-next-3-days/` — 403
+  - `/2026/09/02/`
+- `https://www.kxan.com/weather/forecast/tropical-showers-possible-locally-with-system-in-gulf/` — 403
+  - `/2026/08/31/`
+- `https://www.kxan.com/weather/forecast/tropical-storm-edouard-brining-rain-chances-today/` — 403
+  - `/2026/09/01/`
+- `https://www.kxan.com/weather/forecast/very-warm-acl-festival-weather-pattern-change-ahead/` — 403
+  - `/2026/10/11/`
+- `https://www.kxan.com/weather/forecast/warm-sunny-afternoons-and-cool-clear-nights/` — 403
+  - `/2026/10/20/`
+- `https://www.kxan.com/weather/forecast/warm-sunshine-late-week-into-weekend/` — 403
+  - `/2026/10/22/`
+- `https://www.kxan.com/weather/forecast/welcomed-showers-for-friday-before-rain-chances-drop/` — 403
+  - `/2026/09/04/`
+- `https://www.kxan.com/weather/weather-blog/a-rare-hurricane-free-september-looks-likely/` — 403
+  - `/2026/09/27/`
+- `https://www.kxan.com/weather/weather-blog/august-2026-rankings-record-heat-and-dry/` — 403
+  - `/2026/09/03/`
+- `https://www.kxan.com/weather/weather-blog/austin-events-shred-fest-bat-fest-and-more-await/` — 403
+  - `/2026/09/04/`
+- `https://www.kxan.com/weather/weather-blog/below-60-lows-is-it-normal-we-havent-hit-it-yet/` — 403
+  - `/2026/10/12/`
+- `https://www.kxan.com/weather/weather-blog/deep-partial-lunar-eclipse-viewing-forecast/` — 403
+  - `/2026/08/27/`
+- `https://www.kxan.com/weather/weather-blog/earlier-sunsets-in-austin-are-on-the-horizon/` — 403
+  - `/2026/10/19/`
+- `https://www.kxan.com/weather/weather-blog/fall-weather-forecast-released-for-central-texas/` — 403
+  - `/2026/08/28/`
+- `https://www.kxan.com/weather/weather-blog/first-warning-cold-front-rain-and-temperature-dip/` — 403
+  - `/2026/09/24/`
+- `https://www.kxan.com/weather/weather-blog/hurricane-drought-in-the-atlantic-record-slow-season/` — 403
+  - `/2026/09/13/`
+- `https://www.kxan.com/weather/weather-blog/longest-stretch-without-rain-in-the-austin-area/` — 403
+  - `/2026/08/27/`
+- `https://www.kxan.com/weather/weather-blog/over-90-of-days-have-been-100-in-austin-since-aug-1/` — 403
+  - `/2026/09/13/`
+- `https://www.kxan.com/weather/weather-blog/sinking-soil-due-to-drought-can-crack-your-foundation/` — 403
+  - `/2026/09/04/`
+- `https://www.kxan.com/weather/weather-blog/summer-2026-was-warmer-and-wetter-than-normal/` — 403
+  - `/2026/09/06/`
+- `https://www.reddit.com/r/Austin/comments/1vxh7s5/i_wish_people_could_do_better_one_little_spot_on/` — 403
+  - `/2026/08/25/`
+- `https://www.reddit.com/r/Austin/comments/1vy6375/twelve_hours_at_city_hall_the_day_i_finally_fell_in_love_with_austin/` — 403
+  - `/2026/08/26/`
+- `https://www.reddit.com/r/Austin/comments/1vz2w02/whats_your_cold_tap_water_temp/` — 403
+  - `/2026/08/27/`
+- `https://www.reddit.com/r/Austin/comments/1w066jt/washed_my_truck_finally_you_are_welcome_south/` — 403
+  - `/2026/08/28/`
+- `https://www.reddit.com/r/Austin/comments/1w10eir/anyone_actually_grilling_through_austin_summers/` — 403
+  - `/2026/08/29/`
+- `https://www.reddit.com/r/Austin/comments/1w18v32/if_were_the_live_music_capital_of_the_world_why/` — 403
+  - `/2026/08/29/`
+- `https://www.reddit.com/r/Austin/comments/1w1ome8/valhalla_on_red_river_is_closing/` — 403
+  - `/2026/08/30/`
+- `https://www.reddit.com/r/Austin/comments/1w1pu5o/the_absolute_unadulterated_and_frankly/` — 403
+  - `/2026/08/29/`
+- `https://www.reddit.com/r/Austin/comments/1w1qb5g/has_your_google_fiber_recently_become_super/` — 403
+  - `/2026/08/29/`
+- `https://www.reddit.com/r/Austin/comments/1w1snd9/early_mornings_at_barton_springs_are_the_best/` — 403
+  - `/2026/08/29/`
+- `https://www.reddit.com/r/Austin/comments/1w1z2t9/advice_for_spending_2_months_in_austin_with_a_baby/` — 403
+  - `/2026/08/30/`
+- `https://www.reddit.com/r/Austin/comments/1w24l1t/go_look_at_the_moon/` — 403
+  - `/2026/08/30/`
+- `https://www.reddit.com/r/Austin/comments/1w2cxm3/austin_water_currently_funky/` — 403
+  - `/2026/08/30/`
+- `https://www.reddit.com/r/Austin/comments/1w2suis/why_is_it_so_hard_for_this_city_to_have_basic/` — 403
+  - `/2026/08/31/`
+- `https://www.reddit.com/r/Austin/comments/1w2wq41/new_austin_kids_tv_show/` — 403
+  - `/2026/08/31/`
+- `https://www.reddit.com/r/Austin/comments/1w2yjkn/anyone_taken_beginner_spanish_at_the_pleasant/` — 403
+  - `/2026/08/31/`
+- `https://www.reddit.com/r/Austin/comments/1w2zwzr/waymo_you_so_crazy/` — 403
+  - `/2026/08/31/`
+- `https://www.reddit.com/r/Austin/comments/1w318kv/cool_looking_moon_tonight/` — 403
+  - `/2026/08/31/`
+- `https://www.reddit.com/r/Austin/comments/1w3edgn/this_is_the_hardest_part_of_summer/` — 403
+  - `/2026/09/01/`
+- `https://www.reddit.com/r/Austin/comments/1w3iesf/more_austin_birds_in_american_traditional/` — 403
+  - `/2026/09/01/`
+- `https://www.reddit.com/r/Austin/comments/1w3p9em/follow_up_to_post_of_0822_does_heb_have_a_problem/` — 403
+  - `/2026/09/01/`
+- `https://www.reddit.com/r/Austin/comments/1w40zsv/to_the_kind_stranger/` — 403
+  - `/2026/09/01/`
+- `https://www.reddit.com/r/Austin/comments/1w4aemu/light_out_on_620_and_anderson_mill_again/` — 403
+  - `/2026/09/01/`
+- `https://www.reddit.com/r/Austin/comments/1w4d5vc/psa_zilker_park_closure/` — 403
+  - `/2026/09/02/`
+- `https://www.reddit.com/r/Austin/comments/1w4gr68/diabolical_austin_energy_bill/` — 403
+  - `/2026/09/02/`
+- `https://www.reddit.com/r/Austin/comments/1w4p2nl/rent_fees_in_austin_out_of_control/` — 403
+  - `/2026/09/02/`
+- `https://www.reddit.com/r/Austin/comments/1w4qqrr/its_absurd_that_austins_public_pools_are_only/` — 403
+  - `/2026/09/02/`
+- `https://www.reddit.com/r/Austin/comments/1w4vm2i/parrots_spotted_in_the_city/` — 403
+  - `/2026/09/02/`
+- `https://www.reddit.com/r/Austin/comments/1w4zfsp/what_is_your_least_favorite_traffic_light_in/` — 403
+  - `/2026/09/02/`
+- `https://www.reddit.com/r/Austin/comments/1w5ck16/new_development_is_this_normal_or_safe_se_atx/` — 403
+  - `/2026/09/03/`
+- `https://www.reddit.com/r/Austin/comments/1w5gdo4/door_in_but_still_no_micro_center_sign_up_yet/` — 403
+  - `/2026/09/03/`
+- `https://www.reddit.com/r/Austin/comments/1w5t5ir/been_months_since_the_bats_have_come_this_close/` — 403
+  - `/2026/09/03/`
+- `https://www.reddit.com/r/Austin/comments/1w5tbhg/lights_out_for_birds_austin/` — 403
+  - `/2026/09/03/`
+- `https://www.reddit.com/r/Austin/comments/1w5va8x/where_are_the_birds/` — 403
+  - `/2026/09/03/`
+- `https://www.reddit.com/r/Austin/comments/1w5xesp/what_are_these_waymos_doing/` — 403
+  - `/2026/09/03/`
+- `https://www.reddit.com/r/Austin/comments/1w6mpjd/tesla_has_a_robotaxi_unveiling_tonight_downtown/` — 403
+  - `/2026/09/04/`
+- `https://www.reddit.com/r/Austin/comments/1w6skmi/making_friends_with_other_childfree_couples/` — 403
+  - `/2026/09/04/`
+- `https://www.reddit.com/r/Austin/comments/1w778s7/p_terrys_switch_to_worker_ownership_happened_a/` — 403
+  - `/2026/09/05/`
+- `https://www.reddit.com/r/Austin/comments/1w77s1d/management_company_destroyed_federally_protected/` — 403
+  - `/2026/09/05/`
+- `https://www.reddit.com/r/Austin/comments/1w7e4vi/even_with_the_changes_to_ordering_ive_been_an/` — 403
+  - `/2026/09/05/`
+- `https://www.reddit.com/r/Austin/comments/1w7fh70/austin_shop_pets_are_why_i_leave_my_house/` — 403
+  - `/2026/09/05/`
+- `https://www.reddit.com/r/Austin/comments/1w7mebo/how_often_are_you_jabronis_getting_flat_tires_or/` — 403
+  - `/2026/09/05/`
+- `https://www.reddit.com/r/Austin/comments/1w7zac6/two_apd_cruisers_stopped_at_red_light_car_ignores/` — 403
+  - `/2026/09/06/`
+- `https://www.reddit.com/r/Austin/comments/1w8711n/trying_to_find_an_old_austin_newspaper_photo_of/` — 403
+  - `/2026/09/06/`
+- `https://www.reddit.com/r/Austin/comments/1w8h8du/has_anyone_volunteered_at_casa_of_travis_county/` — 403
+  - `/2026/09/06/`
+- `https://www.reddit.com/r/Austin/comments/1w8h9pd/what_austin_clubs_groups_are_actually_worth/` — 403
+  - `/2026/09/06/`
+- `https://www.reddit.com/r/Austin/comments/1w8knls/does_anybody_know_where_i_can_get_a_trim_for_less/` — 403
+  - `/2026/09/06/`
+- `https://www.reddit.com/r/Austin/comments/1w8xbt0/good_morning_beloved_citizens_enjoy_this_with/` — 403
+  - `/2026/09/07/`
+- `https://www.reddit.com/r/Austin/comments/1w8y9bi/dps_now_using_cameras_to_ticket_no_parking_zones/` — 403
+  - `/2026/09/07/`
+- `https://www.reddit.com/r/Austin/comments/1w93w92/if_you_want_to_verify_whether_someone_is_from/` — 403
+  - `/2026/09/07/`
+- `https://www.reddit.com/r/Austin/comments/1w9kb7o/garage_door_repair_companies/` — 403
+  - `/2026/09/07/`
+- `https://www.reddit.com/r/Austin/comments/1w9t453/` — 403
+  - `/2026/09/08/`
+- `https://www.reddit.com/r/Austin/comments/1w9vqrl/` — 403
+  - `/2026/09/08/`
+- `https://www.reddit.com/r/Austin/comments/1wa82c0/` — 403
+  - `/2026/09/08/`
+- `https://www.reddit.com/r/Austin/comments/1wabtza/` — 403
+  - `/2026/09/08/`
+- `https://www.reddit.com/r/Austin/comments/1waq4c3/h_mart_burnet_update/` — 403
+  - `/2026/09/09/`
+- `https://www.reddit.com/r/Austin/comments/1waw1bw/parmer_and_tech_ridge_area_intersection/` — 403
+  - `/2026/09/09/`
+- `https://www.reddit.com/r/Austin/comments/1wawv02/charger_25_for_placing_2nd_bag_on_ground_instead/` — 403
+  - `/2026/09/09/`
+- `https://www.reddit.com/r/Austin/comments/1wb2cml/are_the_grackles_ok/` — 403
+  - `/2026/09/09/`
+- `https://www.reddit.com/r/Austin/comments/1wbuywx/some_picture_i_took_of_your_beautiful_city_on_my/` — 403
+  - `/2026/09/10/`
+- `https://www.reddit.com/r/Austin/comments/1wbvet7/austin_girlies_nail_salon_rant_recommendations/` — 403
+  - `/2026/09/10/`
+- `https://www.reddit.com/r/Austin/comments/1wbw5jy/kealing_middle_school_been_wo_ac_for_weeks/` — 403
+  - `/2026/09/10/`
+- `https://www.reddit.com/r/Austin/comments/1wc53ra/chill_barton_evening/` — 403
+  - `/2026/09/10/`
+- `https://www.reddit.com/r/Austin/comments/1wc7dx8/dangerous_drivers_lately_why/` — 403
+  - `/2026/09/10/`
+- `https://www.reddit.com/r/Austin/comments/1wckrlk/atx_drop_your_weirdest_myth_and_legends_here/` — 403
+  - `/2026/09/11/`
+- `https://www.reddit.com/r/Austin/comments/1wcujqt/is_it_common_in_austin_for_a_plumber_not_to_pull/` — 403
+  - `/2026/09/11/`
+- `https://www.reddit.com/r/Austin/comments/1wcxhqz/found_bird_parakeet_in_crestview/` — 403
+  - `/2026/09/11/`
+- `https://www.reddit.com/r/Austin/comments/1wd63o9/why_is_att_so_slow/` — 403
+  - `/2026/09/11/`
+- `https://www.reddit.com/r/Austin/comments/1wduf0a/where_can_i_find_a_potato_sack_in_the_next_24/` — 403
+  - `/2026/09/12/`
+- `https://www.reddit.com/r/Austin/comments/1wdzoi1/i_hope_youre_outside_enjoying_the_breeze/` — 403
+  - `/2026/09/12/`
+- `https://www.reddit.com/r/Austin/comments/1we3snu/you_took_our_picture_at_die_spitz_tonight_thank/` — 403
+  - `/2026/09/12/`
+- `https://www.reddit.com/r/Austin/comments/1wektjl/my_cybercab_held_me_hostage_for_an_hour_today/` — 403
+  - `/2026/09/13/`
+- `https://www.reddit.com/r/Austin/comments/1weqhmi/` — 403
+  - `/2026/09/13/`
+- `https://www.reddit.com/r/Austin/comments/1weqwjk/` — 403
+  - `/2026/09/13/`
+- `https://www.reddit.com/r/Austin/comments/1weqxfb/` — 403
+  - `/2026/09/13/`
+- `https://www.reddit.com/r/Austin/comments/1wfk5yd/home_inspection_find_of_the_week_ac_in_the_attic/` — 403
+  - `/2026/09/14/`
+- `https://www.reddit.com/r/Austin/comments/1wfkxr2/shoal_creek_ammonites_and_fossils/` — 403
+  - `/2026/09/14/`
+- `https://www.reddit.com/r/Austin/comments/1wfmgny/what_are_your_favorite_new_businesses_in_austin/` — 403
+  - `/2026/09/14/`
+- `https://www.reddit.com/r/Austin/comments/1wg1gpi/switched_most_of_my_short_trips_to_an_escooter_in/` — 403
+  - `/2026/09/14/`
+- `https://www.reddit.com/r/Austin/comments/1wgfb69/uberlyft_prices_and_wait_times/` — 403
+  - `/2026/09/15/`
+- `https://www.reddit.com/r/Austin/comments/1wggnt3/new_neighborhood_shopping_center_in_hyde_park_to/` — 403
+  - `/2026/09/15/`
+- `https://www.reddit.com/r/Austin/comments/1wgj4sa/the_ghost_work_zones_finally_came_to_my/` — 403
+  - `/2026/09/15/`
+- `https://www.reddit.com/r/Austin/comments/1wgq3vx/these_murals_are_killer/` — 403
+  - `/2026/09/15/`
+- `https://www.reddit.com/r/Austin/comments/1wgrddf/tenets_rights_re_water_shut_off/` — 403
+  - `/2026/09/15/`
+- `https://www.reddit.com/r/Austin/comments/1wh0xkc/` — 403
+  - `/2026/09/16/`
+- `https://www.reddit.com/r/Austin/comments/1wh3d86/` — 403
+  - `/2026/09/16/`
+- `https://www.reddit.com/r/Austin/comments/1whhbnh/` — 403
+  - `/2026/09/16/`
+- `https://www.reddit.com/r/Austin/comments/1whmhr7/` — 403
+  - `/2026/09/16/`
+- `https://www.reddit.com/r/Austin/comments/1whyjr9/much_needed_psa_for_austin_drivers_about_to_post_a/` — 403
+  - `/2026/09/17/`
+- `https://www.reddit.com/r/Austin/comments/1wi5pum/should_i_go_to_small_claims_court/` — 403
+  - `/2026/09/17/`
+- `https://www.reddit.com/r/Austin/comments/1wi6t6y/donate_instruments_to_covington_middle_school/` — 403
+  - `/2026/09/17/`
+- `https://www.reddit.com/r/Austin/comments/1wif1yr/austin_craigslist_marketplace_scam/` — 403
+  - `/2026/09/17/`
+- `https://www.reddit.com/r/Austin/comments/1wj1t8s/aisd_parent_here_i_looked_into_spending_data_for/` — 403
+  - `/2026/09/18/`
+- `https://www.reddit.com/r/Austin/comments/1wj8ram/who_else_renting_an_apartment_is_noticing_their/` — 403
+  - `/2026/09/18/`
+- `https://www.reddit.com/r/Austin/comments/1wje0o7/anyone_else_who_experienced_the_broken_stoplight/` — 403
+  - `/2026/09/18/`
+- `https://www.reddit.com/r/Austin/comments/1wjgkhw/small_party_at_the_bowie/` — 403
+  - `/2026/09/18/`
+- `https://www.reddit.com/r/Austin/comments/1wjha55/power_outage_in_allandale/` — 403
+  - `/2026/09/18/`
+- `https://www.reddit.com/r/Austin/comments/1wjtj6p/a_house_from_the_green_book_era_still_exist_in/` — 403
+  - `/2026/09/19/`
+- `https://www.reddit.com/r/Austin/comments/1wk455y/i35_s_frontage_road_closed_around_6th/` — 403
+  - `/2026/09/19/`
+- `https://www.reddit.com/r/Austin/comments/1wkb3s0/thank_you_to_the_man_who_cabbed_my_dad_across_town/` — 403
+  - `/2026/09/19/`
+- `https://www.reddit.com/r/Austin/comments/1wkdflk/david_komie_law_billboards/` — 403
+  - `/2026/09/19/`
+- `https://www.reddit.com/r/Austin/comments/1wklu0z/is_road_debris_on_183_getting_worse_or_is_it_just/` — 403
+  - `/2026/09/20/`
+- `https://www.reddit.com/r/Austin/comments/1wkpxw8/update_on_the_highpitch_humming_sound_caused_by/` — 403
+  - `/2026/09/20/`
+- `https://www.reddit.com/r/Austin/comments/1wkzglp/why_does_the_bus_just_straight_up_not_come_some/` — 403
+  - `/2026/09/20/`
+- `https://www.reddit.com/r/Austin/comments/1wl60sg/things_to_do_in_austin_nightlife_that_dont/` — 403
+  - `/2026/09/20/`
+- `https://www.reddit.com/r/Austin/comments/1wlm83d/` — 403
+  - `/2026/09/21/`
+- `https://www.reddit.com/r/Austin/comments/1wlmwlt/` — 403
+  - `/2026/09/21/`
+- `https://www.reddit.com/r/Austin/comments/1wlqko4/` — 403
+  - `/2026/09/21/`
+- `https://www.reddit.com/r/Austin/comments/1wluv2e/` — 403
+  - `/2026/09/21/`
+- `https://www.reddit.com/r/Austin/comments/1wlz3rv/` — 403
+  - `/2026/09/21/`
+- `https://www.reddit.com/r/Austin/comments/1wmky8i/x/` — 403
+  - `/2026/09/22/`
+- `https://www.reddit.com/r/Austin/comments/1wmn3zw/x/` — 403
+  - `/2026/09/22/`
+- `https://www.reddit.com/r/Austin/comments/1wmvc0m/x/` — 403
+  - `/2026/09/22/`
+- `https://www.reddit.com/r/Austin/comments/1wmxere/x/` — 403
+  - `/2026/09/22/`
+- `https://www.reddit.com/r/Austin/comments/1wno3e8/fall_has_arrived_did_you_notice_it/` — 403
+  - `/2026/09/23/`
+- `https://www.reddit.com/r/Austin/comments/1wnpzup/is_it_true_texas_doesnt_add_sales_tax_to_black/` — 403
+  - `/2026/09/23/`
+- `https://www.reddit.com/r/Austin/comments/1wnvo40/found_wallet_on_ground_pickle_soco/` — 403
+  - `/2026/09/23/`
+- `https://www.reddit.com/r/Austin/comments/1wnwcpj/to_the_guys_at_the_weird_al_show_who_held_up_the/` — 403
+  - `/2026/09/23/`
+- `https://www.reddit.com/r/Austin/comments/1wo5erg/texas_dps_failed_to_send_voter_registration/` — 403
+  - `/2026/09/24/`
+- `https://www.reddit.com/r/Austin/comments/1wogvo4/anyone_know_how_to_get_the_city_to_improve_a/` — 403
+  - `/2026/09/24/`
+- `https://www.reddit.com/r/Austin/comments/1woll3e/wow_weve_got_wet_stuff_falling_from_the_sky_in/` — 403
+  - `/2026/09/24/`
+- `https://www.reddit.com/r/Austin/comments/1wot70h/looking_for_the_good_samaritans_who_pulled_me_out/` — 403
+  - `/2026/09/24/`
+- `https://www.reddit.com/r/Austin/comments/1wp6b0q/books_i_dont_want_to_sell_them_but_i_have_a/` — 403
+  - `/2026/09/25/`
+- `https://www.reddit.com/r/Austin/comments/1wpb8nq/` — 403
+  - `/2026/09/26/`
+- `https://www.reddit.com/r/Austin/comments/1wpdma5/just_fyi_austin_water_rates_will_rise_on_october/` — 403
+  - `/2026/09/25/`
+- `https://www.reddit.com/r/Austin/comments/1wpg0wy/volunteering_in_austin_meals_on_wheels_needs/` — 403
+  - `/2026/09/25/`
+- `https://www.reddit.com/r/Austin/comments/1wpg5sq/has_driving_in_austin_always_been_this_dangerous/` — 403
+  - `/2026/09/25/`
+- `https://www.reddit.com/r/Austin/comments/1wpi416/check_your_voter_registration_to_ensure_its_active/` — 403
+  - `/2026/09/25/`
+- `https://www.reddit.com/r/Austin/comments/1wpnrhz/` — 403
+  - `/2026/09/26/`
+- `https://www.reddit.com/r/Austin/comments/1wpwbkb/` — 403
+  - `/2026/09/26/`
+- `https://www.reddit.com/r/Austin/comments/1wq1mne/` — 403
+  - `/2026/09/26/`
+- `https://www.reddit.com/r/Austin/comments/1wq7gg3/` — 403
+  - `/2026/09/26/`
+- `https://www.reddit.com/r/Austin/comments/1ws3nwl/late_summer_ant_problems/` — 403
+  - `/2026/09/28/`
+- `https://www.reddit.com/r/Austin/comments/1wsad1n/shopping_help_does_anyone_sell_short_cotton_robes/` — 403
+  - `/2026/09/28/`
+- `https://www.reddit.com/r/Austin/comments/1wsblcd/touchless_pre_check_at_bergstrom/` — 403
+  - `/2026/09/28/`
+- `https://www.reddit.com/r/Austin/comments/1wsofrz/austin_usps_why_are_you_such_a_tease/` — 403
+  - `/2026/09/29/`
+- `https://www.reddit.com/r/Austin/comments/1wsrxxg/why_do_people_here_get_mad_at_you_for_correctly/` — 403
+  - `/2026/09/29/`
+- `https://www.reddit.com/r/Austin/comments/1wstwx6/free_trees_are_back/` — 403
+  - `/2026/09/29/`
+- `https://www.reddit.com/r/Austin/comments/1wsuoni/anyone_else_check_the_weather_multiple_times_a/` — 403
+  - `/2026/09/29/`
+- `https://www.reddit.com/r/Austin/comments/1wt0ww4/rain_and_acl_impact/` — 403
+  - `/2026/09/29/`
+- `https://www.reddit.com/r/Austin/comments/1wtgura/protected_bike_lanes_by_home_slice_n_loop_are/` — 403
+  - `/2026/09/30/`
+- `https://www.reddit.com/r/Austin/comments/1wtknx4/adopting_our_first_cat_austin_pets_alive_vs/` — 403
+  - `/2026/09/30/`
+- `https://www.reddit.com/r/Austin/comments/1wto2zu/recurring_casual_lowcost_events_to_make_friends/` — 403
+  - `/2026/09/30/`
+- `https://www.reddit.com/r/Austin/comments/1wtrs1u/f1cota_weekend_im_a_fan_but_residents_keep/` — 403
+  - `/2026/09/30/`
+- `https://www.reddit.com/r/Austin/comments/1wtyfhr/who_can_hear_the_giant_rumble_monster/` — 403
+  - `/2026/09/30/`
+- `https://www.reddit.com/r/Austin/comments/1wu5n9f/warning_for_anyone_taking_the_train_this_morning/` — 403
+  - `/2026/10/01/`
+- `https://www.reddit.com/r/Austin/comments/1wu6u5j/can_someone_eli5_prop_i_to_me/` — 403
+  - `/2026/10/01/`
+- `https://www.reddit.com/r/Austin/comments/1wugm1s/watch_it_wont_even_rain/` — 403
+  - `/2026/10/01/`
+- `https://www.reddit.com/r/Austin/comments/1wujwpo/to_all_of_us_with_airbnb_neighbors_these_next_two/` — 403
+  - `/2026/10/01/`
+- `https://www.reddit.com/r/Austin/comments/1wukpyy/why_is_the_austin_airport_so_hot/` — 403
+  - `/2026/10/01/`
+- `https://www.reddit.com/r/Austin/comments/1wv5btx/electric_bill_is_getting_out_of_hand/` — 403
+  - `/2026/10/02/`
+- `https://www.reddit.com/r/Austin/comments/1wvdg2n/monday_oct_5_is_the_last_day_to_register_to_vote/` — 403
+  - `/2026/10/02/`
+- `https://www.reddit.com/r/Austin/comments/1wvfdne/those_who_have_used_food_banks_how_early_to_arrive/` — 403
+  - `/2026/10/02/`
+- `https://www.reddit.com/r/Austin/comments/1wvixfb/airport_pick_up_fun_fact/` — 403
+  - `/2026/10/02/`
+- `https://www.reddit.com/r/Austin/comments/1wvxi9b/bridge_damage_at_i35_and_12th/` — 403
+  - `/2026/10/03/`
+- `https://www.reddit.com/r/Austin/comments/1wvyusg/hazards_off_headlights_on_in_the_rain/` — 403
+  - `/2026/10/03/`
+- `https://www.reddit.com/r/Austin/comments/1ww5raz/be_aware_with_robotaxis_mine_took_me_on_a_22/` — 403
+  - `/2026/10/03/`
+- `https://www.reddit.com/r/Austin/comments/1wwb71g/acl_light_show_from_cherrywood/` — 403
+  - `/2026/10/03/`
+- `https://www.reddit.com/r/Austin/comments/1wwdvf3/shoutout_to_the_workers_picking_up_all_the_trash/` — 403
+  - `/2026/10/03/`
+- `https://www.reddit.com/r/Austin/comments/1wwr96w/acl_delay_to_2pm_today/` — 403
+  - `/2026/10/04/`
+- `https://www.reddit.com/r/Austin/comments/1wxpi3y/who_was_at_that_ringo_deathstarr_show_at/` — 403
+  - `/2026/10/05/`
+- `https://www.reddit.com/r/Austin/comments/1wxvgax/how_are_uber_drivers_handling_muddy_customers/` — 403
+  - `/2026/10/05/`
+- `https://www.reddit.com/r/Austin/comments/1wy41if/austin_airport_oct_5_420_am/` — 403
+  - `/2026/10/05/`
+- `https://www.reddit.com/r/Austin/comments/1x3eqtd/airport_beer_cheaper_than_acl/` — 403
+  - `/2026/10/12/`
+- `https://www.reddit.com/r/Austin/comments/1x3nwau/i_remember_when_but_seriously_town_lake_is_a_mess/` — 403
+  - `/2026/10/12/`
+- `https://www.reddit.com/r/Austin/comments/1x4g3zr/guadalupe_wheatsville_closing_october_25/` — 403
+  - `/2026/10/13/`
+- `https://www.reddit.com/r/Austin/comments/1x4o1ec/it_is_literally_midnight_why_is_there_a_30_minute/` — 403
+  - `/2026/10/13/`
+- `https://www.reddit.com/r/Austin/comments/1x5c25a/heads_up_aus_power_outage_flights_diverted/` — 403
+  - `/2026/10/14/`
+- `https://www.reddit.com/r/Austin/comments/1x5gu0e/mural_shadows_along_the_line/` — 403
+  - `/2026/10/14/`
+- `https://www.reddit.com/r/Austin/comments/1x5pkp6/stop_running_red_lights/` — 403
+  - `/2026/10/15/`
+- `https://www.reddit.com/r/Austin/comments/1x65m2h/cybercabs_are_only_auto_taxi_that_keeps_driving/` — 403
+  - `/2026/10/15/`
+- `https://www.reddit.com/r/Austin/comments/1x6zzro/i_can_see_it_the_cold_front_its_coming_fall_is/` — 403
+  - `/2026/10/16/`
+- `https://www.reddit.com/r/Austin/comments/1x703o5/you_know_what_would_help_our_traffic_problems/` — 403
+  - `/2026/10/16/`
+
+## ERROR (0)
+
+None.
+
+OK links are counted in the summary and not listed one by one.
