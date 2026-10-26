@@ -139,7 +139,9 @@ async function assertMobileLead(browser, origin) {
 
 async function assertMobileBar(browser, origin) {
   const home = readFileSync("_site/index.html", "utf8");
-  const edition = home.match(/href="(\/\d{4}\/\d{2}\/\d{2}\/)/)[1];
+  // The masthead's previous-edition link is the first dated href. The bar
+  // belongs on the edition the homepage leads to.
+  const edition = home.match(/edition-jump"><a href="(\/\d{4}\/\d{2}\/\d{2}\/)/)[1];
   const page = await browser.newPage();
   const posts = await blockKit(page);
   await open(page, origin, edition, 390);
