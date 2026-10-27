@@ -1,8 +1,8 @@
 # Link audit
 
-Generated: 2026-10-26T20:20:10.260Z
+Generated: 2026-10-27T13:05:30.239Z
 
-Scanned 79 built HTML pages. 1766 unique external links.
+Scanned 80 built HTML pages. 1769 unique external links.
 Each link is requested with HEAD, then GET when HEAD is not a final 2xx or 3xx.
 Redirects are followed. Timeout is 15 seconds.
 Concurrency is 6, with one request at a time per host.
@@ -13,9 +13,9 @@ This report is not a CI gate. Re-run with `npm run audit:links`.
 
 | Class | Count |
 | --- | ---: |
-| OK | 1115 |
-| BROKEN | 1 |
-| BLOCKED | 650 |
+| OK | 1113 |
+| BROKEN | 0 |
+| BLOCKED | 656 |
 | ERROR | 0 |
 
 OK means the final response was 2xx or 3xx.
@@ -23,13 +23,28 @@ BROKEN means 404, 410, or DNS failure.
 BLOCKED means 401, 403, or 429, including bot walls such as KVUE and the Daily Texan.
 ERROR means a timeout, a 5xx, or another network failure.
 
-## BROKEN (1)
+## BROKEN (0)
 
-- `https://www.traviscountytx.gov/news/2026/2951-take-back-october-2026` — 404
-  - `/2026/10/12/`
+None.
 
-## BLOCKED (650)
+## BLOCKED (656)
 
+- `https://austincurrent.org/2026/09/02/more-districts-at-risk-school-takeovers-ratings-2027/` — 403
+  - `/2026/09/03/`
+- `https://austincurrent.org/2026/09/03/austin-tx-adult-indoor-basketball-volleyball-outsourced-parks-and-recreation/` — 403
+  - `/2026/09/04/`
+  - `/austin-city-budget-2027/`
+- `https://austincurrent.org/2026/09/09/austin-austinisd-budget-cuts-nonprofits/` — 403
+  - `/2026/09/09/`
+  - `/2026/09/10/`
+- `https://austincurrent.org/2026/09/22/timeline-austin-isds-path-to-state-intervention/` — 403
+  - `/2026/09/22/`
+- `https://austincurrent.org/2026/09/28/webb-middle-school-austin-tx-closure-petition-parent-meeting-aisd-takeover/` — 403
+  - `/2026/09/29/`
+- `https://austincurrent.org/2026/10/14/austin-tx-district-5-city-council-race-november-election/` — 403
+  - `/2026/10/15/`
+  - `/2026/10/16/`
+  - `/austin-council-races-2026/`
 - `https://www.aa.com/pubcontent/en_US/travelInformation/destinationInformation/aus-airport.html` — 403
   - `/aus-early-flights/`
 - `https://www.aa.com/web/i18n/travel-info/check-in-and-arrival.html` — 403
