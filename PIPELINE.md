@@ -500,7 +500,9 @@ publish. It fails if any sentence of six or more words appears twice on one
 built page (homepage, edition, or any other page). Whitespace and case do
 not make a second copy a different sentence. `floor_exception` does not
 waive it. The edition header's repeat of the briefing headline is the page
-title, not a second telling.
+title, not a second telling. The homepage jump list repeats card
+headlines as links to those cards. That index is not a second telling,
+and the checker skips `nav.today-top`.
 
 Its link check
 knows KXAN article pages 403 to every non-browser client and verifies those

@@ -10,9 +10,19 @@ homeFront: true
 {% set desk = latest.inputPath | homeDesk %}
 {% set photo = imageCredits[desk.photo] %}
 <article class="edited-front paper" data-neutral="false" data-edition="{{ editionDate }}">
+  {% if desk.top.length %}
+  <nav class="today-top" aria-labelledby="today-top-title">
+    <p id="today-top-title" class="today-top-label">Today's top {{ desk.top.length }}</p>
+    <ol>
+      {% for item in desk.top %}
+      <li><a href="#{{ item.anchor | escape }}">{{ item.title | escape }}</a></li>
+      {% endfor %}
+    </ol>
+  </nav>
+  {% endif %}
   <div class="paper-wrap">
     <div class="paper-main">
-      <section class="front-lead" aria-labelledby="front-lead-title">
+      <section class="front-lead" id="front-lead" aria-labelledby="front-lead-title">
         {% if desk.kicker %}<p class="kicker">{{ desk.kicker | escape }}</p>{% endif %}
         <h1 id="front-lead-title">{{ desk.headline | escape }}</h1>
         {% if photo %}
@@ -43,7 +53,7 @@ homeFront: true
         {% endif %}
         <h2 class="kicker" id="closes-title">Before it closes</h2>
         {% for item in desk.closes %}
-        <article class="card">
+        <article class="card" id="{{ item.anchor | escape }}">
           <h2>{% if item.source %}<a href="{{ item.source.href | escape }}">{{ item.title | escape }}</a>{% else %}{{ item.title | escape }}{% endif %}</h2>
           {% if item.action %}<p>{% if item.action.text %}{{ item.action.text | escape }}{% endif %}{% if item.action.href %} <a href="{{ item.action.href | escape }}">{{ item.action.linkLabel | escape }}</a>{% endif %}</p>{% endif %}
           {% if item.source %}<p class="src">{{ item.source.name | escape }}</p>{% endif %}
@@ -55,7 +65,7 @@ homeFront: true
       <section class="week-block" aria-labelledby="week-title">
         <h2 class="kicker" id="week-title">This week{% if desk.week.length == 1 and desk.week[0].when %} · {{ desk.week[0].when | escape }}{% endif %}</h2>
         {% for item in desk.week %}
-        <article class="card">
+        <article class="card" id="{{ item.anchor | escape }}">
           <h2>{% if item.source %}<a href="{{ item.source.href | escape }}">{{ item.title | escape }}</a>{% else %}{{ item.title | escape }}{% endif %}</h2>
           {% if item.action %}<p>{% if item.action.text %}{{ item.action.text | escape }}{% endif %}{% if item.action.href %} <a href="{{ item.action.href | escape }}">{{ item.action.linkLabel | escape }}</a>{% endif %}</p>{% endif %}
           {% if item.source %}<p class="src">{{ item.source.name | escape }}</p>{% endif %}

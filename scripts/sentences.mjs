@@ -8,6 +8,8 @@
 // The edition header reprints the briefing headline as the page title
 // (edition-lead-title). That mirror is the title, not a second telling, so
 // it is left out of the scan. The headline still has to appear in the article.
+// The homepage jump list (nav.today-top) repeats card headlines as links.
+// That index is not a second telling either.
 
 import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
@@ -53,7 +55,8 @@ export function visibleText(html) {
     .replace(/<head\b[^>]*>[\s\S]*?<\/head>/gi, " ")
     .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, " ")
     .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, " ")
-    .replace(/<h1\b[^>]*class="[^"]*\bedition-lead-title\b[^"]*"[^>]*>[\s\S]*?<\/h1>/gi, " ");
+    .replace(/<h1\b[^>]*class="[^"]*\bedition-lead-title\b[^"]*"[^>]*>[\s\S]*?<\/h1>/gi, " ")
+    .replace(/<nav\b[^>]*\btoday-top\b[^>]*>[\s\S]*?<\/nav>/gi, " ");
   const text = decode(withoutTitle.replace(/<[^>]+>/g, " "));
   return text.replace(/\s+/g, " ").trim();
 }

@@ -73,6 +73,15 @@ test("the edition title may repeat the briefing headline", () => {
   assert.deepEqual(duplicateSentences(html), []);
 });
 
+test("the homepage jump list may repeat a card headline", () => {
+  const headline = "Sunday crowds at Randalls Brodie nearly matched weekdays.";
+  const html = page(
+    `<nav class="today-top"><ol><li><a href="#closes-0">${headline}</a></li></ol></nav>` +
+    `<article class="card" id="closes-0"><h2><a href="https://example.org">${headline}</a></h2></article>`
+  );
+  assert.deepEqual(duplicateSentences(html), []);
+});
+
 test("the same sentence in two paragraphs still fails when the title repeats it", () => {
   const html = page(
     `<h1 class="edition-lead-title">${REPEATED} Five days remain.</h1>` +
