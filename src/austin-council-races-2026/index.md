@@ -105,7 +105,7 @@ District 9 takes in downtown, UT Austin, Cherrywood and Hyde Park. What four of 
 
 Dave Thadani did not respond to KUT. Heyman, Kam and Qadri met at a forum hosted by Austin Current, KUT and Austin PBS: [watch the District 9 forum](https://www.youtube.com/watch?v=hpOmEy9hG1k) (The Texas Tribune on YouTube).
 
-**Zo Qadri's record:** 98% attendance from January 2023 to August 27, 2026. He voted **yes** on the August 4 bond resolution and on the August 6 bond and charter election ordinances. On the August 12 budget, which passed 9-2 with Mayor Kirk Watson and Council Member Marc Duchen voting no, he said: "This budget isn't perfect, but I'm proud that we were able to protect some of the services Austinites depend on most." Full record: [Y'all, City Hall: Zo Qadri](https://yallcityhall.org/scorecards/zohaib-zo-qadri/) · [August 4, item 2](https://yallcityhall.org/meetings/2026-08-04/#item-2) · [Austin Current, August 12](https://austincurrent.org/2026/08/12/austin-city-budget-taxes-texas/)
+**Zo Qadri's record:** 98% attendance from January 2023 to August 27, 2026. Qadri voted **yes** on the August 4 bond resolution and on the August 6 bond and charter election ordinances. On the August 12 budget, which passed 9-2 with Mayor Kirk Watson and Council Member Marc Duchen voting no, he said: "This budget isn't perfect, but I'm proud that we were able to protect some of the services Austinites depend on most." Full record: [Y'all, City Hall: Zo Qadri](https://yallcityhall.org/scorecards/zohaib-zo-qadri/) · [August 4, item 2](https://yallcityhall.org/meetings/2026-08-04/#item-2) · [Austin Current, August 12](https://austincurrent.org/2026/08/12/austin-city-budget-taxes-texas/)
 
 ### The 2026 votes all three incumbents cast
 

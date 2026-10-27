@@ -495,6 +495,13 @@ substantive-sentence test. It downgrades only those three rules to warnings
 (the 40-item cap, the 300-word briefing cap, lead length, and source tags
 stay failures). See EDITORIAL.md "The floor_exception escape hatch."
 
+`node scripts/check-sentences.mjs` runs after the build, in CI and before
+publish. It fails if any sentence of six or more words appears twice on one
+built page (homepage, edition, or any other page). Whitespace and case do
+not make a second copy a different sentence. `floor_exception` does not
+waive it. The edition header's repeat of the briefing headline is the page
+title, not a second telling.
+
 Its link check
 knows KXAN article pages 403 to every non-browser client and verifies those
 through the WordPress API by slug instead of calling them broken, so a clean

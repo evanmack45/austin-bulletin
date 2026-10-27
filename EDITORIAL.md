@@ -377,6 +377,11 @@ and every visual cap. `visual_exception` still does not cover the item
 floor. Quote the reason in that morning's run log, with the three rules
 it covered.
 
+A repeated sentence is its own failure, and neither hatch waives it. After
+the build, `node scripts/check-sentences.mjs` reads each page's text,
+ignores case and extra whitespace, and fails if a sentence of six or more
+words appears twice on that page. It prints the file and the sentence.
+
 ## Neutrality rules
 
 1. Report what happened and who said what. Never state whether a policy

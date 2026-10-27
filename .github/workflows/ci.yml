@@ -25,6 +25,9 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Duplicate sentences
+        run: node scripts/check-sentences.mjs
+
       - name: Lint
         run: npm run lint
 
