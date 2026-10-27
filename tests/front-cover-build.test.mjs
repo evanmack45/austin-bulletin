@@ -19,7 +19,8 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.match(html, /Travis County Courthouse, 2011/);
   assert.match(html, /Larry D\. Moore, CC BY 4\.0, via Wikimedia Commons/);
   assert.match(html, /ill-before-it-closes\.jpg/);
-  assert.match(html, /community development/);
+  assert.match(html, /Tuesday, Oct\. 27/);
+  assert.match(html, /30\.62%/);
   assert.doesNotMatch(html, /If you (haven't|want|live|are)\b/);
   assert.doesNotMatch(html, /\bhousing\b/i);
   assert.ok(!html.includes("front-news-rail"), "the rail is gone");
