@@ -6,8 +6,13 @@ suggestions. Every rule binds the writing.
 ## Homepage (October 26, 2026)
 
 The homepage prints one lead from that morning's briefing, then the items
-marked as deadlines, then the items marked for the week. A story appears
-once. The full edition is one link, not a second copy of the headline.
+marked as deadlines, then the items marked for the week. Directly under
+the masthead, it lists up to three jump lines in that same order: the
+lead, then deadlines, then the week. Each line is that item's existing
+headline and links to its card on the page. The list names only an item
+whose card already links a source. It adds no sentence and no summary.
+Fewer cards means a shorter list, not filler. The jump list is an index,
+not a second telling of the story. The full edition stays one link.
 
 Headlines are 10 words or fewer. Put the number or the date in the headline
 or in the figure beside it. The practical next step is one plain sentence:

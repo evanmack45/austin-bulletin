@@ -120,11 +120,37 @@ function placeChunk(chunk, closes, week) {
   else week.push(item);
 }
 
+function stampAnchors(items, prefix) {
+  return items.map((item, index) => ({ ...item, anchor: `${prefix}-${index}` }));
+}
+
 function placeItems(river) {
   const closes = [];
   const week = [];
   for (const chunk of river.split(/^#####\s+/m).slice(1)) placeChunk(chunk, closes, week);
-  return { closes, week };
+  return { closes: stampAnchors(closes, "closes"), week: stampAnchors(week, "week") };
+}
+
+const TOP_COUNT = 3;
+
+function leadEntries(desk) {
+  if (!desk.headline) return [];
+  return [{ title: desk.headline, anchor: "front-lead", source: desk.source || null }];
+}
+
+function cardEntry(item) {
+  return { title: item.title, anchor: item.anchor, source: item.source || null };
+}
+
+function hasSourceLink(item) {
+  return Boolean(item.title && item.anchor && item.source && item.source.href);
+}
+
+// The homepage cards already rank a lead, then deadlines, then the week.
+// The jump list is that same list, capped, and only where the card links a source.
+export function homepageTop(desk) {
+  const cards = [...desk.closes, ...desk.week].map(cardEntry);
+  return [...leadEntries(desk), ...cards].filter(hasSourceLink).slice(0, TOP_COUNT);
 }
 
 function matched(text, pattern) {
@@ -143,7 +169,7 @@ export function parseDesk(markdown) {
   const placed = placeItems(section(text, "{% river %}", "{% endriver %}"));
   const note = matched(text, /<p class="morning-note">([\s\S]*?)<\/p>/i);
   const sources = matched(big, /<p class="source-line">([\s\S]*?)<\/p>/i);
-  return {
+  const desk = {
     kicker: commentValue(big, "kicker"),
     figure: commentValue(big, "figure"),
     headline: headlineOf(big),
@@ -155,4 +181,5 @@ export function parseDesk(markdown) {
     closes: placed.closes,
     week: placed.week
   };
+  return { ...desk, top: homepageTop(desk) };
 }
