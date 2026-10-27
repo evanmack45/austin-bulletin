@@ -55,7 +55,7 @@ and is responsible for the site.
 - Political stories present each side's own words, with links.
 - Every fact comes from a source we read that morning, linked in the story.
 - Numbers are quoted from sources, never calculated by us.
-- If sources disagree, we say so.
+- When sources disagree, the bulletin says so and gives both accounts.
 - If we cannot verify a story, we leave it out.
 
 ### How we decide what leads
