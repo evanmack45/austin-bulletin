@@ -105,6 +105,26 @@ test("story photos attach only to the matching heading", () => {
   assert.doesNotMatch(out, /beat-money-bills/);
 });
 
+test("the lead story does not get a second caption under its heading", () => {
+  const html = "<h5 id=\"parade\">Parade</h5><p>One</p><h5 id=\"tree\">Tree</h5><p>Two</p>";
+  const images = {
+    stories: [
+      { ...photo, key: "parade" },
+      {
+        ...photo,
+        key: "tree",
+        src: "/images/2026-10-24/zilker-tree-1200.webp",
+        smallSrc: "/images/2026-10-24/zilker-tree-640.webp",
+        caption: "People under the Zilker tree."
+      }
+    ]
+  };
+  const out = withStoryPhotos(html, images, () => true, "parade");
+  assert.equal([...out.matchAll(/<figure class="story-thumb"/g)].length, 1);
+  assert.doesNotMatch(out.slice(0, out.indexOf("id=\"tree\"")), /story-thumb/);
+  assert.match(out, /zilker-tree-1200\.webp/);
+});
+
 test("a heading with no image record renders nothing extra", () => {
   const out = withStoryPhotos("<h5 id=\"solo\">Solo</h5>", undefined);
   assert.equal(out, "<h5 id=\"solo\">Solo</h5>");

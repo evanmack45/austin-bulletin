@@ -10,7 +10,7 @@ layout: layout.njk
   {{ images | leadForStory(top.storyKey) | safe }}
   {% set glanceData = glance[editionDate | isoDate] %}
   {% include "glance.njk" %}
-  {{ content | withStoryPhotos(images) | safe }}
+  {{ content | withStoryPhotos(images, top.storyKey) | safe }}
 </article>
 {% set signupId = "edition" %}
 {% include "signup.njk" %}

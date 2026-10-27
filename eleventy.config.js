@@ -116,8 +116,8 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("editionLead", (html, editionDate, editionUrl) =>
     editionLeadFromHtml(html, editionDate, editionUrl));
   eleventyConfig.addFilter("storyThumb", (images, url) => storyThumb(images, url, editionImageExists));
-  eleventyConfig.addFilter("withStoryPhotos", (content, images) =>
-    withStoryPhotos(content, images, editionImageExists));
+  eleventyConfig.addFilter("withStoryPhotos", (content, images, leadKey) =>
+    withStoryPhotos(content, images, editionImageExists, leadKey));
   eleventyConfig.addFilter("forecastAlerts", forecastAlerts);
   eleventyConfig.addFilter("previousPublishedEdition", (previous, latest) => previous ?
     previousPublishedEdition({ date: previous.date.toISOString().slice(0, 10), url: previous.url,

@@ -249,14 +249,23 @@ function storyFigure(photo) {
   });
 }
 
-function replaceHeading(full, level, attrs, byKey) {
+function replaceHeading(full, level, attrs, byKey, skipKey) {
   if (level !== "5") return full;
-  const figure = storyFigure(byKey[headingId(attrs)]);
+  const id = headingId(attrs);
+  // The lead figure already shows this story's caption. A second thumb
+  // would print those sentences again on the edition page.
+  if (skipKey && id === skipKey) return full;
+  const figure = storyFigure(byKey[id]);
   return figure ? full + figure : full;
 }
 
-export function withStoryPhotos(html, images, exists) {
+function leadAlreadyShown(read, leadKey) {
+  return storyKey(leadKey) && read.byKey[leadKey] ? leadKey : "";
+}
+
+export function withStoryPhotos(html, images, exists = () => true, leadKey = "") {
   const read = checked(images, exists);
+  const skipKey = leadAlreadyShown(read, leadKey);
   return String(html ?? "").replace(/<h([45])\b([^>]*)>[\s\S]*?<\/h\1>/gi, (full, level, attrs) =>
-    replaceHeading(full, level, attrs, read.byKey));
+    replaceHeading(full, level, attrs, read.byKey, skipKey));
 }
