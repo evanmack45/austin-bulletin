@@ -25,7 +25,7 @@
   <meta name="twitter:image" content="{{ meta.image | escape }}">
   <meta name="twitter:image:alt" content="{{ meta.imageAlt | escape }}">
 {% if meta.type == "article" %}  <script type="application/ld+json">{{ meta | articleJsonLd(page.date) | safe }}</script>
-{% endif %}  <link rel="stylesheet" href="/css/style.css">{% if homeFront %}
+{% endif %}  <link rel="stylesheet" href="/css/style.css">{% if homeFront or editionPage %}
   <link rel="stylesheet" href="/css/front-cover.css">{% endif %}
   <link rel="icon" href="/favicon.ico" sizes="32x32">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -34,34 +34,15 @@
   <meta name="theme-color" content="#1b1b1b">
   <link rel="alternate" type="application/atom+xml" title="The Austin Bulletin" href="/feed.xml">
 </head>
-<body{% if homeFront %} class="home-front"{% endif %} id="top">
+<body{% if homeFront or editionPage %} class="cover-chrome{% if homeFront %} home-front{% endif %}{% if editionPage %} edition-page{% endif %}"{% endif %} id="top">
+  {% if homeFront or editionPage %}
+  {% include "masthead.njk" %}
+  {% else %}
   <header class="front-masthead">
-    {% if homeFront %}
-    {% set latestFront = collections.bulletins | first %}
-    {% set previousFront = collections.bulletins[1] | previousPublishedEdition(latestFront) %}
-    {% set deskLine = latestFront.inputPath | homeDesk %}
-    <div class="masthead-title">
-      <a class="wordmark" href="/">The Austin Bulletin<span class="masthead-dot" aria-hidden="true">.</span></a>
-      <p class="masthead-dateline">{{ latestFront.date | weekday }}, {{ latestFront.date | shortMonthDay }}{% if deskLine.weather %} · {{ deskLine.weather | escape }}{% endif %}{% if previousFront %} <span class="prev-edition">· Previous edition: <a href="{{ previousFront.url | escape }}">{{ previousFront.date | monthDay }}</a></span>{% endif %}</p>
-    </div>
-    <div class="masthead-inner">
-    {% else %}
     <a class="wordmark" href="/">Austin Bulletin<span class="masthead-dot" aria-hidden="true">.</span></a>
-    {% endif %}
-    <nav class="site-nav" aria-label="Publication">
-      <div class="site-menu">
-        <input class="site-menu-toggle" type="checkbox" id="site-menu-toggle" aria-label="Menu">
-        <label class="site-menu-button" for="site-menu-toggle">Menu</label>
-        <div class="site-menu-panel">
-          <a href="/">Today</a>
-          <a href="/vote-2026/">Election</a>
-          <a href="/archive/">Archive</a>
-          <a href="/subscribe/">Subscribe</a>
-        </div>
-      </div>
-    </nav>
-    {% if homeFront %}</div>{% endif %}
+    {% include "site-nav.njk" %}
   </header>
+  {% endif %}
   <main>
     {{ content | safe }}
   </main>

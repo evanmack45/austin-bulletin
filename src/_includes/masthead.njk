@@ -1,0 +1,12 @@
+{% set latestFront = collections.bulletins | first %}
+{% set previousFront = collections.bulletins[1] | previousPublishedEdition(latestFront) %}
+{% set deskLine = latestFront.inputPath | homeDesk %}
+<header class="front-masthead">
+  <div class="masthead-title">
+    <a class="wordmark" href="/">The Austin Bulletin<span class="masthead-dot" aria-hidden="true">.</span></a>
+    <p class="masthead-dateline">{{ latestFront.date | weekday }}, {{ latestFront.date | shortMonthDay }}{% if deskLine.weather %} · {{ deskLine.weather | escape }}{% endif %}{% if previousFront %} <span class="prev-edition">· Previous edition: <a href="{{ previousFront.url | escape }}">{{ previousFront.date | monthDay }}</a></span>{% endif %}</p>
+  </div>
+  <div class="masthead-inner">
+    {% include "site-nav.njk" %}
+  </div>
+</header>
