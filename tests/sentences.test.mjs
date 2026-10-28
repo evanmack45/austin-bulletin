@@ -83,8 +83,7 @@ test("the homepage jump list may repeat a card headline", () => {
 });
 
 test("the signup line may repeat in the mobile bar", () => {
-  const line = "Early voting numbers, council votes, road closures. "
-    + "Free, weekday mornings.";
+  const line = "Austin's news in 5 minutes, every morning";
   const embed = "<div class=\"signup-embed\"><noscript>"
     + "<a href=\"https://example.com\">Subscribe by email</a></noscript></div>";
   const note = "One email each morning, after you confirm.";

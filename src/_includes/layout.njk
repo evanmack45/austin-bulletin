@@ -49,6 +49,10 @@
   {% set signupId = "bar" %}
   {% include "signup.njk" %}
   <footer class="site-footer">
+    {% if not hasInlineSignup %}
+    {% set signupId = "footer" %}
+    {% include "signup.njk" %}
+    {% endif %}
     <p>© The Austin Bulletin · Published by Evan McMillan, Austin, Texas · <a href="/about/">About this site</a> · <a href="/corrections/">Corrections</a> · <a href="/feed.xml">RSS feed</a></p>
     <p>Council records: <a href="https://yallcityhall.org/">Y’all, City Hall</a></p>
   </footer>

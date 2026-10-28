@@ -36,10 +36,10 @@ Any session may add a line. Evan may add or strike lines.
 10. Social posting scripts: when Bluesky and X publication credentials
     exist, post each edition with a link. Blocked on Evan. Measured by
     referrals.
-11. Mail list: each signup placement loads Kit's official embed
-    (`https://the-austin-bulletin.kit.com/e956043af1/index.js`). A reader
-    without JavaScript gets the hosted form. Double opt-in stays on at
-    Kit. Measured by confirmed addresses.
+11. Mail list: the signup is a plain form posting `email_address` to Kit
+    form 10083630 (uid e956043af1). It sits under the lead, at the end of
+    each edition, and in the footer of every other page. Double opt-in
+    stays on at Kit. Measured by confirmed addresses.
 12. `/follow/` page: feed links and the About "Follow" section already
     exist (2026-10-11). A dedicated page waits for social accounts.
 13. Heartbeat fallback: consider moving the daily pipeline to GitHub Actions

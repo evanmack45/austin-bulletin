@@ -33,6 +33,10 @@ A request to change one goes above, with the reason.
 
 ## Entries
 
+### 2026-10-28 (signup form)
+
+The publisher asked for the morning-edition form on every page. The same `signup.njk` block now posts `email_address` to `https://app.kit.com/forms/10083630/subscriptions` with a real Email label, so it works with JavaScript off. It stays under the lead, at the end of each edition, and in the footer everywhere else. The line is "Austin's news in 5 minutes, every morning". On a desktop the lead photo sits in the side column so that form is inside the first 900px; the phone keeps the photo in the story and the form within two screens. The October 24 note still stands: a direct post once hit Kit's bot wall. This request asked for that post as the form. Do not send a test address. The design-change clock stays at 2026-10-28.
+
 ### 2026-10-28
 
 Evan asked the skyline off the masthead. It was not an accurate Austin, so the masthead is the wordmark and the date, with no replacement picture. The signup moves from the side column to directly under the lead, the stock beach photo comes out of the Kit form, and the subscribe button uses the Bulletin red (`--accent`, `#c8102e`) with white text. The line is "Early voting numbers, council votes, road closures. Free, weekday mornings." This is a publisher request, two days after the alive pass. The design-change clock restarts at 2026-10-28.

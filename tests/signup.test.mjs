@@ -4,12 +4,11 @@ import { readFileSync } from "node:fs";
 import newsletter from "../src/_data/newsletter.js";
 import {
   actionClearOfBar, barShouldShow, CONFIGURED_NOTE, contentSecurityPolicy,
-  KIT_EMBED_SRC, KIT_FORM_URL, KIT_ORIGIN, KIT_UID, VALUE_LINE
+  KIT_EMBED_SRC, KIT_FORM_ID, KIT_FORM_URL, KIT_ORIGIN, KIT_UID, VALUE_LINE
 } from "../src/js/signup.js";
 
 test("the value line is the morning-edition offer", () => {
-  assert.equal(VALUE_LINE, "Early voting numbers, council votes, road closures. "
-    + "Free, weekday mornings.");
+  assert.equal(VALUE_LINE, "Austin's news in 5 minutes, every morning");
   assert.equal(newsletter.valueLine, VALUE_LINE);
   assert.equal(newsletter.note, CONFIGURED_NOTE);
   assert.equal(newsletter.barNote, CONFIGURED_NOTE);
@@ -17,9 +16,12 @@ test("the value line is the morning-edition offer", () => {
 
 test("the signup data points at Kit's official embed", () => {
   assert.equal(newsletter.uid, KIT_UID);
+  assert.equal(newsletter.formId, KIT_FORM_ID);
+  assert.equal(newsletter.action, "https://app.kit.com/forms/10083630/subscriptions");
   assert.equal(newsletter.embedSrc, KIT_EMBED_SRC);
   assert.equal(newsletter.formUrl, KIT_FORM_URL);
   assert.equal(KIT_UID, "e956043af1");
+  assert.equal(KIT_FORM_ID, "10083630");
   assert.equal(KIT_EMBED_SRC, "https://the-austin-bulletin.kit.com/e956043af1/index.js");
   assert.equal(KIT_FORM_URL, "https://the-austin-bulletin.kit.com/e956043af1");
   assert.equal(newsletter.csp, contentSecurityPolicy());
@@ -71,8 +73,15 @@ test("the signup button is Bulletin red and the beach photo is hidden", () => {
     "\\.signup \\.formkit-submit \\{\\s*background-color: var\\(--accent\\) !important;\\s*"
     + "color: #fff !important;\\s*\\}"
   );
+  const field = /\.signup-email\s*\{[^}]*min-height:\s*44px;/;
+  const ownButton = new RegExp(
+    "\\.signup-form button\\[type=\"submit\"\\]\\s*\\{[^}]*"
+    + "background:\\s*var\\(--accent\\);[^}]*color:\\s*#fff;"
+  );
   assert.match(css, hidden);
   assert.match(css, button);
+  assert.match(css, field);
+  assert.match(css, ownButton);
 });
 
 test("the signup script does not post an address or nag", () => {
