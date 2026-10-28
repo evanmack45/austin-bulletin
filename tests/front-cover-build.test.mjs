@@ -9,9 +9,9 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
     "class=\"front-lead\"",
     "Before it closes",
     "This week",
-    "class=\"front-action\"",
-    "Early voting numbers, council votes, road closures. Free, weekday mornings."
+    "class=\"front-action\""
   ]) assert.ok(html.includes(text), text);
+  assert.match(html, /Austin(?:'|&#39;)s news in 5 minutes, every morning/);
   assert.equal((html.match(/<h1\b/g) || []).length, 1);
   assert.match(html, /class="wordmark"/);
   assert.match(html, /class="masthead-dateline"/);

@@ -1,9 +1,9 @@
-// Morning-edition email signup. Kit's official embed owns the form and
-// the confirmation step. This module places the mobile bar and publishes
-// the content security policy that embed needs. It does not post an address.
+// Morning-edition email signup. The form itself is plain HTML and posts
+// to Kit with no script. This module places the mobile bar and publishes
+// the content security policy. It does not post an address.
 
-export const VALUE_LINE = "Early voting numbers, council votes, road closures. "
-  + "Free, weekday mornings.";
+export const VALUE_LINE = "Austin's news in 5 minutes, every morning";
+export const KIT_FORM_ID = "10083630";
 export const CONFIGURED_NOTE = "One email each morning, after you confirm.";
 export const DISMISS_KEY = "abSignupBarDismissed";
 export const MOBILE_QUERY = "(max-width: 760px)";

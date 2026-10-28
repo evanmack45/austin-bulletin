@@ -37,7 +37,7 @@ November 7.
 
 | Site | Date | What |
 |---|---|---|
-| theaustinbulletin.com | 2026-10-28 | Wordmark and date only. Signup under the lead. Bulletin-red subscribe button |
+| theaustinbulletin.com | 2026-10-28 | Wordmark and date only. Labelled email signup under the lead, on each edition, and in the footer. Bulletin-red subscribe button |
 | yallcityhall.org | 2026-10-06 | Field-guide homepage (previous operator) |
 
 The Bulletin's next design change waits until 2026-11-11. The tracker is
@@ -82,6 +82,7 @@ No data at the judge date is a kill.
 One line per reader-visible change, newest first. The daily edition does
 not count. Three calendar days with no line is an alert.
 
+- 2026-10-28 · bulletin · A labelled email field and red Subscribe button sit under the lead, at the end of every edition, and in the footer of every other page. The form posts to Kit without JavaScript. The line is "Austin's news in 5 minutes, every morning".
 - 2026-10-28 · bulletin · Masthead is the wordmark and the date. The skyline illustration is gone. Email signup sits under the lead, without the beach photo, with a Bulletin-red subscribe button and the line "Early voting numbers, council votes, road closures. Free, weekday mornings."
 - 2026-10-27 · bulletin · Oct. 26 turnout line now includes 733 limited ballots, on the edition and /corrections, and the dead daily-totals PDF points at the Oct. 26 file. The Oct. 12 drug take-back line cites the Statesman after the county page came down
 - 2026-10-26 · bulletin · Homepage alive pass: a labeled skyline illustration on the masthead, the Travis County Courthouse (Larry D. Moore, CC BY 4.0) on the election lead, spot art beside Before it closes, and plain sentences in place of the "If you" lines. Headlines are 10 words or fewer. The check fails an item that starts with "If you" or an image with no credit or illustration label

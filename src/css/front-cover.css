@@ -181,6 +181,24 @@
 .home-front .front-sources a { min-height: 44px; color: #1b1b1b; }
 .home-front .lead-photo { margin: 0 0 14px; }
 .home-front .lead-photo img { width: 100%; height: auto; display: block; }
+@media (min-width: 761px) {
+  /* The lead photo moves into the side column so the signup under the
+     story stays inside the first 900px. The headline keeps the full measure. */
+  .home-front .paper-wrap { position: relative; }
+  .home-front .lead-photo {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: max(240px, calc((100% - 40px) / 3));
+    margin: 0;
+  }
+  .home-front .lead-photo img {
+    height: 200px;
+    object-fit: cover;
+    object-position: center 42%;
+  }
+  .home-front .paper-wrap:has(.lead-photo) .paper-side { padding-top: 268px; }
+}
 .home-front .lead-photo figcaption,
 .home-front .spot-art figcaption {
   font-family: Hanken, Arial, sans-serif;
@@ -217,7 +235,6 @@
   padding: 18px;
   margin-top: 0;
 }
-.home-front .paper-main .signup--lead { margin-top: 18px; }
 .home-front .signup--lead h2 {
   font-family: Bricolage, "Times New Roman", Times, serif;
   font-size: 22px;
@@ -227,7 +244,10 @@
   margin: 0 0 8px;
 }
 .home-front .signup--lead .signup-value,
-.home-front .signup--lead .signup-note { color: #fff; }
+.home-front .signup--lead .signup-note,
+.home-front .signup--lead .signup-label { color: #fff; }
+.home-front .signup--lead .signup-value { margin: 0 0 8px; }
+.home-front .paper-main .signup--lead { margin-top: 12px; }
 .home-front .signup--lead a { color: #fff; }
 @media (max-width: 760px) {
   .home-front main { padding: 8px 16px 64px; }

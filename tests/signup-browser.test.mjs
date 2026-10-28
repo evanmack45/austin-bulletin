@@ -13,7 +13,7 @@ const TYPES = {
   ".svg": "image/svg+xml", ".png": "image/png", ".ico": "image/x-icon",
   ".woff2": "font/woff2", ".xml": "application/xml", ".webmanifest": "application/manifest+json"
 };
-const EMBED = "https://the-austin-bulletin.kit.com/e956043af1/index.js";
+const ACTION = "https://app.kit.com/forms/10083630/subscriptions";
 
 function startServer() {
   const root = path.resolve("_site");
@@ -84,22 +84,52 @@ async function assertDesktopLead(browser, origin) {
   await open(page, origin, "/", 1280);
   const box = await page.evaluate(() => {
     const block = document.querySelector(".paper-main .signup--lead");
-    const script = block.querySelector("script[data-uid='e956043af1']");
+    const form = block.querySelector("form.signup-form");
+    const input = form.querySelector("input[name='email_address']");
+    const label = form.querySelector("label");
+    const formBox = form.getBoundingClientRect();
+    const labelBox = label.getBoundingClientRect();
+    const header = document.querySelector("header.front-masthead");
     return {
       width: document.documentElement.scrollWidth,
       placed: !!block,
       inAside: !!document.querySelector("aside .signup--lead"),
+      footerForm: !!document.querySelector(".signup--footer"),
       value: block.querySelector(".signup-value").textContent,
-      src: script?.src || "",
-      barFixed: !!document.querySelector(".signup--bar.is-fixed")
+      barFixed: !!document.querySelector(".signup--bar.is-fixed"),
+      formTop: formBox.top,
+      formBottom: formBox.bottom,
+      inputHeight: input.getBoundingClientRect().height,
+      labelHeight: labelBox.height,
+      labelFor: label.getAttribute("for"),
+      inputId: input.id,
+      action: form.getAttribute("action"),
+      method: form.getAttribute("method"),
+      name: input.getAttribute("name"),
+      wordmark: header.querySelector(".wordmark").textContent,
+      nav: [...header.querySelectorAll(".site-menu-panel a")].map((link) => {
+        return link.getAttribute("href");
+      }),
+      sky: !!document.querySelector(".masthead-sky, .masthead-banner")
     };
   });
   assert.ok(box.width <= 1280, String(box.width));
   assert.equal(box.placed, true);
-  assert.match(box.value, /Early voting numbers, council votes, road closures/);
+  assert.match(box.value, /Austin's news in 5 minutes, every morning/);
   assert.equal(box.inAside, false);
-  assert.equal(box.src, EMBED);
+  assert.equal(box.footerForm, false);
   assert.equal(box.barFixed, false);
+  assert.equal(box.sky, false);
+  assert.ok(box.formTop < 900, `form starts at ${box.formTop}`);
+  assert.ok(box.formBottom <= 900, `form ends at ${box.formBottom}`);
+  assert.ok(box.inputHeight >= 44, String(box.inputHeight));
+  assert.ok(box.labelHeight > 0, String(box.labelHeight));
+  assert.equal(box.labelFor, box.inputId);
+  assert.equal(box.action, ACTION);
+  assert.equal(box.method, "post");
+  assert.equal(box.name, "email_address");
+  assert.match(box.wordmark, /The Austin Bulletin/);
+  assert.deepEqual(box.nav, ["/", "/vote-2026/", "/archive/", "/subscribe/"]);
   assert.equal(posts.length, 0);
   await page.close();
 }
@@ -133,19 +163,25 @@ async function assertMobileLead(browser, origin) {
       ? action.getBoundingClientRect().bottom > bar.getBoundingClientRect().top
         && action.getBoundingClientRect().top < bar.getBoundingClientRect().bottom
       : false;
+    const input = block.querySelector("input[name='email_address']");
+    const label = block.querySelector("label");
     return {
-      src: block.querySelector("script[data-uid='e956043af1']")?.getAttribute("src"),
+      action: block.querySelector("form.signup-form")?.getAttribute("action"),
       path: location.pathname,
       width: document.documentElement.scrollWidth,
       below: block.getBoundingClientRect().top >= action.getBoundingClientRect().bottom - 1,
       overlap,
-      inputs: block.querySelectorAll("input[type=email]").length
+      inputs: block.querySelectorAll("input[type=email]").length,
+      inputHeight: input.getBoundingClientRect().height,
+      labelled: label.getAttribute("for") === input.id
     };
   });
-  assert.equal(result.src, EMBED);
+  assert.equal(result.action, ACTION);
   assert.equal(result.below, true);
   assert.equal(result.path, "/");
-  assert.equal(result.inputs, 0);
+  assert.equal(result.inputs, 1);
+  assert.ok(result.inputHeight >= 44, String(result.inputHeight));
+  assert.equal(result.labelled, true);
   assert.ok(result.width <= 390, String(result.width));
   assert.equal(result.overlap, false);
   assert.equal(posts.length, 0);
@@ -166,12 +202,14 @@ async function assertMobileBar(browser, origin) {
     width: document.documentElement.scrollWidth,
     label: document.querySelector(".signup--bar .signup-dismiss").textContent,
     value: document.querySelector(".signup--bar .signup-value").textContent,
-    src: document.querySelector(".signup--bar script[data-uid='e956043af1']")?.src || ""
+    action: document.querySelector(".signup--bar form.signup-form")?.getAttribute("action") || "",
+    field: document.querySelector(".signup--bar input")?.getAttribute("name") || ""
   }));
   assert.ok(shown.width <= 390, String(shown.width));
   assert.equal(shown.label, "Close");
-  assert.match(shown.value, /Free, weekday mornings\.$/);
-  assert.equal(shown.src, EMBED);
+  assert.match(shown.value, /Austin's news in 5 minutes, every morning/);
+  assert.equal(shown.action, ACTION);
+  assert.equal(shown.field, "email_address");
   await page.locator(".signup--bar .signup-dismiss").click();
   await page.waitForSelector(".signup--bar.is-fixed", { hidden: true });
   const dismissed = await page.evaluate(() => localStorage.getItem("abSignupBarDismissed"));

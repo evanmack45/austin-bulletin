@@ -44,10 +44,10 @@ Older curation packets under `src/_data/frontpages/` still have to
 validate. They do not print. Do not modify a dated edition to make an old
 asset pass. Dates, uncertainty, and attribution stay beside the claim.
 
-Type: warm paper, bold headlines, one red accent. The signup stays Kit's
-embed, directly under the lead. The line is "Early voting numbers, council
-votes, road closures. Free, weekday mornings." The subscribe button is the
-Bulletin red, with white text.
+Type: warm paper, bold headlines, one red accent. The signup is the Kit
+form, directly under the lead, at the end of each edition, and in the
+footer of every other page. The line is "Austin's news in 5 minutes,
+every morning". The subscribe button is the Bulletin red, with white text.
 
 ## Voice
 

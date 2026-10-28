@@ -1,4 +1,4 @@
-{# signupId: lead | edition | page | bar. The embed is Kit's official form. #}
+{# signupId: lead | edition | page | bar | footer. Plain HTML posts to Kit. #}
 {% set signupNote = newsletter.barNote if signupId == "bar" else newsletter.note %}
 <section class="signup signup--{{ signupId }}" data-signup="{{ signupId }}"{% if signupId != "bar" %} data-signup-inline{% endif %}{% if signupId == "bar" %} aria-label="Email the morning edition"{% else %} aria-labelledby="signup-{{ signupId }}-title"{% endif %}>
   {% if signupId != "bar" %}<h2 id="signup-{{ signupId }}-title">The morning edition</h2>{% endif %}
@@ -6,9 +6,10 @@
     <p class="signup-value" id="signup-{{ signupId }}-value">{{ newsletter.valueLine | escape }}</p>
     {% if signupId == "bar" %}<button type="button" class="signup-dismiss" data-signup-dismiss>Close</button>{% endif %}
   </div>
-  <div class="signup-embed">
-    <script async data-uid="{{ newsletter.uid | escape }}" src="{{ newsletter.embedSrc | escape }}"></script>
-    <noscript><a href="{{ newsletter.formUrl | escape }}">Subscribe by email</a></noscript>
-  </div>
+  <form class="signup-form" method="post" action="{{ newsletter.action | escape }}" data-uid="{{ newsletter.uid | escape }}">
+    <label class="signup-label" for="signup-email-{{ signupId }}">Email</label>
+    <input id="signup-email-{{ signupId }}" class="signup-email" type="email" name="email_address" autocomplete="email" inputmode="email" required>
+    <button type="submit">Subscribe</button>
+  </form>
   <p class="signup-note" id="signup-{{ signupId }}-note">{{ signupNote | escape }}{% if signupId != "bar" %} <a href="/feed.xml">Or follow by RSS</a>.{% endif %}</p>
 </section>

@@ -787,12 +787,37 @@ body:has(article.bulletin) main { max-width: 48rem; }
   .bulletin .lead-photo figcaption { padding: 0 1.25rem; }
 }
 
-/* Email signup. Kit's embed fills .signup-embed. The mobile bar stays
-   hidden until script marks it fixed, so it never covers the lead button
-   without JavaScript. */
+/* Email signup. The form posts to Kit without JavaScript. The mobile bar
+   stays hidden until script marks it fixed, so it never covers the lead
+   button without JavaScript. */
 .signup { margin: 0; min-width: 0; }
 .signup-bar-top { display: block; }
 .signup-value { margin: 0 0 .65rem; font-size: 1.05rem; line-height: 1.45; }
+.signup-form {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin: 0;
+}
+.signup-label {
+  flex: 1 0 100%; margin: 0;
+  font-family: Hanken, Arial, sans-serif; font-size: 13px; font-weight: 700;
+  letter-spacing: 0.04em;
+}
+.signup-email {
+  flex: 1 1 12rem; min-width: 0; box-sizing: border-box;
+  min-height: 44px; height: 44px; padding: 0 12px;
+  border: 1px solid var(--ink); border-radius: 0;
+  background: #fff; color: var(--ink);
+  font: 16px/1.2 Georgia, "Times New Roman", serif;
+}
+.signup-form button[type="submit"] {
+  flex: 0 0 auto; box-sizing: border-box;
+  min-height: 44px; height: 44px; padding: 0 16px;
+  border: 0; border-radius: 0; background: var(--accent); color: #fff;
+  font: 700 16px/1 Hanken, Arial, sans-serif; cursor: pointer;
+}
+.signup-form input:focus-visible,
+.signup-form button:focus-visible {
+  outline: 3px solid var(--accent); outline-offset: 2px;
+}
 .signup-embed { min-width: 0; max-width: 100%; margin: 0 0 .15rem; }
 .signup-embed .formkit-form {
   width: 100% !important; max-width: 100% !important; min-width: 0 !important;
@@ -816,6 +841,10 @@ body:has(article.bulletin) main { max-width: 48rem; }
 .signup--edition, .signup--page {
   margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--rule);
 }
+.signup--footer {
+  text-align: left; max-width: 32rem; margin: 0 auto 1.1rem;
+  padding-bottom: 1.1rem; border-bottom: 1px solid var(--rule);
+}
 .signup--bar { display: none; }
 @media (max-width: 760px) {
   .signup--bar.is-fixed {
@@ -827,7 +856,10 @@ body:has(article.bulletin) main { max-width: 48rem; }
   body.signup-bar-stuck { padding-bottom: calc(20rem + env(safe-area-inset-bottom)); }
   .signup--bar .signup-bar-top { display: flex; align-items: flex-start; gap: .5rem; margin-bottom: .5rem; }
   .signup--bar .signup-value { flex: 1; margin: 0; font-size: .95rem; }
-  .signup--bar .signup-note { color: var(--bg); }
+  .signup--bar .signup-note,
+  .signup--bar .signup-label { color: var(--bg); }
+  .signup--bar .signup-form input:focus-visible,
+  .signup--bar .signup-form button:focus-visible { outline-color: var(--bg); }
   .signup--bar .signup-dismiss {
     background: transparent; color: var(--bg); border: 1px solid var(--bg); flex: 0 0 auto;
   }
