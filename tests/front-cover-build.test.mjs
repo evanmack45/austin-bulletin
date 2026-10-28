@@ -27,7 +27,10 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
     html,
     /srcset="\/images\/p-courthouse-800\.jpg 800w, \/images\/p-courthouse\.jpg 1280w"/
   );
-  assert.match(html, /sizes="\(max-width: 760px\) calc\(100vw - 32px\), 680px"/);
+  assert.match(
+    html,
+    /sizes="\(max-width: 760px\) calc\(100vw - 32px\), 1280px"/
+  );
   assert.match(html, /width="1280" height="853"[^>]*loading="eager" fetchpriority="high"/);
   assert.match(html, /Travis County Courthouse, 2011/);
   assert.match(html, /Larry D\. Moore, CC BY 4\.0, via Wikimedia Commons/);
