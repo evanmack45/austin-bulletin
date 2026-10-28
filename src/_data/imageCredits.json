@@ -5,7 +5,9 @@
     "caption": "Illustration",
     "kind": "illustration",
     "width": 1280,
-    "height": 720
+    "height": 720,
+    "smallSrc": "/images/ill-masthead-v2-800.jpg",
+    "smallWidth": 800
   },
   "courthouse": {
     "file": "/images/p-courthouse.jpg",
@@ -18,14 +20,16 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
     "kind": "photo",
     "width": 1280,
-    "height": 853
+    "height": 853,
+    "smallSrc": "/images/p-courthouse-800.jpg",
+    "smallWidth": 800
   },
   "closes": {
     "file": "/images/ill-before-it-closes.jpg",
     "alt": "Illustration",
     "caption": "Illustration",
     "kind": "illustration",
-    "width": 640,
-    "height": 640
+    "width": 320,
+    "height": 320
   }
 }

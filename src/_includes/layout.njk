@@ -41,7 +41,7 @@
     {% set previousFront = collections.bulletins[1] | previousPublishedEdition(latestFront) %}
     {% set deskLine = latestFront.inputPath | homeDesk %}
     <div class="masthead-banner">
-      <img class="masthead-sky" src="{{ imageCredits.masthead.file | escape }}" alt="{{ imageCredits.masthead.alt | escape }}" width="{{ imageCredits.masthead.width }}" height="{{ imageCredits.masthead.height }}" decoding="async">
+      <img class="masthead-sky" src="{{ imageCredits.masthead.file | escape }}"{% if imageCredits.masthead.smallSrc %} srcset="{{ imageCredits.masthead.smallSrc | escape }} {{ imageCredits.masthead.smallWidth }}w, {{ imageCredits.masthead.file | escape }} {{ imageCredits.masthead.width }}w" sizes="100vw"{% endif %} alt="{{ imageCredits.masthead.alt | escape }}" width="{{ imageCredits.masthead.width }}" height="{{ imageCredits.masthead.height }}" fetchpriority="low" decoding="async">
       <div class="masthead-title">
         <a class="wordmark" href="/">The Austin Bulletin<span class="masthead-dot" aria-hidden="true">.</span></a>
         <p class="masthead-dateline">{{ latestFront.date | weekday }}, {{ latestFront.date | shortMonthDay }}{% if deskLine.weather %} · {{ deskLine.weather | escape }}{% endif %}{% if previousFront %} <span class="prev-edition">· Previous edition: <a href="{{ previousFront.url | escape }}">{{ previousFront.date | monthDay }}</a></span>{% endif %}</p>

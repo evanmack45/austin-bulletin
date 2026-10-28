@@ -14,11 +14,31 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   ]) assert.ok(html.includes(text), text);
   assert.equal((html.match(/<h1\b/g) || []).length, 1);
   assert.match(html, /ill-masthead-v2\.jpg/);
+  assert.match(
+    html,
+    /srcset="\/images\/ill-masthead-v2-800\.jpg 800w, \/images\/ill-masthead-v2\.jpg 1280w"/
+  );
+  assert.match(html, /class="masthead-sky"[^>]*sizes="100vw"/);
+  assert.match(html, /class="masthead-sky"[^>]*width="1280" height="720"/);
+  assert.match(html, /class="masthead-sky"[^>]*fetchpriority="low"/);
   assert.match(html, /alt="Illustration"/);
   assert.match(html, /p-courthouse\.jpg/);
+  assert.match(
+    html,
+    /srcset="\/images\/p-courthouse-800\.jpg 800w, \/images\/p-courthouse\.jpg 1280w"/
+  );
+  assert.match(
+    html,
+    /sizes="\(max-width: 760px\) calc\(100vw - 32px\), 1280px"/
+  );
+  assert.match(html, /width="1280" height="853"[^>]*loading="eager" fetchpriority="high"/);
   assert.match(html, /Travis County Courthouse, 2011/);
   assert.match(html, /Larry D\. Moore, CC BY 4\.0, via Wikimedia Commons/);
   assert.match(html, /ill-before-it-closes\.jpg/);
+  assert.match(
+    html,
+    /ill-before-it-closes\.jpg" alt="Illustration" width="320" height="320" loading="lazy"/
+  );
   assert.match(html, /Tuesday, Oct\. 27/);
   assert.match(html, /30\.62%/);
   assert.doesNotMatch(html, /If you (haven't|want|live|are)\b/);

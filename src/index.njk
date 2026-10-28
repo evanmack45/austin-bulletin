@@ -27,7 +27,7 @@ homeFront: true
         <h1 id="front-lead-title">{{ desk.headline | escape }}</h1>
         {% if photo %}
         <figure class="lead-photo">
-          <img src="{{ photo.file | escape }}" alt="{{ photo.alt | escape }}" width="{{ photo.width }}" height="{{ photo.height }}" loading="eager" fetchpriority="high" decoding="async">
+          <img src="{{ photo.file | escape }}"{% if photo.smallSrc %} srcset="{{ photo.smallSrc | escape }} {{ photo.smallWidth }}w, {{ photo.file | escape }} {{ photo.width }}w" sizes="(max-width: 760px) calc(100vw - 32px), 1280px"{% endif %} alt="{{ photo.alt | escape }}" width="{{ photo.width }}" height="{{ photo.height }}" loading="eager" fetchpriority="high" decoding="async">
           <figcaption>{{ photo.caption | escape }}{% if photo.credit %} Photo: <a href="{{ photo.source | escape }}">{{ photo.credit | escape }}</a>.{% endif %}</figcaption>
         </figure>
         {% endif %}
@@ -47,7 +47,7 @@ homeFront: true
       <section class="closes" aria-labelledby="closes-title">
         {% if imageCredits.closes %}
         <figure class="spot-art">
-          <img src="{{ imageCredits.closes.file | escape }}" alt="{{ imageCredits.closes.alt | escape }}" width="{{ imageCredits.closes.width }}" height="{{ imageCredits.closes.height }}" decoding="async">
+          <img src="{{ imageCredits.closes.file | escape }}" alt="{{ imageCredits.closes.alt | escape }}" width="{{ imageCredits.closes.width }}" height="{{ imageCredits.closes.height }}" loading="lazy" decoding="async">
           <figcaption>{{ imageCredits.closes.caption | escape }}</figcaption>
         </figure>
         {% endif %}
