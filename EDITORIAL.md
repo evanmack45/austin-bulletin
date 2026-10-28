@@ -31,8 +31,8 @@ A lead photograph runs only when `desk:photo` names a record in
 `src/_data/imageCredits.json`. The caption says what the picture shows.
 A photograph needs a credit. An illustration is labeled "Illustration" in
 the alt text and on the page. No City of Austin image. No illustration in
-place of a missing story photo. The masthead skyline is a labeled
-illustration, not a story photo. `npm run check` fails an edition from
+place of a missing story photo. The masthead is the wordmark and the date
+line. It does not carry an illustration. `npm run check` fails an edition from
 2026-10-26 on when an item starts with "If you", a homepage headline runs
 past 10 words, or an image lacks a credit or an illustration label.
 
@@ -45,7 +45,9 @@ validate. They do not print. Do not modify a dated edition to make an old
 asset pass. Dates, uncertainty, and attribution stay beside the claim.
 
 Type: warm paper, bold headlines, one red accent. The signup stays Kit's
-embed. The line is "Austin in 5 minutes, every morning. Free."
+embed, directly under the lead. The line is "Early voting numbers, council
+votes, road closures. Free, weekday mornings." The subscribe button is the
+Bulletin red, with white text.
 
 ## Voice
 

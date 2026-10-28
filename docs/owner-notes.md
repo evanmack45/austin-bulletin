@@ -33,6 +33,10 @@ A request to change one goes above, with the reason.
 
 ## Entries
 
+### 2026-10-28
+
+Evan asked the skyline off the masthead. It was not an accurate Austin, so the masthead is the wordmark and the date, with no replacement picture. The signup moves from the side column to directly under the lead, the stock beach photo comes out of the Kit form, and the subscribe button uses the Bulletin red (`--accent`, `#c8102e`) with white text. The line is "Early voting numbers, council votes, road closures. Free, weekday mornings." This is a publisher request, two days after the alive pass. The design-change clock restarts at 2026-10-28.
+
 ### 2026-10-26
 
 The alive pass shipped the day after the October 25 homepage, on an approved plan. The "If you" opener is retired. The next step is a plain sentence, one caveat, headlines of 10 words or fewer, and no fact that is not already in the edition. The masthead skyline is a labeled illustration, not a stand-in photo. A story photo needs a credit in `src/_data/imageCredits.json` and a caption that names what is shown. The courthouse stands in because no free photo of a polling place turned up; the caption names the courthouse. Do not print a day count the copy does not state. Early voting opened October 19, so October 26 is not day 13. The design-change clock restarts at 2026-10-26.

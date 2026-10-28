@@ -82,6 +82,23 @@ test("the homepage jump list may repeat a card headline", () => {
   assert.deepEqual(duplicateSentences(html), []);
 });
 
+test("the signup line may repeat in the mobile bar", () => {
+  const line = "Early voting numbers, council votes, road closures. "
+    + "Free, weekday mornings.";
+  const embed = "<div class=\"signup-embed\"><noscript>"
+    + "<a href=\"https://example.com\">Subscribe by email</a></noscript></div>";
+  const note = "One email each morning, after you confirm.";
+  const html = page(
+    `<section class="signup signup--lead"><h2>The morning edition</h2>` +
+    `<p class="signup-value">${line}</p>${embed}` +
+    `<p class="signup-note">${note} <a href="/feed.xml">Or follow by RSS</a>.</p></section>` +
+    `<section class="signup signup--bar"><p class="signup-value">${line}</p>` +
+    `<button type="button">Close</button>${embed}` +
+    `<p class="signup-note">${note}</p></section>`
+  );
+  assert.deepEqual(duplicateSentences(html), []);
+});
+
 test("the same sentence in two paragraphs still fails when the title repeats it", () => {
   const html = page(
     `<h1 class="edition-lead-title">${REPEATED} Five days remain.</h1>` +

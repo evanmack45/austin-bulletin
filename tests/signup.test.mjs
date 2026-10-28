@@ -8,7 +8,8 @@ import {
 } from "../src/js/signup.js";
 
 test("the value line is the morning-edition offer", () => {
-  assert.equal(VALUE_LINE, "Austin in 5 minutes, every morning. Free.");
+  assert.equal(VALUE_LINE, "Early voting numbers, council votes, road closures. "
+    + "Free, weekday mornings.");
   assert.equal(newsletter.valueLine, VALUE_LINE);
   assert.equal(newsletter.note, CONFIGURED_NOTE);
   assert.equal(newsletter.barNote, CONFIGURED_NOTE);
@@ -58,6 +59,20 @@ test("the lead action blocks the bar only while it sits in the bar's band", () =
   assert.equal(actionClearOfBar({ top: 700, bottom: 760 }, 800, 300), false);
   assert.equal(actionClearOfBar({ top: 400, bottom: 460 }, 800, 300), true);
   assert.equal(actionClearOfBar({ top: 900, bottom: 940 }, 800, 300), true);
+});
+
+test("the signup button is Bulletin red and the beach photo is hidden", () => {
+  const css = readFileSync(new URL("../src/css/style.css", import.meta.url), "utf8");
+  const hidden = new RegExp(
+    "\\.signup \\.formkit-background,\\s*"
+    + "\\.signup \\.formkit-header \\{ display: none !important; \\}"
+  );
+  const button = new RegExp(
+    "\\.signup \\.formkit-submit \\{\\s*background-color: var\\(--accent\\) !important;\\s*"
+    + "color: #fff !important;\\s*\\}"
+  );
+  assert.match(css, hidden);
+  assert.match(css, button);
 });
 
 test("the signup script does not post an address or nag", () => {

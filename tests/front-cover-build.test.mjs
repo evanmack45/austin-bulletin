@@ -10,17 +10,12 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
     "Before it closes",
     "This week",
     "class=\"front-action\"",
-    "Austin in 5 minutes, every morning. Free."
+    "Early voting numbers, council votes, road closures. Free, weekday mornings."
   ]) assert.ok(html.includes(text), text);
   assert.equal((html.match(/<h1\b/g) || []).length, 1);
-  assert.match(html, /ill-masthead-v2\.jpg/);
-  assert.match(
-    html,
-    /srcset="\/images\/ill-masthead-v2-800\.jpg 800w, \/images\/ill-masthead-v2\.jpg 1280w"/
-  );
-  assert.match(html, /class="masthead-sky"[^>]*sizes="100vw"/);
-  assert.match(html, /class="masthead-sky"[^>]*width="1280" height="720"/);
-  assert.match(html, /class="masthead-sky"[^>]*fetchpriority="low"/);
+  assert.match(html, /class="wordmark"/);
+  assert.match(html, /class="masthead-dateline"/);
+  assert.doesNotMatch(html, /ill-masthead|masthead-sky|austin-skyline/);
   assert.match(html, /alt="Illustration"/);
   assert.match(html, /p-courthouse\.jpg/);
   assert.match(

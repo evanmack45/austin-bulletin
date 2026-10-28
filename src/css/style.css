@@ -798,6 +798,12 @@ body:has(article.bulletin) main { max-width: 48rem; }
   width: 100% !important; max-width: 100% !important; min-width: 0 !important;
 }
 .signup-embed img { width: auto; max-width: 100%; height: auto; }
+.signup .formkit-background,
+.signup .formkit-header { display: none !important; }
+.signup .formkit-submit {
+  background-color: var(--accent) !important;
+  color: #fff !important;
+}
 .signup-dismiss {
   min-height: 44px; padding: .5rem .9rem; border-radius: 0; font: inherit; font-size: 16px;
   font-weight: 700; cursor: pointer;
@@ -822,7 +828,6 @@ body:has(article.bulletin) main { max-width: 48rem; }
   .signup--bar .signup-bar-top { display: flex; align-items: flex-start; gap: .5rem; margin-bottom: .5rem; }
   .signup--bar .signup-value { flex: 1; margin: 0; font-size: .95rem; }
   .signup--bar .signup-note { color: var(--bg); }
-  .signup--bar .formkit-background, .signup--bar .formkit-header { display: none; }
   .signup--bar .signup-dismiss {
     background: transparent; color: var(--bg); border: 1px solid var(--bg); flex: 0 0 auto;
   }
