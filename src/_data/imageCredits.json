@@ -1,14 +1,4 @@
 {
-  "masthead": {
-    "file": "/images/ill-masthead-v2.jpg",
-    "alt": "Illustration",
-    "caption": "Illustration",
-    "kind": "illustration",
-    "width": 1280,
-    "height": 720,
-    "smallSrc": "/images/ill-masthead-v2-800.jpg",
-    "smallWidth": 800
-  },
   "courthouse": {
     "file": "/images/p-courthouse.jpg",
     "alt": "Travis County Courthouse, 2011",

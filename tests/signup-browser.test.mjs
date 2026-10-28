@@ -83,11 +83,12 @@ async function assertDesktopLead(browser, origin) {
   const posts = await blockKit(page);
   await open(page, origin, "/", 1280);
   const box = await page.evaluate(() => {
-    const block = document.querySelector("aside .signup--lead");
+    const block = document.querySelector(".paper-main .signup--lead");
     const script = block.querySelector("script[data-uid='e956043af1']");
     return {
       width: document.documentElement.scrollWidth,
       placed: !!block,
+      inAside: !!document.querySelector("aside .signup--lead"),
       value: block.querySelector(".signup-value").textContent,
       src: script?.src || "",
       barFixed: !!document.querySelector(".signup--bar.is-fixed")
@@ -95,7 +96,8 @@ async function assertDesktopLead(browser, origin) {
   });
   assert.ok(box.width <= 1280, String(box.width));
   assert.equal(box.placed, true);
-  assert.match(box.value, /Austin in 5 minutes, every morning/);
+  assert.match(box.value, /Early voting numbers, council votes, road closures/);
+  assert.equal(box.inAside, false);
   assert.equal(box.src, EMBED);
   assert.equal(box.barFixed, false);
   assert.equal(posts.length, 0);
@@ -106,6 +108,19 @@ async function assertMobileLead(browser, origin) {
   const page = await browser.newPage();
   const posts = await blockKit(page);
   await open(page, origin, "/", 390);
+  const fold = await page.evaluate(() => {
+    const top = document.querySelector(".today-top").getBoundingClientRect();
+    const signup = document.querySelector(".paper-main .signup--lead").getBoundingClientRect();
+    return {
+      topBottom: top.bottom,
+      signupTop: signup.top,
+      vh: window.innerHeight,
+      sky: !!document.querySelector(".masthead-sky, .masthead-banner")
+    };
+  });
+  assert.equal(fold.sky, false);
+  assert.ok(fold.topBottom <= fold.vh, `top 3 below the fold: ${fold.topBottom}`);
+  assert.ok(fold.signupTop < fold.vh * 2, `signup starts at ${fold.signupTop}`);
   await page.evaluate(() => {
     document.querySelector(".signup--lead").scrollIntoView({ block: "center" });
   });
@@ -155,7 +170,7 @@ async function assertMobileBar(browser, origin) {
   }));
   assert.ok(shown.width <= 390, String(shown.width));
   assert.equal(shown.label, "Close");
-  assert.match(shown.value, /Free\.$/);
+  assert.match(shown.value, /Free, weekday mornings\.$/);
   assert.equal(shown.src, EMBED);
   await page.locator(".signup--bar .signup-dismiss").click();
   await page.waitForSelector(".signup--bar.is-fixed", { hidden: true });
