@@ -25,6 +25,7 @@ test("every page uses one menu and links council records in the footer", async (
     assert.match(html, /href="\/about\/"/, file);
     assert.match(html, /href="\/feed.xml"/, file);
     const footer = html.match(/<footer[\s\S]*?<\/footer>/)?.[0] ?? "";
+    assert.match(footer, /<a href="\/feed\.xml">RSS feed<\/a>/, file);
     assert.match(footer, /href="https:\/\/yallcityhall\.org\/"/, file);
     assert.doesNotMatch(html, /Unifraktur|class="folio-nav"|class="edition-head"/, file);
   }

@@ -1,4 +1,6 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs";
+import { copyFile } from "node:fs/promises";
+import path from "node:path";
 import { hasStoryPhoto, leadForStory, storyThumb, withStoryPhotos } from "./scripts/edition-images.mjs";
 import { loadIllustrationAssets } from "./scripts/front-art.mjs";
 import { isoDate, longDate, monthDay, readableDate, shortMonthDay, weekdayName }
@@ -168,6 +170,14 @@ export default function (eleventyConfig) {
     }
   });
 
+  // GitHub Pages has no redirect rules in this repo. /rss.xml is the same
+  // Atom document as /feed.xml, including the canonical self link.
+  eleventyConfig.on("eleventy.after", async ({ dir, outputMode }) => {
+    if (outputMode !== "fs") return;
+    const output = dir.output;
+    await copyFile(path.join(output, "feed.xml"), path.join(output, "rss.xml"));
+  });
+
   eleventyConfig.addFilter("readableDate", readableDate);
   eleventyConfig.addFilter("monthDay", monthDay);
   eleventyConfig.addFilter("weekday", weekdayName);
@@ -278,11 +288,17 @@ export default function (eleventyConfig) {
 
   // Add a subtle trust link next to "The Briefing" heading on new-shape editions.
   // This keeps disclosure off the permanent footer while making it easy to find.
-  eleventyConfig.addTransform("briefingTrustLink", (content, outputPath) => {
+  // Page HTML keeps a root-relative href. The feed re-runs transforms with
+  // baseHref set, and that pass must emit an absolute URL.
+  eleventyConfig.addTransform("briefingTrustLink", function (content, outputPath) {
     if (!outputPath || !outputPath.endsWith(".html")) return content;
     if (!content.includes('id="the-briefing"')) return content;
+    const about = "/about/#trust";
+    const href = typeof this.baseHref === "string" && this.baseHref.startsWith("http")
+      ? new URL(about, this.baseHref).href
+      : about;
     const link =
-      '<span class="briefing-meta"> · <a class="trust-link" href="/about/#trust">About our reporting</a></span>';
+      `<span class="briefing-meta"> · <a class="trust-link" href="${href}">About our reporting</a></span>`;
     return content.replace(
       /(<h2[^>]*id="the-briefing"[^>]*>)([\s\S]*?)(<\/h2>)/,
       (_m, open, inner, close) => `${open}${inner} ${link}${close}`
