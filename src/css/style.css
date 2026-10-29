@@ -781,6 +781,21 @@ body:has(article.bulletin) main { max-width: 48rem; }
   .morning-note {
     font-size: 16px;
   }
+  /* Source lines and photo credits stay small type, but the link itself
+     is a 24px target with a gap so it does not sit on the next control.
+     .river p zeros .to-top's top margin, which left the last credit
+     against Back to top. */
+  .src a,
+  .source-line a,
+  figcaption a {
+    display: inline-flex;
+    align-items: center;
+    box-sizing: border-box;
+    min-width: 24px;
+    min-height: 24px;
+    margin-block: 4px;
+  }
+  .river p.to-top { margin-top: 12px; }
 }
 @media (max-width: 40rem) {
   .bulletin .lead-photo { width: calc(100% + 2.5rem); margin-left: -1.25rem; margin-right: -1.25rem; }
