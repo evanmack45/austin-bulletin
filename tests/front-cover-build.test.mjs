@@ -34,8 +34,8 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
     html,
     /ill-before-it-closes\.jpg" alt="Illustration" width="320" height="320" loading="lazy"/
   );
-  assert.match(html, /Tuesday, Oct\. 27/);
-  assert.match(html, /30\.62%/);
+  assert.match(html, /Thursday, Oct\. 29/);
+  assert.match(html, /37\.98%/);
   assert.doesNotMatch(html, /If you (haven't|want|live|are)\b/);
   assert.doesNotMatch(html, /\bhousing\b/i);
   assert.ok(!html.includes("front-news-rail"), "the rail is gone");
