@@ -33,6 +33,10 @@ A request to change one goes above, with the reason.
 
 ## Entries
 
+### 2026-10-29 (header nav)
+
+Readers were treating the homepage and the other pages as different sites, and there was no way to browse sections. Every page now uses the same masthead nav: Today, Vote 2026, City Hall, Topics, Archive, About. Topics reveals only hubs that already exist: Bonds, Charter, Budget, Muny, Zilker. There is no City Hall section in this repo, so that link goes to https://yallcityhall.org/. Below 640px the row collapses behind Menu. The control is a link to `#site-menu-panel`, so it opens with CSS alone; the script sets `aria-expanded` when it toggles. The Kit blocks are unchanged. The design-change clock restarts at 2026-10-29. The next reader-facing design change waits until 2026-11-12.
+
 ### 2026-10-29
 
 The county drops older `G26-Daily-Totals` PDFs. The newest file still carries the earlier daily columns, so a dead link can move to that file without a correction and without changing the sentence. Do not mix a newer day's total into an older edition's text.

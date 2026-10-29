@@ -32,7 +32,10 @@ test("edition pages use the homepage masthead and do not reference a blackletter
   assert.match(header(home), /href="\/"/);
   assert.match(header(home), /href="\/vote-2026\/"/);
   assert.match(header(home), /href="\/archive\/"/);
-  assert.match(header(home), /href="\/subscribe\/"/);
+  assert.match(header(home), /href="\/about\/"/);
+  assert.match(header(home), />Vote 2026</);
+  assert.match(header(home), /href="https:\/\/yallcityhall\.org\/"/);
+  assert.doesNotMatch(header(home), /href="\/subscribe\/"/);
   assert.match(home, /class="cover-chrome home-front"/);
   assert.match(edition, /class="cover-chrome edition-page"/);
   const homeCss = linkedStyles(home);

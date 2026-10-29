@@ -25,8 +25,8 @@
   <meta name="twitter:image" content="{{ meta.image | escape }}">
   <meta name="twitter:image:alt" content="{{ meta.imageAlt | escape }}">
 {% if meta.type == "article" %}  <script type="application/ld+json">{{ meta | articleJsonLd(page.date) | safe }}</script>
-{% endif %}  <link rel="stylesheet" href="/css/style.css">{% if homeFront or editionPage %}
-  <link rel="stylesheet" href="/css/front-cover.css">{% endif %}
+{% endif %}  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/front-cover.css">
   <link rel="icon" href="/favicon.ico" sizes="32x32">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -34,15 +34,8 @@
   <meta name="theme-color" content="#1b1b1b">
   <link rel="alternate" type="application/atom+xml" title="The Austin Bulletin" href="/feed.xml">
 </head>
-<body{% if homeFront or editionPage %} class="cover-chrome{% if homeFront %} home-front{% endif %}{% if editionPage %} edition-page{% endif %}"{% endif %} id="top">
-  {% if homeFront or editionPage %}
+<body class="cover-chrome{% if homeFront %} home-front{% endif %}{% if editionPage %} edition-page{% endif %}" id="top">
   {% include "masthead.njk" %}
-  {% else %}
-  <header class="front-masthead">
-    <a class="wordmark" href="/">Austin Bulletin<span class="masthead-dot" aria-hidden="true">.</span></a>
-    {% include "site-nav.njk" %}
-  </header>
-  {% endif %}
   <main>
     {{ content | safe }}
   </main>
@@ -94,6 +87,7 @@
       }
     }());
   </script>
+  <script type="module" src="/js/site-nav.js"></script>
   <script type="module" src="/js/signup.js"></script>
 </body>
 </html>

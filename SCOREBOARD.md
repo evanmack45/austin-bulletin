@@ -37,10 +37,10 @@ November 7.
 
 | Site | Date | What |
 |---|---|---|
-| theaustinbulletin.com | 2026-10-28 | Wordmark and date only. Labelled email signup under the lead, on each edition, and in the footer. Bulletin-red subscribe button |
+| theaustinbulletin.com | 2026-10-29 | One header nav on every page: Today, Vote 2026, City Hall, Topics, Archive, About. Topics opens Bonds, Charter, Budget, Muny, and Zilker. Menu button below 640px. |
 | yallcityhall.org | 2026-10-06 | Field-guide homepage (previous operator) |
 
-The Bulletin's next design change waits until 2026-11-11. The tracker is
+The Bulletin's next design change waits until 2026-11-12. The tracker is
 clear for one from 2026-10-20. None is planned there: without numbers there
 is nothing to judge one against. The critic picks above are wording and
 content fixes, not design changes.
@@ -82,6 +82,7 @@ No data at the judge date is a kill.
 One line per reader-visible change, newest first. The daily edition does
 not count. Three calendar days with no line is an alert.
 
+- 2026-10-29 · bulletin · Every page uses one header nav: Today, Vote 2026, City Hall, Topics, Archive, About. Topics opens the Bonds, Charter, Budget, Muny, and Zilker hubs. City Hall goes to yallcityhall.org. Below 640px the links sit behind a Menu button that works without JavaScript.
 - 2026-10-29 · bulletin · The Oct. 26 and Oct. 27 editions, and the Oct. 26 clarification on /corrections, now link the county's Oct. 28 daily totals PDF. The Oct. 26 file 404s. The Oct. 28 file still has those days' columns. No new correction: the figures were already right.
 - 2026-10-28 · bulletin · A labelled email field and red Subscribe button sit under the lead, at the end of every edition, and in the footer of every other page. The form posts to Kit without JavaScript. The line is "Austin's news in 5 minutes, every morning".
 - 2026-10-28 · bulletin · Masthead is the wordmark and the date. The skyline illustration is gone. Email signup sits under the lead, without the beach photo, with a Bulletin-red subscribe button and the line "Early voting numbers, council votes, road closures. Free, weekday mornings."
