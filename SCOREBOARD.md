@@ -82,6 +82,7 @@ No data at the judge date is a kill.
 One line per reader-visible change, newest first. The daily edition does
 not count. Three calendar days with no line is an alert.
 
+- 2026-10-29 · bulletin · The Oct. 26 and Oct. 27 editions, and the Oct. 26 clarification on /corrections, now link the county's Oct. 28 daily totals PDF. The Oct. 26 file 404s. The Oct. 28 file still has those days' columns. No new correction: the figures were already right.
 - 2026-10-28 · bulletin · A labelled email field and red Subscribe button sit under the lead, at the end of every edition, and in the footer of every other page. The form posts to Kit without JavaScript. The line is "Austin's news in 5 minutes, every morning".
 - 2026-10-28 · bulletin · Masthead is the wordmark and the date. The skyline illustration is gone. Email signup sits under the lead, without the beach photo, with a Bulletin-red subscribe button and the line "Early voting numbers, council votes, road closures. Free, weekday mornings."
 - 2026-10-27 · bulletin · Oct. 26 turnout line now includes 733 limited ballots, on the edition and /corrections, and the dead daily-totals PDF points at the Oct. 26 file. The Oct. 12 drug take-back line cites the Statesman after the county page came down

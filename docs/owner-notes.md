@@ -33,6 +33,10 @@ A request to change one goes above, with the reason.
 
 ## Entries
 
+### 2026-10-29
+
+The county drops older `G26-Daily-Totals` PDFs. The newest file still carries the earlier daily columns, so a dead link can move to that file without a correction and without changing the sentence. Do not mix a newer day's total into an older edition's text.
+
 ### 2026-10-28 (signup form)
 
 The publisher asked for the morning-edition form on every page. The same `signup.njk` block now posts `email_address` to `https://app.kit.com/forms/10083630/subscriptions` with a real Email label, so it works with JavaScript off. It stays under the lead, at the end of each edition, and in the footer everywhere else. The line is "Austin's news in 5 minutes, every morning". On a desktop the lead photo sits in the side column so that form is inside the first 900px; the phone keeps the photo in the story and the form within two screens. The October 24 note still stands: a direct post once hit Kit's bot wall. This request asked for that post as the form. Do not send a test address. The design-change clock stays at 2026-10-28.
