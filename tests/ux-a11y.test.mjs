@@ -124,10 +124,24 @@ test("phones use 16px body text and 44px menu, footer, and action targets", {
           .filter((el) => !el.classList.contains("front-kicker") &&
             el.getBoundingClientRect().height > 0)
           .map((el) => parseFloat(getComputedStyle(el).fontSize));
-        return { heights, minText: texts.length ? Math.min(...texts) : 16 };
+        const credits = [...document.querySelectorAll(".src a, .source-line a, figcaption a")]
+          .map((el) => {
+            const box = el.getBoundingClientRect();
+            return { width: box.width, height: box.height };
+          })
+          .filter((box) => box.width > 0 && box.height > 0);
+        return {
+          heights,
+          minText: texts.length ? Math.min(...texts) : 16,
+          credits,
+        };
       });
       assert.ok(measure.heights.every((height) => height >= 44), route);
       assert.ok(measure.minText >= 16, `${route} body ${measure.minText}`);
+      const tiny = measure.credits
+        .filter((box) => box.width < 24 || box.height < 24)
+        .map((box) => `${box.width}x${box.height}`);
+      assert.deepEqual(tiny, [], `${route} credit targets`);
       await page.close();
     }
   } finally {
