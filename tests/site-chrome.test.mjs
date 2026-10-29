@@ -31,6 +31,36 @@ test("every page uses one menu and links council records in the footer", async (
   }
 });
 
+function publicationNav(html) {
+  const match = html.match(/<nav class="site-nav"[\s\S]*?<\/nav>/);
+  assert.ok(match, "page is missing the publication nav");
+  return match[0];
+}
+
+test("home, today's edition, and Vote 2026 share one nav", async () => {
+  const home = publicationNav(await readFile("_site/index.html", "utf8"));
+  const edition = publicationNav(await readFile("_site/2026/10/29/index.html", "utf8"));
+  const vote = publicationNav(await readFile("_site/vote-2026/index.html", "utf8"));
+  assert.equal(edition, home);
+  assert.equal(vote, home);
+  assert.match(home, /class="site-menu-button"/);
+  assert.match(home, /aria-expanded="false"/);
+  assert.match(home, /aria-controls="site-menu-panel"/);
+  assert.match(home, /href="#site-menu-panel"/);
+  for (const label of ["Today", "Vote 2026", "City Hall", "Topics", "Archive", "About",
+    "Bonds", "Charter", "Budget", "Muny", "Zilker"]) {
+    assert.match(home, new RegExp(`>${label}<`));
+  }
+  assert.doesNotMatch(home, />TODAY<|>VOTE 2026<|>CITY HALL</);
+  assert.match(home, /href="https:\/\/yallcityhall\.org\/"/);
+  for (const href of ["/austin-bonds-2026/", "/austin-charter-2026/",
+    "/austin-city-budget-2027/", "/muny-2026/", "/zilker-park-access/",
+    "/archive/", "/about/", "/vote-2026/"]) {
+    assert.match(home, new RegExp(`href="${href.replaceAll("/", "\\/")}"`));
+  }
+  assert.doesNotMatch(home, /href="\/subscribe\/"/);
+});
+
 test("topic pages and the October 24 edition share that menu", async () => {
   for (const route of ["vote-2026/index.html", "austin-bonds-2026/index.html",
     "muny-2026/index.html", "2026/10/24/index.html"]) {
@@ -39,7 +69,9 @@ test("topic pages and the October 24 edition share that menu", async () => {
     assert.match(html, /Austin Bulletin/);
     assert.doesNotMatch(html, /Austin, up close/);
     assert.match(html, /href="\/vote-2026\/"/);
-    assert.match(html, /href="\/subscribe\/"/);
+    assert.match(html, /href="\/about\/"/);
+    assert.match(html, /href="https:\/\/yallcityhall\.org\/"/);
+    assert.match(html, /class="topics-panel"/);
   }
   const edition = await readFile("_site/2026/10/24/index.html", "utf8");
   assert.match(edition, /class="edition-lead-title"/);

@@ -37,8 +37,10 @@ line. It does not carry an illustration. `npm run check` fails an edition from
 past 10 words, or an image lacks a credit or an illustration label.
 
 The dated-briefing line lives on About. Standing guides live on the
-archive, under "Keep these close." The masthead is four links: Today,
-Election, Archive, Subscribe. About and RSS stay in the footer.
+archive, under "Keep these close." The masthead is Today, Vote 2026,
+City Hall, Topics, Archive, and About. Topics lists Bonds, Charter,
+Budget, Muny, and Zilker. City Hall goes to Y'all, City Hall. RSS
+stays in the footer.
 
 Older curation packets under `src/_data/frontpages/` still have to
 validate. They do not print. Do not modify a dated edition to make an old

@@ -18,9 +18,14 @@ function serveBuiltSite() {
       return;
     }
     try {
-      const type = file.endsWith(".css") ? "text/css"
-        : file.endsWith(".svg") ? "image/svg+xml"
-          : file.endsWith(".webp") ? "image/webp" : "text/html";
+      const types = {
+        ".css": "text/css",
+        ".js": "text/javascript",
+        ".svg": "image/svg+xml",
+        ".webp": "image/webp",
+        ".woff2": "font/woff2"
+      };
+      const type = types[path.extname(file)] || "text/html";
       response.writeHead(200, { "Content-Type": type }).end(readFileSync(file));
     } catch {
       response.writeHead(404).end();
@@ -109,10 +114,18 @@ test("phones use 16px body text and 44px menu, footer, and action targets", {
       await page.setViewport({ width: 390, height: 844 });
       const origin = `http://127.0.0.1:${server.address().port}`;
       await page.goto(origin + route, { waitUntil: "networkidle0" });
-      const button = await page.$eval(".site-menu-button", (el) =>
-        el.getBoundingClientRect().height);
-      assert.ok(button >= 44, `${route} menu button ${button}`);
+      const button = await page.$eval(".site-menu-button", (el) => ({
+        height: el.getBoundingClientRect().height,
+        expanded: el.getAttribute("aria-expanded"),
+        fontSize: parseFloat(getComputedStyle(el).fontSize)
+      }));
+      assert.ok(button.height >= 44, `${route} menu button ${button.height}`);
+      assert.equal(button.expanded, "false", route);
+      assert.ok(button.fontSize >= 16, `${route} menu label ${button.fontSize}`);
       await page.click(".site-menu-button");
+      const expanded = await page.$eval(".site-menu-button", (el) =>
+        el.getAttribute("aria-expanded"));
+      assert.equal(expanded, "true", route);
       const measure = await page.evaluate(() => {
         const selector = ".site-menu-panel a, .site-footer a, .front-action, .beat-nav a";
         const heights = [...document.querySelectorAll(selector)]

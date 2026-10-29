@@ -129,7 +129,18 @@ async function assertDesktopLead(browser, origin) {
   assert.equal(box.method, "post");
   assert.equal(box.name, "email_address");
   assert.match(box.wordmark, /The Austin Bulletin/);
-  assert.deepEqual(box.nav, ["/", "/vote-2026/", "/archive/", "/subscribe/"]);
+  assert.deepEqual(box.nav, [
+    "/",
+    "/vote-2026/",
+    "https://yallcityhall.org/",
+    "/austin-bonds-2026/",
+    "/austin-charter-2026/",
+    "/austin-city-budget-2027/",
+    "/muny-2026/",
+    "/zilker-park-access/",
+    "/archive/",
+    "/about/"
+  ]);
   assert.equal(posts.length, 0);
   await page.close();
 }

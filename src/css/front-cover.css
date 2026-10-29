@@ -4,7 +4,10 @@
   color: #1b1b1b;
 }
 .home-front main { max-width: 1120px; margin: 0 auto; padding: 8px 32px 64px; }
+.cover-chrome { background: #f6f1e7; }
 .cover-chrome .front-masthead {
+  position: relative;
+  z-index: 20;
   max-width: none;
   margin: 0;
   padding: 0;
@@ -81,12 +84,21 @@
   font-family: Hanken, Arial, sans-serif;
   justify-content: flex-start;
 }
-.cover-chrome .site-menu-panel a {
+.cover-chrome .front-masthead .site-menu-panel a,
+.cover-chrome .front-masthead .topics-button {
   margin-left: 0;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
   min-height: 44px;
+  text-transform: none;
 }
+.cover-chrome .front-masthead .topics-panel,
+.cover-chrome .front-masthead .site-menu-panel.is-open,
+.cover-chrome .front-masthead .site-menu-panel:target { background: #f6f1e7; }
+@media (min-width: 641px) {
+  .cover-chrome .front-masthead .topics-panel a { padding: 0 16px; }
+}
+.cover-chrome .site-menu-button { background: #f6f1e7; }
 .today-top {
   margin: 0;
   padding-bottom: 2px;
@@ -261,16 +273,16 @@
   .cover-chrome .front-masthead .wordmark { font-size: 32px; white-space: normal; max-width: 100%; }
   .cover-chrome .front-masthead .masthead-dateline { text-align: left; margin: 0; }
   .masthead-inner { padding: 0 16px; }
-  .cover-chrome .site-menu-toggle:checked ~ .site-menu-panel { left: 0; right: auto; }
   .num { font-size: 56px; }
   .home-front .front-lead h1 { font-size: 32px; }
 }
-@media (max-width: 650px) {
-  .cover-chrome .front-masthead nav {
-    justify-content: space-between;
-    gap: .3rem;
+@media (max-width: 640px) {
+  .cover-chrome .site-menu-panel.is-open,
+  .cover-chrome .site-menu-panel:target,
+  .cover-chrome .site-menu-button[aria-expanded="true"] + .site-menu-panel {
+    left: 0;
+    right: auto;
   }
-  .cover-chrome .front-masthead nav a { padding: 0 .15rem; font-size: .82rem; }
 }
 
 /* Dated editions share the homepage masthead, type, and paper color.

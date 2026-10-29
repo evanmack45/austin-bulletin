@@ -1,12 +1,25 @@
 <nav class="site-nav" aria-label="Publication">
   <div class="site-menu">
-    <input class="site-menu-toggle" type="checkbox" id="site-menu-toggle" aria-label="Menu">
-    <label class="site-menu-button" for="site-menu-toggle">Menu</label>
-    <div class="site-menu-panel">
+    <a class="site-menu-button" href="#site-menu-panel" role="button" aria-expanded="false" aria-controls="site-menu-panel">Menu</a>
+    <div class="site-menu-panel" id="site-menu-panel">
       <a href="/">Today</a>
-      <a href="/vote-2026/">Election</a>
+      <a href="/vote-2026/">Vote 2026</a>
+      <a href="https://yallcityhall.org/">City Hall</a>
+      <div class="topics">
+        <details class="topics-menu">
+          <summary class="topics-button">Topics</summary>
+        </details>
+        <div class="topics-label">Topics</div>
+        <div class="topics-panel">
+          <a href="/austin-bonds-2026/">Bonds</a>
+          <a href="/austin-charter-2026/">Charter</a>
+          <a href="/austin-city-budget-2027/">Budget</a>
+          <a href="/muny-2026/">Muny</a>
+          <a href="/zilker-park-access/">Zilker</a>
+        </div>
+      </div>
       <a href="/archive/">Archive</a>
-      <a href="/subscribe/">Subscribe</a>
+      <a href="/about/">About</a>
     </div>
   </div>
 </nav>
