@@ -7,8 +7,13 @@ test("shared footer offers clearly labeled council records on home and dated edi
   for (const route of ["index.html", "2026/10/04/index.html", "about/index.html"]) {
     const html = readFileSync(`_site/${route}`, "utf8");
     const footer = html.match(/<footer[\s\S]*?<\/footer>/)?.[0] ?? "";
-    assert.match(footer, /Council records:/);
-    assert.match(footer, /href="https:\/\/yallcityhall\.org\/"[^>]*>Y.all, City Hall<\/a>/);
+    assert.match(footer, /href="\/about\/"[^>]*>About<\/a>/);
+    assert.match(footer, /href="\/corrections\/"[^>]*>Corrections<\/a>/);
+    assert.match(footer, /href="mailto:contact@theaustinbulletin\.com"/);
+    assert.match(
+      footer,
+      /yallcityhall\.org\/"[^>]*>Y.all City Hall: what council did</
+    );
     assert.match(footer, /href="\/feed.xml"/);
     assert.doesNotMatch(footer, /council.{0,20}alerts|newsletter|endorse/i);
   }
