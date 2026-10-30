@@ -307,6 +307,27 @@ figcaption { font-size: 0.85rem; color: var(--muted); }
   font-size: 16px;
 }
 .site-footer a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 0.2rem; }
+.trust-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.15rem 0.35rem;
+  max-width: 40rem;
+  margin: 0.35rem auto 0;
+}
+.trust-footer a {
+  flex: 0 1 auto;
+  max-width: 100%;
+  min-width: 24px;
+  min-height: 44px;
+  padding: 0.35rem 0.45rem;
+  font-size: 16px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+  text-align: center;
+  color: var(--ink);
+}
 .archive-list { list-style: none; padding: 0; }
 .archive-list li { padding: 0.65rem 0; border-bottom: 1px solid var(--rule); }
 .archive-list a { text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; }
