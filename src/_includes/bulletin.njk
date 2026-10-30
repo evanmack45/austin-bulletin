@@ -12,7 +12,7 @@ hasInlineSignup: true
   {{ images | leadForStory(top.storyKey) | safe }}
   {% set glanceData = glance[editionDate | isoDate] %}
   {% include "glance.njk" %}
-  {{ content | withStoryPhotos(images, top.storyKey) | safe }}
+  {{ content | withStoryPhotos(images, top.storyKey) | withCouncilMeetings(editionIso) | safe }}
 </article>
 {% set signupId = "edition" %}
 {% include "signup.njk" %}

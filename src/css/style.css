@@ -287,6 +287,24 @@ h3 { font-size: 1.7rem; font-weight: 800; letter-spacing: -0.01em; margin: 2.2re
   color: var(--muted);
 }
 .source-line a { text-decoration: underline; text-underline-offset: 0.15em; }
+.council-did,
+.bulletin .council-did {
+  margin: 0.7rem 0 0.5rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.council-did a {
+  color: var(--link);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  min-width: 24px;
+  min-height: 24px;
+  padding-block: 2px;
+}
 .correction { background: #efe3cd; border: 1px solid #cdb98f; padding: 0.75rem 1rem; }
 figcaption { font-size: 0.85rem; color: var(--muted); }
 #in-brief + ul li { margin-bottom: 0.5rem; }
@@ -876,16 +894,19 @@ body:has(article.bulletin) main { max-width: 48rem; }
   .whats-next,
   .voice-text,
   .good-thing,
-  .morning-note {
+  .morning-note,
+  .council-did {
     font-size: 16px;
   }
   /* Source lines and photo credits stay small type, but the link itself
      is a 24px target with a gap so it does not sit on the next control.
      .river p zeros .to-top's top margin, which left the last credit
-     against Back to top. */
+     against Back to top. The council line is body text; its link is
+     the same 24px target. */
   .src a,
   .source-line a,
-  figcaption a {
+  figcaption a,
+  .council-did a {
     display: inline-flex;
     align-items: center;
     box-sizing: border-box;

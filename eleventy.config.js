@@ -11,6 +11,9 @@ import { HtmlBasePlugin } from "@11ty/eleventy";
 import { feedPlugin } from "@11ty/eleventy-plugin-rss";
 import markdownItAnchor from "markdown-it-anchor";
 import { slug as beatSlug } from "./scripts/river.mjs";
+import {
+  cachedLiveMeetings, withCouncilMeetingLinks, withPreviewMeetingHtml
+} from "./scripts/council-meetings.mjs";
 
 import { SITE_URL, articleJsonLd, briefingHeadline, canonicalUrl, editionGap, pageMetadata, sitemapPages, xmlEscape }
   from "./scripts/metadata.mjs";
@@ -120,6 +123,10 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("storyThumb", (images, url) => storyThumb(images, url, editionImageExists));
   eleventyConfig.addFilter("withStoryPhotos", (content, images, leadKey) =>
     withStoryPhotos(content, images, editionImageExists, leadKey));
+  eleventyConfig.addAsyncFilter("withCouncilMeetings", async (html, editionDate) =>
+    withCouncilMeetingLinks(html, editionDate, await cachedLiveMeetings()));
+  eleventyConfig.addAsyncFilter("withPreviewMeeting", async (html, url, councilMeeting) =>
+    withPreviewMeetingHtml(html, url, councilMeeting, await cachedLiveMeetings()));
   eleventyConfig.addFilter("forecastAlerts", forecastAlerts);
   eleventyConfig.addFilter("previousPublishedEdition", (previous, latest) => previous ?
     previousPublishedEdition({ date: previous.date.toISOString().slice(0, 10), url: previous.url,
@@ -421,6 +428,8 @@ export default function (eleventyConfig) {
     "bigstory",
     (content) => `<section class="big-story">\n${md.render(content)}</section>`
   );
+
+  cachedLiveMeetings();
 
   return {
     dir: { input: "src", includes: "_includes", output: "_site" },
