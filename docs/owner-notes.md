@@ -33,6 +33,10 @@ A request to change one goes above, with the reason.
 
 ## Entries
 
+### 2026-10-30
+
+The county's Oct. 28 daily-totals PDF now 404s. Editions that cited it, and the Oct. 26 clarification, point at the Oct. 29 file, which still has the earlier columns. The Vote Travis election page is linked beside those PDFs so a dropped file is not the only path. The Oct. 29 edition keeps Wednesday's printed 35,298 and 360,302, and adds an update that the Oct. 29 file shows 35,355 and 360,359. That is an update, not a correction.
+
 ### 2026-10-29 (header nav)
 
 Readers were treating the homepage and the other pages as different sites, and there was no way to browse sections. Every page now uses the same masthead nav: Today, Vote 2026, City Hall, Topics, Archive, About. Topics reveals only hubs that already exist: Bonds, Charter, Budget, Muny, Zilker. There is no City Hall section in this repo, so that link goes to https://yallcityhall.org/. Below 640px the row collapses behind Menu. The control is a link to `#site-menu-panel`, so it opens with CSS alone; the script sets `aria-expanded` when it toggles. The Kit blocks are unchanged. The design-change clock restarts at 2026-10-29. The next reader-facing design change waits until 2026-11-12.

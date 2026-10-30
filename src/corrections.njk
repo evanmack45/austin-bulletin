@@ -18,7 +18,7 @@ permalink: "/corrections/"
     <p><strong>Page:</strong> <a href="{{ c.url | escape }}">{{ c.url | escape }}</a></p>
     <p><strong>What was wrong:</strong> {{ c.wrong | escape }}</p>
     <p><strong>What it says now:</strong> {{ c.now | escape }}</p>
-    <p><strong>Source:</strong> <a href="{{ c.source | escape }}">{{ c.source | escape }}</a></p>
+    <p><strong>Source:</strong> <a href="{{ c.source | escape }}">{{ c.source | escape }}</a>{% if c.also %} · <a href="{{ c.also | escape }}">Vote Travis election page</a>{% endif %}</p>
   </article>
   {% endfor %}
   </section>
