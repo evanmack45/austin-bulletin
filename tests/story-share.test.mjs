@@ -54,7 +54,9 @@ test("share controls are a 24px target in the muted ink", async () => {
   assert.match(rule[0], /min-width: 24px;/);
   assert.match(rule[0], /min-height: 24px;/);
   assert.match(rule[0], /color: var\(--muted\);/);
-  assert.match(css, /\.story-share-button\[hidden\],\n\.story-share-link\[hidden\] \{ display: none; \}/);
+  const hidden = "\\.story-share-button\\[hidden\\],\\n" +
+    "\\.story-share-link\\[hidden\\] \\{ display: none; \\}";
+  assert.match(css, new RegExp(hidden));
 });
 
 test("the share sheet gets the story title and permalink", async () => {
