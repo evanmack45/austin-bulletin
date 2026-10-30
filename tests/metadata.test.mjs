@@ -18,28 +18,71 @@ test("canonical URLs retain production routes and normalize query, fragment and 
   assert.throws(() => canonicalUrl("//example.com/"));
 });
 
-test("edition sharing uses an honest rendered lead excerpt and a modest brand icon", () => {
+test("edition sharing uses the lead headline, excerpt, and existing image", () => {
   const meta = pageMetadata("/2026/10/04/", "The Austin Bulletin — October 4", body);
   assert.match(meta.title, /Park access & repairs/);
   assert.match(meta.title, /October 4, 2026/);
+  assert.equal(meta.ogTitle, "Park access & repairs");
   assert.equal(meta.description,
     "The city lists open amenities. A reopening date remains unconfirmed.");
   assert.equal(meta.type, "article");
-  assert.equal(meta.image, "https://theaustinbulletin.com/icon-512.png");
-  assert.equal(meta.card, "summary");
+  assert.equal(meta.ogType, "article");
+  assert.equal(meta.image, "https://theaustinbulletin.com/example.png");
+  assert.equal(meta.imageAlt, "Not a story thumbnail");
+  assert.equal(meta.card, "summary_large_image");
 });
 
-test("homepage keeps root canonical while its excerpt follows the current edition", () => {
+test("a lead photograph is the share image ahead of a later story graphic", () => {
+  const html = `<figure class="lead-photo"><img src="/images/p-courthouse.jpg" ` +
+    `alt="Travis County Courthouse, 2011"></figure>` +
+    `<section class="big-story"><h3>Early voting</h3><p>People had voted.</p>` +
+    `<img src="/images/2026-10-30/early-ballots.png" alt="Chart"></section>`;
+  const meta = pageMetadata("/2026/10/30/", "Edition", html);
+  assert.equal(meta.image, "https://theaustinbulletin.com/images/p-courthouse.jpg");
+  assert.equal(meta.imageAlt, "Travis County Courthouse, 2011");
+});
+
+test("an off-site image is not used as the share card", () => {
+  const html = `<section class="big-story"><h3>Early voting</h3>` +
+    `<img src="https://example.com/photo.jpg" alt="Elsewhere"><p>People had voted.</p></section>`;
+  const meta = pageMetadata("/2026/10/30/", "Edition", html);
+  assert.equal(meta.image, "https://theaustinbulletin.com/icon-512.png");
+  assert.equal(meta.card, "summary_large_image");
+});
+
+test("homepage keeps root canonical while its card follows the current edition", () => {
   const meta = pageMetadata("/", "Today", body);
   assert.equal(meta.canonical, "https://theaustinbulletin.com/");
   assert.equal(meta.type, "website");
+  assert.equal(meta.ogType, "article");
+  assert.equal(meta.ogTitle, "Park access & repairs");
   assert.match(meta.title, /Park access/);
+  assert.equal(meta.image, "https://theaustinbulletin.com/example.png");
+  assert.equal(meta.card, "summary_large_image");
+});
+
+test("the homepage card uses the front lead headline and photograph", () => {
+  const html = `<section class="front-lead" id="front-lead">` +
+    `<h1 id="front-lead-title">Last day of early voting</h1>` +
+    `<figure class="lead-photo"><img src="/images/p-courthouse.jpg" ` +
+    `alt="Travis County Courthouse, 2011"></figure>` +
+    `<p class="front-deck">Through Thursday, 41.98 percent had voted.</p></section>`;
+  const meta = pageMetadata("/", "Austin Bulletin", html, "What changed in Austin this morning.");
+  assert.equal(meta.ogTitle, "Last day of early voting");
+  assert.equal(meta.ogType, "article");
+  assert.equal(meta.canonical, "https://theaustinbulletin.com/");
+  assert.equal(meta.description, "What changed in Austin this morning.");
+  assert.equal(meta.image, "https://theaustinbulletin.com/images/p-courthouse.jpg");
 });
 
 test("legacy pages without reliable lead extraction use a generic factual fallback", () => {
   const meta = pageMetadata("/2026/08/23/", "Old edition", "<p>Unrelated footer.</p>");
   assert.equal(meta.description, "A daily, neutral news bulletin for Austin and Texas.");
   assert.doesNotMatch(meta.description, /Unrelated/);
+  assert.equal(meta.image, "https://theaustinbulletin.com/icon-512.png");
+  assert.equal(meta.imageAlt, "The Austin Bulletin brand icon");
+  assert.equal(meta.card, "summary_large_image");
+  assert.equal(meta.ogType, "article");
 });
 
 test("explicit utility descriptions remain supported for future static guides", () => {

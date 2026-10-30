@@ -33,7 +33,13 @@ test("built content pages have their own escaped canonical and social metadata",
     const url = `/${path.relative("_site", file).replace(/index\.html$/, "")}`;
     assert.ok(source.includes(`rel="canonical" href="https://theaustinbulletin.com${url}"`), file);
     assert.match(source, /property="og:description" content="[^"]+"/);
-    assert.match(source, /name="twitter:card" content="summary"/);
+    const edition = url === "/" || /^\/\d{4}\/\d{2}\/\d{2}\/$/.test(url);
+    const card = edition ? "summary_large_image" : "summary";
+    assert.match(source, new RegExp(`name="twitter:card" content="${card}"`));
+    if (edition) {
+      assert.match(source, /property="og:type" content="article"/);
+      assert.match(source, /property="og:image" content="https:\/\/theaustinbulletin\.com\/[^"]+"/);
+    }
   }
 });
 

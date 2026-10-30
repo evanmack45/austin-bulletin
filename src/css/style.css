@@ -446,7 +446,8 @@ h2.glance-title::after { content: none; }
    column (the old wide-screen bleed clipped chart titles at the right edge
    — Evan, 2026-08-29). */
 .bulletin h3:first-of-type { font-size: 2.3rem; line-height: 1.12; }
-.bulletin h3 + p img { margin-top: 0.2rem; }
+.bulletin h3 + p img,
+.bulletin .story-share + p img { margin-top: 0.2rem; }
 
 /* "What's next" line under each story */
 .whats-next { margin: 0.7rem 0 0.5rem; font-size: 0.98rem; }
@@ -565,7 +566,46 @@ h2.glance-title::after { content: none; }
   display: inline-block;
   text-transform: uppercase;
 }
-.river h5 + p { margin-bottom: 1.1rem; }
+.river h5 + p,
+.river .story-share + p,
+.river .story-share + figure + p { margin-bottom: 1.1rem; }
+
+.story-share {
+  display: flex;
+  align-items: center;
+  clear: both;
+  margin: 0.15rem 0 0.45rem;
+  font-family: Hanken, Arial, sans-serif;
+  font-size: 0.8rem;
+  line-height: 1;
+}
+.story-share-button,
+.story-share-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  min-height: 24px;
+  padding: 0 2px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  cursor: pointer;
+}
+.story-share-button[hidden],
+.story-share-link[hidden] { display: none; }
+.story-share-button:focus-visible,
+.story-share-link:focus-visible {
+  outline: 3px solid var(--mark);
+  outline-offset: 3px;
+}
+.story-share-status:not(:empty) {
+  margin-left: 0.4rem;
+  color: var(--muted);
+}
 
 /* Tiered City Desk (editions with lead headlines): after a beat's leads,
    an "Also" label opens the run of briefs, and briefs read as their own
@@ -578,14 +618,14 @@ h2.glance-title::after { content: none; }
   color: var(--muted);
   margin: 1.15rem 0 0.55rem;
 }
-.river--tiered p:has(.src):not(h5 + p) {
+.river--tiered p:has(.src):not(h5 + p):not(.story-share + p):not(.story-share + figure + p) {
   font-size: 0.9rem;
   line-height: 1.42;
   margin: 0 0 0.5rem 1.1rem;
   position: relative;
   color: #2a241d; /* slightly lighter than --ink to keep leads primary */
 }
-.river--tiered p:has(.src):not(h5 + p)::before {
+.river--tiered p:has(.src):not(h5 + p):not(.story-share + p):not(.story-share + figure + p)::before {
   content: "\2014";
   color: var(--accent);
   position: absolute;
@@ -593,7 +633,7 @@ h2.glance-title::after { content: none; }
 }
 /* A chart attached to a brief tucks to the brief's own margin, tight
    under it, so it reads as that entry's exhibit — not a floating peer. */
-.river--tiered p:has(.src):not(h5 + p) + figure.graphic {
+.river--tiered p:has(.src):not(h5 + p):not(.story-share + p):not(.story-share + figure + p) + figure.graphic {
   margin: 0.4rem 0 1.15rem 1.1rem;
 }
 
@@ -890,7 +930,7 @@ body:has(article.bulletin) main { max-width: 48rem; }
 @media (max-width: 760px) {
   .bulletin p,
   .river p,
-  .river--tiered p:has(.src):not(h5 + p),
+  .river--tiered p:has(.src):not(h5 + p):not(.story-share + p):not(.story-share + figure + p),
   .whats-next,
   .voice-text,
   .good-thing,
