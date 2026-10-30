@@ -17,6 +17,7 @@ import {
 
 import { SITE_URL, articleJsonLd, briefingHeadline, canonicalUrl, editionGap, pageMetadata, sitemapPages, xmlEscape }
   from "./scripts/metadata.mjs";
+import { editionRoute, shouldAddStoryShare, withStoryShare } from "./scripts/story-share.mjs";
 
 const illustrationAssets = await loadIllustrationAssets(readdirSync("src/_data/frontpages")
   .filter(name => name.endsWith(".json"))
@@ -297,6 +298,13 @@ export default function (eleventyConfig) {
   // This keeps disclosure off the permanent footer while making it easy to find.
   // Page HTML keeps a root-relative href. The feed re-runs transforms with
   // baseHref set, and that pass must emit an absolute URL.
+  // Story permalinks are for the edition HTML a reader opens. The feed
+  // re-runs transforms with an absolute baseHref and should stay the story.
+  eleventyConfig.addTransform("storyShare", function (content, outputPath) {
+    if (!shouldAddStoryShare(this.baseHref, outputPath)) return content;
+    return withStoryShare(content, editionRoute(outputPath));
+  });
+
   eleventyConfig.addTransform("briefingTrustLink", function (content, outputPath) {
     if (!outputPath || !outputPath.endsWith(".html")) return content;
     if (!content.includes('id="the-briefing"')) return content;

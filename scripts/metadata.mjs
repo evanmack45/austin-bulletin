@@ -35,7 +35,7 @@ function entity(match, name) {
   return String.fromCodePoint(code);
 }
 
-function plainText(value) {
+export function plainText(value) {
   return String(value ?? "")
     .replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/gi, " ")
     .replace(/<!--[^]*?-->/g, " ")
@@ -57,7 +57,7 @@ function excerpt(text) {
   return `${clipped.slice(0, clipped.lastIndexOf(" "))}…`;
 }
 
-function leadFrom(content) {
+function bigStoryLead(content) {
   const section = String(content ?? "").match(
     /<section\b[^>]*class="[^"]*\bbig-story\b[^"]*"[^>]*>([\s\S]*?)<\/section>/i
   )?.[1] ?? "";
@@ -67,6 +67,72 @@ function leadFrom(content) {
   const paragraph = paragraphs.filter(match => !skip.test(match[1]))
     .map(match => reliableText(match[2])).find(Boolean) ?? "";
   return { heading, paragraph };
+}
+
+function frontPageLead(content) {
+  const section = String(content ?? "").match(
+    /<section\b[^>]*class="[^"]*\bfront-lead\b[^"]*"[^>]*>([\s\S]*?)<\/section>/i
+  )?.[1] ?? "";
+  const heading = reliableText(section.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1]);
+  const paragraph = reliableText(section.match(
+    /<p\b[^>]*class="[^"]*\bfront-deck\b[^"]*"[^>]*>([\s\S]*?)<\/p>/i
+  )?.[1]);
+  return { heading, paragraph };
+}
+
+function leadFrom(content) {
+  const story = bigStoryLead(content);
+  if (story.heading) return story;
+  const front = frontPageLead(content);
+  if (front.heading) return front;
+  return story;
+}
+
+const BRAND_IMAGE = `${SITE_URL}icon-512.png`;
+const BRAND_ALT = "The Austin Bulletin brand icon";
+
+function attrValue(tag, name) {
+  return tag.match(new RegExp(`\\s${name}="([^"]*)"`, "i"))?.[1] ?? "";
+}
+
+function sameOriginImage(src) {
+  if (typeof src !== "string" || !src.startsWith("/") && !src.startsWith("https:")) return "";
+  try {
+    const url = new URL(src, SITE_URL);
+    return url.origin === new URL(SITE_URL).origin ? url.href : "";
+  } catch {
+    return "";
+  }
+}
+
+function firstImage(html) {
+  const tags = String(html ?? "").match(/<img\b[^>]*>/gi) ?? [];
+  for (const tag of tags) {
+    const src = sameOriginImage(attrValue(tag, "src"));
+    if (!src) continue;
+    return { src, alt: reliableText(attrValue(tag, "alt")) };
+  }
+  return null;
+}
+
+function leadFigure(content) {
+  return String(content ?? "").match(
+    /<figure\b[^>]*class="[^"]*\blead-photo\b[^"]*"[^>]*>[\s\S]*?<\/figure>/i
+  )?.[0] ?? "";
+}
+
+function storySection(content) {
+  return String(content ?? "").match(
+    /<section\b[^>]*class="[^"]*\b(?:big-story|front-lead)\b[^"]*"[^>]*>[\s\S]*?<\/section>/i
+  )?.[0] ?? "";
+}
+
+function imageFor(content, edition) {
+  const brand = { image: BRAND_IMAGE, imageAlt: BRAND_ALT };
+  if (!edition) return { ...brand, card: "summary" };
+  const found = firstImage(leadFigure(content)) || firstImage(storySection(content));
+  if (!found) return { ...brand, card: "summary_large_image" };
+  return { image: found.src, imageAlt: found.alt || BRAND_ALT, card: "summary_large_image" };
 }
 
 function titleFor(originalTitle, content, lead) {
@@ -90,13 +156,15 @@ export function pageMetadata(route, originalTitle, content, description) {
   const dated = /^\/\d{4}\/\d{2}\/\d{2}\/$/.test(normalized);
   const edition = normalized === "/" || dated;
   const lead = edition ? leadFrom(content) : { heading: "", paragraph: "" };
+  const title = titleFor(originalTitle, content, lead);
   return {
-    canonical, title: titleFor(originalTitle, content, lead),
+    canonical, title, ogTitle: lead.heading || title,
     description: excerpt(descriptionFor(normalized, lead, description)),
     indexable: normalized !== "/404.html",
     type: dated ? "article" : "website",
-    image: `${SITE_URL}icon-512.png`, imageAlt: "The Austin Bulletin brand icon",
-    card: "summary", headline: dated ? lead.heading : ""
+    ogType: edition ? "article" : "website",
+    ...imageFor(content, edition),
+    headline: dated ? lead.heading : ""
   };
 }
 

@@ -20,7 +20,7 @@ export default [
     rules: { "max-len": ["error", { code: 100, ignoreUrls: true }] }
   },
   {
-    files: ["scripts/river.mjs", "scripts/acronyms.mjs", "scripts/kvue.mjs", "scripts/metadata.mjs", "scripts/edition-images.mjs", "scripts/desk.mjs", "scripts/alive.mjs", "scripts/chicago-time.mjs", "scripts/edition-dates.mjs", "scripts/sentences.mjs", "scripts/check-sentences.mjs", "scripts/council-meetings.mjs", "src/_includes/chicago-date.js", "tests/**/*.mjs", "scripts/check-frontpage.mjs", "src/js/**/*.js", "src/_data/newsletter.js"],
+    files: ["scripts/river.mjs", "scripts/acronyms.mjs", "scripts/kvue.mjs", "scripts/metadata.mjs", "scripts/story-share.mjs", "scripts/edition-images.mjs", "scripts/desk.mjs", "scripts/alive.mjs", "scripts/chicago-time.mjs", "scripts/edition-dates.mjs", "scripts/sentences.mjs", "scripts/check-sentences.mjs", "scripts/council-meetings.mjs", "src/_includes/chicago-date.js", "tests/**/*.mjs", "scripts/check-frontpage.mjs", "src/js/**/*.js", "src/_data/newsletter.js"],
     languageOptions: {
       ecmaVersion: 2023,
       sourceType: "module"
