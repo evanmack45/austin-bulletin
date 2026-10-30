@@ -58,6 +58,7 @@ export function visibleText(html) {
     .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, " ")
     .replace(/<h1\b[^>]*class="[^"]*\bedition-lead-title\b[^"]*"[^>]*>[\s\S]*?<\/h1>/gi, " ")
     .replace(/<nav\b[^>]*\btoday-top\b[^>]*>[\s\S]*?<\/nav>/gi, " ")
+    .replace(/<p\b[^>]*\bclass="[^"]*\bcouncil-did\b[^"]*"[^>]*>[\s\S]*?<\/p>/gi, " ")
     .replace(/<section\b[^>]*\bclass="[^"]*\bsignup\b[^"]*"[^>]*>[\s\S]*?<\/section>/gi, " ");
   const text = decode(withoutTitle.replace(/<[^>]+>/g, " "));
   return text.replace(/\s+/g, " ").trim();

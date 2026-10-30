@@ -37,7 +37,7 @@
 <body class="cover-chrome{% if homeFront %} home-front{% endif %}{% if editionPage %} edition-page{% endif %}" id="top">
   {% include "masthead.njk" %}
   <main>
-    {{ content | safe }}
+    {{ content | withPreviewMeeting(page.url, councilMeeting) | safe }}
   </main>
   {% set signupId = "bar" %}
   {% include "signup.njk" %}

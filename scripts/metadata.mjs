@@ -63,7 +63,8 @@ function leadFrom(content) {
   )?.[1] ?? "";
   const heading = reliableText(section.match(/<h3\b[^>]*>([\s\S]*?)<\/h3>/i)?.[1]);
   const paragraphs = [...section.matchAll(/<p\b([^>]*)>([\s\S]*?)<\/p>/gi)];
-  const paragraph = paragraphs.filter(match => !/source-line|whats-next/.test(match[1]))
+  const skip = /source-line|whats-next|council-did/;
+  const paragraph = paragraphs.filter(match => !skip.test(match[1]))
     .map(match => reliableText(match[2])).find(Boolean) ?? "";
   return { heading, paragraph };
 }
