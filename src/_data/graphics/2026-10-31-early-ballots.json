@@ -1,0 +1,15 @@
+{
+  "type": "bars",
+  "date": "2026-10-31",
+  "slug": "early-ballots",
+  "title": "Ballots cast through Friday",
+  "subtitle": "Travis County unofficial totals through Oct. 30",
+  "source": "Travis County",
+  "unit": "",
+  "yMin": 0,
+  "alt": "Bar chart from Travis County unofficial early voting totals through Oct. 30: 447,689 ballots cast and 948,575 registered voters.",
+  "bars": [
+    { "label": "Ballots cast", "value": 447689 },
+    { "label": "Registered voters", "value": 948575 }
+  ]
+}

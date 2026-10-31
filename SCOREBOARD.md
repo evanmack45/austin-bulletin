@@ -82,6 +82,7 @@ No data at the judge date is a kill.
 One line per reader-visible change, newest first. The daily edition does
 not count. Three calendar days with no line is an alert.
 
+- 2026-10-31 · bulletin · The Oct. 30 edition adds that the county later counted 37,932 voters Thursday, 398,291 through Oct. 29, and 1,681 limited ballots Monday through Thursday. The printed 37,831, 398,190, and 1,580 stay. No new correction.
 - 2026-10-30 · bulletin · The Oct. 26, Oct. 27, and Oct. 29 editions, and the Oct. 26 clarification on /corrections, now link the county's Oct. 29 daily totals PDF. The Oct. 28 file 404s. The Vote Travis election page sits beside each daily-totals link. The Oct. 29 edition adds that the county later counted 35,355 voters Wednesday and 360,359 through Oct. 28. The printed 35,298 and 360,302 stay. No new correction.
 - 2026-10-29 · bulletin · Every page uses one header nav: Today, Vote 2026, City Hall, Topics, Archive, About. Topics opens the Bonds, Charter, Budget, Muny, and Zilker hubs. City Hall goes to yallcityhall.org. Below 640px the links sit behind a Menu button that works without JavaScript.
 - 2026-10-29 · bulletin · The Oct. 26 and Oct. 27 editions, and the Oct. 26 clarification on /corrections, now link the county's Oct. 28 daily totals PDF. The Oct. 26 file 404s. The Oct. 28 file still has those days' columns. No new correction: the figures were already right.
