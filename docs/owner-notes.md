@@ -33,6 +33,10 @@ A request to change one goes above, with the reason.
 
 ## Entries
 
+### 2026-10-31
+
+The Oct. 30 edition keeps Thursday's printed 37,831 voters, 398,190 through Oct. 29, and 1,580 limited ballots Monday through Thursday. An update on that turnout item says the county's Oct. 30 report shows 37,932, 398,291, and 1,681. That is an update, not a correction, and it does not get a /corrections line.
+
 ### 2026-10-30
 
 The county's Oct. 28 daily-totals PDF now 404s. Editions that cited it, and the Oct. 26 clarification, point at the Oct. 29 file, which still has the earlier columns. The Vote Travis election page is linked beside those PDFs so a dropped file is not the only path. The Oct. 29 edition keeps Wednesday's printed 35,298 and 360,302, and adds an update that the Oct. 29 file shows 35,355 and 360,359. That is an update, not a correction.
