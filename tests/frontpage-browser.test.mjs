@@ -241,7 +241,7 @@ test("guide action fragments reach the answer by keyboard without JavaScript", {
 		assert.ok(accessTitle.ok());
 		assert.equal(
 			await page.$eval(".front-lead .front-action", (link) => link.getAttribute("href")),
-			"https://votetravis.gov/current-election-information/current-election/",
+			"https://votetravis.gov/voter-lookup/",
 		);
 	} finally {
 		await browser.close();
