@@ -954,6 +954,14 @@ body:has(article.bulletin) main { max-width: 48rem; }
     min-height: 24px;
     margin-block: 4px;
   }
+  /* Official document titles in a source tag are wider than a phone when
+     the tag stays on one line. Let the tag wrap; the link stays a 24px target. */
+  .src { white-space: normal; }
+  .src a {
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
   .river p.to-top { margin-top: 12px; }
 }
 @media (max-width: 40rem) {
