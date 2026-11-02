@@ -30,7 +30,7 @@
 }
 .cover-chrome .front-masthead .wordmark {
   font-family: Bricolage, "Times New Roman", Times, serif;
-  font-size: 64px;
+  font-size: 4rem;
   font-weight: 700;
   letter-spacing: -1px;
   line-height: 1;
@@ -43,7 +43,7 @@
   flex: 0 1 auto;
   margin: 0 0 6px;
   font-family: Hanken, Arial, sans-serif;
-  font-size: 13px;
+  font-size: 0.8125rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: #1b1b1b;
@@ -87,7 +87,7 @@
 .cover-chrome .front-masthead .site-menu-panel a,
 .cover-chrome .front-masthead .topics-button {
   margin-left: 0;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 700;
   min-height: 44px;
   text-transform: none;
@@ -107,7 +107,7 @@
 .home-front .edited-front .today-top-label {
   margin: 0 0 2px;
   font-family: Hanken, Arial, sans-serif;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: 0.08em;
@@ -124,7 +124,7 @@
   min-height: 24px;
   padding: 1px 0;
   font-family: Hanken, Arial, sans-serif;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 700;
   line-height: 1.2;
   color: #1b1b1b;
@@ -140,10 +140,11 @@
   align-items: start;
   margin-top: 18px;
 }
+.paper-wrap > * { min-width: 0; }
 .kicker, .home-front h2.kicker {
   font-family: Hanken, Arial, sans-serif;
   font-weight: 700;
-  font-size: 12px;
+  font-size: 0.75rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #c8102e;
@@ -154,22 +155,23 @@
 .num {
   font-family: Bricolage, "Times New Roman", Times, serif;
   font-weight: 700;
-  font-size: 72px;
+  font-size: 4.5rem;
   line-height: 0.9;
   color: #c8102e;
   float: left;
+  max-width: 100%;
   margin: 4px 18px 4px 0;
 }
 .home-front .front-lead h1 {
   font-family: Bricolage, "Times New Roman", Times, serif;
   font-weight: 700;
-  font-size: 40px;
+  font-size: 2.5rem;
   line-height: 1.1;
   letter-spacing: -0.02em;
   max-width: none;
   margin: 6px 0 12px;
 }
-.home-front .front-deck { font-size: 18px; line-height: 1.5; margin: 0 0 12px; }
+.home-front .front-deck { font-size: 1.125rem; line-height: 1.5; margin: 0 0 12px; }
 .home-front .front-action {
   display: inline-flex;
   align-items: center;
@@ -182,7 +184,7 @@
 }
 .home-front .src, .home-front .front-sources {
   font-family: Hanken, Arial, sans-serif;
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 400;
   color: #3d3d3d;
   margin: 8px 0 0;
@@ -190,7 +192,14 @@
   text-transform: none;
   white-space: normal;
 }
-.home-front .front-sources a { min-height: 44px; color: #1b1b1b; }
+.home-front .front-sources a {
+  display: inline-block;
+  max-width: 100%;
+  min-height: 44px;
+  overflow-wrap: anywhere;
+  vertical-align: middle;
+  color: #1b1b1b;
+}
 .home-front .lead-photo { margin: 0 0 14px; }
 .home-front .lead-photo img { width: 100%; height: auto; display: block; }
 @media (min-width: 761px) {
@@ -214,7 +223,7 @@
 .home-front .lead-photo figcaption,
 .home-front .spot-art figcaption {
   font-family: Hanken, Arial, sans-serif;
-  font-size: 12px;
+  font-size: 0.75rem;
   line-height: 1.4;
   color: #3d3d3d;
   margin-top: 4px;
@@ -232,14 +241,14 @@
 .home-front .week-block .card { border-top: 0; padding: 8px 0 0; }
 .home-front .card h2 {
   font-family: Bricolage, "Times New Roman", Times, serif;
-  font-size: 22px;
+  font-size: 1.375rem;
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: 0;
   margin: 4px 0;
 }
 .home-front .card h2 a { color: inherit; }
-.edition-jump { margin-top: 18px; font-family: Hanken, Arial, sans-serif; font-size: 14px; font-weight: 700; }
+.edition-jump { margin-top: 18px; font-family: Hanken, Arial, sans-serif; font-size: 0.875rem; font-weight: 700; }
 .edition-jump a { display: inline-flex; align-items: center; min-height: 44px; }
 .home-front .signup--lead {
   background: #1b1b1b;
@@ -249,7 +258,7 @@
 }
 .home-front .signup--lead h2 {
   font-family: Bricolage, "Times New Roman", Times, serif;
-  font-size: 22px;
+  font-size: 1.375rem;
   font-weight: 700;
   letter-spacing: 0;
   color: #fff;
@@ -270,11 +279,11 @@
     gap: 6px;
     padding: 12px 16px 8px;
   }
-  .cover-chrome .front-masthead .wordmark { font-size: 32px; white-space: normal; max-width: 100%; }
+  .cover-chrome .front-masthead .wordmark { font-size: 2rem; white-space: normal; max-width: 100%; }
   .cover-chrome .front-masthead .masthead-dateline { text-align: left; margin: 0; }
   .masthead-inner { padding: 0 16px; }
-  .num { font-size: 56px; }
-  .home-front .front-lead h1 { font-size: 32px; }
+  .num { font-size: 3.5rem; }
+  .home-front .front-lead h1 { font-size: 2rem; }
 }
 @media (max-width: 640px) {
   .cover-chrome .site-menu-panel.is-open,
