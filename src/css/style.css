@@ -16,8 +16,9 @@ body {
   background: var(--bg);
   color: var(--ink);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 18px;
+  font-size: 1.125rem;
   line-height: 1.5;
+  overflow-wrap: break-word;
 }
 h1, h2, h3, h5, .wordmark, .edition-lead-title {
   font-family: Bricolage, "Helvetica Neue", Arial, sans-serif;
@@ -43,7 +44,7 @@ img { width: 100%; height: auto; display: block; }
   display: block;
   font-weight: 800;
   font-stretch: 75%;
-  font-size: 48px;
+  font-size: 3rem;
   line-height: 0.85;
   letter-spacing: -0.055em;
   color: var(--ink);
@@ -54,10 +55,10 @@ img { width: 100%; height: auto; display: block; }
 .front-promise strong {
   display: block;
   font-family: Bricolage, Arial, sans-serif;
-  font-size: 28px;
+  font-size: 1.75rem;
   letter-spacing: -0.025em;
 }
-.front-promise span { display: block; margin-top: 4px; font-size: 16px; }
+.front-promise span { display: block; margin-top: 4px; font-size: 1rem; }
 .site-nav { align-self: center; font-family: Hanken, Arial, sans-serif; text-transform: none; }
 .kicker { font-family: Hanken, Arial, sans-serif; }
 .site-menu { position: relative; z-index: 6; }
@@ -71,7 +72,7 @@ img { width: 100%; height: auto; display: block; }
   border: 2px solid var(--ink);
   background: var(--bg);
   color: var(--ink);
-  font: 700 16px/1 Hanken, Arial, sans-serif;
+  font: 700 1rem/1 Hanken, Arial, sans-serif;
   letter-spacing: 0;
   text-decoration: none;
   text-transform: none;
@@ -92,7 +93,7 @@ img { width: 100%; height: auto; display: block; }
   min-height: 44px;
   padding: 0 2px;
   color: var(--ink);
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0;
   text-decoration: none;
@@ -110,7 +111,7 @@ img { width: 100%; height: auto; display: block; }
   border: 0;
   background: transparent;
   color: var(--ink);
-  font: 700 16px/1 Hanken, Arial, sans-serif;
+  font: 700 1rem/1 Hanken, Arial, sans-serif;
   letter-spacing: 0;
   text-transform: none;
   cursor: pointer;
@@ -135,7 +136,7 @@ img { width: 100%; height: auto; display: block; }
 .topics-menu[open] + .topics-label + .topics-panel,
 .topics:focus-within .topics-panel,
 .topics:hover .topics-panel { display: flex; }
-.masthead-dateline { grid-column: 1 / -1; margin: 8px 0 0; font-size: 16px; color: var(--muted); }
+.masthead-dateline { grid-column: 1 / -1; margin: 8px 0 0; max-width: 100%; font-size: 1rem; color: var(--muted); }
 @media (min-width: 641px) {
   .site-menu-panel {
     justify-content: flex-end;
@@ -150,14 +151,20 @@ img { width: 100%; height: auto; display: block; }
 @media (max-width: 760px) {
   .front-masthead { grid-template-columns: minmax(0, 1fr); padding: 14px 20px 10px; align-items: start; }
   .front-promise { display: none; }
-  .wordmark { font-size: 28px; line-height: 0.95; white-space: normal; max-width: 100%; }
-  .masthead-dateline { font-size: 16px; }
+  .wordmark { font-size: 1.75rem; line-height: 0.95; white-space: normal; max-width: 100%; }
+  .masthead-dateline { font-size: 1rem; }
 }
 @media (max-width: 640px) {
+  /* The masthead is its own layer, under the fixed signup bar. Lift it
+     while the menu is open so the links stay tappable when type is large.
+     At a 16px root the open menu does not meet the bar on a tall phone. */
+  body:has(.site-menu-button[aria-expanded="true"]) .front-masthead {
+    z-index: 40;
+  }
   .front-masthead .site-nav .site-menu-button,
   .cover-chrome .front-masthead .site-menu-button {
     display: inline-flex;
-    font-size: 16px;
+    font-size: 1rem;
   }
   .site-nav .site-menu-panel { display: none; }
   .site-nav .site-menu-panel.is-open,
@@ -165,22 +172,25 @@ img { width: 100%; height: auto; display: block; }
   .site-nav .site-menu-button[aria-expanded="true"] + .site-menu-panel {
     display: flex;
     flex-direction: column;
+    flex-wrap: nowrap;
     align-items: stretch;
     position: absolute;
     right: 0;
     left: auto;
     top: calc(100% + 6px);
-    z-index: 5;
+    z-index: 40;
     width: max-content;
-    min-width: 12rem;
+    min-width: min(12rem, calc(100vw - 32px));
     max-width: calc(100vw - 32px);
+    max-height: calc(100vh - 6rem);
+    overflow: auto;
     padding: 4px 0;
     background: #f6f1e7;
     border: 2px solid var(--ink);
   }
   .front-masthead .site-nav .site-menu-panel a,
   .cover-chrome .front-masthead .site-menu-panel a {
-    font-size: 16px;
+    font-size: 1rem;
     min-height: 44px;
     padding: 0 16px;
   }
@@ -191,7 +201,7 @@ img { width: 100%; height: auto; display: block; }
     display: block;
     margin: 8px 16px 0;
     color: var(--ink);
-    font: 700 16px/1.3 Hanken, Arial, sans-serif;
+    font: 700 1rem/1.3 Hanken, Arial, sans-serif;
     letter-spacing: 0;
     text-transform: none;
   }
@@ -260,6 +270,7 @@ img { width: 100%; height: auto; display: block; }
 h1 { font-size: 1.9rem; margin: 1rem 0 0.25rem; }
 h2 {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 0.9rem;
   margin-top: 2.6rem;
@@ -272,6 +283,8 @@ h2::after { content: ""; flex: 1; border-top: 1px solid var(--ink); }
 h3 { font-size: 1.7rem; font-weight: 800; letter-spacing: -0.01em; margin: 2.2rem 0 0.5rem; }
 
 .briefing-meta {
+  min-width: 0;
+  max-width: 100%;
   font-size: 0.72rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -322,7 +335,7 @@ figcaption { font-size: 0.85rem; color: var(--muted); }
   border-top: 1px solid var(--rule);
   text-align: center;
   color: var(--muted);
-  font-size: 16px;
+  font-size: 1rem;
 }
 .site-footer a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 0.2rem; }
 .trust-footer {
@@ -340,7 +353,7 @@ figcaption { font-size: 0.85rem; color: var(--muted); }
   min-width: 24px;
   min-height: 44px;
   padding: 0.35rem 0.45rem;
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.35;
   overflow-wrap: anywhere;
   text-align: center;
@@ -368,6 +381,24 @@ figcaption { font-size: 0.85rem; color: var(--muted); }
   /* "inherit" is invalid inside var() substitution — name the stack. */
   --pagefind-ui-font: Hanken, Arial, sans-serif;
   margin: 0 0 2rem;
+}
+/* Pagefind ships px sizes. These rem overrides follow the root font.
+   #search beats the hashed vendor classes. font-size: 0 on its image
+   is a broken-image hack, not reader text, and stays in the vendor file. */
+#search .pagefind-ui__search-input,
+#search .pagefind-ui__result-title {
+  font-size: calc(1.3125rem * var(--pagefind-ui-scale));
+}
+#search .pagefind-ui__result-excerpt,
+#search .pagefind-ui__filter-name,
+#search .pagefind-ui__filter-label,
+#search .pagefind-ui__message,
+#search .pagefind-ui__button {
+  font-size: calc(1rem * var(--pagefind-ui-scale));
+}
+#search .pagefind-ui__result-tag,
+#search .pagefind-ui__search-clear {
+  font-size: calc(0.875rem * var(--pagefind-ui-scale));
 }
 
 #search input:focus,
@@ -558,7 +589,7 @@ h2.glance-title::after { content: none; }
 .date-tag {
   font-family: Hanken, Arial, sans-serif;
   font-weight: 700;
-  font-size: 13px;
+  font-size: 0.8125rem;
   line-height: 1.4;
   background: #1b1b1b;
   color: #fff;
@@ -844,7 +875,7 @@ h2#the-back-page {
   .home-front .front-masthead { display: block; padding: .65rem 1rem .5rem; }
   .home-front .front-masthead .wordmark { font-size: clamp(1.35rem, 7vw, 1.75rem); white-space: normal; max-width: 100%; }
   .home-front .front-masthead nav { justify-content: flex-start; gap: .3rem; }
-  .home-front .front-masthead nav a { font-size: 16px; }
+  .home-front .front-masthead nav a { font-size: 1rem; }
   .home-front .front-masthead p { margin: 0; font-size: .72rem; }
   .home-front .front-priorities { display: block; padding: 1rem 0; }
   .home-front .front-lead h1 { font-size: 2.2rem; max-width: 17ch; margin-bottom: .65rem; }
@@ -936,7 +967,7 @@ body:has(article.bulletin) main { max-width: 48rem; }
   .good-thing,
   .morning-note,
   .council-did {
-    font-size: 16px;
+    font-size: 1rem;
   }
   /* Source lines and photo credits stay small type, but the link itself
      is a 24px target with a gap so it does not sit on the next control.
@@ -947,12 +978,14 @@ body:has(article.bulletin) main { max-width: 48rem; }
   .source-line a,
   figcaption a,
   .council-did a {
-    display: inline-flex;
-    align-items: center;
+    display: inline-block;
     box-sizing: border-box;
+    max-width: 100%;
     min-width: 24px;
     min-height: 24px;
     margin-block: 4px;
+    overflow-wrap: anywhere;
+    vertical-align: middle;
   }
   /* Official document titles in a source tag are wider than a phone when
      the tag stays on one line. Let the tag wrap; the link stays a 24px target. */
@@ -980,7 +1013,7 @@ body:has(article.bulletin) main { max-width: 48rem; }
 }
 .signup-label {
   flex: 1 0 100%; margin: 0;
-  font-family: Hanken, Arial, sans-serif; font-size: 13px; font-weight: 700;
+  font-family: Hanken, Arial, sans-serif; font-size: 0.8125rem; font-weight: 700;
   letter-spacing: 0.04em;
 }
 .signup-email {
@@ -988,13 +1021,13 @@ body:has(article.bulletin) main { max-width: 48rem; }
   min-height: 44px; height: 44px; padding: 0 12px;
   border: 1px solid var(--ink); border-radius: 0;
   background: #fff; color: var(--ink);
-  font: 16px/1.2 Georgia, "Times New Roman", serif;
+  font: 1rem/1.2 Georgia, "Times New Roman", serif;
 }
 .signup-form button[type="submit"] {
   flex: 0 0 auto; box-sizing: border-box;
   min-height: 44px; height: 44px; padding: 0 16px;
   border: 0; border-radius: 0; background: var(--accent); color: #fff;
-  font: 700 16px/1 Hanken, Arial, sans-serif; cursor: pointer;
+  font: 700 1rem/1 Hanken, Arial, sans-serif; cursor: pointer;
 }
 .signup-form input:focus-visible,
 .signup-form button:focus-visible {
@@ -1012,7 +1045,7 @@ body:has(article.bulletin) main { max-width: 48rem; }
   color: #fff !important;
 }
 .signup-dismiss {
-  min-height: 44px; padding: .5rem .9rem; border-radius: 0; font: inherit; font-size: 16px;
+  min-height: 44px; padding: .5rem .9rem; border-radius: 0; font: inherit; font-size: 1rem;
   font-weight: 700; cursor: pointer;
 }
 .signup-note { margin: .55rem 0 0; font-size: .88rem; line-height: 1.45; }
@@ -1033,7 +1066,9 @@ body:has(article.bulletin) main { max-width: 48rem; }
     display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; margin: 0;
     padding: .65rem .75rem calc(.65rem + env(safe-area-inset-bottom));
     background: var(--ink); color: var(--bg); border-top: 3px solid var(--bg);
-    max-height: 70vh; overflow: auto;
+    /* Leave the masthead, including Menu, above the bar when type is large.
+       At a 16px root the bar is shorter than this cap. */
+    max-height: min(70vh, calc(100vh - 360px)); overflow: auto;
   }
   body.signup-bar-stuck { padding-bottom: calc(20rem + env(safe-area-inset-bottom)); }
   .signup--bar .signup-bar-top { display: flex; align-items: flex-start; gap: .5rem; margin-bottom: .5rem; }
