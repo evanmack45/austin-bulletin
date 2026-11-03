@@ -13,7 +13,7 @@ hasInlineSignup: true
 <article class="edited-front paper" data-neutral="false" data-edition="{{ editionDate }}">
   {% if desk.top.length %}
   <nav class="today-top" aria-labelledby="today-top-title">
-    <p id="today-top-title" class="today-top-label">Today's top {{ desk.top.length }}</p>
+    <p id="today-top-title" class="today-top-label">Today's top {{ desk.top.length }} · <a href="/election/2026-11-03/">Election results</a></p>
     <ol>
       {% for item in desk.top %}
       <li><a href="#{{ item.anchor | escape }}">{{ item.title | escape }}</a></li>

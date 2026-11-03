@@ -33,6 +33,10 @@ A request to change one goes above, with the reason.
 
 ## Entries
 
+### 2026-11-03
+
+Election night needs a stable page a reader can share before the county posts counts. `/election/2026-11-03/` holds the measures in a data file so a later run can fill yes/no and passed/failed from the county results page without rewriting the template. The county list did not include November 3 at 9:48 a.m. Central. Suburban city, ISD, MUD, and ESD propositions stayed off; they are on the county ballot and are not citywide Austin measures. Austin ISD has trustee seats on the ballot and no proposition.
+
 ### 2026-10-31
 
 The Oct. 30 edition keeps Thursday's printed 37,831 voters, 398,190 through Oct. 29, and 1,580 limited ballots Monday through Thursday. An update on that turnout item says the county's Oct. 30 report shows 37,932, 398,291, and 1,681. That is an update, not a correction, and it does not get a /corrections line.

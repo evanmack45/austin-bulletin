@@ -1,0 +1,235 @@
+{
+  "date": "2026-11-03",
+  "checkedAt": "2026-11-03T15:48:00Z",
+  "asOfDisplay": "9:48 a.m. Central on November 3, 2026",
+  "links": {
+    "sosDates": "https://www.sos.texas.gov/elections/voter/important-election-dates.shtml",
+    "sosDatesLabel": "Texas Secretary of State election dates",
+    "currentElection": "https://votetravis.gov/current-election-information/current-election/",
+    "currentElectionLabel": "Travis County current election",
+    "pollingLocations": "https://votetravis.gov/current-election-information/current-election/#polling-locations",
+    "pollingLocationsLabel": "Travis County polling locations",
+    "electionDaySites": "https://votetravis.gov/wp-content/uploads/G26-Election-Day-Flyer-FINAL-Website-wNotice.pdf",
+    "electionDaySitesLabel": "Election Day polling sites (PDF)",
+    "voterLookup": "https://votetravis.gov/voter-lookup/",
+    "voterLookupLabel": "Travis County voter lookup",
+    "ballot": "https://votetravis.gov/wp-content/uploads/G26-Bedsheet-Ballot-Corrected-Final2.pdf",
+    "ballotLabel": "Travis County consolidated ballot",
+    "resultsPage": "https://votetravis.gov/current-election-information/election-results-and-reconciliation-forms/",
+    "resultsPageLabel": "Travis County Clerk election results",
+    "resultsEnr": "https://results.enr.clarityelections.com/TX/Travis/",
+    "resultsEnrLabel": "Travis County results list"
+  },
+  "resultsListed": false,
+  "measures": [
+    {
+      "id": "austin-a",
+      "jurisdiction": "City of Austin",
+      "name": "Proposition A",
+      "ballotTitle": "City of Austin Proposition A",
+      "summary": "THIS IS A TAX INCREASE; $260,000,000 in bonds for citywide park, recreation, aquatic, and open space improvements, and a tax to pay the bonds",
+      "source": "https://votetravis.gov/wp-content/uploads/G26-Bedsheet-Ballot-Corrected-Final2.pdf",
+      "sourceLabel": "Travis County consolidated ballot",
+      "result": {
+        "status": "Results not yet posted",
+        "yes": null,
+        "no": null,
+        "outcome": null,
+        "asOf": "2026-11-03T15:48:00Z",
+        "asOfDisplay": "9:48 a.m. Central on November 3, 2026",
+        "source": "https://votetravis.gov/current-election-information/election-results-and-reconciliation-forms/",
+        "sourceLabel": "Travis County Clerk election results"
+      }
+    },
+    {
+      "id": "austin-b",
+      "jurisdiction": "City of Austin",
+      "name": "Proposition B",
+      "ballotTitle": "City of Austin Proposition B",
+      "summary": "THIS IS A TAX INCREASE; $35,000,000 in bonds for library facilities, and a tax to pay the bonds",
+      "source": "https://votetravis.gov/wp-content/uploads/G26-Bedsheet-Ballot-Corrected-Final2.pdf",
+      "sourceLabel": "Travis County consolidated ballot",
+      "result": {
+        "status": "Results not yet posted",
+        "yes": null,
+        "no": null,
+        "outcome": null,
+        "asOf": "2026-11-03T15:48:00Z",
+        "asOfDisplay": "9:48 a.m. Central on November 3, 2026",
+        "source": "https://votetravis.gov/current-election-information/election-results-and-reconciliation-forms/",
+        "sourceLabel": "Travis County Clerk election results"
+      }
+    },
+    {
+      "id": "austin-c",
+      "jurisdiction": "City of Austin",
+      "name": "Proposition C",
+      "ballotTitle": "City of Austin Proposition C",
+      "summary": "Amend the charter to state that the Independent Citizens Redistricting Commission is independent of City Council control, to let it review districts after boundary changes, and to set rules for student members, vacancies, the plan's effective date, and staff contact under the Texas Open Meetings Act",
+      "source": "https://votetravis.gov/wp-content/uploads/G26-Bedsheet-Ballot-Corrected-Final2.pdf",
+      "sourceLabel": "Travis County consolidated ballot",
+      "result": {
+        "status": "Results not yet posted",
+        "yes": null,
+        "no": null,
+        "outcome": null,
+        "asOf": "2026-11-03T15:48:00Z",
+        "asOfDisplay": "9:48 a.m. Central on November 3, 2026",
+        "source": "https://votetravis.gov/current-election-information/election-results-and-reconciliation-forms/",
+        "sourceLabel": "Travis County Clerk election results"
+      }
+    },
+    {
+      "id": "austin-d",
+      "jurisdiction": "City of Austin",
+      "name": "Proposition D",
+      "ballotTitle": "City of Austin Proposition D",
+      "summary": "Delete the charter language that says the City Council shall meet at least once each week",
+      "source": "https://votetravis.gov/wp-content/uploads/G26-Bedsheet-Ballot-Corrected-Final2.pdf",
+      "sourceLabel": "Travis County consolidated ballot",
+      "result": {
+        "status": "Results not yet posted",
+        "yes": null,
+        "no": null,
+        "outcome": null,
+        "asOf": "2026-11-03T15:48:00Z",
+        "asOfDisplay": "9:48 a.m. Central on November 3, 2026",
+        "source": "https://votetravis.gov/current-election-information/election-results-and-reconciliation-forms/",
+        "sourceLabel": "Travis County Clerk election results"
+      }
+    },
+    {
+      "id": "austin-e",
+      "jurisdiction": "City of Austin",
+      "name": "Proposition E",
+      "ballotTitle": "City of Austin Proposition E",
+      "summary": "Delete the charter language that requires the City Council to set its rules and order of business by ordinance",
+      "source": "https://votetravis.gov/wp-content/uploads/G26-Bedsheet-Ballot-Corrected-Final2.pdf",
+      "sourceLabel": "Travis County consolidated ballot",
+      "result": {
+        "status": "Results not yet posted",
+        "yes": null,
+        "no": null,
+        "outcome": null,
+        "asOf": "2026-11-03T15:48:00Z",
+        "asOfDisplay": "9:48 a.m. Central on November 3, 2026",
+        "source": "https://votetravis.gov/current-election-information/election-results-and-reconciliation-forms/",
+        "sourceLabel": "Travis County Clerk election results"
+      }
+    },
+    {
+      "id": "austin-f",
+      "jurisdiction": "City of Austin",
+      "name": "Proposition F",
+      "ballotTitle": "City of Austin Proposition F",
+      "summary": "Clarify the charter meaning of \"election,\" and change campaign contribution and spending limits each year by January 1 instead of with the budget",
+      "source": "https://votetravis.gov/wp-content/uploads/G26-Bedsheet-Ballot-Corrected-Final2.pdf",
+      "sourceLabel": "Travis County consolidated ballot",
+      "result": {
+        "status": "Results not yet posted",
+        "yes": null,
+        "no": null,
+        "outcome": null,
+        "asOf": "2026-11-03T15:48:00Z",
+        "asOfDisplay": "9:48 a.m. Central on November 3, 2026",
+        "source": "https://votetravis.gov/current-election-information/election-results-and-reconciliation-forms/",
+        "sourceLabel": "Travis County Clerk election results"
+      }
+    },
+    {
+      "id": "austin-g",
+      "jurisdiction": "City of Austin",
+      "name": "Proposition G",
+      "ballotTitle": "City of Austin Proposition G",
+      "summary": "Hold initiative elections and petitioned charter elections on the next November election in an even-numbered year that leaves time to meet other legal requirements",
+      "source": "https://votetravis.gov/wp-content/uploads/G26-Bedsheet-Ballot-Corrected-Final2.pdf",
+      "sourceLabel": "Travis County consolidated ballot",
+      "result": {
+        "status": "Results not yet posted",
+        "yes": null,
+        "no": null,
+        "outcome": null,
+        "asOf": "2026-11-03T15:48:00Z",
+        "asOfDisplay": "9:48 a.m. Central on November 3, 2026",
+        "source": "https://votetravis.gov/current-election-information/election-results-and-reconciliation-forms/",
+        "sourceLabel": "Travis County Clerk election results"
+      }
+    },
+    {
+      "id": "austin-h",
+      "jurisdiction": "City of Austin",
+      "name": "Proposition H",
+      "ballotTitle": "City of Austin Proposition H",
+      "summary": "Provide that the City Council appoints and removes the City Attorney",
+      "source": "https://votetravis.gov/wp-content/uploads/G26-Bedsheet-Ballot-Corrected-Final2.pdf",
+      "sourceLabel": "Travis County consolidated ballot",
+      "result": {
+        "status": "Results not yet posted",
+        "yes": null,
+        "no": null,
+        "outcome": null,
+        "asOf": "2026-11-03T15:48:00Z",
+        "asOfDisplay": "9:48 a.m. Central on November 3, 2026",
+        "source": "https://votetravis.gov/current-election-information/election-results-and-reconciliation-forms/",
+        "sourceLabel": "Travis County Clerk election results"
+      }
+    },
+    {
+      "id": "austin-i",
+      "jurisdiction": "City of Austin",
+      "name": "Proposition I",
+      "ballotTitle": "City of Austin Proposition I",
+      "summary": "Require an Independent Affordability and Efficiency Initiative on a regular basis and before any tax-rate increase election, and require the contractor to identify annual and multi-year savings that exceed its cost",
+      "source": "https://votetravis.gov/wp-content/uploads/G26-Bedsheet-Ballot-Corrected-Final2.pdf",
+      "sourceLabel": "Travis County consolidated ballot",
+      "result": {
+        "status": "Results not yet posted",
+        "yes": null,
+        "no": null,
+        "outcome": null,
+        "asOf": "2026-11-03T15:48:00Z",
+        "asOfDisplay": "9:48 a.m. Central on November 3, 2026",
+        "source": "https://votetravis.gov/current-election-information/election-results-and-reconciliation-forms/",
+        "sourceLabel": "Travis County Clerk election results"
+      }
+    },
+    {
+      "id": "austin-j",
+      "jurisdiction": "City of Austin",
+      "name": "Proposition J",
+      "ballotTitle": "City of Austin Proposition J",
+      "summary": "Make non-substantive corrections of typographical errors, punctuation, and sentence structure, and change or remove language that is moot or unenforceable because state law or a final court order superseded it",
+      "source": "https://votetravis.gov/wp-content/uploads/G26-Bedsheet-Ballot-Corrected-Final2.pdf",
+      "sourceLabel": "Travis County consolidated ballot",
+      "result": {
+        "status": "Results not yet posted",
+        "yes": null,
+        "no": null,
+        "outcome": null,
+        "asOf": "2026-11-03T15:48:00Z",
+        "asOfDisplay": "9:48 a.m. Central on November 3, 2026",
+        "source": "https://votetravis.gov/current-election-information/election-results-and-reconciliation-forms/",
+        "sourceLabel": "Travis County Clerk election results"
+      }
+    },
+    {
+      "id": "acc-a",
+      "jurisdiction": "Austin Community College District",
+      "name": "Proposition A",
+      "ballotTitle": "Austin Community College District Proposition A",
+      "summary": "THIS IS A TAX INCREASE; approve annexation into the Austin Community College District of Pflugerville ISD territory that is not already in the college taxing district, and authorize the junior-college property tax, currently $0.1034 per $100 of taxable value",
+      "source": "https://votetravis.gov/wp-content/uploads/G26-Bedsheet-Ballot-Corrected-Final2.pdf",
+      "sourceLabel": "Travis County consolidated ballot",
+      "result": {
+        "status": "Results not yet posted",
+        "yes": null,
+        "no": null,
+        "outcome": null,
+        "asOf": "2026-11-03T15:48:00Z",
+        "asOfDisplay": "9:48 a.m. Central on November 3, 2026",
+        "source": "https://votetravis.gov/current-election-information/election-results-and-reconciliation-forms/",
+        "sourceLabel": "Travis County Clerk election results"
+      }
+    }
+  ]
+}
