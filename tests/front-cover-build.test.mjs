@@ -7,7 +7,6 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   for (const text of [
     "/css/front-cover.css",
     "class=\"front-lead\"",
-    "Before it closes",
     "This week",
     "class=\"front-action\""
   ]) assert.ok(html.includes(text), text);
@@ -16,7 +15,6 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.match(html, /class="wordmark"/);
   assert.match(html, /class="masthead-dateline"/);
   assert.doesNotMatch(html, /ill-masthead|masthead-sky|austin-skyline/);
-  assert.match(html, /alt="Illustration"/);
   assert.match(html, /p-courthouse\.jpg/);
   assert.match(
     html,
@@ -29,13 +27,8 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.match(html, /width="1280" height="853"[^>]*loading="eager" fetchpriority="high"/);
   assert.match(html, /Travis County Courthouse, 2011/);
   assert.match(html, /Larry D\. Moore, CC BY 4\.0, via Wikimedia Commons/);
-  assert.match(html, /ill-before-it-closes\.jpg/);
-  assert.match(
-    html,
-    /ill-before-it-closes\.jpg" alt="Illustration" width="320" height="320" loading="lazy"/
-  );
-  assert.match(html, /Monday, Nov\. 2/);
-  assert.match(html, /Nov\. 3/);
+  assert.match(html, /Tuesday, Nov\. 3/);
+  assert.match(html, /Nov\. 16/);
   assert.doesNotMatch(html, /If you (haven't|want|live|are)\b/);
   assert.doesNotMatch(html, /\bhousing\b/i);
   assert.ok(!html.includes("front-news-rail"), "the rail is gone");
@@ -49,5 +42,7 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.match(page, /class="wordmark"/);
   assert.match(page, /class="site-menu"/);
   assert.match(page, /class="edition-lead-title"/);
+  assert.match(page, /In 60 seconds/);
+  assert.match(page, /November 3, 2026/);
   assert.doesNotMatch(page, /Unifraktur|class="folio-nav"|class="edition-head"|Vol\. I/);
 });
