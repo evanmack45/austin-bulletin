@@ -10,7 +10,10 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
     "This week",
     "class=\"front-action\""
   ]) assert.ok(html.includes(text), text);
-  assert.match(html, /Austin(?:'|&#39;)s news in 5 minutes, every morning/);
+  assert.match(html, /Get the morning email\./);
+  assert.doesNotMatch(html, /5 minutes|One email each morning/);
+  assert.match(html, /class="results-button"/);
+  assert.equal((html.match(/>Election results</g) || []).length, 1);
   assert.equal((html.match(/<h1\b/g) || []).length, 1);
   assert.match(html, /class="wordmark"/);
   assert.match(html, /class="masthead-dateline"/);
@@ -41,8 +44,16 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   const page = readFileSync(`_site/${edition.replaceAll("-", "/")}/index.html`, "utf8");
   assert.match(page, /class="wordmark"/);
   assert.match(page, /class="site-menu"/);
-  assert.match(page, /class="edition-lead-title"/);
+  assert.match(page, /<h1 class="edition-kicker"/);
+  assert.doesNotMatch(page, /class="edition-lead-title"/);
   assert.match(page, /In 60 seconds/);
+  const lead = page.match(/<h3\b[^>]*\bid="([^"]+)"/);
+  assert.ok(lead, "edition lead heading");
+  assert.match(page, new RegExp(`<nav class="skim"[\\s\\S]*href="#${lead[1]}"`));
+  const h1 = page.match(/<h1\b[^>]*>[\s\S]*?<\/h1>/)?.[0] ?? "";
+  assert.equal(h1.includes(lead[1]), false);
+  assert.match(page, />Results page</);
+  assert.doesNotMatch(page, /November 3 election results\./);
   assert.match(page, /November 3, 2026/);
   assert.doesNotMatch(page, /Unifraktur|class="folio-nav"|class="edition-head"|Vol\. I/);
 });

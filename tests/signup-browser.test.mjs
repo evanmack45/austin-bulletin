@@ -96,7 +96,8 @@ async function assertDesktopLead(browser, origin) {
       inAside: !!document.querySelector("aside .signup--lead"),
       footerForm: !!document.querySelector(".signup--footer"),
       value: block.querySelector(".signup-value").textContent,
-      barFixed: !!document.querySelector(".signup--bar.is-fixed"),
+      forms: document.querySelectorAll("form.signup-form").length,
+      bar: !!document.querySelector(".signup--bar"),
       formTop: formBox.top,
       formBottom: formBox.bottom,
       inputHeight: input.getBoundingClientRect().height,
@@ -115,10 +116,11 @@ async function assertDesktopLead(browser, origin) {
   });
   assert.ok(box.width <= 1280, String(box.width));
   assert.equal(box.placed, true);
-  assert.match(box.value, /Austin's news in 5 minutes, every morning/);
+  assert.match(box.value, /Get the morning email\./);
   assert.equal(box.inAside, false);
   assert.equal(box.footerForm, false);
-  assert.equal(box.barFixed, false);
+  assert.equal(box.forms, 1);
+  assert.equal(box.bar, false);
   assert.equal(box.sky, false);
   assert.ok(box.formTop < 900, `form starts at ${box.formTop}`);
   assert.ok(box.formBottom <= 900, `form ends at ${box.formBottom}`);
@@ -150,10 +152,10 @@ async function assertMobileLead(browser, origin) {
   const posts = await blockKit(page);
   await open(page, origin, "/", 390);
   const fold = await page.evaluate(() => {
-    const top = document.querySelector(".today-top").getBoundingClientRect();
+    const lead = document.querySelector(".front-lead h1").getBoundingClientRect();
     const signup = document.querySelector(".paper-main .signup--lead").getBoundingClientRect();
     return {
-      topBottom: top.bottom,
+      topBottom: lead.bottom,
       signupTop: signup.top,
       vh: window.innerHeight,
       sky: !!document.querySelector(".masthead-sky, .masthead-banner")
@@ -165,15 +167,9 @@ async function assertMobileLead(browser, origin) {
   await page.evaluate(() => {
     document.querySelector(".signup--lead").scrollIntoView({ block: "center" });
   });
-  await page.waitForFunction(() => !document.querySelector(".signup--bar.is-fixed"));
   const result = await page.evaluate(() => {
     const block = document.querySelector(".signup--lead");
-    const action = document.querySelector(".front-lead .front-action");
-    const bar = document.querySelector(".signup--bar.is-fixed");
-    const overlap = bar && action
-      ? action.getBoundingClientRect().bottom > bar.getBoundingClientRect().top
-        && action.getBoundingClientRect().top < bar.getBoundingClientRect().bottom
-      : false;
+    const action = document.querySelector(".front-lead .results-button, .front-lead .front-action");
     const input = block.querySelector("input[name='email_address']");
     const label = block.querySelector("label");
     return {
@@ -181,7 +177,7 @@ async function assertMobileLead(browser, origin) {
       path: location.pathname,
       width: document.documentElement.scrollWidth,
       below: block.getBoundingClientRect().top >= action.getBoundingClientRect().bottom - 1,
-      overlap,
+      forms: document.querySelectorAll("form.signup-form").length,
       inputs: block.querySelectorAll("input[type=email]").length,
       inputHeight: input.getBoundingClientRect().height,
       labelled: label.getAttribute("for") === input.id
@@ -194,42 +190,33 @@ async function assertMobileLead(browser, origin) {
   assert.ok(result.inputHeight >= 44, String(result.inputHeight));
   assert.equal(result.labelled, true);
   assert.ok(result.width <= 390, String(result.width));
-  assert.equal(result.overlap, false);
+  assert.equal(result.forms, 1);
   assert.equal(posts.length, 0);
   await page.close();
 }
 
 async function assertMobileBar(browser, origin) {
   const home = readFileSync("_site/index.html", "utf8");
-  // The masthead's previous-edition link is the first dated href. The bar
-  // belongs on the edition the homepage leads to.
   const edition = home.match(/edition-jump"><a href="(\/\d{4}\/\d{2}\/\d{2}\/)/)[1];
   const page = await browser.newPage();
   const posts = await blockKit(page);
   await open(page, origin, edition, 390);
   await page.evaluate(() => window.scrollTo(0, 700));
-  await page.waitForSelector(".signup--bar.is-fixed");
   const shown = await page.evaluate(() => ({
     width: document.documentElement.scrollWidth,
-    label: document.querySelector(".signup--bar .signup-dismiss").textContent,
-    value: document.querySelector(".signup--bar .signup-value").textContent,
-    action: document.querySelector(".signup--bar form.signup-form")?.getAttribute("action") || "",
-    field: document.querySelector(".signup--bar input")?.getAttribute("name") || ""
+    forms: document.querySelectorAll("form.signup-form").length,
+    bar: !!document.querySelector(".signup--bar"),
+    value: document.querySelector(".signup--edition .signup-value")?.textContent || "",
+    action: document.querySelector(".signup--edition form.signup-form")
+      ?.getAttribute("action") || "",
+    field: document.querySelector(".signup--edition input")?.getAttribute("name") || ""
   }));
   assert.ok(shown.width <= 390, String(shown.width));
-  assert.equal(shown.label, "Close");
-  assert.match(shown.value, /Austin's news in 5 minutes, every morning/);
+  assert.equal(shown.forms, 1);
+  assert.equal(shown.bar, false);
+  assert.match(shown.value, /Get the morning email\./);
   assert.equal(shown.action, ACTION);
   assert.equal(shown.field, "email_address");
-  await page.locator(".signup--bar .signup-dismiss").click();
-  await page.waitForSelector(".signup--bar.is-fixed", { hidden: true });
-  const dismissed = await page.evaluate(() => localStorage.getItem("abSignupBarDismissed"));
-  assert.equal(dismissed, "1");
-  await page.reload({ waitUntil: "domcontentloaded" });
-  await page.evaluate(() => window.scrollTo(0, 700));
-  await page.waitForFunction(() => {
-    return document.querySelector("[data-signup='bar']")?.hidden === true;
-  });
   assert.equal(posts.length, 0);
   await page.close();
 }

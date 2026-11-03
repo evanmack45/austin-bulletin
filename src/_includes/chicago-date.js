@@ -17,6 +17,20 @@ export function chicagoDate(now = new Date()) {
 
 // expiresOn is an inclusive Chicago calendar day (YYYY-MM-DD). Pass a Date
 // to read the clock, or a YYYY-MM-DD string that is already a Chicago day.
+export function centralTime(iso) {
+  const date = new Date(iso);
+  if (Number.isNaN(date.getTime())) return "";
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: CHICAGO,
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true
+  }).formatToParts(date);
+  const part = (type) => parts.find((item) => item.type === type)?.value ?? "";
+  const suffix = part("dayPeriod").toLowerCase().startsWith("a") ? "a.m." : "p.m.";
+  return `${part("hour")}:${part("minute")} ${suffix}`;
+}
+
 export function deadlineStillOpen(expiresOn, today = new Date()) {
   const day = today instanceof Date ? chicagoDate(today) : today;
   return !(expiresOn && expiresOn < day);

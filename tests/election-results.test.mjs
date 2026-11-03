@@ -1,6 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
+import { centralTime } from "../src/_includes/chicago-date.js";
 
 const data = JSON.parse(readFileSync("src/_data/election2026.json", "utf8"));
 const page = readFileSync("src/_includes/election-results.njk", "utf8");
@@ -40,10 +41,36 @@ test("election data lists confirmed measures with blank official results", () =>
 
 test("the results template and the home and edition links stay wired to the data file", () => {
   assert.match(page, /election2026\.measures/);
-  assert.match(page, /measure\.result\.status/);
+  assert.match(page, /Not posted yet/);
+  assert.match(page, /centralTime/);
+  assert.match(page, /measure\.summary/);
+  assert.match(page, /measure\.source/);
+  assert.doesNotMatch(page, /measure\.result\.status/);
+  assert.doesNotMatch(page, /measure\.result\.asOfDisplay/);
   assert.match(page, /7 a\.m\. to 7 p\.m\./);
   assert.match(page, /any polling site in the county/);
-  assert.match(home, /href="\/election\/2026-11-03\/"/);
-  assert.match(edition, /editionIso == "2026-11-03"/);
-  assert.match(edition, /href="\/election\/2026-11-03\/"/);
+  assert.match(home, /href="\/election\/\{\{ election2026\.date \}\}\/"/);
+  assert.match(edition, /editionIso == election2026\.date/);
+  assert.match(edition, /Results page/);
+});
+
+test("the checked time is the data file timestamp in Central time", () => {
+  assert.equal(centralTime(data.checkedAt), "9:48 a.m.");
+  assert.equal(centralTime("not-a-time"), "");
+});
+
+test("the built results page states the status once", () => {
+  const html = readFileSync("_site/election/2026-11-03/index.html", "utf8");
+  assert.equal((html.match(/Results not posted yet/g) || []).length, 1);
+  assert.equal((html.match(/Last checked:/g) || []).length, 1);
+  assert.equal((html.match(/9:48 a\.m\./g) || []).length, 1);
+  assert.equal((html.match(/Not posted yet/g) || []).length, data.measures.length);
+  assert.doesNotMatch(html, /Results not yet posted/);
+  assert.doesNotMatch(html, /vote yes|vote no|should vote/i);
+  const visible = html.replaceAll("&#39;", "'").replaceAll("&quot;", "\"").replaceAll("&amp;", "&");
+  for (const measure of data.measures) {
+    assert.ok(visible.includes(measure.ballotTitle), measure.ballotTitle);
+    assert.ok(visible.includes(measure.summary), measure.id);
+    assert.ok(visible.includes(measure.source), measure.source);
+  }
 });

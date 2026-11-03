@@ -53,6 +53,21 @@ test("a lead's source and a later source span are not extra stories", () => {
   assert.deepEqual(stories.map((story) => story.anchor), ["lead", "ballot"]);
 });
 
+test("a consolidated brief still skims once, and its source line does not", () => {
+  const html = edition({
+    river: "<h5 id=\"voters\">Voters</h5>" +
+      "<p>Early voting ended.</p>" +
+      "<p class=\"source-line\">Sources: <a href=\"https://example.com/v\">County</a></p>" +
+      "<p class=\"brief\" id=\"brief-1\">Brief sentence number 1 stands alone.</p>" +
+      "<p class=\"source-line\">Sources: <a href=\"https://example.com/1\">KXAN</a></p>"
+  });
+  const stories = editionStories(html);
+  assert.equal(stories.length, 3);
+  assert.equal(stories[2].title, "Brief sentence number 1 stands alone.");
+  assert.equal(stories[2].anchor, "brief-1");
+  assert.equal(skimList(html).length, 3);
+});
+
 test("brief anchors are added from the sentence and left in the page", () => {
   const html = edition({
     river: "<p>CapMetro's Red Line is closed for track work. " +

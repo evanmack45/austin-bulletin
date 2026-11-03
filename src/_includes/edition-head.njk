@@ -1,9 +1,4 @@
 {# Expects editionDate, editionUrl, and top (from editionLead). #}
 <header class="edition-lead">
-  <p class="edition-kicker"><span class="edition-weekday">{{ editionDate | weekday }}</span> · <time class="edition-date" datetime="{{ editionDate | isoDate }}">{{ editionDate | longDate }}</time></p>
-  {% if top and top.title and not top.neutral %}
-  <h1 class="edition-lead-title">{{ top.title | escape }}</h1>
-  {% else %}
-  <h1 class="edition-date">{{ editionDate | longDate }}</h1>
-  {% endif %}
+  <h1 class="edition-kicker"><span class="edition-weekday">{{ editionDate | weekday }}</span> · <time class="edition-date" datetime="{{ editionDate | isoDate }}">{{ editionDate | longDate }}</time></h1>
 </header>

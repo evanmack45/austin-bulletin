@@ -8,7 +8,11 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { editionStories } from "./edition-skim.mjs";
 import { plainText } from "./metadata.mjs";
-import { sourceListHrefs } from "./source-lists.mjs";
+import {
+  externalStorySourceSets,
+  normalizeBulletin,
+  storySourceSets
+} from "./story-sources.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SKIM_LIMIT = 5;
@@ -60,7 +64,7 @@ function expectSkim(html, stories, label, problems) {
   });
 }
 
-function sameLists(before, after) {
+function sameSets(before, after) {
   if (before.length !== after.length) return false;
   return before.every((list, index) => list.join("\n") === after[index].join("\n"));
 }
@@ -91,10 +95,14 @@ async function checkEdition(siteDir, bulletinDir, name) {
   const problems = [];
   if (stories.length === 0) problems.push(`${label}: no stories found`);
   expectSkim(html, stories, label, problems);
-  const before = sourceListHrefs(markdown);
-  const after = sourceListHrefs(articleOf(html));
-  if (!sameLists(before, after)) {
-    problems.push(`${label}: source link counts changed`);
+  const source = normalizeBulletin(markdown);
+  const article = articleOf(html);
+  const before = storySourceSets(source);
+  const after = storySourceSets(article);
+  const beforeExternal = externalStorySourceSets(source);
+  const afterExternal = externalStorySourceSets(article);
+  if (!sameSets(before, after) || !sameSets(beforeExternal, afterExternal)) {
+    problems.push(`${label}: source URLs changed`);
   }
   return problems;
 }

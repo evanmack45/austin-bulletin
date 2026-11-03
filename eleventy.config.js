@@ -10,7 +10,7 @@ import { parseDesk } from "./scripts/desk.mjs";
 import { HtmlBasePlugin } from "@11ty/eleventy";
 import { feedPlugin } from "@11ty/eleventy-plugin-rss";
 import markdownItAnchor from "markdown-it-anchor";
-import { slug as beatSlug } from "./scripts/river.mjs";
+import { alsoSlugs, slug as beatSlug } from "./scripts/river.mjs";
 import {
   cachedLiveMeetings, withCouncilMeetingLinks, withPreviewMeetingHtml
 } from "./scripts/council-meetings.mjs";
@@ -20,6 +20,8 @@ import { SITE_URL, articleJsonLd, briefingHeadline, canonicalUrl, editionGap, pa
 import { editionRoute, shouldAddStoryShare, withStoryShare } from "./scripts/story-share.mjs";
 import { skimList, withStoryAnchors } from "./scripts/edition-skim.mjs";
 import { collapseSourceLists } from "./scripts/source-lists.mjs";
+import { consolidateStorySources } from "./scripts/story-sources.mjs";
+import { centralTime } from "./src/_includes/chicago-date.js";
 
 const illustrationAssets = await loadIllustrationAssets(readdirSync("src/_data/frontpages")
   .filter(name => name.endsWith(".json"))
@@ -129,6 +131,8 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("withStoryAnchors", withStoryAnchors);
   eleventyConfig.addFilter("skimList", skimList);
   eleventyConfig.addFilter("collapseSourceLists", collapseSourceLists);
+  eleventyConfig.addFilter("consolidateStorySources", consolidateStorySources);
+  eleventyConfig.addFilter("centralTime", centralTime);
   eleventyConfig.addAsyncFilter("withCouncilMeetings", async (html, editionDate) =>
     withCouncilMeetingLinks(html, editionDate, await cachedLiveMeetings()));
   eleventyConfig.addAsyncFilter("withPreviewMeeting", async (html, url, councilMeeting) =>
@@ -397,31 +401,6 @@ export default function (eleventyConfig) {
   // from the item-legibility jam). A lead's headline and paragraph may
   // share one markdown block or arrive as two; both shapes are handled.
   // Pre-tier editions have no ##### headlines and pass through untouched.
-  const alsoSlugs = (content) => {
-    const out = [];
-    let prev = null, sawLead = false, slugged = false;
-    for (const raw of content.split(/\n{2,}/)) {
-      const t = raw.trim();
-      if (!t) continue;
-      if (/^####\s/.test(t)) { prev = "beat"; sawLead = false; slugged = false; }
-      else if (/^#####\s/.test(t)) {
-        sawLead = true;
-        prev = /class="src"/.test(t) ? "leaddone" : "headline";
-      } else if (/class="src"/.test(t)) {
-        if (prev === "headline") { prev = "leaddone"; }
-        else {
-          if (sawLead && !slugged) {
-            out.push('<p class="brief-slug">Also</p>');
-            slugged = true;
-          }
-          prev = "item";
-        }
-      }
-      out.push(raw);
-    }
-    return out.join("\n\n");
-  };
-
   eleventyConfig.addPairedShortcode("river", (content) => {
     const tiered = /^#####\s/m.test(content);
     if (tiered) content = alsoSlugs(content);

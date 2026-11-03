@@ -220,11 +220,14 @@ img { width: 100%; height: auto; display: block; }
 }
 
 .edition-lead { margin: 1.25rem 0 0.75rem; text-align: left; }
-.edition-kicker {
+.edition-kicker,
+h1.edition-kicker {
   margin: 0;
+  font-family: Hanken, Arial, sans-serif;
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.08em;
+  line-height: 1.4;
   text-transform: uppercase;
   color: var(--muted);
 }
@@ -689,14 +692,16 @@ h2.glance-title::after { content: none; }
   color: var(--muted);
   margin: 1.15rem 0 0.55rem;
 }
-.river--tiered p:has(.src):not(h5 + p):not(.story-share + p):not(.story-share + figure + p) {
+.river--tiered p:has(.src):not(h5 + p):not(.story-share + p):not(.story-share + figure + p),
+.river--tiered p.brief {
   font-size: 0.9rem;
   line-height: 1.42;
   margin: 0 0 0.5rem 1.1rem;
   position: relative;
   color: #2a241d; /* slightly lighter than --ink to keep leads primary */
 }
-.river--tiered p:has(.src):not(h5 + p):not(.story-share + p):not(.story-share + figure + p)::before {
+.river--tiered p:has(.src):not(h5 + p):not(.story-share + p):not(.story-share + figure + p)::before,
+.river--tiered p.brief::before {
   content: "\2014";
   color: var(--accent);
   position: absolute;
@@ -704,7 +709,8 @@ h2.glance-title::after { content: none; }
 }
 /* A chart attached to a brief tucks to the brief's own margin, tight
    under it, so it reads as that entry's exhibit — not a floating peer. */
-.river--tiered p:has(.src):not(h5 + p):not(.story-share + p):not(.story-share + figure + p) + figure.graphic {
+.river--tiered p:has(.src):not(h5 + p):not(.story-share + p):not(.story-share + figure + p) + figure.graphic,
+.river--tiered p.brief + figure.graphic {
   margin: 0.4rem 0 1.15rem 1.1rem;
 }
 
@@ -1005,6 +1011,7 @@ body:has(article.bulletin) main { max-width: 48rem; }
   .bulletin p,
   .river p,
   .river--tiered p:has(.src):not(h5 + p):not(.story-share + p):not(.story-share + figure + p),
+  .river--tiered p.brief,
   .whats-next,
   .voice-text,
   .good-thing,

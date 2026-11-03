@@ -65,25 +65,25 @@ function cardTag(anchor) {
   return anchor === "front-lead" ? "section" : "article";
 }
 
-test("the homepage renders the date and up to three linked edition items", () => {
+test("the homepage shows each headline once", () => {
   const html = readFileSync("_site/index.html", "utf8");
   const edition = html.match(/data-edition="(\d{4}-\d{2}-\d{2})"/)[1];
   const desk = parseDesk(readFileSync(`src/bulletins/${edition}.md`, "utf8"));
   const instant = `${edition}T00:00:00.000Z`;
   const dateline = `${weekdayName(instant)}, ${shortMonthDay(instant)}`;
+  const body = html.replace(/<head\b[\s\S]*?<\/head>/i, "").replaceAll("&#39;", "'");
   assert.ok(html.includes(dateline), dateline);
-  assert.ok(desk.top.length > 0);
-  assert.ok(desk.top.length <= 3);
-  const block = html.match(/<nav class="today-top"[\s\S]*?<\/nav>/)?.[0] ?? "";
-  assert.match(block, new RegExp(`Today's top ${desk.top.length}`));
-  const hrefs = [...block.matchAll(/href="#([^"]+)"/g)].map((match) => match[1]);
-  assert.deepEqual(hrefs, desk.top.map((item) => item.anchor));
-  for (const item of desk.top) {
-    assert.ok(block.includes(escapeHtml(item.title)), item.title);
-    const card = element(html, cardTag(item.anchor), item.anchor);
-    assert.ok(card, item.anchor);
-    const source = `href="${escapeHtml(item.source.href)}"`;
-    assert.ok(card.includes(source), item.source.href);
-    assert.ok(html.indexOf(`id="${item.anchor}"`) > html.indexOf("today-top"));
+  assert.doesNotMatch(html, /class="today-top"/);
+  assert.equal(body.split(desk.headline).length - 1, 1, desk.headline);
+  const lead = element(html, "section", "front-lead");
+  assert.ok(lead.includes(escapeHtml(desk.headline)));
+  for (const item of [...desk.closes, ...desk.week]) {
+    assert.equal(body.split(item.title).length - 1, 1, item.title);
+    const card = element(html, "article", item.anchor);
+    assert.ok(card.includes(escapeHtml(item.title)), item.title);
+  }
+  if (edition === "2026-11-03") {
+    assert.equal((html.match(/>Election results</g) || []).length, 1);
+    assert.match(lead, /class="results-button" href="\/election\/2026-11-03\/"/);
   }
 });

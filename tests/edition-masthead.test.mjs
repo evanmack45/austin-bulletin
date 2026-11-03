@@ -1,6 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { existsSync, readFileSync } from "node:fs";
+import { externalStorySourceSets, normalizeBulletin } from "../scripts/story-sources.mjs";
 import { createServer } from "node:http";
 import path from "node:path";
 import puppeteer from "puppeteer-core";
@@ -60,10 +61,12 @@ test("edition pages use the homepage masthead and do not reference a blackletter
     edition.split('class="if-you"').length - 1,
     markdown.split('class="if-you"').length - 1
   );
-  assert.equal(
-    edition.split('class="source-line"').length - 1,
-    markdown.split('class="source-line"').length - 1
-  );
+  const article = edition.match(
+    /<article\b[^>]*class="[^"]*\bbulletin\b[^"]*"[^>]*>([\s\S]*?)<\/article>/i
+  )[1];
+  const before = externalStorySourceSets(normalizeBulletin(markdown));
+  const after = externalStorySourceSets(article);
+  assert.deepEqual(after, before);
   const corrected = readFileSync("_site/2026/10/13/index.html", "utf8");
   assert.match(corrected, /class="correction"/);
   assert.match(corrected, /an earlier version said the Council sent the package/);

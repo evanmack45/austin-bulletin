@@ -558,3 +558,46 @@ export function checkRiver(parsed, { visualException } = {}) {
     visualException: exceptionOk ? visualException.trim() : null
   };
 }
+
+function alsoMarker(state) {
+  if (state.prev === "headline") {
+    state.prev = "leaddone";
+    return "";
+  }
+  state.prev = "item";
+  if (!state.sawLead || state.slugged) return "";
+  state.slugged = true;
+  return '<p class="brief-slug">Also</p>';
+}
+
+function noteAlsoBlock(state, block) {
+  if (/^####\s/.test(block)) {
+    state.prev = "beat";
+    state.sawLead = false;
+    state.slugged = false;
+    return "";
+  }
+  if (/^#####\s/.test(block)) {
+    state.sawLead = true;
+    state.prev = /class="src"/.test(block) ? "leaddone" : "headline";
+    return "";
+  }
+  if (/class="src"/.test(block)) return alsoMarker(state);
+  return "";
+}
+
+// Tiered City Desk gets an "Also" label between a beat's lead and its briefs.
+// The river shortcode and the source-link check both use this, so a lead's
+// sources stay on the lead and each brief keeps its own.
+export function alsoSlugs(content) {
+  const state = { prev: null, sawLead: false, slugged: false };
+  const out = [];
+  for (const raw of String(content).split(/\n{2,}/)) {
+    const block = raw.trim();
+    if (!block) continue;
+    const marker = noteAlsoBlock(state, block);
+    if (marker) out.push(marker);
+    out.push(raw);
+  }
+  return out.join("\n\n");
+}

@@ -81,6 +81,7 @@ test("topic pages and the October 24 edition share that menu", async () => {
     assert.match(html, /class="topics-panel"/);
   }
   const edition = await readFile("_site/2026/10/24/index.html", "utf8");
-  assert.match(edition, /class="edition-lead-title"/);
+  assert.match(edition, /<h1 class="edition-kicker"/);
+  assert.doesNotMatch(edition, /class="edition-lead-title"/);
   assert.doesNotMatch(edition, /Vol\. I/);
 });

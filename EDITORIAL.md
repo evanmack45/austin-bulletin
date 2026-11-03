@@ -47,9 +47,11 @@ validate. They do not print. Do not modify a dated edition to make an old
 asset pass. Dates, uncertainty, and attribution stay beside the claim.
 
 Type: warm paper, bold headlines, one red accent. The signup is the Kit
-form, directly under the lead, at the end of each edition, and in the
-footer of every other page. The line is "Austin's news in 5 minutes,
-every morning". The subscribe button is the Bulletin red, with white text.
+form, one box per page: under the lead, at the end of each edition, or in
+the footer of every other page. The line is "Get the morning email. Sign
+up and the first issue reaches you once it goes out." The subscribe
+button is the Bulletin red, with white text. A story's source links
+render as one Sources line at the end of that story.
 
 ## Voice
 

@@ -37,7 +37,7 @@ November 7.
 
 | Site | Date | What |
 |---|---|---|
-| theaustinbulletin.com | 2026-10-29 | One header nav on every page: Today, Vote 2026, City Hall, Topics, Archive, About. Topics opens Bonds, Charter, Budget, Muny, and Zilker. Menu button below 640px. |
+| theaustinbulletin.com | 2026-11-03 | One signup box and an honest morning-email line. Each headline once. One Sources line per story. Results page: one status line, then "Not posted yet" until a measure has counts. |
 | yallcityhall.org | 2026-10-06 | Field-guide homepage (previous operator) |
 
 The Bulletin's next design change waits until 2026-11-12. The tracker is
@@ -83,6 +83,7 @@ No data at the judge date is a kill.
 One line per reader-visible change, newest first. The daily edition does
 not count. Three calendar days with no line is an alert.
 
+- 2026-11-03 · bulletin · Reader cleanup: one Kit signup per page, line is "Get the morning email. Sign up and the first issue reaches you once it goes out." Each headline shows once. Edition skim links to the stories. Each story ends with one Sources line, and the check keeps every source URL. `/election/2026-11-03/` has one status line from the data file; each measure says "Not posted yet" until it has counts. Masthead uses a middle dot.
 - 2026-11-03 · bulletin · `/election/2026-11-03/` (also `/election/`) lists City of Austin Propositions A–J and Austin Community College District Proposition A from the county ballot, each marked Results not yet posted, with the county results link. A line on the homepage and the Nov. 3 edition points there. Not a nav or masthead change.
 - 2026-10-31 · bulletin · The Oct. 30 edition adds that the county later counted 37,932 voters Thursday, 398,291 through Oct. 29, and 1,681 limited ballots Monday through Thursday. The printed 37,831, 398,190, and 1,580 stay. No new correction.
 - 2026-10-30 · bulletin · The Oct. 26, Oct. 27, and Oct. 29 editions, and the Oct. 26 clarification on /corrections, now link the county's Oct. 29 daily totals PDF. The Oct. 28 file 404s. The Vote Travis election page sits beside each daily-totals link. The Oct. 29 edition adds that the county later counted 35,355 voters Wednesday and 360,359 through Oct. 28. The printed 35,298 and 360,302 stay. No new correction.
