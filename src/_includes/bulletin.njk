@@ -8,11 +8,23 @@ hasInlineSignup: true
   {% set editionUrl = page.url %}
   {% set editionIso = editionDate | isoDate %}
   {% set top = content | editionLead(editionIso, editionUrl) %}
+  {% set skimBody = content | withStoryAnchors %}
+  {% set skim = skimBody | skimList %}
   {% include "edition-head.njk" %}
+  {% if skim.length %}
+  <nav class="skim" aria-labelledby="skim-title">
+    <h2 id="skim-title">In 60 seconds</h2>
+    <ol>
+      {% for item in skim %}
+      <li><a href="#{{ item.anchor | escape }}">{{ item.title | escape }}</a></li>
+      {% endfor %}
+    </ol>
+  </nav>
+  {% endif %}
   {{ images | leadForStory(top.storyKey) | safe }}
   {% set glanceData = glance[editionDate | isoDate] %}
   {% include "glance.njk" %}
-  {{ content | withStoryPhotos(images, top.storyKey) | withCouncilMeetings(editionIso) | safe }}
+  {{ skimBody | collapseSourceLists | withStoryPhotos(images, top.storyKey) | withCouncilMeetings(editionIso) | safe }}
 </article>
 {% set signupId = "edition" %}
 {% include "signup.njk" %}

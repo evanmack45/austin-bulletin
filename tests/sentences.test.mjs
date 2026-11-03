@@ -73,6 +73,16 @@ test("the edition title may repeat the briefing headline", () => {
   assert.deepEqual(duplicateSentences(html), []);
 });
 
+test("the edition skim may repeat a story headline", () => {
+  const headline = "Sunday crowds at Randalls Brodie nearly matched weekdays.";
+  const html = page(
+    `<nav class="skim" aria-labelledby="skim-title"><h2 id="skim-title">In 60 seconds</h2>` +
+    `<ol><li><a href="#crowds">${headline}</a></li></ol></nav>` +
+    `<h5 id="crowds">${headline}</h5>`
+  );
+  assert.deepEqual(duplicateSentences(html), []);
+});
+
 test("the homepage jump list may repeat a card headline", () => {
   const headline = "Sunday crowds at Randalls Brodie nearly matched weekdays.";
   const html = page(

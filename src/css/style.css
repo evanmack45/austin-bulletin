@@ -239,6 +239,46 @@ img { width: 100%; height: auto; display: block; }
   color: var(--ink);
 }
 
+.skim {
+  margin: 0.35rem 0 1rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid var(--rule);
+}
+.skim h2 {
+  display: block;
+  margin: 0 0 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  line-height: 1.3;
+}
+.skim h2::after { content: none; border: 0; }
+.skim ol {
+  margin: 0;
+  padding: 0 0 0 1.15rem;
+}
+.skim li {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.3;
+}
+.skim a {
+  color: var(--ink);
+  text-decoration: none;
+}
+.skim a:hover,
+.skim a:focus-visible { text-decoration: underline; }
+.skim a:focus-visible {
+  outline: 3px solid var(--mark);
+  outline-offset: 2px;
+}
+@media (max-width: 760px) {
+  .skim { margin: 0.2rem 0 0.75rem; }
+  .skim li { font-size: 0.9rem; }
+}
+
 .morning-note {
   position: relative;
   margin: 2rem auto 2.25rem;
@@ -676,6 +716,9 @@ h2.glance-title::after { content: none; }
   margin-left: 0.35rem;
   white-space: nowrap;
 }
+.src:has(.source-group),
+.source-line:has(.source-group) { white-space: normal; }
+.source-group { white-space: normal; }
 
 .standings { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
 .standings th {
