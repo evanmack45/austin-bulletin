@@ -11,7 +11,8 @@ const subscribe = readFileSync("_site/subscribe/index.html", "utf8");
 const archive = readFileSync("_site/archive/index.html", "utf8");
 const corrections = readFileSync("_site/corrections/index.html", "utf8");
 const vote = readFileSync("_site/vote-2026/index.html", "utf8");
-const VALUE = /Austin(?:'|&#39;)s news in 5 minutes, every morning/;
+const VALUE = /Get the morning email\./;
+const NOTE = /Sign up and the first issue reaches you once it goes out\./;
 const ACTION = "https://app.kit.com/forms/10083630/subscriptions";
 
 function htmlFiles(dir) {
@@ -43,19 +44,21 @@ test("the homepage signup sits directly under the lead", () => {
   const jumpAt = lead.indexOf('class="edition-jump"');
   assert.ok(storyEnd !== -1 && signupAt > storyEnd);
   assert.ok(jumpAt > signupAt);
-  const side = sliceBetween(home, 'class="paper-side"', 'class="signup signup--bar"');
+  const side = sliceBetween(home, 'class="paper-side"', 'class="site-footer"');
   assert.equal(side.indexOf('class="signup signup--lead"'), -1);
   assert.match(lead, VALUE);
+  assert.match(lead, NOTE);
   assert.match(lead, /The morning edition/);
   assert.match(lead, /data-signup-inline/);
-  assert.match(lead, /One email each morning, after you confirm/);
+  assert.doesNotMatch(home, /5 minutes|One email each morning/i);
   assert.match(lead, /href="\/feed\.xml"/);
   assert.match(lead, /<label class="signup-label" for="signup-email-lead">Email<\/label>/);
   assert.match(lead, /id="signup-email-lead"[^>]*name="email_address"/);
   const formTag = `<form class="signup-form" method="post" action="${ACTION}" `
     + `data-uid="e956043af1">`;
   assert.match(lead, new RegExp(formTag));
-  assert.equal(count(home, `action="${ACTION}"`), 2);
+  assert.equal(count(home, `action="${ACTION}"`), 1);
+  assert.doesNotMatch(home, /signup--bar/);
   assert.doesNotMatch(home, /signup--footer/);
   assert.doesNotMatch(home, /No signup|not saved|does not save|not connected/i);
   assert.match(home, /http-equiv="Content-Security-Policy"/);
@@ -70,15 +73,13 @@ test("the homepage signup sits directly under the lead", () => {
 test("every edition ends with a compact signup and the mobile bar is dismissible", () => {
   assert.match(edition, /class="signup signup--edition"/);
   assert.match(edition, VALUE);
+  assert.match(edition, NOTE);
   assert.ok(edition.indexOf('class="signup signup--edition"') > edition.indexOf("One Good Thing"));
-  assert.equal(count(edition, `action="${ACTION}"`), 2);
+  assert.equal(count(edition, `action="${ACTION}"`), 1);
   assert.match(edition, /name="email_address"/);
   assert.match(edition, /for="signup-email-edition"/);
-  assert.match(edition, /data-signup="bar"/);
-  assert.match(edition, /data-signup-dismiss/);
-  assert.match(edition, />Close</);
   assert.match(edition, /src="\/js\/signup\.js"/);
-  assert.doesNotMatch(edition, /signup--footer/);
+  assert.doesNotMatch(edition, /signup--bar|signup--footer/);
   const footer = edition.match(/<footer[\s\S]*?<\/footer>/)?.[0] ?? "";
   assert.doesNotMatch(footer, /newsletter/i);
 });
@@ -87,24 +88,26 @@ test("the subscribe page explains the confirmation email", () => {
   assert.match(subscribe, /Kit emails a confirmation link/);
   assert.match(subscribe, /href="\/feed\.xml"/);
   assert.match(subscribe, /class="signup signup--page"/);
-  assert.equal(count(subscribe, `action="${ACTION}"`), 2);
+  assert.equal(count(subscribe, `action="${ACTION}"`), 1);
+  assert.doesNotMatch(subscribe, /One email each morning|5 minutes/i);
   assert.doesNotMatch(subscribe, /signup--footer/);
   assert.match(about, /Kit sends a confirmation email first/);
   assert.match(about, /class="signup signup--footer"/);
   assert.match(archive, /class="signup signup--footer"/);
   assert.match(corrections, /class="signup signup--footer"/);
   assert.match(vote, /class="signup signup--footer"/);
-  assert.match(home, /after you confirm/);
+  assert.match(home, NOTE);
   const pages = `${home}\n${about}\n${subscribe}`;
   assert.doesNotMatch(pages, /not saved|No signup|You're in|not connected/i);
 });
 
-test("every HTML page renders the Kit form once in view and in the bar", () => {
+test("every HTML page renders one Kit form", () => {
   const pages = htmlFiles("_site");
   assert.ok(pages.length > 20);
   for (const file of pages) {
     const html = readFileSync(file, "utf8");
-    assert.ok(html.includes(`action="${ACTION}"`), file);
+    assert.equal(count(html, `action="${ACTION}"`), 1, file);
+    assert.doesNotMatch(html, /signup--bar/, file);
     assert.match(html, /method="post"/);
     assert.match(html, /name="email_address"/);
     assert.match(html, /data-uid="e956043af1"/);

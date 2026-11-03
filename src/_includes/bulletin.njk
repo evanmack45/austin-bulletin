@@ -11,8 +11,8 @@ hasInlineSignup: true
   {% set skimBody = content | withStoryAnchors %}
   {% set skim = skimBody | skimList %}
   {% include "edition-head.njk" %}
-  {% if editionIso == "2026-11-03" %}
-  <p class="election-banner"><a href="/election/2026-11-03/">November 3 election results.</a></p>
+  {% if editionIso == election2026.date %}
+  <p class="election-banner"><a href="/election/{{ election2026.date }}/">Results page</a></p>
   {% endif %}
   {% if skim.length %}
   <nav class="skim" aria-labelledby="skim-title">
@@ -27,7 +27,7 @@ hasInlineSignup: true
   {{ images | leadForStory(top.storyKey) | safe }}
   {% set glanceData = glance[editionDate | isoDate] %}
   {% include "glance.njk" %}
-  {{ skimBody | collapseSourceLists | withStoryPhotos(images, top.storyKey) | withCouncilMeetings(editionIso) | safe }}
+  {{ skimBody | consolidateStorySources | withStoryPhotos(images, top.storyKey) | withCouncilMeetings(editionIso) | safe }}
 </article>
 {% set signupId = "edition" %}
 {% include "signup.njk" %}

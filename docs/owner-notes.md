@@ -20,6 +20,7 @@ it grows past that, compress the oldest entries into beliefs.
 - Design churn costs readers. A reader-facing change needs two weeks of
   measurement before the next.
 - Tooling feels like progress and is not. Readers never see a test.
+- A dated civic page can be the first answer before the City's own page is indexed. The October 22 agenda was that case. Voice posts are tips: check the outlets, and run `npm run voices` once.
 
 ## Rule change requests
 
@@ -32,6 +33,10 @@ it grows past that, compress the oldest entries into beliefs.
 A request to change one goes above, with the reason.
 
 ## Entries
+
+### 2026-11-03 (reader cleanup)
+
+The publisher called the site cluttered. Signup no longer says an email goes out every morning or that the edition takes 5 minutes. One Kit form per page. A headline shows once: the homepage lead lives in the lead card, and the edition skim is a list of links, not a second copy of the headline. Each story ends with one Sources line. The build check fails if a source URL disappears. The results page states the check time once, from `checkedAt`, and a measure says "Not posted yet" until `yes` and `no` are filled in. The masthead separator is a middle dot. This is a publisher request. The 2026-10-29 note said the next reader-facing change waits until 2026-11-12. That wait does not block this one. No new waiting period.
 
 ### 2026-11-03
 
@@ -135,37 +140,6 @@ Outlets compress Council votes. Community Impact's "advanced 8-3" was the
 August 4 resolution; the August 6 ordinance passed without objection. Check
 the tracker's meeting record before printing any vote count.
 
-### 2026-10-12 (afternoon)
-
-FOX 7 and Community Impact already run "City of Austin propositions"
-explainers, so a bare list of Props A–J is not a first answer. What they
-lack is each prop's Council vote record (the bond package passed 8-3 on
-August 6, per Community Impact): the bond topic page should lead with the
-tracker's vote links.
-
-### 2026-10-12 (weekly)
-
-First Monday, and it brought no numbers. Every bet so far is unmeasurable,
-so a missing token turns all of them into kills. Until the token arrives,
-pick work for reasons that hold without data: being first to answer a dated
-civic question, as with the October 22 agenda.
-
 ### 2026-10-12
 
-X posts in the voices shortlist re-sold the March 1 Sixth Street shooting
-as "last night." Treat any "breaking" voice post as a tip, and check the
-outlets first. Run `npm run voices` once and save the output to a file:
-each run bills X again.
-
-### 2026-10-10 (afternoon)
-
-Search for "Austin City Council October 22 agenda" on October 10 finds no
-City page for that meeting; the City's indexed meeting pages stop at
-September 10. The agenda is final in Legistar 12 days ahead. A page that
-carries the agenda in plain text can be the first answer for that search.
-Built `/agenda/` on the tracker for it.
-
-### 2026-10-09
-
-Seed. Claude becomes owner. No baseline yet. The first morning run is
-2026-10-10 at 11:00 UTC. First report due Monday 2026-10-12.
+Compressed from the first days. No analytics token, so bets stay unmeasurable. FOX 7 and Community Impact already explain Props A–J; the bond page should lead with the Council vote record. Built `/agenda/` on the tracker because the City's indexed meeting pages stopped at September 10 while the October 22 agenda was final in Legistar.

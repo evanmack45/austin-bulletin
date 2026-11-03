@@ -171,6 +171,25 @@
   max-width: 100%;
   margin: 4px 18px 4px 0;
 }
+.home-front .results-row { margin: 0 0 12px; }
+.home-front .results-button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 0.9rem;
+  background: #c8102e;
+  color: #fff;
+  font-family: Hanken, Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+}
+.home-front .results-button:hover { text-decoration: underline; }
+.home-front .results-button:focus-visible {
+  outline: 3px solid #1b1b1b;
+  outline-offset: 3px;
+}
 .home-front .front-lead h1 {
   font-family: Bricolage, "Times New Roman", Times, serif;
   font-weight: 700;

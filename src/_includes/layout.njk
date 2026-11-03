@@ -39,8 +39,6 @@
   <main>
     {{ content | withPreviewMeeting(page.url, councilMeeting) | safe }}
   </main>
-  {% set signupId = "bar" %}
-  {% include "signup.njk" %}
   <footer class="site-footer">
     {% if not hasInlineSignup %}
     {% set signupId = "footer" %}

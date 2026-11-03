@@ -47,8 +47,22 @@ function idFor(node, title, used) {
   return takeId(title, used);
 }
 
+function openClasses(node) {
+  const open = String(node).match(/^<[^>]+>/)?.[0] ?? "";
+  const cls = open.match(/\bclass="([^"]*)"/i)?.[1] ?? "";
+  return cls.split(/\s+/).filter(Boolean);
+}
+
 function hasSrc(node) {
   return /class="[^"]*\bsrc\b/.test(node);
+}
+
+function hasSourceLine(node) {
+  return /class="[^"]*\bsource-line\b/.test(node);
+}
+
+function isBriefClass(node) {
+  return openClasses(node).includes("brief");
 }
 
 function summaryOf(node) {
@@ -104,6 +118,10 @@ function pushTag(source, index, nodes) {
   }
   nodes.push(source.slice(index, end.end));
   return end.end;
+}
+
+export function topLevelNodes(html) {
+  return topLevel(html);
 }
 
 function topLevel(html) {
@@ -177,7 +195,7 @@ function closeLead(state, node) {
 }
 
 function noteSource(state, node) {
-  if (hasSrc(node) && state.leadOpen) state.leadOpen = false;
+  if ((hasSrc(node) || hasSourceLine(node)) && state.leadOpen) state.leadOpen = false;
   return node;
 }
 
@@ -189,13 +207,19 @@ function visitBrief(state, node) {
   return stampOpen(node, anchor);
 }
 
+function visitSourced(state, node, kind) {
+  if (hasSourceLine(node)) return noteSource(state, node);
+  if (isBriefClass(node) && !state.leadOpen && kind === "p") return visitBrief(state, node);
+  if (!hasSrc(node) || state.leadOpen) return noteSource(state, node);
+  if (kind !== "p") return node;
+  return visitBrief(state, node);
+}
+
 function visitElement(state, node) {
   const kind = nodeKind(node);
   if (kind === "h5") return visitHeading(state, node);
   if (kind === "boundary") return closeLead(state, node);
-  if (!hasSrc(node) || state.leadOpen) return noteSource(state, node);
-  if (kind !== "p") return node;
-  return visitBrief(state, node);
+  return visitSourced(state, node, kind);
 }
 
 function stampRiver(inner, used, stories) {

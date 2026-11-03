@@ -8,7 +8,9 @@ import {
 } from "../src/js/signup.js";
 
 test("the value line is the morning-edition offer", () => {
-  assert.equal(VALUE_LINE, "Austin's news in 5 minutes, every morning");
+  assert.equal(VALUE_LINE, "Get the morning email.");
+  assert.equal(CONFIGURED_NOTE, "Sign up and the first issue reaches you once it goes out.");
+  assert.doesNotMatch(`${VALUE_LINE} ${CONFIGURED_NOTE}`, /5 minutes|one email each morning/i);
   assert.equal(newsletter.valueLine, VALUE_LINE);
   assert.equal(newsletter.note, CONFIGURED_NOTE);
   assert.equal(newsletter.barNote, CONFIGURED_NOTE);

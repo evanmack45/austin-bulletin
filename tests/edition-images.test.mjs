@@ -181,9 +181,13 @@ test("built October 24 pages credit the lead and do not illustrate the library d
   const parade = "/images/2026-10-24/viva-la-vida-960.webp";
   assert.match(leadFigure(edition), new RegExp(parade.replaceAll(".", "\\.")));
   assert.doesNotMatch(leadFigure(edition), /zilker-tree/);
-  const headline = edition.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)?.[1] ?? "";
-  assert.match(headline, /Viva La Vida parade and festival take over downtown today/);
-  assert.doesNotMatch(headline, /murder|\$1\.2 million/);
+  const h1 = edition.match(/<h1\b[^>]*>[\s\S]*?<\/h1>/)?.[0] ?? "";
+  assert.match(h1, /October 24, 2026/);
+  assert.doesNotMatch(h1, /murder|parade|\$1\.2 million/);
+  const paradeHeads = edition.match(
+    /<h5\b[^>]*>Viva La Vida parade and festival take over downtown today\./g
+  ) || [];
+  assert.equal(paradeHeads.length, 1);
   assert.ok(edition.includes(tree), "tree photograph stays with its story");
   assert.ok(edition.includes("That Other Paper"));
   assert.ok(edition.includes("File:Trail_of_Lights_Austin.jpg"));

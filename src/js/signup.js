@@ -2,9 +2,9 @@
 // to Kit with no script. This module places the mobile bar and publishes
 // the content security policy. It does not post an address.
 
-export const VALUE_LINE = "Austin's news in 5 minutes, every morning";
+export const VALUE_LINE = "Get the morning email.";
 export const KIT_FORM_ID = "10083630";
-export const CONFIGURED_NOTE = "One email each morning, after you confirm.";
+export const CONFIGURED_NOTE = "Sign up and the first issue reaches you once it goes out.";
 export const DISMISS_KEY = "abSignupBarDismissed";
 export const MOBILE_QUERY = "(max-width: 760px)";
 export const BAR_RESERVE_PX = 300;
