@@ -18,6 +18,8 @@ import {
 import { SITE_URL, articleJsonLd, briefingHeadline, canonicalUrl, editionGap, pageMetadata, sitemapPages, xmlEscape }
   from "./scripts/metadata.mjs";
 import { editionRoute, shouldAddStoryShare, withStoryShare } from "./scripts/story-share.mjs";
+import { skimList, withStoryAnchors } from "./scripts/edition-skim.mjs";
+import { collapseSourceLists } from "./scripts/source-lists.mjs";
 
 const illustrationAssets = await loadIllustrationAssets(readdirSync("src/_data/frontpages")
   .filter(name => name.endsWith(".json"))
@@ -124,6 +126,9 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("storyThumb", (images, url) => storyThumb(images, url, editionImageExists));
   eleventyConfig.addFilter("withStoryPhotos", (content, images, leadKey) =>
     withStoryPhotos(content, images, editionImageExists, leadKey));
+  eleventyConfig.addFilter("withStoryAnchors", withStoryAnchors);
+  eleventyConfig.addFilter("skimList", skimList);
+  eleventyConfig.addFilter("collapseSourceLists", collapseSourceLists);
   eleventyConfig.addAsyncFilter("withCouncilMeetings", async (html, editionDate) =>
     withCouncilMeetingLinks(html, editionDate, await cachedLiveMeetings()));
   eleventyConfig.addAsyncFilter("withPreviewMeeting", async (html, url, councilMeeting) =>

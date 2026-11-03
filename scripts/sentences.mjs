@@ -9,6 +9,7 @@
 // (edition-lead-title). That mirror is the title, not a second telling, so
 // it is left out of the scan. The headline still has to appear in the article.
 // The homepage jump list (nav.today-top) repeats card headlines as links.
+// The edition skim (nav.skim) repeats story headlines the same way.
 // That index is not a second telling either. The signup promise is the same
 // line in the page block and the mobile bar, so those sections are left out.
 
@@ -58,6 +59,7 @@ export function visibleText(html) {
     .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, " ")
     .replace(/<h1\b[^>]*class="[^"]*\bedition-lead-title\b[^"]*"[^>]*>[\s\S]*?<\/h1>/gi, " ")
     .replace(/<nav\b[^>]*\btoday-top\b[^>]*>[\s\S]*?<\/nav>/gi, " ")
+    .replace(/<nav\b[^>]*\bskim\b[^>]*>[\s\S]*?<\/nav>/gi, " ")
     .replace(/<p\b[^>]*\bclass="[^"]*\bcouncil-did\b[^"]*"[^>]*>[\s\S]*?<\/p>/gi, " ")
     .replace(/<section\b[^>]*\bclass="[^"]*\bsignup\b[^"]*"[^>]*>[\s\S]*?<\/section>/gi, " ");
   const text = decode(withoutTitle.replace(/<[^>]+>/g, " "));
