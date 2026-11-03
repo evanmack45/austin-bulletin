@@ -11,6 +11,9 @@ hasInlineSignup: true
   {% set skimBody = content | withStoryAnchors %}
   {% set skim = skimBody | skimList %}
   {% include "edition-head.njk" %}
+  {% if editionIso == "2026-11-03" %}
+  <p class="election-banner"><a href="/election/2026-11-03/">November 3 election results.</a></p>
+  {% endif %}
   {% if skim.length %}
   <nav class="skim" aria-labelledby="skim-title">
     <h2 id="skim-title">In 60 seconds</h2>

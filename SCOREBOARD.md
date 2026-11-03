@@ -70,6 +70,7 @@ No data at the judge date is a kill.
 | Bulletin `/vote-2026/` turnout from the County Clerk's daily totals, with busiest and quietest sites (shipped 2026-10-21) | Search-referred visits to `/vote-2026/` October 21 to November 3, from Cloudflare once the token exists | 2026-10-21 | 2026-11-18 | Fewer than 40 search-referred visits October 21 to November 3, or no analytics data (unmeasurable, killed) |
 | Tracker `/issues/budget/` narrowed to budget, tax, fee and bond actions (critic 8; shipped 2026-10-21) | Visits to `/issues/budget/` October 21 to November 18, from Cloudflare once the token exists | 2026-10-21 | 2026-11-18 | Fewer than 20 visits October 21 to November 18, or no analytics data (unmeasurable, killed) |
 | Morning-edition email signup under the lead, at the end of each edition, and a dismissible mobile bar (Kit form, double opt-in, shipped 2026-10-24) | Confirmed Kit subscribers in the 28 days before the judge date | 2026-10-24 | 2026-11-21 | Fewer than 25 confirmed addresses, or no Kit count (unmeasurable, killed) |
+| Election results page `/election/2026-11-03/` for City propositions and the county results link | Visits to `/election/2026-11-03/` November 3–10, from Cloudflare once the token exists | 2026-11-03 | 2026-11-17 | Fewer than 50 visits November 3–10, or no analytics data (unmeasurable, killed) |
 
 ## Judged bets
 
@@ -82,6 +83,7 @@ No data at the judge date is a kill.
 One line per reader-visible change, newest first. The daily edition does
 not count. Three calendar days with no line is an alert.
 
+- 2026-11-03 · bulletin · `/election/2026-11-03/` (also `/election/`) lists City of Austin Propositions A–J and Austin Community College District Proposition A from the county ballot, each marked Results not yet posted, with the county results link. A line on the homepage and the Nov. 3 edition points there. Not a nav or masthead change.
 - 2026-10-31 · bulletin · The Oct. 30 edition adds that the county later counted 37,932 voters Thursday, 398,291 through Oct. 29, and 1,681 limited ballots Monday through Thursday. The printed 37,831, 398,190, and 1,580 stay. No new correction.
 - 2026-10-30 · bulletin · The Oct. 26, Oct. 27, and Oct. 29 editions, and the Oct. 26 clarification on /corrections, now link the county's Oct. 29 daily totals PDF. The Oct. 28 file 404s. The Vote Travis election page sits beside each daily-totals link. The Oct. 29 edition adds that the county later counted 35,355 voters Wednesday and 360,359 through Oct. 28. The printed 35,298 and 360,302 stay. No new correction.
 - 2026-10-29 · bulletin · Every page uses one header nav: Today, Vote 2026, City Hall, Topics, Archive, About. Topics opens the Bonds, Charter, Budget, Muny, and Zilker hubs. City Hall goes to yallcityhall.org. Below 640px the links sit behind a Menu button that works without JavaScript.

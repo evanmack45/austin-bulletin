@@ -1126,3 +1126,25 @@ body:has(article.bulletin) main { max-width: 48rem; }
   .signup--bar .signup-dismiss:focus-visible,
   .signup--bar .signup-note a:focus-visible { outline-color: var(--bg); }
 }
+
+.election-results h1 { font-size: 2rem; margin: 0.5rem 0 0.75rem; }
+.election-results .measure {
+  margin: 0 0 1.25rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--rule);
+}
+.election-results .measure h3 {
+  margin: 0.4rem 0 0.35rem;
+  font-size: 1.35rem;
+}
+.election-results .status {
+  margin: 0.35rem 0;
+  font-family: Hanken, Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+.election-results a:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
