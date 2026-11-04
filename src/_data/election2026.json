@@ -1,7 +1,7 @@
 {
   "date": "2026-11-03",
-  "checkedAt": "2026-11-04T03:46:01Z",
-  "asOfDisplay": "9:46 p.m. Central on November 3, 2026",
+  "checkedAt": "2026-11-04T09:37:00Z",
+  "asOfDisplay": "3:37 a.m. Central on November 4, 2026",
   "links": {
     "sosDates": "https://www.sos.texas.gov/elections/voter/important-election-dates.shtml",
     "sosDatesLabel": "Texas Secretary of State election dates",
@@ -21,6 +21,7 @@
     "resultsEnrLabel": "Travis County results list"
   },
   "resultsListed": true,
+  "homepageThrough": "2026-11-04",
   "measures": [
     {
       "id": "austin-a",
@@ -32,12 +33,12 @@
       "sourceLabel": "Travis County consolidated ballot",
       "result": {
         "status": "Unofficial Travis County count, not final",
-        "yes": 175774,
-        "no": 102653,
+        "yes": 211842,
+        "no": 132911,
         "outcome": "For leads",
-        "asOf": "2026-11-04T03:46:01Z",
-        "asOfDisplay": "9:46 p.m. Central on November 3, 2026",
-        "source": "https://results.enr.clarityelections.com/TX/Travis/",
+        "asOf": "2026-11-04T09:37:00Z",
+        "asOfDisplay": "3:37 a.m. Central on November 4, 2026",
+        "source": "https://results.enr.clarityelections.com/TX/Travis/127492/",
         "sourceLabel": "Travis County Clerk election results"
       }
     },
@@ -51,12 +52,12 @@
       "sourceLabel": "Travis County consolidated ballot",
       "result": {
         "status": "Unofficial Travis County count, not final",
-        "yes": 173279,
-        "no": 103878,
+        "yes": 207036,
+        "no": 136142,
         "outcome": "For leads",
-        "asOf": "2026-11-04T03:46:01Z",
-        "asOfDisplay": "9:46 p.m. Central on November 3, 2026",
-        "source": "https://results.enr.clarityelections.com/TX/Travis/",
+        "asOf": "2026-11-04T09:37:00Z",
+        "asOfDisplay": "3:37 a.m. Central on November 4, 2026",
+        "source": "https://results.enr.clarityelections.com/TX/Travis/127492/",
         "sourceLabel": "Travis County Clerk election results"
       }
     },
@@ -70,14 +71,14 @@
       "sourceLabel": "Travis County consolidated ballot",
       "result": {
         "status": "Unofficial Travis County count, not final",
-        "yes": 178142,
-        "no": 76369,
-        "limitedPurposeYes": 4658,
-        "limitedPurposeNo": 2051,
+        "yes": 214141,
+        "no": 98455,
+        "limitedPurposeYes": 6119,
+        "limitedPurposeNo": 2777,
         "outcome": "For leads",
-        "asOf": "2026-11-04T03:46:01Z",
-        "asOfDisplay": "9:46 p.m. Central on November 3, 2026",
-        "source": "https://results.enr.clarityelections.com/TX/Travis/",
+        "asOf": "2026-11-04T09:37:00Z",
+        "asOfDisplay": "3:37 a.m. Central on November 4, 2026",
+        "source": "https://results.enr.clarityelections.com/TX/Travis/127492/",
         "sourceLabel": "Travis County Clerk election results"
       }
     },
@@ -91,14 +92,14 @@
       "sourceLabel": "Travis County consolidated ballot",
       "result": {
         "status": "Unofficial Travis County count, not final",
-        "yes": 92995,
-        "no": 164079,
-        "limitedPurposeYes": 2769,
-        "limitedPurposeNo": 4031,
+        "yes": 113930,
+        "no": 202392,
+        "limitedPurposeYes": 3670,
+        "limitedPurposeNo": 5350,
         "outcome": "Against leads",
-        "asOf": "2026-11-04T03:46:01Z",
-        "asOfDisplay": "9:46 p.m. Central on November 3, 2026",
-        "source": "https://results.enr.clarityelections.com/TX/Travis/",
+        "asOf": "2026-11-04T09:37:00Z",
+        "asOfDisplay": "3:37 a.m. Central on November 4, 2026",
+        "source": "https://results.enr.clarityelections.com/TX/Travis/127492/",
         "sourceLabel": "Travis County Clerk election results"
       }
     },
@@ -112,14 +113,14 @@
       "sourceLabel": "Travis County consolidated ballot",
       "result": {
         "status": "Unofficial Travis County count, not final",
-        "yes": 68474,
-        "no": 182333,
-        "limitedPurposeYes": 2053,
-        "limitedPurposeNo": 4544,
+        "yes": 85725,
+        "no": 222369,
+        "limitedPurposeYes": 2757,
+        "limitedPurposeNo": 5976,
         "outcome": "Against leads",
-        "asOf": "2026-11-04T03:46:01Z",
-        "asOfDisplay": "9:46 p.m. Central on November 3, 2026",
-        "source": "https://results.enr.clarityelections.com/TX/Travis/",
+        "asOf": "2026-11-04T09:37:00Z",
+        "asOfDisplay": "3:37 a.m. Central on November 4, 2026",
+        "source": "https://results.enr.clarityelections.com/TX/Travis/127492/",
         "sourceLabel": "Travis County Clerk election results"
       }
     },
@@ -133,14 +134,14 @@
       "sourceLabel": "Travis County consolidated ballot",
       "result": {
         "status": "Unofficial Travis County count, not final",
-        "yes": 185187,
-        "no": 61299,
-        "limitedPurposeYes": 4699,
-        "limitedPurposeNo": 1901,
+        "yes": 224531,
+        "no": 77667,
+        "limitedPurposeYes": 6187,
+        "limitedPurposeNo": 2535,
         "outcome": "For leads",
-        "asOf": "2026-11-04T03:46:01Z",
-        "asOfDisplay": "9:46 p.m. Central on November 3, 2026",
-        "source": "https://results.enr.clarityelections.com/TX/Travis/",
+        "asOf": "2026-11-04T09:37:00Z",
+        "asOfDisplay": "3:37 a.m. Central on November 4, 2026",
+        "source": "https://results.enr.clarityelections.com/TX/Travis/127492/",
         "sourceLabel": "Travis County Clerk election results"
       }
     },
@@ -154,14 +155,14 @@
       "sourceLabel": "Travis County consolidated ballot",
       "result": {
         "status": "Unofficial Travis County count, not final",
-        "yes": 153234,
-        "no": 90524,
-        "limitedPurposeYes": 4396,
-        "limitedPurposeNo": 2158,
+        "yes": 189983,
+        "no": 108462,
+        "limitedPurposeYes": 5867,
+        "limitedPurposeNo": 2795,
         "outcome": "For leads",
-        "asOf": "2026-11-04T03:46:01Z",
-        "asOfDisplay": "9:46 p.m. Central on November 3, 2026",
-        "source": "https://results.enr.clarityelections.com/TX/Travis/",
+        "asOf": "2026-11-04T09:37:00Z",
+        "asOfDisplay": "3:37 a.m. Central on November 4, 2026",
+        "source": "https://results.enr.clarityelections.com/TX/Travis/127492/",
         "sourceLabel": "Travis County Clerk election results"
       }
     },
@@ -175,14 +176,14 @@
       "sourceLabel": "Travis County consolidated ballot",
       "result": {
         "status": "Unofficial Travis County count, not final",
-        "yes": 164533,
-        "no": 81267,
-        "limitedPurposeYes": 4012,
-        "limitedPurposeNo": 2580,
+        "yes": 197179,
+        "no": 103862,
+        "limitedPurposeYes": 5256,
+        "limitedPurposeNo": 3463,
         "outcome": "For leads",
-        "asOf": "2026-11-04T03:46:01Z",
-        "asOfDisplay": "9:46 p.m. Central on November 3, 2026",
-        "source": "https://results.enr.clarityelections.com/TX/Travis/",
+        "asOf": "2026-11-04T09:37:00Z",
+        "asOfDisplay": "3:37 a.m. Central on November 4, 2026",
+        "source": "https://results.enr.clarityelections.com/TX/Travis/127492/",
         "sourceLabel": "Travis County Clerk election results"
       }
     },
@@ -196,14 +197,14 @@
       "sourceLabel": "Travis County consolidated ballot",
       "result": {
         "status": "Unofficial Travis County count, not final",
-        "yes": 106137,
-        "no": 153893,
-        "limitedPurposeYes": 3829,
-        "limitedPurposeNo": 3091,
+        "yes": 140207,
+        "no": 178582,
+        "limitedPurposeYes": 5342,
+        "limitedPurposeNo": 3792,
         "outcome": "Against leads",
-        "asOf": "2026-11-04T03:46:01Z",
-        "asOfDisplay": "9:46 p.m. Central on November 3, 2026",
-        "source": "https://results.enr.clarityelections.com/TX/Travis/",
+        "asOf": "2026-11-04T09:37:00Z",
+        "asOfDisplay": "3:37 a.m. Central on November 4, 2026",
+        "source": "https://results.enr.clarityelections.com/TX/Travis/127492/",
         "sourceLabel": "Travis County Clerk election results"
       }
     },
@@ -217,14 +218,14 @@
       "sourceLabel": "Travis County consolidated ballot",
       "result": {
         "status": "Unofficial Travis County count, not final",
-        "yes": 180269,
-        "no": 68248,
-        "limitedPurposeYes": 4860,
-        "limitedPurposeNo": 1747,
+        "yes": 220294,
+        "no": 84393,
+        "limitedPurposeYes": 6390,
+        "limitedPurposeNo": 2321,
         "outcome": "For leads",
-        "asOf": "2026-11-04T03:46:01Z",
-        "asOfDisplay": "9:46 p.m. Central on November 3, 2026",
-        "source": "https://results.enr.clarityelections.com/TX/Travis/",
+        "asOf": "2026-11-04T09:37:00Z",
+        "asOfDisplay": "3:37 a.m. Central on November 4, 2026",
+        "source": "https://results.enr.clarityelections.com/TX/Travis/127492/",
         "sourceLabel": "Travis County Clerk election results"
       }
     },
@@ -238,12 +239,12 @@
       "sourceLabel": "Travis County consolidated ballot",
       "result": {
         "status": "Unofficial Travis County count, not final",
-        "yes": 13373,
-        "no": 21981,
+        "yes": 16105,
+        "no": 27550,
         "outcome": "Against leads",
-        "asOf": "2026-11-04T03:46:01Z",
-        "asOfDisplay": "9:46 p.m. Central on November 3, 2026",
-        "source": "https://results.enr.clarityelections.com/TX/Travis/",
+        "asOf": "2026-11-04T09:37:00Z",
+        "asOfDisplay": "3:37 a.m. Central on November 4, 2026",
+        "source": "https://results.enr.clarityelections.com/TX/Travis/127492/",
         "sourceLabel": "Travis County Clerk election results"
       }
     }

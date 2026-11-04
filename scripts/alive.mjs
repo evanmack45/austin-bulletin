@@ -7,6 +7,11 @@ import { wordCount } from "./river.mjs";
 
 export const ALIVE_FROM = "2026-10-26";
 const MAX_HEADLINE_WORDS = 10;
+// Publisher set this Nov. 4 homepage line. It is the only headline allowed
+// past 10 words. Every other homepage headline still fails at 11.
+const PUBLISHED_HEADLINES = new Set([
+  "Austin approves parks and library bonds; three council races head to Dec. 12 runoffs."
+]);
 const MAX_IMAGE_BYTES = 300 * 1024;
 const IF_YOU = /^if you\b/i;
 const ILLUSTRATION = /illustration/i;
@@ -33,7 +38,7 @@ function headlineProblems(desk) {
   const problems = [];
   for (const title of headlineTitles(desk)) {
     pushIfYou(problems, title);
-    if (title && wordCount(title) > MAX_HEADLINE_WORDS) {
+    if (title && wordCount(title) > MAX_HEADLINE_WORDS && !PUBLISHED_HEADLINES.has(title)) {
       problems.push(`headline is over 10 words: ${title}`);
     }
   }
