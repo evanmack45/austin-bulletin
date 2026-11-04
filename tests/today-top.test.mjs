@@ -82,7 +82,7 @@ test("the homepage shows each headline once", () => {
     const card = element(html, "article", item.anchor);
     assert.ok(card.includes(escapeHtml(item.title)), item.title);
   }
-  if (edition === "2026-11-03") {
+  if (edition === "2026-11-03" || edition === "2026-11-04") {
     assert.equal((html.match(/>Election results</g) || []).length, 1);
     assert.match(lead, /class="results-button" href="\/election\/2026-11-03\/"/);
   }

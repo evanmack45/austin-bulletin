@@ -16,7 +16,7 @@ hasInlineSignup: true
       <section class="front-lead" id="front-lead" aria-labelledby="front-lead-title">
         {% if desk.kicker %}<p class="kicker">{{ desk.kicker | escape }}</p>{% endif %}
         <h1 id="front-lead-title">{{ desk.headline | escape }}</h1>
-        {% if editionDate == election2026.date %}
+        {% if editionDate == election2026.date or editionDate == election2026.homepageThrough %}
         <p class="results-row"><a class="results-button" href="/election/{{ election2026.date }}/">Election results</a></p>
         {% endif %}
         {% if photo %}

@@ -54,3 +54,11 @@ test("a homepage headline over 10 words fails", () => {
   const problems = aliveProblems(markdown, catalog(), files);
   assert.ok(problems.some((item) => /over 10 words/.test(item)));
 });
+
+test("the Nov. 4 publisher headline is allowed past 10 words", () => {
+  const headline = "Austin approves parks and library bonds; " +
+    "three council races head to Dec. 12 runoffs.";
+  const markdown = `{% bigstory %}\n### ${headline}\n{% endbigstory %}`;
+  const problems = aliveProblems(markdown, catalog(), files);
+  assert.ok(!problems.some((item) => /over 10 words/.test(item)));
+});

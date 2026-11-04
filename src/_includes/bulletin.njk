@@ -11,7 +11,7 @@ hasInlineSignup: true
   {% set skimBody = content | withStoryAnchors %}
   {% set skim = skimBody | skimList %}
   {% include "edition-head.njk" %}
-  {% if editionIso == election2026.date %}
+  {% if editionIso == election2026.date or editionIso == election2026.homepageThrough %}
   <p class="election-banner"><a href="/election/{{ election2026.date }}/">Results page</a></p>
   {% endif %}
   {% if skim.length %}

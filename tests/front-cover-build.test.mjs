@@ -30,8 +30,8 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.match(html, /width="1280" height="853"[^>]*loading="eager" fetchpriority="high"/);
   assert.match(html, /Travis County Courthouse, 2011/);
   assert.match(html, /Larry D\. Moore, CC BY 4\.0, via Wikimedia Commons/);
-  assert.match(html, /Tuesday, Nov\. 3/);
-  assert.match(html, /Nov\. 16/);
+  assert.match(html, /Wednesday, Nov\. 4/);
+  assert.match(html, /Nov\. 5/);
   assert.doesNotMatch(html, /If you (haven't|want|live|are)\b/);
   assert.doesNotMatch(html, /\bhousing\b/i);
   assert.ok(!html.includes("front-news-rail"), "the rail is gone");
@@ -54,6 +54,6 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.equal(h1.includes(lead[1]), false);
   assert.match(page, />Results page</);
   assert.doesNotMatch(page, /November 3 election results\./);
-  assert.match(page, /November 3, 2026/);
+  assert.match(page, /November 4, 2026/);
   assert.doesNotMatch(page, /Unifraktur|class="folio-nav"|class="edition-head"|Vol\. I/);
 });
