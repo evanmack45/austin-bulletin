@@ -31,6 +31,9 @@ jobs:
       - name: Skim lists and source links
         run: node scripts/check-skim.mjs
 
+      - name: Archive titles
+        run: node scripts/check-archive-titles.mjs
+
       - name: Lint
         run: npm run lint
 

@@ -402,6 +402,19 @@ the build, `node scripts/check-sentences.mjs` reads each page's text,
 ignores case and extra whitespace, and fails if a sentence of six or more
 words appears twice on that page. It prints the file and the sentence.
 
+## Archive titles
+
+The archive is a list of days, not a second copy of one turnout story.
+Each edition sets `archive_title` in its front matter: two or three of
+that morning's biggest items, in plain words, drawn only from headlines
+and facts already in that edition. Name the items. Do not endorse a
+candidate or a measure. Do not make the line a bare turnout percentage.
+The archive page prints this field. From 2026-11-04, `npm run check`
+requires it. Older editions fall back to The Briefing's ### headline
+when the field is absent. The check fails when a resolved title is
+empty, is mostly a percentage (a bare `NN.NN%` turnout line), or
+exactly repeats the previous edition's title.
+
 ## Neutrality rules
 
 1. Report what happened and who said what. Never state whether a policy
