@@ -27,14 +27,23 @@ copy: `desk:kicker`, `desk:figure`, `desk:photo`, `desk:closes`, and
 `desk:week`. A deadline is the source's own date. Do not calculate a day
 count the copy does not state.
 
-A lead photograph runs only when `desk:photo` names a record in
-`src/_data/imageCredits.json`. The caption says what the picture shows.
-A photograph needs a credit. An illustration is labeled "Illustration" in
-the alt text and on the page. No City of Austin image. No illustration in
-place of a missing story photo. The masthead is the wordmark and the date
-line. It does not carry an illustration. `npm run check` fails an edition from
+A lead image is that edition's `images.lead` front matter: `src`,
+`smallSrc`, `alt`, `caption`, `credit`, `source`, `license`, `licenseUrl`,
+and pixel dimensions. The homepage and the edition use that record. With
+no record, the lead runs without a photo. `desk:photo` still names a
+catalog record for editions published before 2026-11-04. A photograph
+needs a credit, and it has to be a current licensed picture of that
+story. The same lead file cannot be used by two editions. Dates in
+`src/_data/leadPhotoAllowlist.json` may keep a file they already shared.
+The 2011 Travis County Courthouse photograph is not a lead unless the
+story is about that courthouse, and a later edition cannot reuse the
+file. A chart or illustration is labeled "Chart" or "Illustration" in
+the alt text and on the page, and is not presented as a photograph. No
+City of Austin image. The masthead is the wordmark and the date line.
+It does not carry an illustration. `npm run check` fails an edition from
 2026-10-26 on when an item starts with "If you", a homepage headline runs
-past 10 words, or an image lacks a credit or an illustration label.
+past 10 words, an image lacks a credit or an illustration label, or a
+new edition reuses another edition's lead image file.
 
 The dated-briefing line lives on About. Standing guides live on the
 archive, under "Keep these close." The masthead is Today, Vote 2026,
@@ -520,7 +529,8 @@ a question for the publisher, not something a run engineers around.
    (Wikimedia Commons, Flickr CC), and photos that government agencies
    release with their statements (city, county, state, federal),
    credited to the agency. A generic stand-in, or a photo you cannot
-   verify, does not qualify.
+   verify, does not qualify. Do not reuse a lead image file across
+   editions.
 4. Photorealistic AI image, generated with `npm run illustrate`, when
    none of the above exists. Caption exactly "AI-generated image". Never
    real or recognizable people; never posed as a photo of the event.

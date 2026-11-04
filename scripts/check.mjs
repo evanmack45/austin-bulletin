@@ -29,6 +29,7 @@ import { chicagoDate } from "./chicago-time.mjs";
 import { readFile, readdir, access } from "node:fs/promises";
 import yaml from "js-yaml";
 import { editionImageLinks, editionImageProblems } from "./edition-images.mjs";
+import { declaredLeadSrc, leadReuseProblems } from "./lead-photos.mjs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { execFile } from "node:child_process";
@@ -209,7 +210,7 @@ async function exists(p) {
 // tried and rejected a routing brief full of in-page links on 2026-08-29
 // ("spammy"); links belong in the Sources line, and any in-page link that
 // does appear must land on an anchor that actually exists.
-function checkFirstRead(big, fullText, bad, minWords = FIRSTREAD_MIN) {
+function checkFirstRead(big, fullText, bad, minWords = FIRSTREAD_MIN, hasLeadImage = false) {
   const prose = big
     .replace(/^###.*$/gm, " ")
     .replace(/<p class="if-you">[\s\S]*?<\/p>/g, " ")
@@ -221,7 +222,8 @@ function checkFirstRead(big, fullText, bad, minWords = FIRSTREAD_MIN) {
   }
   if (!/^###\s+\S/m.test(big)) bad("briefing", "no ### headline stating the day's idea");
   if (!/<p class="whats-next">/.test(big)) bad("briefing", 'no "What\'s next" line');
-  if (!/!\[|<img[\s>]/.test(big)) {
+  // images.lead renders above the briefing. It is that day's anchor image.
+  if (!/!\[|<img[\s>]/.test(big) && !hasLeadImage) {
     bad("briefing", "no chart or image — the day's graphic anchors the section");
   }
   if (!/<p class="source-line">/.test(big)) bad("briefing", "no Sources line");
@@ -317,7 +319,9 @@ async function main() {
     if (!/<p class="whats-next">/.test(big)) bad("big story", 'no "What\'s next" line');
     if (!/<p class="source-line">/.test(big)) bad("big story", "no Sources line");
   } else {
-    checkFirstRead(big, text, bad, floorOk ? FIRSTREAD_FLOOR_MIN : FIRSTREAD_MIN);
+    checkFirstRead(
+      big, text, bad, floorOk ? FIRSTREAD_FLOOR_MIN : FIRSTREAD_MIN, Boolean(declaredLeadSrc(text))
+    );
   }
 
   // --- City Desk ------------------------------------------------------------
@@ -524,6 +528,18 @@ async function main() {
       if (!(await exists(path.join(repoRoot, "src", "_data", dir, `${id}.json`)))) {
         bad("data", `${kind} "${id}" has no src/_data/${dir}/${id}.json`);
       }
+    }
+  }
+
+  // The same lead file cannot serve two editions. Dates on the allowlist
+  // already shipped that way; a later edition has to bring its own file.
+  if (!args.dir) {
+    try {
+      for (const problem of await leadReuseProblems(repoRoot, bulletinDir)) {
+        bad("lead-photo", problem);
+      }
+    } catch (err) {
+      bad("lead-photo", `could not check lead images (${err.message})`);
     }
   }
 

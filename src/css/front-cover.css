@@ -246,7 +246,13 @@
     object-fit: cover;
     object-position: center 42%;
   }
+  .home-front .lead-photo--flat img {
+    height: auto;
+    object-fit: contain;
+    object-position: center;
+  }
   .home-front .paper-wrap:has(.lead-photo) .paper-side { padding-top: 268px; }
+  .home-front .paper-wrap:has(.lead-photo--flat) .paper-side { padding-top: 420px; }
 }
 .home-front .lead-photo figcaption,
 .home-front .spot-art figcaption {

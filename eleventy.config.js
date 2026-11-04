@@ -120,8 +120,10 @@ export default function (eleventyConfig) {
   });
 
   const editionImageExists = (src) => existsSync(`src${src}`);
-  eleventyConfig.addFilter("leadForStory", (images, key) =>
-    leadForStory(images, key, editionImageExists));
+  eleventyConfig.addFilter("leadForStory", (images, key, sizes) =>
+    leadForStory(images, key, editionImageExists, {
+      sizes: typeof sizes === "string" ? sizes : undefined
+    }));
   eleventyConfig.addFilter("hasStoryPhoto", (images, key) =>
     hasStoryPhoto(images, key, editionImageExists));
   eleventyConfig.addFilter("editionLead", (html, editionDate, editionUrl) =>

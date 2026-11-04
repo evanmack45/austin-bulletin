@@ -1,0 +1,22 @@
+Chart for the November 4, 2026 edition lead. This is an original chart
+by The Austin Bulletin, not a photograph and not an AI image.
+
+The figures are the ones already printed in that edition, from Travis
+County's unofficial results for the November 3, 2026 election:
+Proposition A (parks) 61.4 percent for, Proposition B (libraries) 60.3
+percent for, Proposition I 56.0 percent against, turnout 58.7 percent of
+registered voters, and a December 12 runoff for three council races.
+Source: https://results.enr.clarityelections.com/TX/Travis/127492/
+
+No fitting current photograph of this election was available under
+CC BY, CC BY-SA, CC0, or a public-domain government release. The 2011
+Travis County Courthouse file is not used.
+
+election-results.svg is the source drawing.
+election-results.webp is 1280 by 1080.
+election-results-800.webp is 800 by 675.
+Both WebP files are rasterized from the SVG and scaled only, not cropped.
+
+The chart image is dedicated to the public domain under CC0 1.0.
+https://creativecommons.org/publicdomain/zero/1.0/
+This dedication does not change the license of unrelated site content.

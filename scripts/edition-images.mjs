@@ -46,6 +46,30 @@ function requireHttps(photo, label, field, problems) {
   if (!httpsUrl(photo[field])) problems.push(`${label} ${field} must be an https link`);
 }
 
+function knownKind(kind) {
+  return kind === "photo" || kind === "chart" || kind === "illustration";
+}
+
+function labeledChart(photo) {
+  return /chart|illustration/i.test(`${photo.alt || ""} ${photo.caption || ""}`);
+}
+
+function pushKindProblems(photo, label, problems) {
+  if (photo.kind == null) return;
+  if (!knownKind(photo.kind)) {
+    problems.push(`${label} kind is invalid`);
+    return;
+  }
+  if (photo.kind !== "photo" && !labeledChart(photo)) {
+    problems.push(`${label} must be labeled Chart or Illustration`);
+  }
+}
+
+function figureClass(photo, className) {
+  const flat = photo.kind === "chart" || photo.kind === "illustration";
+  return flat ? `${className} ${className}--flat` : className;
+}
+
 function isRecord(photo) {
   return Boolean(photo) && typeof photo === "object" && !Array.isArray(photo);
 }
@@ -65,6 +89,7 @@ export function photoProblems(photo, label) {
   }
   for (const field of ["source", "licenseUrl"]) requireHttps(photo, label, field, problems);
   if (photo.key != null && !storyKey(photo.key)) problems.push(`${label} key is invalid`);
+  pushKindProblems(photo, label, problems);
   return problems;
 }
 
@@ -165,7 +190,7 @@ function loadingAttr(loading) {
 export function photoMarkup(photo, options) {
   const srcset = `${photo.smallSrc} ${photo.smallWidth}w, ${photo.src} ${photo.width}w`;
   const priority = options.fetchPriority === "high" ? ' fetchpriority="high"' : "";
-  return `<figure class="${esc(options.className)}">` +
+  return `<figure class="${esc(figureClass(photo, options.className))}">` +
     `<img src="${esc(photo.src)}" srcset="${esc(srcset)}" sizes="${esc(options.sizes)}" ` +
     `width="${photo.width}" height="${photo.height}" alt="${esc(photo.alt)}" ` +
     `loading="${loadingAttr(options.loading)}" decoding="async"${priority}>` +
@@ -189,12 +214,17 @@ function checked(images, exists) {
   return read;
 }
 
-function renderLead(photo) {
+function leadSizes(sizes) {
+  if (typeof sizes === "string" && sizes.trim()) return sizes;
+  return "(max-width: 760px) calc(100vw - 40px), 760px";
+}
+
+function renderLead(photo, options = {}) {
   return photoMarkup(photo, {
     className: "lead-photo",
     loading: "eager",
     fetchPriority: "high",
-    sizes: "(max-width: 760px) calc(100vw - 40px), 760px",
+    sizes: leadSizes(options.sizes),
   });
 }
 
@@ -218,10 +248,10 @@ export function hasStoryPhoto(images, key, exists = () => true) {
   }
 }
 
-export function leadForStory(images, key, exists) {
+export function leadForStory(images, key, exists, options = {}) {
   const photo = leadPhotoFor(images, key, exists);
   if (!photo) return "";
-  return renderLead(photo);
+  return renderLead(photo, options);
 }
 
 export function leadMarkup(images, exists) {

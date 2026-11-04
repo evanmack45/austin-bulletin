@@ -1,7 +1,6 @@
 ---
 layout: layout.njk
 title: "Austin Bulletin"
-description: "What changed in Austin this morning, and what closes when. One lead, the deadlines, and the source."
 permalink: "/"
 homeFront: true
 hasInlineSignup: true
@@ -19,7 +18,11 @@ hasInlineSignup: true
         {% if editionDate == election2026.date or editionDate == election2026.homepageThrough %}
         <p class="results-row"><a class="results-button" href="/election/{{ election2026.date }}/">Election results</a></p>
         {% endif %}
-        {% if photo %}
+        {% set homeLeadSizes = "(max-width: 760px) calc(100vw - 32px), 1280px" %}
+        {% set leadHtml = latest.data.images | leadForStory("", homeLeadSizes) %}
+        {% if leadHtml %}
+        {{ leadHtml | safe }}
+        {% elif photo %}
         <figure class="lead-photo">
           <img src="{{ photo.file | escape }}"{% if photo.smallSrc %} srcset="{{ photo.smallSrc | escape }} {{ photo.smallWidth }}w, {{ photo.file | escape }} {{ photo.width }}w" sizes="(max-width: 760px) calc(100vw - 32px), 1280px"{% endif %} alt="{{ photo.alt | escape }}" width="{{ photo.width }}" height="{{ photo.height }}" loading="eager" fetchpriority="high" decoding="async">
           <figcaption>{{ photo.caption | escape }}{% if photo.credit %} Photo: <a href="{{ photo.source | escape }}">{{ photo.credit | escape }}</a>.{% endif %}</figcaption>

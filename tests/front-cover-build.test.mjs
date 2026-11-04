@@ -18,18 +18,26 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.match(html, /class="wordmark"/);
   assert.match(html, /class="masthead-dateline"/);
   assert.doesNotMatch(html, /ill-masthead|masthead-sky|austin-skyline/);
-  assert.match(html, /p-courthouse\.jpg/);
-  assert.match(
-    html,
-    /srcset="\/images\/p-courthouse-800\.jpg 800w, \/images\/p-courthouse\.jpg 1280w"/
-  );
+  assert.match(html, /election-results\.webp/);
+  assert.doesNotMatch(html, /p-courthouse\.jpg/);
+  const srcset = "/images/2026-11-04/election-results-800.webp 800w, " +
+    "/images/2026-11-04/election-results.webp 1280w";
+  assert.ok(html.includes(`srcset="${srcset}"`));
   assert.match(
     html,
     /sizes="\(max-width: 760px\) calc\(100vw - 32px\), 1280px"/
   );
-  assert.match(html, /width="1280" height="853"[^>]*loading="eager" fetchpriority="high"/);
-  assert.match(html, /Travis County Courthouse, 2011/);
-  assert.match(html, /Larry D\. Moore, CC BY 4\.0, via Wikimedia Commons/);
+  assert.match(html, /width="1280" height="1080"/);
+  assert.match(html, /loading="eager"/);
+  assert.match(html, /fetchpriority="high"/);
+  assert.match(html, /Not a photograph/);
+  assert.match(html, /Travis County unofficial results/);
+  assert.match(html, /creativecommons\.org\/publicdomain\/zero\/1\.0/);
+  const imageUrl = "https://theaustinbulletin.com/images/2026-11-04/election-results.webp";
+  assert.ok(html.includes(`property="og:image" content="${imageUrl}"`));
+  assert.ok(html.includes(`name="twitter:image" content="${imageUrl}"`));
+  assert.match(html, /property="og:title" content="Austin approves parks and library bonds/);
+  assert.match(html, /property="og:description" content="Both city bond measures are passing/);
   assert.match(html, /Wednesday, Nov\. 4/);
   assert.match(html, /Nov\. 5/);
   assert.doesNotMatch(html, /If you (haven't|want|live|are)\b/);
@@ -59,5 +67,9 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.match(page, />Results page</);
   assert.doesNotMatch(page, /November 3 election results\./);
   assert.match(page, /November 4, 2026/);
+  assert.doesNotMatch(page, /p-courthouse/);
+  assert.match(page, /election-results\.webp/);
+  assert.match(page, /fetchpriority="high"/);
+  assert.ok(page.includes(`property="og:image" content="${imageUrl}"`));
   assert.doesNotMatch(page, /Unifraktur|class="folio-nav"|class="edition-head"|Vol\. I/);
 });
