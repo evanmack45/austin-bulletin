@@ -1,13 +1,51 @@
 ---
 layout: layout.njk
 title: "Vote 2026 — Austin & Travis County"
-description: "Early voting in Travis County runs October 19–30, 7 a.m.–7 p.m., at 45 sites. Every site, the seven accepted voter IDs, the Austin Council races, and Propositions A–J on the November 3 ballot."
+description: "Voting for the November 3, 2026 election is over. The results page, the Austin ballot, the dates, and the official instructions."
 permalink: "/vote-2026/"
 ---
 
 ## November 2026 voting in Austin
 
-This page covers the November 2026 general election, with voting-location guidance for Austin residents registered in Travis County. If you are registered in Hays or Williamson County, use your own county’s election information; the <a href="{{ vote2026.links.cityVoterResources }}">City of Austin voter resources</a> link to each county. Find official registration instructions, status checks and key dates below. No endorsements; no ads.
+Voting for the November 3, 2026 election is over. See the <a href="/election/2026-11-03/">results page</a>.
+
+This page covers that election for Austin residents registered in Travis County: the ballot, the dates, and the official instructions. If you are registered in Hays or Williamson County, use your own county’s election information; the <a href="{{ vote2026.links.cityVoterResources }}">City of Austin voter resources</a> link to each county. No endorsements; no ads.
+
+### What is on the Austin ballot
+
+Travis County's consolidated ballot lists every contest in the county; your own ballot shows only the ones where you live. Look yours up with <a href="https://tx.omniballot.us/sites/48453/default/app/home">the County's accessible ballot tool</a> or the <a href="{{ vote2026.links.consolidatedBallot }}">consolidated ballot (PDF)</a>. Candidates are listed here in ballot order.
+
+**City Council** (five of ten districts are on the ballot):
+
+- **District 1:** Steven Brown, Alexandria Anderson, Amber K. Goodwin, Michael Nahas, Portia Riggins, Misael Ramos
+- **District 3:** Eduardo “Lalito” Romero, Brock Skinner, José Velásquez, Gavin Fernandez Jr., Neha Shah
+- **District 5:** Liz Brink, David Weinberg, Ryan Alter, Farrah Abraham
+- **District 8:** Jeffery Bowen, Selena Xie
+- **District 9:** Rich Heyman, Katie Kam, Zohaib “Zo” Qadri, Dave Thadani, Kai Huang
+
+Two seats are open (Districts 1 and 8). The three incumbents running, and how they voted this year: [Austin City Council races 2026](/austin-council-races-2026/).
+
+**City bonds.** Both carry the ballot words "THIS IS A TAX INCREASE."
+
+- **Proposition A:** $260 million in bonds for citywide park, recreation, aquatic and open-space improvements.
+- **Proposition B:** $35 million in bonds for library facilities.
+
+What the two bonds would build and cost, and how the Council voted: [Austin's 2026 parks and library bonds](/austin-bonds-2026/).
+
+**City Charter amendments**, in the ballot's own terms:
+
+- **Proposition C:** Clarify that the Independent Citizens Redistricting Commission is independent of Council control; let it review districts after the City's boundaries change; add exceptions for student members; set an effective date for its plan; enlarge its applicant pool; clarify how vacancies are filled; and let City staff talk with it outside meetings within the Texas Open Meetings Act.
+- **Proposition D:** Delete the language that the Council shall meet at least once each week.
+- **Proposition E:** Delete the language requiring the Council to set its rules and order of business by ordinance.
+- **Proposition F:** Clarify the meaning of "election" and adjust campaign contribution and spending limits each year by January 1 instead of with the budget.
+- **Proposition G:** Hold citizen-initiative and petitioned charter elections on the next available November election in an even-numbered year.
+- **Proposition H:** The Council appoints and removes the City Attorney.
+- **Proposition I:** Require an Independent Affordability and Efficiency Initiative on a regular basis and before any tax rate increase election, with the contractor required to find annual and multi-year savings larger than its cost.
+- **Proposition J:** Non-substantive corrections to typos, punctuation and sentence structure, and changes to language made moot or unenforceable by state law or a final court order.
+
+Our [guide to Propositions C through J](/austin-charter-2026/) explains each charter amendment in plain words, with what each side says about Proposition I.
+
+The same ballot carries federal, state, judicial, county, appraisal district and other cities' contests. Source: <a href="{{ vote2026.links.consolidatedBallot }}">Travis County consolidated ballot, November 3, 2026</a> (corrected October 15; the Austin contests did not change), read October 17, 2026.
 
 ### Key dates
 
@@ -103,42 +141,6 @@ Sources: <a href="https://votetravis.gov/current-election-information/election-r
 "Bus route" is the County's own column on its list. Moved here from another Texas county and not registered in Travis County yet? A limited ballot may be available during early voting only, at the County Clerk, 5501 Airport Blvd. Call (512) 238-8683 to check.
 
 Source: <a href="{{ vote2026.links.earlyVotingSites }}">Travis County Clerk, early voting sites (PDF)</a> and <a href="{{ vote2026.links.travisCurrentElection }}">Current Election page</a>, read October 12, 2026. Sites can change; check the County's list before you go. Reference: <a href="{{ vote2026.links.earlyVotingFAQ }}">VoteTexas — Early voting FAQs</a>.
-
-### What is on the Austin ballot
-
-Travis County's consolidated ballot lists every contest in the county; your own ballot shows only the ones where you live. Look yours up with <a href="https://tx.omniballot.us/sites/48453/default/app/home">the County's accessible ballot tool</a> or the <a href="{{ vote2026.links.consolidatedBallot }}">consolidated ballot (PDF)</a>. Candidates are listed here in ballot order.
-
-**City Council** (five of ten districts are on the ballot):
-
-- **District 1:** Steven Brown, Alexandria Anderson, Amber K. Goodwin, Michael Nahas, Portia Riggins, Misael Ramos
-- **District 3:** Eduardo “Lalito” Romero, Brock Skinner, José Velásquez, Gavin Fernandez Jr., Neha Shah
-- **District 5:** Liz Brink, David Weinberg, Ryan Alter, Farrah Abraham
-- **District 8:** Jeffery Bowen, Selena Xie
-- **District 9:** Rich Heyman, Katie Kam, Zohaib “Zo” Qadri, Dave Thadani, Kai Huang
-
-Two seats are open (Districts 1 and 8). The three incumbents running, and how they voted this year: [Austin City Council races 2026](/austin-council-races-2026/).
-
-**City bonds.** Both carry the ballot words "THIS IS A TAX INCREASE."
-
-- **Proposition A:** $260 million in bonds for citywide park, recreation, aquatic and open-space improvements.
-- **Proposition B:** $35 million in bonds for library facilities.
-
-What the two bonds would build and cost, and how the Council voted: [Austin's 2026 parks and library bonds](/austin-bonds-2026/).
-
-**City Charter amendments**, in the ballot's own terms:
-
-- **Proposition C:** Clarify that the Independent Citizens Redistricting Commission is independent of Council control; let it review districts after the City's boundaries change; add exceptions for student members; set an effective date for its plan; enlarge its applicant pool; clarify how vacancies are filled; and let City staff talk with it outside meetings within the Texas Open Meetings Act.
-- **Proposition D:** Delete the language that the Council shall meet at least once each week.
-- **Proposition E:** Delete the language requiring the Council to set its rules and order of business by ordinance.
-- **Proposition F:** Clarify the meaning of "election" and adjust campaign contribution and spending limits each year by January 1 instead of with the budget.
-- **Proposition G:** Hold citizen-initiative and petitioned charter elections on the next available November election in an even-numbered year.
-- **Proposition H:** The Council appoints and removes the City Attorney.
-- **Proposition I:** Require an Independent Affordability and Efficiency Initiative on a regular basis and before any tax rate increase election, with the contractor required to find annual and multi-year savings larger than its cost.
-- **Proposition J:** Non-substantive corrections to typos, punctuation and sentence structure, and changes to language made moot or unenforceable by state law or a final court order.
-
-Our [guide to Propositions C through J](/austin-charter-2026/) explains each charter amendment in plain words, with what each side says about Proposition I.
-
-The same ballot carries federal, state, judicial, county, appraisal district and other cities' contests. Source: <a href="{{ vote2026.links.consolidatedBallot }}">Travis County consolidated ballot, November 3, 2026</a> (corrected October 15; the Austin contests did not change), read October 17, 2026.
 
 ### Election Day (Nov 3)
 

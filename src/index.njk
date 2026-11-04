@@ -34,9 +34,9 @@ hasInlineSignup: true
         {% endif %}
         {% if desk.source %}<p class="src front-sources">Source: <a href="{{ desk.source.href | escape }}">{{ desk.source.name | escape }}</a></p>{% endif %}
       </section>
+      <p class="edition-jump"><a href="{{ latest.url }}">Full {{ latest.date | weekday }} edition</a></p>
       {% set signupId = "lead" %}
       {% include "signup.njk" %}
-      <p class="edition-jump"><a href="{{ latest.url }}">Full {{ latest.date | weekday }} edition</a></p>
     </div>
     <aside class="paper-side">
       {% if desk.closes.length %}

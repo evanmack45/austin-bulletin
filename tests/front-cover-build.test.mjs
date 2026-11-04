@@ -46,7 +46,11 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.match(page, /class="site-menu"/);
   assert.match(page, /<h1 class="edition-kicker"/);
   assert.doesNotMatch(page, /class="edition-lead-title"/);
-  assert.match(page, /In 60 seconds/);
+  assert.match(page, /Today's items/);
+  assert.doesNotMatch(page, /In 60 seconds/);
+  assert.doesNotMatch(page, /Good morning, Austin/);
+  assert.doesNotMatch(page, /<h2[^>]*>\s*The Briefing/);
+  assert.match(page, /About our reporting/);
   const lead = page.match(/<h3\b[^>]*\bid="([^"]+)"/);
   assert.ok(lead, "edition lead heading");
   assert.match(page, new RegExp(`<nav class="skim"[\\s\\S]*href="#${lead[1]}"`));
