@@ -8,49 +8,51 @@ const page = readFileSync("src/_includes/election-results.njk", "utf8");
 const home = readFileSync("src/index.njk", "utf8");
 const edition = readFileSync("src/_includes/bulletin.njk", "utf8");
 
-const AS_OF = "2026-11-04T03:46:01Z";
-const AS_OF_DISPLAY = "9:46 p.m. Central on November 3, 2026";
+const AS_OF = "2026-11-04T09:37:00Z";
+const AS_OF_DISPLAY = "3:37 a.m. Central on November 4, 2026";
 const STATUS = "Unofficial Travis County count, not final";
-const SOURCE = "https://results.enr.clarityelections.com/TX/Travis/";
+const SOURCE = "https://results.enr.clarityelections.com/TX/Travis/127492/";
 
 // Full Purpose For/Against, then Limited Purpose where the clerk posted a second contest.
 // Limited Purpose is not added into yes/no. The lead uses the Full Purpose contest only.
+// Clarity version 385566, posted 3:37 a.m. CST Nov. 4. Full Purpose is yes/no.
+// Limited Purpose on C–J is separate and is not added in. Outcomes match 384294.
 const COUNTS = {
-  "austin-a": { yes: 175774, no: 102653, outcome: "For leads" },
-  "austin-b": { yes: 173279, no: 103878, outcome: "For leads" },
+  "austin-a": { yes: 211842, no: 132911, outcome: "For leads" },
+  "austin-b": { yes: 207036, no: 136142, outcome: "For leads" },
   "austin-c": {
-    yes: 178142, no: 76369, outcome: "For leads",
-    limitedPurposeYes: 4658, limitedPurposeNo: 2051
+    yes: 214141, no: 98455, outcome: "For leads",
+    limitedPurposeYes: 6119, limitedPurposeNo: 2777
   },
   "austin-d": {
-    yes: 92995, no: 164079, outcome: "Against leads",
-    limitedPurposeYes: 2769, limitedPurposeNo: 4031
+    yes: 113930, no: 202392, outcome: "Against leads",
+    limitedPurposeYes: 3670, limitedPurposeNo: 5350
   },
   "austin-e": {
-    yes: 68474, no: 182333, outcome: "Against leads",
-    limitedPurposeYes: 2053, limitedPurposeNo: 4544
+    yes: 85725, no: 222369, outcome: "Against leads",
+    limitedPurposeYes: 2757, limitedPurposeNo: 5976
   },
   "austin-f": {
-    yes: 185187, no: 61299, outcome: "For leads",
-    limitedPurposeYes: 4699, limitedPurposeNo: 1901
+    yes: 224531, no: 77667, outcome: "For leads",
+    limitedPurposeYes: 6187, limitedPurposeNo: 2535
   },
   "austin-g": {
-    yes: 153234, no: 90524, outcome: "For leads",
-    limitedPurposeYes: 4396, limitedPurposeNo: 2158
+    yes: 189983, no: 108462, outcome: "For leads",
+    limitedPurposeYes: 5867, limitedPurposeNo: 2795
   },
   "austin-h": {
-    yes: 164533, no: 81267, outcome: "For leads",
-    limitedPurposeYes: 4012, limitedPurposeNo: 2580
+    yes: 197179, no: 103862, outcome: "For leads",
+    limitedPurposeYes: 5256, limitedPurposeNo: 3463
   },
   "austin-i": {
-    yes: 106137, no: 153893, outcome: "Against leads",
-    limitedPurposeYes: 3829, limitedPurposeNo: 3091
+    yes: 140207, no: 178582, outcome: "Against leads",
+    limitedPurposeYes: 5342, limitedPurposeNo: 3792
   },
   "austin-j": {
-    yes: 180269, no: 68248, outcome: "For leads",
-    limitedPurposeYes: 4860, limitedPurposeNo: 1747
+    yes: 220294, no: 84393, outcome: "For leads",
+    limitedPurposeYes: 6390, limitedPurposeNo: 2321
   },
-  "acc-a": { yes: 13373, no: 21981, outcome: "Against leads" }
+  "acc-a": { yes: 16105, no: 27550, outcome: "Against leads" }
 };
 
 function commas(n) {
@@ -114,6 +116,7 @@ test("the results template and the home and edition links stay wired to the data
   assert.match(page, /centralTime/);
   assert.match(page, /commas/);
   assert.match(page, /Limited-purpose area: For/);
+  assert.match(page, /Travis County unofficial count, updated/);
   assert.match(page, /Williamson and Hays counties/);
   assert.match(page, /whose votes are not included/);
   assert.match(page, /Counting may continue/);
@@ -129,7 +132,7 @@ test("the results template and the home and edition links stay wired to the data
 });
 
 test("the checked time is the data file timestamp in Central time", () => {
-  assert.equal(centralTime(data.checkedAt), "9:46 p.m.");
+  assert.equal(centralTime(data.checkedAt), "3:37 a.m.");
   assert.equal(centralTime("not-a-time"), "");
 });
 
@@ -153,10 +156,10 @@ test("the built results page states the unofficial count once", () => {
     .replaceAll("&#39;", "'")
     .replaceAll("&quot;", "\"")
     .replaceAll("&amp;", "&");
-  assert.equal(times(visible, /Unofficial Travis County election-night totals/g), 1);
+  assert.equal(times(visible, /Travis County unofficial count, updated/g), 1);
   assert.equal(times(visible, /Counting may continue/g), 1);
   assert.equal(times(visible, /whose votes are not included/g), 1);
-  assert.equal(times(visible, /9:46 p\.m\. Central, Nov\. 3/g), 1);
+  assert.equal(times(visible, /3:37 a\.m\. Nov\. 4/g), 1);
   assert.equal(times(visible, /Limited-purpose area:/g), 8);
   assert.equal(times(visible, /Results not posted yet/g), 0);
   assert.equal(times(visible, /Not posted yet/g), 0);
