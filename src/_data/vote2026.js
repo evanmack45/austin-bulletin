@@ -1,6 +1,6 @@
-// Voter module window and official links for the November 2026 election.
-// This file exposes global data used by templates, including whether to
-// surface a navigation link during the election window.
+// Official links for the November 2026 election. One default export:
+// a named export makes Eleventy pass the module namespace through, and
+// {{ vote2026.links.* }} renders as an empty href.
 //
 // Dates verified 2026-10-04; official links checked in local Chrome:
 // - Texas SOS: 2026 November General Election — Tuesday, Nov 3, 2026
@@ -13,21 +13,7 @@
 // near and during the election period and then naturally disappear.
 // The gate is the Chicago calendar day, so a build after 7 p.m. Central
 // does not start the next day early.
-import { chicagoDate } from "../_includes/chicago-date.js";
-
-const electionWindow = {
-  start: "2026-09-15",
-  registrationDeadline: "2026-10-05",
-  earlyVoteStart: "2026-10-19",
-  earlyVoteEnd: "2026-10-30",
-  electionDay: "2026-11-03",
-  end: "2026-11-04"
-};
-
-export function electionNavOpen(now = new Date(), bounds = electionWindow) {
-  const today = now instanceof Date ? chicagoDate(now) : now;
-  return today >= bounds.start && today <= bounds.end;
-}
+import { electionNavOpen, electionWindow } from "../_includes/election-nav.js";
 
 export default {
   window: electionWindow,
