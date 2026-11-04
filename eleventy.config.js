@@ -19,6 +19,7 @@ import { SITE_URL, articleJsonLd, briefingHeadline, canonicalUrl, editionGap, pa
   from "./scripts/metadata.mjs";
 import { editionRoute, shouldAddStoryShare, withStoryShare } from "./scripts/story-share.mjs";
 import { skimList, withStoryAnchors } from "./scripts/edition-skim.mjs";
+import { tidyEditionChrome } from "./scripts/edition-chrome.mjs";
 import { collapseSourceLists } from "./scripts/source-lists.mjs";
 import { consolidateStorySources } from "./scripts/story-sources.mjs";
 import { centralTime } from "./src/_includes/chicago-date.js";
@@ -303,10 +304,6 @@ export default function (eleventyConfig) {
     return content.replace('<p class="good-thing"', '<p class="good-thing" id="one-good-thing"');
   });
 
-  // Add a subtle trust link next to "The Briefing" heading on new-shape editions.
-  // This keeps disclosure off the permanent footer while making it easy to find.
-  // Page HTML keeps a root-relative href. The feed re-runs transforms with
-  // baseHref set, and that pass must emit an absolute URL.
   // Story permalinks are for the edition HTML a reader opens. The feed
   // re-runs transforms with an absolute baseHref and should stay the story.
   eleventyConfig.addTransform("storyShare", function (content, outputPath) {
@@ -314,19 +311,16 @@ export default function (eleventyConfig) {
     return withStoryShare(content, editionRoute(outputPath));
   });
 
+  // One label above the skim list. The trust link stays on that label.
+  // Page HTML keeps a root-relative href. The feed re-runs transforms with
+  // baseHref set, and that pass must emit an absolute URL.
   eleventyConfig.addTransform("briefingTrustLink", function (content, outputPath) {
     if (!outputPath || !outputPath.endsWith(".html")) return content;
-    if (!content.includes('id="the-briefing"')) return content;
     const about = "/about/#trust";
     const href = typeof this.baseHref === "string" && this.baseHref.startsWith("http")
       ? new URL(about, this.baseHref).href
       : about;
-    const link =
-      `<span class="briefing-meta"> · <a class="trust-link" href="${href}">About our reporting</a></span>`;
-    return content.replace(
-      /(<h2[^>]*id="the-briefing"[^>]*>)([\s\S]*?)(<\/h2>)/,
-      (_m, open, inner, close) => `${open}${inner} ${link}${close}`
-    );
+    return tidyEditionChrome(content, href);
   });
 
   // {% voice "id" %} — renders one Voice card from src/_data/cards/<id>.json

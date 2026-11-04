@@ -43,7 +43,7 @@ function expectSkim(html, stories, label, problems) {
     return;
   }
   if (!nav) {
-    problems.push(`${label}: missing In 60 seconds list`);
+    problems.push(`${label}: missing skim list`);
     return;
   }
   if (!nav[1].includes('id="skim-title"')) problems.push(`${label}: skim list has no heading`);

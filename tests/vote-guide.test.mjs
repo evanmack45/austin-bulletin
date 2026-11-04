@@ -6,6 +6,15 @@ import { chicagoDate } from "../scripts/chicago-time.mjs";
 
 const guide = await readFile(new URL("../src/vote-2026/index.md", import.meta.url), "utf8");
 
+test("the vote page leads with the results link", () => {
+  const top = guide.slice(0, guide.indexOf("\n### "));
+  assert.match(top, /Voting for the November 3, 2026 election is over/);
+  assert.match(top, /href="\/election\/2026-11-03\/"/);
+  assert.match(top, />results page</);
+  assert.doesNotMatch(top, /registration deadline/);
+  assert.doesNotMatch(top, /Early voting/);
+});
+
 test("registration status uses the endorsed portal with official instruction fallback", () => {
   assert.equal(vote2026.links.myVoterPortal, "https://goelect.txelections.civixapps.com/ivis-mvp-ui/#/login");
   assert.equal(vote2026.links.register, "https://www.votetexas.gov/register-to-vote/");

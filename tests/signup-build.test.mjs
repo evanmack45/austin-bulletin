@@ -42,8 +42,8 @@ test("the homepage signup sits directly under the lead", () => {
   const storyEnd = lead.indexOf("</section>");
   const signupAt = lead.indexOf('class="signup signup--lead"');
   const jumpAt = lead.indexOf('class="edition-jump"');
-  assert.ok(storyEnd !== -1 && signupAt > storyEnd);
-  assert.ok(jumpAt > signupAt);
+  assert.ok(storyEnd !== -1 && jumpAt > storyEnd);
+  assert.ok(signupAt > jumpAt);
   const side = sliceBetween(home, 'class="paper-side"', 'class="site-footer"');
   assert.equal(side.indexOf('class="signup signup--lead"'), -1);
   assert.match(lead, VALUE);
