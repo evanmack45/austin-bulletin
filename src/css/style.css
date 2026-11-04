@@ -966,6 +966,12 @@ body:has(article.bulletin) main { max-width: 48rem; }
   border: 1px solid var(--ink);
   background: #e7e1d4;
 }
+.bulletin .lead-photo--flat img {
+  aspect-ratio: auto;
+  max-height: none;
+  object-fit: contain;
+  height: auto;
+}
 .bulletin .lead-photo figcaption { margin-top: .35rem; font-size: .82rem; line-height: 1.4; }
 .bulletin .lead-photo--fallback img {
   object-fit: contain;

@@ -52,15 +52,16 @@ async function measureFirstFold(page) {
 				outerHeight: box.height + parseFloat(getComputedStyle(element).marginBottom),
 			};
 		};
+		const sourceLink = document.querySelector(".front-lead .front-sources a");
 		return {
 			viewport: innerHeight,
 			neutral: document.querySelector(".edited-front").dataset.neutral === "true",
-			actionHref: document.querySelector(".front-lead .front-action").getAttribute("href"),
+			actionHref: sourceLink.getAttribute("href"),
 			documentWidth: document.documentElement.scrollWidth,
 			header: rect(".front-masthead"),
 			warning: rect(".front-weather-warning"),
 			lead: rect("h1"),
-			action: rect(".front-lead .front-action"),
+			action: rect(".front-lead .front-sources a"),
 			source: rect(".front-lead .front-sources"),
 			leadPhoto: rect(".front-lead .lead-photo img"),
 			access: rect(".front-access h2 a"),
@@ -78,8 +79,8 @@ async function measureFirstFold(page) {
 				height: link.getBoundingClientRect().height,
 			})),
 			title: document.querySelector("h1").textContent,
-			actionColor: getComputedStyle(document.querySelector(".front-action")).color,
-			actionBg: getComputedStyle(document.querySelector(".front-action")).backgroundColor,
+			actionColor: getComputedStyle(sourceLink).color,
+			actionBg: getComputedStyle(sourceLink).backgroundColor,
 		};
 	});
 }
@@ -98,6 +99,78 @@ function assertPlacement(result, width, height) {
 function assertMobileCover(result) {
  assert.ok(result.header.height <= 360, JSON.stringify(result.header));
  if (result.art) assert.ok(result.art.height >= 200 && result.art.height <= 210);
+}
+
+async function readSourceLine(page) {
+	return page.evaluate(() => {
+		const line = document.querySelector(".front-lead .front-sources");
+		const link = line.querySelector("a");
+		const labelNode = line.firstChild;
+		const colon = labelNode.textContent.lastIndexOf(":");
+		const labelRange = document.createRange();
+		labelRange.setStart(labelNode, 0);
+		labelRange.setEnd(labelNode, colon + 1);
+		const linkRange = document.createRange();
+		linkRange.selectNodeContents(link);
+		const labelRect = labelRange.getClientRects()[0];
+		const linkRect = linkRange.getClientRects()[0];
+		const lead = document.querySelector(".front-lead");
+		const countyLinks = [...lead.querySelectorAll("a")].filter((anchor) =>
+			anchor.textContent.trim() === "Travis County unofficial results");
+		return {
+			labelTop: labelRect.top,
+			linkTop: linkRect.top,
+			gap: linkRect.left - labelRect.right,
+			countyLinks: countyLinks.length,
+			text: line.textContent.replace(/\s+/g, " ").trim(),
+		};
+	});
+}
+
+async function readDateLines(page) {
+	return page.evaluate(() => {
+		const el = document.querySelector(".masthead-dateline");
+		const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+		const words = [];
+		let node;
+		while ((node = walker.nextNode())) {
+			const text = node.textContent;
+			const range = document.createRange();
+			let index = 0;
+			for (const part of text.split(/(\s+)/)) {
+				if (part.trim()) {
+					range.setStart(node, index);
+					range.setEnd(node, index + part.length);
+					const rect = range.getClientRects()[0];
+					words.push({ word: part, top: Math.round(rect.top) });
+				}
+				index += part.length;
+			}
+		}
+		const grouped = new Map();
+		for (const word of words) {
+			grouped.set(word.top, [...(grouped.get(word.top) || []), word.word]);
+		}
+		return [...grouped.values()].map((line) => line.join(" "));
+	});
+}
+
+function assertSourceLine(sourceLine) {
+	assert.equal(sourceLine.countyLinks, 1, "lead column keeps one results link");
+	assert.match(sourceLine.text, /^Source: Travis County unofficial results$/);
+	assert.ok(
+		Math.abs(sourceLine.labelTop - sourceLine.linkTop) < 3,
+		`Source label and link baselines: ${JSON.stringify(sourceLine)}`
+	);
+	assert.ok(sourceLine.gap >= 3, `missing space after Source: ${JSON.stringify(sourceLine)}`);
+}
+
+function assertDateLines(dateLines) {
+	assert.ok(dateLines.every((line) => line.trim() !== "3"), dateLines.join(" | "));
+	assert.ok(
+		dateLines.some((line) => /Previous:/.test(line) && /Nov\./.test(line)),
+		dateLines.join(" | ")
+	);
 }
 
 function assertFirstFold(result, width, height) {
@@ -155,6 +228,8 @@ test("edited homepage keeps the selected lead and action visible with real fonts
 			await page.evaluate(() => document.fonts.ready);
 			const result = await measureFirstFold(page);
 			assertFirstFold(result, width, height);
+			assertSourceLine(await readSourceLine(page));
+			if (width <= 390) assertDateLines(await readDateLines(page));
 			const targets = [...result.nav.map((link) => link.href), result.actionHref];
 			await reachByKeyboard(page, targets);
 			if (!result.warning) {
@@ -240,7 +315,7 @@ test("guide action fragments reach the answer by keyboard without JavaScript", {
 		const accessTitle = await page.goto(home, { waitUntil: "networkidle0" });
 		assert.ok(accessTitle.ok());
 		assert.equal(
-			await page.$eval(".front-lead .front-action", (link) => link.getAttribute("href")),
+			await page.$eval(".front-lead .front-sources a", (link) => link.getAttribute("href")),
 			"https://results.enr.clarityelections.com/TX/Travis/127492/",
 		);
 	} finally {
@@ -308,7 +383,9 @@ test("previous edition is direct keyboard navigation independent of optional com
       context: element.parentElement.textContent,
     }));
     assert.equal(link.href, href);
-    assert.ok(link.context.includes("Previous edition:"));
+    assert.ok(link.context.includes("Previous:"));
+    assert.equal(link.context.includes("Previous edition:"), false);
+    assert.match(link.text, /^[A-Z][a-z]+\.? \d{1,2}$/);
     assert.ok(!link.context.includes("Since"), "ordinary dateline makes no change claim");
     await reachByKeyboard(page, [href]);
     await Promise.all([page.waitForNavigation({ waitUntil: "networkidle0" }),

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="1080" viewBox="0 0 1280 1080">
+  <rect width="1280" height="1080" fill="#fbf8f2"/>
+  <rect width="1280" height="14" fill="#1b1b1b"/>
+  <text x="64" y="100" fill="#1b1b1b" font-family="Liberation Sans, Arial, sans-serif" font-size="64" font-weight="700">CHART · NOT A PHOTOGRAPH</text>
+  <text x="64" y="176" fill="#1b1b1b" font-family="Liberation Serif, Georgia, serif" font-size="52">Austin city election · Nov. 3, 2026</text>
+  <text x="64" y="248" fill="#1b1b1b" font-family="Liberation Sans, Arial, sans-serif" font-size="60">Travis County unofficial count</text>
+  <rect x="64" y="284" width="1152" height="4" fill="#1b1b1b"/>
+  <g font-family="Liberation Serif, Georgia, serif" font-weight="700" fill="#c8102e" font-size="108">
+    <text x="64" y="450">61.4%</text>
+    <text x="680" y="450">60.3%</text>
+    <text x="64" y="760">56.0%</text>
+    <text x="680" y="760">58.7%</text>
+  </g>
+  <g font-family="Liberation Sans, Arial, sans-serif" font-size="64" fill="#1b1b1b">
+    <text x="64" y="530">A · parks, for</text>
+    <text x="680" y="530">B · libraries, for</text>
+    <text x="64" y="840">Prop I · against</text>
+    <text x="680" y="840">Turnout</text>
+  </g>
+  <text x="680" y="910" fill="#1b1b1b" font-family="Liberation Sans, Arial, sans-serif" font-size="60">of registered voters</text>
+  <rect x="64" y="960" width="1152" height="4" fill="#1b1b1b"/>
+  <text x="64" y="1036" fill="#1b1b1b" font-family="Liberation Sans, Arial, sans-serif" font-size="60">Dec. 12 runoff for three council races</text>
+</svg>
