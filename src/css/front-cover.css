@@ -225,7 +225,7 @@
   display: flex;
   flex-wrap: nowrap;
   align-items: baseline;
-  column-gap: 0;
+  column-gap: 0.35em;
 }
 .home-front .front-sources a {
   display: block;

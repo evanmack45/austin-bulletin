@@ -105,9 +105,11 @@ async function readSourceLine(page) {
 	return page.evaluate(() => {
 		const line = document.querySelector(".front-lead .front-sources");
 		const link = line.querySelector("a");
+		const labelNode = line.firstChild;
+		const colon = labelNode.textContent.lastIndexOf(":");
 		const labelRange = document.createRange();
-		labelRange.setStart(line.firstChild, 0);
-		labelRange.setEnd(line.firstChild, line.firstChild.length);
+		labelRange.setStart(labelNode, 0);
+		labelRange.setEnd(labelNode, colon + 1);
 		const linkRange = document.createRange();
 		linkRange.selectNodeContents(link);
 		const labelRect = labelRange.getClientRects()[0];
@@ -118,6 +120,7 @@ async function readSourceLine(page) {
 		return {
 			labelTop: labelRect.top,
 			linkTop: linkRect.top,
+			gap: linkRect.left - labelRect.right,
 			countyLinks: countyLinks.length,
 			text: line.textContent.replace(/\s+/g, " ").trim(),
 		};
@@ -159,6 +162,7 @@ function assertSourceLine(sourceLine) {
 		Math.abs(sourceLine.labelTop - sourceLine.linkTop) < 3,
 		`Source label and link baselines: ${JSON.stringify(sourceLine)}`
 	);
+	assert.ok(sourceLine.gap >= 3, `missing space after Source: ${JSON.stringify(sourceLine)}`);
 }
 
 function assertDateLines(dateLines) {
