@@ -302,7 +302,10 @@ graphic, each item carrying its linked source tag; then
 `## The Back Page` over the rituals:
 `<aside class="the-number">`, a
 `<p class="countdown">`, and a `<p class="good-thing">`. Set
-`permalink: "/YYYY/MM/DD/"`. Every rule in EDITORIAL.md applies to every
+`permalink: "/YYYY/MM/DD/"`. Set `archive_title` to two or three of the
+day's biggest items, in plain words, with no endorsement and no bare
+turnout percentage. The archive list prints that line. See EDITORIAL.md,
+"Archive titles". Every rule in EDITORIAL.md applies to every
 sentence. "Today" means the date in America/Chicago
 (`TZ='America/Chicago' date`), never UTC.
 
@@ -462,7 +465,11 @@ If `node_modules` is missing (every fresh clone), run `npm ci` first. Then:
     npm run build
     npm run check                  # today; or `npm run check -- YYYY-MM-DD`
 
-`npm run check` (scripts/check.mjs) is the mechanical half of EDITORIAL's
+`npm run check` runs `scripts/check-archive-titles.mjs` and then
+`scripts/check.mjs`. The archive check reads every edition and fails when
+an archive title is empty, mostly a percentage, a copy of the previous
+edition, or, from 2026-11-04, missing `archive_title`. `scripts/check.mjs`
+is the mechanical half of EDITORIAL's
 quality gate: front matter and permalink, The Briefing's length, headline,
 chart, What's next line and in-page link targets, lead and brief
 lengths, lead counts per beat and per edition, beat names and their fixed

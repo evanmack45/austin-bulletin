@@ -3,7 +3,7 @@ import { copyFile } from "node:fs/promises";
 import path from "node:path";
 import { hasStoryPhoto, leadForStory, storyThumb, withStoryPhotos } from "./scripts/edition-images.mjs";
 import { loadIllustrationAssets } from "./scripts/front-art.mjs";
-import { isoDate, longDate, monthDay, readableDate, shortMonthDay, weekdayName }
+import { archiveDate, isoDate, longDate, monthDay, readableDate, shortMonthDay, weekdayName }
   from "./scripts/edition-dates.mjs";
 import { chicagoDate, editionLeadFromHtml, forecastAlerts, selectFrontpage, previousPublishedEdition } from "./scripts/frontpage.mjs";
 import { parseDesk } from "./scripts/desk.mjs";
@@ -17,6 +17,7 @@ import {
 
 import { SITE_URL, articleJsonLd, briefingHeadline, canonicalUrl, editionGap, pageMetadata, sitemapPages, xmlEscape }
   from "./scripts/metadata.mjs";
+import { archiveTitle } from "./scripts/archive-titles.mjs";
 import { editionRoute, shouldAddStoryShare, withStoryShare } from "./scripts/story-share.mjs";
 import { skimList, withStoryAnchors } from "./scripts/edition-skim.mjs";
 import { tidyEditionChrome } from "./scripts/edition-chrome.mjs";
@@ -98,6 +99,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("sitemapPages", sitemapPages);
   eleventyConfig.addFilter("xmlEscape", xmlEscape);
   eleventyConfig.addFilter("briefingHeadline", (inputPath) => briefingHeadline(readFileSync(inputPath, "utf8")));
+  eleventyConfig.addFilter("archiveTitle", (inputPath) => archiveTitle(readFileSync(inputPath, "utf8")));
   eleventyConfig.addFilter("editionGap", editionGap);
   eleventyConfig.addPassthroughCopy("src/css");
   eleventyConfig.addPassthroughCopy("src/js");
@@ -284,6 +286,7 @@ export default function (eleventyConfig) {
 
   eleventyConfig.addFilter("isoDate", isoDate);
   eleventyConfig.addFilter("shortMonthDay", shortMonthDay);
+  eleventyConfig.addFilter("archiveDate", archiveDate);
   eleventyConfig.addFilter("homeDesk", (inputPath) => parseDesk(readFileSync(inputPath, "utf8")));
   eleventyConfig.addFilter("commas", (n) => Number(n).toLocaleString("en-US"));
 

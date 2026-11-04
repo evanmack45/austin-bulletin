@@ -3,6 +3,7 @@ layout: layout.njk
 title: "Archive"
 permalink: "/archive/"
 ---
+<div class="archive-page">
 <h1>Archive</h1>
 {% set first = collections.bulletins | last %}
 <p class="archive-note">One edition each morning since {{ first.date | readableDate }}. Days without an edition are marked in the list. Dates in an edition apply to that morning. This is a dated briefing, not a live alert.</p>
@@ -33,12 +34,15 @@ permalink: "/archive/"
 <ul class="archive-list">
 {% for b in collections.bulletins %}
   {% set older = collections.bulletins[loop.index] %}
-  <li><a href="{{ b.url }}">{{ b.data.title }}</a>
-    {%- set headline = b.inputPath | briefingHeadline %}
-    {%- if headline %}<span class="archive-headline">{{ headline }}</span>{% endif %}</li>
+  {% set headline = b.inputPath | archiveTitle %}
+  <li><a href="{{ b.url }}">
+    <time class="archive-date" datetime="{{ b.fileSlug }}">{{ b.date | archiveDate }}</time>
+    {%- if headline %}<span class="archive-headline">{{ headline }}</span>{% endif %}
+  </a></li>
   {%- if older %}{% set gap = b.date | editionGap(older.date) %}
   {%- if gap %}
   <li class="archive-gap">No edition {{ gap }}.</li>
   {%- endif %}{% endif %}
 {% endfor %}
 </ul>
+</div>

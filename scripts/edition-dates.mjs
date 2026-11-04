@@ -53,3 +53,10 @@ export function shortMonthDay(value) {
   const date = editionDate(value);
   return `${SHORT_MONTHS[date.getUTCMonth()]} ${date.getUTCDate()}`;
 }
+
+// Weekday plus month and day. The day number stays with the month so a
+// narrow line cannot leave "4" alone.
+export function archiveDate(value) {
+  const monthDay = shortMonthDay(value).replace(/ (?=\d+$)/, "\u00a0");
+  return `${weekdayName(value)}, ${monthDay}`;
+}
