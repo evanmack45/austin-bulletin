@@ -1,10 +1,24 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
-import vote2026, { electionNavOpen } from "../src/_data/vote2026.js";
+import vote2026 from "../src/_data/vote2026.js";
+import { electionNavOpen } from "../src/_includes/election-nav.js";
 import { chicagoDate } from "../scripts/chicago-time.mjs";
 
 const guide = await readFile(new URL("../src/vote-2026/index.md", import.meta.url), "utf8");
+
+test("the built vote page renders official source urls", {
+  skip: !existsSync("_site/vote-2026/index.html")
+    && "run npm run build before integration checks"
+}, async () => {
+  const html = await readFile("_site/vote-2026/index.html", "utf8");
+  const keys = new Set([...guide.matchAll(/vote2026\.links\.(\w+)/g)].map(match => match[1]));
+  for (const key of keys) {
+    assert.ok(html.includes(vote2026.links[key]), key);
+  }
+  assert.equal(html.includes('href=""'), false);
+});
 
 test("the vote page leads with the results link", () => {
   const top = guide.slice(0, guide.indexOf("\n### "));
