@@ -187,6 +187,14 @@ function loadingAttr(loading) {
   return loading === "eager" ? "eager" : "lazy";
 }
 
+function captionHtml(photo) {
+  const license = `<a href="${esc(photo.licenseUrl)}">${esc(photo.license)}</a>`;
+  // A chart story prints one Source line, so the caption does not repeat it.
+  if (photo.kind === "chart") return `${esc(photo.caption)} · ${license}`;
+  const credit = `<a href="${esc(photo.source)}">${esc(photo.credit)}</a>`;
+  return `${esc(photo.caption)} ${credit} · ${license}`;
+}
+
 export function photoMarkup(photo, options) {
   const srcset = `${photo.smallSrc} ${photo.smallWidth}w, ${photo.src} ${photo.width}w`;
   const priority = options.fetchPriority === "high" ? ' fetchpriority="high"' : "";
@@ -194,8 +202,7 @@ export function photoMarkup(photo, options) {
     `<img src="${esc(photo.src)}" srcset="${esc(srcset)}" sizes="${esc(options.sizes)}" ` +
     `width="${photo.width}" height="${photo.height}" alt="${esc(photo.alt)}" ` +
     `loading="${loadingAttr(options.loading)}" decoding="async"${priority}>` +
-    `<figcaption>${esc(photo.caption)} <a href="${esc(photo.source)}">${esc(photo.credit)}</a> ` +
-    `· <a href="${esc(photo.licenseUrl)}">${esc(photo.license)}</a></figcaption></figure>`;
+    `<figcaption>${captionHtml(photo)}</figcaption></figure>`;
 }
 
 export function fallbackMarkup(options) {

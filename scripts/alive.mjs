@@ -10,7 +10,7 @@ const MAX_HEADLINE_WORDS = 10;
 // Publisher set this Nov. 4 homepage line. It is the only headline allowed
 // past 10 words. Every other homepage headline still fails at 11.
 const PUBLISHED_HEADLINES = new Set([
-  "Austin approves parks and library bonds; three council races head to Dec. 12 runoffs."
+  "Parks and library bonds lead; three council races head to Dec. 12 runoffs."
 ]);
 const MAX_IMAGE_BYTES = 300 * 1024;
 const IF_YOU = /^if you\b/i;

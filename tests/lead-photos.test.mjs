@@ -104,6 +104,8 @@ test("a chart lead is labeled, eager, and offers an 800w source", () => {
   assert.match(html, /election-results\.webp 1280w/);
   assert.match(html, /Not a photograph/);
   assert.doesNotMatch(html, /Photo:/);
+  assert.doesNotMatch(html, />Travis County unofficial results</);
+  assert.match(html, /creativecommons\.org\/publicdomain\/zero\/1\.0/);
 });
 
 test("November 4 lead files match the front matter and stay under 200KB", async () => {

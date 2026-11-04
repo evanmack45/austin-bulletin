@@ -53,6 +53,7 @@
   padding: 0;
 }
 .cover-chrome .front-masthead .masthead-dateline a { color: #1b1b1b; }
+.cover-chrome .front-masthead .prev-edition { white-space: nowrap; }
 .masthead-inner {
   max-width: 1120px;
   margin: 0 auto;
@@ -220,12 +221,24 @@
   text-transform: none;
   white-space: normal;
 }
+.home-front .src.front-sources {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: baseline;
+  column-gap: 0;
+}
 .home-front .front-sources a {
-  display: inline-block;
+  display: block;
+  flex: 1 1 auto;
+  min-width: 0;
   max-width: 100%;
   min-height: 44px;
+  margin: 0;
+  padding: 0;
   overflow-wrap: anywhere;
-  vertical-align: middle;
+  line-height: inherit;
+  vertical-align: baseline;
+  background: transparent;
   color: #1b1b1b;
 }
 .home-front .lead-photo { margin: 0 0 14px; }

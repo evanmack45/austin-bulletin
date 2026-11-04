@@ -2,13 +2,25 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
+function assertOneResultsLink(html) {
+  const leadHtml = html.match(/<section class="front-lead"[\s\S]*?<\/section>/)?.[0] ?? "";
+  const resultsUrl = "https://results.enr.clarityelections.com/TX/Travis/127492/";
+  assert.equal(leadHtml.split(resultsUrl).length - 1, 1);
+  const source = leadHtml.match(
+    /<p class="src front-sources">Source: <a href="([^"]+)"[^>]*>([^<]+)<\/a><\/p>/
+  );
+  assert.equal(source?.[1], resultsUrl);
+  assert.equal(source?.[2], "Travis County unofficial results");
+  assert.doesNotMatch(leadHtml, /class="num"/);
+}
+
 test("the homepage is one lead, and dated editions keep their own page", () => {
   const html = readFileSync("_site/index.html", "utf8");
   for (const text of [
     "/css/front-cover.css",
     "class=\"front-lead\"",
     "This week",
-    "class=\"front-action\""
+    "class=\"src front-sources\""
   ]) assert.ok(html.includes(text), text);
   assert.match(html, /Get the morning email\./);
   assert.doesNotMatch(html, /5 minutes|One email each morning/);
@@ -32,12 +44,13 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.match(html, /fetchpriority="high"/);
   assert.match(html, /Not a photograph/);
   assert.match(html, /Travis County unofficial results/);
+  assertOneResultsLink(html);
   assert.match(html, /creativecommons\.org\/publicdomain\/zero\/1\.0/);
   const imageUrl = "https://theaustinbulletin.com/images/2026-11-04/election-results.webp";
   assert.ok(html.includes(`property="og:image" content="${imageUrl}"`));
   assert.ok(html.includes(`name="twitter:image" content="${imageUrl}"`));
-  assert.match(html, /property="og:title" content="Austin approves parks and library bonds/);
-  assert.match(html, /property="og:description" content="Both city bond measures are passing/);
+  assert.match(html, /property="og:title" content="Parks and library bonds lead/);
+  assert.match(html, /property="og:description" content="Both city bond measures lead/);
   assert.match(html, /Wednesday, Nov\. 4/);
   assert.match(html, /Nov\. 5/);
   assert.doesNotMatch(html, /If you (haven't|want|live|are)\b/);
