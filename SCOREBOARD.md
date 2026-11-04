@@ -83,6 +83,7 @@ No data at the judge date is a kill.
 One line per reader-visible change, newest first. The daily edition does
 not count. Three calendar days with no line is an alert.
 
+- 2026-11-03 · bulletin · `/election/2026-11-03/` shows the Travis County Clerk unofficial count as of 9:46 p.m. Central, Nov. 3. Each measure lists For and Against. Props C–J add the limited-purpose area on a second line, not added to the full-purpose count. The page says who leads, that counting may continue, and that Williamson and Hays votes are not included.
 - 2026-11-03 · bulletin · Reader cleanup: one Kit signup per page, line is "Get the morning email. Sign up and the first issue reaches you once it goes out." Each headline shows once. Edition skim links to the stories. Each story ends with one Sources line, and the check keeps every source URL. `/election/2026-11-03/` has one status line from the data file; each measure says "Not posted yet" until it has counts. Masthead uses a middle dot.
 - 2026-11-03 · bulletin · `/election/2026-11-03/` (also `/election/`) lists City of Austin Propositions A–J and Austin Community College District Proposition A from the county ballot, each marked Results not yet posted, with the county results link. A line on the homepage and the Nov. 3 edition points there. Not a nav or masthead change.
 - 2026-10-31 · bulletin · The Oct. 30 edition adds that the county later counted 37,932 voters Thursday, 398,291 through Oct. 29, and 1,681 limited ballots Monday through Thursday. The printed 37,831, 398,190, and 1,580 stay. No new correction.

@@ -1,6 +1,6 @@
 <article class="election-results" data-pagefind-body>
   <h1>November 3, 2026 results</h1>
-  <p class="results-status">{% if election2026.resultsListed %}Last checked: {{ election2026.checkedAt | centralTime }} Central.{% else %}Results not posted yet. Travis County posts them after polls close at 7 p.m. Last checked: {{ election2026.checkedAt | centralTime }} Central.{% endif %} <a href="{{ election2026.links.resultsPage }}">{{ election2026.links.resultsPageLabel }}</a>. <a href="{{ election2026.links.resultsEnr }}">{{ election2026.links.resultsEnrLabel }}</a>.</p>
+  <p class="results-status">{% if election2026.resultsListed %}Unofficial Travis County election-night totals as of {{ election2026.checkedAt | centralTime }} Central, Nov. 3. Counting may continue. Parts of Austin and the ACC district lie in Williamson and Hays counties, whose votes are not included. <a href="{{ election2026.measures[0].result.source }}">{{ election2026.measures[0].result.sourceLabel }}</a>.{% else %}Results not posted yet. Travis County posts them after polls close at 7 p.m. Last checked: {{ election2026.checkedAt | centralTime }} Central. <a href="{{ election2026.links.resultsPage }}">{{ election2026.links.resultsPageLabel }}</a>. <a href="{{ election2026.links.resultsEnr }}">{{ election2026.links.resultsEnrLabel }}</a>.{% endif %}</p>
   <p>Tuesday, November 3, 2026, is Election Day. Polls are open 7 a.m. to 7 p.m. Central time. <a href="{{ election2026.links.sosDates }}">{{ election2026.links.sosDatesLabel }}</a>. <a href="{{ election2026.links.currentElection }}">{{ election2026.links.currentElectionLabel }}</a>.</p>
   <p>Travis County says a voter may cast a ballot at any polling site in the county. <a href="{{ election2026.links.pollingLocations }}">{{ election2026.links.pollingLocationsLabel }}</a>. <a href="{{ election2026.links.electionDaySites }}">{{ election2026.links.electionDaySitesLabel }}</a>.</p>
   <p>The county voter lookup shows the ballot for a voter's address. <a href="{{ election2026.links.voterLookup }}">{{ election2026.links.voterLookupLabel }}</a>.</p>
@@ -12,9 +12,12 @@
     <h3>{{ measure.ballotTitle }}</h3>
     <p>{{ measure.summary }}. <a href="{{ measure.source }}">{{ measure.sourceLabel }}</a>.</p>
     {% if measure.result.yes != null and measure.result.no != null %}
-    <p>Yes {{ measure.result.yes }}. No {{ measure.result.no }}.</p>
+    <p>For {{ measure.result.yes | commas }}. Against {{ measure.result.no | commas }}.</p>
+    {% if measure.result.limitedPurposeYes != null and measure.result.limitedPurposeNo != null %}
+    <p class="limited-purpose">Limited-purpose area: For {{ measure.result.limitedPurposeYes | commas }}, Against {{ measure.result.limitedPurposeNo | commas }}.</p>
+    {% endif %}
     {% if measure.result.outcome %}
-    <p>{{ measure.ballotTitle }} is recorded as {{ measure.result.outcome }}.</p>
+    <p>{{ measure.result.outcome }}.</p>
     {% endif %}
     {% else %}
     <p class="status">Not posted yet.</p>
