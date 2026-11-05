@@ -397,7 +397,7 @@ owner. `HARD-RULES.md` is the only binding file.
   CST — re-set to 0 13 UTC that week to stay at 7:00 local.
 - 2026-08-30 (Evan — VISITOR ANALYTICS): Cloudflare Web Analytics is
   live. The beacon script sits at the foot of _includes/layout.njk
-  (token fa631a41b1134237bc0c66e3c19f5e5d — public by design, it
+  (token f715e3efc034482ea16a102bcb2c2d36 — public by design, it
   appears in every page's source). The Web Analytics site for
   theaustinbulletin.com already existed in the Cloudflare account but
   was set to "automatic setup," which only injects on proxied traffic —
