@@ -8,7 +8,8 @@ import { promisify } from "node:util";
 import { fileURLToPath } from "node:url";
 import {
   buildSnapshot, daysFromGroups, lastCalendarDays, missingAccountError,
-  pullAndWrite, renderMarkdown, resolveAccountId, SITES, stampSnapshot
+  pullAndWrite, renderMarkdown, resolveAccountId, SITES, sitesFromEnv,
+  stampSnapshot
 } from "../scripts/visits.mjs";
 
 const execFileAsync = promisify(execFile);
@@ -59,8 +60,8 @@ function graphql(body, accountId) {
   const query = JSON.parse(body).query;
   assert.equal(query.includes(TOKEN), false);
   assert.match(query, /bot: 0/);
-  assert.match(query, /fa631a41b1134237bc0c66e3c19f5e5d/);
-  assert.match(query, /5cde7bb0bde94350a43827d985e10358/);
+  assert.match(query, /f715e3efc034482ea16a102bcb2c2d36/);
+  assert.match(query, /7344ab7bea3140de8c29211155de95fc/);
   if (accountId && !query.includes(accountId)) {
     return jsonResponse({ errors: [{ message: "account not found" }] });
   }
@@ -78,6 +79,17 @@ function fetchOk(accountId) {
     return graphql(init.body, accountId);
   };
 }
+
+test("an env site tag replaces that site's default", () => {
+  const sites = sitesFromEnv({
+    BULLETIN_SITE_TAG: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  });
+  const bulletin = sites.find((site) => site.id === "bulletin");
+  const ych = sites.find((site) => site.id === "ych");
+  assert.equal(bulletin.siteTag, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+  assert.equal(ych.siteTag, "7344ab7bea3140de8c29211155de95fc");
+  assert.equal(SITES[0].siteTag, "f715e3efc034482ea16a102bcb2c2d36");
+});
 
 test("the Chicago window ends today and holds seven dates", () => {
   const atNoon = lastCalendarDays(NOON);

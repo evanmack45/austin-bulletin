@@ -26,8 +26,8 @@ jobs:
         env:
           CLOUDFLARE_ANALYTICS_TOKEN: ${{ secrets.CLOUDFLARE_ANALYTICS_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || '56380d7415cfc386837449682cd00b2d' }}
-          BULLETIN_SITE_TAG: fa631a41b1134237bc0c66e3c19f5e5d
-          YCH_SITE_TAG: 5cde7bb0bde94350a43827d985e10358
+          BULLETIN_SITE_TAG: f715e3efc034482ea16a102bcb2c2d36
+          YCH_SITE_TAG: 7344ab7bea3140de8c29211155de95fc
         run: node scripts/visits.mjs
       - name: Commit snapshot when it changed
         run: |
