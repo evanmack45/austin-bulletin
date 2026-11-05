@@ -2,7 +2,8 @@ name: Visits
 # Daily Cloudflare Web Analytics snapshot for both sites. Read-only against
 # Cloudflare. Commits metrics/visits.json only when the file changed.
 # CLOUDFLARE_ANALYTICS_TOKEN is required (Account Analytics Read).
-# CLOUDFLARE_ACCOUNT_ID is optional; without it the script lists accounts.
+# CLOUDFLARE_ACCOUNT_ID uses the secret when it is set. An empty secret
+# falls back to the public account id in docs/routines/owner-weekly.md.
 on:
   schedule:
     # 12:00 UTC is 6:00am America/Chicago while Central is on standard time.
@@ -24,7 +25,7 @@ jobs:
       - name: Pull Cloudflare visits
         env:
           CLOUDFLARE_ANALYTICS_TOKEN: ${{ secrets.CLOUDFLARE_ANALYTICS_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || '56380d7415cfc386837449682cd00b2d' }}
           BULLETIN_SITE_TAG: fa631a41b1134237bc0c66e3c19f5e5d
           YCH_SITE_TAG: 5cde7bb0bde94350a43827d985e10358
         run: node scripts/visits.mjs
