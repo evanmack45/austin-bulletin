@@ -20,13 +20,13 @@ export const SITES = [
     id: "bulletin",
     name: "The Austin Bulletin",
     host: "theaustinbulletin.com",
-    siteTag: "fa631a41b1134237bc0c66e3c19f5e5d"
+    siteTag: "f715e3efc034482ea16a102bcb2c2d36"
   },
   {
     id: "ych",
     name: "Y'all City Hall",
     host: "yallcityhall.org",
-    siteTag: "5cde7bb0bde94350a43827d985e10358"
+    siteTag: "7344ab7bea3140de8c29211155de95fc"
   }
 ];
 
