@@ -279,6 +279,20 @@ async function main() {
       `floor_exception is too short (${substantiveWords(floorException)} distinct word(s) of 3+ letters) — needs a real sentence`
     );
   }
+  // An approved copy can require source order (original, then News, then
+  // Notices). Beat headings would reshuffle that list. ordered_copy, when
+  // the river has no beat headings, downgrades only the missing-Growth and
+  // ungrouped-item failures. Lead length, source tags, and out-of-order
+  // beats stay failures.
+  const orderedCopy = fm ? (fm.match(/^ordered_copy:\s*"([^"]*)"\s*$/m) || [])[1] : undefined;
+  const orderedOk = orderedCopy != null && orderedCopy !== "" && isSubstantiveException(orderedCopy);
+  if (orderedCopy != null && orderedCopy !== "" && !orderedOk) {
+    bad(
+      "front matter",
+      `ordered_copy is too short (${substantiveWords(orderedCopy)} distinct word(s) of 3+ letters) — needs a real sentence`
+    );
+  }
+  let orderedNotice = null;
   if (!fm) {
     bad("front matter", "could not find front matter");
   } else {
@@ -349,12 +363,14 @@ async function main() {
 
     const parsed = parseRiver(river);
     const items = parsed.items.map((i) => i.body);
+    const flatCopy = orderedOk && heads.length === 0;
+    if (flatCopy) orderedNotice = orderedCopy.trim();
     // New-shape hard gate: Growth & infrastructure is unskippable daily.
     if (newShape && !heads.includes(GROWTH_BEAT)) {
-      bad(
-        "river",
-        `"${GROWTH_BEAT}" heading is missing; Growth is unskippable daily (EDITORIAL Near roadmap)`
-      );
+      const message =
+        `"${GROWTH_BEAT}" heading is missing; Growth is unskippable daily (EDITORIAL Near roadmap)`;
+      if (flatCopy) warn("river", `${message} (ordered_copy: ${orderedNotice})`);
+      else bad("river", message);
     }
     if (!newShape && (items.length < RIVER_MIN || items.length > RIVER_MAX)) {
       bad("river", `${items.length} items, EDITORIAL wants ${RIVER_MIN}–${RIVER_MAX}`);
@@ -393,6 +409,11 @@ async function main() {
         const lowCount = p.message.match(/^(\d+) items, EDITORIAL wants/);
         if (floorOk && lowCount && Number(lowCount[1]) < LIMITS.itemsMin) {
           warn(p.check, `${p.message} (floor_exception: ${floorException.trim()})`);
+          continue;
+        }
+        const ungrouped = /no beat headings in City Desk|is outside every beat heading/;
+        if (flatCopy && ungrouped.test(p.message)) {
+          warn(p.check, `${p.message} (ordered_copy: ${orderedNotice})`);
           continue;
         }
         bad(p.check, p.message);
@@ -655,6 +676,9 @@ async function main() {
   }
   if (floorOk) {
     console.error(`\n  *** FLOOR EXCEPTION invoked for ${date}: "${floorException.trim()}" ***`);
+  }
+  if (orderedNotice) {
+    console.error(`\n  *** ORDERED COPY invoked for ${date}: "${orderedNotice}" ***`);
   }
   for (const w of warnings) console.error(`  warn  [${w.check}] ${w.message}`);
   if (problems.length === 0) {

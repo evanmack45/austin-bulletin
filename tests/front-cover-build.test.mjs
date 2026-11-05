@@ -2,15 +2,15 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
-function assertOneResultsLink(html) {
+function assertOneDatasetLink(html) {
   const leadHtml = html.match(/<section class="front-lead"[\s\S]*?<\/section>/)?.[0] ?? "";
-  const resultsUrl = "https://results.enr.clarityelections.com/TX/Travis/127492/";
-  assert.equal(leadHtml.split(resultsUrl).length - 1, 1);
+  const datasetUrl = "https://data.austintexas.gov/d/xwdj-i9he";
+  assert.equal(leadHtml.split(datasetUrl).length - 1, 1);
   const source = leadHtml.match(
     /<p class="src front-sources">Source: <a href="([^"]+)"[^>]*>([^<]+)<\/a><\/p>/
   );
-  assert.equal(source?.[1], resultsUrl);
-  assert.equal(source?.[2], "Travis County unofficial results");
+  assert.equal(source?.[1], datasetUrl);
+  assert.equal(source?.[2], "Austin 311 public data, City of Austin Open Data");
   assert.doesNotMatch(leadHtml, /class="num"/);
 }
 
@@ -24,37 +24,41 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   ]) assert.ok(html.includes(text), text);
   assert.match(html, /Get the morning email\./);
   assert.doesNotMatch(html, /5 minutes|One email each morning/);
-  assert.match(html, /class="results-button"/);
-  assert.equal((html.match(/>Election results</g) || []).length, 1);
+  assert.doesNotMatch(html, /class="results-button"/);
   assert.equal((html.match(/<h1\b/g) || []).length, 1);
+  assert.match(html, /Parking complaints are now Austin(?:'|&#39;)s top 311 request\./);
   assert.match(html, /class="wordmark"/);
   assert.match(html, /class="masthead-dateline"/);
   assert.doesNotMatch(html, /ill-masthead|masthead-sky|austin-skyline/);
-  assert.match(html, /election-results\.webp/);
+  assert.match(html, /parking-311\.webp/);
   assert.doesNotMatch(html, /p-courthouse\.jpg/);
-  const srcset = "/images/2026-11-04/election-results-800.webp 800w, " +
-    "/images/2026-11-04/election-results.webp 1280w";
+  assert.doesNotMatch(html, /election-results\.webp/);
+  const srcset = "/images/2026-11-05/parking-311-800.webp 800w, " +
+    "/images/2026-11-05/parking-311.webp 1280w";
   assert.ok(html.includes(`srcset="${srcset}"`));
   assert.match(
     html,
     /sizes="\(max-width: 760px\) calc\(100vw - 32px\), 1280px"/
   );
-  assert.match(html, /width="1280" height="1080"/);
+  assert.match(html, /width="1280" height="960"/);
   assert.match(html, /loading="eager"/);
   assert.match(html, /fetchpriority="high"/);
-  assert.match(html, /Not a photograph/);
-  assert.match(html, /Travis County unofficial results/);
-  assertOneResultsLink(html);
+  assert.match(html, /CHART · NOT A PHOTOGRAPH/);
+  assert.match(html, /311 counts show how often people report a problem/);
+  assertOneDatasetLink(html);
   assert.match(html, /creativecommons\.org\/publicdomain\/zero\/1\.0/);
-  const imageUrl = "https://theaustinbulletin.com/images/2026-11-04/election-results.webp";
+  const imageUrl = "https://theaustinbulletin.com/images/2026-11-05/parking-311.webp";
   assert.ok(html.includes(`property="og:image" content="${imageUrl}"`));
   assert.ok(html.includes(`name="twitter:image" content="${imageUrl}"`));
-  assert.match(html, /property="og:title" content="Parks and library bonds lead/);
-  assert.match(html, /property="og:description" content="Both city bond measures lead/);
-  assert.match(html, /Wednesday, Nov\. 4/);
-  assert.match(html, /Nov\. 5/);
+  assert.match(html, /property="og:title" content="Parking complaints are now Austin/);
+  assert.match(
+    html,
+    /property="og:description" content="Austinites filed 2,437 parking enforcement requests/
+  );
+  assert.match(html, /name="twitter:title" content="Parking complaints are now Austin/);
+  assert.match(html, /Thursday, Nov\. 5/);
+  assert.match(html, /href="\/2026\/11\/04\/"/);
   assert.doesNotMatch(html, /If you (haven't|want|live|are)\b/);
-  assert.doesNotMatch(html, /\bhousing\b/i);
   assert.ok(!html.includes("front-news-rail"), "the rail is gone");
   assert.ok(!html.includes("Austin, up close."));
   assert.ok(!html.includes("Original illustration"));
@@ -77,12 +81,13 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.match(page, new RegExp(`<nav class="skim"[\\s\\S]*href="#${lead[1]}"`));
   const h1 = page.match(/<h1\b[^>]*>[\s\S]*?<\/h1>/)?.[0] ?? "";
   assert.equal(h1.includes(lead[1]), false);
-  assert.match(page, />Results page</);
+  assert.doesNotMatch(page, />Results page</);
   assert.doesNotMatch(page, /November 3 election results\./);
-  assert.match(page, /November 4, 2026/);
+  assert.match(page, /November 5, 2026/);
   assert.doesNotMatch(page, /p-courthouse/);
-  assert.match(page, /election-results\.webp/);
+  assert.match(page, /parking-311\.webp/);
   assert.match(page, /fetchpriority="high"/);
+  assert.match(page, /CHART · NOT A PHOTOGRAPH/);
   assert.ok(page.includes(`property="og:image" content="${imageUrl}"`));
   assert.doesNotMatch(page, /Unifraktur|class="folio-nav"|class="edition-head"|Vol\. I/);
 });

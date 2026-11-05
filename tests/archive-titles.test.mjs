@@ -79,9 +79,10 @@ test("the built archive lists those titles and the homepage card stays the lead"
   assert.doesNotMatch(archive, /Early voting is over: 47\.20%/);
   assert.doesNotMatch(archive, /Last day of early voting: 41\.98%/);
   const home = readFileSync(path.join(root, "_site/index.html"), "utf8");
-  const lead = "Parks and library bonds lead; three council races head to Dec. 12 runoffs.";
-  assert.ok(home.includes(`property="og:title" content="${lead}"`));
-  assert.ok(home.includes(`name="twitter:title" content="${lead}"`));
+  assert.match(home, /property="og:title" content="Parking complaints are now Austin/);
+  assert.match(home, /name="twitter:title" content="Parking complaints are now Austin/);
+  const chart = "https://theaustinbulletin.com/images/2026-11-05/parking-311.webp";
+  assert.ok(home.includes(`property="og:image" content="${chart}"`));
 });
 
 test("every published edition has a usable archive title", async () => {

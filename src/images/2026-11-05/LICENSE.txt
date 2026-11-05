@@ -1,0 +1,21 @@
+Chart for the November 5, 2026 edition lead. This is an original chart
+by The Austin Bulletin, not a photograph and not an AI image.
+
+The figures are monthly parking enforcement requests to Austin 311,
+June 2025 through October 2026, from the City of Austin Open Data
+dataset "311 Service Requests" (xwdj-i9he). October 2026 is 2,437.
+Source: https://data.austintexas.gov/d/xwdj-i9he
+
+parking-311.svg is the source drawing.
+parking-311.webp is 1280 by 960.
+parking-311-800.webp is 800 by 600.
+Both WebP files are rasterized from the SVG and scaled only, not cropped.
+Each file is under 120KB.
+
+The y-axis reads "Parking enforcement requests to 311".
+Every month label names that month in plain words and gives its count.
+The image text includes "CHART · NOT A PHOTOGRAPH".
+
+The chart image is dedicated to the public domain under CC0 1.0.
+https://creativecommons.org/publicdomain/zero/1.0/
+This dedication does not change the license of unrelated site content.

@@ -115,13 +115,13 @@ async function readSourceLine(page) {
 		const labelRect = labelRange.getClientRects()[0];
 		const linkRect = linkRange.getClientRects()[0];
 		const lead = document.querySelector(".front-lead");
-		const countyLinks = [...lead.querySelectorAll("a")].filter((anchor) =>
-			anchor.textContent.trim() === "Travis County unofficial results");
+		const datasetLinks = [...lead.querySelectorAll("a")].filter((anchor) =>
+			anchor.textContent.trim() === "Austin 311 public data, City of Austin Open Data");
 		return {
 			labelTop: labelRect.top,
 			linkTop: linkRect.top,
 			gap: linkRect.left - labelRect.right,
-			countyLinks: countyLinks.length,
+			datasetLinks: datasetLinks.length,
 			text: line.textContent.replace(/\s+/g, " ").trim(),
 		};
 	});
@@ -156,8 +156,8 @@ async function readDateLines(page) {
 }
 
 function assertSourceLine(sourceLine) {
-	assert.equal(sourceLine.countyLinks, 1, "lead column keeps one results link");
-	assert.match(sourceLine.text, /^Source: Travis County unofficial results$/);
+	assert.equal(sourceLine.datasetLinks, 1, "lead column keeps one dataset link");
+	assert.match(sourceLine.text, /^Source: Austin 311 public data, City of Austin Open Data$/);
 	assert.ok(
 		Math.abs(sourceLine.labelTop - sourceLine.linkTop) < 3,
 		`Source label and link baselines: ${JSON.stringify(sourceLine)}`
@@ -316,7 +316,7 @@ test("guide action fragments reach the answer by keyboard without JavaScript", {
 		assert.ok(accessTitle.ok());
 		assert.equal(
 			await page.$eval(".front-lead .front-sources a", (link) => link.getAttribute("href")),
-			"https://results.enr.clarityelections.com/TX/Travis/127492/",
+			"https://data.austintexas.gov/d/xwdj-i9he",
 		);
 	} finally {
 		await browser.close();
