@@ -157,16 +157,21 @@ async function assertMobileLead(browser, origin) {
   const fold = await page.evaluate(() => {
     const lead = document.querySelector(".front-lead h1").getBoundingClientRect();
     const signup = document.querySelector(".paper-main .signup--lead").getBoundingClientRect();
+    const stories = [...document.querySelectorAll(".front-lead h1, .front-story h3")];
+    const third = stories[2]?.getBoundingClientRect();
     return {
       topBottom: lead.bottom,
       signupTop: signup.top,
+      thirdBottom: third?.bottom ?? 0,
+      storyCount: stories.length,
       vh: window.innerHeight,
       sky: !!document.querySelector(".masthead-sky, .masthead-banner")
     };
   });
   assert.equal(fold.sky, false);
-  assert.ok(fold.topBottom <= fold.vh, `top 3 below the fold: ${fold.topBottom}`);
-  assert.ok(fold.signupTop < fold.vh * 2, `signup starts at ${fold.signupTop}`);
+  assert.ok(fold.topBottom <= fold.vh, `lead headline below the fold: ${fold.topBottom}`);
+  assert.ok(fold.storyCount >= 3, `stories before the signup: ${fold.storyCount}`);
+  assert.ok(fold.signupTop >= fold.thirdBottom - 1, `signup starts at ${fold.signupTop}`);
   await page.evaluate(() => {
     document.querySelector(".signup--lead").scrollIntoView({ block: "center" });
   });

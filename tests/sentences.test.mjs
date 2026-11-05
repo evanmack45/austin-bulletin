@@ -9,7 +9,8 @@ import { fileURLToPath } from "node:url";
 import {
   duplicateSentenceProblems,
   duplicateSentences,
-  formatSentenceProblem
+  formatSentenceProblem,
+  openingSentences
 } from "../scripts/sentences.mjs";
 
 const execFileAsync = promisify(execFile);
@@ -29,6 +30,24 @@ async function runChecker(dir) {
     return { code: err.code ?? 1, output: `${err.stdout || ""}\n${err.stderr || ""}` };
   }
 }
+
+test("opening sentences keep abbreviations and stop at two", () => {
+  const text = "Council meets Thursday at City Hall. Zoning starts in the afternoon. " +
+    "A third sentence stays off the homepage.";
+  assert.equal(
+    openingSentences(text),
+    "Council meets Thursday at City Hall. Zoning starts in the afternoon."
+  );
+  assert.equal(
+    openingSentences("The hearing is at 10 a.m. Thursday and ends at 2 p.m."),
+    "The hearing is at 10 a.m. Thursday and ends at 2 p.m."
+  );
+  assert.equal(openingSentences("Nov. 12 is the last day."), "Nov. 12 is the last day.");
+  assert.equal(
+    openingSentences("Parking rose 31.5% in October. Garbage did not."),
+    "Parking rose 31.5% in October. Garbage did not."
+  );
+});
 
 test("a fixture with a duplicate sentence fails and names the file", async () => {
   const dir = await mkdtemp(path.join(tmpdir(), "sentences-"));
