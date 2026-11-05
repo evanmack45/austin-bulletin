@@ -328,8 +328,7 @@
   border-top: 1px solid var(--rule);
 }
 .home-front .front-section + .front-section {
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
+  margin-top: 3rem;
   border-top: 1px solid var(--rule);
 }
 .home-front .front-section-head {
