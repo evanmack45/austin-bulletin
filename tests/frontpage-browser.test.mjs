@@ -64,6 +64,23 @@ async function measureFirstFold(page) {
 			action: rect(".front-lead .front-sources a"),
 			source: rect(".front-lead .front-sources"),
 			leadPhoto: rect(".front-lead .lead-photo img"),
+			leadFontSize: getComputedStyle(document.querySelector("h1")).fontSize,
+			leadFigure: (() => {
+				const figure = document.querySelector(".front-lead .lead-photo");
+				const main = document.querySelector(".paper-main");
+				if (!figure || !main) return null;
+				const fig = figure.getBoundingClientRect();
+				const col = main.getBoundingClientRect();
+				const image = figure.querySelector("img");
+				return {
+					position: getComputedStyle(figure).position,
+					width: fig.width,
+					mainWidth: col.width,
+					left: fig.left,
+					mainLeft: col.left,
+					imageHeight: image ? getComputedStyle(image).height : "",
+				};
+			})(),
 			access: rect(".front-access h2 a"),
 			photo: rect(".front-access .story-photo img"),
             art: rect(".cover-art img"),
@@ -179,6 +196,19 @@ function assertFirstFold(result, width, height) {
  assert.ok(result.fonts.some(font => font.includes("Bricolage")), "local display font loads");
  assert.ok(result.fonts.some(font => font.includes("Hanken")), "local body font loads");
  assert.ok(result.lead.width > 200);
+ assert.equal(result.leadFontSize, width <= 760 ? "34px" : "48px", `lead size at ${width}`);
+ if (result.leadFigure) {
+  assert.equal(result.leadFigure.position, "static", JSON.stringify(result.leadFigure));
+  assert.ok(
+   Math.abs(result.leadFigure.width - result.leadFigure.mainWidth) < 2,
+   JSON.stringify(result.leadFigure),
+  );
+  assert.ok(
+   Math.abs(result.leadFigure.left - result.leadFigure.mainLeft) < 2,
+   JSON.stringify(result.leadFigure),
+  );
+  assert.notEqual(result.leadFigure.imageHeight, "200px");
+ }
  assert.ok(result.action.height >= 44);
  assert.ok(result.nav.every(link => link.height >= 44));
  if (!result.neutral) assert.ok(result.sourceName.trim(), "factual leads need attribution");

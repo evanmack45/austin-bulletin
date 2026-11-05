@@ -14,6 +14,37 @@ function assertOneDatasetLink(html) {
   assert.doesNotMatch(leadHtml, /class="num"/);
 }
 
+test("the homepage lead is headline, dek, chart, then source", () => {
+  const html = readFileSync("_site/index.html", "utf8");
+  const lead = html.match(/<section class="front-lead"[\s\S]*?<\/section>/)?.[0] ?? "";
+  const h1 = lead.indexOf("<h1");
+  const dek = lead.indexOf('class="front-deck"');
+  const figure = lead.indexOf("lead-photo");
+  const source = lead.indexOf('class="src front-sources"');
+  assert.ok(h1 !== -1 && dek > h1 && figure > dek && source > figure, lead.slice(0, 400));
+  assert.doesNotMatch(lead, /results-button/);
+  assert.match(lead, /CHART · NOT A PHOTOGRAPH/);
+  const template = readFileSync("src/index.njk", "utf8");
+  const stat = template.indexOf("lead-stat");
+  const results = template.indexOf("results-row");
+  const photo = template.indexOf("leadHtml");
+  const sourceSlot = template.indexOf("front-sources");
+  assert.ok(stat < results && results < photo && photo < sourceSlot);
+  assert.match(template, /class="results-link"/);
+  assert.match(
+    template,
+    /editionDate == election2026\.date or editionDate == election2026\.homepageThrough/
+  );
+  assert.doesNotMatch(template, /results-button/);
+  const css = readFileSync("src/css/front-cover.css", "utf8");
+  assert.match(css, /\.home-front \.front-lead h1 \{[\s\S]*?font-size:\s*3rem;/);
+  assert.match(css, /font-size:\s*2\.125rem;/);
+  assert.match(css, /\.home-front \.results-link \{[\s\S]*?background:\s*transparent;/);
+  assert.doesNotMatch(css, /position:\s*absolute/);
+  assert.doesNotMatch(css, /padding-top:\s*(268|420)px/);
+  assert.doesNotMatch(css, /#c8102e;\s*\n\s*color:\s*#fff/);
+});
+
 test("the homepage is one lead, and dated editions keep their own page", () => {
   const html = readFileSync("_site/index.html", "utf8");
   for (const text of [
