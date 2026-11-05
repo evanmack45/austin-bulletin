@@ -3,19 +3,20 @@
 Read this file at the start of every daily run. These rules are not
 suggestions. Every rule binds the writing.
 
-## Homepage (October 26, 2026)
+## Homepage (November 5, 2026)
 
-The homepage prints one lead from that morning's briefing, then the items
-marked as deadlines, then the items marked for the week. Directly under
-the masthead, it lists up to three jump lines in that same order: the
-lead, then deadlines, then the week. Each line is that item's existing
-headline and links to its card on the page. The list names only an item
-whose card already links a source. It adds no sentence and no summary.
-Fewer cards means a shorter list, not filler. The jump list is an index,
-not a second telling of the story. The full edition stays one link.
+The homepage prints every headed story in that morning's edition. The
+lead keeps its own treatment: the briefing headline, the dek, the lead
+image, and its source line. The other stories follow in edition order:
+Bulletin original, then News, then Notices. Each of those is the story's
+existing headline, linked to that story's anchor on the edition page, a
+one- or two-sentence summary taken from the story's own text, and the
+story's existing Sources line. The list is read from the bulletin. It is
+not written by hand for one date. The full edition stays one link.
 
-Headlines are 10 words or fewer. Put the number or the date in the headline
-or in the figure beside it. The practical next step is one plain sentence:
+The story list uses each edition headline as written. A lead headline, and
+any deadline or week line the desk still marks, stays 10 words or fewer.
+Put the number or the date in the headline or in the figure beside it. The practical next step is one plain sentence:
 a date, a place, or a document already in the sourced copy. It does not
 open with "If you…". One caveat per story. Do not add a fact the sourced
 edition does not already state. When the source says community development,
@@ -56,8 +57,8 @@ validate. They do not print. Do not modify a dated edition to make an old
 asset pass. Dates, uncertainty, and attribution stay beside the claim.
 
 Type: warm paper, bold headlines, one red accent. The signup is the Kit
-form, one box per page: under the lead, at the end of each edition, or in
-the footer of every other page. The line is "Get the morning email. Sign
+form, one box per page: after the third homepage story, at the end of
+each edition, or in the footer of every other page. The line is "Get the morning email. Sign
 up and the first issue reaches you once it goes out." The subscribe
 button is the Bulletin red, with white text. A story's source links
 render as one Sources line at the end of that story.

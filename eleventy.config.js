@@ -7,6 +7,7 @@ import { archiveDate, isoDate, longDate, monthDay, readableDate, shortMonthDay, 
   from "./scripts/edition-dates.mjs";
 import { chicagoDate, editionLeadFromHtml, forecastAlerts, selectFrontpage, previousPublishedEdition } from "./scripts/frontpage.mjs";
 import { parseDesk } from "./scripts/desk.mjs";
+import { homeEdition } from "./scripts/home-stories.mjs";
 import { HtmlBasePlugin } from "@11ty/eleventy";
 import { feedPlugin } from "@11ty/eleventy-plugin-rss";
 import markdownItAnchor from "markdown-it-anchor";
@@ -287,7 +288,10 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("isoDate", isoDate);
   eleventyConfig.addFilter("shortMonthDay", shortMonthDay);
   eleventyConfig.addFilter("archiveDate", archiveDate);
-  eleventyConfig.addFilter("homeDesk", (inputPath) => parseDesk(readFileSync(inputPath, "utf8")));
+  eleventyConfig.addFilter("homeDesk", (inputPath) => {
+    const markdown = readFileSync(inputPath, "utf8");
+    return { ...parseDesk(markdown), ...homeEdition(markdown) };
+  });
   eleventyConfig.addFilter("commas", (n) => Number(n).toLocaleString("en-US"));
 
   // Links that leave the site open in a new tab, so readers keep their place.

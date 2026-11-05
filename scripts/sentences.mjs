@@ -79,10 +79,23 @@ function wordCount(sentence) {
   return sentence.split(" ").length;
 }
 
+function splitSentences(text) {
+  return maskPeriods(text).split(/(?<=[.!?])\s+/)
+    .map((part) => part.replaceAll("§", ".").replace(/\s+/g, " ").trim())
+    .filter(Boolean);
+}
+
+// The first one or two sentences of story text, unchanged. Abbreviations,
+// initials, and decimals are not sentence ends. Nothing is rewritten.
+export function openingSentences(text, limit = 2) {
+  const raw = String(text ?? "").replace(/\s+/g, " ").trim();
+  if (!raw || limit < 1) return "";
+  return splitSentences(raw).slice(0, limit).join(" ");
+}
+
 export function sentencesIn(html) {
-  const masked = maskPeriods(visibleText(html));
-  return masked.split(/(?<=[.!?])\s+/)
-    .map((part) => part.replaceAll("§", ".").replace(/\s+/g, " ").trim().toLowerCase())
+  return splitSentences(visibleText(html))
+    .map((part) => part.toLowerCase())
     .filter((part) => wordCount(part) >= MIN_WORDS);
 }
 

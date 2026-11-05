@@ -2,6 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { parseDesk } from "../scripts/desk.mjs";
+import { homeEdition } from "../scripts/home-stories.mjs";
 import { shortMonthDay, weekdayName } from "../scripts/edition-dates.mjs";
 
 function escapeHtml(value) {
@@ -61,14 +62,12 @@ test("fewer than three sourced items are listed without padding", () => {
   assert.deepEqual(skipped.top.map((item) => item.anchor), ["week-0"]);
 });
 
-function cardTag(anchor) {
-  return anchor === "front-lead" ? "section" : "article";
-}
-
-test("the homepage shows each headline once", () => {
+test("the homepage shows each edition story once, lead first", () => {
   const html = readFileSync("_site/index.html", "utf8");
   const edition = html.match(/data-edition="(\d{4}-\d{2}-\d{2})"/)[1];
-  const desk = parseDesk(readFileSync(`src/bulletins/${edition}.md`, "utf8"));
+  const markdown = readFileSync(`src/bulletins/${edition}.md`, "utf8");
+  const desk = parseDesk(markdown);
+  const home = homeEdition(markdown);
   const instant = `${edition}T00:00:00.000Z`;
   const dateline = `${weekdayName(instant)}, ${shortMonthDay(instant)}`;
   const body = html.replace(/<head\b[\s\S]*?<\/head>/i, "").replaceAll("&#39;", "'");
@@ -77,11 +76,20 @@ test("the homepage shows each headline once", () => {
   assert.equal(body.split(desk.headline).length - 1, 1, desk.headline);
   const lead = element(html, "section", "front-lead");
   assert.ok(lead.includes(escapeHtml(desk.headline)));
-  for (const item of [...desk.closes, ...desk.week]) {
-    assert.equal(body.split(item.title).length - 1, 1, item.title);
-    const card = element(html, "article", item.anchor);
-    assert.ok(card.includes(escapeHtml(item.title)), item.title);
+  assert.match(lead, new RegExp(`href="/${edition.replaceAll("-", "/")}/#${home.leadAnchor}"`));
+  const stories = home.sections.flatMap((section) => section.stories);
+  assert.ok(stories.length >= 4, "homepage lists the edition past the lead");
+  for (const story of stories) {
+    assert.equal(body.split(story.title).length - 1, 1, story.title);
+    const href = `/${edition.replaceAll("-", "/")}/#${story.anchor}`;
+    assert.ok(body.includes(`href="${href}"`), href);
+    assert.ok(body.includes(story.summary), story.summary.slice(0, 48));
   }
+  const heads = [...body.matchAll(/<h1\b|<h3\b|class="signup signup--lead"/g)].map((match) => (
+    match[0].startsWith("<h1") ? "h1" : match[0].startsWith("<h3") ? "h3" : "signup"
+  ));
+  const signupAt = heads.indexOf("signup");
+  assert.equal(heads.slice(0, signupAt).filter((tag) => tag === "h1" || tag === "h3").length, 3);
   if (edition === "2026-11-03" || edition === "2026-11-04") {
     assert.equal((html.match(/>Election results</g) || []).length, 1);
     assert.match(lead, /class="results-link" href="\/election\/2026-11-03\/"/);

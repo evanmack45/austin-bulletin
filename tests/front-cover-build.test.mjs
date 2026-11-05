@@ -50,9 +50,12 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   for (const text of [
     "/css/front-cover.css",
     "class=\"front-lead\"",
-    "This week",
+    "class=\"front-stories\"",
+    ">News<",
+    ">Notices<",
     "class=\"src front-sources\""
   ]) assert.ok(html.includes(text), text);
+  assert.doesNotMatch(html, /week-block|Before it closes|id="week-title"/);
   assert.match(html, /Get the morning email\./);
   assert.doesNotMatch(html, /5 minutes|One email each morning/);
   assert.doesNotMatch(html, /class="results-button"/);

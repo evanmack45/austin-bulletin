@@ -37,26 +37,29 @@ function count(html, needle) {
   return html.split(needle).length - 1;
 }
 
-test("the homepage signup sits directly under the lead", () => {
-  const lead = sliceBetween(home, 'class="paper-main"', 'class="paper-side"');
-  const storyEnd = lead.indexOf("</section>");
-  const signupAt = lead.indexOf('class="signup signup--lead"');
-  const jumpAt = lead.indexOf('class="edition-jump"');
-  assert.ok(storyEnd !== -1 && jumpAt > storyEnd);
-  assert.ok(signupAt > jumpAt);
-  const side = sliceBetween(home, 'class="paper-side"', 'class="site-footer"');
-  assert.equal(side.indexOf('class="signup signup--lead"'), -1);
-  assert.match(lead, VALUE);
-  assert.match(lead, NOTE);
-  assert.match(lead, /The morning edition/);
-  assert.match(lead, /data-signup-inline/);
+test("the homepage signup sits after the third story", () => {
+  const main = sliceBetween(home, 'class="paper-main"', 'class="site-footer"');
+  const heads = [...main.matchAll(/<h1\b|<h3\b|class="signup signup--lead"/g)].map((match) => (
+    match[0].startsWith("<h1") ? "h1" : match[0].startsWith("<h3") ? "h3" : "signup"
+  ));
+  const signupAt = heads.indexOf("signup");
+  assert.equal(heads.filter((tag) => tag === "signup").length, 1);
+  assert.equal(heads.slice(0, signupAt).filter((tag) => tag === "h1" || tag === "h3").length, 3);
+  const signupHtml = main.indexOf('class="signup signup--lead"');
+  const jumpAt = main.indexOf('class="edition-jump"');
+  assert.ok(signupHtml !== -1 && jumpAt > signupHtml);
+  assert.equal(main.includes('class="paper-side"'), false);
+  assert.match(main, VALUE);
+  assert.match(main, NOTE);
+  assert.match(main, /The morning edition/);
+  assert.match(main, /data-signup-inline/);
   assert.doesNotMatch(home, /5 minutes|One email each morning/i);
-  assert.match(lead, /href="\/feed\.xml"/);
-  assert.match(lead, /<label class="signup-label" for="signup-email-lead">Email<\/label>/);
-  assert.match(lead, /id="signup-email-lead"[^>]*name="email_address"/);
+  assert.match(main, /href="\/feed\.xml"/);
+  assert.match(main, /<label class="signup-label" for="signup-email-lead">Email<\/label>/);
+  assert.match(main, /id="signup-email-lead"[^>]*name="email_address"/);
   const formTag = `<form class="signup-form" method="post" action="${ACTION}" `
     + `data-uid="e956043af1">`;
-  assert.match(lead, new RegExp(formTag));
+  assert.match(main, new RegExp(formTag));
   assert.equal(count(home, `action="${ACTION}"`), 1);
   assert.doesNotMatch(home, /signup--bar/);
   assert.doesNotMatch(home, /signup--footer/);
