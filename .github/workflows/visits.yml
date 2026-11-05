@@ -1,0 +1,42 @@
+name: Visits
+# Daily Cloudflare Web Analytics snapshot for both sites. Read-only against
+# Cloudflare. Commits metrics/visits.json only when the file changed.
+# CLOUDFLARE_ANALYTICS_TOKEN is required (Account Analytics Read).
+# CLOUDFLARE_ACCOUNT_ID is optional; without it the script lists accounts.
+on:
+  schedule:
+    # 12:00 UTC is 6:00am America/Chicago while Central is on standard time.
+    - cron: "0 12 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: visits-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - name: Pull Cloudflare visits
+        env:
+          CLOUDFLARE_ANALYTICS_TOKEN: ${{ secrets.CLOUDFLARE_ANALYTICS_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          BULLETIN_SITE_TAG: fa631a41b1134237bc0c66e3c19f5e5d
+          YCH_SITE_TAG: 5cde7bb0bde94350a43827d985e10358
+        run: node scripts/visits.mjs
+      - name: Commit snapshot when it changed
+        run: |
+          set -euo pipefail
+          git add metrics/visits.json metrics/visits.md
+          if git diff --cached --quiet; then
+            echo "Metrics file unchanged. Skipping commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: daily visits snapshot"
+          git push

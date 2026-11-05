@@ -15,3 +15,7 @@ The site says what matters in Austin today.
 - Corrections are logged at /corrections.
 - No more than one template or layout change per day.
 - Never touch DNS, domains, or the registrar.
+
+## Visits
+
+`metrics/visits.json` is the daily Cloudflare snapshot for both sites. Thimble fills the weekly metrics.md visits columns from it.
