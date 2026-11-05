@@ -15,8 +15,17 @@ hasInlineSignup: true
       <section class="front-lead" id="front-lead" aria-labelledby="front-lead-title">
         {% if desk.kicker %}<p class="kicker">{{ desk.kicker | escape }}</p>{% endif %}
         <h1 id="front-lead-title">{{ desk.headline | escape }}</h1>
+        {% if desk.figure or desk.deck %}
+        <div class="lead-stat">
+          {% if desk.figure %}<p class="num">{{ desk.figure | escape }}</p>{% endif %}
+          {% if desk.deck %}<p class="front-deck">{{ desk.deck | escape }}</p>{% endif %}
+        </div>
+        {% endif %}
+        {% if desk.action %}
+        <p>{% if desk.action.text %}{{ desk.action.text | escape }}{% endif %}{% if desk.action.href %} <a href="{{ desk.action.href | escape }}" class="front-action">{{ desk.action.linkLabel | escape }}</a>{% endif %}</p>
+        {% endif %}
         {% if editionDate == election2026.date or editionDate == election2026.homepageThrough %}
-        <p class="results-row"><a class="results-button" href="/election/{{ election2026.date }}/">Election results</a></p>
+        <p class="results-row"><a class="results-link" href="/election/{{ election2026.date }}/">Election results</a></p>
         {% endif %}
         {% set homeLeadSizes = "(max-width: 760px) calc(100vw - 32px), 1280px" %}
         {% set leadHtml = latest.data.images | leadForStory("", homeLeadSizes) %}
@@ -27,13 +36,6 @@ hasInlineSignup: true
           <img src="{{ photo.file | escape }}"{% if photo.smallSrc %} srcset="{{ photo.smallSrc | escape }} {{ photo.smallWidth }}w, {{ photo.file | escape }} {{ photo.width }}w" sizes="(max-width: 760px) calc(100vw - 32px), 1280px"{% endif %} alt="{{ photo.alt | escape }}" width="{{ photo.width }}" height="{{ photo.height }}" loading="eager" fetchpriority="high" decoding="async">
           <figcaption>{{ photo.caption | escape }}{% if photo.credit %} Photo: <a href="{{ photo.source | escape }}">{{ photo.credit | escape }}</a>.{% endif %}</figcaption>
         </figure>
-        {% endif %}
-        <div class="lead-stat">
-          {% if desk.figure %}<p class="num">{{ desk.figure | escape }}</p>{% endif %}
-          {% if desk.deck %}<p class="front-deck">{{ desk.deck | escape }}</p>{% endif %}
-        </div>
-        {% if desk.action %}
-        <p>{% if desk.action.text %}{{ desk.action.text | escape }}{% endif %}{% if desk.action.href %} <a href="{{ desk.action.href | escape }}" class="front-action">{{ desk.action.linkLabel | escape }}</a>{% endif %}</p>
         {% endif %}
         {% if desk.source %}<p class="src front-sources">Source: <a href="{{ desk.source.href | escape }}">{{ desk.source.name | escape }}</a></p>{% endif %}
       </section>

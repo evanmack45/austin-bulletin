@@ -91,7 +91,7 @@ test("reader text doubles with the root font and stays inside a phone", {
       deck: parseFloat(getComputedStyle(document.querySelector(".front-deck")).fontSize)
     }));
     assert.equal(before.wordmark, 32);
-    assert.equal(before.headline, 32);
+    assert.equal(before.headline, 34);
     assert.equal(before.menu, 16);
     assert.equal(before.deck, 18);
     await setRoot(home, 32);

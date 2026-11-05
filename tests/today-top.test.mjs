@@ -84,6 +84,7 @@ test("the homepage shows each headline once", () => {
   }
   if (edition === "2026-11-03" || edition === "2026-11-04") {
     assert.equal((html.match(/>Election results</g) || []).length, 1);
-    assert.match(lead, /class="results-button" href="\/election\/2026-11-03\/"/);
+    assert.match(lead, /class="results-link" href="\/election\/2026-11-03\/"/);
+    assert.doesNotMatch(lead, /results-button/);
   }
 });

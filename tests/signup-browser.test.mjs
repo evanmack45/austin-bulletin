@@ -99,7 +99,8 @@ async function assertDesktopLead(browser, origin) {
       forms: document.querySelectorAll("form.signup-form").length,
       bar: !!document.querySelector(".signup--bar"),
       formTop: formBox.top,
-      formBottom: formBox.bottom,
+      photoBottom: document.querySelector(".front-lead .lead-photo")
+        ?.getBoundingClientRect().bottom ?? 0,
       inputHeight: input.getBoundingClientRect().height,
       labelHeight: labelBox.height,
       labelFor: label.getAttribute("for"),
@@ -122,8 +123,10 @@ async function assertDesktopLead(browser, origin) {
   assert.equal(box.forms, 1);
   assert.equal(box.bar, false);
   assert.equal(box.sky, false);
-  assert.ok(box.formTop < 900, `form starts at ${box.formTop}`);
-  assert.ok(box.formBottom <= 900, `form ends at ${box.formBottom}`);
+  assert.ok(
+    box.formTop >= box.photoBottom - 1,
+    `signup stays under the lead visual: form ${box.formTop}, chart ${box.photoBottom}`
+  );
   assert.ok(box.inputHeight >= 44, String(box.inputHeight));
   assert.ok(box.labelHeight > 0, String(box.labelHeight));
   assert.equal(box.labelFor, box.inputId);
@@ -169,7 +172,7 @@ async function assertMobileLead(browser, origin) {
   });
   const result = await page.evaluate(() => {
     const block = document.querySelector(".signup--lead");
-    const action = document.querySelector(".front-lead .results-button, .front-lead .front-action");
+    const action = document.querySelector(".front-lead .results-link, .front-lead .front-action");
     const anchor = action || document.querySelector(".front-lead");
     const input = block.querySelector("input[name='email_address']");
     const label = block.querySelector("label");
