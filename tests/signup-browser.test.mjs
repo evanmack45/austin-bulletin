@@ -170,13 +170,14 @@ async function assertMobileLead(browser, origin) {
   const result = await page.evaluate(() => {
     const block = document.querySelector(".signup--lead");
     const action = document.querySelector(".front-lead .results-button, .front-lead .front-action");
+    const anchor = action || document.querySelector(".front-lead");
     const input = block.querySelector("input[name='email_address']");
     const label = block.querySelector("label");
     return {
       action: block.querySelector("form.signup-form")?.getAttribute("action"),
       path: location.pathname,
       width: document.documentElement.scrollWidth,
-      below: block.getBoundingClientRect().top >= action.getBoundingClientRect().bottom - 1,
+      below: block.getBoundingClientRect().top >= anchor.getBoundingClientRect().bottom - 1,
       forms: document.querySelectorAll("form.signup-form").length,
       inputs: block.querySelectorAll("input[type=email]").length,
       inputHeight: input.getBoundingClientRect().height,

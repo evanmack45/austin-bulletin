@@ -457,6 +457,28 @@ test("an image without a credit or illustration label fails", async () => {
   assert.match(output, /lacks a credit or an illustration label/);
 });
 
+test("ordered_copy allows a flat story list and still checks lead length", async () => {
+  const reason = "The approved copy lists stories in source order, " +
+    "so this edition does not regroup them under beat headings.";
+  let body = thinEdition().replace(
+    'floor_exception: "',
+    `ordered_copy: "${reason}"\nfloor_exception: "`
+  );
+  body = body.replace(
+    /\{% river %\}[\s\S]*?\{% endriver %\}/,
+    `{% river %}\n##### County opens a comment window on the annual report next month.\n${countedWords(45)}\n<span class="src"><a href="https://example.com/notice">County notice</a></span>\n{% endriver %}`
+  );
+  const { code, output } = await runThin(body);
+  assert.equal(code, 0, output);
+  assert.match(output, /ORDERED COPY invoked/);
+  assert.match(output, /warn\s+\[river\].*Growth & infrastructure/);
+  assert.doesNotMatch(output, /FAIL/);
+  const refused = body.replace(/^ordered_copy:.*\n/m, "");
+  const blocked = await runThin(refused);
+  assert.notEqual(blocked.code, 0);
+  assert.match(blocked.output, /FAIL\s+\[river\].*Growth & infrastructure/);
+});
+
 test("floor_exception does not waive lead length", async () => {
   const { code, output } = await runThin(thinEdition({ leadWords: 4 }));
   assert.notEqual(code, 0);
