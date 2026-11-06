@@ -8,6 +8,11 @@ const page = readFileSync("src/_includes/election-results.njk", "utf8");
 const home = readFileSync("src/index.njk", "utf8");
 const edition = readFileSync("src/_includes/bulletin.njk", "utf8");
 
+const OLD_DESCRIPTION = "Polls are open 7 a.m. to 7 p.m. Central time. " +
+  "City of Austin Propositions A-J and one Austin Community College measure, " +
+  "with Travis County results links.";
+const DESCRIPTION = "Travis County unofficial results for City of Austin " +
+  "Propositions A–J and ACC Proposition A, with a link to the county results.";
 const AS_OF = "2026-11-04T09:37:00Z";
 const AS_OF_DISPLAY = "3:37 a.m. Central on November 4, 2026";
 const STATUS = "Unofficial Travis County count, not final";
@@ -124,8 +129,17 @@ test("the results template and the home and edition links stay wired to the data
   assert.match(page, /measure\.source/);
   assert.doesNotMatch(page, /measure\.result\.status/);
   assert.doesNotMatch(page, /measure\.result\.asOfDisplay/);
-  assert.match(page, /7 a\.m\. to 7 p\.m\./);
-  assert.match(page, /any polling site in the county/);
+  assert.match(page, /Voting for November 3, 2026, is over/);
+  assert.match(page, /See the count status above/);
+  assert.match(page, /election2026\.links\.sosDates/);
+  assert.match(page, /election2026\.links\.currentElection/);
+  assert.match(page, /election2026\.links\.resultsPage/);
+  assert.match(page, /election2026\.links\.voterLookup/);
+  assert.match(page, /href="\/vote-2026\/"/);
+  assert.doesNotMatch(page, /Polls are open/);
+  assert.doesNotMatch(page, /is Election Day/);
+  assert.doesNotMatch(page, /cast a ballot/);
+  assert.doesNotMatch(page, /electionDaySites/);
   assert.match(home, /href="\/election\/\{\{ election2026\.date \}\}\/"/);
   assert.match(edition, /editionIso == election2026\.date/);
   assert.match(edition, /Results page/);
@@ -176,5 +190,39 @@ test("the built results page states the unofficial count once", () => {
     const against = `Against ${commas(measure.result.no)}.`;
     assert.ok(visible.includes(against), measure.id);
     assertLimitedSeparate(visible, measure);
+  }
+});
+
+function metaContent(html, attr, name) {
+  const match = html.match(new RegExp(`<meta ${attr}="${name}" content="([^"]*)"`, "i"));
+  return match?.[1] ?? "";
+}
+
+test("built election pages drop the Election Day polls-open copy once results are listed", () => {
+  assert.equal(data.resultsListed, true);
+  const pages = [
+    "src/election/2026-11-03.njk",
+    "src/election/index.njk"
+  ];
+  for (const file of pages) {
+    const source = readFileSync(file, "utf8");
+    assert.ok(source.includes(`description: "${DESCRIPTION}"`), file);
+    assert.equal(source.includes(OLD_DESCRIPTION), false, file);
+    assert.equal(source.includes("Polls are open"), false, file);
+  }
+  for (const file of [
+    "_site/election/2026-11-03/index.html",
+    "_site/election/index.html"
+  ]) {
+    const html = readFileSync(file, "utf8");
+    assert.equal(html.includes("Polls are open"), false, file);
+    assert.equal(html.includes("is Election Day"), false, file);
+    assert.equal(html.includes(OLD_DESCRIPTION), false, file);
+    assert.equal(html.includes("cast a ballot"), false, file);
+    assert.ok(html.includes("Voting for November 3, 2026, is over."), file);
+    assert.ok(html.includes("See the count status above for the county results link."), file);
+    assert.equal(metaContent(html, "name", "description"), DESCRIPTION, file);
+    assert.equal(metaContent(html, "property", "og:description"), DESCRIPTION, file);
+    assert.equal(metaContent(html, "name", "twitter:description"), DESCRIPTION, file);
   }
 });

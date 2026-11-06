@@ -1,10 +1,9 @@
 <article class="election-results" data-pagefind-body>
   <h1>November 3, 2026 results</h1>
   <p class="results-status">{% if election2026.resultsListed %}Travis County unofficial count, updated {{ election2026.checkedAt | centralTime }} Nov. 4. Counting may continue. Parts of Austin and the ACC district lie in Williamson and Hays counties, whose votes are not included. <a href="{{ election2026.measures[0].result.source }}">{{ election2026.measures[0].result.sourceLabel }}</a>.{% else %}Results not posted yet. Travis County posts them after polls close at 7 p.m. Last checked: {{ election2026.checkedAt | centralTime }} Central. <a href="{{ election2026.links.resultsPage }}">{{ election2026.links.resultsPageLabel }}</a>. <a href="{{ election2026.links.resultsEnr }}">{{ election2026.links.resultsEnrLabel }}</a>.{% endif %}</p>
-  <p>Tuesday, November 3, 2026, is Election Day. Polls are open 7 a.m. to 7 p.m. Central time. <a href="{{ election2026.links.sosDates }}">{{ election2026.links.sosDatesLabel }}</a>. <a href="{{ election2026.links.currentElection }}">{{ election2026.links.currentElectionLabel }}</a>.</p>
-  <p>Travis County says a voter may cast a ballot at any polling site in the county. <a href="{{ election2026.links.pollingLocations }}">{{ election2026.links.pollingLocationsLabel }}</a>. <a href="{{ election2026.links.electionDaySites }}">{{ election2026.links.electionDaySitesLabel }}</a>.</p>
-  <p>The county voter lookup shows the ballot for a voter's address. <a href="{{ election2026.links.voterLookup }}">{{ election2026.links.voterLookupLabel }}</a>.</p>
-  <p>No endorsements. Hours and the longer voting guide are on <a href="/vote-2026/">Vote 2026</a>.</p>
+  <p>Voting for November 3, 2026, is over. See the count status above for the county results link. <a href="{{ election2026.links.sosDates }}">{{ election2026.links.sosDatesLabel }}</a>. <a href="{{ election2026.links.currentElection }}">{{ election2026.links.currentElectionLabel }}</a>.</p>
+  <p>The county voter lookup shows the ballot for an address. <a href="{{ election2026.links.voterLookup }}">{{ election2026.links.voterLookupLabel }}</a>.</p>
+  <p>No endorsements. The ballot and the dates are on <a href="/vote-2026/">Vote 2026</a>.</p>
 
   <h2>Measures</h2>
   {% for measure in election2026.measures %}
