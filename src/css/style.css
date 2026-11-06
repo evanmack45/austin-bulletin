@@ -9,6 +9,10 @@
   --rule: #ccc;
   --bg: #fbf8f2;
   --tint: #f3efe6;
+  --section-head-size: 1.875rem;
+}
+@media (max-width: 760px) {
+  :root { --section-head-size: 1.5rem; }
 }
 * { box-sizing: border-box; }
 body {
@@ -226,12 +230,11 @@ h1.edition-kicker {
   font-family: Hanken, Arial, sans-serif;
   font-size: 0.8rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0;
   line-height: 1.4;
-  text-transform: uppercase;
+  text-transform: none;
   color: var(--muted);
 }
-.edition-weekday { letter-spacing: 0.14em; }
 .edition-lead .edition-date { font-weight: 700; }
 .edition-lead-title {
   margin: 0.35rem 0 0;
@@ -250,10 +253,10 @@ h1.edition-kicker {
 .skim h2 {
   display: block;
   margin: 0 0 0.25rem;
-  font-size: 0.75rem;
+  font-size: var(--section-head-size);
   font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--accent);
   line-height: 1.3;
 }
@@ -304,8 +307,8 @@ h1.edition-kicker {
   font-style: normal;
   font-size: 0.7rem;
   font-weight: 700;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--accent);
   white-space: nowrap;
 }
@@ -317,10 +320,10 @@ h2 {
   align-items: center;
   gap: 0.9rem;
   margin-top: 2.6rem;
-  font-size: 0.9rem;
+  font-size: var(--section-head-size);
   font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
 }
 h2::after { content: ""; flex: 1; border-top: 1px solid var(--ink); }
 h3 { font-size: 1.7rem; font-weight: 800; letter-spacing: -0.01em; margin: 2.2rem 0 0.5rem; }
@@ -329,8 +332,8 @@ h3 { font-size: 1.7rem; font-weight: 800; letter-spacing: -0.01em; margin: 2.2re
   min-width: 0;
   max-width: 100%;
   font-size: 0.72rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--muted);
 }
 .briefing-meta a { color: var(--accent); text-decoration: none; }
@@ -338,8 +341,8 @@ h3 { font-size: 1.7rem; font-weight: 800; letter-spacing: -0.01em; margin: 2.2re
 
 .source-line {
   font-size: 0.86rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--muted);
 }
 .source-line a { text-decoration: underline; text-underline-offset: 0.15em; }
@@ -366,8 +369,8 @@ figcaption { font-size: 0.85rem; color: var(--muted); }
 #in-brief + ul li { margin-bottom: 0.5rem; }
 #in-brief + ul strong {
   font-size: 0.82em;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--accent);
 }
 
@@ -404,7 +407,11 @@ figcaption { font-size: 0.85rem; color: var(--muted); }
 }
 .archive-page h1,
 .archive-page h2 { text-wrap: pretty; }
-.archive-page h2 { font-size: 1rem; letter-spacing: 0.08em; }
+.archive-page h2 {
+  font-size: var(--section-head-size);
+  letter-spacing: 0;
+  text-transform: none;
+}
 .archive-list { list-style: none; padding: 0; }
 .archive-list li { padding: 0.65rem 0; border-bottom: 1px solid var(--rule); }
 .archive-list a {
@@ -493,10 +500,10 @@ h2.glance-title {
   display: block;
   margin: 0 0 0.6rem;
   text-align: center;
-  font-size: 0.72rem;
+  font-size: var(--section-head-size);
   font-weight: 700;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--accent);
 }
 h2.glance-title::after { content: none; }
@@ -515,7 +522,7 @@ h2.glance-title::after { content: none; }
   border-left: 1px solid var(--rule);
 }
 .glance-grid li:nth-child(3n + 1) { border-left: none; }
-.g-label { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.g-label { font-size: 0.68rem; letter-spacing: 0; text-transform: none; color: var(--muted); }
 .g-value { font-size: 1.35rem; font-weight: 800; line-height: 1.2; letter-spacing: -0.01em; }
 .g-note { font-size: 0.82rem; line-height: 1.4; color: var(--muted); }
 /* Status marks in the value line: the picture is the reading. Pictorial
@@ -553,8 +560,8 @@ h2.glance-title::after { content: none; }
 .whats-next { margin: 0.7rem 0 0.5rem; font-size: 0.98rem; }
 .whats-next strong {
   font-size: 0.8em;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--accent);
 }
 
@@ -574,8 +581,8 @@ h2.glance-title::after { content: none; }
   margin: 0 0 0.45rem;
   font-size: 0.66rem;
   font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--muted);
 }
 .voice-head {
@@ -592,8 +599,8 @@ h2.glance-title::after { content: none; }
 .voice-name { font-weight: 700; }
 .voice-meta {
   font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--muted);
 }
 .voice-text { margin: 0.6rem 0; font-size: 0.98rem; line-height: 1.5; }
@@ -604,8 +611,8 @@ h2.glance-title::after { content: none; }
   justify-content: space-between;
   gap: 0.4rem;
   font-size: 0.72rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--muted);
 }
 .voice-foot a { color: var(--accent); text-decoration: none; }
@@ -628,10 +635,10 @@ h2.glance-title::after { content: none; }
   margin: 2.3rem 0 0.6rem;
   padding-top: 0.55rem;
   border-top: 1px solid var(--ink);
-  font-size: 0.8rem;
+  font-size: var(--section-head-size);
   font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--accent);
 }
 .river h4::after { content: ""; flex: 1; border-top: 1px solid var(--rule); }
@@ -664,7 +671,7 @@ h2.glance-title::after { content: none; }
   color: #fff;
   padding: 2px 6px;
   display: inline-block;
-  text-transform: uppercase;
+  text-transform: none;
 }
 .river h5 + p,
 .river .story-share + p,
@@ -713,8 +720,8 @@ h2.glance-title::after { content: none; }
    headline visibly governs only its own paragraph (2026-08-30 jam). */
 .river--tiered .brief-slug {
   font-size: 0.7rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--muted);
   margin: 1.15rem 0 0.55rem;
 }
@@ -742,8 +749,8 @@ h2.glance-title::after { content: none; }
 
 .src {
   font-size: 0.72rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--muted);
   margin-left: 0.35rem;
   white-space: nowrap;
@@ -756,8 +763,8 @@ h2.glance-title::after { content: none; }
 .standings th {
   font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--muted);
   text-align: left;
 }
@@ -773,7 +780,7 @@ h2.glance-title::after { content: none; }
   margin: 2rem 0;
 }
 /* Every Back Page fixture announces itself the way One Good Thing always
-   has: a small-caps tab on the box (Evan, 2026-08-30). */
+   has: a tab on the box (Evan, 2026-08-30). */
 .the-number::before,
 .countdown::before {
   position: absolute;
@@ -785,8 +792,8 @@ h2.glance-title::after { content: none; }
   font-style: normal;
   font-size: 0.7rem;
   font-weight: 700;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--accent);
   white-space: nowrap;
 }
@@ -808,8 +815,8 @@ h2.glance-title::after { content: none; }
   background: var(--tint);
   text-align: center;
   font-size: 0.8rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   font-weight: 700;
   margin: 2rem 0;
   padding: 1.15rem 1.2rem 0.95rem;
@@ -837,8 +844,8 @@ h2.glance-title::after { content: none; }
   font-style: normal;
   font-size: 0.7rem;
   font-weight: 700;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--accent);
   white-space: nowrap;
 }
@@ -858,10 +865,10 @@ h2#the-back-page {
   margin: 3.2rem 0 0;
   padding-top: 0.75rem;
   border-top: 3px double var(--ink);
-  font-size: 1.3rem;
+  font-size: var(--section-head-size);
   font-weight: 800;
-  letter-spacing: 0.32em;
-  text-indent: 0.32em; /* balances the tracked caps around center */
+  letter-spacing: 0;
+  text-transform: none;
 }
 h2#the-river::after,
 h2#city-desk::after,
@@ -884,8 +891,8 @@ h2#the-back-page {
      cut, so it must match the other beats' full-width rules. */
   border-bottom: 1px solid var(--ink);
   font-size: 0.72rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
 }
 .beat-nav a { color: var(--link); text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; }
 .beat-nav a:hover { text-decoration: underline; }
@@ -894,8 +901,8 @@ h2#the-back-page {
   margin: 1.5rem 0 0;
   text-align: center;
   font-size: 0.72rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
 }
 .to-top a { color: var(--link); text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; }
 .to-top a:hover { text-decoration: underline; }
@@ -910,7 +917,7 @@ h2#the-back-page {
 .home-front .edited-front p { margin: .65rem 0; }
 .home-front .front-priorities { display: grid; grid-template-columns: 1.4fr 1fr; gap: 2.5rem; padding: 1.35rem 0 1.7rem; border-bottom: 1px solid var(--ink); }
 .home-front .front-lead h1 { font-size: clamp(2rem, 4.6vw, 3.8rem); line-height: 1.06; margin: .2rem 0 .8rem; letter-spacing: -.025em; max-width: 14ch; }
-.home-front .front-kicker { color: var(--accent); font-size: .75rem; font-weight: 800; text-transform: uppercase; letter-spacing: .14em; }
+.home-front .front-kicker { color: var(--accent); font-size: .75rem; font-weight: 800; text-transform: none; letter-spacing: 0; }
 .home-front .front-deck { font-size: 1.2rem; line-height: 1.5; }
 .home-front .front-detail { font-size: .95rem; line-height: 1.5; }
 .home-front .front-access { border-left: 1px solid var(--rule); padding-left: 2.2rem; }
@@ -929,7 +936,7 @@ h2#the-back-page {
 .home-front .front-text-link { display: inline-flex; align-items: center; min-height: 44px; font-size: .9rem; font-weight: 700; }
 .home-front a:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
 .home-front .front-action:focus-visible { outline-color: var(--ink); }
-.home-front .front-section-label { font-size: .8rem; text-transform: uppercase; letter-spacing: .14em; margin: 1.7rem 0 1rem; }
+.home-front .front-section-label { font-size: var(--section-head-size); text-transform: none; letter-spacing: 0; margin: 1.7rem 0 1rem; }
 .home-front .front-story-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1.7rem; }
 .home-front .front-story-grid article + article { border-left: 1px solid var(--rule); padding-left: 1.7rem; }
 .home-front h3 { font-size: 1.4rem; margin: 0 0 .5rem; line-height: 1.2; }
