@@ -479,6 +479,23 @@ test("ordered_copy allows a flat story list and still checks lead length", async
   assert.match(blocked.output, /FAIL\s+\[river\].*Growth & infrastructure/);
 });
 
+test("a no-chart visual_exception passes without a briefing image", async () => {
+  const reason = "The approved copy has no chart, no social post, and no video, " +
+    "so the desk has no card and no clip.";
+  const body = thinEdition()
+    .replace(/visual_exception: "[^"]*"/, `visual_exception: "${reason}"`)
+    .replace(/<figure class="graphic">[\s\S]*?<\/figure>\n*/, "");
+  const { code, output } = await runThin(body);
+  assert.equal(code, 0, output);
+  assert.match(output, /warn\s+\[briefing\] no chart or image/);
+  assert.match(output, /visual_exception: The approved copy has no chart/);
+  assert.doesNotMatch(output, /FAIL/);
+  const stillRequired = thinEdition().replace(/<figure class="graphic">[\s\S]*?<\/figure>\n*/, "");
+  const blocked = await runThin(stillRequired);
+  assert.notEqual(blocked.code, 0);
+  assert.match(blocked.output, /FAIL\s+\[briefing\] no chart or image/);
+});
+
 test("floor_exception does not waive lead length", async () => {
   const { code, output } = await runThin(thinEdition({ leadWords: 4 }));
   assert.notEqual(code, 0);

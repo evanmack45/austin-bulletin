@@ -95,3 +95,52 @@ test("November 5 lists every headed story, news before notices", () => {
     assert.equal(FIRST_PERSON.test(`${story.title} ${story.summary}`), false);
   }
 });
+
+test("November 6 lists news before the notice and keeps every source link", () => {
+  const bulletin = readFileSync("src/bulletins/2026-11-06.md", "utf8");
+  const edition = homeEdition(bulletin);
+  const stories = listed(edition);
+  assert.deepEqual(stories.map((story) => story.title), [
+    "City will spend up to $5.48 million on land for the Rutland-to-Northgate trail.",
+    "Mobility Committee meets Thursday on the downtown Core Transportation Plan.",
+    "Hinojosa’s first transition picks put public schools and labor at the table, KUT reports.",
+    "Council canvasses the election Nov. 17; the next regular meeting is Nov. 19.",
+    "Veterans Day parade rolls Saturday from South Congress to the Capitol."
+  ]);
+  assert.deepEqual(stories.map((story) => story.section), [
+    "News", "News", "News", "News", "Notices"
+  ]);
+  assert.equal(stories[1].signupAfter, true);
+  assert.equal(edition.signupAfterLead, false);
+  assert.equal(
+    edition.leadAnchor,
+    "council-clears-austin-energy-bonds-and-a-housing-blueprint-rewrite"
+  );
+  assert.match(stories[0].summary, /\$5,481,865/);
+  assert.match(stories[0].sourcesHtml, /action_notes\.cfm\?mid=1520/);
+  assert.match(stories[3].sourcesHtml, /document\.cfm\?id=472487/);
+  assert.match(stories[3].sourcesHtml, /document\.cfm\?id=462100/);
+  for (const url of [
+    "https://services.austintexas.gov/edims/document.cfm?id=484316",
+    "https://www.austintexas.gov/council/2026/20261105-reg",
+    "https://services.austintexas.gov/edims/document.cfm?id=484329",
+    "https://services.austintexas.gov/edims/document.cfm?id=484389",
+    "https://services.austintexas.gov/edims/document.cfm?id=484397",
+    "https://www.austintexas.gov/council/2026/20261112-mobc",
+    "https://www.kut.org/2026-11-05/gina-hinojosa-texas-governor-transition-team",
+    "https://www.austintexas.gov/communications/news/celebrate-veterans-day-70th-annual-parade-nov-7"
+  ]) {
+    assert.equal(bulletin.includes(url), true, url);
+  }
+  assert.match(bulletin, /approved as amended/);
+  assert.match(bulletin, /Action Notes are labeled tentative/);
+  assert.match(bulletin, /hardship for two units does not exist/);
+  assert.equal(bulletin.includes("Editor notes"), false);
+  assert.equal(bulletin.includes("Watershed recommended denial"), false);
+  assert.equal(bulletin.includes("[ORIGINAL]"), false);
+  assert.equal(bulletin.includes("[REPORT]"), false);
+  for (const story of stories) {
+    assert.equal(bulletin.includes(story.summary), true, story.summary);
+    assert.equal(FIRST_PERSON.test(`${story.title} ${story.summary}`), false);
+  }
+});

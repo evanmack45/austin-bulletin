@@ -212,7 +212,12 @@
 }
 .home-front .front-lead h1 a:hover,
 .home-front .front-lead h1 a:focus-visible { text-decoration: underline; }
-.home-front .front-deck { font-size: 1.125rem; line-height: 1.5; margin: 0 0 12px; }
+.home-front .front-deck {
+  max-width: 32.5rem;
+  font-size: 1.125rem;
+  line-height: 1.5;
+  margin: 0 0 12px;
+}
 .home-front .front-action {
   display: inline-flex;
   align-items: center;
@@ -361,7 +366,7 @@
 .home-front .front-story h3 a:hover,
 .home-front .front-story h3 a:focus-visible { text-decoration: underline; }
 .home-front .front-story-summary {
-  max-width: 38rem;
+  max-width: 32.5rem;
   margin: 0.5rem 0;
   font-family: Georgia, "Times New Roman", serif;
   font-size: 1.125rem;
@@ -453,4 +458,37 @@
 .election-banner a:focus-visible {
   outline: 3px solid #c8102e;
   outline-offset: 2px;
+}
+/* Body copy stays 18px. 38rem still measured past 75 characters in Hanken,
+   so the prose cap is the width that holds 75. The story frame stays wider. */
+@media (min-width: 761px) {
+  .edition-page .big-story p:not(.source-line),
+  .edition-page .river p,
+  .edition-page .whats-next {
+    max-width: 35.25rem;
+  }
+  .edition-page .big-story p:not(.source-line),
+  .edition-page .river h5 + p,
+  .edition-page .river .story-share + p,
+  .edition-page .river .story-share + figure + p,
+  .edition-page .if-you,
+  .edition-page .whats-next {
+    font-size: 1.125rem;
+  }
+}
+@media (max-width: 760px) {
+  .edition-page .prev-edition a {
+    display: inline-block;
+    box-sizing: border-box;
+    min-height: 44px;
+    padding: 13px 2px;
+  }
+  .edition-page .skim ol a {
+    display: inline-block;
+    box-sizing: border-box;
+    max-width: 100%;
+    min-height: 44px;
+    padding-block: 4px;
+  }
+  .edition-page h2#notices { margin-top: 3rem; }
 }
