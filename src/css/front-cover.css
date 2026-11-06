@@ -44,8 +44,8 @@
   margin: 0 0 6px;
   font-family: Hanken, Arial, sans-serif;
   font-size: 0.8125rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   color: #1b1b1b;
   text-align: right;
   grid-column: auto;
@@ -115,8 +115,8 @@
   font-size: 1rem;
   font-weight: 700;
   line-height: 1.2;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   color: #c8102e;
 }
 .today-top-label a {
@@ -155,8 +155,8 @@
   font-family: Hanken, Arial, sans-serif;
   font-weight: 700;
   font-size: 0.75rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   color: #c8102e;
   margin: 0;
 }
@@ -338,7 +338,7 @@
 }
 .home-front .front-section-head {
   font-family: Bricolage, "Times New Roman", Times, serif;
-  font-size: 1.25rem;
+  font-size: var(--section-head-size);
   font-weight: 700;
   letter-spacing: 0;
   line-height: 1.3;
