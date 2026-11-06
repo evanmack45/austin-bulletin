@@ -19,15 +19,26 @@ test("the built vote page renders official source urls", {
     assert.ok(html.includes(vote2026.links[key]), key);
   }
   assert.equal(html.includes('href=""'), false);
+  const payoff = html.indexOf('class="results-payoff"');
+  const after = html.indexOf('id="do-these-first"');
+  const ballot = html.indexOf("Austin ballot and measure history (record)");
+  const sites = html.indexOf("Early voting sites from the County list (45 sites, record)");
+  assert.ok(payoff !== -1 && payoff < after && after < ballot && ballot < sites);
+  assert.equal(html.includes("<details"), true);
+  assert.equal(html.includes("<details open"), false);
+  assert.equal((html.match(/<li>Steven Brown<\/li>/g) || []).length, 1);
 });
 
-test("the vote page leads with the results link", () => {
+test("the vote page leads with status and a results button", () => {
   const top = guide.slice(0, guide.search(/\n(?:### |<h3\b)/));
   assert.match(top, /Voting for the November 3, 2026 election is over/);
+  assert.match(top, /class="results-payoff"/);
   assert.match(top, /href="\/election\/2026-11-03\/"/);
-  assert.match(top, />results page</);
+  assert.match(top, />Election results</);
+  assert.ok(top.indexOf("election is over") < top.indexOf("results-payoff"));
   assert.doesNotMatch(top, /registration deadline/);
   assert.doesNotMatch(top, /Early voting/);
+  assert.doesNotMatch(top, /Steven Brown|Proposition A|Proposition C/);
 });
 
 test("registration status uses the endorsed portal with official instruction fallback", () => {
@@ -132,21 +143,47 @@ test("post-election status replaces deadline how-to and keeps the city runoff ca
   assert.match(guide, /Election Day is December 12/);
   assert.match(guide, /Runoff panel, if one is needed: November 20 at 6:30 p\.m\./);
   assert.match(guide, /Those dates have passed/);
+  assert.doesNotMatch(guide, /September 17 \(District 5\), September 21/);
+  assert.match(guide, /- \*\*District 5:\*\* September 17/);
+  assert.match(guide, /- \*\*District 1:\*\* October 15/);
   const early = guide.slice(
     guide.indexOf("### Early voting record"),
     guide.indexOf("### Election Day record")
   );
   assert.match(early, /is closed/);
-  assert.match(early, /<details>/);
-  assert.match(early, /<summary>Early voting sites from the County list \(record\)<\/summary>/);
+  assert.match(early, /<details class="record-disclosure">/);
+  assert.match(early,
+    /<summary>Early voting sites from the County list \(45 sites, record\)<\/summary>/);
+  assert.ok(early.indexOf("<summary>Early voting sites")
+    < early.indexOf("Turnout through October 21"));
   assert.match(early, /Ben Hur Shrine Center/);
   assert.match(early, /TCC Complex/);
   assert.match(early, /Through Wednesday, October 21/);
+  assert.match(early, /a snapshot, not the final count/);
   assert.match(early, /vote2026\.links\.earlyVotingSites/);
+  const sites = early.slice(
+    early.indexOf("<summary>Early voting sites"),
+    early.indexOf("</details>") + 10
+  );
+  assert.equal(sites.match(/<li>/g).length, 45);
   const registration = guide.slice(guide.indexOf("### Registration for a later election"));
   assert.match(registration, /has passed/);
   assert.match(registration, /Nothing in this section reopens it/);
+  const ballot = guide.slice(
+    guide.indexOf("<summary>Austin ballot and measure history"),
+    guide.indexOf("</details>") + 10
+  );
+  assert.match(ballot, /<h4>District 1<\/h4>[\s\S]*<li>Steven Brown<\/li>/);
+  assert.doesNotMatch(ballot, /Steven Brown, Alexandria Anderson/);
+  assert.match(ballot, /<h4>Proposition A<\/h4>/);
+  assert.match(ballot, /<h4>Proposition C<\/h4>/);
+  assert.match(ballot, /THIS IS A TAX INCREASE/);
+  assert.ok(guide.indexOf("results-payoff") < guide.indexOf(">After November 3</h3>"));
+  assert.ok(guide.indexOf(">After November 3</h3>")
+    < guide.indexOf("<summary>Austin ballot and measure history"));
+  assert.ok(guide.indexOf("</details>") < guide.indexOf("### Early voting record"));
   assert.ok(guide.indexOf(">After November 3</h3>") < guide.indexOf("### Early voting record"));
   assert.ok(guide.indexOf("### Early voting record")
     < guide.indexOf("### Registration for a later election"));
+  assert.doesNotMatch(guide, /<details[^>]*\sopen/);
 });

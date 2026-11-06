@@ -7,7 +7,9 @@ permalink: "/vote-2026/"
 
 ## November 2026 voting in Austin
 
-Voting for the November 3, 2026 election is over. See the <a href="/election/2026-11-03/">results page</a>.
+Voting for the November 3, 2026 election is over.
+
+<p class="results-payoff"><a href="/election/2026-11-03/">Election results</a></p>
 
 This page is the record of that election for Austin residents registered in Travis County: the ballot, the dates, and the county lists. If you are registered in Hays or Williamson County, use your own county’s election information; the <a href="{{ vote2026.links.cityVoterResources }}">City of Austin voter resources</a> link to each county. No endorsements; no ads.
 
@@ -23,41 +25,78 @@ The City scheduled a runoff candidate panel, if one is needed, for November 20 a
 
 Sources: <a href="https://services.austintexas.gov/edims/document.cfm?id=472487">City of Austin runoff election calendar (PDF)</a>; <a href="https://www.austintexas.gov/communications/news/public-invited-attend-2026-austin-city-council-candidate-panels">City of Austin, September 14 release</a> (panel date read November 6, 2026).
 
-### What is on the Austin ballot
-
-Travis County’s consolidated ballot lists every contest in the county. A voter’s own ballot included only the contests for that address. The <a href="https://tx.omniballot.us/sites/48453/default/app/home">County’s accessible ballot tool</a> and the <a href="{{ vote2026.links.consolidatedBallot }}">consolidated ballot (PDF)</a> are the sources. Candidates are listed here in ballot order.
-
-**City Council** (five of ten districts were on the ballot):
-
-- **District 1:** Steven Brown, Alexandria Anderson, Amber K. Goodwin, Michael Nahas, Portia Riggins, Misael Ramos
-- **District 3:** Eduardo “Lalito” Romero, Brock Skinner, José Velásquez, Gavin Fernandez Jr., Neha Shah
-- **District 5:** Liz Brink, David Weinberg, Ryan Alter, Farrah Abraham
-- **District 8:** Jeffery Bowen, Selena Xie
-- **District 9:** Rich Heyman, Katie Kam, Zohaib “Zo” Qadri, Dave Thadani, Kai Huang
-
-Two seats were open (Districts 1 and 8). The three incumbents who ran, and how they voted this year: [Austin City Council races 2026](/austin-council-races-2026/).
-
-**City bonds.** Both carried the ballot words "THIS IS A TAX INCREASE."
-
-- **Proposition A:** $260 million in bonds for citywide park, recreation, aquatic and open-space improvements.
-- **Proposition B:** $35 million in bonds for library facilities.
-
-What the two bonds proposed to build and cost, and how the Council voted: [Austin's 2026 parks and library bonds](/austin-bonds-2026/).
-
-**City Charter amendments**, in the ballot's own terms:
-
-- **Proposition C:** Clarify that the Independent Citizens Redistricting Commission is independent of Council control; let it review districts after the City's boundaries change; add exceptions for student members; set an effective date for its plan; enlarge its applicant pool; clarify how vacancies are filled; and let City staff talk with it outside meetings within the Texas Open Meetings Act.
-- **Proposition D:** Delete the language that the Council shall meet at least once each week.
-- **Proposition E:** Delete the language requiring the Council to set its rules and order of business by ordinance.
-- **Proposition F:** Clarify the meaning of "election" and adjust campaign contribution and spending limits each year by January 1 instead of with the budget.
-- **Proposition G:** Hold citizen-initiative and petitioned charter elections on the next available November election in an even-numbered year.
-- **Proposition H:** The Council appoints and removes the City Attorney.
-- **Proposition I:** Require an Independent Affordability and Efficiency Initiative on a regular basis and before any tax rate increase election, with the contractor required to find annual and multi-year savings larger than its cost.
-- **Proposition J:** Non-substantive corrections to typos, punctuation and sentence structure, and changes to language made moot or unenforceable by state law or a final court order.
-
-The [guide to Propositions C through J](/austin-charter-2026/) explains each charter amendment in plain words, with what each side says about Proposition I.
-
-The same ballot carried federal, state, judicial, county, appraisal district and other cities' contests. Source: <a href="{{ vote2026.links.consolidatedBallot }}">Travis County consolidated ballot, November 3, 2026</a> (corrected October 15; the Austin contests did not change), read October 17, 2026.
+<details class="record-disclosure">
+<summary>Austin ballot and measure history (record)</summary>
+<h3>What is on the Austin ballot</h3>
+<p>Travis County’s consolidated ballot lists every contest in the county. A voter’s own ballot included only the contests for that address. The <a href="https://tx.omniballot.us/sites/48453/default/app/home">County’s accessible ballot tool</a> and the <a href="{{ vote2026.links.consolidatedBallot }}">consolidated ballot (PDF)</a> are the sources. Candidates are listed here in ballot order.</p>
+<h3>City Council</h3>
+<p>Five of ten districts were on the ballot.</p>
+<h4>District 1</h4>
+<ul>
+<li>Steven Brown</li>
+<li>Alexandria Anderson</li>
+<li>Amber K. Goodwin</li>
+<li>Michael Nahas</li>
+<li>Portia Riggins</li>
+<li>Misael Ramos</li>
+</ul>
+<h4>District 3</h4>
+<ul>
+<li>Eduardo “Lalito” Romero</li>
+<li>Brock Skinner</li>
+<li>José Velásquez</li>
+<li>Gavin Fernandez Jr.</li>
+<li>Neha Shah</li>
+</ul>
+<h4>District 5</h4>
+<ul>
+<li>Liz Brink</li>
+<li>David Weinberg</li>
+<li>Ryan Alter</li>
+<li>Farrah Abraham</li>
+</ul>
+<h4>District 8</h4>
+<ul>
+<li>Jeffery Bowen</li>
+<li>Selena Xie</li>
+</ul>
+<h4>District 9</h4>
+<ul>
+<li>Rich Heyman</li>
+<li>Katie Kam</li>
+<li>Zohaib “Zo” Qadri</li>
+<li>Dave Thadani</li>
+<li>Kai Huang</li>
+</ul>
+<p>Two seats were open (Districts 1 and 8). The three incumbents who ran, and how they voted this year: <a href="/austin-council-races-2026/">Austin City Council races 2026</a>.</p>
+<h3>City bonds</h3>
+<p>Both carried the ballot words "THIS IS A TAX INCREASE."</p>
+<h4>Proposition A</h4>
+<p>$260 million in bonds for citywide park, recreation, aquatic and open-space improvements.</p>
+<h4>Proposition B</h4>
+<p>$35 million in bonds for library facilities.</p>
+<p>What the two bonds proposed to build and cost, and how the Council voted: <a href="/austin-bonds-2026/">Austin's 2026 parks and library bonds</a>.</p>
+<h3>City Charter amendments</h3>
+<p>In the ballot's own terms:</p>
+<h4>Proposition C</h4>
+<p>Clarify that the Independent Citizens Redistricting Commission is independent of Council control; let it review districts after the City's boundaries change; add exceptions for student members; set an effective date for its plan; enlarge its applicant pool; clarify how vacancies are filled; and let City staff talk with it outside meetings within the Texas Open Meetings Act.</p>
+<h4>Proposition D</h4>
+<p>Delete the language that the Council shall meet at least once each week.</p>
+<h4>Proposition E</h4>
+<p>Delete the language requiring the Council to set its rules and order of business by ordinance.</p>
+<h4>Proposition F</h4>
+<p>Clarify the meaning of "election" and adjust campaign contribution and spending limits each year by January 1 instead of with the budget.</p>
+<h4>Proposition G</h4>
+<p>Hold citizen-initiative and petitioned charter elections on the next available November election in an even-numbered year.</p>
+<h4>Proposition H</h4>
+<p>The Council appoints and removes the City Attorney.</p>
+<h4>Proposition I</h4>
+<p>Require an Independent Affordability and Efficiency Initiative on a regular basis and before any tax rate increase election, with the contractor required to find annual and multi-year savings larger than its cost.</p>
+<h4>Proposition J</h4>
+<p>Non-substantive corrections to typos, punctuation and sentence structure, and changes to language made moot or unenforceable by state law or a final court order.</p>
+<p>The <a href="/austin-charter-2026/">guide to Propositions C through J</a> explains each charter amendment in plain words, with what each side says about Proposition I.</p>
+<p>The same ballot carried federal, state, judicial, county, appraisal district and other cities' contests. Source: <a href="{{ vote2026.links.consolidatedBallot }}">Travis County consolidated ballot, November 3, 2026</a> (corrected October 15; the Austin contests did not change), read October 17, 2026.</p>
+</details>
 
 ### Key dates for November 3
 
@@ -72,9 +111,13 @@ Sources: <a href="{{ vote2026.links.register }}">VoteTexas — Voter Registratio
 
 ### City Council candidate panels
 
-The City, its Ethics Review Commission and the League of Women Voters Austin Area sponsored one panel for each Council district on the November 3 ballot. The City set each one for 6:30 p.m. and said it would air live on ATXN.TV and KAZI FM 88.7.
+The City, its Ethics Review Commission and the League of Women Voters Austin Area sponsored one panel for each Council district on the November 3 ballot. The City set each one for 6:30 p.m. and said it would air live on ATXN.TV and KAZI FM 88.7. Those dates have passed.
 
-- The five district panels were scheduled for September 17 (District 5), September 21 (District 8), September 29 (District 9), October 1 (District 3) and October 15 (District 1). Those dates have passed.
+- **District 5:** September 17
+- **District 8:** September 21
+- **District 9:** September 29
+- **District 3:** October 1
+- **District 1:** October 15
 - Runoff panel, if one is needed: November 20 at 6:30 p.m., City Hall Council Chambers, 301 W. 2nd St.
 
 The September 14 release still lists a way to suggest a question: email candidateforums@lwvaustin.org or call 512-451-6710. For interpretation, the release says to call 3-1-1 at least five days ahead. District lookup is on the City’s voter resources.
@@ -83,16 +126,11 @@ Source: <a href="https://www.austintexas.gov/communications/news/public-invited-
 
 ### Early voting record (Oct 19–30)
 
-Early voting for the November 3 election is closed. It ran 7 a.m. to 7 p.m. each day, Monday, October 19 through Friday, October 30. The County’s list is the record of sites and hours: <a href="{{ vote2026.links.earlyVotingSites }}">Travis County Clerk, early voting sites (PDF)</a> and the <a href="{{ vote2026.links.travisCurrentElection }}">Current Election page</a>, read October 12, 2026. Reference: <a href="{{ vote2026.links.earlyVotingFAQ }}">VoteTexas — Early voting FAQs</a>.
+Early voting for the November 3 election is closed. It ran 7 a.m. to 7 p.m. each day, Monday, October 19 through Friday, October 30.
 
-**Turnout through October 21.** Through Wednesday, October 21, the third day of early voting, 131,689 Travis County voters had cast a ballot: 120,626 in person at the early voting sites, 10,816 mail ballots received and 247 limited ballots. That is 13.88% of the County's 948,575 registered voters. In-person voting held near 40,000 a day: 40,777 on Monday, 40,359 on Tuesday and 39,490 on Wednesday. Monday's first day beat every first day of a midterm this century (4.14% in 2018, 2.8% in 2022, per KUT). Statewide turnout was about 3.7% by Tuesday evening. That snapshot is not the final count. The count after Election Day is on the <a href="/election/2026-11-03/">results page</a>.
-
-Sources: <a href="https://votetravis.gov/current-election-information/election-results-and-reconciliation-forms/">Vote Travis election results</a>; <a href="https://www.kut.org/austin/2026-10-20/travis-county-austin-tx-first-day-early-voting-turnout-midterm-election">KUT, from Texas Secretary of State data</a>; <a href="https://www.kxan.com/news/your-local-election-hq/nov-2026-turnout-tracker/">KXAN turnout tracker</a> (read October 21, 2026).
-
-The site list below is that October 12 county record, collapsed. "Bus route" is the County's own column. The list also noted a limited ballot during early voting only, at the County Clerk, 5501 Airport Blvd, for a voter who had moved from another Texas county and was not registered in Travis County yet. The number on the list is (512) 238-8683.
-
-<details>
-<summary>Early voting sites from the County list (record)</summary>
+<details class="record-disclosure">
+<summary>Early voting sites from the County list (45 sites, record)</summary>
+<p>The list is the October 12 county record. <a href="{{ vote2026.links.earlyVotingSites }}">Travis County Clerk, early voting sites (PDF)</a> and the <a href="{{ vote2026.links.travisCurrentElection }}">Current Election page</a>, read October 12, 2026. Reference: <a href="{{ vote2026.links.earlyVotingFAQ }}">VoteTexas — Early voting FAQs</a>. "Bus route" is the County's own column. The list also noted a limited ballot during early voting only, at the County Clerk, 5501 Airport Blvd, for a voter who had moved from another Texas county and was not registered in Travis County yet. The number on the list is (512) 238-8683.</p>
 <p><strong>Open until 10 p.m. on Thursday, October 29 and Friday, October 30.</strong> The County's list marks these seven sites for extended hours on the last two days:</p>
 <ul>
 <li><strong>Ben Hur Shrine Center</strong>, 7811 Rockwood Ln, Austin 78757 (Ballroom) · bus route</li>
@@ -148,6 +186,10 @@ The site list below is that October 12 county record, collapsed. "Bus route" is 
 <li><strong>TCC Complex</strong>, 3614 Bill Price Rd, Del Valle 78617 (Lobby) · bus route</li>
 </ul>
 </details>
+
+**Turnout through October 21, a snapshot, not the final count.** Through Wednesday, October 21, the third day of early voting, 131,689 Travis County voters had cast a ballot: 120,626 in person at the early voting sites, 10,816 mail ballots received and 247 limited ballots. That is 13.88% of the County's 948,575 registered voters. In-person voting held near 40,000 a day: 40,777 on Monday, 40,359 on Tuesday and 39,490 on Wednesday. Monday's first day beat every first day of a midterm this century (4.14% in 2018, 2.8% in 2022, per KUT). Statewide turnout was about 3.7% by Tuesday evening. The count after Election Day is on the <a href="/election/2026-11-03/">results page</a>.
+
+Sources: <a href="https://votetravis.gov/current-election-information/election-results-and-reconciliation-forms/">Vote Travis election results</a>; <a href="https://www.kut.org/austin/2026-10-20/travis-county-austin-tx-first-day-early-voting-turnout-midterm-election">KUT, from Texas Secretary of State data</a>; <a href="https://www.kxan.com/news/your-local-election-hq/nov-2026-turnout-tracker/">KXAN turnout tracker</a> (read October 21, 2026).
 
 ### Election Day record (Nov 3)
 
