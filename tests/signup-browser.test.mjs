@@ -78,6 +78,29 @@ test("the Kit embed sits under the lead and the phone bar can close", {
   }
 });
 
+async function signupSlot(page) {
+  return page.evaluate(() => {
+    const main = document.querySelector(".paper-main");
+    const text = main.innerText;
+    return {
+      canvass: text.indexOf("Council canvasses the election"),
+      signup: text.indexOf("Get the morning email."),
+      notices: text.indexOf("Notices"),
+      forms: document.querySelectorAll("form.signup-form").length,
+      blocks: main.querySelectorAll(".signup").length,
+      overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
+    };
+  });
+}
+
+function assertSignupSlot(slot) {
+  assert.ok(slot.canvass !== -1 && slot.signup > slot.canvass, "signup after Council canvasses");
+  assert.ok(slot.notices > slot.signup, "signup before Notices");
+  assert.equal(slot.forms, 1);
+  assert.equal(slot.blocks, 1);
+  assert.ok(slot.overflow <= 1, `horizontal overflow ${slot.overflow}`);
+}
+
 async function assertDesktopLead(browser, origin) {
   const page = await browser.newPage();
   const posts = await blockKit(page);
@@ -147,6 +170,7 @@ async function assertDesktopLead(browser, origin) {
     "/about/"
   ]);
   assert.equal(posts.length, 0);
+  assertSignupSlot(await signupSlot(page));
   await page.close();
 }
 
@@ -201,6 +225,7 @@ async function assertMobileLead(browser, origin) {
   assert.ok(result.width <= 390, String(result.width));
   assert.equal(result.forms, 1);
   assert.equal(posts.length, 0);
+  assertSignupSlot(await signupSlot(page));
   await page.close();
 }
 

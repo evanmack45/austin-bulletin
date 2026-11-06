@@ -89,7 +89,12 @@ test("the homepage shows each edition story once, lead first", () => {
     match[0].startsWith("<h1") ? "h1" : match[0].startsWith("<h3") ? "h3" : "signup"
   ));
   const signupAt = heads.indexOf("signup");
-  assert.equal(heads.slice(0, signupAt).filter((tag) => tag === "h1" || tag === "h3").length, 3);
+  const flagged = stories.findIndex((story) => story.signupAfter);
+  assert.ok(flagged >= 0);
+  assert.equal(
+    heads.slice(0, signupAt).filter((tag) => tag === "h1" || tag === "h3").length,
+    flagged + 2
+  );
   if (edition === "2026-11-03" || edition === "2026-11-04") {
     assert.equal((html.match(/>Election results</g) || []).length, 1);
     assert.match(lead, /class="results-link" href="\/election\/2026-11-03\/"/);

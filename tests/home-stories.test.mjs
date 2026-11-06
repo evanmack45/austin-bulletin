@@ -65,6 +65,24 @@ test("a short edition keeps the signup after the last story", () => {
   assert.equal(edition.signupAfterLead, true);
 });
 
+test("two stories still keep the signup after the lead", () => {
+  const markdown = [
+    "{% bigstory %}",
+    "### Only the lead.",
+    "{% endbigstory %}",
+    "## News",
+    "{% river %}",
+    "##### One more story.",
+    "A sentence follows.",
+    "{% endriver %}"
+  ].join("\n");
+  const edition = homeEdition(markdown);
+  const stories = listed(edition);
+  assert.equal(stories.length, 1);
+  assert.equal(stories[0].signupAfter, false);
+  assert.equal(edition.signupAfterLead, true);
+});
+
 test("November 5 lists every headed story, news before notices", () => {
   const edition = homeEdition(readFileSync("src/bulletins/2026-11-05.md", "utf8"));
   const stories = listed(edition);
@@ -79,7 +97,9 @@ test("November 5 lists every headed story, news before notices", () => {
   assert.deepEqual(stories.map((story) => story.section), [
     "News", "News", "News", "News", "News", "Notices"
   ]);
-  assert.equal(stories[1].signupAfter, true);
+  assert.equal(stories.findIndex((story) => story.signupAfter), 4);
+  assert.equal(stories[4].section, "News");
+  assert.equal(stories[5].section, "Notices");
   assert.equal(
     stories[1].summary,
     "Austin police reported five fatal crashes from early Sunday, Nov. 1, " +
@@ -110,7 +130,7 @@ test("November 6 lists news before the notice and keeps every source link", () =
   assert.deepEqual(stories.map((story) => story.section), [
     "News", "News", "News", "News", "Notices"
   ]);
-  assert.equal(stories[1].signupAfter, true);
+  assert.equal(stories[3].signupAfter, true);
   assert.equal(edition.signupAfterLead, false);
   assert.equal(
     edition.leadAnchor,
@@ -143,4 +163,17 @@ test("November 6 lists news before the notice and keeps every source link", () =
     assert.equal(bulletin.includes(story.summary), true, story.summary);
     assert.equal(FIRST_PERSON.test(`${story.title} ${story.summary}`), false);
   }
+});
+
+test("November 6 puts the signup after Council canvasses and before Notices", () => {
+  const edition = homeEdition(readFileSync("src/bulletins/2026-11-06.md", "utf8"));
+  const stories = listed(edition);
+  const signup = stories.flatMap((story, index) => story.signupAfter ? [index] : []);
+  const canvass = stories.findIndex((story) => (
+    story.title.startsWith("Council canvasses the election")
+  ));
+  const notices = stories.findIndex((story) => story.section === "Notices");
+  assert.deepEqual(signup, [canvass]);
+  assert.equal(notices, canvass + 1);
+  assert.equal(edition.signupAfterLead, false);
 });

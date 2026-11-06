@@ -177,8 +177,12 @@ export function homeEdition(markdown) {
   const sections = groupSections(stories.filter((story) => !story.lead));
   const listed = sections.flatMap((section) => section.stories);
   const signupAt = Math.min(SIGNUP_AFTER, stories.length);
+  // After three stories, the form follows the last story before Notices.
+  // With nothing before that section, the slot is listed[0].
   if (signupAt >= SIGNUP_AFTER && listed.length >= signupAt - 1) {
-    listed[signupAt - 2].signupAfter = true;
+    const notices = sections.find((section) => section.label === "Notices");
+    const noticeAt = notices ? listed.indexOf(notices.stories[0]) : 0;
+    listed[noticeAt > 0 ? noticeAt - 1 : 0].signupAfter = true;
   }
   return {
     leadAnchor: lead?.anchor || "",
