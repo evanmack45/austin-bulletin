@@ -210,7 +210,7 @@ async function exists(p) {
 // tried and rejected a routing brief full of in-page links on 2026-08-29
 // ("spammy"); links belong in the Sources line, and any in-page link that
 // does appear must land on an anchor that actually exists.
-function checkFirstRead(big, fullText, bad, minWords = FIRSTREAD_MIN, hasLeadImage = false) {
+function checkFirstRead(big, fullText, bad, minWords = FIRSTREAD_MIN, hasLeadImage = false, onMissingImage = null) {
   const prose = big
     .replace(/^###.*$/gm, " ")
     .replace(/<p class="if-you">[\s\S]*?<\/p>/g, " ")
@@ -223,8 +223,13 @@ function checkFirstRead(big, fullText, bad, minWords = FIRSTREAD_MIN, hasLeadIma
   if (!/^###\s+\S/m.test(big)) bad("briefing", "no ### headline stating the day's idea");
   if (!/<p class="whats-next">/.test(big)) bad("briefing", 'no "What\'s next" line');
   // images.lead renders above the briefing. It is that day's anchor image.
+  // A substantive visual_exception that says the approved copy has no chart
+  // downgrades only this missing-image failure. Lead length and the 300-word
+  // cap stay failures. River voice, video, and graphic minimums are unchanged.
   if (!/!\[|<img[\s>]/.test(big) && !hasLeadImage) {
-    bad("briefing", "no chart or image — the day's graphic anchors the section");
+    const message = "no chart or image — the day's graphic anchors the section";
+    if (onMissingImage) onMissingImage(message);
+    else bad("briefing", message);
   }
   if (!/<p class="source-line">/.test(big)) bad("briefing", "no Sources line");
   const targets = [...big.matchAll(/\]\(#([^)]+)\)/g)].map((m) => m[1]);
@@ -333,8 +338,20 @@ async function main() {
     if (!/<p class="whats-next">/.test(big)) bad("big story", 'no "What\'s next" line');
     if (!/<p class="source-line">/.test(big)) bad("big story", "no Sources line");
   } else {
+    const noChart = Boolean(
+      visualException &&
+      /\bno chart\b/i.test(visualException) &&
+      isSubstantiveException(visualException)
+    );
     checkFirstRead(
-      big, text, bad, floorOk ? FIRSTREAD_FLOOR_MIN : FIRSTREAD_MIN, Boolean(declaredLeadSrc(text))
+      big,
+      text,
+      bad,
+      floorOk ? FIRSTREAD_FLOOR_MIN : FIRSTREAD_MIN,
+      Boolean(declaredLeadSrc(text)),
+      noChart
+        ? (message) => warn("briefing", `${message} (visual_exception: ${visualException.trim()})`)
+        : null
     );
   }
 
