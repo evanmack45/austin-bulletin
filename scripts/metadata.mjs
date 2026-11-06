@@ -11,7 +11,8 @@ const DESCRIPTIONS = {
   "/archive/": "Browse past Austin and Texas daily bulletins and search the archive.",
   "/about/": "How The Austin Bulletin gathers, sources, reviews and corrects its daily news.",
   "/corrections/": "Public, dated log of corrections to The Austin Bulletin, with sources.",
-  "/vote-2026/": "Official November 2026 registration links, key dates and county voting guidance."
+  "/vote-2026/": "Voting for the November 3, 2026 election is over. "
+    + "Results, the Austin ballot, and the record of dates and polling sites."
 };
 
 export function canonicalUrl(route) {

@@ -1199,3 +1199,72 @@ body:has(article.bulletin) main { max-width: 48rem; }
   outline: 3px solid var(--accent);
   outline-offset: 2px;
 }
+
+.results-payoff { margin: 0.85rem 0 1.15rem; }
+.results-payoff a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 44px;
+  padding: 0.7rem 1rem;
+  border: 2px solid var(--ink);
+  background: var(--ink);
+  color: var(--bg);
+  font-family: Hanken, Arial, sans-serif;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+}
+.results-payoff a:hover { background: var(--accent); border-color: var(--accent); }
+.results-payoff a:focus-visible {
+  outline: 3px solid var(--mark);
+  outline-offset: 3px;
+}
+
+.record-disclosure {
+  margin: 1rem 0 1.25rem;
+  border: 1px solid var(--ink);
+  background: var(--tint);
+}
+.record-disclosure > summary {
+  cursor: pointer;
+  min-height: 44px;
+  padding: 0.75rem 1rem;
+  font-family: Hanken, Arial, sans-serif;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+.record-disclosure > summary:focus-visible {
+  outline: 3px solid var(--mark);
+  outline-offset: 3px;
+}
+.record-disclosure[open] > summary { border-bottom: 1px solid var(--rule); }
+.record-disclosure > :not(summary) {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+.record-disclosure > :last-child { margin-bottom: 1rem; }
+.record-disclosure h3,
+.record-disclosure h4 {
+  font-family: Bricolage, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+.record-disclosure h3 {
+  margin: 1.1rem 1rem 0.35rem;
+  font-size: 1.35rem;
+}
+.record-disclosure h4 {
+  margin: 0.95rem 1rem 0.15rem;
+  font-size: 1.125rem;
+}
+.record-disclosure ul {
+  margin: 0.15rem 1rem 0.75rem;
+  padding-left: 1.2rem;
+}
+.record-disclosure li { margin: 0.2rem 0; }
