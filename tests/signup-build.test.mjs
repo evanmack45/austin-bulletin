@@ -42,7 +42,9 @@ test("the homepage signup follows the first listed story", () => {
   const heads = [...main.matchAll(/<h1\b|<h3\b|class="signup signup--lead"/g)].map((match) => (
     match[0].startsWith("<h1") ? "h1" : match[0].startsWith("<h3") ? "h3" : "signup"
   ));
+  const signupAt = heads.indexOf("signup");
   assert.equal(heads.filter((tag) => tag === "signup").length, 1);
+  assert.equal(heads.slice(0, signupAt).filter((tag) => tag === "h1" || tag === "h3").length, 2);
   const canvass = main.indexOf("Council canvasses the election");
   const notices = main.indexOf(">Notices<");
   assert.ok(canvass !== -1 && notices > canvass);
