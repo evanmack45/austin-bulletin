@@ -78,6 +78,46 @@ test("the Kit embed sits under the lead and the phone bar can close", {
   }
 });
 
+async function signupSlot(page) {
+  return page.evaluate(() => {
+    const main = document.querySelector(".paper-main");
+    const sequence = [...main.querySelectorAll(
+      ".front-lead h1, .front-story h3, .signup--lead, h2.front-section-head"
+    )].map((el) => (
+      el.classList.contains("signup--lead") ? "signup" : el.textContent.trim()
+    ));
+    return {
+      sequence,
+      forms: document.querySelectorAll("form.signup-form").length,
+      blocks: main.querySelectorAll(".signup").length,
+      overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
+    };
+  });
+}
+
+function assertSignupSlot(slot) {
+  const stories = slot.sequence.filter((item) => (
+    item !== "signup" && item !== "News" && item !== "Notices"
+  ));
+  assert.deepEqual(stories, [
+    "Council clears Austin Energy bonds and a housing-blueprint rewrite.",
+    "City will spend up to $5.48 million on land for the Rutland-to-Northgate trail.",
+    "Mobility Committee meets Thursday on the downtown Core Transportation Plan.",
+    "Hinojosa’s first transition picks put public schools and labor at the table, KUT reports.",
+    "Council canvasses the election Nov. 17; the next regular meeting is Nov. 19.",
+    "Veterans Day parade rolls Saturday from South Congress to the Capitol."
+  ]);
+  const signupAt = slot.sequence.indexOf("signup");
+  const before = slot.sequence.filter((item, index) => index < signupAt && item !== "News");
+  assert.equal(before.length, 2);
+  assert.equal(slot.sequence[signupAt + 1].startsWith("Mobility Committee"), true);
+  const canvass = slot.sequence.findIndex((item) => item.startsWith("Council canvasses"));
+  assert.equal(slot.sequence[canvass + 1], "Notices");
+  assert.equal(slot.forms, 1);
+  assert.equal(slot.blocks, 1);
+  assert.ok(slot.overflow <= 1, `horizontal overflow ${slot.overflow}`);
+}
+
 async function assertDesktopLead(browser, origin) {
   const page = await browser.newPage();
   const posts = await blockKit(page);
@@ -147,6 +187,7 @@ async function assertDesktopLead(browser, origin) {
     "/about/"
   ]);
   assert.equal(posts.length, 0);
+  assertSignupSlot(await signupSlot(page));
   await page.close();
 }
 
@@ -158,11 +199,11 @@ async function assertMobileLead(browser, origin) {
     const lead = document.querySelector(".front-lead h1").getBoundingClientRect();
     const signup = document.querySelector(".paper-main .signup--lead").getBoundingClientRect();
     const stories = [...document.querySelectorAll(".front-lead h1, .front-story h3")];
-    const third = stories[2]?.getBoundingClientRect();
+    const followed = stories[1]?.getBoundingClientRect();
     return {
       topBottom: lead.bottom,
       signupTop: signup.top,
-      thirdBottom: third?.bottom ?? 0,
+      followedBottom: followed?.bottom ?? 0,
       storyCount: stories.length,
       vh: window.innerHeight,
       sky: !!document.querySelector(".masthead-sky, .masthead-banner")
@@ -171,7 +212,7 @@ async function assertMobileLead(browser, origin) {
   assert.equal(fold.sky, false);
   assert.ok(fold.topBottom <= fold.vh, `lead headline below the fold: ${fold.topBottom}`);
   assert.ok(fold.storyCount >= 3, `stories before the signup: ${fold.storyCount}`);
-  assert.ok(fold.signupTop >= fold.thirdBottom - 1, `signup starts at ${fold.signupTop}`);
+  assert.ok(fold.signupTop >= fold.followedBottom - 1, `signup starts at ${fold.signupTop}`);
   await page.evaluate(() => {
     document.querySelector(".signup--lead").scrollIntoView({ block: "center" });
   });
@@ -201,6 +242,7 @@ async function assertMobileLead(browser, origin) {
   assert.ok(result.width <= 390, String(result.width));
   assert.equal(result.forms, 1);
   assert.equal(posts.length, 0);
+  assertSignupSlot(await signupSlot(page));
   await page.close();
 }
 

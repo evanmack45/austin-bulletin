@@ -177,8 +177,9 @@ export function homeEdition(markdown) {
   const sections = groupSections(stories.filter((story) => !story.lead));
   const listed = sections.flatMap((section) => section.stories);
   const signupAt = Math.min(SIGNUP_AFTER, stories.length);
+  // The lead is excluded from listed; third overall is the first listed story.
   if (signupAt >= SIGNUP_AFTER && listed.length >= signupAt - 1) {
-    listed[signupAt - 2].signupAfter = true;
+    listed[Math.max(0, signupAt - SIGNUP_AFTER)].signupAfter = true;
   }
   return {
     leadAnchor: lead?.anchor || "",

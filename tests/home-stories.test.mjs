@@ -45,7 +45,8 @@ test("notices stay last and summaries are the story's own first sentences", () =
   assert.equal(stories[1].sourcesHtml.includes("https://example.com/three"), true);
   assert.equal(stories[2].title, "A notice comes first in the file.");
   assert.equal(edition.leadAnchor, "lead-headline-is-sourced");
-  assert.equal(stories[1].signupAfter, true);
+  assert.equal(stories[0].signupAfter, true);
+  assert.equal(stories[1].signupAfter, false);
   assert.equal(edition.signupAfterLead, false);
   for (const story of stories) {
     assert.equal(FIRST_PERSON.test(story.summary), false, story.summary);
@@ -65,6 +66,24 @@ test("a short edition keeps the signup after the last story", () => {
   assert.equal(edition.signupAfterLead, true);
 });
 
+test("two stories still keep the signup after the lead", () => {
+  const markdown = [
+    "{% bigstory %}",
+    "### Only the lead.",
+    "{% endbigstory %}",
+    "## News",
+    "{% river %}",
+    "##### One more story.",
+    "A sentence follows.",
+    "{% endriver %}"
+  ].join("\n");
+  const edition = homeEdition(markdown);
+  const stories = listed(edition);
+  assert.equal(stories.length, 1);
+  assert.equal(stories[0].signupAfter, false);
+  assert.equal(edition.signupAfterLead, true);
+});
+
 test("November 5 lists every headed story, news before notices", () => {
   const edition = homeEdition(readFileSync("src/bulletins/2026-11-05.md", "utf8"));
   const stories = listed(edition);
@@ -79,7 +98,7 @@ test("November 5 lists every headed story, news before notices", () => {
   assert.deepEqual(stories.map((story) => story.section), [
     "News", "News", "News", "News", "News", "Notices"
   ]);
-  assert.equal(stories[1].signupAfter, true);
+  assert.equal(stories.findIndex((story) => story.signupAfter), 0);
   assert.equal(
     stories[1].summary,
     "Austin police reported five fatal crashes from early Sunday, Nov. 1, " +
@@ -110,7 +129,7 @@ test("November 6 lists news before the notice and keeps every source link", () =
   assert.deepEqual(stories.map((story) => story.section), [
     "News", "News", "News", "News", "Notices"
   ]);
-  assert.equal(stories[1].signupAfter, true);
+  assert.equal(stories[0].signupAfter, true);
   assert.equal(edition.signupAfterLead, false);
   assert.equal(
     edition.leadAnchor,
@@ -143,4 +162,47 @@ test("November 6 lists news before the notice and keeps every source link", () =
     assert.equal(bulletin.includes(story.summary), true, story.summary);
     assert.equal(FIRST_PERSON.test(`${story.title} ${story.summary}`), false);
   }
+});
+
+test("four news stories sign up on the first listed story", () => {
+  // Three stories including the lead are already counted by the notices test.
+  // One story under the lead is already covered by the short-edition test.
+  const markdown = [
+    "{% bigstory %}",
+    "### The lead story.",
+    "Lead sentence.",
+    "{% endbigstory %}",
+    "## News",
+    "{% river %}",
+    "##### First listed story.",
+    "First sentence.",
+    "##### Second listed story.",
+    "Second sentence.",
+    "##### Third listed story.",
+    "Third sentence.",
+    "{% endriver %}"
+  ].join("\n");
+  const edition = homeEdition(markdown);
+  const stories = listed(edition);
+  assert.deepEqual(stories.map((story) => story.title), [
+    "First listed story.",
+    "Second listed story.",
+    "Third listed story."
+  ]);
+  assert.equal(stories[0].signupAfter, true);
+  assert.equal(stories[1].signupAfter, false);
+  assert.equal(stories[2].signupAfter, false);
+  assert.equal(edition.signupAfterLead, false);
+});
+
+test("November 6 keeps Council canvasses next to Notices", () => {
+  const edition = homeEdition(readFileSync("src/bulletins/2026-11-06.md", "utf8"));
+  const stories = listed(edition);
+  const canvass = stories.findIndex((story) => (
+    story.title.startsWith("Council canvasses the election")
+  ));
+  const notices = stories.findIndex((story) => story.section === "Notices");
+  assert.equal(notices, canvass + 1);
+  assert.equal(stories[0].signupAfter, true);
+  assert.equal(edition.signupAfterLead, false);
 });
