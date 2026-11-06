@@ -5,6 +5,7 @@ import { readFile } from "node:fs/promises";
 import vote2026 from "../src/_data/vote2026.js";
 import { electionNavOpen } from "../src/_includes/election-nav.js";
 import { chicagoDate } from "../scripts/chicago-time.mjs";
+import { pageMetadata } from "../scripts/metadata.mjs";
 
 const guide = await readFile(new URL("../src/vote-2026/index.md", import.meta.url), "utf8");
 
@@ -21,7 +22,7 @@ test("the built vote page renders official source urls", {
 });
 
 test("the vote page leads with the results link", () => {
-  const top = guide.slice(0, guide.indexOf("\n### "));
+  const top = guide.slice(0, guide.search(/\n(?:### |<h3\b)/));
   assert.match(top, /Voting for the November 3, 2026 election is over/);
   assert.match(top, /href="\/election\/2026-11-03\/"/);
   assert.match(top, />results page</);
@@ -35,12 +36,13 @@ test("registration status uses the endorsed portal with official instruction fal
   assert.match(guide, /If the lookup does not load[\s\S]*vote2026.links.register/);
 });
 
-test("sample ballots are routed to the county rather than the registration-status portal", () => {
+test("sample ballots stay on the county record, not the registration-status portal", () => {
   const ballotLine = guide.split("\n")
-    .find(line => line.startsWith("- Where to vote and sample ballots:"));
+    .find(line => line.startsWith("- Sample ballots for November 3"));
   assert.ok(ballotLine);
   assert.match(ballotLine, /vote2026.links.travisCurrentElection/);
   assert.match(ballotLine, /Sample Ballots/);
+  assert.match(ballotLine, /election is closed/);
   assert.doesNotMatch(ballotLine, /myVoterPortal|coming soon/i);
 });
 
@@ -53,7 +55,8 @@ test("ordinary new application instructions preserve distinct online routes", ()
 
 test("polling-location guidance is explicitly limited to the registration county", () => {
   assert.match(guide,
-    /Voters registered in Travis County can vote at any Travis County vote center/);
+    /Voters registered in Travis County could vote at any Travis County vote center/);
+  assert.match(guide, /Polls for that election are closed/);
   assert.match(guide, /Hays or Williamson/);
   assert.match(guide, /vote2026.links.cityVoterResources/);
 });
@@ -93,4 +96,57 @@ test("verified election dates and guide navigation window remain unchanged", () 
   });
   assert.match(guide, /Monday, October 19 – Friday, October 30, 2026/);
   assert.match(guide, /Tuesday, November 3, 2026/);
+});
+
+test("sharing text reads as a closed election, not an active voting guide", () => {
+  const description = guide.match(/^description: "(.+)"$/m)?.[1];
+  const title = guide.match(/^title: "(.+)"$/m)?.[1];
+  assert.equal(description,
+    "Voting for the November 3, 2026 election is over. "
+    + "Results, the Austin ballot, and the record of dates and polling sites.");
+  assert.match(title, /election record/);
+  assert.doesNotMatch(title, /official instructions|how to vote|voting guidance/i);
+  assert.doesNotMatch(description, /official instructions|how to vote|voting guidance/i);
+  const meta = pageMetadata("/vote-2026/", title, "", description);
+  assert.equal(meta.description, description);
+  assert.match(meta.title, /election record/);
+  const fallback = pageMetadata("/vote-2026/", title, "", "");
+  assert.equal(fallback.description, description);
+  assert.doesNotMatch(fallback.description, /registration links|voting guidance/);
+});
+
+test("post-election status replaces deadline how-to and keeps the city runoff calendar", () => {
+  assert.doesNotMatch(guide, /### Do these first/);
+  assert.doesNotMatch(guide, /Turnout so far/);
+  assert.doesNotMatch(guide, /before you go/);
+  assert.doesNotMatch(guide, /\b[Oo]ur\b/);
+  assert.doesNotMatch(guide, /may vote early/);
+  assert.match(guide, /<h3 id="do-these-first" tabindex="-1">After November 3<\/h3>/);
+  assert.match(guide, /href="\/election\/2026-11-03\/"/);
+  assert.match(guide, /11 a\.m\. on November 17/);
+  assert.match(guide, /could be earlier, pending the election returns/);
+  assert.match(guide, /https:\/\/services\.austintexas\.gov\/edims\/document\.cfm\?id=472487/);
+  assert.match(guide, /November 12 is the last day to register to vote in the runoff/);
+  assert.match(guide, /November 30 through December 8/);
+  assert.match(guide, /received by December 1, not merely postmarked/);
+  assert.match(guide, /Election Day is December 12/);
+  assert.match(guide, /Runoff panel, if one is needed: November 20 at 6:30 p\.m\./);
+  assert.match(guide, /Those dates have passed/);
+  const early = guide.slice(
+    guide.indexOf("### Early voting record"),
+    guide.indexOf("### Election Day record")
+  );
+  assert.match(early, /is closed/);
+  assert.match(early, /<details>/);
+  assert.match(early, /<summary>Early voting sites from the County list \(record\)<\/summary>/);
+  assert.match(early, /Ben Hur Shrine Center/);
+  assert.match(early, /TCC Complex/);
+  assert.match(early, /Through Wednesday, October 21/);
+  assert.match(early, /vote2026\.links\.earlyVotingSites/);
+  const registration = guide.slice(guide.indexOf("### Registration for a later election"));
+  assert.match(registration, /has passed/);
+  assert.match(registration, /Nothing in this section reopens it/);
+  assert.ok(guide.indexOf(">After November 3</h3>") < guide.indexOf("### Early voting record"));
+  assert.ok(guide.indexOf("### Early voting record")
+    < guide.indexOf("### Registration for a later election"));
 });
