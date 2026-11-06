@@ -57,9 +57,8 @@ validate. They do not print. Do not modify a dated edition to make an old
 asset pass. Dates, uncertainty, and attribution stay beside the claim.
 
 Type: warm paper, bold headlines, one red accent. The signup is the Kit
-form, one box per page: after the last homepage story before Notices, at
-the end of each edition, or in the footer of every other page. Fewer than
-three stories keeps the form under the lead. The line is "Get the morning email. Sign
+form, one box per page: after the third homepage story, at the end of
+each edition, or in the footer of every other page. The line is "Get the morning email. Sign
 up and the first issue reaches you once it goes out." The subscribe
 button is the Bulletin red, with white text. A story's source links
 render as one Sources line at the end of that story.

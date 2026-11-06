@@ -37,18 +37,18 @@ function count(html, needle) {
   return html.split(needle).length - 1;
 }
 
-test("the homepage signup sits after Council canvasses and before Notices", () => {
+test("the homepage signup follows the first listed story", () => {
   const main = sliceBetween(home, 'class="paper-main"', 'class="site-footer"');
   const heads = [...main.matchAll(/<h1\b|<h3\b|class="signup signup--lead"/g)].map((match) => (
     match[0].startsWith("<h1") ? "h1" : match[0].startsWith("<h3") ? "h3" : "signup"
   ));
   const signupAt = heads.indexOf("signup");
   assert.equal(heads.filter((tag) => tag === "signup").length, 1);
-  assert.equal(heads.slice(0, signupAt).filter((tag) => tag === "h1" || tag === "h3").length, 5);
+  assert.equal(heads.slice(0, signupAt).filter((tag) => tag === "h1" || tag === "h3").length, 2);
   const canvass = main.indexOf("Council canvasses the election");
-  const signupHtml = main.indexOf('class="signup signup--lead"');
   const notices = main.indexOf(">Notices<");
-  assert.ok(canvass !== -1 && canvass < signupHtml && signupHtml < notices);
+  assert.ok(canvass !== -1 && notices > canvass);
+  const signupHtml = main.indexOf('class="signup signup--lead"');
   const jumpAt = main.indexOf('class="edition-jump"');
   assert.ok(signupHtml !== -1 && jumpAt > signupHtml);
   assert.equal(main.includes('class="paper-side"'), false);

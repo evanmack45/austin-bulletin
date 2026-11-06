@@ -45,7 +45,8 @@ test("notices stay last and summaries are the story's own first sentences", () =
   assert.equal(stories[1].sourcesHtml.includes("https://example.com/three"), true);
   assert.equal(stories[2].title, "A notice comes first in the file.");
   assert.equal(edition.leadAnchor, "lead-headline-is-sourced");
-  assert.equal(stories[1].signupAfter, true);
+  assert.equal(stories[0].signupAfter, true);
+  assert.equal(stories[1].signupAfter, false);
   assert.equal(edition.signupAfterLead, false);
   for (const story of stories) {
     assert.equal(FIRST_PERSON.test(story.summary), false, story.summary);
@@ -97,9 +98,7 @@ test("November 5 lists every headed story, news before notices", () => {
   assert.deepEqual(stories.map((story) => story.section), [
     "News", "News", "News", "News", "News", "Notices"
   ]);
-  assert.equal(stories.findIndex((story) => story.signupAfter), 4);
-  assert.equal(stories[4].section, "News");
-  assert.equal(stories[5].section, "Notices");
+  assert.equal(stories.findIndex((story) => story.signupAfter), 0);
   assert.equal(
     stories[1].summary,
     "Austin police reported five fatal crashes from early Sunday, Nov. 1, " +
@@ -130,7 +129,7 @@ test("November 6 lists news before the notice and keeps every source link", () =
   assert.deepEqual(stories.map((story) => story.section), [
     "News", "News", "News", "News", "Notices"
   ]);
-  assert.equal(stories[3].signupAfter, true);
+  assert.equal(stories[0].signupAfter, true);
   assert.equal(edition.signupAfterLead, false);
   assert.equal(
     edition.leadAnchor,
@@ -165,15 +164,36 @@ test("November 6 lists news before the notice and keeps every source link", () =
   }
 });
 
-test("November 6 puts the signup after Council canvasses and before Notices", () => {
+test("three stories including the lead sign up on the first listed story", () => {
+  const markdown = [
+    "{% bigstory %}",
+    "### The lead story.",
+    "Lead sentence.",
+    "{% endbigstory %}",
+    "## News",
+    "{% river %}",
+    "##### First listed story.",
+    "First sentence.",
+    "##### Second listed story.",
+    "Second sentence.",
+    "{% endriver %}"
+  ].join("\n");
+  const edition = homeEdition(markdown);
+  const stories = listed(edition);
+  assert.equal(stories.length, 2);
+  assert.equal(stories[0].signupAfter, true);
+  assert.equal(stories[1].signupAfter, false);
+  assert.equal(edition.signupAfterLead, false);
+});
+
+test("November 6 keeps Council canvasses next to Notices", () => {
   const edition = homeEdition(readFileSync("src/bulletins/2026-11-06.md", "utf8"));
   const stories = listed(edition);
-  const signup = stories.flatMap((story, index) => story.signupAfter ? [index] : []);
   const canvass = stories.findIndex((story) => (
     story.title.startsWith("Council canvasses the election")
   ));
   const notices = stories.findIndex((story) => story.section === "Notices");
-  assert.deepEqual(signup, [canvass]);
   assert.equal(notices, canvass + 1);
+  assert.equal(stories[0].signupAfter, true);
   assert.equal(edition.signupAfterLead, false);
 });
