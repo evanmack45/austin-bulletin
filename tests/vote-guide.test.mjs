@@ -187,3 +187,39 @@ test("post-election status replaces deadline how-to and keeps the city runoff ca
     < guide.indexOf("### Registration for a later election"));
   assert.doesNotMatch(guide, /<details[^>]*\sopen/);
 });
+
+test("runoff registration deadline is before the scheduled canvass", () => {
+  const after = guide.slice(
+    guide.indexOf('id="do-these-first"'),
+    guide.indexOf("<summary>Austin ballot")
+  );
+  const deadline = after.indexOf(
+    "November 12 is the last day to register to vote in the runoff"
+  );
+  const beforeCanvass = after.indexOf(
+    "It falls before the scheduled November 17 canvass."
+  );
+  const doNotWait = after.indexOf(
+    "Do not wait for a runoff order to register."
+  );
+  const canvass = after.indexOf("11 a.m. on November 17");
+  assert.ok(deadline !== -1 && beforeCanvass > deadline);
+  assert.ok(doNotWait > beforeCanvass && canvass > doNotWait);
+  assert.match(after, /if the Council orders one/);
+  assert.match(after, /could be earlier, pending the election returns/);
+  assert.match(after, /If the Council orders a runoff, early voting/);
+  assert.match(after, /document\.cfm\?id=472487/);
+  assert.doesNotMatch(after, /the same calendar sets these dates/);
+  assert.doesNotMatch(after, /7 a\.m\.|10 p\.m\./);
+  const registration = guide.slice(
+    guide.indexOf("### Registration for a later election")
+  );
+  assert.match(registration, /has passed/);
+  assert.match(registration, /Nothing in this section reopens it/);
+  assert.match(registration, /if one is ordered/);
+  assert.match(registration,
+    /November 12 registration deadline arrives before the scheduled canvass on November 17/);
+  assert.match(registration, /Registration cannot wait for that order/);
+  assert.match(registration, /City calendar is linked/);
+  assert.match(registration, /href="#do-these-first"/);
+});

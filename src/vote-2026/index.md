@@ -15,11 +15,13 @@ This page is the record of that election for Austin residents registered in Trav
 
 <h3 id="do-these-first" tabindex="-1">After November 3</h3>
 
+November 12 is the last day to register to vote in the runoff, if the Council orders one. It falls before the scheduled November 17 canvass. Do not wait for a runoff order to register.
+
 The Travis County count of City of Austin measures is on the <a href="/election/2026-11-03/">results page</a>.
 
 City Council’s canvass of the November 3 municipal election is scheduled for 11 a.m. on November 17, in the Council Chambers at City Hall, 301 W. Second Street. The City calendar says the actual canvass date could be earlier, pending the election returns from the counties. On the canvass day, the Council orders any necessary runoff.
 
-If the Council orders a runoff, the same calendar sets these dates. November 12 is the last day to register to vote in the runoff. Early voting by personal appearance runs November 30 through December 8. A ballot-by-mail application must be received by December 1, not merely postmarked. Election Day is December 12.
+If the Council orders a runoff, early voting by personal appearance runs November 30 through December 8. A ballot-by-mail application must be received by December 1, not merely postmarked. Election Day is December 12.
 
 The City scheduled a runoff candidate panel, if one is needed, for November 20 at 6:30 p.m. in the City Hall Council Chambers, 301 W. 2nd St. The five district panels before November 3 are over; dates are in the panels section below.
 
@@ -233,7 +235,7 @@ Sources: <a href="{{ vote2026.links.voterIdTexas }}">VoteTexas — Voter ID</a>,
 
 ### Registration for a later election
 
-The October 5, 2026 registration deadline for the November 3 election has passed. Nothing in this section reopens it. The November 12 date for a runoff, if one is ordered, is in <a href="#do-these-first">After November 3</a>, from the City calendar. The notes below are the state’s general instructions for a new registration or an update.
+The October 5, 2026 registration deadline for the November 3 election has passed. Nothing in this section reopens it. For a runoff, if one is ordered, the November 12 registration deadline arrives before the scheduled canvass on November 17. Registration cannot wait for that order. The City calendar is linked from <a href="#do-these-first">After November 3</a>. The notes below are the state’s general instructions for a new registration or an update.
 
 - Check your registration status: <a href="{{ vote2026.links.myVoterPortal }}">Texas Secretary of State — Am I Registered?</a>. If the lookup does not load, use the <a href="{{ vote2026.links.register }}">official VoteTexas registration page</a> for current links and county registrar contacts.
 - General registration guidance for future elections and updates: Start with <a href="{{ vote2026.links.register }}">VoteTexas — official registration instructions</a>. If you use the SOS new-registration application, print, sign, and mail or deliver the completed form to your county voter registrar as instructed. Filling out that form online alone does not complete registration. The <a href="{{ vote2026.links.registrationInstructions }}">official registration and update instructions</a> also explain online name/address updates for existing voters and registration through qualifying DPS license or ID transactions.
