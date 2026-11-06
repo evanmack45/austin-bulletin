@@ -164,7 +164,9 @@ test("November 6 lists news before the notice and keeps every source link", () =
   }
 });
 
-test("three stories including the lead sign up on the first listed story", () => {
+test("four news stories sign up on the first listed story", () => {
+  // Three stories including the lead are already counted by the notices test.
+  // One story under the lead is already covered by the short-edition test.
   const markdown = [
     "{% bigstory %}",
     "### The lead story.",
@@ -176,13 +178,20 @@ test("three stories including the lead sign up on the first listed story", () =>
     "First sentence.",
     "##### Second listed story.",
     "Second sentence.",
+    "##### Third listed story.",
+    "Third sentence.",
     "{% endriver %}"
   ].join("\n");
   const edition = homeEdition(markdown);
   const stories = listed(edition);
-  assert.equal(stories.length, 2);
+  assert.deepEqual(stories.map((story) => story.title), [
+    "First listed story.",
+    "Second listed story.",
+    "Third listed story."
+  ]);
   assert.equal(stories[0].signupAfter, true);
   assert.equal(stories[1].signupAfter, false);
+  assert.equal(stories[2].signupAfter, false);
   assert.equal(edition.signupAfterLead, false);
 });
 
