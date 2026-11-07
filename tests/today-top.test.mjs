@@ -92,7 +92,7 @@ test("the homepage shows each edition story once, lead first", () => {
   ));
   const signupAt = heads.indexOf("signup");
   const renderedStories = 1 + stories.length;
-  const expectedBefore = Math.min(3, renderedStories);
+  const expectedBefore = renderedStories >= 3 ? 3 : 1;
   assert.equal(
     heads.slice(0, signupAt).filter((tag) => tag === "h1" || tag === "h3").length,
     expectedBefore

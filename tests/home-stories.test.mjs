@@ -67,6 +67,35 @@ test("a short edition keeps the signup after the last story", () => {
   assert.equal(edition.signupAfterLead, true);
 });
 
+test("one, two, and three stories place a single signup", () => {
+  function editionWith(count) {
+    const lines = ["{% bigstory %}", "### Lead story.", "{% endbigstory %}"];
+    if (count > 1) {
+      lines.push("## News", "{% river %}");
+      for (let n = 2; n <= count; n += 1) {
+        lines.push(`##### Listed story ${n}.`, "A sentence.");
+      }
+      lines.push("{% endriver %}");
+    }
+    const edition = homeEdition(lines.join("\n"));
+    const stories = listed(edition);
+    return { edition, stories };
+  }
+  const one = editionWith(1);
+  assert.equal(one.stories.length, 0);
+  assert.equal(one.edition.signupAfterLead, true);
+  const two = editionWith(2);
+  assert.equal(two.stories.length, 1);
+  assert.equal(two.edition.signupAfterLead, true);
+  assert.equal(two.stories[0].signupAfter, false);
+  const three = editionWith(3);
+  assert.equal(three.stories.length, 2);
+  assert.equal(three.edition.signupAfterLead, false);
+  assert.equal(three.stories[0].signupAfter, false);
+  assert.equal(three.stories[1].signupAfter, true);
+  assert.equal(three.stories.filter((story) => story.signupAfter).length, 1);
+});
+
 test("two stories still keep the signup after the lead", () => {
   const markdown = [
     "{% bigstory %}",

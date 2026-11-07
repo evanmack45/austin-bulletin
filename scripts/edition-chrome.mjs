@@ -13,7 +13,7 @@ const SKIM_HEADING =
 
 function trustMarkup(href) {
   return "<span class=\"briefing-meta\"> · "
-    + `<a class="trust-link" href="${href}">About our reporting</a></span>`;
+    + `<a class="trust-link" href="${href}">How this site is made</a></span>`;
 }
 
 export function stripMorningGreeting(html) {
@@ -25,7 +25,7 @@ export function dropBriefingHeading(html, href) {
   if (!page.includes('id="the-briefing"')) return page;
   if (!page.includes('id="skim-title"')) {
     const quiet = "<p class=\"briefing-meta\">"
-      + `<a class="trust-link" href="${href}">About our reporting</a></p>\n`;
+      + `<a class="trust-link" href="${href}">How this site is made</a></p>\n`;
     return page.replace(BRIEFING_HEADING, quiet);
   }
   const link = trustMarkup(href);

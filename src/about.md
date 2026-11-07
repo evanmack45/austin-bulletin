@@ -9,7 +9,7 @@ permalink: "/about/"
 The Austin Bulletin publishes one news bulletin each morning, seven days
 a week. It covers Austin and Texas and reports facts, not opinions.
 Evan McMillan, the publisher, is responsible for the site, and every fact
-comes from a source we read that morning, linked in the story.
+comes from a source read that morning, linked in the story.
 
 When a morning's edition does not run, as on October 7–9, 2026, the [archive](/archive/) marks the missing days.
 
@@ -19,26 +19,26 @@ An AI system produces this site. It reads that morning's news from
 established local outlets and primary sources, selects items that matter
 to daily life in Austin, and writes short, neutral summaries with links
 back to the reporting. It never calculates new figures or invents quotes;
-numbers are quoted from sources, and every fact traces to something we
+numbers are quoted from sources, and every fact traces to something
 read that morning. Evan McMillan, the publisher, is responsible for the
 site and oversees the system. He does not review each edition before it
 publishes. The pre-publish gate checks links, sourcing, item lengths and
 counts, initialisms, visuals, and that the page reads clean top to bottom.
-If a check fails, we fix it or cut the item; an edition that cannot pass
+If a check fails, the item is fixed or cut; an edition that cannot pass
 is not published.
 
-## Our rules
+## Rules
 
-- We report what happened and who said what. We do not say whether a
+- The bulletin reports what happened and who said what. It does not say whether a
   policy is good or bad.
 - Political stories present each side's own words, with links.
-- Every fact comes from a source we read that morning, linked in the story.
-- Numbers are quoted from sources, never calculated by us.
+- Every fact comes from a source read that morning, linked in the story.
+- Numbers are quoted from sources, never calculated for the bulletin.
 - When sources disagree, the bulletin says so and gives both accounts.
-- If we cannot verify a story, we leave it out.
+- If a story cannot be verified, it is left out.
 - Surprising claims need two sources; a trusted outlet’s single‑sourced report may run only when the sourcing is stated in the item’s prose.
 
-### How we decide what leads
+### How a lead is chosen
 
 Each beat carries a few longer items with headlines, and a run of one-sentence
 briefs. An item earns a headline if it meets any of these tests:
@@ -50,7 +50,7 @@ briefs. An item earns a headline if it meets any of these tests:
 - A decision is scheduled, with a date.
 
 At most two per beat. If nothing in a beat meets the test, nothing in that beat
-gets a headline. You can check any morning's bulletin against this list.
+gets a headline. Any morning's bulletin can be checked against this list.
 
 ## Dates, deadlines, and guides
 
@@ -63,13 +63,13 @@ the rest — are listed on the [archive](/archive/#guides).
 
 ## Corrections
 
-When we get something wrong, we fix it with a visible note in the
-bulletin: "Correction: an earlier version said X. The correct fact is Y."
-We never silently erase errors.
+When a fact is wrong, the bulletin fixes it with a visible note:
+"Correction: an earlier version said X. The correct fact is Y."
+Errors are not silently erased.
 
-## How we gather
+## How reporting is gathered
 
-We identify ourselves honestly on fetches (<code class="crawler-user-agent">TheAustinBulletin/1.0 (+https://theaustinbulletin.com)</code>), read an outlet’s <code>robots.txt</code> before adding a path, and don’t engineer around a site’s stated policy. KVUE stories are read through their official MSN syndication when available; otherwise we cite another readable source or, as a last resort, run a clearly labeled one‑sentence relay that says only what the teaser says.
+The bulletin identifies itself honestly on fetches (<code class="crawler-user-agent">TheAustinBulletin/1.0 (+https://theaustinbulletin.com)</code>), reads an outlet’s <code>robots.txt</code> before adding a path, and does not engineer around a site’s stated policy. KVUE stories are read through their official MSN syndication when available; otherwise another readable source is cited or, as a last resort, a clearly labeled one‑sentence relay says only what the teaser says.
 
 ## Full policy
 
@@ -95,4 +95,4 @@ reader and each morning's bulletin will arrive on its own.
 
 The front page and the end of each edition also take an email address for
 that morning edition. Kit sends a confirmation email first. The first
-issue reaches you once it goes out.
+issue reaches the reader once it goes out.

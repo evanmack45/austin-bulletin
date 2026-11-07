@@ -44,6 +44,9 @@
     {% set signupId = "footer" %}
     {% include "signup.njk" %}
     {% endif %}
+    {% if homeFront or editionPage %}
+    <p class="ai-disclosure"><a href="/about/#trust">An AI system produces this site.</a></p>
+    {% endif %}
     <p>© The Austin Bulletin · Published by Evan McMillan, Austin, Texas · <a href="/feed.xml">RSS feed</a></p>
     <nav class="trust-footer" aria-label="Site">
       <a href="/about/">About</a>
