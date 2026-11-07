@@ -120,8 +120,8 @@ test("November 7 lists news before notices and keeps every source link", () => {
   const edition = homeEdition(bulletin);
   const stories = listed(edition);
   assert.deepEqual(stories.map((story) => story.title), [
-    "Austin will rewrite APD's rules on working with ICE before Hinojosa takes " +
-      "office, KUT reports.",
+    "Austin will rewrite APD's rules on working with U.S. Immigration and Customs " +
+      "Enforcement (ICE) before Hinojosa takes office, KUT reports.",
     "Council's Nov. 19 draft agenda: Muny-UT deal changes, a $25 million trail " +
       "boardwalk and $55 million for Hornsby Bend.",
     "Ten affordable townhomes for sale break ground on Menchaca Road, with " +
