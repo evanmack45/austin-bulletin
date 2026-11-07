@@ -45,8 +45,9 @@ test("notices stay last and summaries are the story's own first sentences", () =
   assert.equal(stories[1].sourcesHtml.includes("https://example.com/three"), true);
   assert.equal(stories[2].title, "A notice comes first in the file.");
   assert.equal(edition.leadAnchor, "lead-headline-is-sourced");
-  assert.equal(stories[0].signupAfter, true);
-  assert.equal(stories[1].signupAfter, false);
+  assert.equal(stories[0].signupAfter, false);
+  assert.equal(stories[1].signupAfter, true);
+  assert.equal(stories.filter((story) => story.signupAfter).length, 1);
   assert.equal(edition.signupAfterLead, false);
   for (const story of stories) {
     assert.equal(FIRST_PERSON.test(story.summary), false, story.summary);
@@ -98,7 +99,8 @@ test("November 5 lists every headed story, news before notices", () => {
   assert.deepEqual(stories.map((story) => story.section), [
     "News", "News", "News", "News", "News", "Notices"
   ]);
-  assert.equal(stories.findIndex((story) => story.signupAfter), 0);
+  assert.equal(stories.findIndex((story) => story.signupAfter), 1);
+  assert.equal(stories.filter((story) => story.signupAfter).length, 1);
   assert.equal(
     stories[1].summary,
     "Austin police reported five fatal crashes from early Sunday, Nov. 1, " +
@@ -136,11 +138,13 @@ test("November 7 lists news before notices and keeps every source link", () => {
   assert.deepEqual(stories.map((story) => story.section), [
     "News", "News", "News", "News", "News", "Notices", "Notices"
   ]);
-  assert.equal(stories[0].signupAfter, true);
+  assert.equal(stories[0].signupAfter, false);
+  assert.equal(stories[1].signupAfter, true);
+  assert.equal(stories.filter((story) => story.signupAfter).length, 1);
   assert.equal(edition.signupAfterLead, false);
   assert.equal(
     edition.leadAnchor,
-    "austins-48th-homicide-of-2026-came-a-week-sooner"
+    "austins-48th-homicide-of-2026-came-a-week-before-2025s"
   );
   assert.match(stories[2].summary, /\$253,000/);
   assert.match(stories[1].sourcesHtml, /document\.cfm\?id=484837/);
@@ -175,9 +179,8 @@ test("November 7 lists news before notices and keeps every source link", () => {
   }
 });
 
-test("four news stories sign up on the first listed story", () => {
-  // Three stories including the lead are already counted by the notices test.
-  // One story under the lead is already covered by the short-edition test.
+test("four stories sign up on the third, counting the lead", () => {
+  // The lead is story 1. The signup follows the second listed story.
   const markdown = [
     "{% bigstory %}",
     "### The lead story.",
@@ -200,9 +203,10 @@ test("four news stories sign up on the first listed story", () => {
     "Second listed story.",
     "Third listed story."
   ]);
-  assert.equal(stories[0].signupAfter, true);
-  assert.equal(stories[1].signupAfter, false);
+  assert.equal(stories[0].signupAfter, false);
+  assert.equal(stories[1].signupAfter, true);
   assert.equal(stories[2].signupAfter, false);
+  assert.equal(stories.filter((story) => story.signupAfter).length, 1);
   assert.equal(edition.signupAfterLead, false);
 });
 
@@ -214,6 +218,7 @@ test("November 7 keeps the speaker story next to Notices", () => {
   ));
   const notices = stories.findIndex((story) => story.section === "Notices");
   assert.equal(notices, speaker + 1);
-  assert.equal(stories[0].signupAfter, true);
+  assert.equal(stories[1].signupAfter, true);
+  assert.equal(stories.filter((story) => story.signupAfter).length, 1);
   assert.equal(edition.signupAfterLead, false);
 });

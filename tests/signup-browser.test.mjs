@@ -100,7 +100,7 @@ function assertSignupSlot(slot) {
     item !== "signup" && item !== "News" && item !== "Notices"
   ));
   assert.deepEqual(stories, [
-    "Austin's 48th homicide of 2026 came a week sooner.",
+    "Austin's 48th homicide of 2026 came a week before 2025's.",
     "Austin will rewrite APD's rules on working with U.S. Immigration and Customs " +
       "Enforcement (ICE) before Hinojosa takes office, KUT reports.",
     "Council's Nov. 19 draft agenda: Muny-UT deal changes, a $25 million trail " +
@@ -116,8 +116,8 @@ function assertSignupSlot(slot) {
   ]);
   const signupAt = slot.sequence.indexOf("signup");
   const before = slot.sequence.filter((item, index) => index < signupAt && item !== "News");
-  assert.equal(before.length, 2);
-  assert.equal(slot.sequence[signupAt + 1].startsWith("Council's Nov. 19 draft agenda"), true);
+  assert.equal(before.length, 3);
+  assert.equal(slot.sequence[signupAt + 1].startsWith("Ten affordable townhomes"), true);
   const speaker = slot.sequence.findIndex((item) => item.startsWith("Senfronia Thompson"));
   assert.equal(slot.sequence[speaker + 1], "Notices");
   assert.equal(slot.forms, 1);
@@ -204,21 +204,24 @@ async function assertMobileLead(browser, origin) {
   await open(page, origin, "/", 390);
   const fold = await page.evaluate(() => {
     const lead = document.querySelector(".front-lead h1").getBoundingClientRect();
-    const signup = document.querySelector(".paper-main .signup--lead").getBoundingClientRect();
+    const signup = document.querySelector(".paper-main .signup--lead");
     const stories = [...document.querySelectorAll(".front-lead h1, .front-story h3")];
-    const followed = stories[1]?.getBoundingClientRect();
+    const before = stories.filter((el) => (
+      el.compareDocumentPosition(signup) & Node.DOCUMENT_POSITION_FOLLOWING
+    ));
+    const third = before[before.length - 1]?.getBoundingClientRect();
     return {
       topBottom: lead.bottom,
-      signupTop: signup.top,
-      followedBottom: followed?.bottom ?? 0,
-      storyCount: stories.length,
+      signupTop: signup.getBoundingClientRect().top,
+      followedBottom: third?.bottom ?? 0,
+      storyCount: before.length,
       vh: window.innerHeight,
       sky: !!document.querySelector(".masthead-sky, .masthead-banner")
     };
   });
   assert.equal(fold.sky, false);
   assert.ok(fold.topBottom <= fold.vh, `lead headline below the fold: ${fold.topBottom}`);
-  assert.ok(fold.storyCount >= 3, `stories before the signup: ${fold.storyCount}`);
+  assert.equal(fold.storyCount, 3, `stories before the signup: ${fold.storyCount}`);
   assert.ok(fold.signupTop >= fold.followedBottom - 1, `signup starts at ${fold.signupTop}`);
   await page.evaluate(() => {
     document.querySelector(".signup--lead").scrollIntoView({ block: "center" });
