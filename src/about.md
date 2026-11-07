@@ -2,6 +2,7 @@
 layout: layout.njk
 title: "About"
 permalink: "/about/"
+aboutPage: true
 ---
 
 # About The Austin Bulletin
@@ -69,7 +70,7 @@ Errors are not silently erased.
 
 ## How reporting is gathered
 
-The bulletin identifies itself honestly on fetches (<code class="crawler-user-agent">TheAustinBulletin/1.0 (+https://theaustinbulletin.com)</code>), reads an outlet’s <code>robots.txt</code> before adding a path, and does not engineer around a site’s stated policy. KVUE stories are read through their official MSN syndication when available; otherwise another readable source is cited or, as a last resort, a clearly labeled one‑sentence relay says only what the teaser says.
+The bulletin identifies itself honestly on fetches as <code class="crawler-user-agent">TheAustinBulletin/1.0 (+https://theaustinbulletin.com)</code>, reads an outlet’s <code>robots.txt</code> before adding a path, and does not engineer around a site’s stated policy. KVUE stories are read through their official MSN syndication when available; otherwise another readable source is cited or, as a last resort, a clearly labeled one‑sentence relay says only what the teaser says.
 
 ## Full policy
 

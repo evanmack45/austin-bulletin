@@ -51,6 +51,8 @@ test("About leads with the publisher and one account of the model", () => {
   assert.equal((about.match(/An AI system produces/g) || []).length, 1);
   assert.match(about, /id="trust"/);
   assert.match(about, /class="crawler-user-agent"/);
+  assert.equal(about.includes("fetches (<code"), false);
+  assert.match(about, /TheAustinBulletin\/1\.0 \(\+https:\/\/theaustinbulletin\.com\)/);
   assert.match(about, /robots\.txt/);
   assert.match(about, /MSN syndication/);
   const gather = about.indexOf("## How reporting is gathered");

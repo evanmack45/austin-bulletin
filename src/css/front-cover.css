@@ -462,10 +462,9 @@
 /* Body copy stays 18px. 38rem still measured past 75 characters in Hanken,
    so the prose cap is the width that holds 75. The story frame stays wider. */
 @media (min-width: 761px) {
-  .edition-page .big-story p,
-  .edition-page .river p,
-  .edition-page .whats-next,
-  .edition-page .source-line {
+  .edition-page .big-story p:not(.source-line),
+  .edition-page .river p:not(.source-line),
+  .edition-page .whats-next {
     max-width: 35.25rem;
   }
   .edition-page .skim ol a {

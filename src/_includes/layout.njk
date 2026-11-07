@@ -34,7 +34,7 @@
   <meta name="theme-color" content="#1b1b1b">
   <link rel="alternate" type="application/atom+xml" title="The Austin Bulletin" href="/feed.xml">
 </head>
-<body class="cover-chrome{% if homeFront %} home-front{% endif %}{% if editionPage %} edition-page{% endif %}" id="top">
+<body class="cover-chrome{% if homeFront %} home-front{% endif %}{% if editionPage %} edition-page{% endif %}{% if aboutPage %} about-page{% endif %}" id="top">
   {% include "masthead.njk" %}
   <main>
     {{ content | withPreviewMeeting(page.url, councilMeeting) | safe }}

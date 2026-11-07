@@ -33,6 +33,24 @@ h1, h2, h3 { line-height: 1.25; }
 a { color: var(--link); }
 img { width: 100%; height: auto; display: block; }
 .crawler-user-agent { display: inline-block; max-width: 100%; overflow-wrap: anywhere; }
+.about-page main p a { position: relative; }
+.about-page main p a::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: max(100%, 44px);
+  height: 44px;
+  transform: translate(-50%, -50%);
+}
+.about-page main li a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  min-width: 44px;
+  min-height: 44px;
+}
 
 .front-masthead {
   max-width: 1248px;
@@ -355,13 +373,29 @@ h3 { font-size: 1.7rem; font-weight: 800; letter-spacing: -0.01em; margin: 2.2re
 }
 .briefing-meta a:hover { text-decoration: underline; }
 
+.source-line,
+.src:has(.source-group) {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: min(100%, 52ch);
+  white-space: normal;
+}
 .source-line {
   font-size: 0.86rem;
   letter-spacing: 0;
   text-transform: none;
   color: var(--muted);
 }
-.source-line a, .src a {
+.source-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 0.35em;
+  max-width: 100%;
+  min-height: 44px;
+}
+.source-group a {
   display: inline-flex;
   align-items: center;
   box-sizing: border-box;
@@ -378,15 +412,19 @@ h3 { font-size: 1.7rem; font-weight: 800; letter-spacing: -0.01em; margin: 2.2re
   color: var(--muted);
 }
 .council-did a {
+  position: relative;
   color: var(--link);
   text-decoration: underline;
   text-underline-offset: 0.15em;
-  display: inline-flex;
-  align-items: center;
-  box-sizing: border-box;
-  min-width: 24px;
-  min-height: 24px;
-  padding-block: 2px;
+}
+.council-did a::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: max(100%, 44px);
+  height: 44px;
+  transform: translate(-50%, -50%);
 }
 .correction { background: #efe3cd; border: 1px solid #cdb98f; padding: 0.75rem 1rem; }
 figcaption { font-size: 0.85rem; color: var(--muted); }
@@ -1129,24 +1167,9 @@ body:has(article.bulletin) main { max-width: 48rem; }
   .council-did {
     font-size: 1rem;
   }
-  /* Source lines and photo credits stay small type, but the link itself
-     is a 24px target with a gap so it does not sit on the next control.
-     .river p zeros .to-top's top margin, which left the last credit
-     against Back to top. The council line is body text; its link is
-     the same 24px target. */
-  .src a,
-  .source-line a {
-    display: inline-flex;
-    align-items: center;
-    box-sizing: border-box;
-    max-width: 100%;
-    min-width: 44px;
-    min-height: 44px;
-    margin-block: 4px;
-    overflow-wrap: anywhere;
-  }
-  figcaption a,
-  .council-did a {
+  /* Photo credits stay small type, with a gap above Back to top.
+     Source rows and the council practical link keep their own targets. */
+  figcaption a {
     display: inline-block;
     box-sizing: border-box;
     max-width: 100%;
