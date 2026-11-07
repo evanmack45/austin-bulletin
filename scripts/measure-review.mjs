@@ -14,6 +14,7 @@ import { createRequire } from "node:module";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { coverExpandedHits } from "./hit-probes.mjs";
 
 const require = createRequire(import.meta.url);
 const puppeteer = require("puppeteer-core");
@@ -337,8 +338,16 @@ async function shoot(route, width) {
 }
 
 const shots = [
-  ["/", 1280, [[".site-footer", "home-footer-1280.png"], [".front-story-sources", "home-sources-1280.png"]]],
-  ["/", 390, [[".site-footer", "home-footer-390.png"], [".front-story-sources", "home-sources-390.png"]]],
+  ["/", 1280, [
+    [".site-footer", "home-footer-1280.png"],
+    [".front-lead .front-sources", "home-lead-sources-1280.png"],
+    [".front-story-sources", "home-sources-1280.png"]
+  ]],
+  ["/", 390, [
+    [".site-footer", "home-footer-390.png"],
+    [".front-lead .front-sources", "home-lead-sources-390.png"],
+    [".front-story-sources", "home-sources-390.png"]
+  ]],
   ["/2026/11/07/", 1280, [
     [".site-footer", "edition-footer-1280.png"],
     [".skim", "edition-toc-1280.png"],
@@ -361,6 +370,8 @@ const shots = [
 for (const [route, width, clips] of shots) {
   const shot = await shoot(route, width);
   for (const [selector, file] of clips) await clip(shot.page, selector, file, shot.detail);
+  const key = `${route}@${width}`;
+  views[key].hitProbe = await coverExpandedHits(shot.page);
   await shot.page.close();
 }
 
@@ -436,6 +447,7 @@ const brief = Object.fromEntries(Object.entries(views).map(([key, view]) => [key
   gaps: view.gaps,
   menu: view.menu,
   imgs: view.imgs,
+  hitProbe: view.hitProbe,
   cls: view.timing.cls,
   lcp: view.timing.lcp,
   h1: view.h1

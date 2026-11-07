@@ -37,7 +37,11 @@ hasInlineSignup: true
           <figcaption>{{ photo.caption | escape }}{% if photo.credit %} Photo: <a href="{{ photo.source | escape }}">{{ photo.credit | escape }}</a>.{% endif %}</figcaption>
         </figure>
         {% endif %}
-        {% if desk.source %}<p class="src front-sources">Source: <a href="{{ desk.source.href | escape }}">{{ desk.source.name | escape }}</a></p>{% endif %}
+        {% if desk.leadSourcesHtml %}
+        <div class="src front-sources">{{ desk.leadSourcesHtml | safe }}</div>
+        {% elif desk.source %}
+        <p class="src front-sources">Source: <a href="{{ desk.source.href | escape }}">{{ desk.source.name | escape }}</a></p>
+        {% endif %}
       </section>
       {% set signupId = "lead" %}
       {% if desk.signupAfterLead %}

@@ -258,6 +258,16 @@
   background: transparent;
   color: #1b1b1b;
 }
+.home-front .front-lead .source-line {
+  margin: 0;
+}
+.home-front .front-lead .source-group a {
+  display: inline-flex;
+  flex: 0 1 auto;
+  align-items: center;
+  min-width: 44px;
+  min-height: 44px;
+}
 .home-front .front-lead .lead-photo {
   position: static;
   width: 100%;

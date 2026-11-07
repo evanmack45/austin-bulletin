@@ -2,15 +2,20 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
-function assertOneLeadSource(html) {
+function assertLeadComparisonSources(html) {
   const leadHtml = html.match(/<section class="front-lead"[\s\S]*?<\/section>/)?.[0] ?? "";
-  const notesUrl = "https://www.austintexas.gov/police/news/homicide-investigation-3909-guadalupe-street";
-  assert.equal(leadHtml.split(notesUrl).length - 1, 1);
-  const source = leadHtml.match(
-    /<p class="src front-sources">Source: <a href="([^"]+)"[^>]*>([^<]+)<\/a><\/p>/
-  );
-  assert.equal(source?.[1], notesUrl);
-  assert.equal(source?.[2], "APD release, Nov. 6, 2026");
+  const hrefs = [
+    "https://www.austintexas.gov/police/news/homicide-investigation-3909-guadalupe-street",
+    "https://www.austintexas.gov/police/news/homicide-investigation-intersection-e-5th-st-and-trinity-st",
+    "https://www.kxan.com/news/local/austin/austin-homicide-map-2025/"
+  ];
+  for (const href of hrefs) assert.equal(leadHtml.split(href).length - 1, 1, href);
+  const group = '<span class="source-group"><span class="source-label">Sources:</span> ';
+  const marker = `${group}Bulletin comparison of <a href="${hrefs[0]}"`;
+  assert.ok(leadHtml.includes(marker), marker);
+  assert.match(leadHtml, /APD release, Nov\. 17, 2025/);
+  assert.match(leadHtml, /KXAN 2025 homicide map/);
+  assert.doesNotMatch(leadHtml, /Sources:\s*Source/);
   assert.doesNotMatch(leadHtml, /class="num"/);
   assert.doesNotMatch(leadHtml, /lead-photo/);
 }
@@ -70,7 +75,7 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.doesNotMatch(html, /election-results\.webp/);
   assert.doesNotMatch(html, /lead-photo/);
   assert.match(html, /Circle K at 3909 Guadalupe St\./);
-  assertOneLeadSource(html);
+  assertLeadComparisonSources(html);
   const imageUrl = "https://theaustinbulletin.com/icon-512.png";
   assert.ok(html.includes(`property="og:image" content="${imageUrl}"`));
   assert.ok(html.includes(`name="twitter:image" content="${imageUrl}"`));

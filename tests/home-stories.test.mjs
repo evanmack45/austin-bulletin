@@ -250,4 +250,6 @@ test("November 7 keeps the speaker story next to Notices", () => {
   assert.equal(stories[1].signupAfter, true);
   assert.equal(stories.filter((story) => story.signupAfter).length, 1);
   assert.equal(edition.signupAfterLead, false);
+  assert.match(edition.leadSourcesHtml, /Bulletin comparison of/);
+  assert.equal((edition.leadSourcesHtml.match(/<a /g) || []).length, 3);
 });

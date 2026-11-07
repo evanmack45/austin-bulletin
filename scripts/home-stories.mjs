@@ -184,6 +184,7 @@ export function homeEdition(markdown) {
   }
   return {
     leadAnchor: lead?.anchor || "",
+    leadSourcesHtml: lead?.sourcesHtml || "",
     signupAfterLead: stories.length > 0 && stories.length < SIGNUP_AFTER,
     sections
   };

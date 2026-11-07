@@ -33,7 +33,10 @@ h1, h2, h3 { line-height: 1.25; }
 a { color: var(--link); }
 img { width: 100%; height: auto; display: block; }
 .crawler-user-agent { display: inline-block; max-width: 100%; overflow-wrap: anywhere; }
-.about-page main p a { position: relative; }
+.about-page main p a {
+  position: relative;
+  padding-block: 14px;
+}
 .about-page main p a::before {
   content: "";
   position: absolute;
@@ -413,6 +416,7 @@ h3 { font-size: 1.7rem; font-weight: 800; letter-spacing: -0.01em; margin: 2.2re
 }
 .council-did a {
   position: relative;
+  padding-block: 14px;
   color: var(--link);
   text-decoration: underline;
   text-underline-offset: 0.15em;

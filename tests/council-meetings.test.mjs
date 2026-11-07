@@ -206,4 +206,6 @@ test("the council line is 16px text with a 44px link hit area", () => {
   assert.match(css, /\.council-did,\s*\n\.bulletin \.council-did \{[^}]*font-size: 1rem;/);
   assert.match(css, /\.council-did a::before \{[^}]*height: 44px;/);
   assert.match(css, /\.council-did a::before \{[^}]*width: max\(100%, 44px\);/);
+  assert.match(css, /\.council-did a \{[^}]*padding-block: 14px;/);
+  assert.match(css, /\.about-page main p a \{[^}]*padding-block: 14px;/);
 });
