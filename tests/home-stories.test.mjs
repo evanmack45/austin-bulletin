@@ -255,4 +255,8 @@ test("November 7 keeps the speaker story next to Notices", () => {
     /Bulletin calendar-day comparison of Nov\. 5, 2026 and Nov\. 12, 2025, from/
   );
   assert.equal((edition.leadSourcesHtml.match(/<a /g) || []).length, 3);
+  const copy = readFileSync("src/bulletins/2026-11-07.md", "utf8");
+  assert.match(copy, /\$22,420,200 and \$32,906,529 \(items 14 and 15\)/);
+  assert.match(copy, /A Bulletin sum of those source amounts is \$55,326,729/);
+  assert.equal(copy.includes("(items 13 and 14)"), false);
 });
