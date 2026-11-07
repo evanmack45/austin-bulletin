@@ -430,8 +430,12 @@ figcaption { font-size: 0.85rem; color: var(--muted); }
 .guide-list a {
   display: inline-flex;
   align-items: center;
+  box-sizing: border-box;
   max-width: 100%;
   min-height: 44px;
+  /* Same shoulder as a single line centered in the 44px row, so a wrap
+     keeps that air instead of sitting flush against the next link. */
+  padding-block: max(0px, calc((44px - 1.5em) / 2));
   text-wrap: pretty;
 }
 #guides > .guide-list { margin-bottom: 0; }

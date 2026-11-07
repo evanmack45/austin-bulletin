@@ -186,6 +186,24 @@ test("a phone shows four archive guides until More, and desktop shows all", {
     assert.equal(opened.summaryText, "Fewer");
     assert.equal(opened.summaryShown, true);
     assert.ok(opened.height >= 44 && opened.width >= 44);
+    const rows = await phone.evaluate(() => {
+      const links = [...document.querySelectorAll("#guides .guide-list a")];
+      return links.map((link, index) => {
+        const box = link.getBoundingClientRect();
+        const next = links[index + 1]?.getBoundingClientRect();
+        return {
+          height: box.height,
+          gap: next ? next.top - box.bottom : null
+        };
+      });
+    });
+    assert.equal(rows.length, LINKS.length);
+    for (const row of rows) {
+      assert.ok(row.height >= 44, `guide hit ${row.height}`);
+      if (row.gap != null) assert.ok(row.gap >= -0.5, `overlap ${row.gap}`);
+    }
+    assert.ok(rows[0].height < 50, `single line ${rows[0].height}`);
+    assert.ok(rows[5].height >= rows[0].height + 16, `wrapped row ${rows[5].height}`);
     await phone.close();
     const desktop = await openArchive(browser, origin, 1280);
     const wide = await readGuide(desktop);
