@@ -14,14 +14,35 @@ permalink: "/archive/"
     <li><a href="/vote-2026/">Vote 2026: dates & official instructions</a></li>
     <li><a href="https://yallcityhall.org/meetings/2026-11-05/">City Council on November 5</a></li>
     <li><a href="/election/2026-11-03/">November 3, 2026 election results</a></li>
-    <li><a href="/austin-council-races-2026/">The five Council races on the 2026 ballot</a></li>
-    <li><a href="/austin-bonds-2026/">Propositions A and B: the parks and library bonds</a></li>
-    <li><a href="/austin-charter-2026/">Propositions C through J: the charter amendments</a></li>
-    <li><a href="/austin-city-budget-2027/">The 2026-27 city budget and what it costs you</a></li>
-    <li><a href="/aisd-state-intervention/">Austin ISD and the state: what happens next</a></li>
-    <li><a href="/muny-2026/">The Muny deal: Austin, UT and Lions Municipal</a></li>
-    <li><a href="/feed.xml">Follow the morning editions by RSS</a></li>
   </ul>
+  <details class="guide-more" id="guide-more">
+    <summary>
+      <span class="guide-more-label">More</span>
+      <span class="guide-fewer-label">Fewer</span>
+    </summary>
+    <ul class="guide-list">
+      <li><a href="/austin-council-races-2026/">The five Council races on the 2026 ballot</a></li>
+      <li><a href="/austin-bonds-2026/">Propositions A and B: the parks and library bonds</a></li>
+      <li><a href="/austin-charter-2026/">Propositions C through J: the charter amendments</a></li>
+      <li><a href="/austin-city-budget-2027/">The 2026-27 city budget and what it costs you</a></li>
+      <li><a href="/aisd-state-intervention/">Austin ISD and the state: what happens next</a></li>
+      <li><a href="/muny-2026/">The Muny deal: Austin, UT and Lions Municipal</a></li>
+      <li><a href="/feed.xml">Follow the morning editions by RSS</a></li>
+    </ul>
+  </details>
+  <script>
+    (function () {
+      // Wide screens open the rest during parse, before the edition list lays out.
+      var more = document.getElementById("guide-more");
+      if (!more || !window.matchMedia) return;
+      var wide = window.matchMedia("(min-width: 761px)");
+      function showWhenWide() {
+        if (wide.matches) more.open = true;
+      }
+      showWhenWide();
+      if (wide.addEventListener) wide.addEventListener("change", showWhenWide);
+    })();
+  </script>
 </section>
 <link href="{{ '/pagefind/pagefind-ui.css' | url }}" rel="stylesheet">
 <script src="{{ '/pagefind/pagefind-ui.js' | url }}"></script>
