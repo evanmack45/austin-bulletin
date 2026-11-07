@@ -427,7 +427,49 @@ figcaption { font-size: 0.85rem; color: var(--muted); }
 .archive-list a:focus-visible .archive-headline { text-decoration: underline; }
 .archive-list a:focus-visible { outline: 3px solid var(--mark); outline-offset: 3px; }
 .guide-list { padding-left: 1.15rem; }
-.guide-list a { display: inline-flex; align-items: center; min-height: 44px; text-wrap: pretty; }
+.guide-list a {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  min-height: 44px;
+  text-wrap: pretty;
+}
+#guides > .guide-list { margin-bottom: 0; }
+.guide-more { margin: 0 0 1em; }
+.guide-more > .guide-list { margin: 0; }
+.guide-more > summary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-width: 44px;
+  min-height: 44px;
+  margin-top: 0.15rem;
+  padding: 0.35rem 0.75rem;
+  cursor: pointer;
+  color: var(--ink);
+  font-family: Hanken, Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: 0;
+  text-transform: none;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  list-style: none;
+}
+.guide-more > summary::-webkit-details-marker { display: none; }
+.guide-more > summary::marker { content: ""; }
+.guide-more > summary:focus-visible {
+  outline: 3px solid var(--mark);
+  outline-offset: 3px;
+}
+.guide-fewer-label { display: none; }
+.guide-more[open] > summary .guide-more-label { display: none; }
+.guide-more[open] > summary .guide-fewer-label { display: inline; }
+@media (min-width: 761px) {
+  .guide-more[open] > summary { display: none; }
+}
 .archive-note { margin: 0 0 1.5rem; color: var(--muted); font-style: italic; }
 .archive-date {
   font-family: Hanken, Arial, sans-serif;
