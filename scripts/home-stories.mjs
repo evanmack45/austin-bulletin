@@ -6,6 +6,7 @@
 
 import { openingSentences } from "./sentences.mjs";
 import { slug } from "./river.mjs";
+import { presentSourceHtml } from "./story-sources.mjs";
 
 const BIG_OPEN = /\{%\s*bigstory\s*%\}/;
 const BIG_CLOSE = /\{%\s*endbigstory\s*%\}/;
@@ -61,9 +62,9 @@ function plainBody(lines) {
 function sourcesHtml(lines) {
   const chunk = lines.join("\n");
   const line = chunk.match(/<p class="source-line">[\s\S]*?<\/p>/i);
-  if (line) return line[0];
+  if (line) return presentSourceHtml(line[0]);
   const span = chunk.match(/<span class="src">[\s\S]*?<\/span>/i);
-  return span ? span[0] : "";
+  return span ? presentSourceHtml(span[0]) : "";
 }
 
 function pushStory(stories, current, used) {
@@ -177,9 +178,9 @@ export function homeEdition(markdown) {
   const sections = groupSections(stories.filter((story) => !story.lead));
   const listed = sections.flatMap((section) => section.stories);
   const signupAt = Math.min(SIGNUP_AFTER, stories.length);
-  // The lead is excluded from listed; third overall is the first listed story.
-  if (signupAt >= SIGNUP_AFTER && listed.length >= signupAt - 1) {
-    listed[Math.max(0, signupAt - SIGNUP_AFTER)].signupAfter = true;
+  // Lead is story 1, so the third rendered story is listed[1].
+  if (signupAt >= SIGNUP_AFTER && listed.length > SIGNUP_AFTER - 2) {
+    listed[SIGNUP_AFTER - 2].signupAfter = true;
   }
   return {
     leadAnchor: lead?.anchor || "",

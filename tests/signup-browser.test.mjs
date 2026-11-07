@@ -100,19 +100,26 @@ function assertSignupSlot(slot) {
     item !== "signup" && item !== "News" && item !== "Notices"
   ));
   assert.deepEqual(stories, [
-    "Council clears Austin Energy bonds and a housing-blueprint rewrite.",
-    "City will spend up to $5.48 million on land for the Rutland-to-Northgate trail.",
-    "Mobility Committee meets Thursday on the downtown Core Transportation Plan.",
-    "Hinojosa’s first transition picks put public schools and labor at the table, KUT reports.",
-    "Council canvasses the election Nov. 17; the next regular meeting is Nov. 19.",
-    "Veterans Day parade rolls Saturday from South Congress to the Capitol."
+    "Austin's 48th homicide of 2026 came a week before 2025's.",
+    "Austin will rewrite APD's rules on working with U.S. Immigration and Customs " +
+      "Enforcement (ICE) before Hinojosa takes office, KUT reports.",
+    "Council's Nov. 19 draft agenda: Muny-UT deal changes, a $25 million trail " +
+      "boardwalk and $55 million for Hornsby Bend.",
+    "Ten affordable townhomes for sale break ground on Menchaca Road, with " +
+      "2-bedrooms capped at $253,000.",
+    "Police charge two in Northeast Austin copper-cable thefts and seek one of " +
+      "them; a separate East Seventh café burglary is charged.",
+    "Senfronia Thompson says she has the votes to be Texas House speaker after " +
+      "Democrats won the chamber.",
+    "Veterans parade steps off at 9 this morning; expect downtown closures.",
+    "Cyclovia ATX brings a mile-long bike parade to Windsor Park today."
   ]);
   const signupAt = slot.sequence.indexOf("signup");
   const before = slot.sequence.filter((item, index) => index < signupAt && item !== "News");
-  assert.equal(before.length, 2);
-  assert.equal(slot.sequence[signupAt + 1].startsWith("Mobility Committee"), true);
-  const canvass = slot.sequence.findIndex((item) => item.startsWith("Council canvasses"));
-  assert.equal(slot.sequence[canvass + 1], "Notices");
+  assert.equal(before.length, 3);
+  assert.equal(slot.sequence[signupAt + 1].startsWith("Ten affordable townhomes"), true);
+  const speaker = slot.sequence.findIndex((item) => item.startsWith("Senfronia Thompson"));
+  assert.equal(slot.sequence[speaker + 1], "Notices");
   assert.equal(slot.forms, 1);
   assert.equal(slot.blocks, 1);
   assert.ok(slot.overflow <= 1, `horizontal overflow ${slot.overflow}`);
@@ -197,21 +204,24 @@ async function assertMobileLead(browser, origin) {
   await open(page, origin, "/", 390);
   const fold = await page.evaluate(() => {
     const lead = document.querySelector(".front-lead h1").getBoundingClientRect();
-    const signup = document.querySelector(".paper-main .signup--lead").getBoundingClientRect();
+    const signup = document.querySelector(".paper-main .signup--lead");
     const stories = [...document.querySelectorAll(".front-lead h1, .front-story h3")];
-    const followed = stories[1]?.getBoundingClientRect();
+    const before = stories.filter((el) => (
+      el.compareDocumentPosition(signup) & Node.DOCUMENT_POSITION_FOLLOWING
+    ));
+    const third = before[before.length - 1]?.getBoundingClientRect();
     return {
       topBottom: lead.bottom,
-      signupTop: signup.top,
-      followedBottom: followed?.bottom ?? 0,
-      storyCount: stories.length,
+      signupTop: signup.getBoundingClientRect().top,
+      followedBottom: third?.bottom ?? 0,
+      storyCount: before.length,
       vh: window.innerHeight,
       sky: !!document.querySelector(".masthead-sky, .masthead-banner")
     };
   });
   assert.equal(fold.sky, false);
   assert.ok(fold.topBottom <= fold.vh, `lead headline below the fold: ${fold.topBottom}`);
-  assert.ok(fold.storyCount >= 3, `stories before the signup: ${fold.storyCount}`);
+  assert.equal(fold.storyCount, 3, `stories before the signup: ${fold.storyCount}`);
   assert.ok(fold.signupTop >= fold.followedBottom - 1, `signup starts at ${fold.signupTop}`);
   await page.evaluate(() => {
     document.querySelector(".signup--lead").scrollIntoView({ block: "center" });
