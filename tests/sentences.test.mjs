@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
-import { mkdtemp, writeFile, rm } from "node:fs/promises";
+import { mkdtemp, mkdir, writeFile, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -133,6 +133,23 @@ test("the same sentence in two paragraphs still fails when the title repeats it"
     `<p>${REPEATED}</p><p>${REPEATED}</p>`
   );
   assert.equal(duplicateSentences(html).length, 1);
+});
+
+test("the about page may repeat the number rule, and a story may not", async () => {
+  const dir = await mkdtemp(path.join(tmpdir(), "sentences-"));
+  const rule = "Numbers are quoted from sources; any sums or calendar-day comparisons " +
+    "calculated from those figures or dates are labeled and linked to the underlying sources.";
+  try {
+    await mkdir(path.join(dir, "about"));
+    const about = page(`<p>${rule}</p><ul><li>${rule}</li></ul>`);
+    await writeFile(path.join(dir, "about/index.html"), about);
+    await mkdir(path.join(dir, "story"));
+    await writeFile(path.join(dir, "story/index.html"), page(`<p>${rule}</p><p>${rule}</p>`));
+    const problems = await duplicateSentenceProblems(dir);
+    assert.deepEqual(problems.map((problem) => problem.file), ["story/index.html"]);
+  } finally {
+    await rm(dir, { recursive: true });
+  }
 });
 
 test("the current build has no duplicate sentence on a page", async () => {

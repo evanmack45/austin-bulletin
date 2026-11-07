@@ -154,7 +154,7 @@ test("November 7 lists news before notices and keeps every source link", () => {
     "Austin will rewrite APD's rules on working with U.S. Immigration and Customs " +
       "Enforcement (ICE) before Hinojosa takes office, KUT reports.",
     "Council's Nov. 19 draft agenda: Muny-UT deal changes, a $25 million trail " +
-      "boardwalk and $55 million for Hornsby Bend.",
+      "boardwalk and a $55 million Bulletin sum for Hornsby Bend.",
     "Ten affordable townhomes for sale break ground on Menchaca Road, with " +
       "2-bedrooms capped at $253,000.",
     "Police charge two in Northeast Austin copper-cable thefts and seek one of " +
@@ -250,6 +250,9 @@ test("November 7 keeps the speaker story next to Notices", () => {
   assert.equal(stories[1].signupAfter, true);
   assert.equal(stories.filter((story) => story.signupAfter).length, 1);
   assert.equal(edition.signupAfterLead, false);
-  assert.match(edition.leadSourcesHtml, /Bulletin comparison of/);
+  assert.match(
+    edition.leadSourcesHtml,
+    /Bulletin calendar-day comparison of Nov\. 5, 2026 and Nov\. 12, 2025, from/
+  );
   assert.equal((edition.leadSourcesHtml.match(/<a /g) || []).length, 3);
 });

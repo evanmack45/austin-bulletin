@@ -19,8 +19,7 @@ When a morning's edition does not run, as on October 7–9, 2026, the [archive](
 An AI system produces this site. It reads that morning's news from
 established local outlets and primary sources, selects items that matter
 to daily life in Austin, and writes short, neutral summaries with links
-back to the reporting. It never calculates new figures or invents quotes;
-numbers are quoted from sources, and every fact traces to something
+back to the reporting. Numbers are quoted from sources; any sums or calendar-day comparisons calculated from those figures or dates are labeled and linked to the underlying sources. It never invents quotes, and every fact traces to something
 read that morning. Evan McMillan, the publisher, is responsible for the
 site and oversees the system. He does not review each edition before it
 publishes. The pre-publish gate checks links, sourcing, item lengths and
@@ -34,7 +33,7 @@ is not published.
   policy is good or bad.
 - Political stories present each side's own words, with links.
 - Every fact comes from a source read that morning, linked in the story.
-- Numbers are quoted from sources, never calculated for the bulletin.
+- Numbers are quoted from sources; any sums or calendar-day comparisons calculated from those figures or dates are labeled and linked to the underlying sources.
 - When sources disagree, the bulletin says so and gives both accounts.
 - If a story cannot be verified, it is left out.
 - Surprising claims need two sources; a trusted outlet’s single‑sourced report may run only when the sourcing is stated in the item’s prose.

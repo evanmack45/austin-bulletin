@@ -172,7 +172,10 @@ function assertSourceLine(sourceLine) {
 		"https://www.austintexas.gov/police/news/homicide-investigation-intersection-e-5th-st-and-trinity-st",
 		"https://www.kxan.com/news/local/austin/austin-homicide-map-2025/",
 	]);
-	assert.match(sourceLine.text, /Sources: Bulletin comparison of/);
+	assert.match(
+		sourceLine.text,
+		/Sources: Bulletin calendar-day comparison of Nov\. 5, 2026 and Nov\. 12, 2025, from/
+	);
 	assert.match(sourceLine.text, /APD release, Nov\. 6, 2026/);
 	assert.match(sourceLine.text, /APD release, Nov\. 17, 2025/);
 	assert.match(sourceLine.text, /KXAN 2025 homicide map/);

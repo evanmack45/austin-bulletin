@@ -49,6 +49,11 @@ test("About leads with the publisher and one account of the model", () => {
   assert.equal(about.includes("How we gather"), false);
   assert.equal(about.includes("About our reporting"), false);
   assert.equal((about.match(/An AI system produces/g) || []).length, 1);
+  const numbers = "Numbers are quoted from sources; any sums or calendar-day comparisons " +
+    "calculated from those figures or dates are labeled and linked to the underlying sources.";
+  assert.equal(about.split(numbers).length - 1, 2);
+  assert.equal(about.includes("never calculated"), false);
+  assert.equal(about.includes("never calculates"), false);
   assert.match(about, /id="trust"/);
   assert.match(about, /class="crawler-user-agent"/);
   assert.equal(about.includes("fetches (<code"), false);

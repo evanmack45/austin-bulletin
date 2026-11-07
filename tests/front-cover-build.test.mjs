@@ -11,7 +11,8 @@ function assertLeadComparisonSources(html) {
   ];
   for (const href of hrefs) assert.equal(leadHtml.split(href).length - 1, 1, href);
   const group = '<span class="source-group"><span class="source-label">Sources:</span> ';
-  const marker = `${group}Bulletin comparison of <a href="${hrefs[0]}"`;
+  const note = "Bulletin calendar-day comparison of Nov. 5, 2026 and Nov. 12, 2025, from ";
+  const marker = `${group}${note}<a href="${hrefs[0]}"`;
   assert.ok(leadHtml.includes(marker), marker);
   assert.match(leadHtml, /APD release, Nov\. 17, 2025/);
   assert.match(leadHtml, /KXAN 2025 homicide map/);
