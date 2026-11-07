@@ -70,7 +70,9 @@ test("the homepage shows each edition story once, lead first", () => {
   const home = homeEdition(markdown);
   const instant = `${edition}T00:00:00.000Z`;
   const dateline = `${weekdayName(instant)}, ${shortMonthDay(instant)}`;
-  const body = html.replace(/<head\b[\s\S]*?<\/head>/i, "").replaceAll("&#39;", "'");
+  const body = html.replace(/<head\b[\s\S]*?<\/head>/i, "")
+    .replaceAll("&#39;", "'")
+    .replaceAll("&amp;", "&");
   assert.ok(html.includes(dateline), dateline);
   assert.doesNotMatch(html, /class="today-top"/);
   assert.equal(body.split(desk.headline).length - 1, 1, desk.headline);

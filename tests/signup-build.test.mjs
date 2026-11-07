@@ -45,9 +45,9 @@ test("the homepage signup follows the first listed story", () => {
   const signupAt = heads.indexOf("signup");
   assert.equal(heads.filter((tag) => tag === "signup").length, 1);
   assert.equal(heads.slice(0, signupAt).filter((tag) => tag === "h1" || tag === "h3").length, 2);
-  const canvass = main.indexOf("Council canvasses the election");
+  const speaker = main.indexOf("Senfronia Thompson says she has the votes");
   const notices = main.indexOf(">Notices<");
-  assert.ok(canvass !== -1 && notices > canvass);
+  assert.ok(speaker !== -1 && notices > speaker);
   const signupHtml = main.indexOf('class="signup signup--lead"');
   const jumpAt = main.indexOf('class="edition-jump"');
   assert.ok(signupHtml !== -1 && jumpAt > signupHtml);

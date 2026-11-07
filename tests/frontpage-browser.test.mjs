@@ -133,7 +133,7 @@ async function readSourceLine(page) {
 		const linkRect = linkRange.getClientRects()[0];
 		const lead = document.querySelector(".front-lead");
 		const datasetLinks = [...lead.querySelectorAll("a")].filter((anchor) =>
-			anchor.textContent.trim() === "City Action Notes, Nov. 5 (mid=1520)");
+			anchor.textContent.trim() === "APD release, Nov. 6, 2026");
 		return {
 			labelTop: labelRect.top,
 			linkTop: linkRect.top,
@@ -173,8 +173,8 @@ async function readDateLines(page) {
 }
 
 function assertSourceLine(sourceLine) {
-	assert.equal(sourceLine.datasetLinks, 1, "lead column keeps one action-notes link");
-	assert.match(sourceLine.text, /^Source: City Action Notes, Nov\. 5 \(mid=1520\)$/);
+	assert.equal(sourceLine.datasetLinks, 1, "lead column keeps one source link");
+	assert.match(sourceLine.text, /^Source: APD release, Nov\. 6, 2026$/);
 	assert.ok(
 		Math.abs(sourceLine.labelTop - sourceLine.linkTop) < 3,
 		`Source label and link baselines: ${JSON.stringify(sourceLine)}`
@@ -346,7 +346,7 @@ test("guide action fragments reach the answer by keyboard without JavaScript", {
 		assert.ok(accessTitle.ok());
 		assert.equal(
 			await page.$eval(".front-lead .front-sources a", (link) => link.getAttribute("href")),
-			"https://services.austintexas.gov/council_meetings/action_notes.cfm?mid=1520",
+			"https://www.austintexas.gov/police/news/homicide-investigation-3909-guadalupe-street",
 		);
 	} finally {
 		await browser.close();

@@ -100,19 +100,26 @@ function assertSignupSlot(slot) {
     item !== "signup" && item !== "News" && item !== "Notices"
   ));
   assert.deepEqual(stories, [
-    "Council clears Austin Energy bonds and a housing-blueprint rewrite.",
-    "City will spend up to $5.48 million on land for the Rutland-to-Northgate trail.",
-    "Mobility Committee meets Thursday on the downtown Core Transportation Plan.",
-    "Hinojosa’s first transition picks put public schools and labor at the table, KUT reports.",
-    "Council canvasses the election Nov. 17; the next regular meeting is Nov. 19.",
-    "Veterans Day parade rolls Saturday from South Congress to the Capitol."
+    "Austin's 48th homicide of 2026 came a week sooner.",
+    "Austin will rewrite APD's rules on working with ICE before Hinojosa takes " +
+      "office, KUT reports.",
+    "Council's Nov. 19 draft agenda: Muny-UT deal changes, a $25 million trail " +
+      "boardwalk and $55 million for Hornsby Bend.",
+    "Ten affordable townhomes for sale break ground on Menchaca Road, with " +
+      "2-bedrooms capped at $253,000.",
+    "Police charge two in Northeast Austin copper-cable thefts and seek one of " +
+      "them; a separate East Seventh café burglary is charged.",
+    "Senfronia Thompson says she has the votes to be Texas House speaker after " +
+      "Democrats won the chamber.",
+    "Veterans parade steps off at 9 this morning; expect downtown closures.",
+    "Cyclovia ATX brings a mile-long bike parade to Windsor Park today."
   ]);
   const signupAt = slot.sequence.indexOf("signup");
   const before = slot.sequence.filter((item, index) => index < signupAt && item !== "News");
   assert.equal(before.length, 2);
-  assert.equal(slot.sequence[signupAt + 1].startsWith("Mobility Committee"), true);
-  const canvass = slot.sequence.findIndex((item) => item.startsWith("Council canvasses"));
-  assert.equal(slot.sequence[canvass + 1], "Notices");
+  assert.equal(slot.sequence[signupAt + 1].startsWith("Council's Nov. 19 draft agenda"), true);
+  const speaker = slot.sequence.findIndex((item) => item.startsWith("Senfronia Thompson"));
+  assert.equal(slot.sequence[speaker + 1], "Notices");
   assert.equal(slot.forms, 1);
   assert.equal(slot.blocks, 1);
   assert.ok(slot.overflow <= 1, `horizontal overflow ${slot.overflow}`);

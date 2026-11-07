@@ -115,47 +115,58 @@ test("November 5 lists every headed story, news before notices", () => {
   }
 });
 
-test("November 6 lists news before the notice and keeps every source link", () => {
-  const bulletin = readFileSync("src/bulletins/2026-11-06.md", "utf8");
+test("November 7 lists news before notices and keeps every source link", () => {
+  const bulletin = readFileSync("src/bulletins/2026-11-07.md", "utf8");
   const edition = homeEdition(bulletin);
   const stories = listed(edition);
   assert.deepEqual(stories.map((story) => story.title), [
-    "City will spend up to $5.48 million on land for the Rutland-to-Northgate trail.",
-    "Mobility Committee meets Thursday on the downtown Core Transportation Plan.",
-    "Hinojosa’s first transition picks put public schools and labor at the table, KUT reports.",
-    "Council canvasses the election Nov. 17; the next regular meeting is Nov. 19.",
-    "Veterans Day parade rolls Saturday from South Congress to the Capitol."
+    "Austin will rewrite APD's rules on working with ICE before Hinojosa takes " +
+      "office, KUT reports.",
+    "Council's Nov. 19 draft agenda: Muny-UT deal changes, a $25 million trail " +
+      "boardwalk and $55 million for Hornsby Bend.",
+    "Ten affordable townhomes for sale break ground on Menchaca Road, with " +
+      "2-bedrooms capped at $253,000.",
+    "Police charge two in Northeast Austin copper-cable thefts and seek one of " +
+      "them; a separate East Seventh café burglary is charged.",
+    "Senfronia Thompson says she has the votes to be Texas House speaker after " +
+      "Democrats won the chamber.",
+    "Veterans parade steps off at 9 this morning; expect downtown closures.",
+    "Cyclovia ATX brings a mile-long bike parade to Windsor Park today."
   ]);
   assert.deepEqual(stories.map((story) => story.section), [
-    "News", "News", "News", "News", "Notices"
+    "News", "News", "News", "News", "News", "Notices", "Notices"
   ]);
   assert.equal(stories[0].signupAfter, true);
   assert.equal(edition.signupAfterLead, false);
   assert.equal(
     edition.leadAnchor,
-    "council-clears-austin-energy-bonds-and-a-housing-blueprint-rewrite"
+    "austins-48th-homicide-of-2026-came-a-week-sooner"
   );
-  assert.match(stories[0].summary, /\$5,481,865/);
-  assert.match(stories[0].sourcesHtml, /action_notes\.cfm\?mid=1520/);
-  assert.match(stories[3].sourcesHtml, /document\.cfm\?id=472487/);
-  assert.match(stories[3].sourcesHtml, /document\.cfm\?id=462100/);
+  assert.match(stories[2].summary, /\$253,000/);
+  assert.match(stories[1].sourcesHtml, /document\.cfm\?id=484837/);
+  assert.match(stories[1].sourcesHtml, /20261119-reg/);
+  assert.match(stories[3].sourcesHtml, /apd-arrests-suspect-copper-cable-theft/);
+  assert.match(stories[3].sourcesHtml, /apd-arrests-suspect-connection-east-austin/);
   for (const url of [
-    "https://services.austintexas.gov/edims/document.cfm?id=484316",
-    "https://www.austintexas.gov/council/2026/20261105-reg",
-    "https://services.austintexas.gov/edims/document.cfm?id=484329",
-    "https://services.austintexas.gov/edims/document.cfm?id=484389",
-    "https://services.austintexas.gov/edims/document.cfm?id=484397",
-    "https://www.austintexas.gov/council/2026/20261112-mobc",
-    "https://www.kut.org/2026-11-05/gina-hinojosa-texas-governor-transition-team",
-    "https://www.austintexas.gov/communications/news/celebrate-veterans-day-70th-annual-parade-nov-7"
+    "https://www.austintexas.gov/police/news/homicide-investigation-3909-guadalupe-street",
+    "https://www.austintexas.gov/police/news/homicide-investigation-intersection-e-5th-st-and-trinity-st",
+    "https://www.kxan.com/news/local/austin/austin-homicide-map-2025/",
+    "https://www.kut.org/crime-justice/2026-11-06/austin-tx-apd-police-department-ice-policies-hinojosa-abbott",
+    "https://services.austintexas.gov/edims/document.cfm?id=484837",
+    "https://www.austintexas.gov/council/2026/20261119-reg",
+    "https://www.austintexas.gov/housing/news/new-affordable-menchaca-townhomes-bring-ten-homeownership-opportunities-south-austin",
+    "https://www.austintexas.gov/police/news/apd-arrests-suspect-copper-cable-theft-series-seeks-public-assistance-locating-second",
+    "https://www.austintexas.gov/police/news/apd-arrests-suspect-connection-east-austin-commercial-burglary-series",
+    "https://www.kut.org/politics/2026-11-06/texas-house-speaker-senfronia-thompson-democrats",
+    "https://www.austintexas.gov/communications/news/celebrate-veterans-day-70th-annual-parade-nov-7",
+    "https://www.austintexas.gov/communications/news/ghisallo-cycling-initiatives-cyclovia-atx-happening-nov-7"
   ]) {
     assert.equal(bulletin.includes(url), true, url);
   }
-  assert.match(bulletin, /approved as amended/);
-  assert.match(bulletin, /Action Notes are labeled tentative/);
-  assert.match(bulletin, /hardship for two units does not exist/);
+  assert.match(bulletin, /No charges have been filed/);
+  assert.match(bulletin, /Bruce Williams, 61/);
+  assert.equal(bulletin.includes("December 3, 2027"), false);
   assert.equal(bulletin.includes("Editor notes"), false);
-  assert.equal(bulletin.includes("Watershed recommended denial"), false);
   assert.equal(bulletin.includes("[ORIGINAL]"), false);
   assert.equal(bulletin.includes("[REPORT]"), false);
   for (const story of stories) {
@@ -195,14 +206,14 @@ test("four news stories sign up on the first listed story", () => {
   assert.equal(edition.signupAfterLead, false);
 });
 
-test("November 6 keeps Council canvasses next to Notices", () => {
-  const edition = homeEdition(readFileSync("src/bulletins/2026-11-06.md", "utf8"));
+test("November 7 keeps the speaker story next to Notices", () => {
+  const edition = homeEdition(readFileSync("src/bulletins/2026-11-07.md", "utf8"));
   const stories = listed(edition);
-  const canvass = stories.findIndex((story) => (
-    story.title.startsWith("Council canvasses the election")
+  const speaker = stories.findIndex((story) => (
+    story.title.startsWith("Senfronia Thompson says she has the votes")
   ));
   const notices = stories.findIndex((story) => story.section === "Notices");
-  assert.equal(notices, canvass + 1);
+  assert.equal(notices, speaker + 1);
   assert.equal(stories[0].signupAfter, true);
   assert.equal(edition.signupAfterLead, false);
 });
