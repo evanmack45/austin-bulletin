@@ -434,3 +434,47 @@ test("previous edition is direct keyboard navigation independent of optional com
     await browser.close(); await new Promise(resolve => server.close(resolve));
   }
 });
+
+test("the first two news summaries share the desktop news width and stack on a phone", {
+  skip: !chrome && "an installed Chromium is required for browser regression",
+}, async () => {
+  const server = await serveBuiltSite();
+  const browser = await puppeteer.launch({ executablePath: chrome, headless: true,
+    args: process.platform === "linux" ? ["--no-sandbox"] : [] });
+  try {
+    const page = await browser.newPage();
+    await page.setViewport({ width: 1280, height: 1600 });
+    await page.goto(`http://127.0.0.1:${server.address().port}/`, { waitUntil: "networkidle0" });
+    const desk = await page.evaluate(() => {
+      const news = document.querySelector(".front-section:has(#front-section-news)");
+      const lead = document.querySelector(".front-story--leadpair");
+      const next = document.querySelector(".front-story--pair");
+      const nr = news.getBoundingClientRect();
+      const ar = lead.getBoundingClientRect();
+      const br = next.getBoundingClientRect();
+      return {
+        sameRow: Math.abs(ar.top - br.top) < 4,
+        rightGap: nr.right - Math.max(ar.right, br.right),
+        wider: ar.width > br.width + 40,
+        leadFont: parseFloat(getComputedStyle(lead.querySelector("h3")).fontSize),
+        pairFont: parseFloat(getComputedStyle(next.querySelector("h3")).fontSize),
+        boxed: getComputedStyle(lead).borderTopWidth !== "0px"
+      };
+    });
+    assert.equal(desk.sameRow, true, JSON.stringify(desk));
+    assert.ok(desk.rightGap < 2, JSON.stringify(desk));
+    assert.equal(desk.wider, true, JSON.stringify(desk));
+    assert.ok(desk.leadFont > desk.pairFont, JSON.stringify(desk));
+    assert.equal(desk.boxed, false);
+    await page.setViewport({ width: 390, height: 1600 });
+    const stacked = await page.evaluate(() => {
+      const lead = document.querySelector(".front-story--leadpair").getBoundingClientRect();
+      const next = document.querySelector(".front-story--pair").getBoundingClientRect();
+      return next.top > lead.bottom - 1 && Math.abs(lead.left - next.left) < 2;
+    });
+    assert.equal(stacked, true);
+  } finally {
+    await browser.close();
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
