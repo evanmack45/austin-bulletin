@@ -45,8 +45,8 @@ test("notices stay last and summaries are the story's own first sentences", () =
   assert.equal(stories[1].sourcesHtml.includes("https://example.com/three"), true);
   assert.equal(stories[2].title, "A notice comes first in the file.");
   assert.equal(edition.leadAnchor, "lead-headline-is-sourced");
-  assert.equal(stories[0].signupAfter, true);
-  assert.equal(stories[1].signupAfter, false);
+  assert.equal(stories[0].signupAfter, false);
+  assert.equal(stories[1].signupAfter, true);
   assert.equal(edition.signupAfterLead, false);
   for (const story of stories) {
     assert.equal(FIRST_PERSON.test(story.summary), false, story.summary);
@@ -98,7 +98,7 @@ test("November 5 lists every headed story, news before notices", () => {
   assert.deepEqual(stories.map((story) => story.section), [
     "News", "News", "News", "News", "News", "Notices"
   ]);
-  assert.equal(stories.findIndex((story) => story.signupAfter), 0);
+  assert.equal(stories.findIndex((story) => story.signupAfter), 1);
   assert.equal(
     stories[1].summary,
     "Austin police reported five fatal crashes from early Sunday, Nov. 1, " +
@@ -129,7 +129,8 @@ test("November 6 lists news before the notice and keeps every source link", () =
   assert.deepEqual(stories.map((story) => story.section), [
     "News", "News", "News", "News", "Notices"
   ]);
-  assert.equal(stories[0].signupAfter, true);
+  assert.equal(stories[1].signupAfter, true);
+  assert.equal(stories[0].signupAfter, false);
   assert.equal(edition.signupAfterLead, false);
   assert.equal(
     edition.leadAnchor,
@@ -164,9 +165,8 @@ test("November 6 lists news before the notice and keeps every source link", () =
   }
 });
 
-test("four news stories sign up on the first listed story", () => {
-  // Three stories including the lead are already counted by the notices test.
-  // One story under the lead is already covered by the short-edition test.
+test("four stories counting the lead sign up after the third", () => {
+  // The lead is story one. Signup follows the second listed story.
   const markdown = [
     "{% bigstory %}",
     "### The lead story.",
@@ -189,8 +189,8 @@ test("four news stories sign up on the first listed story", () => {
     "Second listed story.",
     "Third listed story."
   ]);
-  assert.equal(stories[0].signupAfter, true);
-  assert.equal(stories[1].signupAfter, false);
+  assert.equal(stories[0].signupAfter, false);
+  assert.equal(stories[1].signupAfter, true);
   assert.equal(stories[2].signupAfter, false);
   assert.equal(edition.signupAfterLead, false);
 });
@@ -203,6 +203,64 @@ test("November 6 keeps Council canvasses next to Notices", () => {
   ));
   const notices = stories.findIndex((story) => story.section === "Notices");
   assert.equal(notices, canvass + 1);
-  assert.equal(stories[0].signupAfter, true);
+  assert.equal(stories[1].signupAfter, true);
   assert.equal(edition.signupAfterLead, false);
+});
+
+test("November 8 lists the runoff lead, then news, then the forecast", () => {
+  const bulletin = readFileSync("src/bulletins/2026-11-08.md", "utf8");
+  const edition = homeEdition(bulletin);
+  const stories = listed(edition);
+  assert.deepEqual(stories.map((story) => story.title), [
+    "Council's Nov. 19 draft agenda includes a $25 million Lady Bird Lake boardwalk.",
+    "Austin will rewrite the Austin Police Department's (APD) rules on working with " +
+      "U.S. Immigration and Customs Enforcement (ICE) before Hinojosa takes office, KUT reports.",
+    "Police charge two in Northeast Austin copper-cable thefts and seek one of them.",
+    "Senfronia Thompson says she has the votes to be Texas House speaker.",
+    "Ten affordable townhomes for sale are under construction on Menchaca Road.",
+    "NWS: showers in Austin today, with more rain possible Monday."
+  ]);
+  assert.deepEqual(stories.map((story) => story.section), [
+    "News", "News", "News", "News", "News", "Notices"
+  ]);
+  assert.equal(stories[1].signupAfter, true);
+  assert.equal(stories[0].signupAfter, false);
+  assert.equal(edition.signupAfterLead, false);
+  assert.equal(edition.leadAnchor, "last-day-to-register-for-a-possible-dec-12-runoff");
+  assert.match(stories[0].summary, /\$25 million/);
+  assert.match(stories[0].summary, /\$22,420,200/);
+  assert.match(stories[0].summary, /\$32,906,529/);
+  assert.match(stories[1].summary, /KUT reports/);
+  assert.match(stories[5].summary, /90% chance of rain/);
+  assert.equal(bulletin.includes("$55,326,729"), false);
+  assert.equal(bulletin.includes("four calendar days"), false);
+  assert.equal(bulletin.includes("December 3, 2027"), false);
+  assert.equal(bulletin.includes("flood watch"), false);
+  assert.match(bulletin, /any necessary runoff/);
+  assert.match(bulletin, /could come earlier/);
+  assert.match(bulletin, /A charge is an accusation, not a finding of guilt/);
+  for (const url of [
+    "https://services.austintexas.gov/edims/document.cfm?id=472487",
+    "https://services.austintexas.gov/edims/document.cfm?id=484616",
+    "https://www.austintexas.gov/council/2026/20261110-cwepc",
+    "https://services.austintexas.gov/edims/document.cfm?id=484790",
+    "https://www.austintexas.gov/council/2026/20261112-mobc",
+    "https://services.austintexas.gov/edims/document.cfm?id=462100",
+    "https://www.austintexas.gov/council/2026/20261119-reg",
+    "https://services.austintexas.gov/edims/document.cfm?id=484837",
+    "https://www.kut.org/crime-justice/2026-11-06/austin-tx-apd-police-department-ice-policies-hinojosa-abbott",
+    "https://www.austintexas.gov/police/news/apd-arrests-suspect-copper-cable-theft-series-seeks-public-assistance-locating-second",
+    "https://www.kut.org/politics/2026-11-06/texas-house-speaker-senfronia-thompson-democrats",
+    "https://www.austintexas.gov/housing/news/new-affordable-menchaca-townhomes-bring-ten-homeownership-opportunities-south-austin",
+    "https://forecast.weather.gov/MapClick.php?lat=30.2672&lon=-97.7431"
+  ]) {
+    assert.equal(bulletin.includes(url), true, url);
+  }
+  assert.equal(bulletin.includes("Editor notes"), false);
+  assert.equal(bulletin.includes("[ORIGINAL]"), false);
+  assert.equal(bulletin.includes("[REPORT]"), false);
+  for (const story of stories) {
+    assert.equal(bulletin.includes(story.summary), true, story.summary);
+    assert.equal(FIRST_PERSON.test(`${story.title} ${story.summary}`), false);
+  }
 });

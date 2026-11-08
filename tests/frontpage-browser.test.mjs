@@ -133,7 +133,7 @@ async function readSourceLine(page) {
 		const linkRect = linkRange.getClientRects()[0];
 		const lead = document.querySelector(".front-lead");
 		const datasetLinks = [...lead.querySelectorAll("a")].filter((anchor) =>
-			anchor.textContent.trim() === "City Action Notes, Nov. 5 (mid=1520)");
+			anchor.textContent.trim() === "City runoff calendar (PDF)");
 		return {
 			labelTop: labelRect.top,
 			linkTop: linkRect.top,
@@ -173,8 +173,8 @@ async function readDateLines(page) {
 }
 
 function assertSourceLine(sourceLine) {
-	assert.equal(sourceLine.datasetLinks, 1, "lead column keeps one action-notes link");
-	assert.match(sourceLine.text, /^Source: City Action Notes, Nov\. 5 \(mid=1520\)$/);
+	assert.equal(sourceLine.datasetLinks, 1, "lead column keeps one runoff-calendar link");
+	assert.match(sourceLine.text, /^Source: City runoff calendar \(PDF\)$/);
 	assert.ok(
 		Math.abs(sourceLine.labelTop - sourceLine.linkTop) < 3,
 		`Source label and link baselines: ${JSON.stringify(sourceLine)}`
@@ -346,7 +346,7 @@ test("guide action fragments reach the answer by keyboard without JavaScript", {
 		assert.ok(accessTitle.ok());
 		assert.equal(
 			await page.$eval(".front-lead .front-sources a", (link) => link.getAttribute("href")),
-			"https://services.austintexas.gov/council_meetings/action_notes.cfm?mid=1520",
+			"https://services.austintexas.gov/edims/document.cfm?id=472487",
 		);
 	} finally {
 		await browser.close();

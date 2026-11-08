@@ -1066,7 +1066,7 @@ body:has(article.bulletin) main { max-width: 48rem; }
   flex: none;
 }
 .bulletin h2.glance-title::before { content: none; }
-.bulletin h3:first-of-type { font-size: clamp(2.15rem, 6vw, 2.85rem); }
+.bulletin h3:first-of-type { font-size: clamp(2.15rem, 6vw, 2.85rem); text-wrap: pretty; }
 .bulletin .river h4 { border-top: 3px solid var(--accent); clear: both; }
 .bulletin .river h5,
 .bulletin .river .brief-slug { clear: both; }

@@ -100,19 +100,21 @@ function assertSignupSlot(slot) {
     item !== "signup" && item !== "News" && item !== "Notices"
   ));
   assert.deepEqual(stories, [
-    "Council clears Austin Energy bonds and a housing-blueprint rewrite.",
-    "City will spend up to $5.48 million on land for the Rutland-to-Northgate trail.",
-    "Mobility Committee meets Thursday on the downtown Core Transportation Plan.",
-    "Hinojosa’s first transition picks put public schools and labor at the table, KUT reports.",
-    "Council canvasses the election Nov. 17; the next regular meeting is Nov. 19.",
-    "Veterans Day parade rolls Saturday from South Congress to the Capitol."
+    "Last day to register for a possible Dec. 12 runoff.",
+    "Council's Nov. 19 draft agenda includes a $25 million Lady Bird Lake boardwalk.",
+    "Austin will rewrite the Austin Police Department's (APD) rules on working with " +
+      "U.S. Immigration and Customs Enforcement (ICE) before Hinojosa takes office, KUT reports.",
+    "Police charge two in Northeast Austin copper-cable thefts and seek one of them.",
+    "Senfronia Thompson says she has the votes to be Texas House speaker.",
+    "Ten affordable townhomes for sale are under construction on Menchaca Road.",
+    "NWS: showers in Austin today, with more rain possible Monday."
   ]);
   const signupAt = slot.sequence.indexOf("signup");
   const before = slot.sequence.filter((item, index) => index < signupAt && item !== "News");
-  assert.equal(before.length, 2);
-  assert.equal(slot.sequence[signupAt + 1].startsWith("Mobility Committee"), true);
-  const canvass = slot.sequence.findIndex((item) => item.startsWith("Council canvasses"));
-  assert.equal(slot.sequence[canvass + 1], "Notices");
+  assert.equal(before.length, 3);
+  assert.equal(slot.sequence[signupAt + 1].startsWith("Police charge two"), true);
+  const townhomes = slot.sequence.findIndex((item) => item.startsWith("Ten affordable townhomes"));
+  assert.equal(slot.sequence[townhomes + 1], "Notices");
   assert.equal(slot.forms, 1);
   assert.equal(slot.blocks, 1);
   assert.ok(slot.overflow <= 1, `horizontal overflow ${slot.overflow}`);

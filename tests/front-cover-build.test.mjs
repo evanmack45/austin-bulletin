@@ -4,13 +4,13 @@ import { readFileSync } from "node:fs";
 
 function assertOneLeadSource(html) {
   const leadHtml = html.match(/<section class="front-lead"[\s\S]*?<\/section>/)?.[0] ?? "";
-  const notesUrl = "https://services.austintexas.gov/council_meetings/action_notes.cfm?mid=1520";
-  assert.equal(leadHtml.split(notesUrl).length - 1, 1);
+  const calendarUrl = "https://services.austintexas.gov/edims/document.cfm?id=472487";
+  assert.equal(leadHtml.split(calendarUrl).length - 1, 1);
   const source = leadHtml.match(
     /<p class="src front-sources">Source: <a href="([^"]+)"[^>]*>([^<]+)<\/a><\/p>/
   );
-  assert.equal(source?.[1], notesUrl);
-  assert.equal(source?.[2], "City Action Notes, Nov. 5 (mid=1520)");
+  assert.equal(source?.[1], calendarUrl);
+  assert.equal(source?.[2], "City runoff calendar (PDF)");
   assert.doesNotMatch(leadHtml, /class="num"/);
   assert.doesNotMatch(leadHtml, /lead-photo/);
 }
@@ -61,7 +61,7 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.doesNotMatch(html, /5 minutes|One email each morning/);
   assert.doesNotMatch(html, /class="results-button"/);
   assert.equal((html.match(/<h1\b/g) || []).length, 1);
-  assert.match(html, /Council clears Austin Energy bonds and a housing-blueprint rewrite\./);
+  assert.match(html, /Last day to register for a possible Dec\. 12 runoff\./);
   assert.match(html, /class="wordmark"/);
   assert.match(html, /class="masthead-dateline"/);
   assert.doesNotMatch(html, /ill-masthead|masthead-sky|austin-skyline/);
@@ -69,19 +69,20 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.doesNotMatch(html, /p-courthouse\.jpg/);
   assert.doesNotMatch(html, /election-results\.webp/);
   assert.doesNotMatch(html, /lead-photo/);
-  assert.match(html, /sell up to \$695 million/);
+  assert.match(html, /Thursday, Nov\. 12, is the last day to register/);
   assertOneLeadSource(html);
   const imageUrl = "https://theaustinbulletin.com/icon-512.png";
   assert.ok(html.includes(`property="og:image" content="${imageUrl}"`));
   assert.ok(html.includes(`name="twitter:image" content="${imageUrl}"`));
-  assert.match(html, /property="og:title" content="Council clears Austin Energy bonds/);
+  assert.match(html, /property="og:title" content="Last day to register for a possible Dec/);
   assert.match(
     html,
-    /property="og:description" content="At Thursday/
+    /property="og:description" content="Thursday, Nov\. 12, is the last day to register/
   );
-  assert.match(html, /name="twitter:title" content="Council clears Austin Energy bonds/);
-  assert.match(html, /Friday, Nov\. 6/);
-  assert.match(html, /href="\/2026\/11\/05\/"/);
+  assert.match(html, /name="twitter:title" content="Last day to register for a possible Dec/);
+  assert.match(html, /name="twitter:description" content="Thursday, Nov\. 12, is the last day/);
+  assert.match(html, /Sunday, Nov\. 8/);
+  assert.match(html, /href="\/2026\/11\/06\/"/);
   assert.doesNotMatch(html, /If you (haven't|want|live|are)\b/);
   assert.ok(!html.includes("front-news-rail"), "the rail is gone");
   assert.ok(!html.includes("Austin, up close."));
@@ -107,16 +108,25 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.equal(h1.includes(lead[1]), false);
   assert.doesNotMatch(page, />Results page</);
   assert.doesNotMatch(page, /November 3 election results\./);
-  assert.match(page, /November 6, 2026/);
+  assert.match(page, /November 8, 2026/);
   assert.doesNotMatch(page, /p-courthouse/);
   assert.doesNotMatch(page, /parking-311\.webp/);
   assert.match(page, /class="story-share"/);
-  assert.match(page, /approved as amended/);
-  assert.match(page, /Action Notes are labeled tentative/);
-  assert.match(page, /hardship for two units does not exist/);
-  assert.doesNotMatch(page, /Watershed recommended denial/);
+  assert.match(page, /KUT reports/);
   assert.doesNotMatch(page, /Editor notes/);
   assert.ok(page.includes(`property="og:image" content="${imageUrl}"`));
-  assert.match(page, /property="og:title" content="Council clears Austin Energy bonds/);
+  assert.match(page, /property="og:title" content="Last day to register for a possible Dec/);
+  assert.match(page, /property="og:description" content="Thursday, Nov\. 12, is the last day/);
+  assert.match(page, /name="twitter:title" content="Last day to register for a possible Dec/);
+  assert.match(page, /name="twitter:description" content="Thursday, Nov\. 12, is the last day/);
+  assert.ok(page.includes(`name="twitter:image" content="${imageUrl}"`));
+  assert.match(page, /any necessary runoff/);
+  assert.match(page, /could come earlier/);
+  assert.match(page, /not-to-exceed caps of \$22,420,200 and \$32,906,529/);
+  assert.match(page, /A charge is an accusation, not a finding of guilt/);
+  assert.doesNotMatch(page, /\$55,326,729/);
+  assert.doesNotMatch(page, /four calendar days/);
+  assert.doesNotMatch(page, /December 3, 2027/);
+  assert.doesNotMatch(page, /flood watch/i);
   assert.doesNotMatch(page, /Unifraktur|class="folio-nav"|class="edition-head"|Vol\. I/);
 });
