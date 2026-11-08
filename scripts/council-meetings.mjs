@@ -39,9 +39,16 @@ export function meetingDatesIn(text) {
   return [...new Set([...String(text).matchAll(re)].map((match) => match[1]))];
 }
 
-export function councilDidParagraph(date) {
+export function councilDidParagraph(date, editionDate = "") {
   const label = shortMonthDay(`${date}T00:00:00Z`);
   const href = meetingUrl(date);
+  const edition = String(editionDate || "").slice(0, 10);
+  // Nov. 19 is still a draft on the Sunday edition. Older editions keep
+  // their existing referral lines.
+  if (edition === "2026-11-08" && date === "2026-11-19") {
+    const text = `${label} draft agenda on Y'all City Hall`;
+    return `<p class="council-did"><a href="${href}">${text}</a>.</p>`;
+  }
   const text = `${label} meeting on Y'all City Hall`;
   return `<p class="council-did">What council did: see the <a href="${href}">${text}</a>.</p>`;
 }
@@ -408,12 +415,13 @@ function annotateBlock(inner, edition, live) {
   if (inner.includes('class="council-did"')) return inner;
   const date = meetingDateForItem(inner, edition, live);
   if (!date) return inner;
-  return `${inner.replace(/\s*$/, "")}\n${councilDidParagraph(date)}\n`;
+  return `${inner.replace(/\s*$/, "")}\n${councilDidParagraph(date, edition)}\n`;
 }
 
 function annotateRiver(inner, edition, live) {
   const state = {
     out: [], bucket: [], mode: "beat", pending: "",
+    edition,
     dateFor: (html) => meetingDateForItem(html, edition, live)
   };
   for (const node of topLevelNodes(inner)) absorb(state, node);
@@ -478,7 +486,9 @@ function flush(state) {
   const html = state.bucket.join("");
   state.out.push(html);
   const date = state.dateFor(html);
-  if (date && !html.includes('class="council-did"')) state.out.push(councilDidParagraph(date));
+  if (date && !html.includes('class="council-did"')) {
+    state.out.push(councilDidParagraph(date, state.edition));
+  }
   state.bucket = [];
 }
 

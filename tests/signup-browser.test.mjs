@@ -100,19 +100,26 @@ function assertSignupSlot(slot) {
     item !== "signup" && item !== "News" && item !== "Notices"
   ));
   assert.deepEqual(stories, [
-    "Council clears Austin Energy bonds and a housing-blueprint rewrite.",
-    "City will spend up to $5.48 million on land for the Rutland-to-Northgate trail.",
-    "Mobility Committee meets Thursday on the downtown Core Transportation Plan.",
-    "Hinojosa’s first transition picks put public schools and labor at the table, KUT reports.",
-    "Council canvasses the election Nov. 17; the next regular meeting is Nov. 19.",
-    "Veterans Day parade rolls Saturday from South Congress to the Capitol."
+    "Thursday is the registration deadline for a possible runoff.",
+    "Council draft proposes a boardwalk beside the Hyatt.",
+    "Draft contracts would rebuild Hornsby Bend treatment facilities.",
+    "Draft amendments would change the city's Muny agreement with UT.",
+    "Water, parks, and transportation briefings are on this week's committee agendas.",
+    "Watson asked Friday for new Austin Police Department rules on immigration " +
+      "cooperation, KUT reports.",
+    "Thompson said Friday she has the votes to be Texas House speaker.",
+    "A Nov. 6 police release seeks one suspect in copper-cable thefts.",
+    "Ten income-restricted townhomes were under construction on Menchaca Road as of Friday.",
+    "Tentative Nov. 5 notes list a transit-lane commitment and a housing-policy update.",
+    "Approved minutes for Council's Oct. 22 meeting are posted.",
+    "NWS: rain in Austin today, with more rain possible Monday."
   ]);
   const signupAt = slot.sequence.indexOf("signup");
   const before = slot.sequence.filter((item, index) => index < signupAt && item !== "News");
-  assert.equal(before.length, 2);
-  assert.equal(slot.sequence[signupAt + 1].startsWith("Mobility Committee"), true);
-  const canvass = slot.sequence.findIndex((item) => item.startsWith("Council canvasses"));
-  assert.equal(slot.sequence[canvass + 1], "Notices");
+  assert.equal(before.length, 3);
+  assert.equal(slot.sequence[signupAt + 1].startsWith("Draft amendments"), true);
+  const notices = slot.sequence.indexOf("Notices");
+  assert.equal(slot.sequence[notices - 1].startsWith("Approved minutes"), true);
   assert.equal(slot.forms, 1);
   assert.equal(slot.blocks, 1);
   assert.ok(slot.overflow <= 1, `horizontal overflow ${slot.overflow}`);

@@ -45,8 +45,8 @@ test("notices stay last and summaries are the story's own first sentences", () =
   assert.equal(stories[1].sourcesHtml.includes("https://example.com/three"), true);
   assert.equal(stories[2].title, "A notice comes first in the file.");
   assert.equal(edition.leadAnchor, "lead-headline-is-sourced");
-  assert.equal(stories[0].signupAfter, true);
-  assert.equal(stories[1].signupAfter, false);
+  assert.equal(stories[0].signupAfter, false);
+  assert.equal(stories[1].signupAfter, true);
   assert.equal(edition.signupAfterLead, false);
   for (const story of stories) {
     assert.equal(FIRST_PERSON.test(story.summary), false, story.summary);
@@ -98,7 +98,7 @@ test("November 5 lists every headed story, news before notices", () => {
   assert.deepEqual(stories.map((story) => story.section), [
     "News", "News", "News", "News", "News", "Notices"
   ]);
-  assert.equal(stories.findIndex((story) => story.signupAfter), 0);
+  assert.equal(stories.findIndex((story) => story.signupAfter), 1);
   assert.equal(
     stories[1].summary,
     "Austin police reported five fatal crashes from early Sunday, Nov. 1, " +
@@ -129,7 +129,8 @@ test("November 6 lists news before the notice and keeps every source link", () =
   assert.deepEqual(stories.map((story) => story.section), [
     "News", "News", "News", "News", "Notices"
   ]);
-  assert.equal(stories[0].signupAfter, true);
+  assert.equal(stories[1].signupAfter, true);
+  assert.equal(stories[0].signupAfter, false);
   assert.equal(edition.signupAfterLead, false);
   assert.equal(
     edition.leadAnchor,
@@ -164,9 +165,8 @@ test("November 6 lists news before the notice and keeps every source link", () =
   }
 });
 
-test("four news stories sign up on the first listed story", () => {
-  // Three stories including the lead are already counted by the notices test.
-  // One story under the lead is already covered by the short-edition test.
+test("four stories counting the lead sign up after the third", () => {
+  // The lead is story one. Signup follows the second listed story.
   const markdown = [
     "{% bigstory %}",
     "### The lead story.",
@@ -189,8 +189,8 @@ test("four news stories sign up on the first listed story", () => {
     "Second listed story.",
     "Third listed story."
   ]);
-  assert.equal(stories[0].signupAfter, true);
-  assert.equal(stories[1].signupAfter, false);
+  assert.equal(stories[0].signupAfter, false);
+  assert.equal(stories[1].signupAfter, true);
   assert.equal(stories[2].signupAfter, false);
   assert.equal(edition.signupAfterLead, false);
 });
@@ -203,6 +203,110 @@ test("November 6 keeps Council canvasses next to Notices", () => {
   ));
   const notices = stories.findIndex((story) => story.section === "Notices");
   assert.equal(notices, canvass + 1);
-  assert.equal(stories[0].signupAfter, true);
+  assert.equal(stories[1].signupAfter, true);
   assert.equal(edition.signupAfterLead, false);
+});
+
+test("November 8 lists the runoff lead, then news, then the forecast", () => {
+  const bulletin = readFileSync("src/bulletins/2026-11-08.md", "utf8");
+  const edition = homeEdition(bulletin);
+  const stories = listed(edition);
+  assert.deepEqual(stories.map((story) => story.title), [
+    "Council draft proposes a boardwalk beside the Hyatt.",
+    "Draft contracts would rebuild Hornsby Bend treatment facilities.",
+    "Draft amendments would change the city's Muny agreement with UT.",
+    "Water, parks, and transportation briefings are on this week's committee agendas.",
+    "Watson asked Friday for new Austin Police Department rules on immigration " +
+      "cooperation, KUT reports.",
+    "Thompson said Friday she has the votes to be Texas House speaker.",
+    "A Nov. 6 police release seeks one suspect in copper-cable thefts.",
+    "Ten income-restricted townhomes were under construction on Menchaca Road as of Friday.",
+    "Tentative Nov. 5 notes list a transit-lane commitment and a housing-policy update.",
+    "Approved minutes for Council's Oct. 22 meeting are posted.",
+    "NWS: rain in Austin today, with more rain possible Monday."
+  ]);
+  assert.deepEqual(stories.map((story) => story.section), [
+    "News", "News", "News", "News", "News", "News", "News", "News", "News", "News",
+    "Notices"
+  ]);
+  assert.equal(stories[1].signupAfter, true);
+  assert.equal(stories[0].signupAfter, false);
+  assert.equal(edition.signupAfterLead, false);
+  assert.equal(
+    edition.leadAnchor,
+    "thursday-is-the-registration-deadline-for-a-possible-runoff"
+  );
+  const agenda = stories[0].summary;
+  const overrunAt = agenda.indexOf("plus any cost overruns");
+  const fundsAt = agenda.indexOf("$25 million in state funds");
+  assert.match(agenda, /total estimated project cost of \$25 million/);
+  assert.ok(overrunAt > 0 && fundsAt > overrunAt);
+  assert.match(agenda, /Texas Department of Transportation/);
+  assert.match(agenda, /funding match is not required/);
+  assert.match(agenda, /Nov\. 19 draft/);
+  assert.match(agenda, /proposal, not an approval/);
+  assert.match(agenda, /Hyatt/);
+  assert.doesNotMatch(agenda, /boardwalk, plus any cost overruns/);
+  assert.equal(stories[1].summary.includes("$55,326,729"), false);
+  assert.match(stories[4].summary, /KUT reports/);
+  assert.match(stories[4].summary, /Nov\. 6/);
+  const weather = stories.find((story) => story.title.startsWith("NWS:"));
+  assert.match(weather.summary, /100% chance of precipitation/);
+  assert.match(weather.summary, /tenth to a quarter inch/);
+  assert.match(weather.summary, /last updated at 12:24 p\.m\. CT/);
+  assert.match(weather.summary, /high near 64/);
+  assert.equal(weather.summary.includes("mainly before midnight"), false);
+  assert.equal(weather.summary.includes("quarter to a half"), false);
+  assert.match(bulletin, /unchanged since Friday afternoon/);
+  assert.equal(stories[0].summary.includes("3:12"), false);
+  assert.equal(stories[0].sourcesHtml.includes(" · "), false);
+  assert.equal(stories[0].sourcesHtml.split('class="source-group"').length - 1, 2);
+  assert.match(weather.sourcesHtml, /source-label">Source:<\/span>/);
+  assert.equal(weather.sourcesHtml.includes("Sources:"), false);
+  assert.equal(bulletin.includes("$55,326,729"), false);
+  assert.equal(bulletin.includes("four calendar days"), false);
+  assert.equal(bulletin.includes("December 3, 2027"), false);
+  assert.equal(bulletin.includes("flood watch"), false);
+  assert.equal(bulletin.includes("Omit"), false);
+  assert.match(bulletin, /any necessary runoff/);
+  assert.match(bulletin, /could come earlier/);
+  assert.match(bulletin, /A charge is an accusation, not a finding of guilt/);
+  assert.match(bulletin, /Approved minutes for Council's Oct\. 22 meeting are posted/);
+  for (const url of [
+    "https://services.austintexas.gov/edims/document.cfm?id=472487",
+    "https://services.austintexas.gov/edims/document.cfm?id=484616",
+    "https://www.austintexas.gov/council/2026/20261110-cwepc",
+    "https://services.austintexas.gov/edims/document.cfm?id=484790",
+    "https://www.austintexas.gov/council/2026/20261112-mobc",
+    "https://services.austintexas.gov/edims/document.cfm?id=462100",
+    "https://www.austintexas.gov/council/2026/20261119-reg",
+    "https://services.austintexas.gov/edims/document.cfm?id=484837",
+    "https://services.austintexas.gov/edims/document.cfm?id=484818",
+    "https://www.austintexas.gov/council/2026/20261022-reg",
+    "https://services.austintexas.gov/council_meetings/action_notes.cfm?mid=1520",
+    "https://www.kut.org/crime-justice/2026-11-06/austin-tx-apd-police-department-ice-policies-hinojosa-abbott",
+    "https://www.austintexas.gov/police/news/apd-arrests-suspect-copper-cable-theft-series-seeks-public-assistance-locating-second",
+    "https://www.kut.org/politics/2026-11-06/texas-house-speaker-senfronia-thompson-democrats",
+    "https://www.austintexas.gov/housing/news/new-affordable-menchaca-townhomes-bring-ten-homeownership-opportunities-south-austin",
+    "https://forecast.weather.gov/MapClick.php?lat=30.2672&lon=-97.7431"
+  ]) {
+    assert.equal(bulletin.includes(url), true, url);
+  }
+  assert.equal(bulletin.includes("Editor notes"), false);
+  assert.equal(bulletin.includes("[ORIGINAL]"), false);
+  assert.equal(bulletin.includes("[REPORT]"), false);
+  for (const story of stories) {
+    assert.equal(bulletin.includes(story.summary), true, story.summary);
+    assert.equal(FIRST_PERSON.test(`${story.title} ${story.summary}`), false);
+  }
+});
+
+test("November 8 home cards use the short Hornsby and Muny openings", () => {
+  const stories = listed(homeEdition(readFileSync("src/bulletins/2026-11-08.md", "utf8")));
+  assert.match(stories[1].summary, /replace the plant's existing headworks/);
+  assert.match(stories[1].summary, /proposed contracts/);
+  assert.equal(stories[1].summary.includes("$22,420,200"), false);
+  assert.match(stories[2].summary, /let staff negotiate changes/);
+  assert.match(stories[2].summary, /proposed, not approved/);
+  assert.equal(stories[2].summary.includes("tax increment"), false);
 });

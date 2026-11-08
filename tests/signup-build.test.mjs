@@ -37,17 +37,17 @@ function count(html, needle) {
   return html.split(needle).length - 1;
 }
 
-test("the homepage signup follows the first listed story", () => {
+test("the homepage signup follows the third story, counting the lead", () => {
   const main = sliceBetween(home, 'class="paper-main"', 'class="site-footer"');
   const heads = [...main.matchAll(/<h1\b|<h3\b|class="signup signup--lead"/g)].map((match) => (
     match[0].startsWith("<h1") ? "h1" : match[0].startsWith("<h3") ? "h3" : "signup"
   ));
   const signupAt = heads.indexOf("signup");
   assert.equal(heads.filter((tag) => tag === "signup").length, 1);
-  assert.equal(heads.slice(0, signupAt).filter((tag) => tag === "h1" || tag === "h3").length, 2);
-  const canvass = main.indexOf("Council canvasses the election");
+  assert.equal(heads.slice(0, signupAt).filter((tag) => tag === "h1" || tag === "h3").length, 3);
+  const townhomes = main.indexOf("Menchaca Road");
   const notices = main.indexOf(">Notices<");
-  assert.ok(canvass !== -1 && notices > canvass);
+  assert.ok(townhomes !== -1 && notices > townhomes);
   const signupHtml = main.indexOf('class="signup signup--lead"');
   const jumpAt = main.indexOf('class="edition-jump"');
   assert.ok(signupHtml !== -1 && jumpAt > signupHtml);
@@ -80,7 +80,18 @@ test("every edition ends with a compact signup and the mobile bar is dismissible
   assert.match(edition, /class="signup signup--edition"/);
   assert.match(edition, VALUE);
   assert.match(edition, NOTE);
-  assert.ok(edition.indexOf('class="signup signup--edition"') > edition.indexOf("One Good Thing"));
+  const signupAt = edition.indexOf('class="signup signup--edition"');
+  const hornsby = edition.indexOf(
+    'id="draft-contracts-would-rebuild-hornsby-bend-treatment-facilities"'
+  );
+  const muny = edition.indexOf(
+    'id="draft-amendments-would-change-the-citys-muny-agreement-with-ut"'
+  );
+  assert.ok(signupAt > hornsby && muny > signupAt);
+  assert.equal(count(edition, 'class="signup signup--edition"'), 1);
+  const friday = readFileSync("_site/2026/11/06/index.html", "utf8");
+  const fridaySignup = friday.indexOf('class="signup signup--edition"');
+  assert.ok(fridaySignup > friday.indexOf("One Good Thing"));
   assert.equal(count(edition, `action="${ACTION}"`), 1);
   assert.match(edition, /name="email_address"/);
   assert.match(edition, /for="signup-email-edition"/);

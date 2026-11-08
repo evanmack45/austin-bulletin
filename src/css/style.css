@@ -7,7 +7,7 @@
   --accent: #c8102e;
   --mark: #c8102e;
   --rule: #ccc;
-  --bg: #fbf8f2;
+  --bg: #FBFAF7;
   --tint: #f3efe6;
   --section-head-size: 1.875rem;
 }
@@ -133,10 +133,10 @@ img { width: 100%; height: auto; display: block; }
   flex-direction: column;
   min-width: 11rem;
   padding: 6px 0 4px;
-  background: #f6f1e7;
+  background: #FBFAF7;
   border: 2px solid var(--ink);
 }
-.topics-panel a { width: 100%; background: #f6f1e7; }
+.topics-panel a { width: 100%; background: #FBFAF7; }
 .topics-menu[open] + .topics-label + .topics-panel,
 .topics:focus-within .topics-panel,
 .topics:hover .topics-panel { display: flex; }
@@ -189,7 +189,7 @@ img { width: 100%; height: auto; display: block; }
     max-height: calc(100vh - 6rem);
     overflow: auto;
     padding: 4px 0;
-    background: #f6f1e7;
+    background: #FBFAF7;
     border: 2px solid var(--ink);
   }
   .front-masthead .site-nav .site-menu-panel a,
@@ -336,16 +336,48 @@ h3 { font-size: 1.7rem; font-weight: 800; letter-spacing: -0.01em; margin: 2.2re
   text-transform: none;
   color: var(--muted);
 }
-.briefing-meta a { color: var(--accent); text-decoration: none; }
+.briefing-meta a, .trust-link {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  min-width: 44px;
+  min-height: 44px;
+  color: var(--accent);
+  text-decoration: none;
+}
 .briefing-meta a:hover { text-decoration: underline; }
 
+.source-line,
+.src:has(.source-group) {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: min(100%, 52ch);
+  white-space: normal;
+}
 .source-line {
   font-size: 0.86rem;
   letter-spacing: 0;
   text-transform: none;
   color: var(--muted);
 }
-.source-line a { text-decoration: underline; text-underline-offset: 0.15em; }
+.source-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 0.35em;
+  max-width: 100%;
+  min-height: 44px;
+}
+.source-group a {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  min-width: 44px;
+  min-height: 44px;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
 .council-did,
 .bulletin .council-did {
   margin: 0.7rem 0 0.5rem;
@@ -383,7 +415,8 @@ figcaption { font-size: 0.85rem; color: var(--muted); }
   color: var(--muted);
   font-size: 1rem;
 }
-.site-footer a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 0.2rem; }
+.site-footer a { display: inline-flex; align-items: center; min-width: 44px; min-height: 44px; padding: 0 0.2rem; }
+.ai-disclosure { margin: 0 0 0.35rem; color: var(--ink); font-size: 1rem; line-height: 1.45; }
 .trust-footer {
   display: flex;
   flex-wrap: wrap;
@@ -695,7 +728,8 @@ h2.glance-title::after { content: none; }
 
 /* A lead: the beat's headline item. Bold and dark against the briefs, at body
    size — the page has enough type sizes already; weight does the work. */
-.river h5 {
+.river h5,
+.river h3 {
   margin: 1.4rem 0 0.35rem;
   font-size: 1.35rem;
   font-weight: 800;
@@ -720,6 +754,7 @@ h2.glance-title::after { content: none; }
   text-transform: none;
 }
 .river h5 + p,
+.river h3 + p,
 .river .story-share + p,
 .river .story-share + figure + p { margin-bottom: 1.1rem; }
 
@@ -737,8 +772,8 @@ h2.glance-title::after { content: none; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 24px;
-  min-height: 24px;
+  min-width: 44px;
+  min-height: 44px;
   padding: 0 2px;
   border: 0;
   background: transparent;
@@ -771,7 +806,7 @@ h2.glance-title::after { content: none; }
   color: var(--muted);
   margin: 1.15rem 0 0.55rem;
 }
-.river--tiered p:has(.src):not(h5 + p):not(.story-share + p):not(.story-share + figure + p),
+.river--tiered p:has(.src):not(h5 + p):not(h3 + p):not(.story-share + p):not(.story-share + figure + p),
 .river--tiered p.brief {
   font-size: 0.9rem;
   line-height: 1.42;
@@ -779,7 +814,7 @@ h2.glance-title::after { content: none; }
   position: relative;
   color: #2a241d; /* slightly lighter than --ink to keep leads primary */
 }
-.river--tiered p:has(.src):not(h5 + p):not(.story-share + p):not(.story-share + figure + p)::before,
+.river--tiered p:has(.src):not(h5 + p):not(h3 + p):not(.story-share + p):not(.story-share + figure + p)::before,
 .river--tiered p.brief::before {
   content: "\2014";
   color: var(--accent);
@@ -788,7 +823,7 @@ h2.glance-title::after { content: none; }
 }
 /* A chart attached to a brief tucks to the brief's own margin, tight
    under it, so it reads as that entry's exhibit — not a floating peer. */
-.river--tiered p:has(.src):not(h5 + p):not(.story-share + p):not(.story-share + figure + p) + figure.graphic,
+.river--tiered p:has(.src):not(h5 + p):not(h3 + p):not(.story-share + p):not(.story-share + figure + p) + figure.graphic,
 .river--tiered p.brief + figure.graphic {
   margin: 0.4rem 0 1.15rem 1.1rem;
 }
@@ -803,7 +838,6 @@ h2.glance-title::after { content: none; }
 }
 .src:has(.source-group),
 .source-line:has(.source-group) { white-space: normal; }
-.source-group { white-space: normal; }
 
 .standings { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
 .standings th {
@@ -1051,7 +1085,17 @@ body:has(article.bulletin) main { max-width: 48rem; }
   object-fit: contain;
   height: auto;
 }
+.bulletin .lead-photo--flat picture {
+  display: block;
+  width: 100%;
+  aspect-ratio: 780 / 560;
+}
+@media (min-width: 761px) {
+  .bulletin .lead-photo--flat picture { aspect-ratio: 1600 / 1000; }
+  body:has(article.bulletin .lead-photo--flat) main { max-width: 68rem; }
+}
 .bulletin .lead-photo figcaption { margin-top: .35rem; font-size: .82rem; line-height: 1.4; }
+.bulletin .lead-photo--flat figcaption { font-size: 1rem; line-height: 1.45; }
 .bulletin .lead-photo--fallback img {
   object-fit: contain;
   aspect-ratio: 16 / 9;
@@ -1066,10 +1110,19 @@ body:has(article.bulletin) main { max-width: 48rem; }
   flex: none;
 }
 .bulletin h2.glance-title::before { content: none; }
-.bulletin h3:first-of-type { font-size: clamp(2.15rem, 6vw, 2.85rem); }
+.bulletin h3:first-of-type { font-size: clamp(2.15rem, 6vw, 2.85rem); text-wrap: pretty; }
 .bulletin .river h4 { border-top: 3px solid var(--accent); clear: both; }
 .bulletin .river h5,
+.bulletin .river h3,
 .bulletin .river .brief-slug { clear: both; }
+.bulletin .river h3 {
+  margin: 1.4rem 0 0.35rem;
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--ink);
+}
 .bulletin .story-thumb { margin: .35rem 0 .8rem; }
 .bulletin .story-thumb img {
   width: 100%;
@@ -1095,7 +1148,7 @@ body:has(article.bulletin) main { max-width: 48rem; }
 @media (max-width: 760px) {
   .bulletin p,
   .river p,
-  .river--tiered p:has(.src):not(h5 + p):not(.story-share + p):not(.story-share + figure + p),
+  .river--tiered p:has(.src):not(h5 + p):not(h3 + p):not(.story-share + p):not(.story-share + figure + p),
   .river--tiered p.brief,
   .whats-next,
   .voice-text,
@@ -1122,6 +1175,12 @@ body:has(article.bulletin) main { max-width: 48rem; }
     overflow-wrap: anywhere;
     vertical-align: middle;
   }
+  .source-group a {
+    display: inline-flex;
+    align-items: center;
+    min-width: 44px;
+    min-height: 44px;
+  }
   /* Official document titles in a source tag are wider than a phone when
      the tag stays on one line. Let the tag wrap; the link stays a 24px target. */
   .src { white-space: normal; }
@@ -1132,9 +1191,18 @@ body:has(article.bulletin) main { max-width: 48rem; }
   }
   .river p.to-top { margin-top: 12px; }
 }
+.bulletin--2026-11-08 .council-did a {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  min-width: 44px;
+  min-height: 44px;
+}
 @media (max-width: 40rem) {
   .bulletin .lead-photo { width: calc(100% + 2.5rem); margin-left: -1.25rem; margin-right: -1.25rem; }
   .bulletin .lead-photo figcaption { padding: 0 1.25rem; }
+  .bulletin .lead-photo--flat { width: 100%; margin-left: 0; margin-right: 0; }
+  .bulletin .lead-photo--flat figcaption { padding: 0; }
 }
 
 /* Email signup. The form posts to Kit without JavaScript. The mobile bar

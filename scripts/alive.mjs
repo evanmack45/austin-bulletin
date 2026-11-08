@@ -12,6 +12,11 @@ const MAX_HEADLINE_WORDS = 10;
 const PUBLISHED_HEADLINES = new Set([
   "Parks and library bonds lead; three council races head to Dec. 12 runoffs."
 ]);
+// Publisher set this Nov. 8 home dek. It is the only "If you" opener allowed.
+const PUBLISHED_OPENERS = new Set([
+  "If you need to register to vote in a possible Dec. 12 city runoff, " +
+    "the deadline is Thursday, Nov. 12."
+]);
 const MAX_IMAGE_BYTES = 300 * 1024;
 const IF_YOU = /^if you\b/i;
 const ILLUSTRATION = /illustration/i;
@@ -45,13 +50,23 @@ function headlineProblems(desk) {
   return problems;
 }
 
+function allowedOpener(opener) {
+  const text = String(opener ?? "").replace(/\s+/g, " ").trim();
+  return PUBLISHED_OPENERS.has(text);
+}
+
+function recordOpener(problems, opener) {
+  if (allowedOpener(opener)) return;
+  pushIfYou(problems, opener);
+}
+
 function openerProblems(desk) {
   const problems = [];
   const openers = [desk.deck, desk.action?.label, desk.action?.text];
   for (const item of [...desk.closes, ...desk.week]) {
     openers.push(item.action?.label, item.action?.text);
   }
-  for (const opener of openers) pushIfYou(problems, opener);
+  for (const opener of openers) recordOpener(problems, opener);
   return problems;
 }
 

@@ -75,6 +75,7 @@ function summaryOf(node) {
 
 function nodeKind(node) {
   if (/^<h5\b/i.test(node)) return "h5";
+  if (/^<h3\b/i.test(node)) return "h3";
   if (/^<(?:h4|nav)\b/i.test(node)) return "boundary";
   if (/^<p\b[^>]*class="[^"]*\bbrief-slug\b/i.test(node)) return "boundary";
   if (/^<p\b/i.test(node)) return "p";
@@ -181,8 +182,8 @@ function stampBigStory(inner, used, stories) {
   return inner.replace(match[0], stampOpen(match[0], story.anchor));
 }
 
-function visitHeading(state, node) {
-  const story = storyFromTag(node, "h5", state.used);
+function visitHeading(state, node, tag) {
+  const story = storyFromTag(node, tag, state.used);
   state.leadOpen = true;
   if (!story) return node;
   state.stories.push(story);
@@ -217,7 +218,7 @@ function visitSourced(state, node, kind) {
 
 function visitElement(state, node) {
   const kind = nodeKind(node);
-  if (kind === "h5") return visitHeading(state, node);
+  if (kind === "h5" || kind === "h3") return visitHeading(state, node, kind);
   if (kind === "boundary") return closeLead(state, node);
   return visitSourced(state, node, kind);
 }
@@ -253,4 +254,11 @@ export function skimList(html) {
   const stories = editionStories(html);
   if (stories.length < 2) return [];
   return stories.slice(0, SKIM_LIMIT);
+}
+
+// Sunday's news and notice titles are direct subsections of those h2s.
+// Other editions keep the h5 lead markup already published.
+export function sundaySectionHeadings(html, outputPath) {
+  if (!String(outputPath || "").endsWith("/2026/11/08/index.html")) return html;
+  return String(html).replace(/<(\/?)h5\b/gi, "<$1h3");
 }

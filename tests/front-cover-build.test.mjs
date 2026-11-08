@@ -4,15 +4,18 @@ import { readFileSync } from "node:fs";
 
 function assertOneLeadSource(html) {
   const leadHtml = html.match(/<section class="front-lead"[\s\S]*?<\/section>/)?.[0] ?? "";
-  const notesUrl = "https://services.austintexas.gov/council_meetings/action_notes.cfm?mid=1520";
-  assert.equal(leadHtml.split(notesUrl).length - 1, 1);
+  const calendarUrl = "https://services.austintexas.gov/edims/document.cfm?id=472487";
+  assert.equal(leadHtml.split(calendarUrl).length - 1, 1);
   const source = leadHtml.match(
     /<p class="src front-sources">Source: <a href="([^"]+)"[^>]*>([^<]+)<\/a><\/p>/
   );
-  assert.equal(source?.[1], notesUrl);
-  assert.equal(source?.[2], "City Action Notes, Nov. 5 (mid=1520)");
+  assert.equal(source?.[1], calendarUrl);
+  assert.equal(source?.[2], "City runoff calendar (PDF)");
   assert.doesNotMatch(leadHtml, /class="num"/);
-  assert.doesNotMatch(leadHtml, /lead-photo/);
+  assert.match(leadHtml, /lead-photo--flat/);
+  assert.match(leadHtml, /<picture class="lead-picture">/);
+  assert.doesNotMatch(leadHtml, /472487[^"]*runoff-lead/);
+  assert.equal(leadHtml.includes("theaustinbulletin.com/about/#trust"), false);
 }
 
 test("the homepage lead is headline, dek, then source", () => {
@@ -21,8 +24,13 @@ test("the homepage lead is headline, dek, then source", () => {
   const h1 = lead.indexOf("<h1");
   const dek = lead.indexOf('class="front-deck"');
   const source = lead.indexOf('class="src front-sources"');
-  assert.ok(h1 !== -1 && dek > h1 && source > dek, lead.slice(0, 400));
-  assert.equal(lead.includes("lead-photo"), false);
+  const figure = lead.indexOf("lead-photo");
+  assert.ok(h1 !== -1 && dek > h1 && figure > dek && source > figure, lead.slice(0, 500));
+  assert.match(lead, /AI illustration\. A large red pencil/);
+  assert.match(lead, /AI-generated illustration: registration preparation\./);
+  const deck = lead.match(/<p class="front-deck">([\s\S]*?)<\/p>/);
+  assert.equal(deck[1].includes("<a"), false);
+  assert.ok(lead.indexOf("edition-jump--lead") > source);
   assert.doesNotMatch(lead, /results-button/);
   assert.doesNotMatch(lead, /CHART · NOT A PHOTOGRAPH/);
   const template = readFileSync("src/index.njk", "utf8");
@@ -61,27 +69,37 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.doesNotMatch(html, /5 minutes|One email each morning/);
   assert.doesNotMatch(html, /class="results-button"/);
   assert.equal((html.match(/<h1\b/g) || []).length, 1);
-  assert.match(html, /Council clears Austin Energy bonds and a housing-blueprint rewrite\./);
+  assert.match(html, /Thursday is the registration deadline for a possible runoff\./);
+  assert.match(html, /deadline is Thursday, Nov\. 12/);
+  assert.match(html, /Dec\. 12/);
   assert.match(html, /class="wordmark"/);
   assert.match(html, /class="masthead-dateline"/);
   assert.doesNotMatch(html, /ill-masthead|masthead-sky|austin-skyline/);
   assert.doesNotMatch(html, /parking-311\.webp/);
   assert.doesNotMatch(html, /p-courthouse\.jpg/);
   assert.doesNotMatch(html, /election-results\.webp/);
-  assert.doesNotMatch(html, /lead-photo/);
-  assert.match(html, /sell up to \$695 million/);
-  assertOneLeadSource(html);
-  const imageUrl = "https://theaustinbulletin.com/icon-512.png";
-  assert.ok(html.includes(`property="og:image" content="${imageUrl}"`));
-  assert.ok(html.includes(`name="twitter:image" content="${imageUrl}"`));
-  assert.match(html, /property="og:title" content="Council clears Austin Energy bonds/);
+  assert.match(html, /runoff-lead-desktop-1600\.webp/);
+  assert.match(html, /runoff-lead-phone-780\.webp/);
+  assert.match(html, /deadline is Thursday, Nov\. 12/);
+  assert.match(html, /class="front-deck"/);
   assert.match(
     html,
-    /property="og:description" content="At Thursday/
+    /href="\/2026\/11\/08\/#thursday-is-the-registration-deadline-for-a-possible-runoff"/
   );
-  assert.match(html, /name="twitter:title" content="Council clears Austin Energy bonds/);
-  assert.match(html, /Friday, Nov\. 6/);
-  assert.match(html, /href="\/2026\/11\/05\/"/);
+  assertOneLeadSource(html);
+  const imageUrl = "https://theaustinbulletin.com/images/2026-11-08/" +
+    "runoff-lead-desktop-1600.webp";
+  assert.ok(html.includes(`property="og:image" content="${imageUrl}"`));
+  assert.ok(html.includes(`name="twitter:image" content="${imageUrl}"`));
+  assert.match(html, /property="og:title" content="Thursday is the registration deadline/);
+  assert.match(
+    html,
+    /property="og:description" content="If you need to register to vote in a possible Dec\. 12/
+  );
+  assert.match(html, /name="twitter:title" content="Thursday is the registration deadline/);
+  assert.match(html, /twitter:description" content="If you need to register/);
+  assert.match(html, /Sunday, Nov\. 8/);
+  assert.match(html, /href="\/2026\/11\/06\/"/);
   assert.doesNotMatch(html, /If you (haven't|want|live|are)\b/);
   assert.ok(!html.includes("front-news-rail"), "the rail is gone");
   assert.ok(!html.includes("Austin, up close."));
@@ -99,7 +117,12 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.doesNotMatch(page, /In 60 seconds/);
   assert.doesNotMatch(page, /Good morning, Austin/);
   assert.doesNotMatch(page, /<h2[^>]*>\s*The Briefing/);
-  assert.match(page, /About our reporting/);
+  assert.match(page, /How this site is made/);
+  assert.equal(page.includes("About our reporting"), false);
+  const disclosure = '<p class="ai-disclosure">' +
+    '<a href="/about/#trust">An AI system produces this site.</a></p>';
+  assert.equal(html.includes(disclosure), true);
+  assert.equal(page.includes(disclosure), true);
   const lead = page.match(/<h3\b[^>]*\bid="([^"]+)"/);
   assert.ok(lead, "edition lead heading");
   assert.match(page, new RegExp(`<nav class="skim"[\\s\\S]*href="#${lead[1]}"`));
@@ -107,16 +130,104 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.equal(h1.includes(lead[1]), false);
   assert.doesNotMatch(page, />Results page</);
   assert.doesNotMatch(page, /November 3 election results\./);
-  assert.match(page, /November 6, 2026/);
+  assert.match(page, /November 8, 2026/);
   assert.doesNotMatch(page, /p-courthouse/);
   assert.doesNotMatch(page, /parking-311\.webp/);
   assert.match(page, /class="story-share"/);
-  assert.match(page, /approved as amended/);
-  assert.match(page, /Action Notes are labeled tentative/);
-  assert.match(page, /hardship for two units does not exist/);
-  assert.doesNotMatch(page, /Watershed recommended denial/);
+  assert.match(page, /KUT reports/);
   assert.doesNotMatch(page, /Editor notes/);
   assert.ok(page.includes(`property="og:image" content="${imageUrl}"`));
-  assert.match(page, /property="og:title" content="Council clears Austin Energy bonds/);
+  assert.match(page, /property="og:title" content="Thursday is the registration deadline/);
+  assert.match(page, /og:description" content="If you need to register/);
+  assert.match(page, /name="twitter:title" content="Thursday is the registration deadline/);
+  assert.match(page, /twitter:description" content="If you need to register/);
+  assert.ok(page.includes(`name="twitter:image" content="${imageUrl}"`));
+  assert.match(page, /any necessary runoff/);
+  assert.match(page, /could occur earlier/);
+  assert.match(page, /not-to-exceed cap of \$22,420,200/);
+  assert.match(page, /not-to-exceed cap of \$32,906,529/);
+  assert.match(page, /A charge is an accusation, not a finding of guilt/);
+  assert.doesNotMatch(page, /\$55,326,729/);
+  assert.doesNotMatch(page, /four calendar days/);
+  assert.doesNotMatch(page, /December 3, 2027/);
+  assert.doesNotMatch(page, /flood watch/i);
   assert.doesNotMatch(page, /Unifraktur|class="folio-nav"|class="edition-head"|Vol\. I/);
+});
+
+test("the sunday edition stacks each source and names the headline actions", () => {
+  const page = readFileSync("_site/2026/11/08/index.html", "utf8");
+  const lead = page.match(/<section class="big-story"[\s\S]*?<\/section>/)?.[0] ?? "";
+  const line = lead.match(/<p class="source-line">[\s\S]*?<\/p>/)?.[0] ?? "";
+  assert.equal(line.split('class="source-group"').length - 1, 1);
+  assert.equal(line.includes("·"), false);
+  assert.match(line, /source-label">Source:<\/span>/);
+  assert.match(page, /source-label">Source:<\/span> <a [^>]*forecast\.weather\.gov\/MapClick/);
+  assert.equal(page.includes("Sources: Source"), false);
+  assert.equal(page.includes("mainly before midnight"), false);
+  assert.equal(page.includes("3:12 p.m."), false);
+  assert.match(page, /Friday afternoon/);
+  assert.match(page, /total estimated project cost of \$25 million, plus any cost overruns/);
+  assert.match(page, /proposal, not an approval/);
+  assert.match(page, /beside the Hyatt/);
+  assert.match(page, /\$25 million in state funds/);
+  assert.doesNotMatch(page, /boardwalk, plus any cost overruns/);
+  assert.match(page, /forecast\.weather\.gov\/MapClick\.php\?lat=30\.2672/);
+  assert.match(page, /12:24 p\.m\. CT on Nov\. 8/);
+  assert.match(page, /high near 64/);
+  assert.match(page, /low around 55/);
+  assert.match(page, /high near 68/);
+  assert.match(page, /read this page at 12:32 p\.m\. CT/);
+  assert.match(page, /Nov\. 19 draft agenda on Y'all City Hall/);
+  assert.equal(page.includes("Nov. 19 meeting on Y'all City Hall"), false);
+  assert.match(page, /Nov\. 5 meeting on Y'all City Hall/);
+  assert.match(page, /Chart · Not a photograph/);
+  assert.match(page, /Runoff calendar/);
+  assert.match(page, /runoff-lead-phone-780\.webp/);
+  assert.doesNotMatch(page, /\$55,326,729/);
+  assert.match(page, />Copy story link</);
+  assert.match(page, />Share story</);
+  assert.doesNotMatch(page, />Link</);
+  const css = readFileSync("src/css/front-cover.css", "utf8");
+  assert.match(css, /\.edition-page \.skim li \{[^}]*align-items:\s*flex-start/);
+  assert.match(css, /\.edition-page \.skim li::before \{[^}]*counter\(skim\)/);
+});
+
+function sectionHeads(html, fromId, toId) {
+  const from = html.indexOf(`id="${fromId}"`);
+  const to = html.indexOf(`id="${toId}"`);
+  const slice = html.slice(from, to);
+  return [...slice.matchAll(/<h([1-6])\b([^>]*)>([\s\S]*?)<\/h\1>/g)].map((match) => ({
+    level: match[1],
+    id: match[2].match(/id="([^"]+)"/)?.[1] ?? "",
+    text: match[3].replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim()
+  }));
+}
+
+test("Sunday news and notice titles are h3 and Friday keeps h5", () => {
+  const page = readFileSync("_site/2026/11/08/index.html", "utf8");
+  const friday = readFileSync("_site/2026/11/06/index.html", "utf8");
+  const heads = sectionHeads(page, "news", "notices");
+  const signupAt = heads.findIndex((head) => head.id === "signup-edition-title");
+  const hornsbyAt = heads.findIndex((head) =>
+    head.id === "draft-contracts-would-rebuild-hornsby-bend-treatment-facilities");
+  const munyAt = heads.findIndex((head) =>
+    head.id === "draft-amendments-would-change-the-citys-muny-agreement-with-ut");
+  assert.ok(hornsbyAt < signupAt && signupAt < munyAt);
+  const news = heads.filter((head) => head.id !== "signup-edition-title");
+  const notices = sectionHeads(page, "notices", "the-back-page");
+  assert.equal(news.length, 10);
+  assert.ok(news.every((head) => head.level === "3" && head.id));
+  assert.equal(news[0].id, "council-draft-proposes-a-boardwalk-beside-the-hyatt");
+  assert.equal(news[0].text, "Council draft proposes a boardwalk beside the Hyatt.");
+  assert.equal(news[1].id, "draft-contracts-would-rebuild-hornsby-bend-treatment-facilities");
+  assert.equal(notices.length, 1);
+  assert.equal(notices[0].level, "3");
+  assert.match(notices[0].text, /^NWS: rain in Austin today/);
+  assert.equal(page.includes("Past event"), false);
+  assert.equal(page.includes("<h5"), false);
+  assert.match(page, /<h3[^>]*>Thursday is the registration deadline for a possible runoff\./);
+  const fridayNews = sectionHeads(friday, "news", "notices");
+  assert.ok(fridayNews.length > 0);
+  assert.ok(fridayNews.every((head) => head.level === "5"));
+  assert.match(friday, /<h5\b/);
 });

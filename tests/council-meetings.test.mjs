@@ -18,6 +18,19 @@ function links(html) {
   return [...html.matchAll(LINE)].map((match) => ({ href: match[1], label: match[2] }));
 }
 
+test("the Sunday edition labels the future Nov. 19 meeting as a draft agenda", () => {
+  const future = councilDidParagraph("2026-11-19", "2026-11-08");
+  assert.match(future, /https:\/\/yallcityhall\.org\/meetings\/2026-11-19\//);
+  assert.match(future, /Nov\. 19 draft agenda on Y'all City Hall/);
+  assert.equal(future.includes("What council did"), false);
+  const past = councilDidParagraph("2026-11-05", "2026-11-08");
+  assert.match(past, /What council did: see the/);
+  assert.match(past, /Nov\. 5 meeting on Y'all City Hall/);
+  const older = councilDidParagraph("2026-11-19", "2026-11-06");
+  assert.match(older, /What council did: see the/);
+  assert.match(older, /Nov\. 19 meeting on Y'all City Hall/);
+});
+
 test("the meeting line names the date and the live meeting page", () => {
   const html = councilDidParagraph("2026-10-22");
   assert.equal(links(html)[0].href, "https://yallcityhall.org/meetings/2026-10-22/");

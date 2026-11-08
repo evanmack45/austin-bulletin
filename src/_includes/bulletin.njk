@@ -3,7 +3,7 @@ layout: layout.njk
 editionPage: true
 hasInlineSignup: true
 ---
-<article class="bulletin" data-pagefind-body>
+<article class="bulletin{% if (page.date | isoDate) == '2026-11-08' %} bulletin--2026-11-08{% endif %}" data-pagefind-body>
   {% set editionDate = page.date %}
   {% set editionUrl = page.url %}
   {% set editionIso = editionDate | isoDate %}
@@ -24,10 +24,12 @@ hasInlineSignup: true
     </ol>
   </nav>
   {% endif %}
+  {% if not images or not images.lead or images.lead.kind != "illustration" %}
   {{ images | leadForStory(top.storyKey) | safe }}
+  {% endif %}
   {% set glanceData = glance[editionDate | isoDate] %}
   {% include "glance.njk" %}
-  {{ skimBody | consolidateStorySources | withStoryPhotos(images, top.storyKey) | withCouncilMeetings(editionIso) | safe }}
+  {{ skimBody | consolidateStorySources | withStoryPhotos(images, top.storyKey) | withCouncilMeetings(editionIso) | sundayEditionSignup(editionIso) | safe }}
 </article>
-{% set signupId = "edition" %}
-{% include "signup.njk" %}
+{% if editionIso != "2026-11-08" %}{% set signupId = "edition" %}
+{% include "signup.njk" %}{% endif %}

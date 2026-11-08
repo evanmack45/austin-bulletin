@@ -1,0 +1,113 @@
+import { test } from "node:test";
+import assert from "node:assert/strict";
+import { createServer } from "node:http";
+import { readFileSync, statSync } from "node:fs";
+import path from "node:path";
+import puppeteer from "puppeteer-core";
+import { sundayEditionSignup } from "../scripts/edition-chrome.mjs";
+
+const CHROME = ["/usr/bin/google-chrome", "/usr/bin/chromium", "/usr/bin/chromium-browser"]
+  .find((executable) => statSync(executable, { throwIfNoEntry: false })?.isFile());
+
+const MARKER = '<h3 id="draft-amendments-would-change-the-citys-muny-agreement-with-ut">';
+
+test("the Sunday signup moves only on November 8", () => {
+  const html = `<p>Hornsby.</p>${MARKER}<p>Muny.</p>`;
+  assert.equal(sundayEditionSignup(html, "2026-11-06"), html);
+  const sunday = sundayEditionSignup(html, "2026-11-08");
+  const signup = sunday.indexOf('class="signup signup--edition"');
+  const muny = sunday.indexOf(MARKER);
+  assert.ok(signup > 0 && signup < muny);
+  assert.equal(sunday.split('class="signup signup--edition"').length - 1, 1);
+  assert.equal(sundayEditionSignup(sunday, "2026-11-08"), sunday);
+});
+
+test("November 8 story prose is Georgia and the back page is open", () => {
+  const css = readFileSync("src/css/front-cover.css", "utf8");
+  assert.match(css, /\.bulletin--2026-11-08 \.river > p/);
+  assert.match(css, /font-family: Georgia, "Times New Roman", serif/);
+  assert.match(css, /\.bulletin--2026-11-08 \.the-number::before/);
+  const page = readFileSync("_site/2026/11/08/index.html", "utf8");
+  assert.match(page, /class="bulletin bulletin--2026-11-08"/);
+  assert.equal(page.includes("The Number:"), false);
+  assert.match(page, /\$25 million<\/strong> in state funds the Nov\. 19 draft would accept/);
+  assert.match(page, /not an approved sum/);
+  assert.match(page, /separate estimated project cost of \$25 million plus any cost overruns/);
+  assert.match(page, /id=484837/);
+  assert.match(page, /id=472487/);
+  assert.match(page, /new-affordable-menchaca-townhomes/);
+  const friday = readFileSync("_site/2026/11/06/index.html", "utf8");
+  assert.equal(friday.includes("bulletin--2026-11-08"), false);
+});
+
+function serveSite() {
+  const root = path.resolve("_site");
+  const server = createServer((request, response) => {
+    const pathname = new URL(request.url, "http://localhost").pathname;
+    const file = path.join(root, pathname.endsWith("/") ? `${pathname}index.html` : pathname);
+    if (!file.startsWith(`${root}${path.sep}`)) {
+      response.writeHead(404).end();
+      return;
+    }
+    const types = { ".css": "text/css", ".html": "text/html", ".woff2": "font/woff2" };
+    try {
+      const type = types[path.extname(file)] || "application/octet-stream";
+      response.writeHead(200, { "Content-Type": type }).end(readFileSync(file));
+    } catch {
+      response.writeHead(404).end();
+    }
+  });
+  return new Promise((resolve) => server.listen(0, "127.0.0.1", () => resolve(server)));
+}
+
+const SUNDAY_TYPE = `(() => {
+  const style = (selector) => getComputedStyle(document.querySelector(selector));
+  const before = (selector) => getComputedStyle(document.querySelector(selector), "::before");
+  return {
+    story: style(".river p").fontFamily,
+    storySize: style(".river p").fontSize,
+    signup: style(".signup--edition p").fontFamily,
+    datumSize: style(".the-number strong").fontSize,
+    datumColor: style(".the-number strong").color,
+    datumBorder: style(".the-number").borderLeftWidth,
+    datumTop: style(".the-number").borderTopWidth,
+    datumBg: style(".the-number").backgroundColor,
+    tab: before(".the-number").content,
+    heading: style(".countdown strong").fontFamily,
+    headingSize: style(".countdown strong").fontSize
+  };
+})()`;
+
+test("November 8 renders Georgia prose and an open back page", { skip: !CHROME }, async () => {
+  const server = await serveSite();
+  const origin = `http://127.0.0.1:${server.address().port}`;
+  const browser = await puppeteer.launch({
+    executablePath: CHROME, headless: true, args: ["--no-sandbox"]
+  });
+  const page = await browser.newPage();
+  await page.setViewport({ width: 390, height: 844, deviceScaleFactor: 1 });
+  await page.goto(`${origin}/2026/11/08/`, { waitUntil: "networkidle0" });
+  const phone = await page.evaluate(SUNDAY_TYPE);
+  await page.setViewport({ width: 1280, height: 900, deviceScaleFactor: 1 });
+  const desk = await page.evaluate(SUNDAY_TYPE);
+  await page.goto(`${origin}/2026/11/06/`, { waitUntil: "networkidle0" });
+  const friday = await page.evaluate(
+    "getComputedStyle(document.querySelector('.river p')).fontFamily"
+  );
+  await browser.close();
+  server.close();
+  assert.match(phone.story, /Georgia/);
+  assert.equal(phone.storySize, "16px");
+  assert.equal(desk.storySize, "18px");
+  assert.doesNotMatch(phone.signup, /Georgia/);
+  assert.equal(phone.datumSize, "16px");
+  assert.equal(desk.datumSize, "18px");
+  assert.notEqual(phone.datumColor, "rgb(200, 16, 46)");
+  assert.equal(phone.datumBorder, "0px");
+  assert.equal(phone.datumTop, "1px");
+  assert.equal(phone.datumBg, "rgba(0, 0, 0, 0)");
+  assert.equal(phone.tab, "none");
+  assert.match(phone.heading, /Bricolage/);
+  assert.equal(phone.headingSize, "20px");
+  assert.doesNotMatch(friday, /Georgia/);
+});

@@ -79,9 +79,10 @@ test("the built archive lists those titles and the homepage card stays the lead"
   assert.doesNotMatch(archive, /Early voting is over: 47\.20%/);
   assert.doesNotMatch(archive, /Last day of early voting: 41\.98%/);
   const home = readFileSync(path.join(root, "_site/index.html"), "utf8");
-  assert.match(home, /property="og:title" content="Council clears Austin Energy bonds/);
-  assert.match(home, /name="twitter:title" content="Council clears Austin Energy bonds/);
-  const card = "https://theaustinbulletin.com/icon-512.png";
+  assert.match(home, /property="og:title" content="Thursday is the registration deadline/);
+  assert.match(home, /name="twitter:title" content="Thursday is the registration deadline/);
+  const card = "https://theaustinbulletin.com/images/2026-11-08/" +
+    "runoff-lead-desktop-1600.webp";
   assert.ok(home.includes(`property="og:image" content="${card}"`));
   assert.match(archive, /Austin Energy bonds, a \$5\.48 million trail purchase/);
 });

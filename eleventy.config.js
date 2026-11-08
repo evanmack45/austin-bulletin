@@ -20,8 +20,8 @@ import { SITE_URL, articleJsonLd, briefingHeadline, canonicalUrl, editionGap, pa
   from "./scripts/metadata.mjs";
 import { archiveTitle } from "./scripts/archive-titles.mjs";
 import { editionRoute, shouldAddStoryShare, withStoryShare } from "./scripts/story-share.mjs";
-import { skimList, withStoryAnchors } from "./scripts/edition-skim.mjs";
-import { tidyEditionChrome } from "./scripts/edition-chrome.mjs";
+import { skimList, sundaySectionHeadings, withStoryAnchors } from "./scripts/edition-skim.mjs";
+import { sundayEditionSignup, tidyEditionChrome } from "./scripts/edition-chrome.mjs";
 import { collapseSourceLists } from "./scripts/source-lists.mjs";
 import { consolidateStorySources } from "./scripts/story-sources.mjs";
 import { centralTime } from "./src/_includes/chicago-date.js";
@@ -134,6 +134,14 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("storyThumb", (images, url) => storyThumb(images, url, editionImageExists));
   eleventyConfig.addFilter("withStoryPhotos", (content, images, leadKey) =>
     withStoryPhotos(content, images, editionImageExists, leadKey));
+  eleventyConfig.addShortcode("leadfigure", function () {
+    const data = this.ctx || {};
+    const images = data.images;
+    const key = images && images.lead ? images.lead.key || "" : "";
+    return leadForStory(images, key, editionImageExists, {
+      sizes: "(max-width: 760px) calc(100vw - 32px), 560px"
+    });
+  });
   eleventyConfig.addFilter("withStoryAnchors", withStoryAnchors);
   eleventyConfig.addFilter("skimList", skimList);
   eleventyConfig.addFilter("collapseSourceLists", collapseSourceLists);
@@ -141,6 +149,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("centralTime", centralTime);
   eleventyConfig.addAsyncFilter("withCouncilMeetings", async (html, editionDate) =>
     withCouncilMeetingLinks(html, editionDate, await cachedLiveMeetings()));
+  eleventyConfig.addFilter("sundayEditionSignup", sundayEditionSignup);
   eleventyConfig.addAsyncFilter("withPreviewMeeting", async (html, url, councilMeeting) =>
     withPreviewMeetingHtml(html, url, councilMeeting, await cachedLiveMeetings()));
   eleventyConfig.addFilter("forecastAlerts", forecastAlerts);
@@ -319,6 +328,10 @@ export default function (eleventyConfig) {
     if (!shouldAddStoryShare(this.baseHref, outputPath)) return content;
     return withStoryShare(content, editionRoute(outputPath));
   });
+
+  // Runs after story anchors and share links, so those ids stay on the heading.
+  eleventyConfig.addTransform("sundaySectionHeadings", (content, outputPath) =>
+    sundaySectionHeadings(content, outputPath));
 
   // One label above the skim list. The trust link stays on that label.
   // Page HTML keeps a root-relative href. The feed re-runs transforms with

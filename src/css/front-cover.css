@@ -1,10 +1,10 @@
 /* Homepage. Loaded after style.css. Warm paper, one red, a two-column read. */
 .home-front {
-  background: #f6f1e7;
+  background: #FBFAF7;
   color: #1b1b1b;
 }
 .home-front main { max-width: 1120px; margin: 0 auto; padding: 8px 32px 64px; }
-.cover-chrome { background: #f6f1e7; }
+.cover-chrome { background: #FBFAF7; }
 .cover-chrome .front-masthead {
   position: relative;
   z-index: 20;
@@ -16,7 +16,7 @@
   gap: 0;
   align-items: normal;
   border-bottom: 0;
-  background: #f6f1e7;
+  background: #FBFAF7;
 }
 .masthead-title {
   display: flex;
@@ -95,11 +95,11 @@
 }
 .cover-chrome .front-masthead .topics-panel,
 .cover-chrome .front-masthead .site-menu-panel.is-open,
-.cover-chrome .front-masthead .site-menu-panel:target { background: #f6f1e7; }
+.cover-chrome .front-masthead .site-menu-panel:target { background: #FBFAF7; }
 @media (min-width: 641px) {
   .cover-chrome .front-masthead .topics-panel a { padding: 0 16px; }
 }
-.cover-chrome .site-menu-button { background: #f6f1e7; }
+.cover-chrome .site-menu-button { background: #FBFAF7; }
 .today-top {
   margin: 0;
   padding-bottom: 2px;
@@ -146,10 +146,13 @@
 .paper-wrap {
   display: block;
   /* The old two-column lead measured 677px on the 1120px page. Keeping
-     that width leaves the full-width chart the size the lead pass shipped. */
+     that width leaves a full-width chart the size the lead pass shipped.
+     A Sunday illustration sits beside the lead, so that page can use the
+     wider measure. Pages without the figure stay at 677px. */
   max-width: 677px;
   margin-top: 18px;
 }
+.paper-wrap:has(.lead-photo--flat) { max-width: 980px; }
 .paper-wrap > * { min-width: 0; }
 .kicker, .home-front h2.kicker {
   font-family: Hanken, Arial, sans-serif;
@@ -217,6 +220,13 @@
   font-size: 1.125rem;
   line-height: 1.5;
   margin: 0 0 12px;
+}
+.home-front .front-deck a {
+  color: inherit;
+  display: inline-block;
+  min-height: 44px;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
 }
 .home-front .front-action {
   display: inline-flex;
@@ -286,6 +296,11 @@
   margin-top: 4px;
 }
 .home-front .lead-photo figcaption a { color: #1b1b1b; }
+.home-front .lead-photo--flat figcaption,
+.edition-page .lead-photo--flat figcaption {
+  font-size: 1rem;
+  line-height: 1.45;
+}
 .closes, .week-block {
   border-top: 3px solid #1b1b1b;
   padding-top: 10px;
@@ -325,12 +340,38 @@
 .home-front .signup--lead .signup-note,
 .home-front .signup--lead .signup-label { color: #fff; }
 .home-front .signup--lead .signup-value { margin: 0 0 8px; }
+.home-front .signup--lead .signup-form input:focus-visible,
+.home-front .signup--lead .signup-form button:focus-visible,
+.home-front .signup--lead .signup-dismiss:focus-visible,
+.home-front .signup--lead .signup-note a:focus-visible {
+  outline: 3px solid #FBFAF7;
+  outline-offset: 2px;
+}
 .home-front .paper-main .signup--lead { margin-top: 12px; }
 .home-front .front-stories {
   max-width: 38rem;
   margin-top: 1.5rem;
   padding-top: 1.5rem;
   border-top: 1px solid var(--rule);
+}
+.paper-wrap:has(.lead-photo--flat) .front-stories { max-width: none; }
+.paper-wrap:has(.lead-photo--flat) .front-stories .signup--lead,
+.paper-wrap:has(.lead-photo--flat) .front-story:not(.front-story--leadpair):not(.front-story--pair) {
+  max-width: 38rem;
+}
+.front-lead .edition-jump--lead { margin: 8px 0 0; }
+.front-lead .edition-jump--lead a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  color: #1b1b1b;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
 }
 .home-front .front-section + .front-section {
   margin-top: 3rem;
@@ -415,6 +456,27 @@
 }
 @media (min-width: 761px) {
   .home-front .front-story h3 { font-size: 1.5rem; }
+  .home-front .front-section:has(#front-section-news) {
+    display: grid;
+    grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+    column-gap: 24px;
+    align-items: start;
+  }
+  .home-front .front-section:has(#front-section-news)
+    > :not(.front-story--leadpair):not(.front-story--pair) {
+    grid-column: 1 / -1;
+  }
+  .home-front .front-section:has(#front-section-news) > .front-story--leadpair,
+  .home-front .front-section:has(#front-section-news) > .front-story--pair {
+    margin-top: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+  }
+  .home-front .front-story--leadpair h3 { font-size: 2rem; line-height: 1.12; }
+  .home-front .front-story--pair h3 { font-size: 1.35rem; line-height: 1.2; }
+  .home-front .front-story--leadpair .front-story-summary,
+  .home-front .front-story--pair .front-story-summary { max-width: none; }
 }
 @media (max-width: 640px) {
   .cover-chrome .site-menu-panel.is-open,
@@ -428,18 +490,54 @@
 /* Dated editions share the homepage masthead, type, and paper color.
    Story measure, source lines, and the if-you lines keep their rules. */
 .edition-page {
-  background: #f6f1e7;
+  background: #FBFAF7;
   color: #1b1b1b;
   font-family: Hanken, Arial, sans-serif;
 }
 .edition-page :is(h1, h2, h3, h4, h5, .edition-lead-title) {
   font-family: Bricolage, "Times New Roman", Times, serif;
 }
+.edition-page .bulletin h2#news,
+.edition-page .bulletin h2#notices {
+  margin-top: 48px;
+  border-top: 1px solid var(--rule);
+}
+.edition-page .big-story:has(+ h2) > :last-child,
+.edition-page .river:has(+ h2) > :last-child {
+  margin-bottom: 0;
+}
+.edition-page .skim ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: skim;
+}
+.edition-page .skim li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+  counter-increment: skim;
+}
+.edition-page .skim li::before {
+  content: counter(skim) ".";
+  flex: 0 0 1.4rem;
+  padding-top: 4px;
+  line-height: 1.3;
+  text-align: right;
+}
+.edition-page .skim ol a {
+  display: block;
+  flex: 1 1 auto;
+  box-sizing: border-box;
+  max-width: 100%;
+  min-height: 44px;
+  padding-block: 4px;
+}
 .edition-page .morning-note::before,
 .edition-page .the-number::before,
 .edition-page .countdown::before,
 .edition-page .good-thing::before {
-  background: #f6f1e7;
+  background: #FBFAF7;
 }
 .election-banner {
   margin: 0 0 0.75rem;
@@ -469,6 +567,7 @@
   }
   .edition-page .big-story p:not(.source-line),
   .edition-page .river h5 + p,
+  .edition-page .river h3 + p,
   .edition-page .river .story-share + p,
   .edition-page .river .story-share + figure + p,
   .edition-page .if-you,
@@ -484,11 +583,129 @@
     padding: 13px 2px;
   }
   .edition-page .skim ol a {
-    display: inline-block;
-    box-sizing: border-box;
-    max-width: 100%;
-    min-height: 44px;
-    padding-block: 4px;
+    display: block;
+    flex: 1 1 auto;
   }
-  .edition-page h2#notices { margin-top: 3rem; }
+}
+@media (min-width: 761px) {
+  .home-front .front-lead:has(.lead-photo--flat),
+  .edition-page .big-story:has(.lead-photo--flat) {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(240px, 0.85fr);
+    column-gap: 1.5rem;
+    align-items: start;
+  }
+  .home-front .front-lead:has(.lead-photo--flat) > :not(.lead-photo),
+  .edition-page .big-story:has(.lead-photo--flat) > :not(.lead-photo) {
+    grid-column: 1;
+  }
+  .home-front .front-lead:has(.lead-photo--flat) > .lead-photo,
+  .edition-page .big-story:has(.lead-photo--flat) > .lead-photo {
+    grid-column: 2;
+    grid-row: 1 / span 6;
+    margin-top: 0;
+  }
+  .edition-page .big-story:has(.lead-photo--flat) p:not(.source-line) {
+    max-width: none;
+  }
+}
+.lead-photo--flat picture {
+  display: block;
+  width: 100%;
+  aspect-ratio: 780 / 560;
+}
+@media (min-width: 761px) {
+  .lead-photo--flat picture { aspect-ratio: 1600 / 1000; }
+}
+.lead-photo--flat picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+.runoff-calendar {
+  margin: 1.5rem 0 0;
+  padding: 0;
+}
+.runoff-calendar-label {
+  font-family: Hanken, Arial, sans-serif;
+  font-size: 1rem;
+  margin: 0 0 0.25rem;
+}
+.runoff-calendar-title {
+  font-family: Bricolage, "Times New Roman", Times, serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 0.75rem;
+}
+.runoff-calendar ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+@media (min-width: 761px) {
+  .runoff-calendar ol { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+.runoff-calendar li { margin: 0; font-size: 1rem; line-height: 1.45; }
+.runoff-calendar figcaption {
+  font-size: 1rem;
+  line-height: 1.45;
+  margin: 0.75rem 0 0;
+}
+.bulletin--2026-11-08 .big-story p,
+.bulletin--2026-11-08 .river > p,
+.bulletin--2026-11-08 .river li,
+.bulletin--2026-11-08 .runoff-calendar li,
+.bulletin--2026-11-08 .the-number,
+.bulletin--2026-11-08 .countdown,
+.bulletin--2026-11-08 .good-thing {
+  font-family: Georgia, "Times New Roman", serif;
+}
+.bulletin--2026-11-08 .the-number,
+.bulletin--2026-11-08 .countdown,
+.bulletin--2026-11-08 .good-thing {
+  position: static;
+  border: 0;
+  border-top: 1px solid var(--rule);
+  background: transparent;
+  text-align: left;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink);
+  margin: 1.5rem 0 0;
+  padding: 1rem 0 0;
+  max-width: 35.25rem;
+}
+.bulletin--2026-11-08 .the-number::before,
+.bulletin--2026-11-08 .countdown::before,
+.bulletin--2026-11-08 .good-thing::before { content: none; }
+.bulletin--2026-11-08 .the-number strong {
+  display: inline;
+  font-size: inherit;
+  font-weight: 700;
+  line-height: inherit;
+  color: var(--ink);
+}
+.bulletin--2026-11-08 .countdown strong,
+.bulletin--2026-11-08 .good-thing strong {
+  display: block;
+  font-family: Bricolage, "Times New Roman", Times, serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--ink);
+  margin: 0 0 0.35rem;
+}
+.bulletin--2026-11-08 .signup h2::before { content: none; }
+@media (min-width: 761px) {
+  .bulletin--2026-11-08 .the-number,
+  .bulletin--2026-11-08 .countdown,
+  .bulletin--2026-11-08 .good-thing { font-size: 1.125rem; }
 }

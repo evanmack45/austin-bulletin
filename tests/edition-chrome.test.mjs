@@ -16,6 +16,8 @@ test("a greeting-only morning note and the Briefing heading come off", () => {
   assert.equal(page.includes("The Briefing"), false);
   assert.match(page, /id="skim-title"[^>]*>Today's items/);
   assert.match(page, /href="\/about\/#trust"/);
+  assert.match(page, /How this site is made/);
+  assert.equal(page.includes("About our reporting"), false);
   assert.match(page, /<h3>The lead<\/h3>/);
 });
 

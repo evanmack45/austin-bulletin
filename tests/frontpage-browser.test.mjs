@@ -133,7 +133,7 @@ async function readSourceLine(page) {
 		const linkRect = linkRange.getClientRects()[0];
 		const lead = document.querySelector(".front-lead");
 		const datasetLinks = [...lead.querySelectorAll("a")].filter((anchor) =>
-			anchor.textContent.trim() === "City Action Notes, Nov. 5 (mid=1520)");
+			anchor.textContent.trim() === "City runoff calendar (PDF)");
 		return {
 			labelTop: labelRect.top,
 			linkTop: linkRect.top,
@@ -173,8 +173,8 @@ async function readDateLines(page) {
 }
 
 function assertSourceLine(sourceLine) {
-	assert.equal(sourceLine.datasetLinks, 1, "lead column keeps one action-notes link");
-	assert.match(sourceLine.text, /^Source: City Action Notes, Nov\. 5 \(mid=1520\)$/);
+	assert.equal(sourceLine.datasetLinks, 1, "lead column keeps one runoff-calendar link");
+	assert.match(sourceLine.text, /^Source: City runoff calendar \(PDF\)$/);
 	assert.ok(
 		Math.abs(sourceLine.labelTop - sourceLine.linkTop) < 3,
 		`Source label and link baselines: ${JSON.stringify(sourceLine)}`
@@ -199,15 +199,23 @@ function assertFirstFold(result, width, height) {
  assert.equal(result.leadFontSize, width <= 760 ? "34px" : "48px", `lead size at ${width}`);
  if (result.leadFigure) {
   assert.equal(result.leadFigure.position, "static", JSON.stringify(result.leadFigure));
-  assert.ok(
-   Math.abs(result.leadFigure.width - result.leadFigure.mainWidth) < 2,
-   JSON.stringify(result.leadFigure),
-  );
-  assert.ok(
-   Math.abs(result.leadFigure.left - result.leadFigure.mainLeft) < 2,
-   JSON.stringify(result.leadFigure),
-  );
   assert.notEqual(result.leadFigure.imageHeight, "200px");
+  if (width <= 760) {
+   assert.ok(
+    Math.abs(result.leadFigure.width - result.leadFigure.mainWidth) < 2,
+    JSON.stringify(result.leadFigure),
+   );
+  } else {
+   assert.ok(result.leadFigure.width > 240, JSON.stringify(result.leadFigure));
+   assert.ok(
+    result.leadFigure.width < result.leadFigure.mainWidth - 160,
+    JSON.stringify(result.leadFigure),
+   );
+   assert.ok(
+    result.leadFigure.left > result.leadFigure.mainLeft,
+    JSON.stringify(result.leadFigure),
+   );
+  }
  }
  assert.ok(result.action.height >= 44);
  assert.ok(result.nav.every(link => link.height >= 44));
@@ -346,7 +354,7 @@ test("guide action fragments reach the answer by keyboard without JavaScript", {
 		assert.ok(accessTitle.ok());
 		assert.equal(
 			await page.$eval(".front-lead .front-sources a", (link) => link.getAttribute("href")),
-			"https://services.austintexas.gov/council_meetings/action_notes.cfm?mid=1520",
+			"https://services.austintexas.gov/edims/document.cfm?id=472487",
 		);
 	} finally {
 		await browser.close();
@@ -424,5 +432,49 @@ test("previous edition is direct keyboard navigation independent of optional com
     assert.ok((await page.content()).includes(prior.split("-")[2].replace(/^0/, "")));
   } finally {
     await browser.close(); await new Promise(resolve => server.close(resolve));
+  }
+});
+
+test("the first two news summaries share the desktop news width and stack on a phone", {
+  skip: !chrome && "an installed Chromium is required for browser regression",
+}, async () => {
+  const server = await serveBuiltSite();
+  const browser = await puppeteer.launch({ executablePath: chrome, headless: true,
+    args: process.platform === "linux" ? ["--no-sandbox"] : [] });
+  try {
+    const page = await browser.newPage();
+    await page.setViewport({ width: 1280, height: 1600 });
+    await page.goto(`http://127.0.0.1:${server.address().port}/`, { waitUntil: "networkidle0" });
+    const desk = await page.evaluate(() => {
+      const news = document.querySelector(".front-section:has(#front-section-news)");
+      const lead = document.querySelector(".front-story--leadpair");
+      const next = document.querySelector(".front-story--pair");
+      const nr = news.getBoundingClientRect();
+      const ar = lead.getBoundingClientRect();
+      const br = next.getBoundingClientRect();
+      return {
+        sameRow: Math.abs(ar.top - br.top) < 4,
+        rightGap: nr.right - Math.max(ar.right, br.right),
+        wider: ar.width > br.width + 40,
+        leadFont: parseFloat(getComputedStyle(lead.querySelector("h3")).fontSize),
+        pairFont: parseFloat(getComputedStyle(next.querySelector("h3")).fontSize),
+        boxed: getComputedStyle(lead).borderTopWidth !== "0px"
+      };
+    });
+    assert.equal(desk.sameRow, true, JSON.stringify(desk));
+    assert.ok(desk.rightGap < 2, JSON.stringify(desk));
+    assert.equal(desk.wider, true, JSON.stringify(desk));
+    assert.ok(desk.leadFont > desk.pairFont, JSON.stringify(desk));
+    assert.equal(desk.boxed, false);
+    await page.setViewport({ width: 390, height: 1600 });
+    const stacked = await page.evaluate(() => {
+      const lead = document.querySelector(".front-story--leadpair").getBoundingClientRect();
+      const next = document.querySelector(".front-story--pair").getBoundingClientRect();
+      return next.top > lead.bottom - 1 && Math.abs(lead.left - next.left) < 2;
+    });
+    assert.equal(stacked, true);
+  } finally {
+    await browser.close();
+    await new Promise((resolve) => server.close(resolve));
   }
 });

@@ -78,6 +78,9 @@ function pushShapeProblems(photo, label, problems) {
   if (!localImagePath(photo.src)) problems.push(`${label} src must be a local image`);
   if (!localImagePath(photo.smallSrc)) problems.push(`${label} smallSrc must be a local image`);
   if (!validDimensions(photo)) problems.push(`${label} dimensions are invalid`);
+  if (photo.smallHeight != null && !positiveInt(photo.smallHeight)) {
+    problems.push(`${label} smallHeight is invalid`);
+  }
 }
 
 export function photoProblems(photo, label) {
@@ -191,18 +194,42 @@ function captionHtml(photo) {
   const license = `<a href="${esc(photo.licenseUrl)}">${esc(photo.license)}</a>`;
   // A chart story prints one Source line, so the caption does not repeat it.
   if (photo.kind === "chart") return `${esc(photo.caption)} · ${license}`;
+  // The illustration credit is the Bulletin's own label. Do not link it to
+  // the factual source, which is context for the story and not the artwork.
+  if (photo.kind === "illustration") return `${esc(photo.caption)} ${esc(photo.credit)}`;
   const credit = `<a href="${esc(photo.source)}">${esc(photo.credit)}</a>`;
   return `${esc(photo.caption)} ${credit} · ${license}`;
 }
 
-export function photoMarkup(photo, options) {
+function artDirected(photo) {
+  return positiveInt(photo.smallHeight);
+}
+
+function pictureTag(photo, priority) {
+  const phone = esc(photo.smallSrc);
+  const desktop = esc(photo.src);
+  return `<picture class="lead-picture">` +
+    `<source media="(max-width: 760px)" srcset="${phone}" ` +
+    `width="${photo.smallWidth}" height="${photo.smallHeight}">` +
+    `<source media="(min-width: 761px)" srcset="${desktop}" ` +
+    `width="${photo.width}" height="${photo.height}">` +
+    `<img src="${desktop}" width="${photo.width}" height="${photo.height}" ` +
+    `alt="${esc(photo.alt)}" loading="eager" decoding="async"${priority}>` +
+    `</picture>`;
+}
+
+function imgTag(photo, options, priority) {
   const srcset = `${photo.smallSrc} ${photo.smallWidth}w, ${photo.src} ${photo.width}w`;
-  const priority = options.fetchPriority === "high" ? ' fetchpriority="high"' : "";
-  return `<figure class="${esc(figureClass(photo, options.className))}">` +
-    `<img src="${esc(photo.src)}" srcset="${esc(srcset)}" sizes="${esc(options.sizes)}" ` +
+  return `<img src="${esc(photo.src)}" srcset="${esc(srcset)}" sizes="${esc(options.sizes)}" ` +
     `width="${photo.width}" height="${photo.height}" alt="${esc(photo.alt)}" ` +
-    `loading="${loadingAttr(options.loading)}" decoding="async"${priority}>` +
-    `<figcaption>${captionHtml(photo)}</figcaption></figure>`;
+    `loading="${loadingAttr(options.loading)}" decoding="async"${priority}>`;
+}
+
+export function photoMarkup(photo, options) {
+  const priority = options.fetchPriority === "high" ? ' fetchpriority="high"' : "";
+  const image = artDirected(photo) ? pictureTag(photo, priority) : imgTag(photo, options, priority);
+  return `<figure class="${esc(figureClass(photo, options.className))}">` +
+    `${image}<figcaption>${captionHtml(photo)}</figcaption></figure>`;
 }
 
 export function fallbackMarkup(options) {

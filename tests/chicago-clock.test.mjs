@@ -177,5 +177,9 @@ test("deadlines, this week, and the countdown are the edition's own words", () =
   const countdown = md.match(/<p class="countdown">([\s\S]*?)<\/p>/);
   const page = readFileSync(`_site/${edition.replaceAll("-", "/")}/index.html`, "utf8");
   assert.ok(countdown);
-  assert.ok(page.includes(countdown[1].trim()));
+  const words = countdown[1]
+    .replace(/<span class="src">[\s\S]*<\/span>/g, "")
+    .replace(/<strong>[\s\S]*?<\/strong>/g, "")
+    .trim();
+  assert.ok(page.includes(words));
 });

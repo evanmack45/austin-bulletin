@@ -137,7 +137,7 @@ function containerNote(inner) {
   return plainText(without)
     .replace(/\s+/g, " ")
     .trim()
-    .replace(/^sources:\s*/i, "")
+    .replace(/^sources?:\s*/i, "")
     .replace(/^[·•|,;:\s]+|[·•|,;:\s]+$/g, "")
     .trim();
 }
@@ -160,13 +160,36 @@ function stripSources(html) {
     .replace(/\n{3,}/g, "\n\n");
 }
 
+function attributionLabel(linkCount, noteCount) {
+  return linkCount === 1 && noteCount === 0 ? "Source" : "Sources";
+}
+
+function groupedSources(label, note, links) {
+  return links.map((link, index) => {
+    const anchor = `<a href="${link.href}">${escapeHtml(link.name)}</a>`;
+    if (index > 0) return `<span class="source-group">${anchor}</span>`;
+    const lead = note ? `${escapeHtml(note)} ` : "";
+    const marked = `<span class="source-label">${label}:</span> `;
+    return `<span class="source-group">${marked}${lead}${anchor}</span>`;
+  }).join("");
+}
+
 function sourcesMarkup(links, notes) {
-  const anchors = links.map((link) => (
-    `<a href="${link.href}">${escapeHtml(link.name)}</a>`
-  ));
-  const body = [notes.join(" "), anchors.join(" · ")].filter(Boolean).join(" ");
-  if (!body) return "";
-  return `<p class="source-line">Sources: ${body}</p>`;
+  if (!links.length) return "";
+  const label = attributionLabel(links.length, notes.length);
+  return `<p class="source-line">${groupedSources(label, notes.join(" "), links)}</p>`;
+}
+
+export function presentSourceHtml(html) {
+  const text = String(html ?? "").trim();
+  if (!text || text.includes("source-group")) return text;
+  const links = collectLinks(text);
+  if (!links.length) return text;
+  const notes = notesIn(text, links.map((link) => link.name));
+  const label = attributionLabel(links.length, notes.length);
+  const groups = groupedSources(label, notes.join(" "), links);
+  if (text.startsWith("<p")) return `<p class="source-line">${groups}</p>`;
+  return `<span class="src">${groups}</span>`;
 }
 
 function markBrief(html) {
