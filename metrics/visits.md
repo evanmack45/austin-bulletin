@@ -1,35 +1,35 @@
 # Visits
 
-Pulled 2026-11-05T16:00:00.000Z.
-Window 2026-10-30 through 2026-11-05 (America/Chicago).
+Pulled 2026-11-08T12:07:47.950Z.
+Window 2026-11-02 through 2026-11-08 (America/Chicago).
 
-Dashboard scrape on 2026-11-05 at about 10:00 America/Chicago, bots excluded. Site tags are f715e3efc034482ea16a102bcb2c2d36 for theaustinbulletin.com and 7344ab7bea3140de8c29211155de95fc for yallcityhall.org. 2026-11-05 is partial through about 10:00 CT. sampleInterval was not on the dashboard, so it is null. Visits and pageviews are stored as the dashboard showed them.
+Pageviews are the GraphQL count and visits are sum.visits for human pageloads (bot 0), grouped by date. sampleInterval is Cloudflare's sampling interval for that day: 1 means the figure was not sampled down, and a higher number means the figure is an estimate at that granularity. Visits and pageviews are stored as the API returned them.
 
 ## The Austin Bulletin (theaustinbulletin.com)
 
 | Date | Visits | Pageviews | Sample interval |
 | --- | ---: | ---: | ---: |
-| 2026-10-30 | 31 | 32 |  |
-| 2026-10-31 | 10 | 10 |  |
-| 2026-11-01 | 9 | 9 |  |
-| 2026-11-02 | 12 | 12 |  |
-| 2026-11-03 | 56 | 57 |  |
-| 2026-11-04 | 33 | 34 |  |
-| 2026-11-05 | 7 | 7 |  |
+| 2026-11-02 | 10 | 10 | 1 |
+| 2026-11-03 | 48 | 48 | 1 |
+| 2026-11-04 | 40 | 41 | 1 |
+| 2026-11-05 | 14 | 15 | 1 |
+| 2026-11-06 | 1 | 1 | 1 |
+| 2026-11-07 | 5 | 5 | 1 |
+| 2026-11-08 | 0 | 0 |  |
 
-7-day totals: 158 visits, 161 pageviews.
+7-day totals: 118 visits, 120 pageviews.
 
 ## Y'all City Hall (yallcityhall.org)
 
 | Date | Visits | Pageviews | Sample interval |
 | --- | ---: | ---: | ---: |
-| 2026-10-30 | 0 | 0 |  |
-| 2026-10-31 | 0 | 0 |  |
-| 2026-11-01 | 0 | 0 |  |
 | 2026-11-02 | 0 | 0 |  |
 | 2026-11-03 | 0 | 0 |  |
 | 2026-11-04 | 0 | 0 |  |
 | 2026-11-05 | 0 | 0 |  |
+| 2026-11-06 | 0 | 0 |  |
+| 2026-11-07 | 0 | 0 |  |
+| 2026-11-08 | 0 | 0 |  |
 
 7-day totals: 0 visits, 0 pageviews.
 

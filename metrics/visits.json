@@ -1,12 +1,12 @@
 {
-  "fetched_at": "2026-11-05T16:00:00.000Z",
+  "fetched_at": "2026-11-08T12:07:47.950Z",
   "timezone": "America/Chicago",
   "window": {
-    "start": "2026-10-30",
-    "end": "2026-11-05",
+    "start": "2026-11-02",
+    "end": "2026-11-08",
     "days": 7
   },
-  "sample_interval_note": "Dashboard scrape on 2026-11-05 at about 10:00 America/Chicago, bots excluded. Site tags are f715e3efc034482ea16a102bcb2c2d36 for theaustinbulletin.com and 7344ab7bea3140de8c29211155de95fc for yallcityhall.org. 2026-11-05 is partial through about 10:00 CT. sampleInterval was not on the dashboard, so it is null. Visits and pageviews are stored as the dashboard showed them.",
+  "sample_interval_note": "Pageviews are the GraphQL count and visits are sum.visits for human pageloads (bot 0), grouped by date. sampleInterval is Cloudflare's sampling interval for that day: 1 means the figure was not sampled down, and a higher number means the figure is an estimate at that granularity. Visits and pageviews are stored as the API returned them.",
   "sites": [
     {
       "id": "bulletin",
@@ -15,51 +15,51 @@
       "siteTag": "f715e3efc034482ea16a102bcb2c2d36",
       "days": [
         {
-          "date": "2026-10-30",
-          "visits": 31,
-          "pageviews": 32,
-          "sampleInterval": null
-        },
-        {
-          "date": "2026-10-31",
+          "date": "2026-11-02",
           "visits": 10,
           "pageviews": 10,
-          "sampleInterval": null
-        },
-        {
-          "date": "2026-11-01",
-          "visits": 9,
-          "pageviews": 9,
-          "sampleInterval": null
-        },
-        {
-          "date": "2026-11-02",
-          "visits": 12,
-          "pageviews": 12,
-          "sampleInterval": null
+          "sampleInterval": 1
         },
         {
           "date": "2026-11-03",
-          "visits": 56,
-          "pageviews": 57,
-          "sampleInterval": null
+          "visits": 48,
+          "pageviews": 48,
+          "sampleInterval": 1
         },
         {
           "date": "2026-11-04",
-          "visits": 33,
-          "pageviews": 34,
-          "sampleInterval": null
+          "visits": 40,
+          "pageviews": 41,
+          "sampleInterval": 1
         },
         {
           "date": "2026-11-05",
-          "visits": 7,
-          "pageviews": 7,
+          "visits": 14,
+          "pageviews": 15,
+          "sampleInterval": 1
+        },
+        {
+          "date": "2026-11-06",
+          "visits": 1,
+          "pageviews": 1,
+          "sampleInterval": 1
+        },
+        {
+          "date": "2026-11-07",
+          "visits": 5,
+          "pageviews": 5,
+          "sampleInterval": 1
+        },
+        {
+          "date": "2026-11-08",
+          "visits": 0,
+          "pageviews": 0,
           "sampleInterval": null
         }
       ],
       "totals": {
-        "visits": 158,
-        "pageviews": 161
+        "visits": 118,
+        "pageviews": 120
       }
     },
     {
@@ -69,24 +69,6 @@
       "siteTag": "7344ab7bea3140de8c29211155de95fc",
       "days": [
         {
-          "date": "2026-10-30",
-          "visits": 0,
-          "pageviews": 0,
-          "sampleInterval": null
-        },
-        {
-          "date": "2026-10-31",
-          "visits": 0,
-          "pageviews": 0,
-          "sampleInterval": null
-        },
-        {
-          "date": "2026-11-01",
-          "visits": 0,
-          "pageviews": 0,
-          "sampleInterval": null
-        },
-        {
           "date": "2026-11-02",
           "visits": 0,
           "pageviews": 0,
@@ -106,6 +88,24 @@
         },
         {
           "date": "2026-11-05",
+          "visits": 0,
+          "pageviews": 0,
+          "sampleInterval": null
+        },
+        {
+          "date": "2026-11-06",
+          "visits": 0,
+          "pageviews": 0,
+          "sampleInterval": null
+        },
+        {
+          "date": "2026-11-07",
+          "visits": 0,
+          "pageviews": 0,
+          "sampleInterval": null
+        },
+        {
+          "date": "2026-11-08",
           "visits": 0,
           "pageviews": 0,
           "sampleInterval": null
