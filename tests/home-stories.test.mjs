@@ -256,7 +256,8 @@ test("November 8 lists the runoff lead, then news, then the forecast", () => {
   const weather = stories.find((story) => story.title.startsWith("NWS:"));
   assert.match(weather.summary, /100% chance of precipitation/);
   assert.match(weather.summary, /tenth to a quarter inch/);
-  assert.match(weather.summary, /last updated at 11:16 a\.m\. CT/);
+  assert.match(weather.summary, /last updated at 12:24 p\.m\. CT/);
+  assert.match(weather.summary, /high near 64/);
   assert.equal(weather.summary.includes("mainly before midnight"), false);
   assert.equal(weather.summary.includes("quarter to a half"), false);
   assert.match(bulletin, /unchanged since Friday afternoon/);

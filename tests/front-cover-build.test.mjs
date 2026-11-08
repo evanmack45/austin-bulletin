@@ -172,7 +172,14 @@ test("the sunday edition stacks each source and names the headline actions", () 
   assert.match(page, /\$25 million in state funds/);
   assert.doesNotMatch(page, /boardwalk, plus any cost overruns/);
   assert.match(page, /forecast\.weather\.gov\/MapClick\.php\?lat=30\.2672/);
-  assert.match(page, /11:16 a\.m\. CT/);
+  assert.match(page, /12:24 p\.m\. CT on Nov\. 8/);
+  assert.match(page, /high near 64/);
+  assert.match(page, /low around 55/);
+  assert.match(page, /high near 68/);
+  assert.match(page, /read this page at 12:32 p\.m\. CT/);
+  assert.match(page, /Nov\. 19 draft agenda on Y'all City Hall/);
+  assert.equal(page.includes("Nov. 19 meeting on Y'all City Hall"), false);
+  assert.match(page, /Nov\. 5 meeting on Y'all City Hall/);
   assert.match(page, /Chart · Not a photograph/);
   assert.match(page, /Runoff calendar/);
   assert.match(page, /runoff-lead-phone-780\.webp/);
