@@ -100,9 +100,9 @@ function assertSignupSlot(slot) {
     item !== "signup" && item !== "News" && item !== "Notices"
   ));
   assert.deepEqual(stories, [
-    "Last day to register for a possible Dec. 12 runoff.",
-    "Nov. 19 draft separates a $25 million boardwalk estimate from state funds.",
-    "Two Hornsby Bend contracts on the draft have separate not-to-exceed caps.",
+    "Thursday is the registration deadline for a possible runoff.",
+    "Council draft proposes a boardwalk beside the Hyatt.",
+    "Draft contracts would rebuild Hornsby Bend treatment facilities.",
     "Draft amendments would change the city's Muny agreement with UT.",
     "Water, parks, and transportation briefings are on this week's committee agendas.",
     "Watson asked Friday for new Austin Police Department rules on immigration " +

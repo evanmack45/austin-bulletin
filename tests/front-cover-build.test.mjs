@@ -26,7 +26,11 @@ test("the homepage lead is headline, dek, then source", () => {
   const source = lead.indexOf('class="src front-sources"');
   const figure = lead.indexOf("lead-photo");
   assert.ok(h1 !== -1 && dek > h1 && figure > dek && source > figure, lead.slice(0, 500));
-  assert.match(lead, /Illustration\. A large red pencil/);
+  assert.match(lead, /AI illustration\. A large red pencil/);
+  assert.match(lead, /AI-generated illustration: registration preparation\./);
+  const deck = lead.match(/<p class="front-deck">([\s\S]*?)<\/p>/);
+  assert.equal(deck[1].includes("<a"), false);
+  assert.ok(lead.indexOf("edition-jump--lead") > source);
   assert.doesNotMatch(lead, /results-button/);
   assert.doesNotMatch(lead, /CHART · NOT A PHOTOGRAPH/);
   const template = readFileSync("src/index.njk", "utf8");
@@ -65,7 +69,9 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.doesNotMatch(html, /5 minutes|One email each morning/);
   assert.doesNotMatch(html, /class="results-button"/);
   assert.equal((html.match(/<h1\b/g) || []).length, 1);
-  assert.match(html, /Last day to register for a possible Dec\. 12 runoff\./);
+  assert.match(html, /Thursday is the registration deadline for a possible runoff\./);
+  assert.match(html, /Thursday, Nov\. 12, is the last day to register/);
+  assert.match(html, /Dec\. 12/);
   assert.match(html, /class="wordmark"/);
   assert.match(html, /class="masthead-dateline"/);
   assert.doesNotMatch(html, /ill-masthead|masthead-sky|austin-skyline/);
@@ -76,18 +82,21 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.match(html, /runoff-lead-phone-780\.webp/);
   assert.match(html, /Thursday, Nov\. 12, is the last day to register/);
   assert.match(html, /class="front-deck"/);
-  assert.match(html, /href="\/2026\/11\/08\/#last-day-to-register-for-a-possible-dec-12-runoff"/);
+  assert.match(
+    html,
+    /href="\/2026\/11\/08\/#thursday-is-the-registration-deadline-for-a-possible-runoff"/
+  );
   assertOneLeadSource(html);
   const imageUrl = "https://theaustinbulletin.com/images/2026-11-08/" +
     "runoff-lead-desktop-1600.webp";
   assert.ok(html.includes(`property="og:image" content="${imageUrl}"`));
   assert.ok(html.includes(`name="twitter:image" content="${imageUrl}"`));
-  assert.match(html, /property="og:title" content="Last day to register for a possible Dec/);
+  assert.match(html, /property="og:title" content="Thursday is the registration deadline/);
   assert.match(
     html,
     /property="og:description" content="Thursday, Nov\. 12, is the last day to register/
   );
-  assert.match(html, /name="twitter:title" content="Last day to register for a possible Dec/);
+  assert.match(html, /name="twitter:title" content="Thursday is the registration deadline/);
   assert.match(html, /name="twitter:description" content="Thursday, Nov\. 12, is the last day/);
   assert.match(html, /Sunday, Nov\. 8/);
   assert.match(html, /href="\/2026\/11\/06\/"/);
@@ -128,9 +137,9 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.match(page, /KUT reports/);
   assert.doesNotMatch(page, /Editor notes/);
   assert.ok(page.includes(`property="og:image" content="${imageUrl}"`));
-  assert.match(page, /property="og:title" content="Last day to register for a possible Dec/);
+  assert.match(page, /property="og:title" content="Thursday is the registration deadline/);
   assert.match(page, /property="og:description" content="Thursday, Nov\. 12, is the last day/);
-  assert.match(page, /name="twitter:title" content="Last day to register for a possible Dec/);
+  assert.match(page, /name="twitter:title" content="Thursday is the registration deadline/);
   assert.match(page, /name="twitter:description" content="Thursday, Nov\. 12, is the last day/);
   assert.ok(page.includes(`name="twitter:image" content="${imageUrl}"`));
   assert.match(page, /any necessary runoff/);
@@ -158,6 +167,8 @@ test("the sunday edition stacks each source and names the headline actions", () 
   assert.equal(page.includes("3:12 p.m."), false);
   assert.match(page, /Friday afternoon/);
   assert.match(page, /total estimated project cost of \$25 million, plus any cost overruns/);
+  assert.match(page, /proposal, not an approval/);
+  assert.match(page, /beside the Hyatt/);
   assert.match(page, /\$25 million in state funds/);
   assert.doesNotMatch(page, /boardwalk, plus any cost overruns/);
   assert.match(page, /forecast\.weather\.gov\/MapClick\.php\?lat=30\.2672/);

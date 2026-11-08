@@ -212,8 +212,8 @@ test("November 8 lists the runoff lead, then news, then the forecast", () => {
   const edition = homeEdition(bulletin);
   const stories = listed(edition);
   assert.deepEqual(stories.map((story) => story.title), [
-    "Nov. 19 draft separates a $25 million boardwalk estimate from state funds.",
-    "Two Hornsby Bend contracts on the draft have separate not-to-exceed caps.",
+    "Council draft proposes a boardwalk beside the Hyatt.",
+    "Draft contracts would rebuild Hornsby Bend treatment facilities.",
     "Draft amendments would change the city's Muny agreement with UT.",
     "Water, parks, and transportation briefings are on this week's committee agendas.",
     "Watson asked Friday for new Austin Police Department rules on immigration " +
@@ -233,7 +233,10 @@ test("November 8 lists the runoff lead, then news, then the forecast", () => {
   assert.equal(stories[1].signupAfter, true);
   assert.equal(stories[0].signupAfter, false);
   assert.equal(edition.signupAfterLead, false);
-  assert.equal(edition.leadAnchor, "last-day-to-register-for-a-possible-dec-12-runoff");
+  assert.equal(
+    edition.leadAnchor,
+    "thursday-is-the-registration-deadline-for-a-possible-runoff"
+  );
   const agenda = stories[0].summary;
   const overrunAt = agenda.indexOf("plus any cost overruns");
   const fundsAt = agenda.indexOf("$25 million in state funds");
@@ -241,6 +244,9 @@ test("November 8 lists the runoff lead, then news, then the forecast", () => {
   assert.ok(overrunAt > 0 && fundsAt > overrunAt);
   assert.match(agenda, /Texas Department of Transportation/);
   assert.match(agenda, /funding match is not required/);
+  assert.match(agenda, /Nov\. 19 draft/);
+  assert.match(agenda, /proposal, not an approval/);
+  assert.match(agenda, /Hyatt/);
   assert.doesNotMatch(agenda, /boardwalk, plus any cost overruns/);
   assert.match(stories[1].summary, /\$22,420,200/);
   assert.match(stories[1].summary, /\$32,906,529/);

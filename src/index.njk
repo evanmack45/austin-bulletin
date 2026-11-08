@@ -18,7 +18,7 @@ hasInlineSignup: true
         {% if desk.figure or desk.deck %}
         <div class="lead-stat">
           {% if desk.figure %}<p class="num">{{ desk.figure | escape }}</p>{% endif %}
-          {% if desk.deck %}<p class="front-deck"><a href="{{ latest.url }}#{{ desk.leadAnchor | escape }}">{{ desk.deck | escape }}</a></p>{% endif %}
+          {% if desk.deck %}<p class="front-deck">{{ desk.deck | escape }}</p>{% endif %}
         </div>
         {% endif %}
         {% if desk.action %}
@@ -39,6 +39,7 @@ hasInlineSignup: true
         </figure>
         {% endif %}
         {% if desk.source %}<p class="src front-sources">Source: <a href="{{ desk.source.href | escape }}">{{ desk.source.name | escape }}</a></p>{% endif %}
+        <p class="edition-jump edition-jump--lead"><a href="{{ latest.url }}">Read the {{ latest.date | weekday }} edition</a></p>
       </section>
       {% set signupId = "lead" %}
       {% if desk.signupAfterLead %}
@@ -50,7 +51,7 @@ hasInlineSignup: true
         <section class="front-section" aria-labelledby="front-section-{{ section.slug | escape }}">
           <h2 class="front-section-head" id="front-section-{{ section.slug | escape }}">{{ section.label | escape }}</h2>
           {% for story in section.stories %}
-          <article class="front-story">
+          <article class="front-story{% if section.label == "News" and loop.index == 1 %} front-story--leadpair{% elif section.label == "News" and loop.index == 2 %} front-story--pair{% endif %}">
             <h3><a href="{{ latest.url }}#{{ story.anchor | escape }}">{{ story.title | escape }}</a></h3>
             {% if story.summary %}<p class="front-story-summary">{{ story.summary | escape }}</p>{% endif %}
             {% if story.sourcesHtml %}<div class="front-story-sources">{{ story.sourcesHtml | safe }}</div>{% endif %}
