@@ -47,12 +47,12 @@ test("the feed pass does not add share controls", () => {
   assert.equal(shouldAddStoryShare(undefined, "/tmp/site/about/index.html"), false);
 });
 
-test("share controls are a 24px target in the muted ink", async () => {
+test("share controls are a 44px target in the muted ink", async () => {
   const css = await readFile("src/css/style.css", "utf8");
   const rule = css.match(/\.story-share-button,\n\.story-share-link \{[\s\S]*?\n\}/);
   assert.ok(rule);
-  assert.match(rule[0], /min-width: 24px;/);
-  assert.match(rule[0], /min-height: 24px;/);
+  assert.match(rule[0], /min-width: 44px;/);
+  assert.match(rule[0], /min-height: 44px;/);
   assert.match(rule[0], /color: var\(--muted\);/);
   const hidden = "\\.story-share-button\\[hidden\\],\\n" +
     "\\.story-share-link\\[hidden\\] \\{ display: none; \\}";

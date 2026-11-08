@@ -26,7 +26,8 @@ sentence does not count toward the briefing word cap or a lead's word cap.
 Markers live in the bulletin so the homepage and the edition share one
 copy: `desk:kicker`, `desk:figure`, `desk:photo`, `desk:closes`, and
 `desk:week`. A deadline is the source's own date. Do not calculate a day
-count the copy does not state.
+count except a labeled calendar-day comparison of dates the sources state,
+linked to those sources (accuracy rule 3).
 
 A lead image is that edition's `images.lead` front matter: `src`,
 `smallSrc`, `alt`, `caption`, `credit`, `source`, `license`, `licenseUrl`,
@@ -132,10 +133,11 @@ render as one Sources line at the end of that story.
   weather and sunrise, and a colored ink dot for the scaled metrics, colored
   by the source's published scale (EPA colors for air, pollen categories,
   ERCOT conditions). Lake Travis has no published scale; its dot thresholds
-  are a documented presentation choice in eleventy.config.js. Numbers are
-  still never calculated: every figure shown is the source's own. Do not
-  write comparisons like "about 85% of the record"; that is a calculation,
-  and calculations are forbidden by the accuracy rules.
+  are a documented presentation choice in eleventy.config.js. Numbers follow
+  accuracy rule 3. A labeled sum of figures the sources state, or a labeled
+  calendar-day comparison of dates the sources state, may be calculated when
+  it is linked to those sources. Do not extrapolate. Do not write comparisons
+  like "about 85% of the record"; that percentage stays forbidden.
 
 ## The shape of a day
 
@@ -442,7 +444,7 @@ exactly repeats the previous edition's title.
 
 1. Every fact traces to a source read this morning, linked in the story.
 2. Two independent sources for surprising or disputed claims.
-3. Quote numbers from sources. Never calculate or extrapolate them.
+3. Quote numbers from sources. Do not extrapolate them. A sum of figures those sources state, or a calendar-day comparison of dates those sources state, may be calculated only when the copy labels it and links the underlying sources. Do not write comparisons like "about 85% of the record."
    - Civic utilities (inspections, work zones) come from Austin's Socrata
      portal and must cite the dataset's published title, 4x4 id, and URL in
      the item's own copy or Sources line. Do not restate or average scores,

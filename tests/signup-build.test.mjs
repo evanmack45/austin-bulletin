@@ -37,18 +37,22 @@ function count(html, needle) {
   return html.split(needle).length - 1;
 }
 
-test("the homepage signup follows the first listed story", () => {
+test("the homepage signup follows the third rendered story", () => {
   const main = sliceBetween(home, 'class="paper-main"', 'class="site-footer"');
   const heads = [...main.matchAll(/<h1\b|<h3\b|class="signup signup--lead"/g)].map((match) => (
     match[0].startsWith("<h1") ? "h1" : match[0].startsWith("<h3") ? "h3" : "signup"
   ));
   const signupAt = heads.indexOf("signup");
   assert.equal(heads.filter((tag) => tag === "signup").length, 1);
-  assert.equal(heads.slice(0, signupAt).filter((tag) => tag === "h1" || tag === "h3").length, 2);
-  const canvass = main.indexOf("Council canvasses the election");
-  const notices = main.indexOf(">Notices<");
-  assert.ok(canvass !== -1 && notices > canvass);
+  assert.equal(heads.slice(0, signupAt).filter((tag) => tag === "h1" || tag === "h3").length, 3);
   const signupHtml = main.indexOf('class="signup signup--lead"');
+  const council = main.indexOf("Muny-UT deal changes");
+  const townhomes = main.indexOf("Ten affordable townhomes");
+  assert.ok(council !== -1 && council < signupHtml);
+  assert.ok(townhomes > signupHtml);
+  const speaker = main.indexOf("Senfronia Thompson says she has the votes");
+  const notices = main.indexOf(">Notices<");
+  assert.ok(speaker !== -1 && notices > speaker);
   const jumpAt = main.indexOf('class="edition-jump"');
   assert.ok(signupHtml !== -1 && jumpAt > signupHtml);
   assert.equal(main.includes('class="paper-side"'), false);

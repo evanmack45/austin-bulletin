@@ -16,6 +16,8 @@ test("a greeting-only morning note and the Briefing heading come off", () => {
   assert.equal(page.includes("The Briefing"), false);
   assert.match(page, /id="skim-title"[^>]*>Today's items/);
   assert.match(page, /href="\/about\/#trust"/);
+  assert.match(page, /How this site is made/);
+  assert.equal(page.includes("About our reporting"), false);
   assert.match(page, /<h3>The lead<\/h3>/);
 });
 
@@ -40,14 +42,25 @@ test("About leads with the publisher and one account of the model", () => {
   const about = readFileSync("src/about.md", "utf8");
   const lead = about.slice(about.indexOf("# About"), about.indexOf("<h2"));
   assert.match(lead, /Evan McMillan, the publisher, is responsible for the site/);
-  assert.match(lead, /every fact\s+comes from a source we read that morning/);
+  assert.match(lead, /every fact\s+comes from a source read that morning/);
   assert.equal(about.includes("What the model does"), false);
+  assert.equal(about.includes("Our rules"), false);
+  assert.equal(about.includes("We report"), false);
+  assert.equal(about.includes("How we gather"), false);
+  assert.equal(about.includes("About our reporting"), false);
   assert.equal((about.match(/An AI system produces/g) || []).length, 1);
+  const numbers = "Numbers are quoted from sources; any sums or calendar-day comparisons " +
+    "calculated from those figures or dates are labeled and linked to the underlying sources.";
+  assert.equal(about.split(numbers).length - 1, 2);
+  assert.equal(about.includes("never calculated"), false);
+  assert.equal(about.includes("never calculates"), false);
   assert.match(about, /id="trust"/);
   assert.match(about, /class="crawler-user-agent"/);
+  assert.equal(about.includes("fetches (<code"), false);
+  assert.match(about, /TheAustinBulletin\/1\.0 \(\+https:\/\/theaustinbulletin\.com\)/);
   assert.match(about, /robots\.txt/);
   assert.match(about, /MSN syndication/);
-  const gather = about.indexOf("## How we gather");
+  const gather = about.indexOf("## How reporting is gathered");
   const made = about.indexOf("How this site is made");
   assert.ok(gather > made);
 });

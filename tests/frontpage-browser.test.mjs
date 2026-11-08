@@ -121,24 +121,18 @@ function assertMobileCover(result) {
 async function readSourceLine(page) {
 	return page.evaluate(() => {
 		const line = document.querySelector(".front-lead .front-sources");
-		const link = line.querySelector("a");
-		const labelNode = line.firstChild;
-		const colon = labelNode.textContent.lastIndexOf(":");
-		const labelRange = document.createRange();
-		labelRange.setStart(labelNode, 0);
-		labelRange.setEnd(labelNode, colon + 1);
-		const linkRange = document.createRange();
-		linkRange.selectNodeContents(link);
-		const labelRect = labelRange.getClientRects()[0];
-		const linkRect = linkRange.getClientRects()[0];
-		const lead = document.querySelector(".front-lead");
-		const datasetLinks = [...lead.querySelectorAll("a")].filter((anchor) =>
-			anchor.textContent.trim() === "City Action Notes, Nov. 5 (mid=1520)");
+		const label = line.querySelector(".source-label");
+		const link = line.querySelector(".source-group a");
+		const labelRect = label.getClientRects()[0];
+		const linkRect = link.getClientRects()[0];
+		const firstGroup = line.querySelector(".source-group");
 		return {
 			labelTop: labelRect.top,
 			linkTop: linkRect.top,
 			gap: linkRect.left - labelRect.right,
-			datasetLinks: datasetLinks.length,
+			sameLine: Math.abs(labelRect.top - linkRect.top) < 8,
+			labelInFirstGroup: firstGroup.contains(label) && firstGroup.contains(link),
+			hrefs: [...line.querySelectorAll("a")].map((anchor) => anchor.getAttribute("href")),
 			text: line.textContent.replace(/\s+/g, " ").trim(),
 		};
 	});
@@ -173,13 +167,25 @@ async function readDateLines(page) {
 }
 
 function assertSourceLine(sourceLine) {
-	assert.equal(sourceLine.datasetLinks, 1, "lead column keeps one action-notes link");
-	assert.match(sourceLine.text, /^Source: City Action Notes, Nov\. 5 \(mid=1520\)$/);
+	assert.deepEqual(sourceLine.hrefs, [
+		"https://www.austintexas.gov/police/news/homicide-investigation-3909-guadalupe-street",
+		"https://www.austintexas.gov/police/news/homicide-investigation-intersection-e-5th-st-and-trinity-st",
+		"https://www.kxan.com/news/local/austin/austin-homicide-map-2025/",
+	]);
+	assert.match(
+		sourceLine.text,
+		/Sources: Bulletin calendar-day comparison of Nov\. 5, 2026 and Nov\. 12, 2025, from/
+	);
+	assert.match(sourceLine.text, /APD release, Nov\. 6, 2026/);
+	assert.match(sourceLine.text, /APD release, Nov\. 17, 2025/);
+	assert.match(sourceLine.text, /KXAN 2025 homicide map/);
+	assert.equal(sourceLine.labelInFirstGroup, true);
+	if (!sourceLine.sameLine) return;
 	assert.ok(
 		Math.abs(sourceLine.labelTop - sourceLine.linkTop) < 3,
 		`Source label and link baselines: ${JSON.stringify(sourceLine)}`
 	);
-	assert.ok(sourceLine.gap >= 3, `missing space after Source: ${JSON.stringify(sourceLine)}`);
+	assert.ok(sourceLine.gap >= 3, `missing space after Sources: ${JSON.stringify(sourceLine)}`);
 }
 
 function assertDateLines(dateLines) {
@@ -346,7 +352,7 @@ test("guide action fragments reach the answer by keyboard without JavaScript", {
 		assert.ok(accessTitle.ok());
 		assert.equal(
 			await page.$eval(".front-lead .front-sources a", (link) => link.getAttribute("href")),
-			"https://services.austintexas.gov/council_meetings/action_notes.cfm?mid=1520",
+			"https://www.austintexas.gov/police/news/homicide-investigation-3909-guadalupe-street",
 		);
 	} finally {
 		await browser.close();

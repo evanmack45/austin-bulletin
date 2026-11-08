@@ -201,9 +201,11 @@ test("the feed parser keeps meeting dates and ignores other paths", () => {
   assert.deepEqual(meetingDatesIn(xml), ["2026-10-22"]);
 });
 
-test("the council line is 16px text with a 24px link target", () => {
+test("the council line is 16px text with a 44px link hit area", () => {
   const css = readFileSync("src/css/style.css", "utf8");
   assert.match(css, /\.council-did,\s*\n\.bulletin \.council-did \{[^}]*font-size: 1rem;/);
-  assert.match(css, /\.council-did a \{[^}]*min-height: 24px;/);
-  assert.match(css, /\.council-did a \{[^}]*min-width: 24px;/);
+  assert.match(css, /\.council-did a::before \{[^}]*height: 44px;/);
+  assert.match(css, /\.council-did a::before \{[^}]*width: max\(100%, 44px\);/);
+  assert.match(css, /\.council-did a \{[^}]*padding-block: 14px;/);
+  assert.match(css, /\.about-page main p a \{[^}]*padding-block: 14px;/);
 });

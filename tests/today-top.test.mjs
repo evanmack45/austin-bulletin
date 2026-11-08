@@ -70,7 +70,9 @@ test("the homepage shows each edition story once, lead first", () => {
   const home = homeEdition(markdown);
   const instant = `${edition}T00:00:00.000Z`;
   const dateline = `${weekdayName(instant)}, ${shortMonthDay(instant)}`;
-  const body = html.replace(/<head\b[\s\S]*?<\/head>/i, "").replaceAll("&#39;", "'");
+  const body = html.replace(/<head\b[\s\S]*?<\/head>/i, "")
+    .replaceAll("&#39;", "'")
+    .replaceAll("&amp;", "&");
   assert.ok(html.includes(dateline), dateline);
   assert.doesNotMatch(html, /class="today-top"/);
   assert.equal(body.split(desk.headline).length - 1, 1, desk.headline);
@@ -89,7 +91,12 @@ test("the homepage shows each edition story once, lead first", () => {
     match[0].startsWith("<h1") ? "h1" : match[0].startsWith("<h3") ? "h3" : "signup"
   ));
   const signupAt = heads.indexOf("signup");
-  assert.equal(heads.slice(0, signupAt).filter((tag) => tag === "h1" || tag === "h3").length, 2);
+  const renderedStories = 1 + stories.length;
+  const expectedBefore = renderedStories >= 3 ? 3 : 1;
+  assert.equal(
+    heads.slice(0, signupAt).filter((tag) => tag === "h1" || tag === "h3").length,
+    expectedBefore
+  );
   if (edition === "2026-11-03" || edition === "2026-11-04") {
     assert.equal((html.match(/>Election results</g) || []).length, 1);
     assert.match(lead, /class="results-link" href="\/election\/2026-11-03\/"/);

@@ -17,6 +17,9 @@ import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 
 const MIN_WORDS = 6;
+const NUMBER_RULE = "numbers are quoted from sources; any sums or calendar-day " +
+  "comparisons calculated from those figures or dates are labeled and linked " +
+  "to the underlying sources.";
 const ABBREVIATIONS = [
   "mr", "mrs", "ms", "dr", "sr", "jr", "gen", "rep", "sen", "gov", "lt", "sgt",
   "prof", "rev", "hon", "jan", "feb", "mar", "apr", "jun", "jul", "aug", "sep",
@@ -125,6 +128,8 @@ export async function duplicateSentenceProblems(dir) {
     const html = await readFile(file, "utf8");
     const rel = path.relative(dir, file);
     for (const sentence of duplicateSentences(html)) {
+      // About states this rule in the account and again in the rules list.
+      if (rel === "about/index.html" && sentence === NUMBER_RULE) continue;
       problems.push({ file: rel, sentence });
     }
   }
