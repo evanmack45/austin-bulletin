@@ -227,15 +227,21 @@ test("November 8 lists the runoff lead, then news, then the forecast", () => {
   assert.equal(stories[0].signupAfter, false);
   assert.equal(edition.signupAfterLead, false);
   assert.equal(edition.leadAnchor, "last-day-to-register-for-a-possible-dec-12-runoff");
-  assert.match(stories[0].summary, /\$25 million/);
+  const agenda = stories[0].summary;
+  const overrunAt = agenda.indexOf("plus any cost overruns");
+  const fundsAt = agenda.indexOf("$25 million in state funds");
+  assert.match(agenda, /total estimated project cost of \$25 million/);
+  assert.ok(overrunAt > 0 && fundsAt > overrunAt);
+  assert.match(agenda, /Texas Department of Transportation/);
+  assert.match(agenda, /no city match required/);
+  assert.doesNotMatch(agenda, /boardwalk, plus any cost overruns/);
   assert.match(stories[0].summary, /\$22,420,200/);
   assert.match(stories[0].summary, /\$32,906,529/);
   assert.match(stories[1].summary, /KUT reports/);
   assert.match(stories[5].summary, /90% chance of rain/);
-  assert.match(stories[5].summary, /Showers are likely tonight, with a low around 56/);
+  assert.match(stories[5].summary, /Rain showers are likely tonight, with a low around 56/);
   assert.equal(stories[5].summary.includes("mainly before midnight"), false);
-  assert.match(stories[0].summary, /Friday afternoon/);
-  assert.match(stories[0].summary, /boardwalk, plus any cost overruns/);
+  assert.match(bulletin, /unchanged since Friday afternoon/);
   assert.equal(stories[0].summary.includes("3:12"), false);
   assert.equal(stories[0].sourcesHtml.includes(" · "), false);
   assert.equal(stories[0].sourcesHtml.split('class="source-group"').length - 1, 2);
@@ -261,7 +267,7 @@ test("November 8 lists the runoff lead, then news, then the forecast", () => {
     "https://www.austintexas.gov/police/news/apd-arrests-suspect-copper-cable-theft-series-seeks-public-assistance-locating-second",
     "https://www.kut.org/politics/2026-11-06/texas-house-speaker-senfronia-thompson-democrats",
     "https://www.austintexas.gov/housing/news/new-affordable-menchaca-townhomes-bring-ten-homeownership-opportunities-south-austin",
-    "https://forecast.weather.gov/MapClick.php?lat=30.2672&lon=-97.7431"
+    "https://api.weather.gov/gridpoints/EWX/156,91/forecast"
   ]) {
     assert.equal(bulletin.includes(url), true, url);
   }

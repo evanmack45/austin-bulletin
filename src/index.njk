@@ -18,7 +18,7 @@ hasInlineSignup: true
         {% if desk.figure or desk.deck %}
         <div class="lead-stat">
           {% if desk.figure %}<p class="num">{{ desk.figure | escape }}</p>{% endif %}
-          {% if desk.deck %}<p class="front-deck">{{ desk.deck | escape }}</p>{% endif %}
+          {% if desk.deck %}<p class="front-deck"><a href="{{ latest.url }}#{{ desk.leadAnchor | escape }}">{{ desk.deck | escape }}</a></p>{% endif %}
         </div>
         {% endif %}
         {% if desk.action %}

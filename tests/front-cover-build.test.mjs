@@ -70,6 +70,8 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.doesNotMatch(html, /election-results\.webp/);
   assert.doesNotMatch(html, /lead-photo/);
   assert.match(html, /Thursday, Nov\. 12, is the last day to register/);
+  assert.match(html, /class="front-deck"/);
+  assert.match(html, /href="\/2026\/11\/08\/#last-day-to-register-for-a-possible-dec-12-runoff"/);
   assertOneLeadSource(html);
   const imageUrl = "https://theaustinbulletin.com/icon-512.png";
   assert.ok(html.includes(`property="og:image" content="${imageUrl}"`));
@@ -143,13 +145,16 @@ test("the sunday edition stacks each source and names the headline actions", () 
   assert.equal(line.split('class="source-group"').length - 1, 7);
   assert.equal(line.includes("·"), false);
   assert.match(line, /source-label">Sources:<\/span>/);
-  assert.match(page, /source-label">Source:<\/span> <a [^>]*forecast\.weather\.gov/);
+  assert.match(page, /source-label">Source:<\/span> <a [^>]*api\.weather\.gov/);
   assert.equal(page.includes("Sources: Source"), false);
   assert.equal(page.includes("mainly before midnight"), false);
   assert.equal(page.includes("3:12 p.m."), false);
   assert.match(page, /Friday afternoon/);
-  assert.match(page, /boardwalk, plus any cost overruns/);
-  assert.doesNotMatch(page, /Trail, plus any cost overruns/);
+  assert.match(page, /total estimated project cost of \$25 million, plus any cost overruns/);
+  assert.match(page, /\$25 million in state funds/);
+  assert.doesNotMatch(page, /boardwalk, plus any cost overruns/);
+  assert.match(page, /api\.weather\.gov\/gridpoints\/EWX\/156,91\/forecast/);
+  assert.doesNotMatch(page, /forecast\.weather\.gov\/MapClick/);
   assert.match(page, />Copy story link</);
   assert.match(page, />Share story</);
   assert.doesNotMatch(page, />Link</);
