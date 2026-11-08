@@ -134,6 +134,14 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("storyThumb", (images, url) => storyThumb(images, url, editionImageExists));
   eleventyConfig.addFilter("withStoryPhotos", (content, images, leadKey) =>
     withStoryPhotos(content, images, editionImageExists, leadKey));
+  eleventyConfig.addShortcode("leadfigure", function () {
+    const data = this.ctx || {};
+    const images = data.images;
+    const key = images && images.lead ? images.lead.key || "" : "";
+    return leadForStory(images, key, editionImageExists, {
+      sizes: "(max-width: 760px) calc(100vw - 32px), 560px"
+    });
+  });
   eleventyConfig.addFilter("withStoryAnchors", withStoryAnchors);
   eleventyConfig.addFilter("skimList", skimList);
   eleventyConfig.addFilter("collapseSourceLists", collapseSourceLists);

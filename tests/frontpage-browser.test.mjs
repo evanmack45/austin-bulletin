@@ -199,15 +199,23 @@ function assertFirstFold(result, width, height) {
  assert.equal(result.leadFontSize, width <= 760 ? "34px" : "48px", `lead size at ${width}`);
  if (result.leadFigure) {
   assert.equal(result.leadFigure.position, "static", JSON.stringify(result.leadFigure));
-  assert.ok(
-   Math.abs(result.leadFigure.width - result.leadFigure.mainWidth) < 2,
-   JSON.stringify(result.leadFigure),
-  );
-  assert.ok(
-   Math.abs(result.leadFigure.left - result.leadFigure.mainLeft) < 2,
-   JSON.stringify(result.leadFigure),
-  );
   assert.notEqual(result.leadFigure.imageHeight, "200px");
+  if (width <= 760) {
+   assert.ok(
+    Math.abs(result.leadFigure.width - result.leadFigure.mainWidth) < 2,
+    JSON.stringify(result.leadFigure),
+   );
+  } else {
+   assert.ok(result.leadFigure.width > 240, JSON.stringify(result.leadFigure));
+   assert.ok(
+    result.leadFigure.width < result.leadFigure.mainWidth - 160,
+    JSON.stringify(result.leadFigure),
+   );
+   assert.ok(
+    result.leadFigure.left > result.leadFigure.mainLeft,
+    JSON.stringify(result.leadFigure),
+   );
+  }
  }
  assert.ok(result.action.height >= 44);
  assert.ok(result.nav.every(link => link.height >= 44));

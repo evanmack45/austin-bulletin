@@ -26,6 +26,37 @@ const photo = {
   licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
 };
 
+test("an illustration with two crops uses picture, not a width srcset", () => {
+  const art = {
+    ...photo,
+    src: "/images/2026-11-08/runoff-lead-desktop-1600.webp",
+    smallSrc: "/images/2026-11-08/runoff-lead-phone-780.webp",
+    width: 1600,
+    height: 1000,
+    smallWidth: 780,
+    smallHeight: 560,
+    alt: "Illustration. A large red pencil rests diagonally across folded blank paper.",
+    caption: "Symbolic illustration, not an official form or photograph.",
+    credit: "Illustration: The Austin Bulletin.",
+    source: "https://theaustinbulletin.com/about/#trust",
+    license: "Original local illustration",
+    licenseUrl: "https://theaustinbulletin.com/about/#trust",
+    kind: "illustration",
+  };
+  const html = photoMarkup(art, {
+    className: "lead-photo", loading: "eager", sizes: "100vw", fetchPriority: "high",
+  });
+  assert.match(html, /<picture class="lead-picture">/);
+  assert.match(html, /media="\(max-width: 760px\)"/);
+  assert.match(html, /runoff-lead-phone-780\.webp/);
+  assert.match(html, /media="\(min-width: 761px\)"/);
+  assert.match(html, /runoff-lead-desktop-1600\.webp/);
+  assert.doesNotMatch(html, /srcset="[^"]*\d+w/);
+  assert.match(html, /Illustration: The Austin Bulletin\./);
+  assert.doesNotMatch(html, /href="https:\/\/theaustinbulletin\.com\/about\/#trust"/);
+  assert.match(html, /lead-photo--flat/);
+});
+
 test("photo markup shows alt text, credit, and license links", () => {
   const html = photoMarkup(photo, {
     className: "lead-photo", loading: "eager", sizes: "100vw", fetchPriority: "high",

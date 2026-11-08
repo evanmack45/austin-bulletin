@@ -1,0 +1,8 @@
+Original local illustration for the Sunday, November 8, 2026 runoff lead.
+Geometry is drawn by draw.py in this folder. The served files are
+runoff-lead-desktop-1600.webp (1600×1000) and runoff-lead-phone-780.webp
+(780×560). The phone file is a crop of the same composition, not a second
+drawing. It is a symbolic editorial illustration, not a photograph, an
+official form, or a City of Austin image.
+License: Original local illustration.
+License URL: https://theaustinbulletin.com/about/#trust

@@ -81,7 +81,8 @@ test("the built archive lists those titles and the homepage card stays the lead"
   const home = readFileSync(path.join(root, "_site/index.html"), "utf8");
   assert.match(home, /property="og:title" content="Last day to register for a possible Dec/);
   assert.match(home, /name="twitter:title" content="Last day to register for a possible Dec/);
-  const card = "https://theaustinbulletin.com/icon-512.png";
+  const card = "https://theaustinbulletin.com/images/2026-11-08/" +
+    "runoff-lead-desktop-1600.webp";
   assert.ok(home.includes(`property="og:image" content="${card}"`));
   assert.match(archive, /Austin Energy bonds, a \$5\.48 million trail purchase/);
 });

@@ -212,16 +212,23 @@ test("November 8 lists the runoff lead, then news, then the forecast", () => {
   const edition = homeEdition(bulletin);
   const stories = listed(edition);
   assert.deepEqual(stories.map((story) => story.title), [
-    "Council's Nov. 19 draft agenda includes a $25 million Lady Bird Lake boardwalk.",
-    "Austin will rewrite the Austin Police Department's (APD) rules on working with " +
-      "U.S. Immigration and Customs Enforcement (ICE) before Hinojosa takes office, KUT reports.",
-    "Police charge two in Northeast Austin copper-cable thefts and seek one of them.",
-    "Senfronia Thompson says she has the votes to be Texas House speaker.",
-    "Ten affordable townhomes for sale are under construction on Menchaca Road.",
-    "NWS: showers in Austin today, with more rain possible Monday."
+    "Nov. 19 draft separates a $25 million boardwalk estimate from state funds.",
+    "Two Hornsby Bend contracts on the draft have separate not-to-exceed caps.",
+    "Draft amendments would change the city's Muny agreement with UT.",
+    "Water, parks, and transportation briefings are on this week's committee agendas.",
+    "Watson asked Friday for new Austin Police Department rules on immigration " +
+      "cooperation, KUT reports.",
+    "Thompson said Friday she has the votes to be Texas House speaker.",
+    "A Nov. 6 police release seeks one suspect in copper-cable thefts.",
+    "Ten income-restricted townhomes were under construction on Menchaca Road as of Friday.",
+    "Tentative Nov. 5 notes list a transit-lane commitment and a housing-policy update.",
+    "Approved minutes for Council's Oct. 22 meeting are posted.",
+    "Past event — scheduled Nov. 7.",
+    "NWS: rain in Austin today, with more rain possible Monday."
   ]);
   assert.deepEqual(stories.map((story) => story.section), [
-    "News", "News", "News", "News", "News", "Notices"
+    "News", "News", "News", "News", "News", "News", "News", "News", "News", "News",
+    "Notices", "Notices"
   ]);
   assert.equal(stories[1].signupAfter, true);
   assert.equal(stories[0].signupAfter, false);
@@ -233,27 +240,34 @@ test("November 8 lists the runoff lead, then news, then the forecast", () => {
   assert.match(agenda, /total estimated project cost of \$25 million/);
   assert.ok(overrunAt > 0 && fundsAt > overrunAt);
   assert.match(agenda, /Texas Department of Transportation/);
-  assert.match(agenda, /no city match required/);
+  assert.match(agenda, /funding match is not required/);
   assert.doesNotMatch(agenda, /boardwalk, plus any cost overruns/);
-  assert.match(stories[0].summary, /\$22,420,200/);
-  assert.match(stories[0].summary, /\$32,906,529/);
-  assert.match(stories[1].summary, /KUT reports/);
-  assert.match(stories[5].summary, /90% chance of rain/);
-  assert.match(stories[5].summary, /Rain showers are likely tonight, with a low around 56/);
-  assert.equal(stories[5].summary.includes("mainly before midnight"), false);
+  assert.match(stories[1].summary, /\$22,420,200/);
+  assert.match(stories[1].summary, /\$32,906,529/);
+  assert.equal(stories[1].summary.includes("$55,326,729"), false);
+  assert.match(stories[4].summary, /KUT reports/);
+  assert.match(stories[4].summary, /Nov\. 6/);
+  const weather = stories.find((story) => story.title.startsWith("NWS:"));
+  assert.match(weather.summary, /100% chance of precipitation/);
+  assert.match(weather.summary, /tenth to a quarter inch/);
+  assert.match(weather.summary, /last updated at 11:16 a\.m\. CT/);
+  assert.equal(weather.summary.includes("mainly before midnight"), false);
+  assert.equal(weather.summary.includes("quarter to a half"), false);
   assert.match(bulletin, /unchanged since Friday afternoon/);
   assert.equal(stories[0].summary.includes("3:12"), false);
   assert.equal(stories[0].sourcesHtml.includes(" · "), false);
   assert.equal(stories[0].sourcesHtml.split('class="source-group"').length - 1, 2);
-  assert.match(stories[5].sourcesHtml, /source-label">Source:<\/span>/);
-  assert.equal(stories[5].sourcesHtml.includes("Sources:"), false);
+  assert.match(weather.sourcesHtml, /source-label">Source:<\/span>/);
+  assert.equal(weather.sourcesHtml.includes("Sources:"), false);
   assert.equal(bulletin.includes("$55,326,729"), false);
   assert.equal(bulletin.includes("four calendar days"), false);
   assert.equal(bulletin.includes("December 3, 2027"), false);
   assert.equal(bulletin.includes("flood watch"), false);
+  assert.equal(bulletin.includes("Omit"), false);
   assert.match(bulletin, /any necessary runoff/);
   assert.match(bulletin, /could come earlier/);
   assert.match(bulletin, /A charge is an accusation, not a finding of guilt/);
+  assert.match(bulletin, /Approved minutes for Council's Oct\. 22 meeting are posted/);
   for (const url of [
     "https://services.austintexas.gov/edims/document.cfm?id=472487",
     "https://services.austintexas.gov/edims/document.cfm?id=484616",
@@ -263,11 +277,16 @@ test("November 8 lists the runoff lead, then news, then the forecast", () => {
     "https://services.austintexas.gov/edims/document.cfm?id=462100",
     "https://www.austintexas.gov/council/2026/20261119-reg",
     "https://services.austintexas.gov/edims/document.cfm?id=484837",
+    "https://services.austintexas.gov/edims/document.cfm?id=484818",
+    "https://www.austintexas.gov/council/2026/20261022-reg",
+    "https://services.austintexas.gov/council_meetings/action_notes.cfm?mid=1520",
     "https://www.kut.org/crime-justice/2026-11-06/austin-tx-apd-police-department-ice-policies-hinojosa-abbott",
     "https://www.austintexas.gov/police/news/apd-arrests-suspect-copper-cable-theft-series-seeks-public-assistance-locating-second",
     "https://www.kut.org/politics/2026-11-06/texas-house-speaker-senfronia-thompson-democrats",
     "https://www.austintexas.gov/housing/news/new-affordable-menchaca-townhomes-bring-ten-homeownership-opportunities-south-austin",
-    "https://api.weather.gov/gridpoints/EWX/156,91/forecast"
+    "https://forecast.weather.gov/MapClick.php?lat=30.2672&lon=-97.7431",
+    "https://www.austintexas.gov/communications/news/celebrate-veterans-day-70th-annual-parade-nov-7",
+    "https://www.austintexas.gov/communications/news/ghisallo-cycling-initiatives-cyclovia-atx-happening-nov-7"
   ]) {
     assert.equal(bulletin.includes(url), true, url);
   }

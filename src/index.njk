@@ -27,8 +27,9 @@ hasInlineSignup: true
         {% if editionDate == election2026.date or editionDate == election2026.homepageThrough %}
         <p class="results-row"><a class="results-link" href="/election/{{ election2026.date }}/">Election results</a></p>
         {% endif %}
-        {% set homeLeadSizes = "(max-width: 760px) calc(100vw - 32px), 1280px" %}
-        {% set leadHtml = latest.data.images | leadForStory("", homeLeadSizes) %}
+        {% set homeLeadSizes = "(max-width: 760px) calc(100vw - 32px), 560px" %}
+        {% set homeLeadKey = latest.data.images.lead.key if latest.data.images and latest.data.images.lead and latest.data.images.lead.key else "" %}
+        {% set leadHtml = latest.data.images | leadForStory(homeLeadKey, homeLeadSizes) %}
         {% if leadHtml %}
         {{ leadHtml | safe }}
         {% elif photo %}

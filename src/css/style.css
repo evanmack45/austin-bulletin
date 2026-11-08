@@ -7,7 +7,7 @@
   --accent: #c8102e;
   --mark: #c8102e;
   --rule: #ccc;
-  --bg: #fbf8f2;
+  --bg: #FBFAF7;
   --tint: #f3efe6;
   --section-head-size: 1.875rem;
 }
@@ -133,10 +133,10 @@ img { width: 100%; height: auto; display: block; }
   flex-direction: column;
   min-width: 11rem;
   padding: 6px 0 4px;
-  background: #f6f1e7;
+  background: #FBFAF7;
   border: 2px solid var(--ink);
 }
-.topics-panel a { width: 100%; background: #f6f1e7; }
+.topics-panel a { width: 100%; background: #FBFAF7; }
 .topics-menu[open] + .topics-label + .topics-panel,
 .topics:focus-within .topics-panel,
 .topics:hover .topics-panel { display: flex; }
@@ -189,7 +189,7 @@ img { width: 100%; height: auto; display: block; }
     max-height: calc(100vh - 6rem);
     overflow: auto;
     padding: 4px 0;
-    background: #f6f1e7;
+    background: #FBFAF7;
     border: 2px solid var(--ink);
   }
   .front-masthead .site-nav .site-menu-panel a,
@@ -1083,7 +1083,17 @@ body:has(article.bulletin) main { max-width: 48rem; }
   object-fit: contain;
   height: auto;
 }
+.bulletin .lead-photo--flat picture {
+  display: block;
+  width: 100%;
+  aspect-ratio: 780 / 560;
+}
+@media (min-width: 761px) {
+  .bulletin .lead-photo--flat picture { aspect-ratio: 1600 / 1000; }
+  body:has(article.bulletin .lead-photo--flat) main { max-width: 68rem; }
+}
 .bulletin .lead-photo figcaption { margin-top: .35rem; font-size: .82rem; line-height: 1.4; }
+.bulletin .lead-photo--flat figcaption { font-size: 1rem; line-height: 1.45; }
 .bulletin .lead-photo--fallback img {
   object-fit: contain;
   aspect-ratio: 16 / 9;
@@ -1173,6 +1183,8 @@ body:has(article.bulletin) main { max-width: 48rem; }
 @media (max-width: 40rem) {
   .bulletin .lead-photo { width: calc(100% + 2.5rem); margin-left: -1.25rem; margin-right: -1.25rem; }
   .bulletin .lead-photo figcaption { padding: 0 1.25rem; }
+  .bulletin .lead-photo--flat { width: 100%; margin-left: 0; margin-right: 0; }
+  .bulletin .lead-photo--flat figcaption { padding: 0; }
 }
 
 /* Email signup. The form posts to Kit without JavaScript. The mobile bar

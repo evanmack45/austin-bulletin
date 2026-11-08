@@ -143,7 +143,9 @@ const MEASURE = `(() => {
 // section rule. The 1px rule is the border and is not part of the gap.
 export const SECTION_GAP_SCRIPT = `(() => {
   const bottomOf = (box) => {
-    const nodes = box.querySelectorAll(".source-line, .source-group, ol, ul, p, li");
+    const nodes = box.querySelectorAll(
+      ".source-line, .source-group, ol, ul, p, li, figcaption"
+    );
     let bottom = 0;
     for (const node of nodes) {
       const rect = node.getBoundingClientRect();

@@ -45,7 +45,7 @@ test("the homepage signup follows the third story, counting the lead", () => {
   const signupAt = heads.indexOf("signup");
   assert.equal(heads.filter((tag) => tag === "signup").length, 1);
   assert.equal(heads.slice(0, signupAt).filter((tag) => tag === "h1" || tag === "h3").length, 3);
-  const townhomes = main.indexOf("Ten affordable townhomes");
+  const townhomes = main.indexOf("Menchaca Road");
   const notices = main.indexOf(">Notices<");
   assert.ok(townhomes !== -1 && notices > townhomes);
   const signupHtml = main.indexOf('class="signup signup--lead"');

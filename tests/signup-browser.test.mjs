@@ -101,20 +101,26 @@ function assertSignupSlot(slot) {
   ));
   assert.deepEqual(stories, [
     "Last day to register for a possible Dec. 12 runoff.",
-    "Council's Nov. 19 draft agenda includes a $25 million Lady Bird Lake boardwalk.",
-    "Austin will rewrite the Austin Police Department's (APD) rules on working with " +
-      "U.S. Immigration and Customs Enforcement (ICE) before Hinojosa takes office, KUT reports.",
-    "Police charge two in Northeast Austin copper-cable thefts and seek one of them.",
-    "Senfronia Thompson says she has the votes to be Texas House speaker.",
-    "Ten affordable townhomes for sale are under construction on Menchaca Road.",
-    "NWS: showers in Austin today, with more rain possible Monday."
+    "Nov. 19 draft separates a $25 million boardwalk estimate from state funds.",
+    "Two Hornsby Bend contracts on the draft have separate not-to-exceed caps.",
+    "Draft amendments would change the city's Muny agreement with UT.",
+    "Water, parks, and transportation briefings are on this week's committee agendas.",
+    "Watson asked Friday for new Austin Police Department rules on immigration " +
+      "cooperation, KUT reports.",
+    "Thompson said Friday she has the votes to be Texas House speaker.",
+    "A Nov. 6 police release seeks one suspect in copper-cable thefts.",
+    "Ten income-restricted townhomes were under construction on Menchaca Road as of Friday.",
+    "Tentative Nov. 5 notes list a transit-lane commitment and a housing-policy update.",
+    "Approved minutes for Council's Oct. 22 meeting are posted.",
+    "Past event — scheduled Nov. 7.",
+    "NWS: rain in Austin today, with more rain possible Monday."
   ]);
   const signupAt = slot.sequence.indexOf("signup");
   const before = slot.sequence.filter((item, index) => index < signupAt && item !== "News");
   assert.equal(before.length, 3);
-  assert.equal(slot.sequence[signupAt + 1].startsWith("Police charge two"), true);
-  const townhomes = slot.sequence.findIndex((item) => item.startsWith("Ten affordable townhomes"));
-  assert.equal(slot.sequence[townhomes + 1], "Notices");
+  assert.equal(slot.sequence[signupAt + 1].startsWith("Draft amendments"), true);
+  const notices = slot.sequence.indexOf("Notices");
+  assert.equal(slot.sequence[notices - 1].startsWith("Approved minutes"), true);
   assert.equal(slot.forms, 1);
   assert.equal(slot.blocks, 1);
   assert.ok(slot.overflow <= 1, `horizontal overflow ${slot.overflow}`);
