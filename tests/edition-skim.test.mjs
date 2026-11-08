@@ -1,6 +1,8 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { editionStories, skimList, withStoryAnchors } from "../scripts/edition-skim.mjs";
+import {
+  editionStories, skimList, sundaySectionHeadings, withStoryAnchors
+} from "../scripts/edition-skim.mjs";
 
 function edition(stories) {
   const river = stories.river || "";
@@ -79,4 +81,12 @@ test("brief anchors are added from the sentence and left in the page", () => {
   assert.equal(stories[1].anchor, "capmetros-red-line-is-closed-for-track-work");
   assert.match(stamped, new RegExp(`<p id="${stories[1].anchor}">`));
   assert.equal(withStoryAnchors(stamped), stamped);
+});
+
+test("only Sunday promotes news and notice titles from h5 to h3", () => {
+  const html = "<h5 id=\"boardwalk\" tabindex=\"-1\">Council draft.</h5>";
+  const sunday = sundaySectionHeadings(html, "/_site/2026/11/08/index.html");
+  assert.equal(sunday, "<h3 id=\"boardwalk\" tabindex=\"-1\">Council draft.</h3>");
+  assert.equal(sundaySectionHeadings(html, "/_site/2026/11/06/index.html"), html);
+  assert.equal(sundaySectionHeadings(html, "/_site/index.html"), html);
 });

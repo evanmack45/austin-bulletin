@@ -254,3 +254,10 @@ export function skimList(html) {
   if (stories.length < 2) return [];
   return stories.slice(0, SKIM_LIMIT);
 }
+
+// Sunday's news and notice titles are direct subsections of those h2s.
+// Other editions keep the h5 lead markup already published.
+export function sundaySectionHeadings(html, outputPath) {
+  if (!String(outputPath || "").endsWith("/2026/11/08/index.html")) return html;
+  return String(html).replace(/<(\/?)h5\b/gi, "<$1h3");
+}

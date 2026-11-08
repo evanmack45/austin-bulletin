@@ -20,7 +20,7 @@ import { SITE_URL, articleJsonLd, briefingHeadline, canonicalUrl, editionGap, pa
   from "./scripts/metadata.mjs";
 import { archiveTitle } from "./scripts/archive-titles.mjs";
 import { editionRoute, shouldAddStoryShare, withStoryShare } from "./scripts/story-share.mjs";
-import { skimList, withStoryAnchors } from "./scripts/edition-skim.mjs";
+import { skimList, sundaySectionHeadings, withStoryAnchors } from "./scripts/edition-skim.mjs";
 import { tidyEditionChrome } from "./scripts/edition-chrome.mjs";
 import { collapseSourceLists } from "./scripts/source-lists.mjs";
 import { consolidateStorySources } from "./scripts/story-sources.mjs";
@@ -327,6 +327,10 @@ export default function (eleventyConfig) {
     if (!shouldAddStoryShare(this.baseHref, outputPath)) return content;
     return withStoryShare(content, editionRoute(outputPath));
   });
+
+  // Runs after story anchors and share links, so those ids stay on the heading.
+  eleventyConfig.addTransform("sundaySectionHeadings", (content, outputPath) =>
+    sundaySectionHeadings(content, outputPath));
 
   // One label above the skim list. The trust link stays on that label.
   // Page HTML keeps a root-relative href. The feed re-runs transforms with

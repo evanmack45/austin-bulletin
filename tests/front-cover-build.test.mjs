@@ -191,3 +191,36 @@ test("the sunday edition stacks each source and names the headline actions", () 
   assert.match(css, /\.edition-page \.skim li \{[^}]*align-items:\s*flex-start/);
   assert.match(css, /\.edition-page \.skim li::before \{[^}]*counter\(skim\)/);
 });
+
+function sectionHeads(html, fromId, toId) {
+  const from = html.indexOf(`id="${fromId}"`);
+  const to = html.indexOf(`id="${toId}"`);
+  const slice = html.slice(from, to);
+  return [...slice.matchAll(/<h([1-6])\b([^>]*)>([\s\S]*?)<\/h\1>/g)].map((match) => ({
+    level: match[1],
+    id: match[2].match(/id="([^"]+)"/)?.[1] ?? "",
+    text: match[3].replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim()
+  }));
+}
+
+test("Sunday news and notice titles are h3 and Friday keeps h5", () => {
+  const page = readFileSync("_site/2026/11/08/index.html", "utf8");
+  const friday = readFileSync("_site/2026/11/06/index.html", "utf8");
+  const news = sectionHeads(page, "news", "notices");
+  const notices = sectionHeads(page, "notices", "the-back-page");
+  assert.equal(news.length, 10);
+  assert.ok(news.every((head) => head.level === "3" && head.id));
+  assert.equal(news[0].id, "council-draft-proposes-a-boardwalk-beside-the-hyatt");
+  assert.equal(news[0].text, "Council draft proposes a boardwalk beside the Hyatt.");
+  assert.equal(news[1].id, "draft-contracts-would-rebuild-hornsby-bend-treatment-facilities");
+  assert.equal(notices.length, 2);
+  assert.ok(notices.every((head) => head.level === "3" && head.id));
+  assert.equal(notices[0].text, "Past event — scheduled Nov. 7.");
+  assert.match(notices[1].text, /^NWS: rain in Austin today/);
+  assert.equal(page.includes("<h5"), false);
+  assert.match(page, /<h3[^>]*>Thursday is the registration deadline for a possible runoff\./);
+  const fridayNews = sectionHeads(friday, "news", "notices");
+  assert.ok(fridayNews.length > 0);
+  assert.ok(fridayNews.every((head) => head.level === "5"));
+  assert.match(friday, /<h5\b/);
+});

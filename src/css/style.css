@@ -728,7 +728,8 @@ h2.glance-title::after { content: none; }
 
 /* A lead: the beat's headline item. Bold and dark against the briefs, at body
    size — the page has enough type sizes already; weight does the work. */
-.river h5 {
+.river h5,
+.river h3 {
   margin: 1.4rem 0 0.35rem;
   font-size: 1.35rem;
   font-weight: 800;
@@ -753,6 +754,7 @@ h2.glance-title::after { content: none; }
   text-transform: none;
 }
 .river h5 + p,
+.river h3 + p,
 .river .story-share + p,
 .river .story-share + figure + p { margin-bottom: 1.1rem; }
 
@@ -804,7 +806,7 @@ h2.glance-title::after { content: none; }
   color: var(--muted);
   margin: 1.15rem 0 0.55rem;
 }
-.river--tiered p:has(.src):not(h5 + p):not(.story-share + p):not(.story-share + figure + p),
+.river--tiered p:has(.src):not(h5 + p):not(h3 + p):not(.story-share + p):not(.story-share + figure + p),
 .river--tiered p.brief {
   font-size: 0.9rem;
   line-height: 1.42;
@@ -812,7 +814,7 @@ h2.glance-title::after { content: none; }
   position: relative;
   color: #2a241d; /* slightly lighter than --ink to keep leads primary */
 }
-.river--tiered p:has(.src):not(h5 + p):not(.story-share + p):not(.story-share + figure + p)::before,
+.river--tiered p:has(.src):not(h5 + p):not(h3 + p):not(.story-share + p):not(.story-share + figure + p)::before,
 .river--tiered p.brief::before {
   content: "\2014";
   color: var(--accent);
@@ -821,7 +823,7 @@ h2.glance-title::after { content: none; }
 }
 /* A chart attached to a brief tucks to the brief's own margin, tight
    under it, so it reads as that entry's exhibit — not a floating peer. */
-.river--tiered p:has(.src):not(h5 + p):not(.story-share + p):not(.story-share + figure + p) + figure.graphic,
+.river--tiered p:has(.src):not(h5 + p):not(h3 + p):not(.story-share + p):not(.story-share + figure + p) + figure.graphic,
 .river--tiered p.brief + figure.graphic {
   margin: 0.4rem 0 1.15rem 1.1rem;
 }
@@ -1111,7 +1113,16 @@ body:has(article.bulletin) main { max-width: 48rem; }
 .bulletin h3:first-of-type { font-size: clamp(2.15rem, 6vw, 2.85rem); text-wrap: pretty; }
 .bulletin .river h4 { border-top: 3px solid var(--accent); clear: both; }
 .bulletin .river h5,
+.bulletin .river h3,
 .bulletin .river .brief-slug { clear: both; }
+.bulletin .river h3 {
+  margin: 1.4rem 0 0.35rem;
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--ink);
+}
 .bulletin .story-thumb { margin: .35rem 0 .8rem; }
 .bulletin .story-thumb img {
   width: 100%;
@@ -1137,7 +1148,7 @@ body:has(article.bulletin) main { max-width: 48rem; }
 @media (max-width: 760px) {
   .bulletin p,
   .river p,
-  .river--tiered p:has(.src):not(h5 + p):not(.story-share + p):not(.story-share + figure + p),
+  .river--tiered p:has(.src):not(h5 + p):not(h3 + p):not(.story-share + p):not(.story-share + figure + p),
   .river--tiered p.brief,
   .whats-next,
   .voice-text,

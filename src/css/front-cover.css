@@ -560,6 +560,7 @@
   }
   .edition-page .big-story p:not(.source-line),
   .edition-page .river h5 + p,
+  .edition-page .river h3 + p,
   .edition-page .river .story-share + p,
   .edition-page .river .story-share + figure + p,
   .edition-page .if-you,
