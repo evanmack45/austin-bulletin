@@ -55,6 +55,18 @@ test("a homepage headline over 10 words fails", () => {
   assert.ok(problems.some((item) => /over 10 words/.test(item)));
 });
 
+test("the Nov. 8 publisher dek is the one allowed If you opener", () => {
+  const dek = "If you need to register to vote in a possible Dec. 12 city runoff, " +
+    "the deadline is Thursday, Nov. 12.";
+  const markdown = "{% bigstory %}\n### Thursday is the registration deadline.\n\n" +
+    `${dek}\n{% endbigstory %}`;
+  const problems = aliveProblems(markdown, catalog(), files);
+  assert.equal(problems.some((item) => /starts with "If you"/.test(item)), false);
+  const other = markdown.replace(dek, "If you want a ballot, register Thursday.");
+  const rejected = aliveProblems(other, catalog(), files);
+  assert.equal(rejected.some((item) => /starts with "If you"/.test(item)), true);
+});
+
 test("the Nov. 4 publisher headline is allowed past 10 words", () => {
   const headline = "Parks and library bonds lead; " +
     "three council races head to Dec. 12 runoffs.";

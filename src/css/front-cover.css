@@ -340,6 +340,13 @@
 .home-front .signup--lead .signup-note,
 .home-front .signup--lead .signup-label { color: #fff; }
 .home-front .signup--lead .signup-value { margin: 0 0 8px; }
+.home-front .signup--lead .signup-form input:focus-visible,
+.home-front .signup--lead .signup-form button:focus-visible,
+.home-front .signup--lead .signup-dismiss:focus-visible,
+.home-front .signup--lead .signup-note a:focus-visible {
+  outline: 3px solid #FBFAF7;
+  outline-offset: 2px;
+}
 .home-front .paper-main .signup--lead { margin-top: 12px; }
 .home-front .front-stories {
   max-width: 38rem;

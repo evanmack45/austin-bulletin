@@ -70,7 +70,7 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.doesNotMatch(html, /class="results-button"/);
   assert.equal((html.match(/<h1\b/g) || []).length, 1);
   assert.match(html, /Thursday is the registration deadline for a possible runoff\./);
-  assert.match(html, /Thursday, Nov\. 12, is the last day to register/);
+  assert.match(html, /deadline is Thursday, Nov\. 12/);
   assert.match(html, /Dec\. 12/);
   assert.match(html, /class="wordmark"/);
   assert.match(html, /class="masthead-dateline"/);
@@ -80,7 +80,7 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.doesNotMatch(html, /election-results\.webp/);
   assert.match(html, /runoff-lead-desktop-1600\.webp/);
   assert.match(html, /runoff-lead-phone-780\.webp/);
-  assert.match(html, /Thursday, Nov\. 12, is the last day to register/);
+  assert.match(html, /deadline is Thursday, Nov\. 12/);
   assert.match(html, /class="front-deck"/);
   assert.match(
     html,
@@ -94,10 +94,10 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.match(html, /property="og:title" content="Thursday is the registration deadline/);
   assert.match(
     html,
-    /property="og:description" content="Thursday, Nov\. 12, is the last day to register/
+    /property="og:description" content="If you need to register to vote in a possible Dec\. 12/
   );
   assert.match(html, /name="twitter:title" content="Thursday is the registration deadline/);
-  assert.match(html, /name="twitter:description" content="Thursday, Nov\. 12, is the last day/);
+  assert.match(html, /twitter:description" content="If you need to register/);
   assert.match(html, /Sunday, Nov\. 8/);
   assert.match(html, /href="\/2026\/11\/06\/"/);
   assert.doesNotMatch(html, /If you (haven't|want|live|are)\b/);
@@ -138,12 +138,12 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.doesNotMatch(page, /Editor notes/);
   assert.ok(page.includes(`property="og:image" content="${imageUrl}"`));
   assert.match(page, /property="og:title" content="Thursday is the registration deadline/);
-  assert.match(page, /property="og:description" content="Thursday, Nov\. 12, is the last day/);
+  assert.match(page, /og:description" content="If you need to register/);
   assert.match(page, /name="twitter:title" content="Thursday is the registration deadline/);
-  assert.match(page, /name="twitter:description" content="Thursday, Nov\. 12, is the last day/);
+  assert.match(page, /twitter:description" content="If you need to register/);
   assert.ok(page.includes(`name="twitter:image" content="${imageUrl}"`));
   assert.match(page, /any necessary runoff/);
-  assert.match(page, /could come earlier/);
+  assert.match(page, /could occur earlier/);
   assert.match(page, /not-to-exceed cap of \$22,420,200/);
   assert.match(page, /not-to-exceed cap of \$32,906,529/);
   assert.match(page, /A charge is an accusation, not a finding of guilt/);
@@ -213,10 +213,10 @@ test("Sunday news and notice titles are h3 and Friday keeps h5", () => {
   assert.equal(news[0].id, "council-draft-proposes-a-boardwalk-beside-the-hyatt");
   assert.equal(news[0].text, "Council draft proposes a boardwalk beside the Hyatt.");
   assert.equal(news[1].id, "draft-contracts-would-rebuild-hornsby-bend-treatment-facilities");
-  assert.equal(notices.length, 2);
-  assert.ok(notices.every((head) => head.level === "3" && head.id));
-  assert.equal(notices[0].text, "Past event — scheduled Nov. 7.");
-  assert.match(notices[1].text, /^NWS: rain in Austin today/);
+  assert.equal(notices.length, 1);
+  assert.equal(notices[0].level, "3");
+  assert.match(notices[0].text, /^NWS: rain in Austin today/);
+  assert.equal(page.includes("Past event"), false);
   assert.equal(page.includes("<h5"), false);
   assert.match(page, /<h3[^>]*>Thursday is the registration deadline for a possible runoff\./);
   const fridayNews = sectionHeads(friday, "news", "notices");

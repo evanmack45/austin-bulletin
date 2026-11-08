@@ -112,7 +112,6 @@ function assertSignupSlot(slot) {
     "Ten income-restricted townhomes were under construction on Menchaca Road as of Friday.",
     "Tentative Nov. 5 notes list a transit-lane commitment and a housing-policy update.",
     "Approved minutes for Council's Oct. 22 meeting are posted.",
-    "Past event — scheduled Nov. 7.",
     "NWS: rain in Austin today, with more rain possible Monday."
   ]);
   const signupAt = slot.sequence.indexOf("signup");

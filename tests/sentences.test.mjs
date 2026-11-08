@@ -9,6 +9,7 @@ import { fileURLToPath } from "node:url";
 import {
   duplicateSentenceProblems,
   duplicateSentences,
+  publishedRepeat,
   formatSentenceProblem,
   openingSentences
 } from "../scripts/sentences.mjs";
@@ -133,6 +134,14 @@ test("the same sentence in two paragraphs still fails when the title repeats it"
     `<p>${REPEATED}</p><p>${REPEATED}</p>`
   );
   assert.equal(duplicateSentences(html).length, 1);
+});
+
+test("only the published Nov. 8 Hornsby pair may repeat", () => {
+  const file = "2026/11/08/index.html";
+  const kept = "these are proposed contracts; council will act only on the final agenda.";
+  assert.equal(publishedRepeat(file, kept), true);
+  assert.equal(publishedRepeat(file, "a different sentence that is long enough."), false);
+  assert.equal(publishedRepeat("2026/11/06/index.html", kept), false);
 });
 
 test("the current build has no duplicate sentence on a page", async () => {

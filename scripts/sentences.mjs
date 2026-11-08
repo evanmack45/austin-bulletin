@@ -119,12 +119,29 @@ async function htmlFiles(dir) {
   return out;
 }
 
+// The Nov. 8 Hornsby story opens with the same two sentences the If you box
+// prints. Home reads the opening; the box is the required Sunday label.
+const PUBLISHED_REPEATS = new Map([
+  ["2026/11/08/index.html", new Set([
+    "the proposed construction would replace the plant's existing headworks " +
+      "and add a sludge receiving station, an ammonia removal facility and " +
+      "drainage improvements at austin water's hornsby bend biosolids plant.",
+    "these are proposed contracts; council will act only on the final agenda."
+  ])]
+]);
+
+export function publishedRepeat(file, sentence) {
+  const key = String(file).replaceAll("\\", "/");
+  return PUBLISHED_REPEATS.get(key)?.has(sentence) === true;
+}
+
 export async function duplicateSentenceProblems(dir) {
   const problems = [];
   for (const file of await htmlFiles(dir)) {
     const html = await readFile(file, "utf8");
     const rel = path.relative(dir, file);
     for (const sentence of duplicateSentences(html)) {
+      if (publishedRepeat(rel, sentence)) continue;
       problems.push({ file: rel, sentence });
     }
   }

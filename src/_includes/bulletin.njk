@@ -3,7 +3,7 @@ layout: layout.njk
 editionPage: true
 hasInlineSignup: true
 ---
-<article class="bulletin" data-pagefind-body>
+<article class="bulletin{% if (page.date | isoDate) == '2026-11-08' %} bulletin--2026-11-08{% endif %}" data-pagefind-body>
   {% set editionDate = page.date %}
   {% set editionUrl = page.url %}
   {% set editionIso = editionDate | isoDate %}

@@ -223,12 +223,11 @@ test("November 8 lists the runoff lead, then news, then the forecast", () => {
     "Ten income-restricted townhomes were under construction on Menchaca Road as of Friday.",
     "Tentative Nov. 5 notes list a transit-lane commitment and a housing-policy update.",
     "Approved minutes for Council's Oct. 22 meeting are posted.",
-    "Past event — scheduled Nov. 7.",
     "NWS: rain in Austin today, with more rain possible Monday."
   ]);
   assert.deepEqual(stories.map((story) => story.section), [
     "News", "News", "News", "News", "News", "News", "News", "News", "News", "News",
-    "Notices", "Notices"
+    "Notices"
   ]);
   assert.equal(stories[1].signupAfter, true);
   assert.equal(stories[0].signupAfter, false);
@@ -248,8 +247,6 @@ test("November 8 lists the runoff lead, then news, then the forecast", () => {
   assert.match(agenda, /proposal, not an approval/);
   assert.match(agenda, /Hyatt/);
   assert.doesNotMatch(agenda, /boardwalk, plus any cost overruns/);
-  assert.match(stories[1].summary, /\$22,420,200/);
-  assert.match(stories[1].summary, /\$32,906,529/);
   assert.equal(stories[1].summary.includes("$55,326,729"), false);
   assert.match(stories[4].summary, /KUT reports/);
   assert.match(stories[4].summary, /Nov\. 6/);
@@ -291,9 +288,7 @@ test("November 8 lists the runoff lead, then news, then the forecast", () => {
     "https://www.austintexas.gov/police/news/apd-arrests-suspect-copper-cable-theft-series-seeks-public-assistance-locating-second",
     "https://www.kut.org/politics/2026-11-06/texas-house-speaker-senfronia-thompson-democrats",
     "https://www.austintexas.gov/housing/news/new-affordable-menchaca-townhomes-bring-ten-homeownership-opportunities-south-austin",
-    "https://forecast.weather.gov/MapClick.php?lat=30.2672&lon=-97.7431",
-    "https://www.austintexas.gov/communications/news/celebrate-veterans-day-70th-annual-parade-nov-7",
-    "https://www.austintexas.gov/communications/news/ghisallo-cycling-initiatives-cyclovia-atx-happening-nov-7"
+    "https://forecast.weather.gov/MapClick.php?lat=30.2672&lon=-97.7431"
   ]) {
     assert.equal(bulletin.includes(url), true, url);
   }
@@ -304,4 +299,14 @@ test("November 8 lists the runoff lead, then news, then the forecast", () => {
     assert.equal(bulletin.includes(story.summary), true, story.summary);
     assert.equal(FIRST_PERSON.test(`${story.title} ${story.summary}`), false);
   }
+});
+
+test("November 8 home cards use the short Hornsby and Muny openings", () => {
+  const stories = listed(homeEdition(readFileSync("src/bulletins/2026-11-08.md", "utf8")));
+  assert.match(stories[1].summary, /replace the plant's existing headworks/);
+  assert.match(stories[1].summary, /proposed contracts/);
+  assert.equal(stories[1].summary.includes("$22,420,200"), false);
+  assert.match(stories[2].summary, /let staff negotiate changes/);
+  assert.match(stories[2].summary, /proposed, not approved/);
+  assert.equal(stories[2].summary.includes("tax increment"), false);
 });

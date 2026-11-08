@@ -1191,6 +1191,13 @@ body:has(article.bulletin) main { max-width: 48rem; }
   }
   .river p.to-top { margin-top: 12px; }
 }
+.bulletin--2026-11-08 .council-did a {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  min-width: 44px;
+  min-height: 44px;
+}
 @media (max-width: 40rem) {
   .bulletin .lead-photo { width: calc(100% + 2.5rem); margin-left: -1.25rem; margin-right: -1.25rem; }
   .bulletin .lead-photo figcaption { padding: 0 1.25rem; }
