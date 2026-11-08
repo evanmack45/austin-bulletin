@@ -83,6 +83,15 @@ test("brief anchors are added from the sentence and left in the page", () => {
   assert.equal(withStoryAnchors(stamped), stamped);
 });
 
+test("a river h3 counts as a story heading", () => {
+  const html = edition({
+    river: "<h3 id=\"boardwalk\">Council draft.</h3><p>Text.</p>"
+  });
+  const stories = editionStories(html);
+  assert.equal(stories[1].anchor, "boardwalk");
+  assert.equal(stories[1].title, "Council draft.");
+});
+
 test("only Sunday promotes news and notice titles from h5 to h3", () => {
   const html = "<h5 id=\"boardwalk\" tabindex=\"-1\">Council draft.</h5>";
   const sunday = sundaySectionHeadings(html, "/_site/2026/11/08/index.html");
