@@ -100,7 +100,12 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.doesNotMatch(page, /In 60 seconds/);
   assert.doesNotMatch(page, /Good morning, Austin/);
   assert.doesNotMatch(page, /<h2[^>]*>\s*The Briefing/);
-  assert.match(page, /About our reporting/);
+  assert.match(page, /How this site is made/);
+  assert.equal(page.includes("About our reporting"), false);
+  const disclosure = '<p class="ai-disclosure">' +
+    '<a href="/about/#trust">An AI system produces this site.</a></p>';
+  assert.equal(html.includes(disclosure), true);
+  assert.equal(page.includes(disclosure), true);
   const lead = page.match(/<h3\b[^>]*\bid="([^"]+)"/);
   assert.ok(lead, "edition lead heading");
   assert.match(page, new RegExp(`<nav class="skim"[\\s\\S]*href="#${lead[1]}"`));
@@ -129,4 +134,26 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.doesNotMatch(page, /December 3, 2027/);
   assert.doesNotMatch(page, /flood watch/i);
   assert.doesNotMatch(page, /Unifraktur|class="folio-nav"|class="edition-head"|Vol\. I/);
+});
+
+test("the sunday edition stacks each source and names the headline actions", () => {
+  const page = readFileSync("_site/2026/11/08/index.html", "utf8");
+  const lead = page.match(/<section class="big-story"[\s\S]*?<\/section>/)?.[0] ?? "";
+  const line = lead.match(/<p class="source-line">[\s\S]*?<\/p>/)?.[0] ?? "";
+  assert.equal(line.split('class="source-group"').length - 1, 7);
+  assert.equal(line.includes("·"), false);
+  assert.match(line, /source-label">Sources:<\/span>/);
+  assert.match(page, /source-label">Source:<\/span> <a [^>]*forecast\.weather\.gov/);
+  assert.equal(page.includes("Sources: Source"), false);
+  assert.equal(page.includes("mainly before midnight"), false);
+  assert.equal(page.includes("3:12 p.m."), false);
+  assert.match(page, /Friday afternoon/);
+  assert.match(page, /boardwalk, plus any cost overruns/);
+  assert.doesNotMatch(page, /Trail, plus any cost overruns/);
+  assert.match(page, />Copy story link</);
+  assert.match(page, />Share story</);
+  assert.doesNotMatch(page, />Link</);
+  const css = readFileSync("src/css/front-cover.css", "utf8");
+  assert.match(css, /\.edition-page \.skim li \{[^}]*align-items:\s*flex-start/);
+  assert.match(css, /\.edition-page \.skim li::before \{[^}]*counter\(skim\)/);
 });

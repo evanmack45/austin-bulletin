@@ -232,6 +232,15 @@ test("November 8 lists the runoff lead, then news, then the forecast", () => {
   assert.match(stories[0].summary, /\$32,906,529/);
   assert.match(stories[1].summary, /KUT reports/);
   assert.match(stories[5].summary, /90% chance of rain/);
+  assert.match(stories[5].summary, /Showers are likely tonight, with a low around 56/);
+  assert.equal(stories[5].summary.includes("mainly before midnight"), false);
+  assert.match(stories[0].summary, /Friday afternoon/);
+  assert.match(stories[0].summary, /boardwalk, plus any cost overruns/);
+  assert.equal(stories[0].summary.includes("3:12"), false);
+  assert.equal(stories[0].sourcesHtml.includes(" · "), false);
+  assert.equal(stories[0].sourcesHtml.split('class="source-group"').length - 1, 2);
+  assert.match(stories[5].sourcesHtml, /source-label">Source:<\/span>/);
+  assert.equal(stories[5].sourcesHtml.includes("Sources:"), false);
   assert.equal(bulletin.includes("$55,326,729"), false);
   assert.equal(bulletin.includes("four calendar days"), false);
   assert.equal(bulletin.includes("December 3, 2027"), false);

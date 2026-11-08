@@ -40,12 +40,12 @@ function headingTag(level, attrs, id, inner) {
 function shareBlock(title, url) {
   const safeTitle = escapeAttr(title);
   const safeUrl = escapeAttr(url);
-  const label = escapeAttr(`Share ${title}`);
+  const label = escapeAttr(`Share story: ${title}`);
   return `<div class="story-share">` +
-    `<a class="story-share-link" href="${safeUrl}">Link</a>` +
+    `<a class="story-share-link" href="${safeUrl}">Copy story link</a>` +
     `<button type="button" class="story-share-button" hidden ` +
     `data-share-title="${safeTitle}" data-share-url="${safeUrl}" ` +
-    `aria-label="${label}">Share</button>` +
+    `aria-label="${label}">Share story</button>` +
     `<span class="story-share-status" aria-live="polite"></span></div>`;
 }
 

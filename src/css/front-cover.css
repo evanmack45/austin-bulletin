@@ -435,6 +435,33 @@
 .edition-page :is(h1, h2, h3, h4, h5, .edition-lead-title) {
   font-family: Bricolage, "Times New Roman", Times, serif;
 }
+.edition-page .skim ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: skim;
+}
+.edition-page .skim li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+  counter-increment: skim;
+}
+.edition-page .skim li::before {
+  content: counter(skim) ".";
+  flex: 0 0 1.4rem;
+  padding-top: 4px;
+  line-height: 1.3;
+  text-align: right;
+}
+.edition-page .skim ol a {
+  display: block;
+  flex: 1 1 auto;
+  box-sizing: border-box;
+  max-width: 100%;
+  min-height: 44px;
+  padding-block: 4px;
+}
 .edition-page .morning-note::before,
 .edition-page .the-number::before,
 .edition-page .countdown::before,
@@ -484,11 +511,8 @@
     padding: 13px 2px;
   }
   .edition-page .skim ol a {
-    display: inline-block;
-    box-sizing: border-box;
-    max-width: 100%;
-    min-height: 44px;
-    padding-block: 4px;
+    display: block;
+    flex: 1 1 auto;
   }
   .edition-page h2#notices { margin-top: 3rem; }
 }

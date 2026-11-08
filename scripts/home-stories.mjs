@@ -6,6 +6,7 @@
 
 import { openingSentences } from "./sentences.mjs";
 import { slug } from "./river.mjs";
+import { presentSourceHtml } from "./story-sources.mjs";
 
 const BIG_OPEN = /\{%\s*bigstory\s*%\}/;
 const BIG_CLOSE = /\{%\s*endbigstory\s*%\}/;
@@ -61,9 +62,9 @@ function plainBody(lines) {
 function sourcesHtml(lines) {
   const chunk = lines.join("\n");
   const line = chunk.match(/<p class="source-line">[\s\S]*?<\/p>/i);
-  if (line) return line[0];
+  if (line) return presentSourceHtml(line[0]);
   const span = chunk.match(/<span class="src">[\s\S]*?<\/span>/i);
-  return span ? span[0] : "";
+  return span ? presentSourceHtml(span[0]) : "";
 }
 
 function pushStory(stories, current, used) {

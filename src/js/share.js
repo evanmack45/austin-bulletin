@@ -8,14 +8,14 @@ export async function shareOrCopy({ title, url, canShare, share, writeText }) {
     }
   }
   await writeText(url);
-  return "Link copied";
+  return "Story link copied";
 }
 
 function showCopied(status) {
   if (!status) return;
-  status.textContent = "Link copied";
+  status.textContent = "Story link copied";
   window.setTimeout(() => {
-    if (status.textContent === "Link copied") status.textContent = "";
+    if (status.textContent === "Story link copied") status.textContent = "";
   }, 4000);
 }
 
