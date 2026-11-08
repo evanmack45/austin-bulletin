@@ -655,3 +655,57 @@
   line-height: 1.45;
   margin: 0.75rem 0 0;
 }
+.bulletin--2026-11-08 .big-story p,
+.bulletin--2026-11-08 .river > p,
+.bulletin--2026-11-08 .river li,
+.bulletin--2026-11-08 .runoff-calendar li,
+.bulletin--2026-11-08 .the-number,
+.bulletin--2026-11-08 .countdown,
+.bulletin--2026-11-08 .good-thing {
+  font-family: Georgia, "Times New Roman", serif;
+}
+.bulletin--2026-11-08 .the-number,
+.bulletin--2026-11-08 .countdown,
+.bulletin--2026-11-08 .good-thing {
+  position: static;
+  border: 0;
+  border-top: 1px solid var(--rule);
+  background: transparent;
+  text-align: left;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink);
+  margin: 1.5rem 0 0;
+  padding: 1rem 0 0;
+  max-width: 35.25rem;
+}
+.bulletin--2026-11-08 .the-number::before,
+.bulletin--2026-11-08 .countdown::before,
+.bulletin--2026-11-08 .good-thing::before { content: none; }
+.bulletin--2026-11-08 .the-number strong {
+  display: inline;
+  font-size: inherit;
+  font-weight: 700;
+  line-height: inherit;
+  color: var(--ink);
+}
+.bulletin--2026-11-08 .countdown strong,
+.bulletin--2026-11-08 .good-thing strong {
+  display: block;
+  font-family: Bricolage, "Times New Roman", Times, serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--ink);
+  margin: 0 0 0.35rem;
+}
+.bulletin--2026-11-08 .signup h2::before { content: none; }
+@media (min-width: 761px) {
+  .bulletin--2026-11-08 .the-number,
+  .bulletin--2026-11-08 .countdown,
+  .bulletin--2026-11-08 .good-thing { font-size: 1.125rem; }
+}

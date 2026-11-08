@@ -29,7 +29,7 @@ hasInlineSignup: true
   {% endif %}
   {% set glanceData = glance[editionDate | isoDate] %}
   {% include "glance.njk" %}
-  {{ skimBody | consolidateStorySources | withStoryPhotos(images, top.storyKey) | withCouncilMeetings(editionIso) | safe }}
+  {{ skimBody | consolidateStorySources | withStoryPhotos(images, top.storyKey) | withCouncilMeetings(editionIso) | sundayEditionSignup(editionIso) | safe }}
 </article>
-{% set signupId = "edition" %}
-{% include "signup.njk" %}
+{% if editionIso != "2026-11-08" %}{% set signupId = "edition" %}
+{% include "signup.njk" %}{% endif %}

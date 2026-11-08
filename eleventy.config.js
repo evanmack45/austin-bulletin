@@ -21,7 +21,7 @@ import { SITE_URL, articleJsonLd, briefingHeadline, canonicalUrl, editionGap, pa
 import { archiveTitle } from "./scripts/archive-titles.mjs";
 import { editionRoute, shouldAddStoryShare, withStoryShare } from "./scripts/story-share.mjs";
 import { skimList, sundaySectionHeadings, withStoryAnchors } from "./scripts/edition-skim.mjs";
-import { tidyEditionChrome } from "./scripts/edition-chrome.mjs";
+import { sundayEditionSignup, tidyEditionChrome } from "./scripts/edition-chrome.mjs";
 import { collapseSourceLists } from "./scripts/source-lists.mjs";
 import { consolidateStorySources } from "./scripts/story-sources.mjs";
 import { centralTime } from "./src/_includes/chicago-date.js";
@@ -149,6 +149,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("centralTime", centralTime);
   eleventyConfig.addAsyncFilter("withCouncilMeetings", async (html, editionDate) =>
     withCouncilMeetingLinks(html, editionDate, await cachedLiveMeetings()));
+  eleventyConfig.addFilter("sundayEditionSignup", sundayEditionSignup);
   eleventyConfig.addAsyncFilter("withPreviewMeeting", async (html, url, councilMeeting) =>
     withPreviewMeetingHtml(html, url, councilMeeting, await cachedLiveMeetings()));
   eleventyConfig.addFilter("forecastAlerts", forecastAlerts);

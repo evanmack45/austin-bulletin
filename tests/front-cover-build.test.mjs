@@ -206,7 +206,14 @@ function sectionHeads(html, fromId, toId) {
 test("Sunday news and notice titles are h3 and Friday keeps h5", () => {
   const page = readFileSync("_site/2026/11/08/index.html", "utf8");
   const friday = readFileSync("_site/2026/11/06/index.html", "utf8");
-  const news = sectionHeads(page, "news", "notices");
+  const heads = sectionHeads(page, "news", "notices");
+  const signupAt = heads.findIndex((head) => head.id === "signup-edition-title");
+  const hornsbyAt = heads.findIndex((head) =>
+    head.id === "draft-contracts-would-rebuild-hornsby-bend-treatment-facilities");
+  const munyAt = heads.findIndex((head) =>
+    head.id === "draft-amendments-would-change-the-citys-muny-agreement-with-ut");
+  assert.ok(hornsbyAt < signupAt && signupAt < munyAt);
+  const news = heads.filter((head) => head.id !== "signup-edition-title");
   const notices = sectionHeads(page, "notices", "the-back-page");
   assert.equal(news.length, 10);
   assert.ok(news.every((head) => head.level === "3" && head.id));
