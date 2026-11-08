@@ -23,3 +23,5 @@ The site says what matters in Austin today.
 ## Handoff
 
 Before handing off any new edition, verify its rendered shared footer disclosure, neutral disclosure label, first-line TOC markers and single-label source groups against the latest accepted repairs; do not assume fixes on another unmerged branch are present.
+
+Enforce 48px ruled section breaks (44–52px rendered tolerance) on both homepage and full-edition templates; test actual rendered section boundaries after source groups and lists, not just CSS margin declarations.

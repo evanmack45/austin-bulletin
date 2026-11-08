@@ -1,4 +1,5 @@
 // Author measurements for a built _site. These are not an independent review.
+import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { createServer } from "node:http";
 import { readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
@@ -137,18 +138,57 @@ const MEASURE = `(() => {
   };
 })()`;
 
+// Pixels from the bottom border edge of the preceding section's last content
+// box, including source groups and lists, to the top border edge of the next
+// section rule. The 1px rule is the border and is not part of the gap.
+export const SECTION_GAP_SCRIPT = `(() => {
+  const bottomOf = (box) => {
+    const nodes = box.querySelectorAll(".source-line, .source-group, ol, ul, p, li");
+    let bottom = 0;
+    for (const node of nodes) {
+      const rect = node.getBoundingClientRect();
+      if (rect.height > 0 && rect.bottom > bottom) bottom = rect.bottom;
+    }
+    return bottom || box.getBoundingClientRect().bottom;
+  };
+  const gapFor = (name, edge, previous) => {
+    const style = getComputedStyle(edge);
+    const start = previous ? bottomOf(previous) : edge.getBoundingClientRect().top;
+    const px = Math.round((edge.getBoundingClientRect().top - start) * 10) / 10;
+    return { name, px, rule: style.borderTopWidth, ruleColor: style.borderTopColor };
+  };
+  const home = [...document.querySelectorAll(".front-section")].slice(1);
+  const edition = [...document.querySelectorAll("h2#news, h2#notices")];
+  return {
+    home: home.map((section) => gapFor(
+      section.querySelector("h2")?.innerText.trim() || "section",
+      section,
+      section.previousElementSibling
+    )),
+    edition: edition.map((heading) => gapFor(
+      heading.id, heading, heading.previousElementSibling
+    ))
+  };
+})()`;
+
+export function gitHead() {
+  return execFileSync("git", ["rev-parse", "HEAD"], { encoding: "utf8" }).trim();
+}
+
 async function measure(browser, origin, route, width, height) {
   const page = await browser.newPage();
   await page.setViewport({ width, height, deviceScaleFactor: 1 });
   await page.goto(origin + route, { waitUntil: "networkidle0" });
   await page.evaluate(() => document.fonts.ready);
   const result = await page.evaluate(MEASURE);
+  const gaps = await page.evaluate(SECTION_GAP_SCRIPT);
+  result.sectionGaps = gaps.home.length ? gaps.home : gaps.edition;
   await page.close();
   return result;
 }
 
-async function main() {
-  if (!CHROME) throw new Error("Chromium is not installed");
+export async function collectProbes() {
+  if (!CHROME) return null;
   const server = await serve(ROOT);
   const origin = `http://127.0.0.1:${server.address().port}`;
   const browser = await puppeteer.launch({
@@ -166,6 +206,13 @@ async function main() {
   }
   await browser.close();
   server.close();
+  return report;
+}
+
+async function main() {
+  const report = await collectProbes();
+  if (!report) throw new Error("Chromium is not installed");
+  report.head = gitHead();
   const out = process.argv[2] || "author-edition-probes.json";
   writeFileSync(out, JSON.stringify(report, null, 2));
   process.stdout.write(`${out}\n`);
