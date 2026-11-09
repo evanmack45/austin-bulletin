@@ -26,8 +26,8 @@ test("the homepage lead is headline, dek, then source", () => {
   const source = lead.indexOf('class="src front-sources"');
   const figure = lead.indexOf("lead-photo");
   assert.ok(h1 !== -1 && dek > h1 && figure > dek && source > figure, lead.slice(0, 500));
-  assert.match(lead, /AI illustration\. A large red pencil/);
-  assert.match(lead, /AI-generated illustration: registration preparation\./);
+  assert.match(lead, /Illustration\. A cream calendar card/);
+  assert.match(lead, /Illustration: a deadline mark, not a ballot or a city form\./);
   const deck = lead.match(/<p class="front-deck">([\s\S]*?)<\/p>/);
   assert.equal(deck[1].includes("<a"), false);
   assert.ok(lead.indexOf("edition-jump--lead") > source);
@@ -69,37 +69,37 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.doesNotMatch(html, /5 minutes|One email each morning/);
   assert.doesNotMatch(html, /class="results-button"/);
   assert.equal((html.match(/<h1\b/g) || []).length, 1);
-  assert.match(html, /Thursday is the registration deadline for a possible runoff\./);
-  assert.match(html, /deadline is Thursday, Nov\. 12/);
-  assert.match(html, /Dec\. 12/);
+  assert.match(html, /Register by Thursday if a runoff is ordered\./);
+  assert.match(html, /has until Thursday, November 12/);
+  assert.match(html, /December 12/);
   assert.match(html, /class="wordmark"/);
   assert.match(html, /class="masthead-dateline"/);
   assert.doesNotMatch(html, /ill-masthead|masthead-sky|austin-skyline/);
   assert.doesNotMatch(html, /parking-311\.webp/);
   assert.doesNotMatch(html, /p-courthouse\.jpg/);
   assert.doesNotMatch(html, /election-results\.webp/);
-  assert.match(html, /runoff-lead-desktop-1600\.webp/);
-  assert.match(html, /runoff-lead-phone-780\.webp/);
-  assert.match(html, /deadline is Thursday, Nov\. 12/);
+  assert.match(html, /register-lead-desktop-1600\.webp/);
+  assert.match(html, /register-lead-phone-780\.webp/);
+  assert.match(html, /has until Thursday, November 12/);
   assert.match(html, /class="front-deck"/);
   assert.match(
     html,
-    /href="\/2026\/11\/08\/#thursday-is-the-registration-deadline-for-a-possible-runoff"/
+    /href="\/2026\/11\/09\/#register-by-thursday-if-a-runoff-is-ordered"/
   );
   assertOneLeadSource(html);
-  const imageUrl = "https://theaustinbulletin.com/images/2026-11-08/" +
-    "runoff-lead-desktop-1600.webp";
+  const imageUrl = "https://theaustinbulletin.com/images/2026-11-09/" +
+    "register-lead-desktop-1600.webp";
   assert.ok(html.includes(`property="og:image" content="${imageUrl}"`));
   assert.ok(html.includes(`name="twitter:image" content="${imageUrl}"`));
-  assert.match(html, /property="og:title" content="Thursday is the registration deadline/);
+  assert.match(html, /property="og:title" content="Register by Thursday/);
   assert.match(
     html,
-    /property="og:description" content="If you need to register to vote in a possible Dec\. 12/
+    /property="og:description" content="A resident who still needs to register,/
   );
-  assert.match(html, /name="twitter:title" content="Thursday is the registration deadline/);
-  assert.match(html, /twitter:description" content="If you need to register/);
-  assert.match(html, /Sunday, Nov\. 8/);
-  assert.match(html, /href="\/2026\/11\/06\/"/);
+  assert.match(html, /name="twitter:title" content="Register by Thursday/);
+  assert.match(html, /twitter:description" content="A resident who still needs to register/);
+  assert.match(html, /Monday, Nov\. 9/);
+  assert.match(html, /href="\/2026\/11\/08\/"/);
   assert.doesNotMatch(html, /If you (haven't|want|live|are)\b/);
   assert.ok(!html.includes("front-news-rail"), "the rail is gone");
   assert.ok(!html.includes("Austin, up close."));
@@ -130,26 +130,24 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.equal(h1.includes(lead[1]), false);
   assert.doesNotMatch(page, />Results page</);
   assert.doesNotMatch(page, /November 3 election results\./);
-  assert.match(page, /November 8, 2026/);
+  assert.match(page, /November 9, 2026/);
   assert.doesNotMatch(page, /p-courthouse/);
   assert.doesNotMatch(page, /parking-311\.webp/);
   assert.match(page, /class="story-share"/);
-  assert.match(page, /KUT reports/);
+  assert.match(page, /700 Lavaca Street/);
   assert.doesNotMatch(page, /Editor notes/);
   assert.ok(page.includes(`property="og:image" content="${imageUrl}"`));
-  assert.match(page, /property="og:title" content="Thursday is the registration deadline/);
-  assert.match(page, /og:description" content="If you need to register/);
-  assert.match(page, /name="twitter:title" content="Thursday is the registration deadline/);
-  assert.match(page, /twitter:description" content="If you need to register/);
+  assert.match(page, /property="og:title" content="Register by Thursday/);
+  assert.match(page, /og:description" content="A resident who still needs to register/);
+  assert.match(page, /name="twitter:title" content="Register by Thursday/);
+  assert.match(page, /twitter:description" content="A resident who still needs to register/);
   assert.ok(page.includes(`name="twitter:image" content="${imageUrl}"`));
-  assert.match(page, /any necessary runoff/);
-  assert.match(page, /could occur earlier/);
-  assert.match(page, /not-to-exceed cap of \$22,420,200/);
-  assert.match(page, /not-to-exceed cap of \$32,906,529/);
-  assert.match(page, /A charge is an accusation, not a finding of guilt/);
+  assert.match(page, /does not say a runoff has been ordered/);
+  assert.match(page, /could come earlier/);
+  assert.match(page, /9:00 a\.m\./);
+  assert.match(page, /federal, state, district, and county officeholders/);
   assert.doesNotMatch(page, /\$55,326,729/);
   assert.doesNotMatch(page, /four calendar days/);
-  assert.doesNotMatch(page, /December 3, 2027/);
   assert.doesNotMatch(page, /flood watch/i);
   assert.doesNotMatch(page, /Unifraktur|class="folio-nav"|class="edition-head"|Vol\. I/);
 });
@@ -182,6 +180,10 @@ test("the sunday edition stacks each source and names the headline actions", () 
   assert.match(page, /Nov\. 5 meeting on Y'all City Hall/);
   assert.match(page, /Chart · Not a photograph/);
   assert.match(page, /Runoff calendar/);
+  assert.match(page, /not-to-exceed cap of \$22,420,200/);
+  assert.match(page, /not-to-exceed cap of \$32,906,529/);
+  assert.match(page, /A charge is an accusation, not a finding of guilt/);
+  assert.match(page, /KUT reports/);
   assert.match(page, /runoff-lead-phone-780\.webp/);
   assert.doesNotMatch(page, /\$55,326,729/);
   assert.match(page, />Copy story link</);

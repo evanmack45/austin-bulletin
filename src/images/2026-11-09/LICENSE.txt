@@ -1,0 +1,8 @@
+Original local illustration for the Monday, November 9, 2026 registration lead.
+Geometry is the SVG in this folder. The served files are
+register-lead-desktop-1600.webp (1600×1000) and register-lead-phone-780.webp
+(780×560). The phone file is a center crop of the same composition, not a
+second drawing. It is a symbolic editorial illustration, not a photograph,
+an official form, or a City of Austin image.
+License: Original local illustration.
+License URL: https://theaustinbulletin.com/about/#trust
