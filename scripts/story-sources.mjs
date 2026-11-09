@@ -4,7 +4,7 @@
 
 import markdownIt from "markdown-it";
 import { plainText } from "./metadata.mjs";
-import { topLevelNodes } from "./edition-skim.mjs";
+import { expandRiverStories, topLevelNodes } from "./edition-skim.mjs";
 import { alsoSlugs } from "./river.mjs";
 
 const bulletinMarkdown = markdownIt({ html: true });
@@ -236,7 +236,7 @@ function riverRanges(nodes) {
 }
 
 function rewriteRiver(inner) {
-  const nodes = topLevelNodes(inner);
+  const nodes = expandRiverStories(topLevelNodes(inner));
   const ranges = riverRanges(nodes);
   let cursor = 0;
   let out = "";
@@ -265,7 +265,7 @@ function storyRegions(html) {
   for (const node of topLevelNodes(html)) {
     if (isRegion(node, "section", "big-story")) regions.push(innerOf(node));
     else if (isRegion(node, "div", "river")) {
-      const nodes = topLevelNodes(innerOf(node));
+      const nodes = expandRiverStories(topLevelNodes(innerOf(node)));
       for (const range of riverRanges(nodes)) {
         regions.push(nodes.slice(range.start, range.end).join(""));
       }

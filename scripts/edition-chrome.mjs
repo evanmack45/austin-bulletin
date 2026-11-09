@@ -59,6 +59,148 @@ const EDITION_SIGNUP = [
   "</section>\n"
 ].join("");
 
+const VOID = new Set(["area", "base", "br", "col", "embed", "hr", "img", "input",
+  "link", "meta", "source", "track", "wbr"]);
+
+function readComment(html, index) {
+  const end = html.indexOf("-->", index);
+  const next = end < 0 ? html.length : end + 3;
+  return { node: html.slice(index, next), next };
+}
+
+function readText(html, index) {
+  const end = html.indexOf("<", index);
+  const next = end < 0 ? html.length : end;
+  return { node: html.slice(index, next), next };
+}
+
+function balancedClose(html, from, tag) {
+  const re = new RegExp(`<(/?)${tag}\\b[^>]*>`, "gi");
+  re.lastIndex = from;
+  let depth = 1;
+  let match = re.exec(html);
+  while (match) {
+    depth += match[1] ? -1 : 1;
+    if (depth === 0) return { start: match.index, end: match.index + match[0].length };
+    match = re.exec(html);
+  }
+  return null;
+}
+
+function readTag(html, index) {
+  const open = html.slice(index).match(/^<([a-zA-Z0-9]+)(\s[^>]*)?>/);
+  if (!open) return { node: html[index], next: index + 1 };
+  const openTag = open[0];
+  const tag = open[1].toLowerCase();
+  if (VOID.has(tag) || /\/\s*>$/.test(openTag)) {
+    return { node: openTag, next: index + openTag.length };
+  }
+  const close = balancedClose(html, index + openTag.length, tag);
+  if (!close) return { node: html.slice(index), next: html.length };
+  return { node: html.slice(index, close.end), next: close.end };
+}
+
+function readNode(html, index) {
+  if (html.startsWith("<!--", index)) return readComment(html, index);
+  if (html[index] !== "<") return readText(html, index);
+  return readTag(html, index);
+}
+
+function topLevel(html) {
+  const nodes = [];
+  let index = 0;
+  while (index < html.length) {
+    const read = readNode(html, index);
+    nodes.push(read.node);
+    if (read.next <= index) break;
+    index = read.next;
+  }
+  return nodes;
+}
+
+function storyStart(node) {
+  return /^<h[35]\b/i.test(node.trim());
+}
+
+function columnBreak(node) {
+  const trimmed = node.trim();
+  return /^<h[1246]\b/i.test(trimmed)
+    || /^<nav\b/i.test(trimmed)
+    || /^<section\b/i.test(trimmed)
+    || /^<p\b[^>]*\bclass="[^"]*\bto-top\b/i.test(trimmed);
+}
+
+function wrapStories(inner) {
+  const out = [];
+  let story = null;
+  const close = () => {
+    if (!story) return;
+    out.push(`<div class="river-story">${story.join("")}</div>`);
+    story = null;
+  };
+  for (const node of topLevel(inner)) {
+    if (!node.trim()) {
+      if (story) story.push(node);
+      else out.push(node);
+      continue;
+    }
+    if (storyStart(node)) {
+      close();
+      story = [node];
+      continue;
+    }
+    if (story && columnBreak(node)) close();
+    if (story) story.push(node);
+    else out.push(node);
+  }
+  close();
+  return keepSourcesWithStory(out.join(""));
+}
+
+// The river appends Back to top, and source consolidation then places the
+// last story's source line after that link. Pull the line back into the story.
+function keepSourcesWithStory(html) {
+  const top = String.raw`\s*<p\b[^>]*\bto-top\b[^>]*>[\s\S]*?<\/p>\s*`;
+  const line = String.raw`<p\b[^>]*\bsource-line\b[^>]*>[\s\S]*?<\/p>`;
+  const pattern = new RegExp(`</div>(${top})(${line})`, "gi");
+  return html.replace(pattern, (match, back, source) => `${source}</div>${back}`);
+}
+
+function riverLayout(inner) {
+  const stories = inner.match(/<div class="river-story"/g)?.length ?? 0;
+  const split = /<section\b[^>]*\bsignup\b/.test(inner);
+  if (stories > 1 && !split) return "river--pair";
+  if (stories > 0) return "river--measure";
+  return "";
+}
+
+function withLayoutClass(open, layout) {
+  if (!layout || open.includes(layout)) return open;
+  return open.replace(/class="([^"]*)"/, `class="$1 ${layout}"`);
+}
+
+// Group each river headline with its own paragraphs so desktop can pair
+// stories without splitting a headline from its text. A div, not an article:
+// the edition page is already one article. Beat labels, the signup, and
+// Back to top stay outside the group.
+export function wrapRiverStories(html) {
+  const source = String(html ?? "");
+  const openRe = /<div\b[^>]*class="(?:[^"]*\s)?river(?:\s[^"]*)?"[^>]*>/gi;
+  let out = "";
+  let cursor = 0;
+  for (const match of source.matchAll(openRe)) {
+    const innerStart = match.index + match[0].length;
+    const close = balancedClose(source, innerStart, "div");
+    if (!close) return source;
+    const inner = wrapStories(source.slice(innerStart, close.start));
+    out += source.slice(cursor, match.index);
+    out += withLayoutClass(match[0], riverLayout(inner));
+    out += inner;
+    cursor = close.start;
+  }
+  return out + source.slice(cursor);
+}
+
 export function sundayEditionSignup(html, editionIso) {
   if (editionIso !== "2026-11-08") return html;
   const page = String(html);

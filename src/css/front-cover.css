@@ -672,6 +672,7 @@
 }
 .bulletin--2026-11-08 .big-story p,
 .bulletin--2026-11-08 .river > p,
+.bulletin--2026-11-08 .river-story > p,
 .bulletin--2026-11-08 .river li,
 .bulletin--2026-11-08 .runoff-calendar li,
 .bulletin--2026-11-08 .the-number,
@@ -723,4 +724,74 @@
   .bulletin--2026-11-08 .the-number,
   .bulletin--2026-11-08 .countdown,
   .bulletin--2026-11-08 .good-thing { font-size: 1.125rem; }
+}
+
+/* Story groups are layout only: no box, no card. */
+.river-story {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  min-width: 0;
+}
+
+@media (min-width: 1024px) {
+  /* A wide lead leaves the stories in a 68rem main. Pair a run of stories
+     across that width. A signup between stories, or a single story, stays
+     one centered column at the 44rem content measure. Prose keeps its cap. */
+  .edition-page:has(.lead-photo--flat) .river--pair {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 24px;
+    row-gap: 24px;
+    align-items: start;
+  }
+  .edition-page:has(.lead-photo--flat) .river--pair > :not(.river-story) {
+    grid-column: 1 / -1;
+  }
+  .edition-page:has(.lead-photo--flat) .river--pair > .river-story > :first-child {
+    margin-top: 0;
+  }
+  .edition-page:has(.lead-photo--flat) .river--pair > .river-story > :last-child {
+    margin-bottom: 0;
+  }
+  .edition-page:has(.lead-photo--flat) .river--measure,
+  .edition-page:has(.lead-photo--flat) .bulletin > h2:has(+ .river--measure) {
+    max-width: 44rem;
+    margin-inline: auto;
+  }
+  .edition-page:has(.lead-photo--flat) .bulletin--2026-11-08 > h2#the-back-page,
+  .edition-page:has(.lead-photo--flat) .bulletin--2026-11-08 > :is(.the-number, .countdown, .good-thing) {
+    max-width: 35.25rem;
+    margin-inline: auto;
+  }
+
+  .home-front .front-section:not(:has(#front-section-news)):has(> .front-story + .front-story) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 24px;
+    row-gap: 1.5rem;
+    align-items: start;
+  }
+  .home-front .front-section:not(:has(#front-section-news)):has(> .front-story + .front-story) > :not(.front-story) {
+    grid-column: 1 / -1;
+  }
+  .home-front .front-section:not(:has(#front-section-news)):has(> .front-story + .front-story) > .front-section-head {
+    margin-bottom: 0;
+  }
+  .home-front .paper-wrap:has(.lead-photo--flat) .front-section:not(:has(#front-section-news)):has(> .front-story + .front-story) > .front-story {
+    margin-top: 0;
+    max-width: none;
+    min-width: 0;
+  }
+  .home-front .front-section:not(:has(#front-section-news)):not(:has(> .front-story + .front-story)) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .home-front .front-section:not(:has(#front-section-news)):not(:has(> .front-story + .front-story)) > .front-section-head,
+  .home-front .front-section:not(:has(#front-section-news)):not(:has(> .front-story + .front-story)) > .front-story {
+    width: min(100%, 38rem);
+  }
 }
