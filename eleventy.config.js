@@ -21,7 +21,7 @@ import { SITE_URL, articleJsonLd, briefingHeadline, canonicalUrl, editionGap, pa
 import { archiveTitle } from "./scripts/archive-titles.mjs";
 import { editionRoute, shouldAddStoryShare, withStoryShare } from "./scripts/story-share.mjs";
 import { skimList, sundaySectionHeadings, withStoryAnchors } from "./scripts/edition-skim.mjs";
-import { sundayEditionSignup, tidyEditionChrome } from "./scripts/edition-chrome.mjs";
+import { sundayEditionSignup, tidyEditionChrome, wrapRiverStories } from "./scripts/edition-chrome.mjs";
 import { collapseSourceLists } from "./scripts/source-lists.mjs";
 import { consolidateStorySources } from "./scripts/story-sources.mjs";
 import { centralTime } from "./src/_includes/chicago-date.js";
@@ -332,6 +332,13 @@ export default function (eleventyConfig) {
   // Runs after story anchors and share links, so those ids stay on the heading.
   eleventyConfig.addTransform("sundaySectionHeadings", (content, outputPath) =>
     sundaySectionHeadings(content, outputPath));
+
+  // After Sunday's h3 titles, so each story is one article either way.
+  eleventyConfig.addTransform("riverStories", (content, outputPath) => {
+    const path = String(outputPath || "").replaceAll("\\", "/");
+    if (!/\/\d{4}\/\d{2}\/\d{2}\/index\.html$/.test(path)) return content;
+    return wrapRiverStories(content);
+  });
 
   // One label above the skim list. The trust link stays on that label.
   // Page HTML keeps a root-relative href. The feed re-runs transforms with

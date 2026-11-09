@@ -86,8 +86,9 @@ function divInnerEnd(html, openEnd) {
 }
 
 function mapDivClass(html, className, mapInner) {
+  // A class token, so river does not also match river-story.
   const openRe = new RegExp(
-    `<div\\b[^>]*class="[^"]*\\b${className}\\b[^"]*"[^>]*>`,
+    `<div\\b[^>]*class="(?:[^"]*\\s)?${className}(?:\\s[^"]*)?"[^>]*>`,
     "gi"
   );
   let out = "";

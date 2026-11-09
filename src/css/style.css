@@ -10,6 +10,12 @@
   --bg: #FBFAF7;
   --tint: #f3efe6;
   --section-head-size: 1.875rem;
+  /* The masthead scrolls with the page, so anchors only need breathing
+     room. A sticky masthead would add its height on top of this. */
+  --anchor-breathing-room: 16px;
+}
+:where(h1, h2, h3, h4, h5, h6, p, figure, li)[id] {
+  scroll-margin-top: var(--anchor-breathing-room);
 }
 @media (max-width: 760px) {
   :root { --section-head-size: 1.5rem; }
