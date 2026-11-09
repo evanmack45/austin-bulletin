@@ -150,7 +150,11 @@ function topLevel(html) {
 }
 
 function mapRegion(html, tag, className, render) {
-  const re = new RegExp(`<${tag}\\b[^>]*class="[^"]*\\b${className}\\b[^"]*"[^>]*>`, "gi");
+  // A class token, so river does not also match river-story.
+  const re = new RegExp(
+    `<${tag}\\b[^>]*class="(?:[^"]*\\s)?${className}(?:\\s[^"]*)?"[^>]*>`,
+    "gi"
+  );
   let out = "";
   let last = 0;
   for (const match of html.matchAll(re)) {
@@ -223,9 +227,25 @@ function visitElement(state, node) {
   return visitSourced(state, node, kind);
 }
 
+export function expandRiverStories(nodes) {
+  const out = [];
+  for (const node of nodes) {
+    const trimmed = String(node).trim();
+    const open = trimmed.match(/^<div\b([^>]*)>/i);
+    const cls = open?.[1].match(/\bclass="([^"]*)"/i)?.[1] ?? "";
+    if (!cls.split(/\s+/).includes("river-story")) {
+      out.push(node);
+      continue;
+    }
+    const inner = trimmed.slice(open[0].length, trimmed.length - "</div>".length);
+    out.push(...topLevel(inner));
+  }
+  return out;
+}
+
 function stampRiver(inner, used, stories) {
   const state = { leadOpen: false, used, stories };
-  return topLevel(inner).map((node) => (
+  return expandRiverStories(topLevel(inner)).map((node) => (
     node.startsWith("<") ? visitElement(state, node) : node
   )).join("");
 }
