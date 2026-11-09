@@ -183,10 +183,13 @@ test("the sunday edition stacks each source and names the headline actions", () 
   assert.equal(page.includes("3:12 p.m."), false);
   assert.match(page, /Friday afternoon/);
   assert.match(page, /total estimated project cost of \$25 million, plus any cost overruns/);
+  assert.match(page, /would accept \$25 million in state funds/);
   assert.match(page, /proposal, not an approval/);
   assert.match(page, /beside the Hyatt/);
   assert.match(page, /\$25 million in state funds/);
   assert.doesNotMatch(page, /boardwalk, plus any cost overruns/);
+  assert.doesNotMatch(page, /separate from \$25 million/);
+  assert.doesNotMatch(page, /separate estimated project cost/);
   assert.match(page, /forecast\.weather\.gov\/MapClick\.php\?lat=30\.2672/);
   assert.match(page, /12:24 p\.m\. CT on Nov\. 8/);
   assert.match(page, /high near 64/);

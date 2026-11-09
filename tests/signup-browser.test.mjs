@@ -106,7 +106,8 @@ function assertSignupSlot(slot) {
     "Water and parks briefings are on Tuesday's committee agenda.",
     "Mobility briefings are set for Thursday at City Hall.",
     "November 12 is off the regular session calendar.",
-    "Showers are likely in Austin this afternoon."
+    "The Texas Book Festival is November 14 and 15 at the Capitol.",
+    "A 20 percent chance of showers tonight, then mostly sunny Tuesday."
   ]);
   const signupAt = slot.sequence.indexOf("signup");
   const before = slot.sequence.filter((item, index) => index < signupAt && item !== "News");
