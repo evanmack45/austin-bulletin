@@ -76,14 +76,23 @@ test("the homepage signup follows the third story, counting the lead", () => {
   assert.match(home, /static\.cloudflareinsights\.com\/beacon\.min\.js/);
 });
 
-test("every edition ends with a compact signup and the mobile bar is dismissible", () => {
+function storiesBeforeSignup(html) {
+  const at = html.indexOf('class="signup signup--edition"');
+  assert.ok(at > 0);
+  const before = html.slice(0, at);
+  const lead = /<section\b[^>]*\bbig-story\b/.test(before) ? 1 : 0;
+  return lead + (before.split('<div class="river-story"').length - 1);
+}
+
+test("every edition has one signup after the third story and the mobile bar is dismissible", () => {
   assert.match(edition, /class="signup signup--edition"/);
   assert.match(edition, VALUE);
   assert.match(edition, NOTE);
   const signupAt = edition.indexOf('class="signup signup--edition"');
   const goodThing = edition.indexOf('class="good-thing"');
-  assert.ok(goodThing > 0 && signupAt > goodThing);
+  assert.ok(goodThing > 0 && signupAt < goodThing);
   assert.equal(count(edition, 'class="signup signup--edition"'), 1);
+  assert.equal(storiesBeforeSignup(edition), 3);
   const sunday = readFileSync("_site/2026/11/08/index.html", "utf8");
   const sundaySignup = sunday.indexOf('class="signup signup--edition"');
   const hornsby = sunday.indexOf(
@@ -93,9 +102,11 @@ test("every edition ends with a compact signup and the mobile bar is dismissible
     'id="draft-amendments-would-change-the-citys-muny-agreement-with-ut"'
   );
   assert.ok(sundaySignup > hornsby && muny > sundaySignup);
+  assert.equal(storiesBeforeSignup(sunday), 3);
   const friday = readFileSync("_site/2026/11/06/index.html", "utf8");
   const fridaySignup = friday.indexOf('class="signup signup--edition"');
-  assert.ok(fridaySignup > friday.indexOf("One Good Thing"));
+  assert.ok(fridaySignup < friday.indexOf("One Good Thing"));
+  assert.equal(storiesBeforeSignup(friday), 3);
   assert.equal(count(edition, `action="${ACTION}"`), 1);
   assert.match(edition, /name="email_address"/);
   assert.match(edition, /for="signup-email-edition"/);

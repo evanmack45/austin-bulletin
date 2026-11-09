@@ -36,8 +36,6 @@ export function tidyEditionChrome(html, href) {
   return dropBriefingHeading(stripMorningGreeting(html), href);
 }
 
-const SUNDAY_SIGNUP_BEFORE =
-  /<h[35]\b[^>]*\bid="draft-amendments-would-change-the-citys-muny-agreement-with-ut"/;
 const EDITION_SIGNUP = [
   '<section class="signup signup--edition" data-signup="edition" ',
   'data-signup-inline aria-labelledby="signup-edition-title">\n',
@@ -201,11 +199,59 @@ export function wrapRiverStories(html) {
   return out + source.slice(cursor);
 }
 
-export function sundayEditionSignup(html, editionIso) {
-  if (editionIso !== "2026-11-08") return html;
-  const page = String(html);
-  const at = page.search(SUNDAY_SIGNUP_BEFORE);
-  if (at < 0) throw new Error("Sunday signup has no third-story marker");
+function classTokens(openTag) {
+  return (openTag.match(/\bclass="([^"]*)"/i)?.[1] ?? "").split(/\s+/);
+}
+
+function regionKind(openTag) {
+  const tokens = classTokens(openTag);
+  if (tokens.includes("big-story")) return "big-story";
+  if (tokens.includes("river")) return "river";
+  return "";
+}
+
+function collectHeadings(html, from, to, pattern, offsets) {
+  const headingRe = new RegExp(pattern, "gi");
+  headingRe.lastIndex = from;
+  let heading = headingRe.exec(html);
+  while (heading && heading.index < to) {
+    offsets.push(heading.index);
+    heading = headingRe.exec(html);
+  }
+}
+
+function storyHeadingOffsets(html) {
+  const offsets = [];
+  const openRe = /<(section|div)\b[^>]*>/gi;
+  let match = openRe.exec(html);
+  while (match) {
+    const kind = regionKind(match[0]);
+    if (kind) {
+      const innerStart = match.index + match[0].length;
+      const close = balancedClose(html, innerStart, match[1].toLowerCase());
+      if (!close) break;
+      const pattern = kind === "big-story" ? "<h3\\b[^>]*>" : "<h[35]\\b[^>]*>";
+      collectHeadings(html, innerStart, close.start, pattern, offsets);
+      openRe.lastIndex = close.end;
+    }
+    match = openRe.exec(html);
+  }
+  return offsets;
+}
+
+// One edition form, after the third story counting the lead. The lead is the
+// big-story h3. Later stories are the h3 and h5 headlines in each river.
+// Fewer than three stories keep the form at the end of the edition.
+export function editionSignup(html) {
+  const page = String(html ?? "");
   if (page.includes('class="signup signup--edition"')) return page;
+  const heads = storyHeadingOffsets(page);
+  if (heads.length < 3) {
+    const gap = page.endsWith("\n") || page.length === 0 ? "" : "\n";
+    return `${page}${gap}${EDITION_SIGNUP}`;
+  }
+  const rest = page.slice(heads[2] + 1);
+  const next = rest.search(/<h[1-6]\b/i);
+  const at = next < 0 ? page.length : heads[2] + 1 + next;
   return `${page.slice(0, at)}${EDITION_SIGNUP}${page.slice(at)}`;
 }

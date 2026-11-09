@@ -670,19 +670,26 @@
   line-height: 1.45;
   margin: 0.75rem 0 0;
 }
-.bulletin--2026-11-08 .big-story p,
-.bulletin--2026-11-08 .river > p,
-.bulletin--2026-11-08 .river-story > p,
-.bulletin--2026-11-08 .river li,
-.bulletin--2026-11-08 .runoff-calendar li,
-.bulletin--2026-11-08 .the-number,
-.bulletin--2026-11-08 .countdown,
-.bulletin--2026-11-08 .good-thing {
+.edition-page .big-story p,
+.edition-page .river > p,
+.edition-page .river-story > p,
+.edition-page .river li,
+.edition-page .runoff-calendar li,
+.edition-page .the-number,
+.edition-page .countdown,
+.edition-page .good-thing {
   font-family: Georgia, "Times New Roman", serif;
 }
-.bulletin--2026-11-08 .the-number,
-.bulletin--2026-11-08 .countdown,
-.bulletin--2026-11-08 .good-thing {
+.edition-page .big-story p:not(.source-line),
+.edition-page .river > p:not(.source-line):not(.to-top),
+.edition-page .river-story > p:not(.source-line),
+.edition-page .river li,
+.edition-page .runoff-calendar li {
+  font-size: 1.125rem;
+}
+.edition-page .the-number,
+.edition-page .countdown,
+.edition-page .good-thing {
   position: static;
   border: 0;
   border-top: 1px solid var(--rule);
@@ -690,7 +697,7 @@
   text-align: left;
   font-style: normal;
   font-weight: 400;
-  font-size: 1rem;
+  font-size: 1.125rem;
   line-height: 1.5;
   letter-spacing: 0;
   text-transform: none;
@@ -699,18 +706,51 @@
   padding: 1rem 0 0;
   max-width: 35.25rem;
 }
-.bulletin--2026-11-08 .the-number::before,
-.bulletin--2026-11-08 .countdown::before,
-.bulletin--2026-11-08 .good-thing::before { content: none; }
-.bulletin--2026-11-08 .the-number strong {
+.edition-page .the-number p {
+  margin: 0.35rem 0 0;
+  max-width: none;
+  text-align: left;
+  font-size: 1.125rem;
+}
+/* A fixture that already names itself keeps that one label. A bare countdown
+   or good thing, and a number whose figure sits above its own paragraph,
+   still get a single heading from the tab. */
+.edition-page .the-number:not(:has(p))::before,
+.edition-page .countdown:has(strong)::before,
+.edition-page .good-thing:has(strong)::before { content: none; }
+.edition-page .countdown:not(:has(strong))::before,
+.edition-page .good-thing:not(:has(strong))::before,
+.edition-page .the-number:has(p)::before {
+  position: static;
+  display: block;
+  transform: none;
+  top: auto;
+  left: auto;
+  padding: 0;
+  margin: 0 0 0.35rem;
+  background: transparent;
+  font-family: Bricolage, "Times New Roman", Times, serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  font-style: normal;
+  line-height: 1.3;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink);
+  white-space: normal;
+}
+.edition-page .countdown:not(:has(strong))::before { content: "Countdown"; }
+.edition-page .good-thing:not(:has(strong))::before { content: "One good thing"; }
+.edition-page .the-number:has(p)::before { content: "The Number"; }
+.edition-page .the-number strong {
   display: inline;
   font-size: inherit;
   font-weight: 700;
   line-height: inherit;
   color: var(--ink);
 }
-.bulletin--2026-11-08 .countdown strong,
-.bulletin--2026-11-08 .good-thing strong {
+.edition-page .countdown strong,
+.edition-page .good-thing strong {
   display: block;
   font-family: Bricolage, "Times New Roman", Times, serif;
   font-size: 1.25rem;
@@ -719,12 +759,7 @@
   color: var(--ink);
   margin: 0 0 0.35rem;
 }
-.bulletin--2026-11-08 .signup h2::before { content: none; }
-@media (min-width: 761px) {
-  .bulletin--2026-11-08 .the-number,
-  .bulletin--2026-11-08 .countdown,
-  .bulletin--2026-11-08 .good-thing { font-size: 1.125rem; }
-}
+.edition-page .signup h2::before { content: none; }
 
 /* Story groups are layout only: no box, no card. */
 .river-story {
@@ -761,8 +796,9 @@
     max-width: 44rem;
     margin-inline: auto;
   }
-  .edition-page:has(.lead-photo--flat) .bulletin--2026-11-08 > h2#the-back-page,
-  .edition-page:has(.lead-photo--flat) .bulletin--2026-11-08 > :is(.the-number, .countdown, .good-thing) {
+  .edition-page:has(.lead-photo--flat) .bulletin > h2#the-back-page,
+  .edition-page:has(.lead-photo--flat) .bulletin > :is(.the-number, .countdown, .good-thing),
+  .edition-page:has(.lead-photo--flat) .bulletin > h2#the-back-page ~ .source-line {
     max-width: 35.25rem;
     margin-inline: auto;
   }
