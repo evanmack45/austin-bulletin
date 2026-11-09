@@ -101,7 +101,7 @@ function assertSignupSlot(slot) {
   ));
   assert.deepEqual(stories, [
     "Register by Thursday if a runoff is ordered.",
-    "County court meets Thursday on a November 3 canvass order.",
+    "County court meets Thursday to canvass the Nov. 3 election.",
     "Tuesday's court agenda includes a hearing on a Burleson Road event.",
     "Water and parks briefings are on Tuesday's committee agenda.",
     "Mobility briefings are set for Thursday at City Hall.",

@@ -26,8 +26,10 @@ test("the homepage lead is headline, dek, then source", () => {
   const source = lead.indexOf('class="src front-sources"');
   const figure = lead.indexOf("lead-photo");
   assert.ok(h1 !== -1 && dek > h1 && figure > dek && source > figure, lead.slice(0, 500));
-  assert.match(lead, /Illustration\. A cream calendar card/);
-  assert.match(lead, /Illustration: a deadline mark, not a ballot or a city form\./);
+  assert.match(lead, /AI illustration\. A cream calendar card/);
+  assert.match(lead, /AI-generated illustration: a deadline circled on a calendar\./);
+  assert.match(lead, /Illustration: The Austin Bulletin\./);
+  assert.equal(lead.includes("not a ballot or a city form"), false);
   const deck = lead.match(/<p class="front-deck">([\s\S]*?)<\/p>/);
   assert.equal(deck[1].includes("<a"), false);
   assert.ok(lead.indexOf("edition-jump--lead") > source);
@@ -150,6 +152,22 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.doesNotMatch(page, /four calendar days/);
   assert.doesNotMatch(page, /flood watch/i);
   assert.doesNotMatch(page, /Unifraktur|class="folio-nav"|class="edition-head"|Vol\. I/);
+});
+
+test("Monday labels the lead illustration and the county headline", () => {
+  const html = readFileSync("_site/index.html", "utf8");
+  const page = readFileSync("_site/2026/11/09/index.html", "utf8");
+  const feed = readFileSync("_site/feed.xml", "utf8");
+  const caption = "AI-generated illustration: a deadline circled on a calendar.";
+  const headline = "County court meets Thursday to canvass the Nov. 3 election.";
+  for (const built of [html, page]) {
+    assert.equal(built.includes(caption), true);
+    assert.equal(built.includes("Illustration: The Austin Bulletin."), true);
+    assert.equal(built.includes("not a ballot or a city form"), false);
+    assert.equal(built.includes(headline), true);
+  }
+  assert.equal(feed.includes(headline), true);
+  assert.equal(feed.includes("not a ballot or a city form"), false);
 });
 
 test("the sunday edition stacks each source and names the headline actions", () => {

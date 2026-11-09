@@ -306,7 +306,7 @@ test("November 9 lists the registration lead, then news, then the forecast", () 
   const edition = homeEdition(bulletin);
   const stories = listed(edition);
   assert.deepEqual(stories.map((story) => story.title), [
-    "County court meets Thursday on a November 3 canvass order.",
+    "County court meets Thursday to canvass the Nov. 3 election.",
     "Tuesday's court agenda includes a hearing on a Burleson Road event.",
     "Water and parks briefings are on Tuesday's committee agenda.",
     "Mobility briefings are set for Thursday at City Hall.",
