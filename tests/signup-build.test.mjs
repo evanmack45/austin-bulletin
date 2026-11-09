@@ -45,9 +45,9 @@ test("the homepage signup follows the third story, counting the lead", () => {
   const signupAt = heads.indexOf("signup");
   assert.equal(heads.filter((tag) => tag === "signup").length, 1);
   assert.equal(heads.slice(0, signupAt).filter((tag) => tag === "h1" || tag === "h3").length, 3);
-  const townhomes = main.indexOf("Menchaca Road");
+  const canvass = main.indexOf("700 Lavaca");
   const notices = main.indexOf(">Notices<");
-  assert.ok(townhomes !== -1 && notices > townhomes);
+  assert.ok(canvass !== -1 && notices > canvass);
   const signupHtml = main.indexOf('class="signup signup--lead"');
   const jumpAt = main.indexOf('class="edition-jump"');
   assert.ok(signupHtml !== -1 && jumpAt > signupHtml);
@@ -81,14 +81,18 @@ test("every edition ends with a compact signup and the mobile bar is dismissible
   assert.match(edition, VALUE);
   assert.match(edition, NOTE);
   const signupAt = edition.indexOf('class="signup signup--edition"');
-  const hornsby = edition.indexOf(
+  const goodThing = edition.indexOf('class="good-thing"');
+  assert.ok(goodThing > 0 && signupAt > goodThing);
+  assert.equal(count(edition, 'class="signup signup--edition"'), 1);
+  const sunday = readFileSync("_site/2026/11/08/index.html", "utf8");
+  const sundaySignup = sunday.indexOf('class="signup signup--edition"');
+  const hornsby = sunday.indexOf(
     'id="draft-contracts-would-rebuild-hornsby-bend-treatment-facilities"'
   );
-  const muny = edition.indexOf(
+  const muny = sunday.indexOf(
     'id="draft-amendments-would-change-the-citys-muny-agreement-with-ut"'
   );
-  assert.ok(signupAt > hornsby && muny > signupAt);
-  assert.equal(count(edition, 'class="signup signup--edition"'), 1);
+  assert.ok(sundaySignup > hornsby && muny > sundaySignup);
   const friday = readFileSync("_site/2026/11/06/index.html", "utf8");
   const fridaySignup = friday.indexOf('class="signup signup--edition"');
   assert.ok(fridaySignup > friday.indexOf("One Good Thing"));

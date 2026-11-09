@@ -301,6 +301,62 @@ test("November 8 lists the runoff lead, then news, then the forecast", () => {
   }
 });
 
+test("November 9 lists the registration lead, then news, then the forecast", () => {
+  const bulletin = readFileSync("src/bulletins/2026-11-09.md", "utf8");
+  const edition = homeEdition(bulletin);
+  const stories = listed(edition);
+  assert.deepEqual(stories.map((story) => story.title), [
+    "County court meets Thursday to canvass the Nov. 3 election.",
+    "Tuesday's court agenda includes a hearing on a Burleson Road event.",
+    "Water and parks briefings are on Tuesday's committee agenda.",
+    "Mobility briefings are set for Thursday at City Hall.",
+    "November 12 is off the regular session calendar.",
+    "Showers are likely in Austin this afternoon."
+  ]);
+  assert.deepEqual(stories.map((story) => story.section), [
+    "News", "News", "News", "News", "News", "Notices"
+  ]);
+  assert.equal(stories[1].signupAfter, true);
+  assert.equal(stories[0].signupAfter, false);
+  assert.equal(edition.signupAfterLead, false);
+  assert.equal(edition.leadAnchor, "register-by-thursday-if-a-runoff-is-ordered");
+  assert.match(stories[0].summary, /9:00 a\.m\./);
+  assert.match(stories[0].summary, /700 Lavaca Street/);
+  assert.match(stories[0].summary, /November 12, 2026/);
+  assert.match(stories[1].summary, /8509 Burleson Rd/);
+  assert.match(stories[5].summary, /70%/);
+  assert.match(stories[5].summary, /high near 69/);
+  assert.match(stories[5].summary, /12:24 p\.m\. Central Standard Time/);
+  assert.equal(bulletin.includes("four calendar days"), false);
+  assert.equal(bulletin.includes("Editor notes"), false);
+  assert.match(bulletin, /does not say a runoff has been ordered/);
+  assert.match(bulletin, /does not say the order is approved/);
+  for (const url of [
+    "https://services.austintexas.gov/edims/document.cfm?id=472487",
+    "https://www.sos.state.tx.us/elections/laws/advisory2026-27-dec-12-runoff-election-law-calendar.shtml",
+    "https://votetravis.gov/current-election-information/current-election/",
+    "https://countyclerk.traviscountytx.gov/wp-content/uploads/commissioners_court/11-12-2026SVS.pdf",
+    "https://countyclerk.traviscountytx.gov/departments/commissioners-court/",
+    "https://countyclerk.traviscountytx.gov/wp-content/uploads/commissioners_court/11-10-2026VSAgenda.pdf",
+    "https://www.traviscountytx.gov/commissioners-court",
+    "https://services.austintexas.gov/edims/document.cfm?id=484616",
+    "https://www.austintexas.gov/council/2026/20261110-cwepc",
+    "https://services.austintexas.gov/edims/document.cfm?id=484790",
+    "https://www.austintexas.gov/council/2026/20261112-mobc",
+    "https://www.austintexas.gov/council/kiosk_committees",
+    "https://services.austintexas.gov/edims/document.cfm?id=462100",
+    "https://services.austintexas.gov/edims/document.cfm?id=484837",
+    "https://www.austintexas.gov/council/2026/20261119-reg",
+    "https://forecast.weather.gov/MapClick.php?lat=30.2672&lon=-97.7431"
+  ]) {
+    assert.equal(bulletin.includes(url), true, url);
+  }
+  for (const story of stories) {
+    assert.equal(bulletin.includes(story.summary), true, story.summary);
+    assert.equal(FIRST_PERSON.test(`${story.title} ${story.summary}`), false);
+  }
+});
+
 test("November 8 home cards use the short Hornsby and Muny openings", () => {
   const stories = listed(homeEdition(readFileSync("src/bulletins/2026-11-08.md", "utf8")));
   assert.match(stories[1].summary, /replace the plant's existing headworks/);

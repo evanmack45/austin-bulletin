@@ -100,26 +100,20 @@ function assertSignupSlot(slot) {
     item !== "signup" && item !== "News" && item !== "Notices"
   ));
   assert.deepEqual(stories, [
-    "Thursday is the registration deadline for a possible runoff.",
-    "Council draft proposes a boardwalk beside the Hyatt.",
-    "Draft contracts would rebuild Hornsby Bend treatment facilities.",
-    "Draft amendments would change the city's Muny agreement with UT.",
-    "Water, parks, and transportation briefings are on this week's committee agendas.",
-    "Watson asked Friday for new Austin Police Department rules on immigration " +
-      "cooperation, KUT reports.",
-    "Thompson said Friday she has the votes to be Texas House speaker.",
-    "A Nov. 6 police release seeks one suspect in copper-cable thefts.",
-    "Ten income-restricted townhomes were under construction on Menchaca Road as of Friday.",
-    "Tentative Nov. 5 notes list a transit-lane commitment and a housing-policy update.",
-    "Approved minutes for Council's Oct. 22 meeting are posted.",
-    "NWS: rain in Austin today, with more rain possible Monday."
+    "Register by Thursday if a runoff is ordered.",
+    "County court meets Thursday to canvass the Nov. 3 election.",
+    "Tuesday's court agenda includes a hearing on a Burleson Road event.",
+    "Water and parks briefings are on Tuesday's committee agenda.",
+    "Mobility briefings are set for Thursday at City Hall.",
+    "November 12 is off the regular session calendar.",
+    "Showers are likely in Austin this afternoon."
   ]);
   const signupAt = slot.sequence.indexOf("signup");
   const before = slot.sequence.filter((item, index) => index < signupAt && item !== "News");
   assert.equal(before.length, 3);
-  assert.equal(slot.sequence[signupAt + 1].startsWith("Draft amendments"), true);
+  assert.equal(slot.sequence[signupAt + 1].startsWith("Water and parks briefings"), true);
   const notices = slot.sequence.indexOf("Notices");
-  assert.equal(slot.sequence[notices - 1].startsWith("Approved minutes"), true);
+  assert.equal(slot.sequence[notices - 1].startsWith("November 12 is off"), true);
   assert.equal(slot.forms, 1);
   assert.equal(slot.blocks, 1);
   assert.ok(slot.overflow <= 1, `horizontal overflow ${slot.overflow}`);

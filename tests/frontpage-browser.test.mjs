@@ -435,6 +435,65 @@ test("previous edition is direct keyboard navigation independent of optional com
   }
 });
 
+async function laterNews(page) {
+  return page.evaluate(() => {
+    const news = document.querySelector(".front-section:has(#front-section-news)");
+    const story = (text) => [...document.querySelectorAll(".front-story")].find((item) => (
+      item.querySelector("h3")?.textContent.includes(text)
+    ));
+    const box = (item) => {
+      const rect = item.getBoundingClientRect();
+      return { top: rect.top, left: rect.left, right: rect.right, width: rect.width };
+    };
+    const lines = (item) => {
+      const node = item.querySelector(".front-story-summary");
+      const text = node.textContent;
+      const range = document.createRange();
+      const found = [];
+      let index = 0;
+      for (const part of text.split(/(\s+)/)) {
+        if (!part.trim()) {
+          index += part.length;
+          continue;
+        }
+        range.setStart(node.firstChild, index);
+        range.setEnd(node.firstChild, index + part.length);
+        const rect = range.getClientRects()[0];
+        found.push({ word: part, top: Math.round(rect.top) });
+        index += part.length;
+      }
+      const grouped = new Map();
+      for (const word of found) {
+        grouped.set(word.top, [...(grouped.get(word.top) || []), word.word]);
+      }
+      return [...grouped.values()].map((line) => line.join(" ").length);
+    };
+    const water = story("Water and parks");
+    const mobility = story("Mobility briefings");
+    const signup = news.querySelector(".signup--lead");
+    const nr = news.getBoundingClientRect();
+    const waterBox = box(water);
+    const mobilityBox = box(mobility);
+    const signupBox = signup.getBoundingClientRect();
+    return {
+      sameRow: Math.abs(waterBox.top - mobilityBox.top) < 4,
+      waterLeft: Math.abs(waterBox.left - nr.left) < 2,
+      rightGap: nr.right - Math.max(waterBox.right, mobilityBox.right),
+      signupWidth: signupBox.width,
+      newsWidth: nr.width,
+      longest: Math.max(...[...news.querySelectorAll(".front-story")].flatMap(lines))
+    };
+  });
+}
+
+function assertLaterNews(below) {
+  assert.equal(below.sameRow, true, JSON.stringify(below));
+  assert.equal(below.waterLeft, true, JSON.stringify(below));
+  assert.ok(below.rightGap < 2, JSON.stringify(below));
+  assert.ok(Math.abs(below.signupWidth - below.newsWidth) < 2, JSON.stringify(below));
+  assert.ok(below.longest < 75, JSON.stringify(below));
+}
+
 test("the first two news summaries share the desktop news width and stack on a phone", {
   skip: !chrome && "an installed Chromium is required for browser regression",
 }, async () => {
@@ -466,13 +525,31 @@ test("the first two news summaries share the desktop news width and stack on a p
     assert.equal(desk.wider, true, JSON.stringify(desk));
     assert.ok(desk.leadFont > desk.pairFont, JSON.stringify(desk));
     assert.equal(desk.boxed, false);
+    assertLaterNews(await laterNews(page));
     await page.setViewport({ width: 390, height: 1600 });
     const stacked = await page.evaluate(() => {
       const lead = document.querySelector(".front-story--leadpair").getBoundingClientRect();
       const next = document.querySelector(".front-story--pair").getBoundingClientRect();
-      return next.top > lead.bottom - 1 && Math.abs(lead.left - next.left) < 2;
+      const story = (text) => [...document.querySelectorAll(".front-story")].find((item) => (
+        item.querySelector("h3")?.textContent.includes(text)
+      ));
+      const water = story("Water and parks").getBoundingClientRect();
+      const mobility = story("Mobility briefings").getBoundingClientRect();
+      const news = document.querySelector(
+        ".front-section:has(#front-section-news)"
+      ).getBoundingClientRect();
+      return {
+        first: next.top > lead.bottom - 1 && Math.abs(lead.left - next.left) < 2,
+        later: mobility.top > water.bottom - 1 && Math.abs(water.left - mobility.left) < 2,
+        overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+        waterWidth: water.width,
+        newsWidth: news.width
+      };
     });
-    assert.equal(stacked, true);
+    assert.equal(stacked.first, true, JSON.stringify(stacked));
+    assert.equal(stacked.later, true, JSON.stringify(stacked));
+    assert.ok(stacked.overflow <= 1, JSON.stringify(stacked));
+    assert.ok(Math.abs(stacked.waterWidth - stacked.newsWidth) < 2, JSON.stringify(stacked));
   } finally {
     await browser.close();
     await new Promise((resolve) => server.close(resolve));
