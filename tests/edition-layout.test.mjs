@@ -38,13 +38,20 @@ test("edition layout is Georgia, with one signup after story three", () => {
     cover,
     /\.edition-page \.countdown:not\(:has\(strong\)\)::before\s*\{\s*content:\s*"Countdown"/
   );
+  assert.match(
+    cover,
+    /\.edition-page \.the-number--figure::before\s*\{\s*content:\s*"The Number"/
+  );
+  assert.match(cover, /\.edition-page \.source-line \{\s*max-width:\s*none/);
 
   const monday = readFileSync("_site/2026/11/09/index.html", "utf8");
   assert.equal(monday.split('class="signup signup--edition"').length - 1, 1);
   assert.equal(storiesBeforeSignup(monday), 3);
   assert.equal(countdownLabelCount(monday), 1);
   assert.doesNotMatch(monday, /Countdown\.\s*Countdown/);
-  const mondayNumber = monday.match(/<aside class="the-number">[\s\S]*?<\/aside>/)?.[0] ?? "";
+  assert.match(monday, /id="news"[\s\S]*?class="river river--tiered river--pair"/);
+  const mondayNumber = monday.match(/<aside class="the-number[^"]*">[\s\S]*?<\/aside>/)?.[0] ?? "";
+  assert.match(mondayNumber, /the-number--figure/);
   assert.match(mondayNumber, /<strong>9:00 a\.m\.<\/strong>/);
   assert.equal(mondayNumber.includes("The Number"), false);
 
@@ -55,8 +62,13 @@ test("edition layout is Georgia, with one signup after story three", () => {
   const friday = readFileSync("_site/2026/11/06/index.html", "utf8");
   assert.equal(storiesBeforeSignup(friday), 3);
   assert.equal(countdownLabelCount(friday), 0);
+  assert.doesNotMatch(friday, /the-number--figure/);
   assert.match(
     friday,
     /<p class="countdown">The Veterans Day parade starts at 9 a\.m\. Saturday\.<\/p>/
   );
+
+  const october = readFileSync("_site/2026/10/01/index.html", "utf8");
+  assert.match(october, /<aside class="the-number">/);
+  assert.doesNotMatch(october, /the-number--figure/);
 });

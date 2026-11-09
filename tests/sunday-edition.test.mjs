@@ -36,7 +36,10 @@ test("November 8 story prose is Georgia and the back page is open", () => {
   const css = readFileSync("src/css/front-cover.css", "utf8");
   assert.match(css, /\.edition-page \.river > p/);
   assert.match(css, /font-family: Georgia, "Times New Roman", serif/);
-  assert.match(css, /\.edition-page \.the-number:not\(:has\(p\)\)::before/);
+  assert.match(
+    css,
+    /\.edition-page \.the-number:not\(:has\(p\)\):not\(\.the-number--figure\)::before/
+  );
   const page = readFileSync("_site/2026/11/08/index.html", "utf8");
   assert.match(page, /class="bulletin bulletin--2026-11-08"/);
   assert.equal(page.includes("The Number:"), false);
@@ -121,7 +124,8 @@ test("November 8 renders Georgia prose and an open back page", { skip: !CHROME }
   assert.equal(phone.datumBorder, "0px");
   assert.equal(phone.datumTop, "1px");
   assert.equal(phone.datumBg, "rgba(0, 0, 0, 0)");
-  assert.equal(phone.tab, "none");
+  assert.equal(phone.tab, "\"The Number\"");
+  assert.equal(desk.tab, "\"The Number\"");
   assert.match(phone.heading, /Bricolage/);
   assert.equal(phone.headingSize, "20px");
   assert.match(friday, /Georgia/);

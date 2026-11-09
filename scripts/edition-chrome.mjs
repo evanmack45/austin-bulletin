@@ -166,8 +166,7 @@ function keepSourcesWithStory(html) {
 
 function riverLayout(inner) {
   const stories = inner.match(/<div class="river-story"/g)?.length ?? 0;
-  const split = /<section\b[^>]*\bsignup\b/.test(inner);
-  if (stories > 1 && !split) return "river--pair";
+  if (stories > 1) return "river--pair";
   if (stories > 0) return "river--measure";
   return "";
 }
@@ -239,11 +238,23 @@ function storyHeadingOffsets(html) {
   return offsets;
 }
 
+// A sentence-form number has no heading of its own. The figure-plus-paragraph
+// form already gets "The Number" from the stylesheet, and a number that
+// already says "The Number" must not gain a second one.
+function markNumberFigures(html) {
+  return html.replace(/<aside\b[^>]*\bclass="the-number"[^>]*>[\s\S]*?<\/aside>/gi, (aside) => {
+    if (/\bthe-number--figure\b/.test(aside)) return aside;
+    if (/<p[\s>]/i.test(aside)) return aside;
+    if (/The Number/i.test(aside)) return aside;
+    return aside.replace('class="the-number"', 'class="the-number the-number--figure"');
+  });
+}
+
 // One edition form, after the third story counting the lead. The lead is the
 // big-story h3. Later stories are the h3 and h5 headlines in each river.
 // Fewer than three stories keep the form at the end of the edition.
 export function editionSignup(html) {
-  const page = String(html ?? "");
+  const page = markNumberFigures(String(html ?? ""));
   if (page.includes('class="signup signup--edition"')) return page;
   const heads = storyHeadingOffsets(page);
   if (heads.length < 3) {
