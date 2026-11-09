@@ -42,7 +42,12 @@ test("November 8 story prose is Georgia and the back page is open", () => {
   assert.equal(page.includes("The Number:"), false);
   assert.match(page, /\$25 million<\/strong> in state funds the Nov\. 19 draft would accept/);
   assert.match(page, /not an approved sum/);
-  assert.match(page, /separate estimated project cost of \$25 million plus any cost overruns/);
+  assert.match(
+    page,
+    /lists that \$25 million as the total estimated project cost, plus any cost overruns/
+  );
+  assert.doesNotMatch(page, /separate estimated project cost/);
+  assert.doesNotMatch(page, /separate from \$25 million/);
   assert.match(page, /id=484837/);
   assert.match(page, /id=472487/);
   assert.match(page, /new-affordable-menchaca-townhomes/);
