@@ -243,6 +243,9 @@ test("November 8 lists the runoff lead, then news, then the forecast", () => {
   assert.ok(overrunAt > 0 && fundsAt > overrunAt);
   assert.match(agenda, /Texas Department of Transportation/);
   assert.match(agenda, /funding match is not required/);
+  assert.match(agenda, /Item 52 lists/);
+  assert.match(agenda, /would accept \$25 million in state funds/);
+  assert.doesNotMatch(agenda, /separate from \$25 million/);
   assert.match(agenda, /Nov\. 19 draft/);
   assert.match(agenda, /proposal, not an approval/);
   assert.match(agenda, /Hyatt/);
@@ -311,10 +314,11 @@ test("November 9 lists the registration lead, then news, then the forecast", () 
     "Water and parks briefings are on Tuesday's committee agenda.",
     "Mobility briefings are set for Thursday at City Hall.",
     "November 12 is off the regular session calendar.",
-    "Showers are likely in Austin this afternoon."
+    "The Texas Book Festival is November 14 and 15 at the Capitol.",
+    "A 20 percent chance of showers tonight, then mostly sunny Tuesday."
   ]);
   assert.deepEqual(stories.map((story) => story.section), [
-    "News", "News", "News", "News", "News", "Notices"
+    "News", "News", "News", "News", "News", "Notices", "Notices"
   ]);
   assert.equal(stories[1].signupAfter, true);
   assert.equal(stories[0].signupAfter, false);
@@ -324,9 +328,18 @@ test("November 9 lists the registration lead, then news, then the forecast", () 
   assert.match(stories[0].summary, /700 Lavaca Street/);
   assert.match(stories[0].summary, /November 12, 2026/);
   assert.match(stories[1].summary, /8509 Burleson Rd/);
-  assert.match(stories[5].summary, /70%/);
-  assert.match(stories[5].summary, /high near 69/);
-  assert.match(stories[5].summary, /12:24 p\.m\. Central Standard Time/);
+  assert.match(stories[5].summary, /10 a\.m\. to 5 p\.m\. Saturday, November 14/);
+  assert.match(stories[5].summary, /11 a\.m\. to 5 p\.m\. Sunday, November 15/);
+  assert.match(stories[5].summary, /Texas Capitol and nearby venues/);
+  assert.match(stories[5].summary, /free to attend/);
+  assert.match(stories[5].summary, /ticket purchase that includes a book/);
+  assert.match(stories[5].summary, /9 a\.m\. Thursday, November 12/);
+  assert.match(stories[6].summary, /20 percent chance of showers before 9 p\.m\./);
+  assert.match(stories[6].summary, /low around 55/);
+  assert.match(stories[6].summary, /high near 72/);
+  assert.match(stories[6].summary, /3:42 p\.m\. Central Standard Time on November 9/);
+  assert.equal(stories[6].summary.includes("this afternoon"), false);
+  assert.equal(stories[6].summary.includes("70%"), false);
   assert.equal(bulletin.includes("four calendar days"), false);
   assert.equal(bulletin.includes("Editor notes"), false);
   assert.match(bulletin, /does not say a runoff has been ordered/);
@@ -347,7 +360,9 @@ test("November 9 lists the registration lead, then news, then the forecast", () 
     "https://services.austintexas.gov/edims/document.cfm?id=462100",
     "https://services.austintexas.gov/edims/document.cfm?id=484837",
     "https://www.austintexas.gov/council/2026/20261119-reg",
-    "https://forecast.weather.gov/MapClick.php?lat=30.2672&lon=-97.7431"
+    "https://forecast.weather.gov/MapClick.php?lat=30.2672&lon=-97.7431",
+    "https://www.austintexas.gov/communications/news/31st-annual-texas-book-festival-happening-nov-14-15",
+    "https://www.austintexas.gov/ace/events/texas-book-festival-0"
   ]) {
     assert.equal(bulletin.includes(url), true, url);
   }
