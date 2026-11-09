@@ -4,29 +4,42 @@ import { createServer } from "node:http";
 import { readFileSync, statSync } from "node:fs";
 import path from "node:path";
 import puppeteer from "puppeteer-core";
-import { sundayEditionSignup } from "../scripts/edition-chrome.mjs";
+import { editionSignup } from "../scripts/edition-chrome.mjs";
 
 const CHROME = ["/usr/bin/google-chrome", "/usr/bin/chromium", "/usr/bin/chromium-browser"]
   .find((executable) => statSync(executable, { throwIfNoEntry: false })?.isFile());
 
-const MARKER = '<h3 id="draft-amendments-would-change-the-citys-muny-agreement-with-ut">';
-
-test("the Sunday signup moves only on November 8", () => {
-  const html = `<p>Hornsby.</p>${MARKER}<p>Muny.</p>`;
-  assert.equal(sundayEditionSignup(html, "2026-11-06"), html);
-  const sunday = sundayEditionSignup(html, "2026-11-08");
-  const signup = sunday.indexOf('class="signup signup--edition"');
-  const muny = sunday.indexOf(MARKER);
-  assert.ok(signup > 0 && signup < muny);
-  assert.equal(sunday.split('class="signup signup--edition"').length - 1, 1);
-  assert.equal(sundayEditionSignup(sunday, "2026-11-08"), sunday);
+test("the edition signup follows the third story on every date", () => {
+  const html = [
+    '<section class="big-story"><h3 id="lead">Lead</h3><p>L.</p></section>',
+    '<div class="river river--tiered">',
+    '<h4 id="hall">Hall</h4>',
+    '<h5 id="one">One</h5><p>A.</p>',
+    '<h5 id="two">Two</h5><p>B.</p>',
+    '<h4 id="next">Next</h4>',
+    '<h5 id="three">Three</h5><p>C.</p>',
+    "</div>"
+  ].join("");
+  const placed = editionSignup(html);
+  const signup = placed.indexOf('class="signup signup--edition"');
+  assert.ok(placed.indexOf('id="two"') < signup);
+  assert.ok(signup < placed.indexOf('id="next"'));
+  assert.ok(signup < placed.indexOf('id="three"'));
+  assert.equal(placed.split('class="signup signup--edition"').length - 1, 1);
+  assert.equal(editionSignup(placed), placed);
+  const short = editionSignup('<section class="big-story"><h3 id="lead">Lead</h3></section>');
+  assert.ok(short.indexOf('id="lead"') < short.indexOf('class="signup signup--edition"'));
+  assert.equal(short.split('class="signup signup--edition"').length - 1, 1);
 });
 
 test("November 8 story prose is Georgia and the back page is open", () => {
   const css = readFileSync("src/css/front-cover.css", "utf8");
-  assert.match(css, /\.bulletin--2026-11-08 \.river > p/);
+  assert.match(css, /\.edition-page \.river > p/);
   assert.match(css, /font-family: Georgia, "Times New Roman", serif/);
-  assert.match(css, /\.bulletin--2026-11-08 \.the-number::before/);
+  assert.match(
+    css,
+    /\.edition-page \.the-number:not\(:has\(p\)\):not\(\.the-number--figure\)::before/
+  );
   const page = readFileSync("_site/2026/11/08/index.html", "utf8");
   assert.match(page, /class="bulletin bulletin--2026-11-08"/);
   assert.equal(page.includes("The Number:"), false);
@@ -102,17 +115,18 @@ test("November 8 renders Georgia prose and an open back page", { skip: !CHROME }
   await browser.close();
   server.close();
   assert.match(phone.story, /Georgia/);
-  assert.equal(phone.storySize, "16px");
+  assert.equal(phone.storySize, "18px");
   assert.equal(desk.storySize, "18px");
   assert.doesNotMatch(phone.signup, /Georgia/);
-  assert.equal(phone.datumSize, "16px");
+  assert.equal(phone.datumSize, "18px");
   assert.equal(desk.datumSize, "18px");
   assert.notEqual(phone.datumColor, "rgb(200, 16, 46)");
   assert.equal(phone.datumBorder, "0px");
   assert.equal(phone.datumTop, "1px");
   assert.equal(phone.datumBg, "rgba(0, 0, 0, 0)");
-  assert.equal(phone.tab, "none");
+  assert.equal(phone.tab, "\"The Number\"");
+  assert.equal(desk.tab, "\"The Number\"");
   assert.match(phone.heading, /Bricolage/);
   assert.equal(phone.headingSize, "20px");
-  assert.doesNotMatch(friday, /Georgia/);
+  assert.match(friday, /Georgia/);
 });

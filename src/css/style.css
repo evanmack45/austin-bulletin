@@ -885,6 +885,8 @@ h2.glance-title::after { content: none; }
 }
 .the-number::before { content: "The Number"; }
 .countdown::before { content: "Countdown"; }
+/* The paragraph already says Countdown when it carries that heading. */
+.countdown:has(strong)::before { content: none; }
 .the-number strong {
   display: block;
   font-size: clamp(3rem, 10vw, 5rem);

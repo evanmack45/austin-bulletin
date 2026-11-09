@@ -45,7 +45,7 @@ test("river stories stay with their headline and full-width breaks stay outside"
   assert.match(wrapped, /<p>Second\.<\/p><p class="source-line">/);
   assert.match(wrapped, /<\/p><\/div><p class="to-top">/);
   assert.match(wrapped, /<\/nav><h4 id="hall">Hall<\/h4><div class="river-story">/);
-  assert.match(wrapped, /class="river river--tiered river--measure"/);
+  assert.match(wrapped, /class="river river--tiered river--pair"/);
   assert.ok(wrapped.indexOf('class="signup') < wrapped.indexOf('id="two"'));
   assert.match(wrapped, /<\/div><p class="to-top">/);
   assert.equal(wrapRiverStories(wrapped), wrapped);

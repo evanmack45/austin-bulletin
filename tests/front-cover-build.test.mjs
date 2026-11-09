@@ -249,7 +249,8 @@ test("Sunday news and notice titles are h3 and Friday keeps h5", () => {
   assert.equal(page.includes("Past event"), false);
   assert.equal(page.includes("<h5"), false);
   assert.match(page, /<h3[^>]*>Thursday is the registration deadline for a possible runoff\./);
-  const fridayNews = sectionHeads(friday, "news", "notices");
+  const fridayNews = sectionHeads(friday, "news", "notices")
+    .filter((head) => head.id !== "signup-edition-title");
   assert.ok(fridayNews.length > 0);
   assert.ok(fridayNews.every((head) => head.level === "5"));
   assert.match(friday, /<h5\b/);
