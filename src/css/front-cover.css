@@ -53,6 +53,14 @@
   padding: 0;
 }
 .cover-chrome .front-masthead .masthead-dateline a { color: #1b1b1b; }
+.cover-chrome .masthead-strip .masthead-dateline a {
+  display: inline-block;
+  box-sizing: border-box;
+  min-width: 44px;
+  min-height: 44px;
+  padding-inline: 0.35rem;
+  text-align: center;
+}
 .cover-chrome .front-masthead .prev-edition { white-space: nowrap; }
 .masthead-inner {
   max-width: 72rem;
@@ -486,8 +494,12 @@
   }
   .cover-chrome .masthead-strip .masthead-dateline a {
     display: inline-block;
+    box-sizing: border-box;
+    min-width: 44px;
     padding-block: 15px;
+    padding-inline: 0.35rem;
     margin-block: -15px;
+    text-align: center;
   }
   .cover-chrome .masthead-strip .wordmark {
     display: inline-flex;

@@ -527,6 +527,9 @@ body.edition-cards:has(article.bulletin) main {
 @media (min-width: 761px) {
   .edition-cards .masthead-dateline a {
     display: inline-block;
+    box-sizing: border-box;
+    min-width: 44px;
+    min-height: 44px;
     padding: 0.85rem 0.3rem;
     margin-block: -0.85rem;
   }
@@ -759,6 +762,85 @@ body.edition-cards:has(article.bulletin) main {
   text-transform: none;
 }
 .edition-cards .legacy-card .card-top { justify-content: flex-end; }
+.edition-cards .legacy-heading :is(h2, h3, h4, h5) { margin-top: 0; }
+.edition-cards .legacy-art {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 0 var(--s3);
+}
+.edition-cards .legacy-art .chart-kicker {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  margin: 0 0 var(--s2);
+  font-family: var(--font-display);
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+}
+.edition-cards .legacy-art :is(figure, picture, img) {
+  display: block;
+  width: 100%;
+  max-width: 720px;
+  height: auto;
+  margin: 0;
+  aspect-ratio: auto;
+  max-height: none;
+  object-fit: contain;
+}
+.edition-cards .legacy-art .lead-photo,
+.edition-cards .legacy-art .lead-photo--flat {
+  width: 100%;
+  max-width: 720px;
+  margin: 0;
+}
+.edition-cards .legacy-art figcaption {
+  margin-top: var(--s2);
+  font-family: var(--font-display);
+  font-size: var(--fs-meta);
+  line-height: 1.4;
+  color: var(--muted);
+}
+.edition-cards .card-more { margin-top: var(--s2); }
+.edition-cards .card-more summary {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  max-width: 100%;
+  min-height: var(--tap);
+}
+.edition-cards .card-more summary p.card-toggle {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  max-width: 100%;
+  min-height: var(--tap);
+  margin: 0;
+}
+.edition-cards .card-more:not([open]) > .more { display: none; }
+.edition-cards .legacy-copy :is(figure, picture, img) {
+  max-width: 720px;
+  height: auto;
+}
+@media (min-width: 1024px) {
+  .edition-cards .edition-wrap > article.legacy-card:has(.legacy-art) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, min(720px, 1fr));
+    column-gap: var(--s4);
+    align-items: start;
+  }
+  .edition-cards .edition-wrap > article.legacy-card:has(.legacy-art) .legacy-copy { display: contents; }
+  .edition-cards .edition-wrap > article.legacy-card:has(.legacy-art) .card-top { grid-column: 1; grid-row: 1; }
+  .edition-cards .edition-wrap > article.legacy-card:has(.legacy-art) .legacy-heading { grid-column: 1; grid-row: 2; }
+  .edition-cards .edition-wrap > article.legacy-card:has(.legacy-art) .legacy-lede { grid-column: 1; grid-row: 3; }
+  .edition-cards .edition-wrap > article.legacy-card:has(.legacy-art) .legacy-art {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+    margin: 0;
+    justify-self: stretch;
+  }
+}
 .edition-cards .legacy-copy {
   font-family: Georgia, "Times New Roman", serif;
   font-size: 1.125rem;
@@ -778,6 +860,9 @@ body.edition-cards:has(article.bulletin) main {
 .edition-cards .bulletin :is(h2#news, h2#notices, h2#the-back-page) {
   margin-top: var(--section-gap);
   border-top: 0;
+}
+.edition-cards:has(article.legacy-card) .bulletin :is(h2#news, h2#notices, h2#the-back-page) {
+  margin-top: calc(var(--section-gap) + 18px);
 }
 @media (max-width: 760px) {
   .datestrip { flex-wrap: wrap; align-items: flex-start; }

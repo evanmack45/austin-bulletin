@@ -142,11 +142,51 @@ function sectionFromHeading(info) {
   return { section: id || "news", sectionLabel: info.text };
 }
 
+function isComment(node) {
+  return String(node).trim().startsWith("<!--");
+}
+
+function isLeadArt(node) {
+  return /^<figure\b/i.test(String(node).trim()) && /\blead-photo\b/.test(String(node));
+}
+
+function isHeadingNode(node) {
+  return /^<h[1-6]\b/i.test(String(node).trim());
+}
+
+function foldBucket(node, ledeTaken, hasHeading) {
+  if (isLeadArt(node)) return "art";
+  if (ledeTaken) return "more";
+  if (isHeadingNode(node) && !hasHeading) return "heading";
+  if (!isComment(node)) return "lede";
+  return "more";
+}
+
+// Headline, art, and the first block stay visible. Later sentences and
+// source lines stay in the page, inside the disclosure.
+export function foldLegacyCopy(html) {
+  const buckets = { heading: [], art: [], lede: [], more: [] };
+  let ledeTaken = false;
+  for (const node of topLevelNodes(html)) {
+    if (!String(node).trim()) continue;
+    const bucket = foldBucket(node, ledeTaken, buckets.heading.length > 0);
+    buckets[bucket].push(node);
+    if (bucket === "lede") ledeTaken = true;
+  }
+  return {
+    headingHtml: buckets.heading.join("\n"),
+    artHtml: buckets.art.join("\n"),
+    ledeHtml: buckets.lede.join("\n"),
+    moreHtml: buckets.more.join("\n")
+  };
+}
+
 function pushCard(cards, card) {
   const html = card.parts.filter((part) => String(part).trim()).join("\n");
   const text = plainText(html);
   if (!card.headline && !text) return;
   const inHtml = html.includes(`id="${card.id}"`);
+  const folded = foldLegacyCopy(html);
   cards.push({
     id: card.id,
     anchor: card.good || inHtml ? "" : card.id,
@@ -156,6 +196,7 @@ function pushCard(cards, card) {
     sectionLabel: card.sectionLabel || "",
     headline: card.headline || sentenceOf(text),
     html,
+    ...folded,
     good: Boolean(card.good),
     sources: []
   });

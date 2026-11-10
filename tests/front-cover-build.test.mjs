@@ -93,7 +93,7 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.doesNotMatch(page, /In 60 seconds/);
   assert.doesNotMatch(page, /Good morning, Austin/);
   assert.doesNotMatch(page, /<h2[^>]*>\s*The Briefing/);
-  assert.match(page, /How this site is made/);
+  assert.doesNotMatch(page, /How this site is made/);
   assert.equal(page.includes("About our reporting"), false);
   const disclosure = '<p class="ai-disclosure">' +
     '<a href="/about/#trust">An AI system produces this site.</a></p>';
