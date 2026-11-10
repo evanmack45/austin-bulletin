@@ -29,5 +29,5 @@ hasInlineSignup: true
   {% endif %}
   {% set glanceData = glance[editionDate | isoDate] %}
   {% include "glance.njk" %}
-  {{ skimBody | consolidateStorySources | withStoryPhotos(images, top.storyKey) | withCouncilMeetings(editionIso) | editionSignup | safe }}
+  {{ skimBody | consolidateStorySources | withReaderActions | withStoryPhotos(images, top.storyKey) | withCouncilMeetings(editionIso) | editionSignup | safe }}
 </article>

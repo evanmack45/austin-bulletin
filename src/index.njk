@@ -38,6 +38,7 @@ hasInlineSignup: true
           <figcaption>{{ photo.caption | escape }}{% if photo.credit %} Photo: <a href="{{ photo.source | escape }}">{{ photo.credit | escape }}</a>.{% endif %}</figcaption>
         </figure>
         {% endif %}
+        {% if desk.leadActionHtml %}{{ desk.leadActionHtml | safe }}{% endif %}
         {% if desk.source %}<p class="src front-sources">Source: <a href="{{ desk.source.href | escape }}">{{ desk.source.name | escape }}</a></p>{% endif %}
         <p class="edition-jump edition-jump--lead"><a href="{{ latest.url }}">Read the {{ latest.date | weekday }} edition</a></p>
       </section>
@@ -54,6 +55,7 @@ hasInlineSignup: true
           <article class="front-story{% if section.label == "News" and loop.index == 1 %} front-story--leadpair{% elif section.label == "News" and loop.index == 2 %} front-story--pair{% endif %}">
             <h3><a href="{{ latest.url }}#{{ story.anchor | escape }}">{{ story.title | escape }}</a></h3>
             {% if story.summary %}<p class="front-story-summary">{{ story.summary | escape }}</p>{% endif %}
+            {% if story.actionHtml %}{{ story.actionHtml | safe }}{% endif %}
             {% if story.sourcesHtml %}<div class="front-story-sources">{{ story.sourcesHtml | safe }}</div>{% endif %}
           </article>
           {% if story.signupAfter %}

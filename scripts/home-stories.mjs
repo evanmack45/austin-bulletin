@@ -4,6 +4,7 @@
 // A summary is the story's own first one or two sentences. The Sources
 // line is the story's existing source element, not a new line.
 
+import { parseReaderAction, readerActionMarkup } from "./reader-action.mjs";
 import { openingSentences } from "./sentences.mjs";
 import { slug } from "./river.mjs";
 import { presentSourceHtml } from "./story-sources.mjs";
@@ -67,6 +68,10 @@ function sourcesHtml(lines) {
   return span ? presentSourceHtml(span[0]) : "";
 }
 
+function actionHtml(lines) {
+  return readerActionMarkup(parseReaderAction(lines.join("\n")));
+}
+
 function pushStory(stories, current, used) {
   if (!current) return;
   stories.push({
@@ -74,6 +79,7 @@ function pushStory(stories, current, used) {
     anchor: uniqueId(current.title, used),
     summary: openingSentences(plainBody(current.lines)),
     sourcesHtml: sourcesHtml(current.lines),
+    actionHtml: actionHtml(current.lines),
     section: current.section,
     lead: current.lead
   });
@@ -166,6 +172,7 @@ function groupSections(stories) {
         anchor: story.anchor,
         summary: story.summary,
         sourcesHtml: story.sourcesHtml,
+        actionHtml: story.actionHtml,
         signupAfter: false
       }))
     };
@@ -184,6 +191,7 @@ export function homeEdition(markdown) {
   }
   return {
     leadAnchor: lead?.anchor || "",
+    leadActionHtml: lead?.actionHtml || "",
     signupAfterLead: stories.length > 0 && stories.length < SIGNUP_AFTER,
     sections
   };

@@ -111,6 +111,17 @@ test("the homepage jump list may repeat a card headline", () => {
   assert.deepEqual(duplicateSentences(html), []);
 });
 
+test("a repeated reader action is an instruction, not a second telling", () => {
+  const line = "<p class=\"what-you-can-do\">"
+    + "<span class=\"what-you-can-do-label\">What you can do:</span> "
+    + "<a href=\"https://example.gov/speak\">Register to speak at Commissioners Court</a>.</p>";
+  const html = page(
+    `<p>${REPEATED}</p>${line}<p>Other news stays unique today.</p>${line}`
+  );
+  assert.deepEqual(duplicateSentences(html), []);
+  assert.ok(duplicateSentences(page(`<p>${REPEATED}</p><p>${REPEATED}</p>`)).length > 0);
+});
+
 test("the signup line may repeat in the mobile bar", () => {
   const line = "Austin's news in 5 minutes, every morning";
   const embed = "<div class=\"signup-embed\"><noscript>"
