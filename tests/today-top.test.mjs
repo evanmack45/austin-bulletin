@@ -57,13 +57,25 @@ test("the homepage leads with the rent-limit number and the edition keeps each s
   assert.ok(html.includes(dateline), dateline);
   assert.doesNotMatch(html, /class="today-top"/);
   assert.match(html, /Affordable rentals lose rent limits in 2027/);
-  assert.equal(html.split(desk.headline).length - 1, 0, desk.headline);
-  const page = readFileSync(`_site/${edition.replaceAll("-", "/")}/index.html`, "utf8");
-  assert.ok(page.includes(desk.headline), desk.headline);
-  const stories = home.sections.flatMap((section) => section.stories);
+  if (desk.headline) {
+    assert.equal(html.split(desk.headline).length - 1, 0, desk.headline);
+  }
+  const kept = desk.headline ? edition : "2026-11-09";
+  const keptFile = `src/bulletins/${kept}.md`;
+  const keptMarkdown = kept === edition ? markdown : readFileSync(keptFile, "utf8");
+  const keptDesk = kept === edition ? desk : parseDesk(keptMarkdown);
+  const keptHome = kept === edition ? home : homeEdition(keptMarkdown);
+  const page = readFileSync(`_site/${kept.replaceAll("-", "/")}/index.html`, "utf8");
+  assert.ok(page.includes(keptDesk.headline), keptDesk.headline);
+  const stories = keptHome.sections.flatMap((section) => section.stories);
   assert.ok(stories.length >= 4, "edition lists stories past the lead");
   for (const story of stories) {
     assert.ok(page.includes(story.title), story.title);
     assert.equal(html.includes(story.title), false, story.title);
+  }
+  if (!desk.headline) {
+    const cards = readFileSync(`_site/${edition.replaceAll("-", "/")}/index.html`, "utf8");
+    assert.match(cards, /Rent limits on affordable rentals end in 2027/);
+    assert.equal(html.includes("Rent limits on affordable rentals end in 2027"), false);
   }
 });

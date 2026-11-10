@@ -23,9 +23,9 @@
   justify-content: space-between;
   align-items: flex-end;
   gap: 16px;
-  max-width: 1120px;
+  max-width: 72rem;
   margin: 0 auto;
-  padding: 16px 32px 10px;
+  padding: 16px 24px 10px;
   border-bottom: 3px double #1b1b1b;
 }
 .cover-chrome .front-masthead .wordmark {
@@ -42,7 +42,7 @@
 .cover-chrome .front-masthead .masthead-dateline {
   flex: 0 1 auto;
   margin: 0 0 6px;
-  font-family: Hanken, Arial, sans-serif;
+  font-family: Bricolage, "Helvetica Neue", Arial, sans-serif;
   font-size: 0.8125rem;
   letter-spacing: 0;
   text-transform: none;
@@ -55,9 +55,9 @@
 .cover-chrome .front-masthead .masthead-dateline a { color: #1b1b1b; }
 .cover-chrome .front-masthead .prev-edition { white-space: nowrap; }
 .masthead-inner {
-  max-width: 1120px;
+  max-width: 72rem;
   margin: 0 auto;
-  padding: 4px 32px 0;
+  padding: 4px 24px 0;
   border-bottom: 1px solid #1b1b1b;
 }
 .cover-chrome .site-nav { margin: 0; }
@@ -82,8 +82,12 @@
   max-width: none;
   width: auto;
   gap: 0 22px;
-  font-family: Hanken, Arial, sans-serif;
+  font-family: Bricolage, "Helvetica Neue", Arial, sans-serif;
   justify-content: flex-start;
+}
+.cover-chrome .front-masthead .topics-button,
+.cover-chrome .front-masthead .site-menu-button {
+  font-family: Bricolage, "Helvetica Neue", Arial, sans-serif;
 }
 .cover-chrome .front-masthead .site-menu-panel a,
 .cover-chrome .front-masthead .topics-button {
@@ -469,7 +473,15 @@
     gap: 6px;
     padding: 12px 16px 8px;
   }
-  .cover-chrome .front-masthead .wordmark { font-size: 2rem; white-space: normal; max-width: 100%; }
+  .cover-chrome .front-masthead .wordmark {
+    display: inline-flex;
+    align-items: center;
+    box-sizing: border-box;
+    min-height: 44px;
+    font-size: 2rem;
+    white-space: normal;
+    max-width: 100%;
+  }
   .cover-chrome .front-masthead .masthead-dateline { text-align: left; margin: 0; }
   .masthead-inner { padding: 0 16px; }
   .num { font-size: 3.5rem; }

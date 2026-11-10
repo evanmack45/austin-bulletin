@@ -111,6 +111,11 @@ function collectIds(inner, level, ids) {
   }
 }
 
+function collectCardIds(html, ids) {
+  const re = /<article\b[^>]*class="[^"]*\b(?:lead|card)\b[^"]*"[^>]*\sid="([^"]*)"/gi;
+  for (const match of String(html).matchAll(re)) ids.push(match[1] ?? "");
+}
+
 export function storyAnchorIds(html) {
   const ids = [];
   const source = String(html ?? "");
@@ -122,6 +127,7 @@ export function storyAnchorIds(html) {
     collectIds(inner, "5", ids);
     return inner;
   });
+  collectCardIds(source, ids);
   return ids;
 }
 

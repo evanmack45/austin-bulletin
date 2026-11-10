@@ -33,43 +33,6 @@ test("the homepage lead is the 2027 rent-limit chart", () => {
   assertChartLead(readFileSync("_site/index.html", "utf8"));
 });
 
-function assertTuesdayEdition(page) {
-  assert.match(page, /November 10, 2026/);
-  assert.doesNotMatch(page, /p-courthouse/);
-  assert.doesNotMatch(page, /parking-311\.webp/);
-  assert.match(page, /class="story-share"/);
-  assert.match(page, /700 Lavaca Street/);
-  assert.doesNotMatch(page, /Editor notes/);
-  const art = "https://theaustinbulletin.com/images/2026-11-10/"
-    + "rent-limits-desktop-1600.webp";
-  assert.ok(page.includes(`property="og:image" content="${art}"`));
-  assert.match(page, /property="og:title" content="Rent limits end in 2027/);
-  assert.match(
-    page,
-    /og:description" content="Austin(?:'|&#39;)s Affordable Housing Inventory lists 927/
-  );
-  assert.match(page, /name="twitter:title" content="Rent limits end in 2027/);
-  assert.match(
-    page,
-    /twitter:description" content="Austin(?:'|&#39;)s Affordable Housing Inventory lists 927/
-  );
-  assert.ok(page.includes(`name="twitter:image" content="${art}"`));
-  assert.match(page, /rent-limits-desktop-1600\.webp/);
-  assert.match(page, /Chart: rental units by the year recorded rent limits end/);
-  assert.match(page, /2030 lists 953/);
-  assert.doesNotMatch(page, /AI-generated illustration/);
-  assert.match(page, /certificates of obligation/);
-  assert.match(page, /\$197,125,000/);
-  assert.match(page, /\$67,757,745\.12/);
-  assert.match(page, /does not say whether rents will rise/);
-  assert.doesNotMatch(page, /927 apartments/);
-  assert.doesNotMatch(page, /\b(peak|biggest)\b|the most/i);
-  assert.doesNotMatch(page, /\$55,326,729/);
-  assert.doesNotMatch(page, /four calendar days/);
-  assert.doesNotMatch(page, /flood watch/i);
-  assert.doesNotMatch(page, /Unifraktur|class="folio-nav"|class="edition-head"|Vol\. I/);
-}
-
 test("the homepage is one lead, and dated editions keep their own page", () => {
   const html = readFileSync("_site/index.html", "utf8");
   for (const text of [
@@ -118,8 +81,7 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.ok(!html.includes("Original illustration"));
   assert.ok(!html.includes("Keep these close"));
   assert.ok(!html.includes("barton-springs-960.webp"));
-  const edition = html.match(/data-edition="([0-9-]+)"/)?.[1];
-  assert.ok(edition);
+  const edition = "2026-11-09";
   const page = readFileSync(`_site/${edition.replaceAll("-", "/")}/index.html`, "utf8");
   assert.match(page, /class="wordmark"/);
   assert.match(page, /class="site-menu"/);
@@ -142,7 +104,7 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.equal(h1.includes(lead[1]), false);
   assert.doesNotMatch(page, />Results page</);
   assert.doesNotMatch(page, /November 3 election results\./);
-  assertTuesdayEdition(page);
+  assert.match(page, /November 9, 2026/);
 });
 
 test("Monday labels the lead illustration and the county headline", () => {

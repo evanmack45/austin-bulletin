@@ -80,6 +80,40 @@ function builtPath(siteDir, markdown) {
   return rel ? path.join(siteDir, rel, "index.html") : "";
 }
 
+function sourceMissing(html, source) {
+  if (!source.url) return false;
+  const escaped = String(source.url).replaceAll("&", "&amp;");
+  return !html.includes(source.url) && !html.includes(escaped);
+}
+
+function listedCardProblems(html, label, cards) {
+  const problems = [];
+  for (const card of cards) {
+    if (!html.includes(`id="${card.id}"`)) problems.push(`${label}: missing #${card.id}`);
+    for (const source of card.sources || []) {
+      if (sourceMissing(html, source)) {
+        problems.push(`${label}: missing source ${source.url}`);
+      }
+    }
+  }
+  if (!html.includes('class="signup signup--edition"')) {
+    problems.push(`${label}: missing signup`);
+  }
+  return problems;
+}
+
+async function cardProblems(html, label) {
+  const file = path.join(root, "src/_data/editionCardData.json");
+  try {
+    const all = JSON.parse(await readFile(file, "utf8"));
+    const pack = all[label];
+    if (!pack || !Array.isArray(pack.cards)) return [`${label}: missing card data`];
+    return listedCardProblems(html, label, pack.cards);
+  } catch (err) {
+    return [`${label}: card data unreadable (${err.message})`];
+  }
+}
+
 async function checkEdition(siteDir, bulletinDir, name) {
   const markdown = await readFile(path.join(bulletinDir, name), "utf8");
   const built = builtPath(siteDir, markdown);
@@ -91,6 +125,7 @@ async function checkEdition(siteDir, bulletinDir, name) {
   } catch {
     return [`${label}: built page missing`];
   }
+  if (/^edition_cards:\s*true\s*$/m.test(markdown)) return cardProblems(html, label);
   const stories = editionStories(html);
   const problems = [];
   if (stories.length === 0) problems.push(`${label}: no stories found`);

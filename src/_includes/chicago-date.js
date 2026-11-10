@@ -35,3 +35,30 @@ export function deadlineStillOpen(expiresOn, today = new Date()) {
   const day = today instanceof Date ? chicagoDate(today) : today;
   return !(expiresOn && expiresOn < day);
 }
+
+const DAY_MS = 86400000;
+
+function isoParts(iso) {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(iso ?? ""));
+  if (!match) return null;
+  return Date.UTC(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
+}
+
+// Whole Chicago calendar days from `today` to `target`. A Date is read in
+// America/Chicago. A YYYY-MM-DD string is already a Chicago day.
+export function daysUntil(target, today = new Date()) {
+  const start = isoParts(today instanceof Date ? chicagoDate(today) : today);
+  const end = isoParts(target);
+  if (start === null || end === null) return null;
+  return Math.round((end - start) / DAY_MS);
+}
+
+// "2 days" while the date is still ahead, "Today" on that Chicago day,
+// and "" once the date has passed so the glyph can be left off the card.
+export function countdownGlyph(target, today = new Date()) {
+  const days = daysUntil(target, today);
+  if (days === null || days < 0) return "";
+  if (days === 0) return "Today";
+  if (days === 1) return "1 day";
+  return `${days} days`;
+}

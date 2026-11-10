@@ -25,7 +25,9 @@ import { editionSignup, tidyEditionChrome, wrapRiverStories } from "./scripts/ed
 import { collapseSourceLists } from "./scripts/source-lists.mjs";
 import { withReaderActions } from "./scripts/reader-action.mjs";
 import { consolidateStorySources } from "./scripts/story-sources.mjs";
-import { centralTime } from "./src/_includes/chicago-date.js";
+import { centralTime, countdownGlyph } from "./src/_includes/chicago-date.js";
+import { stripDate, tightTokens } from "./scripts/edition-dates.mjs";
+import { editionCardModel } from "./scripts/edition-cards.mjs";
 
 const illustrationAssets = await loadIllustrationAssets(readdirSync("src/_data/frontpages")
   .filter(name => name.endsWith(".json"))
@@ -446,8 +448,16 @@ export default function (eleventyConfig) {
     (content) => `<section class="big-story">\n${md.render(content)}</section>`
   );
 
+  eleventyConfig.addFilter("stripDate", stripDate);
+  eleventyConfig.addFilter("tightTokens", tightTokens);
+  eleventyConfig.addFilter("editionCardModel", (cards) => editionCardModel(cards));
+  eleventyConfig.addFilter("countdownGlyph", (target) => countdownGlyph(target));
   eleventyConfig.addFilter("icon", (name) => {
-    const file = `src/icons/${name}.svg`;
+    const stem = String(name || "");
+    if (!/^[a-z0-9-]+$/.test(stem)) return "";
+    const plain = `src/icons/${stem}.svg`;
+    const bold = `src/icons/${stem}-bold.svg`;
+    const file = existsSync(plain) ? plain : bold;
     if (!existsSync(file)) return "";
     return readFileSync(file, "utf8")
       .replace("<svg ", "<svg class=\"icon-svg\" focusable=\"false\" aria-hidden=\"true\" ");

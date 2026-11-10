@@ -38,7 +38,37 @@ async function onClick(button) {
   }
 }
 
+async function onAnchor(link) {
+  const url = link.href;
+  const title = link.getAttribute("data-share-title") || "";
+  const word = link.querySelector(".share-word");
+  const previous = word ? word.textContent : "";
+  try {
+    const message = await shareOrCopy({
+      title,
+      url,
+      canShare: typeof navigator.share === "function",
+      share: (data) => navigator.share(data),
+      writeText: (value) => navigator.clipboard.writeText(value)
+    });
+    if (message && word) {
+      word.textContent = "Copied";
+      window.setTimeout(() => {
+        if (word.textContent === "Copied") word.textContent = previous;
+      }, 4000);
+    }
+  } catch {
+    window.location.assign(url);
+  }
+}
+
 function boot() {
+  for (const link of document.querySelectorAll("a.share")) {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      onAnchor(link);
+    });
+  }
   for (const block of document.querySelectorAll(".story-share")) {
     const link = block.querySelector(".story-share-link");
     const button = block.querySelector(".story-share-button");
