@@ -88,6 +88,8 @@ test("the built archive lists those titles and the homepage card stays the lead"
   assert.match(archive, /Runoff registration, a \$25 million boardwalk/);
   assert.match(archive, /href="\/2026\/11\/09\/"/);
   assert.match(archive, /Thursday registration deadline, a county canvass/);
+  assert.match(archive, /href="\/2026\/11\/10\/"/);
+  assert.match(archive, /927 rental units, county certificates, and STAR Flight helicopters/);
 });
 
 test("every published edition has a usable archive title", async () => {

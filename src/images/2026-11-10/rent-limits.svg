@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+  <title>Chart of rent-restricted rental units by recorded expiration year</title>
+  <rect width="1600" height="1000" fill="#FBF4E6"/>
+  <text x="96" y="110" font-family="Liberation Serif, serif" font-size="64" font-weight="700" fill="#14171F">Rent-restricted rental units</text>
+  <text x="96" y="164" font-family="Liberation Sans, sans-serif" font-size="28" fill="#5B5650">By recorded expiration year. Red bar: 2027, the next year.</text>
+  <line x1="120" y1="820" x2="1480" y2="820" stroke="#D9D0C2" stroke-width="2"/>
+  
+  <rect x="172" y="314" width="168" height="506" fill="#C8102E"/>
+  <text x="256" y="296" text-anchor="middle" font-family="Liberation Sans, sans-serif" font-size="40" font-weight="700" fill="#C8102E">927</text>
+  <text x="256" y="872" text-anchor="middle" font-family="Liberation Sans, sans-serif" font-size="32" font-weight="700" fill="#C8102E">2027</text>
+  <rect x="444" y="674" width="168" height="146" fill="#0072B2"/>
+  <text x="528" y="656" text-anchor="middle" font-family="Liberation Sans, sans-serif" font-size="40" font-weight="700" fill="#14171F">268</text>
+  <text x="528" y="872" text-anchor="middle" font-family="Liberation Sans, sans-serif" font-size="32" font-weight="700" fill="#14171F">2028</text>
+  <rect x="716" y="472" width="168" height="348" fill="#0072B2"/>
+  <text x="800" y="454" text-anchor="middle" font-family="Liberation Sans, sans-serif" font-size="40" font-weight="700" fill="#14171F">637</text>
+  <text x="800" y="872" text-anchor="middle" font-family="Liberation Sans, sans-serif" font-size="32" font-weight="700" fill="#14171F">2029</text>
+  <rect x="988" y="300" width="168" height="520" fill="#0072B2"/>
+  <text x="1072" y="282" text-anchor="middle" font-family="Liberation Sans, sans-serif" font-size="40" font-weight="700" fill="#14171F">953</text>
+  <text x="1072" y="872" text-anchor="middle" font-family="Liberation Sans, sans-serif" font-size="32" font-weight="700" fill="#14171F">2030</text>
+  <rect x="1260" y="625" width="168" height="195" fill="#0072B2"/>
+  <text x="1344" y="607" text-anchor="middle" font-family="Liberation Sans, sans-serif" font-size="40" font-weight="700" fill="#14171F">358</text>
+  <text x="1344" y="872" text-anchor="middle" font-family="Liberation Sans, sans-serif" font-size="32" font-weight="700" fill="#14171F">2031</text>
+  <text x="96" y="940" font-family="Liberation Sans, sans-serif" font-size="26" fill="#5B5650">Source: City of Austin Affordable Housing Inventory</text>
+</svg>
