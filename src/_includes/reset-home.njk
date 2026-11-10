@@ -15,14 +15,18 @@
       {% include "reset-chart.njk" %}
       <p class="source-line" data-budget-exempt>Source: <a href="{{ inventory | escape }}">{{ lead.source.name | escape }}</a></p>
     </div>
-    <p class="opener front-deck">Austin's Affordable Housing Inventory lists 927 rent-restricted rental units with affordability expiration dates in 2027, more than three times the 268 listed for 2028.</p>
+    <p class="opener front-deck">More than three times the 268 listed for 2028.</p>
   </section>
-  <section class="axioms">
-    <h2>Why it matters</h2>
-    <p class="caveat caveat-paper">{{ lead.caveat | escape }}</p>
-    <h2>What you can do</h2>
-    <p><a href="{{ inventory | escape }}">Open the city inventory and read the 11 properties.</a></p>
-  </section>
+  <ul class="axiom-rows">
+    <li>
+      <span class="icon icon-20" aria-hidden="true">{{ "info-bold" | icon | safe }}</span>
+      <p><span class="row-label">Why it matters</span> {{ lead.caveat | escape }}</p>
+    </li>
+    <li>
+      <span class="icon icon-20" aria-hidden="true">{{ "arrow-right-bold" | icon | safe }}</span>
+      <p><span class="row-label">What you can do</span> <a href="{{ inventory | escape }}">Open the city inventory and read the 11 properties.</a></p>
+    </li>
+  </ul>
   <section class="week-lines-wrap" aria-labelledby="this-week">
     <h2 id="this-week">{{ thisWeek.heading | escape }}</h2>
     {% include "reset-week.njk" %}
@@ -42,29 +46,18 @@
       <p class="caveat">{{ lead.caveat | escape }}</p>
       <p class="source-line" data-budget-exempt>Source: <a href="{{ inventory | escape }}">{{ lead.source.name | escape }}</a></p>
     </section>
-    <section class="story-card story-card--map">
-      <p class="card-num">{{ thisWeek.items | length }}</p>
-      <h2>This week on the map</h2>
-      <p class="card-blurb">City Hall items share one pin.</p>
-      <p class="map-kicker" data-budget-exempt>MAP</p>
-      <div class="map-frame">
+    <section class="story-card story-card--rent">
+      <h2>Where 2027 rent limits end</h2>
+      <div class="map-frame rent-map">
         {% include "reset/district-2027.svg" %}
-        <div class="pin-layer">
-          {% for pin in thisWeek.pins %}
-          <a class="pin" href="#week-list" style="{{ pin.lat | pinStyle(pin.lng, 12, "card") }}" data-pin="{{ loop.index0 }}" aria-expanded="false" aria-controls="pin-card" aria-label="{{ pin.count }} items, {{ pin.location | escape }}">
-            <span class="pin-dot">{{ pin.count }}</span>
-          </a>
-          {% endfor %}
-        </div>
       </div>
-      <div id="pin-card" class="pin-card" hidden>
-        <ul></ul>
-      </div>
-      {% include "reset-week.njk" %}
       <p class="source-line source-ink" data-budget-exempt>Map: City of Austin (CTM, Citygate GIS, Travis County Clerk Elections Division).</p>
-      <script type="application/json" id="week-pins">{{ thisWeek.pinsJson | safe }}</script>
     </section>
-    <section class="story-card">
+    <section class="story-card story-card--week">
+      <h2 class="week-kicker" id="this-week-a">This week · {{ thisWeek.items | length }} items</h2>
+      {% include "reset-week.njk" %}
+    </section>
+    <section class="story-card story-card--districts">
       <p class="card-num">883</p>
       <h2>Districts 4, 5 and 7</h2>
       <p class="card-blurb">Those districts account for 883 of the 927 rental units.</p>
@@ -72,28 +65,6 @@
         <div class="mini-row"><span data-budget-exempt>D4</span><span class="mini-bar" style="--h: 100%"></span><span data-budget-exempt>433</span></div>
         <div class="mini-row"><span data-budget-exempt>D5</span><span class="mini-bar" style="--h: 61%"></span><span data-budget-exempt>264</span></div>
         <div class="mini-row"><span data-budget-exempt>D7</span><span class="mini-bar" style="--h: 43%"></span><span data-budget-exempt>186</span></div>
-      </div>
-      <p class="source-line source-ink" data-budget-exempt><a href="{{ inventory | escape }}">City inventory</a></p>
-    </section>
-    <section class="story-card">
-      <p class="card-num">882</p>
-      <h2>Four rental communities</h2>
-      <p class="card-blurb">Cascades, Runnymede, Legacy Ranch and Meadowood account for 882.</p>
-      <div class="mini" role="img" aria-label="Cascades 264, Runnymede 252, Legacy Ranch 186, Meadowood 180.">
-        <div class="mini-row"><span data-budget-exempt>Cascades</span><span class="mini-bar" style="--h: 100%"></span><span data-budget-exempt>264</span></div>
-        <div class="mini-row"><span data-budget-exempt>Runnymede</span><span class="mini-bar" style="--h: 95%"></span><span data-budget-exempt>252</span></div>
-        <div class="mini-row"><span data-budget-exempt>Legacy</span><span class="mini-bar" style="--h: 70%"></span><span data-budget-exempt>186</span></div>
-        <div class="mini-row"><span data-budget-exempt>Meadowood</span><span class="mini-bar" style="--h: 68%"></span><span data-budget-exempt>180</span></div>
-      </div>
-      <p class="source-line source-ink" data-budget-exempt><a href="{{ inventory | escape }}">City inventory</a></p>
-    </section>
-    <section class="story-card">
-      <p class="card-num">918</p>
-      <h2>Mostly apartment homes</h2>
-      <p class="card-blurb">918 of the units are apartments, plus 9 in smaller homes.</p>
-      <div class="mini" role="img" aria-label="918 apartments and 9 units in duplexes and single-family homes.">
-        <div class="mini-row"><span data-budget-exempt>Apartments</span><span class="mini-bar" style="--h: 100%"></span><span data-budget-exempt>918</span></div>
-        <div class="mini-row"><span data-budget-exempt>Other homes</span><span class="mini-bar" style="--h: 4%"></span><span data-budget-exempt>9</span></div>
       </div>
       <p class="source-line source-ink" data-budget-exempt><a href="{{ inventory | escape }}">City inventory</a></p>
     </section>
