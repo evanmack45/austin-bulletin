@@ -45,7 +45,7 @@ test("a sourced action renders after the body and before the source line", () =>
   assert.equal(action.length, 1);
   assert.match(action[0], /What you can do:/);
   assert.match(action[0], new RegExp(`href="${SPEAK}"`));
-  assert.match(action[0], />Register to speak at Commissioners Court</);
+  assert.match(action[0], />Register to speak at Commissioners Court\.</);
   assert.doesNotMatch(action[0], /https?:\/\/[^\s"<]+<\/a>/);
   const story = html.slice(html.indexOf("County court"), html.indexOf("A notice"));
   assert.ok(story.indexOf("9:00 a.m.") < story.indexOf("what-you-can-do"));

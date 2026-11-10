@@ -59,7 +59,7 @@ export function readerActionMarkup(action) {
   const url = escapeHtml(action.url);
   return "<p class=\"what-you-can-do\">"
     + "<span class=\"what-you-can-do-label\">What you can do:</span> "
-    + `<a href="${url}">${text}</a>${sentenceStop(action.text)}</p>`;
+    + `<a href="${url}">${text}${sentenceStop(action.text)}</a></p>`;
 }
 
 export function stripActionComments(html) {
