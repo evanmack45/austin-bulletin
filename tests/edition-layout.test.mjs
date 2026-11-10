@@ -51,7 +51,7 @@ test("edition layout is Georgia, with one signup after story three", () => {
   assert.equal(storiesBeforeSignup(monday), 3);
   assert.equal(countdownLabelCount(monday), 1);
   assert.doesNotMatch(monday, /Countdown\.\s*Countdown/);
-  assert.match(monday, /id="news"[\s\S]*?class="river river--tiered river--pair"/);
+  assert.match(monday, /id="news"[\s\S]*?<article class="card/);
   const mondayNumber = monday.match(/<aside class="the-number[^"]*">[\s\S]*?<\/aside>/)?.[0] ?? "";
   assert.match(mondayNumber, /the-number--figure/);
   assert.match(mondayNumber, /<strong>9:00 a\.m\.<\/strong>/);

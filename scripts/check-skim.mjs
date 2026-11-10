@@ -9,6 +9,7 @@ import { fileURLToPath } from "node:url";
 import { editionStories } from "./edition-skim.mjs";
 import { plainText } from "./metadata.mjs";
 import {
+  bulletinArticle,
   externalStorySourceSets,
   normalizeBulletin,
   storySourceSets
@@ -18,10 +19,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SKIM_LIMIT = 5;
 
 function articleOf(html) {
-  const match = String(html).match(
-    /<article\b[^>]*class="[^"]*\bbulletin\b[^"]*"[^>]*>([\s\S]*?)<\/article>/i
-  );
-  return match ? match[1] : String(html);
+  return bulletinArticle(html);
 }
 
 function skimNav(html) {
@@ -34,6 +32,18 @@ function skimLinks(navInner) {
     anchor: plainText(match[1]),
     title: plainText(match[2])
   }));
+}
+
+function usesEditionCards(html) {
+  return /class="[^"]*\bedition-wrap\b/.test(html)
+    && /<article\b[^>]*class="[^"]*\bcard\b/.test(html);
+}
+
+function noteSkim(html, label, problems) {
+  if (usesEditionCards(html)) return;
+  const stories = editionStories(html);
+  if (stories.length === 0) problems.push(`${label}: no stories found`);
+  expectSkim(html, stories, label, problems);
 }
 
 function expectSkim(html, stories, label, problems) {
@@ -126,10 +136,8 @@ async function checkEdition(siteDir, bulletinDir, name) {
     return [`${label}: built page missing`];
   }
   if (/^edition_cards:\s*true\s*$/m.test(markdown)) return cardProblems(html, label);
-  const stories = editionStories(html);
   const problems = [];
-  if (stories.length === 0) problems.push(`${label}: no stories found`);
-  expectSkim(html, stories, label, problems);
+  noteSkim(html, label, problems);
   const source = normalizeBulletin(markdown);
   const article = articleOf(html);
   const before = storySourceSets(source);

@@ -2,6 +2,7 @@
 layout: layout.njk
 editionPage: true
 hasInlineSignup: true
+cardChrome: true
 ---
 <article class="bulletin{% if edition_cards %} bulletin--cards{% endif %}{% if (page.date | isoDate) == '2026-11-08' %} bulletin--2026-11-08{% endif %}" data-pagefind-body>
   {% set editionDate = page.date %}
@@ -13,26 +14,23 @@ hasInlineSignup: true
   {% else %}
   {% set top = content | editionLead(editionIso, editionUrl) %}
   {% set skimBody = content | withStoryAnchors %}
-  {% set skim = skimBody | skimList %}
-  {% include "edition-head.njk" %}
+  {% set prepared = skimBody | consolidateStorySources | withReaderActions | withStoryPhotos(images, top.storyKey) | withCouncilMeetings(editionIso) %}
+  {% set pack = prepared | legacyEditionCards %}
+  {% set legacyKicker = true %}
+  {% set legacyBriefing = pack.briefing %}
   {% if editionIso == election2026.date or editionIso == election2026.homepageThrough %}
   <p class="election-banner"><a href="/election/{{ election2026.date }}/">Results page</a></p>
   {% endif %}
-  {% if skim.length %}
-  <nav class="skim" aria-labelledby="skim-title">
-    <h2 id="skim-title">Today's items</h2>
-    <ol>
-      {% for item in skim %}
-      <li><a href="#{{ item.anchor | escape }}">{{ item.title | escape }}</a></li>
-      {% endfor %}
-    </ol>
-  </nav>
-  {% endif %}
-  {% if not images or not images.lead or images.lead.kind != "illustration" %}
-  {{ images | leadForStory(top.storyKey) | safe }}
-  {% endif %}
   {% set glanceData = glance[editionDate | isoDate] %}
   {% include "glance.njk" %}
-  {{ skimBody | consolidateStorySources | withReaderActions | withStoryPhotos(images, top.storyKey) | withCouncilMeetings(editionIso) | editionSignup | safe }}
+  {% if not images or not images.lead or images.lead.kind != "illustration" %}
+  {% set leadFigure = images | leadForStory(top.storyKey) %}
+  {% endif %}
+  {% if pack.preface %}{{ pack.preface | safe }}{% endif %}
+  {% if pack.cards.length %}
+  {% include "edition-cards.njk" %}
+  {% else %}
+  {{ prepared | editionSignup | safe }}
+  {% endif %}
   {% endif %}
 </article>

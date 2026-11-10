@@ -82,8 +82,8 @@ const SUNDAY_TYPE = `(() => {
   const style = (selector) => getComputedStyle(document.querySelector(selector));
   const before = (selector) => getComputedStyle(document.querySelector(selector), "::before");
   return {
-    story: style(".river p").fontFamily,
-    storySize: style(".river p").fontSize,
+    story: style(".legacy-copy p").fontFamily,
+    storySize: style(".legacy-copy p").fontSize,
     signup: style(".signup--edition p").fontFamily,
     datumSize: style(".the-number strong").fontSize,
     datumColor: style(".the-number strong").color,
@@ -110,7 +110,7 @@ test("November 8 renders Georgia prose and an open back page", { skip: !CHROME }
   const desk = await page.evaluate(SUNDAY_TYPE);
   await page.goto(`${origin}/2026/11/06/`, { waitUntil: "networkidle0" });
   const friday = await page.evaluate(
-    "getComputedStyle(document.querySelector('.river p')).fontFamily"
+    "getComputedStyle(document.querySelector('.legacy-copy p')).fontFamily"
   );
   await browser.close();
   server.close();

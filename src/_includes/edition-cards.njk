@@ -15,7 +15,11 @@
 <div class="edition-wrap">
   <div class="edition-intro">
     <div class="datestrip">
+      {% if legacyKicker %}
+      <h1 class="edition-kicker"><span class="edition-weekday">{{ editionDate | weekday }}</span> · <time class="edition-date" datetime="{{ editionDate | isoDate }}">{{ editionDate | longDate }}</time></h1>
+      {% else %}
       <time class="edition-date" datetime="{{ editionDate | isoDate }}">{{ editionDate | stripDate }}</time>
+      {% endif %}
       {% if model.sections | length %}
       <ul class="jump" aria-label="Sections">
         {% for section in model.sections %}
@@ -24,11 +28,40 @@
       </ul>
       {% endif %}
     </div>
-    {% if today %}<p class="today"><strong>Today:</strong> {{ today | tightTokens }}</p>{% endif %}
+    {% if today %}<p class="today"><strong>Today:</strong> {{ today | tightTokens }}</p>    {% endif %}
   </div>
   {% if model.lead %}
   {% set item = model.lead %}
   {% set shareUrl = (page.url | canonicalUrl) + "#" + item.id %}
+  {% if item.legacy %}
+  <article class="card legacy-card"{% if item.anchor %} id="{{ item.anchor | escape }}"{% endif %}>
+    <div class="card-top">
+      {{ shareLink(shareUrl, item.headline) }}
+    </div>
+    <div class="legacy-copy">
+      {% if item.headingHtml %}<div class="legacy-heading">{{ item.headingHtml | safe }}</div>{% endif %}
+      {% set leadSrc = images.lead.src if images and images.lead and images.lead.src else "" %}
+      {% if item.artHtml or (item.lead and leadFigure) %}
+      <div class="legacy-art">
+        {% if item.lead and images and images.lead and images.lead.kicker == "CHART" %}
+        <p class="chart-kicker kicker">CHART</p>
+        {% endif %}
+        {% if item.lead and leadFigure and (not leadSrc or not item.artHtml or not (leadSrc in item.artHtml)) %}{{ leadFigure | safe }}{% endif %}
+        {% if item.artHtml %}{{ item.artHtml | safe }}{% endif %}
+      </div>
+      {% endif %}
+      <div class="legacy-lede">
+        {{ item.ledeHtml | safe }}
+        {% if item.moreHtml %}
+        <details class="card-more">
+          <summary><p class="card-toggle"><span class="toggle">Full item <span class="icon">{{ "caret-down" | icon | safe }}</span></span></p></summary>
+          <div class="more">{{ item.moreHtml | safe }}</div>
+        </details>
+        {% endif %}
+      </div>
+    </div>
+  </article>
+  {% else %}
   <article class="lead" id="{{ item.id | escape }}">
     {% if images and images.lead and images.lead.src %}
     <img class="share-image" src="{{ images.lead.src | escape }}" alt="{{ images.lead.alt | escape }}" width="{{ images.lead.width }}" height="{{ images.lead.height }}" aria-hidden="true">
@@ -46,6 +79,7 @@
     {{ sourceLine(item.shownSources, false) }}
   </article>
   {% endif %}
+  {% endif %}
   {% for section in model.sections %}
   <section aria-labelledby="{{ section.id | escape }}">
     <h2 class="section-label" id="{{ section.id | escape }}">{{ section.label | escape }}</h2>
@@ -56,7 +90,27 @@
       {% include "signup.njk" %}
       {% endif %}
       {% set shareUrl = (page.url | canonicalUrl) + "#" + item.id %}
-      <article class="card{% if item.good %} good good-thing{% endif %}" id="{{ item.id | escape }}">
+      <article class="card{% if item.legacy %} legacy-card{% endif %}{% if item.good %} good good-thing{% endif %}"{% if item.legacy %}{% if item.anchor %} id="{{ item.anchor | escape }}"{% endif %}{% else %} id="{{ item.id | escape }}"{% endif %}>
+        {% if item.legacy %}
+        <div class="card-top">
+          {{ shareLink(shareUrl, item.headline) }}
+        </div>
+        <div class="legacy-copy">
+          {% if item.headingHtml %}<div class="legacy-heading">{{ item.headingHtml | safe }}</div>{% endif %}
+          {% if item.artHtml %}
+          <div class="legacy-art">{{ item.artHtml | safe }}</div>
+          {% endif %}
+          <div class="legacy-lede">
+            {{ item.ledeHtml | safe }}
+            {% if item.moreHtml %}
+            <details class="card-more">
+              <summary><p class="card-toggle"><span class="toggle">Full item <span class="icon">{{ "caret-down" | icon | safe }}</span></span></p></summary>
+              <div class="more">{{ item.moreHtml | safe }}</div>
+            </details>
+            {% endif %}
+          </div>
+        </div>
+        {% else %}
         <div class="card-top">
           <div class="card-top-l">
             {% if item.icon and item.topic %}
@@ -74,6 +128,7 @@
         <h3>{{ item.headline | tightTokens }}</h3>
         {{ itemBody(item) }}
         {% if item.shownSources | length %}{{ sourceLine(item.shownSources, false) }}{% endif %}
+        {% endif %}
       </article>
       {% endfor %}
     </div>

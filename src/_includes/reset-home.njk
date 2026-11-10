@@ -1,6 +1,12 @@
 {% set editionDate = (collections.bulletins | first).date | isoDate %}
-{% set shareAlt = "Chart: 927 Austin affordable rental units lose rent limits in 2027, shown against 268 in 2028, 637 in 2029, 953 in 2030 and 358 in 2031. Source: City of Austin Affordable Housing Inventory." %}
-{% set chartAlt = "Chart: Austin affordable rental units whose recorded rent limits end each year. 2027: 927 (highlighted), 2028: 268, 2029: 637, 2030: 953, 2031: 358. An expiration date doesn't by itself mean rents will rise. Source: City of Austin Affordable Housing Inventory." %}
+{% set s = lead.series_by_year %}
+{% set hero = s | selectattr("highlight") | first %}
+{% set n = hero.units %}
+{% set d4 = (lead.by_district_2027 | selectattr("council_district", "equalto", 4) | first) %}
+{% set d5 = (lead.by_district_2027 | selectattr("council_district", "equalto", 5) | first) %}
+{% set d7 = (lead.by_district_2027 | selectattr("council_district", "equalto", 7) | first) %}
+{% set shareAlt = "Chart: " ~ n ~ " Austin affordable rental units lose rent limits in " ~ hero.year ~ ", shown against " ~ s[1].units ~ " in " ~ s[1].year ~ ", " ~ s[2].units ~ " in " ~ s[2].year ~ ", " ~ s[3].units ~ " in " ~ s[3].year ~ " and " ~ s[4].units ~ " in " ~ s[4].year ~ ". Source: City of Austin Affordable Housing Inventory." %}
+{% set chartAlt = "Chart: Austin affordable rental units whose recorded rent limits end each year. " ~ hero.year ~ ": " ~ n ~ " (highlighted), " ~ s[1].year ~ ": " ~ s[1].units ~ ", " ~ s[2].year ~ ": " ~ s[2].units ~ ", " ~ s[3].year ~ ": " ~ s[3].units ~ ", " ~ s[4].year ~ ": " ~ s[4].units ~ ". An expiration date doesn't by itself mean rents will rise. Each bar is the sum of affordable units. Source: City of Austin Affordable Housing Inventory." %}
 {% set inventory = lead.source.url %}
 <article class="reset-home paper-main" data-edition="{{ editionDate }}" data-variant="{{ variant }}">
   
@@ -8,10 +14,10 @@
     <section class="story-card story-card--lead front-lead" id="lead" data-fold data-animate>
       <img class="share-image" src="/images/reset/share-1200x630.png" alt="{{ shareAlt | escape }}" width="1200" height="630" aria-hidden="true">
       <a class="hero-link" href="/lead-story/">
-        <span class="bignum" data-count="{{ lead.callout.value }}">{{ lead.callout.value }}</span>
+        <span class="bignum" data-count="{{ n }}">{{ n }}</span>
         <h1>Affordable rentals lose rent limits in 2027</h1>
       </a>
-      <p class="card-blurb front-deck">More than three times the 268 units listed for 2028.</p>
+      <p class="card-blurb front-deck">More than three times the {{ s[1].units }} units listed for {{ s[1].year }}.</p>
       <p class="chart-kicker" data-budget-exempt><span class="icon icon-20" aria-hidden="true">{{ "house-line-bold" | icon | safe }}</span> CHART</p>
       {% set mini = false %}
       {% include "reset-chart.njk" %}
@@ -30,13 +36,13 @@
       {% include "reset-week.njk" %}
     </section>
     <section class="story-card story-card--districts">
-      <p class="card-num">883</p>
+      <p class="card-num">{{ lead.key_figures.districts_4_5_7_units_2027 }}</p>
       <h2>Districts 4, 5 and 7</h2>
-      <p class="card-blurb">Of the 927 rental units.</p>
-      <div class="mini" role="img" aria-label="District 4 has 433 units, District 5 has 264, and District 7 has 186.">
-        <div class="mini-row"><span data-budget-exempt>D4</span><span class="mini-bar" style="--h: 100%"></span><span data-budget-exempt>433</span></div>
-        <div class="mini-row"><span data-budget-exempt>D5</span><span class="mini-bar" style="--h: 61%"></span><span data-budget-exempt>264</span></div>
-        <div class="mini-row"><span data-budget-exempt>D7</span><span class="mini-bar" style="--h: 43%"></span><span data-budget-exempt>186</span></div>
+      <p class="card-blurb">Of the {{ n }} rental units.</p>
+      <div class="mini" role="img" aria-label="District 4 has {{ d4.units }} units, District 5 has {{ d5.units }}, and District 7 has {{ d7.units }}.">
+        <div class="mini-row"><span data-budget-exempt>D4</span><span class="mini-bar" style="--h: 100%"></span><span data-budget-exempt>{{ d4.units }}</span></div>
+        <div class="mini-row"><span data-budget-exempt>D5</span><span class="mini-bar" style="--h: {{ (d5.units / d4.units * 100) | round }}%"></span><span data-budget-exempt>{{ d5.units }}</span></div>
+        <div class="mini-row"><span data-budget-exempt>D7</span><span class="mini-bar" style="--h: {{ (d7.units / d4.units * 100) | round }}%"></span><span data-budget-exempt>{{ d7.units }}</span></div>
       </div>
       <p class="source-line source-ink" data-budget-exempt><a href="{{ inventory | escape }}">City inventory</a></p>
     </section>

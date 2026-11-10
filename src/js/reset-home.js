@@ -38,23 +38,39 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") closePins();
 });
 
+function paintCount(node, end) {
+  node.textContent = String(end);
+}
+
 function countTo(node, end) {
   const start = performance.now();
   function frame(now) {
     const t = Math.min(1, (now - start) / 900);
-    node.textContent = String(t === 1 ? end : Math.round(end * (1 - (1 - t) ** 3)));
-    if (t < 1) requestAnimationFrame(frame);
+    if (t === 1) {
+      paintCount(node, end);
+      return;
+    }
+    node.textContent = String(Math.round(end * (1 - (1 - t) ** 3)));
+    requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
 }
 
-if (!reduce) {
+document.querySelectorAll("[data-count]").forEach((node) => {
+  const end = Number(node.dataset.count);
+  if (Number.isFinite(end)) paintCount(node, end);
+});
+
+if (reduce) {
+  document.querySelectorAll("[data-animate]").forEach((el) => el.classList.add("is-in"));
+} else {
   const seen = new IntersectionObserver((entries) => {
     for (const entry of entries) {
       if (entry.intersectionRatio < 0.4) continue;
       entry.target.classList.add("is-in");
       const num = entry.target.querySelector("[data-count]");
-      if (num) countTo(num, Number(num.dataset.count));
+      const end = Number(num?.dataset.count);
+      if (num && Number.isFinite(end)) countTo(num, end);
       seen.unobserve(entry.target);
     }
   }, { threshold: [0.4] });

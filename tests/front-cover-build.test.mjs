@@ -87,11 +87,13 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.match(page, /class="site-menu"/);
   assert.match(page, /<h1 class="edition-kicker"/);
   assert.doesNotMatch(page, /class="edition-lead-title"/);
-  assert.match(page, /Today's items/);
+  assert.match(page, /class="edition-wrap"/);
+  assert.match(page, /<article class="card/);
+  assert.doesNotMatch(page, /<nav class="skim"/);
   assert.doesNotMatch(page, /In 60 seconds/);
   assert.doesNotMatch(page, /Good morning, Austin/);
   assert.doesNotMatch(page, /<h2[^>]*>\s*The Briefing/);
-  assert.match(page, /How this site is made/);
+  assert.doesNotMatch(page, /How this site is made/);
   assert.equal(page.includes("About our reporting"), false);
   const disclosure = '<p class="ai-disclosure">' +
     '<a href="/about/#trust">An AI system produces this site.</a></p>';
@@ -99,7 +101,7 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.equal(page.includes(disclosure), true);
   const lead = page.match(/<h3\b[^>]*\bid="([^"]+)"/);
   assert.ok(lead, "edition lead heading");
-  assert.match(page, new RegExp(`<nav class="skim"[\\s\\S]*href="#${lead[1]}"`));
+  assert.match(page, new RegExp(`#${lead[1]}`));
   const h1 = page.match(/<h1\b[^>]*>[\s\S]*?<\/h1>/)?.[0] ?? "";
   assert.equal(h1.includes(lead[1]), false);
   assert.doesNotMatch(page, />Results page</);
@@ -150,7 +152,7 @@ test("Monday labels the lead illustration and the county headline", () => {
 
 test("the sunday edition stacks each source and names the headline actions", () => {
   const page = readFileSync("_site/2026/11/08/index.html", "utf8");
-  const lead = page.match(/<section class="big-story"[\s\S]*?<\/section>/)?.[0] ?? "";
+  const lead = page.match(/<article class="card legacy-card"[\s\S]*?<\/article>/)?.[0] ?? "";
   const line = lead.match(/<p class="source-line">[\s\S]*?<\/p>/)?.[0] ?? "";
   assert.equal(line.split('class="source-group"').length - 1, 1);
   assert.equal(line.includes("·"), false);

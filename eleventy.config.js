@@ -28,6 +28,7 @@ import { consolidateStorySources } from "./scripts/story-sources.mjs";
 import { centralTime, countdownGlyph } from "./src/_includes/chicago-date.js";
 import { stripDate, tightTokens } from "./scripts/edition-dates.mjs";
 import { editionCardModel } from "./scripts/edition-cards.mjs";
+import { legacyEditionCards } from "./scripts/legacy-edition-cards.mjs";
 
 const illustrationAssets = await loadIllustrationAssets(readdirSync("src/_data/frontpages")
   .filter(name => name.endsWith(".json"))
@@ -451,6 +452,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("stripDate", stripDate);
   eleventyConfig.addFilter("tightTokens", tightTokens);
   eleventyConfig.addFilter("editionCardModel", (cards) => editionCardModel(cards));
+  eleventyConfig.addFilter("legacyEditionCards", legacyEditionCards);
   eleventyConfig.addFilter("countdownGlyph", (target) => countdownGlyph(target));
   eleventyConfig.addFilter("icon", (name) => {
     const stem = String(name || "");

@@ -9,9 +9,10 @@
   "api": "https://data.austintexas.gov/resource/ifzc-3xz8.json"
  },
  "filter": "housing_tenure='Rental' AND development_status IN ('Project Completed','Certified','Under Construction','Loan Awarded','Loan Closed') AND affordability_expiration_date in calendar year (>= 'YYYY-01-01T00:00:00' AND < 'YYYY+1-01-01T00:00:00'); value = sum(affordable_units)",
- "retrieved_at_ct": "2026-11-09T20:07:42-06:00",
+ "retrieved_at_ct": "2026-11-10T13:04:25-06:00",
+ "evidence": "data/affordable-housing-inventory-2027-2031.json",
  "marrow_pull_ct": "2026-11-09T20:04:03-06:00",
- "dataset_rows_updated_ct": "2026-11-09T06:01:23-06:00",
+ "dataset_rows_updated_ct": "2026-11-10T06:01:01-06:00",
  "caveat": "An expiration date doesn't by itself mean rents will rise.",
  "callout": {
   "value": 927,
