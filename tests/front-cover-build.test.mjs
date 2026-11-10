@@ -33,6 +33,43 @@ test("the homepage lead is the 2027 rent-limit chart", () => {
   assertChartLead(readFileSync("_site/index.html", "utf8"));
 });
 
+function assertTuesdayEdition(page) {
+  assert.match(page, /November 10, 2026/);
+  assert.doesNotMatch(page, /p-courthouse/);
+  assert.doesNotMatch(page, /parking-311\.webp/);
+  assert.match(page, /class="story-share"/);
+  assert.match(page, /700 Lavaca Street/);
+  assert.doesNotMatch(page, /Editor notes/);
+  const art = "https://theaustinbulletin.com/images/2026-11-10/"
+    + "rent-limits-desktop-1600.webp";
+  assert.ok(page.includes(`property="og:image" content="${art}"`));
+  assert.match(page, /property="og:title" content="Rent limits end in 2027/);
+  assert.match(
+    page,
+    /og:description" content="Austin(?:'|&#39;)s Affordable Housing Inventory lists 927/
+  );
+  assert.match(page, /name="twitter:title" content="Rent limits end in 2027/);
+  assert.match(
+    page,
+    /twitter:description" content="Austin(?:'|&#39;)s Affordable Housing Inventory lists 927/
+  );
+  assert.ok(page.includes(`name="twitter:image" content="${art}"`));
+  assert.match(page, /rent-limits-desktop-1600\.webp/);
+  assert.match(page, /Chart: rental units by the year recorded rent limits end/);
+  assert.match(page, /2030 lists 953/);
+  assert.doesNotMatch(page, /AI-generated illustration/);
+  assert.match(page, /certificates of obligation/);
+  assert.match(page, /\$197,125,000/);
+  assert.match(page, /\$67,757,745\.12/);
+  assert.match(page, /does not say whether rents will rise/);
+  assert.doesNotMatch(page, /927 apartments/);
+  assert.doesNotMatch(page, /\b(peak|biggest)\b|the most/i);
+  assert.doesNotMatch(page, /\$55,326,729/);
+  assert.doesNotMatch(page, /four calendar days/);
+  assert.doesNotMatch(page, /flood watch/i);
+  assert.doesNotMatch(page, /Unifraktur|class="folio-nav"|class="edition-head"|Vol\. I/);
+}
+
 test("the homepage is one lead, and dated editions keep their own page", () => {
   const html = readFileSync("_site/index.html", "utf8");
   for (const text of [
@@ -72,8 +109,9 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
     "twitter:description\" content=\"An expiration date doesn(?:'|&#39;)t " +
     "by itself mean rents will rise"
   ));
-  assert.match(html, /Monday, Nov\. 9/);
-  assert.match(html, /href="\/2026\/11\/08\/"/);
+  assert.match(html, /Tuesday, Nov\. 10/);
+  assert.match(html, /href="\/2026\/11\/09\/"/);
+  assert.match(html, /Court weighs \$197 million in certificates/);
   assert.doesNotMatch(html, /If you (haven't|want|live|are)\b/);
   assert.ok(!html.includes("front-news-rail"), "the rail is gone");
   assert.ok(!html.includes("Austin, up close."));
@@ -104,30 +142,7 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.equal(h1.includes(lead[1]), false);
   assert.doesNotMatch(page, />Results page</);
   assert.doesNotMatch(page, /November 3 election results\./);
-  assert.match(page, /November 9, 2026/);
-  assert.doesNotMatch(page, /p-courthouse/);
-  assert.doesNotMatch(page, /parking-311\.webp/);
-  assert.match(page, /class="story-share"/);
-  assert.match(page, /700 Lavaca Street/);
-  assert.doesNotMatch(page, /Editor notes/);
-  const art = "https://theaustinbulletin.com/images/2026-11-09/"
-    + "register-lead-desktop-1600.webp";
-  assert.ok(page.includes(`property="og:image" content="${art}"`));
-  assert.match(page, /property="og:title" content="Register by Thursday/);
-  assert.match(page, /og:description" content="A resident who still needs to register/);
-  assert.match(page, /name="twitter:title" content="Register by Thursday/);
-  assert.match(page, /twitter:description" content="A resident who still needs to register/);
-  assert.ok(page.includes(`name="twitter:image" content="${art}"`));
-  assert.match(page, /register-lead-desktop-1600\.webp/);
-  assert.match(page, /AI-generated illustration: a deadline circled on a calendar\./);
-  assert.match(page, /does not say a runoff has been ordered/);
-  assert.match(page, /could come earlier/);
-  assert.match(page, /9:00 a\.m\./);
-  assert.match(page, /federal, state, district, and county officeholders/);
-  assert.doesNotMatch(page, /\$55,326,729/);
-  assert.doesNotMatch(page, /four calendar days/);
-  assert.doesNotMatch(page, /flood watch/i);
-  assert.doesNotMatch(page, /Unifraktur|class="folio-nav"|class="edition-head"|Vol\. I/);
+  assertTuesdayEdition(page);
 });
 
 test("Monday labels the lead illustration and the county headline", () => {

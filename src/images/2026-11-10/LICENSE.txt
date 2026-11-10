@@ -1,0 +1,20 @@
+Chart of rent-restricted rental units by recorded expiration year, for the
+Tuesday, November 10, 2026 edition.
+
+Figures, from the City of Austin Affordable Housing Inventory (dataset
+ifzc-3xz8), rental rows marked Project Completed, pulled the evening of
+Nov. 9, 2026, America/Chicago: 2027 is 927, 2028 is 268, 2029 is 637,
+2030 is 953, and 2031 is 358. The red bar marks 2027, the next year.
+2030 is the higher bar.
+
+Source: https://data.austintexas.gov/d/ifzc-3xz8
+
+The drawing is rent-limits.svg. The phone file is the same series on a
+780×560 canvas, not a second set of figures. Served files:
+rent-limits-desktop-1600.webp (1600×1000) and
+rent-limits-phone-780.webp (780×560).
+
+This is a chart of those figures. It is not a photograph and not an
+AI-generated image.
+License: City of Austin open data.
+License URL: https://data.austintexas.gov/d/ifzc-3xz8
