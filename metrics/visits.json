@@ -1,9 +1,9 @@
 {
-  "fetched_at": "2026-11-09T12:08:55.806Z",
+  "fetched_at": "2026-11-10T12:08:14.865Z",
   "timezone": "America/Chicago",
   "window": {
-    "start": "2026-11-03",
-    "end": "2026-11-09",
+    "start": "2026-11-04",
+    "end": "2026-11-10",
     "days": 7
   },
   "sample_interval_note": "Pageviews are the GraphQL count and visits are sum.visits for human pageloads (bot 0), grouped by date. sampleInterval is Cloudflare's sampling interval for that day: 1 means the figure was not sampled down, and a higher number means the figure is an estimate at that granularity. Visits and pageviews are stored as the API returned them.",
@@ -14,12 +14,6 @@
       "host": "theaustinbulletin.com",
       "siteTag": "f715e3efc034482ea16a102bcb2c2d36",
       "days": [
-        {
-          "date": "2026-11-03",
-          "visits": 48,
-          "pageviews": 48,
-          "sampleInterval": 1
-        },
         {
           "date": "2026-11-04",
           "visits": 40,
@@ -55,11 +49,17 @@
           "visits": 0,
           "pageviews": 0,
           "sampleInterval": null
+        },
+        {
+          "date": "2026-11-10",
+          "visits": 0,
+          "pageviews": 0,
+          "sampleInterval": null
         }
       ],
       "totals": {
-        "visits": 108,
-        "pageviews": 110
+        "visits": 60,
+        "pageviews": 62
       }
     },
     {
@@ -68,12 +68,6 @@
       "host": "yallcityhall.org",
       "siteTag": "7344ab7bea3140de8c29211155de95fc",
       "days": [
-        {
-          "date": "2026-11-03",
-          "visits": 0,
-          "pageviews": 0,
-          "sampleInterval": null
-        },
         {
           "date": "2026-11-04",
           "visits": 0,
@@ -106,6 +100,12 @@
         },
         {
           "date": "2026-11-09",
+          "visits": 0,
+          "pageviews": 0,
+          "sampleInterval": null
+        },
+        {
+          "date": "2026-11-10",
           "visits": 0,
           "pageviews": 0,
           "sampleInterval": null
