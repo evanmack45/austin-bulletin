@@ -60,3 +60,21 @@ export function archiveDate(value) {
   const monthDay = shortMonthDay(value).replace(/ (?=\d+$)/, "\u00a0");
   return `${weekdayName(value)}, ${monthDay}`;
 }
+
+const STRIP_WEEKDAYS = ["Sun.", "Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat."];
+
+// "Tue., Nov. 10, 2026". The day number stays with the month.
+export function stripDate(value) {
+  const date = editionDate(value);
+  const month = SHORT_MONTHS[date.getUTCMonth()];
+  const day = date.getUTCDate();
+  const year = date.getUTCFullYear();
+  return `${STRIP_WEEKDAYS[date.getUTCDay()]}, ${month}\u00a0${day}, ${year}`;
+}
+
+// Dates and clock times stay on one line: "Nov. 10", "9 a.m."
+export function tightTokens(value) {
+  return String(value ?? "")
+    .replace(/\b([A-Z][a-z]{2,8}\.) (\d)/g, "$1\u00a0$2")
+    .replace(/\b(\d{1,2}(?::\d{2})?) (a\.m\.|p\.m\.)/g, "$1\u00a0$2");
+}

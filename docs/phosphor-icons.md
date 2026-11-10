@@ -14,3 +14,9 @@
 | place (map pin) | map-pin-bold.svg |
 | courts / public safety (optional) | gavel-bold.svg |
 | streets / roads (optional) | road-horizon-bold.svg |
+| share | share-network-bold.svg |
+| weather / one good thing | sun-bold.svg |
+| health | heartbeat-bold.svg |
+| disclosure toggle | caret-down-bold.svg |
+
+The four files added for edition cards (share, sun, heartbeat, caret) are unmodified bold SVGs from the same package, `@phosphor-icons/core` 2.1.1. `LICENSE-phosphor.txt` covers every file in this folder.

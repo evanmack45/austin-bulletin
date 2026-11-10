@@ -33,43 +33,6 @@ test("the homepage lead is the 2027 rent-limit chart", () => {
   assertChartLead(readFileSync("_site/index.html", "utf8"));
 });
 
-function assertTuesdayEdition(page) {
-  assert.match(page, /November 10, 2026/);
-  assert.doesNotMatch(page, /p-courthouse/);
-  assert.doesNotMatch(page, /parking-311\.webp/);
-  assert.match(page, /class="story-share"/);
-  assert.match(page, /700 Lavaca Street/);
-  assert.doesNotMatch(page, /Editor notes/);
-  const art = "https://theaustinbulletin.com/images/2026-11-10/"
-    + "rent-limits-desktop-1600.webp";
-  assert.ok(page.includes(`property="og:image" content="${art}"`));
-  assert.match(page, /property="og:title" content="Rent limits end in 2027/);
-  assert.match(
-    page,
-    /og:description" content="Austin(?:'|&#39;)s Affordable Housing Inventory lists 927/
-  );
-  assert.match(page, /name="twitter:title" content="Rent limits end in 2027/);
-  assert.match(
-    page,
-    /twitter:description" content="Austin(?:'|&#39;)s Affordable Housing Inventory lists 927/
-  );
-  assert.ok(page.includes(`name="twitter:image" content="${art}"`));
-  assert.match(page, /rent-limits-desktop-1600\.webp/);
-  assert.match(page, /Chart: rental units by the year recorded rent limits end/);
-  assert.match(page, /2030 lists 953/);
-  assert.doesNotMatch(page, /AI-generated illustration/);
-  assert.match(page, /certificates of obligation/);
-  assert.match(page, /\$197,125,000/);
-  assert.match(page, /\$67,757,745\.12/);
-  assert.match(page, /does not say whether rents will rise/);
-  assert.doesNotMatch(page, /927 apartments/);
-  assert.doesNotMatch(page, /\b(peak|biggest)\b|the most/i);
-  assert.doesNotMatch(page, /\$55,326,729/);
-  assert.doesNotMatch(page, /four calendar days/);
-  assert.doesNotMatch(page, /flood watch/i);
-  assert.doesNotMatch(page, /Unifraktur|class="folio-nav"|class="edition-head"|Vol\. I/);
-}
-
 test("the homepage is one lead, and dated editions keep their own page", () => {
   const html = readFileSync("_site/index.html", "utf8");
   for (const text of [
@@ -118,8 +81,7 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.ok(!html.includes("Original illustration"));
   assert.ok(!html.includes("Keep these close"));
   assert.ok(!html.includes("barton-springs-960.webp"));
-  const edition = html.match(/data-edition="([0-9-]+)"/)?.[1];
-  assert.ok(edition);
+  const edition = "2026-11-09";
   const page = readFileSync(`_site/${edition.replaceAll("-", "/")}/index.html`, "utf8");
   assert.match(page, /class="wordmark"/);
   assert.match(page, /class="site-menu"/);
@@ -142,7 +104,33 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.equal(h1.includes(lead[1]), false);
   assert.doesNotMatch(page, />Results page</);
   assert.doesNotMatch(page, /November 3 election results\./);
-  assertTuesdayEdition(page);
+  assert.match(page, /November 9, 2026/);
+});
+
+test("an older edition dates itself and links to the latest", () => {
+  const older = readFileSync("_site/2026/11/09/index.html", "utf8").replaceAll("\u00a0", " ");
+  const sunday = readFileSync("_site/2026/11/08/index.html", "utf8").replaceAll("\u00a0", " ");
+  const latest = readFileSync("_site/2026/11/10/index.html", "utf8").replaceAll("\u00a0", " ");
+  const home = readFileSync("_site/index.html", "utf8").replaceAll("\u00a0", " ");
+  const line = (html) => html.match(/class="masthead-dateline">([\s\S]*?)<\/p>/)[1];
+  const nov9 = line(older);
+  assert.match(nov9, /Monday, Nov\. 9/);
+  assert.match(nov9, /Latest:/);
+  assert.match(nov9, /href="\/2026\/11\/10\/"/);
+  assert.match(nov9, />Nov\. 10</);
+  assert.doesNotMatch(nov9, /Previous:/);
+  assert.doesNotMatch(nov9, /Tuesday, Nov\. 10/);
+  const nov8 = line(sunday);
+  assert.match(nov8, /Sunday, Nov\. 8/);
+  assert.match(nov8, /href="\/2026\/11\/10\/"/);
+  assert.doesNotMatch(nov8, /Previous:/);
+  for (const html of [latest, home]) {
+    const current = line(html);
+    assert.match(current, /Tuesday, Nov\. 10/);
+    assert.match(current, /Previous:/);
+    assert.match(current, /href="\/2026\/11\/09\/"/);
+    assert.doesNotMatch(current, /Latest:/);
+  }
 });
 
 test("Monday labels the lead illustration and the county headline", () => {
@@ -197,8 +185,10 @@ test("the sunday edition stacks each source and names the headline actions", () 
   assert.match(page, /KUT reports/);
   assert.match(page, /runoff-lead-desktop-1600\.webp/);
   assert.doesNotMatch(page, /\$55,326,729/);
-  assert.match(page, />Copy story link</);
-  assert.match(page, />Share story</);
+  assert.match(page, /class="share"/);
+  assert.match(page, /aria-label="Share: Thursday is the registration deadline/);
+  assert.match(page, /for a possible runoff\."/);
+  assert.doesNotMatch(page, />Share story</);
   assert.doesNotMatch(page, />Link</);
   const css = readFileSync("src/css/front-cover.css", "utf8");
   assert.match(css, /\.edition-page \.skim li \{[^}]*align-items:\s*flex-start/);

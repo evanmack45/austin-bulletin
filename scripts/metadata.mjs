@@ -81,9 +81,22 @@ function frontPageLead(content) {
   return { heading, paragraph };
 }
 
+function cardLead(content) {
+  const article = String(content ?? "").match(
+    /<article\b[^>]*class="[^"]*\blead\b[^"]*"[^>]*>([\s\S]*?)<\/article>/i
+  )?.[1] ?? "";
+  const heading = reliableText(article.match(/<h2\b[^>]*>([\s\S]*?)<\/h2>/i)?.[1]);
+  const paragraph = reliableText(article.match(
+    /<p\b[^>]*class="[^"]*\bdeck\b[^"]*"[^>]*>([\s\S]*?)<\/p>/i
+  )?.[1]);
+  return { heading, paragraph };
+}
+
 function leadFrom(content) {
   const story = bigStoryLead(content);
   if (story.heading) return story;
+  const card = cardLead(content);
+  if (card.heading) return card;
   const front = frontPageLead(content);
   if (front.heading) return front;
   return story;
@@ -123,9 +136,12 @@ function leadFigure(content) {
 }
 
 function storySection(content) {
-  return String(content ?? "").match(
+  const html = String(content ?? "");
+  const section = html.match(
     /<section\b[^>]*class="[^"]*\b(?:big-story|front-lead)\b[^"]*"[^>]*>[\s\S]*?<\/section>/i
-  )?.[0] ?? "";
+  );
+  if (section) return section[0];
+  return html.match(/<article\b[^>]*class="lead"[^>]*>[\s\S]*?<\/article>/i)?.[0] ?? "";
 }
 
 function imageFor(content, edition) {

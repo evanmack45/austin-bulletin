@@ -1,0 +1,215 @@
+{
+  "2026-11-10": {
+    "cards": [
+      {
+        "id": "rent-limits-end-in-2027-for-927-austin-affordable-rentals",
+        "lead": true,
+        "section": "news",
+        "bignum": "927",
+        "headline": "Rent limits on affordable rentals end in 2027",
+        "deck": "More than three times the 268 units listed for 2028.",
+        "caveat": "An expiration date doesn't by itself mean rents will rise.",
+        "chartAlt": "Chart: Austin affordable rental units whose recorded rent limits end each year. 2027: 927 (highlighted), 2028: 268, 2029: 637, 2030: 953, 2031: 358. Source: City of Austin Affordable Housing Inventory.",
+        "method": [
+          "Those 927 units (918 apartments, plus 9 in duplexes and single-family homes) sit on 11 completed rental projects in the city's inventory. Four apartment communities account for 882 of them: Cascades at Onion Creek in District 5 (264 affordable units, listed expiration July 15, 2027), Runnymede Apartments in District 4 (252 units, Oct. 1), Legacy Ranch @ Dessau East in District 7 (186 of 232 total units, April 6), and Meadowood Apartments in District 4 (180 of 200 total units, May 1). Districts 4, 5 and 7 together account for 883 of the 927 units.",
+          "The inventory records the date a project's listed affordability period expires. It does not say whether rents will rise, whether a lease will change, or whether a restriction will be extended or replaced. The 927-unit count includes only rental properties marked \"Project Completed\" with expiration dates in calendar year 2027. Rows with placeholder dates, such as 3799 or 1939, were excluded. The dataset can be revised; these figures were pulled the evening of Nov. 9, 2026, in America/Chicago (CT), and matched a second live query minutes later."
+        ],
+        "sources": [
+          {
+            "label": "City of Austin, Affordable Housing Inventory",
+            "url": "https://data.austintexas.gov/d/ifzc-3xz8"
+          }
+        ]
+      },
+      {
+        "id": "county-court-weighs-197-million-in-borrowing-for-2027-projects",
+        "section": "news",
+        "glyph": { "value": "$197M", "qualifier": "proposed certificates total" },
+        "headline": "County weighs adding to fiscal 2027 borrowing",
+        "summary": "Item 18 would raise proposed fiscal 2027 certificates of obligation by $13.5 million. Listed for consideration, not approval.",
+        "full": [
+          "Travis County commissioners' 9 a.m. agenda today asks them to raise the proposed fiscal 2027 certificates of obligation issuance by $13,475,000, to a total of $197,125,000. It's tax-exempt debt for approved capital projects, and the same item would front $99,302,059 from the county's Unallocated Reserve until the debt proceeds arrive. The agenda lists items for consideration; it does not say any are approved."
+        ],
+        "sources": [
+          {
+            "label": "Nov. 10 agenda",
+            "url": "https://countyclerk.traviscountytx.gov/wp-content/uploads/commissioners_court/11-10-2026VSAgenda.pdf"
+          }
+        ]
+      },
+      {
+        "id": "678-million-contract-for-new-star-flight-helicopters-is-up-today",
+        "section": "news",
+        "glyph": { "value": "$67.8M", "qualifier": "helicopter purchase" },
+        "headline": "County may buy new STAR Flight helicopters",
+        "summary": "The late item would award Bell Textron Inc., the highest-ranked respondent. STAR Flight is the county's 24/7 air ambulance.",
+        "full": [
+          "A late item on today's county agenda would award the purchase of STAR Flight helicopters to the highest-ranked respondent, Bell Textron Inc., for $67,757,745.12. STAR Flight is the county's 24/7 air ambulance and rescue service, which the county says now flies three Leonardo AW169 helicopters."
+        ],
+        "sources": [
+          {
+            "label": "Nov. 10 agenda",
+            "url": "https://countyclerk.traviscountytx.gov/wp-content/uploads/commissioners_court/11-10-2026VSAgenda.pdf"
+          },
+          {
+            "label": "STAR Flight",
+            "url": "https://www.traviscountytx.gov/star-flight"
+          }
+        ]
+      },
+      {
+        "id": "county-could-start-work-on-a-2027-bond-election-today",
+        "section": "news",
+        "icon": "bank",
+        "topic": "Bond election",
+        "headline": "County weighs starting a 2027 bond election",
+        "summary": "Item 31 would prepare a referendum and form a citizens advisory committee. The agenda lists no projects or amount.",
+        "full": [
+          "Commissioners will consider approving preparation of a 2027 bond referendum and creating a 2027 Citizens Bond Advisory Committee. A bond referendum would put county borrowing to voters; the agenda doesn't yet list projects or a dollar amount. Item 31 is on the Nov. 10 agenda."
+        ],
+        "sources": [
+          {
+            "label": "Nov. 10 agenda",
+            "url": "https://countyclerk.traviscountytx.gov/wp-content/uploads/commissioners_court/11-10-2026VSAgenda.pdf"
+          }
+        ]
+      },
+      {
+        "id": "ann-kitchen-is-up-for-another-central-health-board-term",
+        "section": "news",
+        "icon": "heartbeat",
+        "topic": "Central Health",
+        "headline": "Ann Kitchen is up for another board term",
+        "summary": "The reappointment to Travis County's hospital district board would run through Dec. 31, 2030.",
+        "full": [
+          "Today's county agenda lists the reappointment of Ann Kitchen to the Central Health Board of Managers for a term ending Dec. 31, 2030. Central Health is Travis County's hospital district; the county and the city each appoint four of its board managers, plus one jointly."
+        ],
+        "sources": [
+          {
+            "label": "Nov. 10 agenda",
+            "url": "https://countyclerk.traviscountytx.gov/wp-content/uploads/commissioners_court/11-10-2026VSAgenda.pdf"
+          },
+          {
+            "label": "Central Health board",
+            "url": "https://www.austintexas.gov/boards-commissions/board/central-health-board-managers"
+          }
+        ]
+      },
+      {
+        "id": "also-today-a-burleson-road-hearing-and-city-hall-briefings",
+        "section": "notices",
+        "icon": "calendar-blank",
+        "topic": "Hearings",
+        "headline": "Burleson Road event permit gets a hearing",
+        "summary": "Commissioners may decide a permit for the Kaskade Origin Event, Nov. 20–21. City Hall hears water and parks briefings.",
+        "full": [
+          "The 9 a.m. agenda also sets a public hearing and a decision on a mass-gathering permit for the Kaskade Origin Event, Nov. 20–21 at 8509 Burleson Road, and a briefing on the 2026 Eastern Crescent Water Study. At 9:30 a.m., the Climate, Water, Environment, and Parks Committee meets at Austin City Hall, 301 W. Second Street. The briefings cover Austin Water's management of the Balcones Canyonland Preserve and the Barton Springs segment of the Edwards Aquifer, and the Pease Park Conservancy partnership. Briefings are not open for speaker sign-up. Possible action covers minutes and 2027 meeting dates."
+        ],
+        "sources": [
+          {
+            "label": "Nov. 10 agenda",
+            "url": "https://countyclerk.traviscountytx.gov/wp-content/uploads/commissioners_court/11-10-2026VSAgenda.pdf"
+          },
+          {
+            "label": "Court page",
+            "url": "https://www.traviscountytx.gov/commissioners-court"
+          },
+          {
+            "label": "Committee agenda",
+            "url": "https://services.austintexas.gov/edims/document.cfm?id=484616"
+          },
+          {
+            "label": "Committee meeting page",
+            "url": "https://www.austintexas.gov/council/2026/20261110-cwepc"
+          }
+        ]
+      },
+      {
+        "id": "one-good-thing",
+        "section": "notices",
+        "good": true,
+        "icon": "sun",
+        "topic": "One good thing",
+        "glyph": { "value": "79°", "qualifier": "Wednesday high" },
+        "headline": "Sun returns for Veterans Day",
+        "summary": "Mostly cloudy today, high near 71. Fog early Wednesday, then sun; no rain chance.",
+        "full": [
+          "The National Weather Service's Austin forecast, updated 5:46 a.m. CT, calls for a mostly cloudy Tuesday, a low around 57 tonight, and patchy fog early Wednesday before a mostly sunny high near 79. It's dry: the forecast mentions no rain chance through Wednesday."
+        ],
+        "sources": [
+          {
+            "label": "NWS forecast for Austin",
+            "url": "https://forecast.weather.gov/MapClick.php?lat=30.2672&lon=-97.7431"
+          }
+        ]
+      },
+      {
+        "id": "thursday-brings-a-county-canvass-a-mobility-meeting-and-a-registration-deadline",
+        "section": "next",
+        "glyph": {
+          "countdown": "2026-11-12",
+          "qualifier": "to the runoff registration deadline"
+        },
+        "headline": "Thursday: county canvass and a mobility meeting",
+        "summary": "Commissioners consider the Nov. 3 canvass order at 9 a.m. The Mobility Committee meets at 1 p.m.",
+        "full": [
+          "A county special session at 9 a.m. Thursday considers the order canvassing Nov. 3 general election returns. The Mobility Committee meets at 1 p.m. at City Hall on the Austin Core Transportation Plan, Urban Transportation Commission recommendations including Parmer Lane, and a Transportation and Public Works report. Thursday is the last day to register for a possible Dec. 12 city runoff. The regular Council date that day is cancelled."
+        ],
+        "sources": [
+          {
+            "label": "Nov. 12 agenda",
+            "url": "https://countyclerk.traviscountytx.gov/wp-content/uploads/commissioners_court/11-12-2026SVS.pdf"
+          },
+          {
+            "label": "Mobility agenda",
+            "url": "https://services.austintexas.gov/edims/document.cfm?id=484790"
+          },
+          {
+            "label": "Mobility meeting page",
+            "url": "https://www.austintexas.gov/council/2026/20261112-mobc"
+          },
+          {
+            "label": "City runoff calendar",
+            "url": "https://services.austintexas.gov/edims/document.cfm?id=472487"
+          },
+          {
+            "label": "2026 schedule",
+            "url": "https://services.austintexas.gov/edims/document.cfm?id=462100"
+          }
+        ]
+      },
+      {
+        "id": "next-a-city-canvass-on-nov-17-and-a-regular-council-meeting-on-nov-19",
+        "section": "next",
+        "icon": "calendar-blank",
+        "topic": "Coming up",
+        "headline": "City canvass, then a Council meeting",
+        "summary": "Canvass and any runoff order at 11 a.m. The Council agenda is still a draft.",
+        "timelineAlt": "Timeline: today Nov. 10; city canvass Nov. 17; Council meeting Nov. 19.",
+        "timeline": [
+          { "day": 0, "date": "Nov. 10", "label": "Today" },
+          { "day": 7, "date": "Nov. 17", "label": "Canvass", "hi": true },
+          { "day": 9, "date": "Nov. 19", "label": "Council", "hi": true }
+        ],
+        "full": [
+          "The city canvass of Nov. 3 results, and ordering of any necessary runoff, is set for 11 a.m. Tuesday, Nov. 17, possibly earlier. The regular Council meeting is at 10 a.m. Thursday, Nov. 19. That agenda is still a draft. The meeting page was updated Nov. 6, 2026, at 3:12 p.m., and was unchanged as of 7:36 a.m. today.",
+          "What council did: see the <a href=\"https://yallcityhall.org/meetings/2026-11-17/\">Nov. 17 meeting preview on Y'all City Hall</a>."
+        ],
+        "sources": [
+          {
+            "label": "City runoff calendar",
+            "url": "https://services.austintexas.gov/edims/document.cfm?id=472487"
+          },
+          {
+            "label": "Nov. 19 agenda",
+            "url": "https://services.austintexas.gov/edims/document.cfm?id=484837"
+          },
+          {
+            "label": "Nov. 19 meeting page",
+            "url": "https://www.austintexas.gov/council/2026/20261119-reg"
+          }
+        ]
+      }
+    ]
+  }
+}

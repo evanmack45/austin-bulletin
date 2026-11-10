@@ -75,8 +75,10 @@ function storiesBeforeSignup(html) {
   const at = html.indexOf('class="signup signup--edition"');
   assert.ok(at > 0);
   const before = html.slice(0, at);
-  const lead = /<section\b[^>]*\bbig-story\b/.test(before) ? 1 : 0;
-  return lead + (before.split('<div class="river-story"').length - 1);
+  const lead = /<section\b[^>]*\bbig-story\b/.test(before)
+    || /<article\b[^>]*\blead\b/.test(before) ? 1 : 0;
+  const cards = (before.match(/<article class="card\b/g) || []).length;
+  return lead + (before.split('<div class="river-story"').length - 1) + cards;
 }
 
 test("every edition has one signup after the third story and the mobile bar is dismissible", () => {
@@ -84,7 +86,7 @@ test("every edition has one signup after the third story and the mobile bar is d
   assert.match(edition, VALUE);
   assert.match(edition, NOTE);
   const signupAt = edition.indexOf('class="signup signup--edition"');
-  const goodThing = edition.indexOf('class="good-thing"');
+  const goodThing = edition.search(/class="[^"]*\bgood-thing\b/);
   assert.ok(goodThing > 0 && signupAt < goodThing);
   assert.equal(count(edition, 'class="signup signup--edition"'), 1);
   assert.equal(storiesBeforeSignup(edition), 3);

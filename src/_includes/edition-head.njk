@@ -1,4 +1,11 @@
 {# Expects editionDate, editionUrl, and top (from editionLead). #}
 <header class="edition-lead">
   <h1 class="edition-kicker"><span class="edition-weekday">{{ editionDate | weekday }}</span> · <time class="edition-date" datetime="{{ editionDate | isoDate }}">{{ editionDate | longDate }}</time></h1>
+  {% if 'id="news"' in content or 'id="notices"' in content or 'id="the-back-page"' in content %}
+  <ul class="jump" aria-label="Sections">
+    {% if 'id="news"' in content %}<li><a href="#news">News</a></li>{% endif %}
+    {% if 'id="notices"' in content %}<li><a href="#notices">Notices</a></li>{% endif %}
+    {% if 'id="the-back-page"' in content %}<li><a href="#the-back-page">Next</a></li>{% endif %}
+  </ul>
+  {% endif %}
 </header>

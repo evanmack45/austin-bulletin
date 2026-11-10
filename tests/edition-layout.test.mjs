@@ -9,8 +9,10 @@ function storiesBeforeSignup(html) {
   const at = html.indexOf('class="signup signup--edition"');
   assert.ok(at > 0, "edition signup");
   const before = html.slice(0, at);
-  const lead = /<section\b[^>]*\bbig-story\b/.test(before) ? 1 : 0;
-  return lead + (before.split('<div class="river-story"').length - 1);
+  const lead = /<section\b[^>]*\bbig-story\b/.test(before)
+    || /<article\b[^>]*\blead\b/.test(before) ? 1 : 0;
+  const cards = (before.match(/<article class="card\b/g) || []).length;
+  return lead + (before.split('<div class="river-story"').length - 1) + cards;
 }
 
 function countdownLabelCount(html) {

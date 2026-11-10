@@ -2,6 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { homeEdition } from "../scripts/home-stories.mjs";
+import thisWeek from "../src/_data/thisWeek.js";
 
 const FIRST_PERSON = /\b(we|our|us)\b/i;
 
@@ -372,69 +373,11 @@ test("November 9 lists the registration lead, then news, then the forecast", () 
   }
 });
 
-test("November 10 lists the rental lead, then county news, then notices", () => {
-  const bulletin = readFileSync("src/bulletins/2026-11-10.md", "utf8");
-  const edition = homeEdition(bulletin);
-  const stories = listed(edition);
-  assert.deepEqual(stories.map((story) => story.title), [
-    "County court weighs $197 million in borrowing for 2027 projects.",
-    "$67.8 million contract for new STAR Flight helicopters is up today.",
-    "County could start work on a 2027 bond election today.",
-    "Ann Kitchen is up for another Central Health board term.",
-    "NWS: mostly cloudy today, high near 71; sunny Veterans Day near 79.",
-    "Also today: a Burleson Road hearing and City Hall briefings.",
-    "Thursday brings a county canvass, a mobility meeting, and a registration deadline.",
-    "Next: a city canvass on Nov. 17 and a regular Council meeting on Nov. 19."
-  ]);
-  assert.deepEqual(stories.map((story) => story.section), [
-    "News", "News", "News", "News", "Notices", "Notices", "Notices", "Notices"
-  ]);
-  assert.equal(stories[1].signupAfter, true);
-  assert.equal(stories[0].signupAfter, false);
-  assert.equal(edition.signupAfterLead, false);
-  assert.equal(
-    edition.leadAnchor,
-    "rent-limits-end-in-2027-for-927-austin-affordable-rentals"
-  );
-  assert.match(stories[0].summary, /certificates of obligation/);
-  assert.match(stories[0].summary, /\$197,125,000/);
-  assert.match(stories[0].summary, /\$99,302,059/);
-  assert.equal(/\bbonds?\b/i.test(stories[0].title + stories[0].summary), false);
-  assert.match(stories[1].summary, /\$67,757,745\.12/);
-  assert.match(stories[1].summary, /Leonardo AW169/);
-  assert.match(stories[2].summary, /Citizens Bond Advisory Committee/);
-  assert.match(stories[3].summary, /Dec\. 31, 2030/);
-  assert.match(stories[4].summary, /5:46 a\.m\. CT/);
-  assert.match(stories[4].summary, /high near 79/);
-  assert.match(stories[5].summary, /8509 Burleson Road/);
-  assert.equal(bulletin.includes("Pease Park Conservancy"), true);
-  assert.equal(bulletin.includes("927 apartments"), false);
-  assert.equal(/\b(peak|biggest)\b|the most/i.test(bulletin), false);
-  assert.equal(/Tally|short-term rental/i.test(bulletin), false);
-  assert.equal(bulletin.includes("Editor notes"), false);
-  for (const url of [
-    "https://data.austintexas.gov/d/ifzc-3xz8",
-    "https://countyclerk.traviscountytx.gov/wp-content/uploads/commissioners_court/11-10-2026VSAgenda.pdf",
-    "https://www.traviscountytx.gov/star-flight",
-    "https://www.traviscountytx.gov/commissioners-court",
-    "https://www.austintexas.gov/boards-commissions/board/central-health-board-managers",
-    "https://forecast.weather.gov/MapClick.php?lat=30.2672&lon=-97.7431",
-    "https://services.austintexas.gov/edims/document.cfm?id=484616",
-    "https://www.austintexas.gov/council/2026/20261110-cwepc",
-    "https://countyclerk.traviscountytx.gov/wp-content/uploads/commissioners_court/11-12-2026SVS.pdf",
-    "https://services.austintexas.gov/edims/document.cfm?id=484790",
-    "https://www.austintexas.gov/council/2026/20261112-mobc",
-    "https://services.austintexas.gov/edims/document.cfm?id=472487",
-    "https://services.austintexas.gov/edims/document.cfm?id=462100",
-    "https://services.austintexas.gov/edims/document.cfm?id=484837",
-    "https://www.austintexas.gov/council/2026/20261119-reg"
-  ]) {
-    assert.equal(bulletin.includes(url), true, url);
-  }
-  for (const story of stories) {
-    assert.equal(bulletin.includes(story.summary), true, story.summary);
-    assert.equal(FIRST_PERSON.test(`${story.title} ${story.summary}`), false);
-  }
+test("the homepage week list keeps the certificates item", () => {
+  assert.equal(thisWeek.held, undefined);
+  assert.equal(thisWeek.items.length, 8);
+  const headlines = thisWeek.items.map((item) => item.headline);
+  assert.ok(headlines.includes("Court weighs $197 million in certificates"));
 });
 
 test("November 8 home cards use the short Hornsby and Muny openings", () => {

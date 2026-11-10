@@ -112,6 +112,78 @@ function todayCentral() {
   return chicagoDate();
 }
 
+function sentenceCount(text) {
+  const masked = String(text)
+    .replace(/\b(?:Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sept|Oct|Nov|Dec|Inc|St|Mr|Dr)\./g, (token) => token.slice(0, -1))
+    .replace(/\b[ap]\.m\./g, (token) => token.replaceAll(".", ""))
+    .replace(/(\d)\.(\d)/g, "$1$2");
+  return masked.split(/[.!?]+/).map((part) => part.trim()).filter(Boolean).length;
+}
+
+function cardText(card) {
+  return [
+    card.headline, card.deck, card.summary, card.caveat, card.topic,
+    ...(card.method || []), ...(card.full || [])
+  ].filter(Boolean).join("\n");
+}
+
+async function checkEditionCards(frontData, date, repoRoot, bad) {
+  const todayLine = typeof frontData.today === "string" ? frontData.today.trim() : "";
+  if (!todayLine) bad("cards", "today line is missing");
+  else if (wordCount(todayLine) > 40) {
+    bad("cards", `today line is ${wordCount(todayLine)} words (cap 40)`);
+  }
+  let pack = null;
+  try {
+    const all = JSON.parse(await readFile(path.join(repoRoot, "src/_data/editionCardData.json"), "utf8"));
+    pack = all[date];
+  } catch (err) {
+    bad("cards", `could not read edition card data (${err.message})`);
+    return;
+  }
+  if (!pack || !Array.isArray(pack.cards) || pack.cards.length === 0) {
+    bad("cards", "no cards for this date");
+    return;
+  }
+  const seen = new Set();
+  pack.cards.forEach((card, index) => {
+    const label = card.id || `card ${index + 1}`;
+    if (!card.id) bad("cards", "a card has no id");
+    else if (seen.has(card.id)) bad("cards", `duplicate id ${card.id}`);
+    else seen.add(card.id);
+    const headline = String(card.headline || "");
+    if (!headline) bad("cards", `${label} has no headline`);
+    else if (wordCount(headline) > 8) {
+      bad("cards", `${label} headline is ${wordCount(headline)} words (cap 8)`);
+    }
+    const summary = String(card.summary || card.deck || "");
+    if (!summary) bad("cards", `${label} has no summary`);
+    else {
+      if (wordCount(summary) > 20) bad("cards", `${label} summary is ${wordCount(summary)} words (cap 20)`);
+      if (sentenceCount(summary) > 2) bad("cards", `${label} summary is ${sentenceCount(summary)} sentences (cap 2)`);
+    }
+    if (card.glyph?.countdown && !/^\d{4}-\d{2}-\d{2}$/.test(card.glyph.countdown)) {
+      bad("cards", `${label} countdown is not YYYY-MM-DD`);
+    }
+    const sources = Array.isArray(card.sources) ? card.sources : [];
+    if (sources.length === 0) bad("cards", `${label} has no sources`);
+    for (const source of sources) {
+      if (!source.url || !/^https?:\/\//.test(source.url)) {
+        bad("cards", `${label} source is missing an http(s) URL`);
+      }
+    }
+  });
+  const prose = [todayLine, ...pack.cards.map(cardText)].join("\n");
+  for (const verb of BANNED_VERBS) {
+    const re = new RegExp(`\\b${verb.replace(/ /g, "\\s+")}\\b`, "gi");
+    if (re.test(prose)) bad("neutral verbs", `"${verb}" in card copy`);
+  }
+  for (const phrase of BANNED_PHRASES) {
+    const re = new RegExp(`\\b${phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/ /g, "\\s+")}\\b`, "gi");
+    if (re.test(prose)) bad("language", `AI-tell phrase "${phrase}" in card copy`);
+  }
+}
+
 function parseArgs(argv) {
   const args = { _: [] };
   for (let i = 0; i < argv.length; i++) {
@@ -320,7 +392,18 @@ async function main() {
     }
   }
 
+  // Card editions carry the day's items in editionCardData, not a river.
+  let frontData = null;
+  if (fm) {
+    try { frontData = yaml.load(fm); }
+    catch (err) { bad("front matter", `could not read front matter (${err.message})`); }
+  }
+  const cardEdition = Boolean(frontData && frontData.edition_cards === true);
+  if (cardEdition) await checkEditionCards(frontData, date, repoRoot, bad);
+
   // --- Lead section: Big Story (old shape) / The Briefing (new shape) ----
+  // Card editions skip this shape. Their copy is checked above.
+  if (!cardEdition) {
   const newShape = date >= NEW_SHAPE_FROM;
   const big = section(text, "{% bigstory %}", "{% endbigstory %}");
   if (!big) {
@@ -514,6 +597,7 @@ async function main() {
         bad("back page", "The Number sits above The Back Page heading");
       }
     }
+  }
   }
 
   // --- neutral verbs ------------------------------------------------------

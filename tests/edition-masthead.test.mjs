@@ -20,6 +20,13 @@ function header(html) {
   return match[0];
 }
 
+function mastheadShell(html) {
+  return header(html).replace(
+    /<p class="masthead-dateline">[\s\S]*?<\/p>/,
+    "<p class=\"masthead-dateline\"></p>"
+  );
+}
+
 function linkedStyles(html) {
   return [...html.matchAll(/<link rel="stylesheet" href="([^"]+)"/g)].map((match) => match[1]);
 }
@@ -27,7 +34,13 @@ function linkedStyles(html) {
 test("edition pages use the homepage masthead and do not reference a blackletter font", () => {
   const home = readFileSync("_site/index.html", "utf8");
   const edition = readFileSync("_site/2026/10/27/index.html", "utf8");
-  assert.equal(header(edition), header(home));
+  assert.equal(mastheadShell(edition), mastheadShell(home));
+  const editionLine = header(edition).match(/masthead-dateline">([\s\S]*?)<\/p>/)[1];
+  assert.match(editionLine, /Tuesday, Oct\. 27/);
+  assert.match(editionLine, /Latest:/);
+  assert.match(editionLine, /href="\/2026\/11\/10\/"/);
+  assert.doesNotMatch(editionLine, /Previous:/);
+  assert.match(header(home), /Previous:/);
   assert.match(header(home), /The Austin Bulletin/);
   assert.match(header(home), /class="masthead-dateline"/);
   assert.match(header(home), /href="\/"/);

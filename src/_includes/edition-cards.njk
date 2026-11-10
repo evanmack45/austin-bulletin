@@ -1,0 +1,86 @@
+{% set model = pack.cards | editionCardModel %}
+{% macro shareLink(url, headline) %}
+<a class="share" href="{{ url | escape }}" data-share-title="{{ headline | escape }}" aria-label="Share: {{ headline | escape }}"><span class="icon">{{ "share-network-bold" | icon | safe }}</span><span class="share-word">Share</span></a>
+{% endmacro %}
+{% macro sourceLine(sources, more) %}
+<p class="src{% if more %} more-src{% endif %}"><span>{% if more %}More sources{% elif sources | length == 1 %}Source{% else %}Sources{% endif %}:</span> {% for source in sources %}{% if not loop.first %}<span class="sep" aria-hidden="true">·</span> {% endif %}<a href="{{ source.url | escape }}">{{ source.label | tightTokens }}</a>{% endfor %}</p>
+{% endmacro %}
+{% macro itemBody(item) %}
+{% if item.summary %}
+<details><summary><span class="sum">{{ item.summary | tightTokens }}</span> <span class="toggle">Full item <span class="icon">{{ "caret-down" | icon | safe }}</span></span></summary><div class="more">{% for para in item.full %}<p>{{ para | tightTokens | safe }}</p>{% endfor %}{% if item.moreSources | length %}{{ sourceLine(item.moreSources, true) }}{% endif %}</div></details>
+{% elif item.full %}
+<div class="more">{% for para in item.full %}<p>{{ para | tightTokens | safe }}</p>{% endfor %}</div>
+{% endif %}
+{% endmacro %}
+<div class="edition-wrap">
+  <div class="edition-intro">
+    <div class="datestrip">
+      <time class="edition-date" datetime="{{ editionDate | isoDate }}">{{ editionDate | stripDate }}</time>
+      {% if model.sections | length %}
+      <ul class="jump" aria-label="Sections">
+        {% for section in model.sections %}
+        <li><a href="#{{ section.id | escape }}">{{ section.label | escape }}</a></li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+    {% if today %}<p class="today"><strong>Today:</strong> {{ today | tightTokens }}</p>{% endif %}
+  </div>
+  {% if model.lead %}
+  {% set item = model.lead %}
+  {% set shareUrl = (page.url | canonicalUrl) + "#" + item.id %}
+  <article class="lead" id="{{ item.id | escape }}">
+    {% if images and images.lead and images.lead.src %}
+    <img class="share-image" src="{{ images.lead.src | escape }}" alt="{{ images.lead.alt | escape }}" width="{{ images.lead.width }}" height="{{ images.lead.height }}" aria-hidden="true">
+    {% endif %}
+    <div class="lead-top">
+      <p class="bignum">{{ item.bignum | escape }}</p>
+      {{ shareLink(shareUrl, item.headline) }}
+    </div>
+    <h2>{{ item.headline | tightTokens }}</h2>
+    <p class="deck">{{ item.deck | tightTokens }}</p>
+    <p class="chart-kicker kicker"><span class="icon icon-20">{{ "house-line-bold" | icon | safe }}</span> CHART</p>
+    {% set chartAlt = item.chartAlt %}
+    {% include "reset-chart.njk" %}
+    <details class="caveat-d"><summary><span class="caveat">{{ item.caveat | tightTokens }}</span> <span class="toggle">Method <span class="icon">{{ "caret-down" | icon | safe }}</span></span></summary><div class="more">{% for para in item.method %}<p>{{ para | tightTokens | safe }}</p>{% endfor %}</div></details>
+    {{ sourceLine(item.shownSources, false) }}
+  </article>
+  {% endif %}
+  {% for section in model.sections %}
+  <section aria-labelledby="{{ section.id | escape }}">
+    <h2 class="section-label" id="{{ section.id | escape }}">{{ section.label | escape }}</h2>
+    <div class="grid">
+      {% for item in section.items %}
+      {% if item.signupBefore %}
+      {% set signupId = "edition" %}
+      {% include "signup.njk" %}
+      {% endif %}
+      {% set shareUrl = (page.url | canonicalUrl) + "#" + item.id %}
+      <article class="card{% if item.good %} good good-thing{% endif %}" id="{{ item.id | escape }}">
+        <div class="card-top">
+          <div class="card-top-l">
+            {% if item.icon and item.topic %}
+            <p class="topic"><span class="icon">{{ item.icon | icon | safe }}</span>{{ item.topic | escape }}</p>
+            {% endif %}
+            {% if item.glyphValue %}
+            <p class="glyph"><b><u>{{ item.glyphValue | escape }}</u></b><span>{{ item.glyphQualifier | tightTokens }}</span></p>
+            {% endif %}
+          </div>
+          {{ shareLink(shareUrl, item.headline) }}
+        </div>
+        {% if item.timeline | length %}
+        <div class="tl" role="img" aria-label="{{ item.timelineAlt | escape }}"><ol>{% for point in item.timeline %}<li{% if point.hi %} class="hi"{% endif %} style="left:{{ point.left }}%"><b>{{ point.date | tightTokens }}</b><span>{{ point.label | escape }}</span></li>{% endfor %}</ol></div>
+        {% endif %}
+        <h3>{{ item.headline | tightTokens }}</h3>
+        {{ itemBody(item) }}
+        {% if item.shownSources | length %}{{ sourceLine(item.shownSources, false) }}{% endif %}
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+  {% endfor %}
+  {% if model.signupAtEnd %}
+  {% set signupId = "edition" %}
+  {% include "signup.njk" %}
+  {% endif %}
+</div>
