@@ -136,9 +136,12 @@ function leadFigure(content) {
 }
 
 function storySection(content) {
-  return String(content ?? "").match(
+  const html = String(content ?? "");
+  const section = html.match(
     /<section\b[^>]*class="[^"]*\b(?:big-story|front-lead)\b[^"]*"[^>]*>[\s\S]*?<\/section>/i
-  )?.[0] ?? "";
+  );
+  if (section) return section[0];
+  return html.match(/<article\b[^>]*class="lead"[^>]*>[\s\S]*?<\/article>/i)?.[0] ?? "";
 }
 
 function imageFor(content, edition) {

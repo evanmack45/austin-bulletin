@@ -30,6 +30,9 @@
   {% set item = model.lead %}
   {% set shareUrl = (page.url | canonicalUrl) + "#" + item.id %}
   <article class="lead" id="{{ item.id | escape }}">
+    {% if images and images.lead and images.lead.src %}
+    <img class="share-image" src="{{ images.lead.src | escape }}" alt="{{ images.lead.alt | escape }}" width="{{ images.lead.width }}" height="{{ images.lead.height }}" aria-hidden="true">
+    {% endif %}
     <div class="lead-top">
       <p class="bignum">{{ item.bignum | escape }}</p>
       {{ shareLink(shareUrl, item.headline) }}

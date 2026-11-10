@@ -42,6 +42,17 @@ test("a lead photograph is the share image ahead of a later story graphic", () =
   assert.equal(meta.imageAlt, "Travis County Courthouse, 2011");
 });
 
+test("a card lead uses that edition's art as the share image", () => {
+  const html = `<article class="lead"><img class="share-image" ` +
+    `src="/images/2026-11-10/rent-limits-desktop-1600.webp" alt="Chart. Units.">` +
+    `<h2>Rent limits</h2></article>`;
+  const meta = pageMetadata("/2026/11/10/", "Edition", html);
+  assert.equal(meta.image,
+    "https://theaustinbulletin.com/images/2026-11-10/rent-limits-desktop-1600.webp");
+  assert.equal(meta.imageAlt, "Chart. Units.");
+  assert.equal(meta.card, "summary_large_image");
+});
+
 test("an off-site image is not used as the share card", () => {
   const html = `<section class="big-story"><h3>Early voting</h3>` +
     `<img src="https://example.com/photo.jpg" alt="Elsewhere"><p>People had voted.</p></section>`;

@@ -118,6 +118,13 @@ body.edition-cards:has(article.bulletin) main {
   font-size: var(--fs-deck);
   line-height: 1.4;
 }
+.edition-cards .share-image {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
 .edition-cards .chart { margin: 0; min-width: 0; }
 .edition-cards .chart-bars {
   display: grid;
@@ -707,6 +714,14 @@ body.edition-cards:has(article.bulletin) main {
 }
 .edition-page :is(h1, h2, h3, h4, h5, h6) {
   font-family: Bricolage, "Times New Roman", Times, serif;
+}
+.edition-page .latest-edition a {
+  display: inline-block;
+  box-sizing: border-box;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0.9rem 0.25rem;
+  margin: -0.9rem -0.25rem;
 }
 .edition-page .front-masthead { background: #0F2A47; }
 .edition-page.cover-chrome .front-masthead .wordmark,

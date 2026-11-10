@@ -34,7 +34,10 @@
   }
 }
 .home-front .masthead-dateline a {
-  padding: 0.85rem 0.3rem;
+  display: inline-block;
+  box-sizing: border-box;
+  min-height: 44px;
+  padding: 0.9rem 0.3rem;
 }
 .home-front .signup-note a { padding-block: 0.95rem; }
 .home-front .front-masthead .site-menu-panel,
