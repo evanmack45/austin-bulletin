@@ -478,12 +478,23 @@
     gap: 6px;
     padding: 12px 16px 8px;
   }
-  .cover-chrome .front-masthead .wordmark {
+  .cover-chrome .masthead-strip .wordmark,
+  .cover-chrome .masthead-strip .masthead-dateline a,
+  .cover-chrome .masthead-strip .site-menu-button {
+    box-sizing: border-box;
+    min-height: 48px;
+  }
+  .cover-chrome .masthead-strip .masthead-dateline a {
+    display: inline-block;
+    padding-block: 15px;
+    margin-block: -15px;
+  }
+  .cover-chrome .masthead-strip .wordmark {
     display: inline-flex;
     align-items: center;
     box-sizing: border-box;
-    min-height: 44px;
     font-size: 2rem;
+    line-height: 1;
     white-space: normal;
     max-width: 100%;
   }

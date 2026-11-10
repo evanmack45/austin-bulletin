@@ -24,20 +24,15 @@
   border: 1px solid var(--paper);
   background: transparent;
   color: var(--paper);
-  min-height: 44px;
   min-width: 44px;
 }
-@media (max-width: 760px) {
-  .home-front .front-masthead .wordmark {
+@media (min-width: 761px) {
+  .home-front .masthead-dateline a {
+    display: inline-block;
     box-sizing: border-box;
-    padding-block: 0.4rem;
+    min-height: 44px;
+    padding: 0.9rem 0.3rem;
   }
-}
-.home-front .masthead-dateline a {
-  display: inline-block;
-  box-sizing: border-box;
-  min-height: 44px;
-  padding: 0.9rem 0.3rem;
 }
 .home-front .signup-note a { padding-block: 0.95rem; }
 .home-front .front-masthead .site-menu-panel,
@@ -487,6 +482,11 @@
   .story-card--lead .source-line { grid-column: 1 / -1; grid-row: 7; align-self: end; }
   .home-front .signup--lead .signup-email { max-width: 30rem; }
   .week-lines { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+}
+@media (max-width: 1023px) {
+  .home-front .paper-main > .signup--lead {
+    margin-inline: var(--s3);
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .js .bar { transform: none; animation: none; }

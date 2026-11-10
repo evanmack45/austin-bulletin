@@ -260,17 +260,57 @@ export function consolidateStorySources(html) {
   return topLevelNodes(String(html ?? "")).map(rewriteTop).join("");
 }
 
+function riverRegions(node) {
+  const nodes = expandRiverStories(topLevelNodes(innerOf(node)));
+  return riverRanges(nodes).map((range) => nodes.slice(range.start, range.end).join(""));
+}
+
+function shouldDescend(node) {
+  if (isRegion(node, "div", "edition-wrap") || isRegion(node, "div", "grid")) return true;
+  if (!tagIs(node, "section") || isRegion(node, "section", "signup")) return false;
+  return !isRegion(node, "section", "big-story");
+}
+
+function regionOf(node) {
+  if (isRegion(node, "section", "big-story")) return [innerOf(node)];
+  if (isRegion(node, "div", "river")) return riverRegions(node);
+  const card = isRegion(node, "article", "card") || isRegion(node, "article", "lead");
+  return card ? [innerOf(node)] : null;
+}
+
+function collectRegions(nodes, regions) {
+  for (const node of nodes) {
+    const found = regionOf(node);
+    if (found) regions.push(...found);
+    else if (shouldDescend(node)) collectRegions(topLevelNodes(innerOf(node)), regions);
+    else if (hasSource(node)) regions.push(node);
+  }
+}
+
+export function bulletinArticle(html) {
+  const page = String(html ?? "");
+  const open = page.search(/<article\b[^>]*class="[^"]*\bbulletin\b/i);
+  if (open < 0) return page;
+  return nestedInner(page, open);
+}
+
+function nestedInner(page, open) {
+  const start = page.indexOf(">", open) + 1;
+  const re = /<\/?article\b[^>]*>/gi;
+  re.lastIndex = start;
+  let depth = 1;
+  let match = re.exec(page);
+  while (match) {
+    depth += match[0].startsWith("</") ? -1 : 1;
+    if (depth === 0) return page.slice(start, match.index);
+    match = re.exec(page);
+  }
+  return page.slice(start);
+}
+
 function storyRegions(html) {
   const regions = [];
-  for (const node of topLevelNodes(html)) {
-    if (isRegion(node, "section", "big-story")) regions.push(innerOf(node));
-    else if (isRegion(node, "div", "river")) {
-      const nodes = expandRiverStories(topLevelNodes(innerOf(node)));
-      for (const range of riverRanges(nodes)) {
-        regions.push(nodes.slice(range.start, range.end).join(""));
-      }
-    } else if (hasSource(node)) regions.push(node);
-  }
+  collectRegions(topLevelNodes(html), regions);
   return regions;
 }
 

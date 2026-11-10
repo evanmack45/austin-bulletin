@@ -493,7 +493,8 @@ body.edition-cards:has(article.bulletin) main {
 }
 .edition-cards .site-footer p a {
   display: inline-block;
-  min-height: 0;
+  box-sizing: border-box;
+  min-height: 44px;
   padding-block: 12px;
   margin-block: -12px;
 }
@@ -516,7 +517,6 @@ body.edition-cards:has(article.bulletin) main {
   border: 1px solid var(--paper);
   background: transparent;
   color: var(--paper);
-  min-height: 44px;
   min-width: 44px;
 }
 .edition-cards .front-masthead .topics-panel a { color: var(--ink); }
@@ -524,10 +524,12 @@ body.edition-cards:has(article.bulletin) main {
   .edition-cards .front-masthead .site-menu-panel a,
   .edition-cards .front-masthead summary.topics-button { color: var(--ink); }
 }
-.edition-cards .masthead-dateline a {
-  display: inline-block;
-  padding: 0.85rem 0.3rem;
-  margin-block: -0.85rem;
+@media (min-width: 761px) {
+  .edition-cards .masthead-dateline a {
+    display: inline-block;
+    padding: 0.85rem 0.3rem;
+    margin-block: -0.85rem;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -733,7 +735,6 @@ body.edition-cards:has(article.bulletin) main {
 .edition-page .front-masthead .site-menu-button {
   border: 1px solid #FBF4E6;
   background: transparent;
-  min-height: 44px;
   min-width: 44px;
 }
 @media (min-width: 641px) {
@@ -749,4 +750,36 @@ body.edition-cards:has(article.bulletin) main {
   box-sizing: border-box;
   min-width: 44px;
   min-height: 44px;
+}
+.edition-cards .datestrip .edition-kicker {
+  margin: 0;
+  font-size: var(--fs-meta);
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.edition-cards .legacy-card .card-top { justify-content: flex-end; }
+.edition-cards .legacy-copy {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.125rem;
+  line-height: 1.5;
+}
+.edition-cards .legacy-copy :is(h2, h3, h4, h5) {
+  font-family: Bricolage, "Times New Roman", Times, serif;
+  font-size: var(--fs-head);
+  line-height: 1.25;
+  margin: 0 0 0.5rem;
+}
+.edition-cards .legacy-copy :is(p, li, .src, .source-line) {
+  font-size: 1.125rem;
+  line-height: 1.5;
+}
+.edition-cards .legacy-copy .the-number strong { font-size: 1.125rem; }
+.edition-cards .bulletin :is(h2#news, h2#notices, h2#the-back-page) {
+  margin-top: var(--section-gap);
+  border-top: 0;
+}
+@media (max-width: 760px) {
+  .datestrip { flex-wrap: wrap; align-items: flex-start; }
+  .jump { flex-wrap: wrap; min-width: 0; }
 }

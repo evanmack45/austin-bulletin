@@ -133,7 +133,8 @@ test("phones use 16px body text and 44px menu, footer, and action targets", {
           .filter((height) => height > 0);
         const copy = ".front-deck, .rail-copy p, .morning-note, " +
           ".river h5 + p, .river .story-share + p, " +
-          ".river .story-share + figure + p, .bulletin .big-story p";
+          ".river .story-share + figure + p, .bulletin .big-story p, " +
+          ".legacy-copy > p";
         const texts = [...document.querySelectorAll(copy)]
           .filter((el) => !el.classList.contains("front-kicker") &&
             el.getBoundingClientRect().height > 0)

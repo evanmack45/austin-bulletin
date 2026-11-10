@@ -6,7 +6,8 @@ import { countdownGlyph } from "../src/_includes/chicago-date.js";
 const SECTION_LABEL = {
   news: "News",
   notices: "Notices",
-  next: "Next"
+  next: "Next",
+  weather: "Weather"
 };
 
 function sectionKey(section) {
@@ -14,8 +15,10 @@ function sectionKey(section) {
   return section || "news";
 }
 
-function sectionAnchor(key) {
-  return `h-${key}`;
+function sectionAnchor(key, legacy) {
+  if (!legacy) return `h-${key}`;
+  if (key === "next") return "the-back-page";
+  return key;
 }
 
 function placeTimeline(points) {
@@ -52,11 +55,11 @@ function decorate(card, index, now) {
   };
 }
 
-function openSection(key) {
+function openSection(key, label, legacy) {
   return {
     key,
-    id: sectionAnchor(key),
-    label: SECTION_LABEL[key] || "News",
+    id: sectionAnchor(key, legacy),
+    label,
     items: []
   };
 }
@@ -65,8 +68,10 @@ function groupSections(body) {
   const sections = [];
   for (const item of body) {
     const key = sectionKey(item.section);
+    const label = item.sectionLabel || SECTION_LABEL[key] || "News";
     const last = sections[sections.length - 1];
-    const section = last && last.key === key ? last : openSection(key);
+    const same = last && last.key === key && last.label === label;
+    const section = same ? last : openSection(key, label, Boolean(item.legacy));
     if (section !== last) sections.push(section);
     section.items.push(item);
   }

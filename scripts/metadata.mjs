@@ -81,15 +81,30 @@ function frontPageLead(content) {
   return { heading, paragraph };
 }
 
+function articleInner(content, pattern) {
+  return String(content ?? "").match(pattern)?.[1] ?? "";
+}
+
+function leadArticle(content) {
+  const lead = /<article\b[^>]*class="[^"]*\blead\b[^"]*"[^>]*>([\s\S]*?)<\/article>/i;
+  const legacy = /<article\b[^>]*class="[^"]*\blegacy-card\b[^"]*"[^>]*>([\s\S]*?)<\/article>/i;
+  return articleInner(content, lead) || articleInner(content, legacy);
+}
+
+function firstCopy(article) {
+  const skip = /source-line|whats-next|council-did|signup/;
+  const paragraphs = [...String(article).matchAll(/<p\b([^>]*)>([\s\S]*?)<\/p>/gi)];
+  const found = paragraphs.find((match) => !skip.test(match[1]));
+  return reliableText(found?.[2]);
+}
+
 function cardLead(content) {
-  const article = String(content ?? "").match(
-    /<article\b[^>]*class="[^"]*\blead\b[^"]*"[^>]*>([\s\S]*?)<\/article>/i
-  )?.[1] ?? "";
-  const heading = reliableText(article.match(/<h2\b[^>]*>([\s\S]*?)<\/h2>/i)?.[1]);
-  const paragraph = reliableText(article.match(
+  const article = leadArticle(content);
+  const heading = reliableText(article.match(/<h[235]\b[^>]*>([\s\S]*?)<\/h[235]>/i)?.[1]);
+  const deck = reliableText(article.match(
     /<p\b[^>]*class="[^"]*\bdeck\b[^"]*"[^>]*>([\s\S]*?)<\/p>/i
   )?.[1]);
-  return { heading, paragraph };
+  return { heading, paragraph: deck || firstCopy(article) };
 }
 
 function leadFrom(content) {

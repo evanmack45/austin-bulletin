@@ -1,7 +1,9 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { existsSync, readFileSync } from "node:fs";
-import { externalStorySourceSets, normalizeBulletin } from "../scripts/story-sources.mjs";
+import {
+  bulletinArticle, externalStorySourceSets, normalizeBulletin
+} from "../scripts/story-sources.mjs";
 import { createServer } from "node:http";
 import path from "node:path";
 import puppeteer from "puppeteer-core";
@@ -15,7 +17,7 @@ const chrome = [
 ].find((executable) => existsSync(executable));
 
 function header(html) {
-  const match = html.match(/<header class="front-masthead">[\s\S]*?<\/header>/);
+  const match = html.match(/<header class="front-masthead(?: masthead-strip)?">[\s\S]*?<\/header>/);
   assert.ok(match, "page is missing the shared masthead");
   return match[0];
 }
@@ -51,7 +53,7 @@ test("edition pages use the homepage masthead and do not reference a blackletter
   assert.match(header(home), /href="https:\/\/yallcityhall\.org\/"/);
   assert.doesNotMatch(header(home), /href="\/subscribe\/"/);
   assert.match(home, /class="cover-chrome home-front/);
-  assert.match(edition, /class="cover-chrome edition-page"/);
+  assert.match(edition, /class="cover-chrome edition-page(?: edition-cards)?"/);
   const homeCss = linkedStyles(home);
   const editionCss = linkedStyles(edition);
   assert.ok(homeCss.includes("/css/tokens.css"));
@@ -77,9 +79,7 @@ test("edition pages use the homepage masthead and do not reference a blackletter
     edition.split('class="if-you"').length - 1,
     markdown.split('class="if-you"').length - 1
   );
-  const article = edition.match(
-    /<article\b[^>]*class="[^"]*\bbulletin\b[^"]*"[^>]*>([\s\S]*?)<\/article>/i
-  )[1];
+  const article = bulletinArticle(edition);
   const before = externalStorySourceSets(normalizeBulletin(markdown));
   const after = externalStorySourceSets(article);
   assert.deepEqual(after, before);

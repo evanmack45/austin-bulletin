@@ -170,7 +170,9 @@ export const SECTION_GAP_SCRIPT = `(() => {
       section.previousElementSibling
     )),
     edition: edition.map((heading) => gapFor(
-      heading.id, heading, heading.previousElementSibling
+      heading.id,
+      heading,
+      heading.previousElementSibling || heading.parentElement.previousElementSibling
     ))
   };
 })()`;
