@@ -27,6 +27,17 @@
   min-height: 44px;
   min-width: 44px;
 }
+@media (max-width: 760px) {
+  .home-front .front-masthead .wordmark {
+    box-sizing: border-box;
+    padding-block: 0.4rem;
+  }
+}
+.home-front .masthead-dateline a {
+  padding: 0.85rem 0.3rem;
+}
+.home-front .signup-note a { padding-block: 0.95rem; }
+.home-front .axiom-rows a { padding-block: 0.75rem; }
 .home-front .front-masthead .site-menu-panel,
 .home-front .front-masthead .topics-panel { color: var(--ink); }
 @media (min-width: 641px) {
