@@ -166,7 +166,9 @@ function assertFirstFold(result, width, height) {
  assert.ok(result.documentWidth <= width, JSON.stringify(result));
  assert.ok(result.fonts.some(font => font.includes("Bricolage")), "local display font loads");
  assert.ok(result.lead.width > 200);
- assert.equal(result.leadFontSize, width >= 1024 ? "56px" : "34px", `lead size at ${width}`);
+ assert.equal(result.leadFontSize, width >= 1024 ? "36px" : "34px", `lead size at ${width}`);
+ assert.equal(result.numberSize, width >= 1024 ? "112px" : "64px", `number size at ${width}`);
+ assert.ok(parseFloat(result.numberSize) > parseFloat(result.leadFontSize));
  assert.equal(result.barColor, "rgb(255, 194, 51)");
  assert.ok(result.action.height >= 44);
  assert.ok(result.nav.every(link => link.height >= 44));
@@ -372,7 +374,7 @@ test("previous edition is direct keyboard navigation independent of optional com
   }
 });
 
-test("map-first card sits above the map on a phone and over the west side on a desktop", {
+test("smart brevity leads with 927 and keeps the certificates item off the page", {
   skip: !chrome && "an installed Chromium is required for browser regression",
 }, async () => {
   const server = await serveBuiltSite();
@@ -380,54 +382,35 @@ test("map-first card sits above the map on a phone and over the west side on a d
     args: process.platform === "linux" ? ["--no-sandbox"] : [] });
   try {
     const page = await browser.newPage();
+    await page.setJavaScriptEnabled(false);
     await page.setViewport({ width: 390, height: 844 });
     await page.goto(`http://127.0.0.1:${server.address().port}/b/`, { waitUntil: "networkidle0" });
     const phone = await page.evaluate(() => {
-      const card = document.querySelector(".b-card").getBoundingClientRect();
-      const map = document.querySelector(".b-map").getBoundingClientRect();
-      const style = getComputedStyle(document.querySelector(".b-card"));
+      const number = document.querySelector(".bignum");
+      const line = document.querySelector(".big-box h1");
+      const opener = document.querySelector(".opener");
+      const signup = document.querySelector(".signup--lead").getBoundingClientRect();
       return {
-        above: card.bottom <= map.top + 1,
-        position: style.position,
-        overflow: document.documentElement.scrollWidth - 390
+        number: number.textContent.trim(),
+        size: parseFloat(getComputedStyle(number).fontSize),
+        color: getComputedStyle(number).color,
+        line: line.textContent.trim(),
+        opener: opener.textContent.trim().split(/\s+/).length,
+        family: getComputedStyle(opener).fontFamily,
+        signupTop: signup.top,
+        overflow: document.documentElement.scrollWidth - 390,
+        held: document.body.textContent.includes("Court weighs $197 million")
       };
     });
-    assert.equal(phone.above, true, JSON.stringify(phone));
-    assert.equal(phone.position, "static");
+    assert.equal(phone.number, "927");
+    assert.ok(phone.size >= 64, String(phone.size));
+    assert.equal(phone.color, "rgb(255, 194, 51)");
+    assert.equal(phone.line, "affordable rentals lose rent limits in 2027");
+    assert.ok(phone.opener <= 25, String(phone.opener));
+    assert.match(phone.family, /Georgia/);
+    assert.ok(phone.signupTop > 800, `signup is in the first screen at ${phone.signupTop}`);
     assert.ok(phone.overflow <= 1, JSON.stringify(phone));
-    await page.setViewport({ width: 1280, height: 900 });
-    const desk = await page.evaluate(() => {
-      const card = document.querySelector(".b-card");
-      const box = card.getBoundingClientRect();
-      const style = getComputedStyle(card);
-      const number = getComputedStyle(card.querySelector(".b-num"));
-      const hits = [...document.querySelectorAll(".b-map text")].filter((node) => (
-        /^(?:District 4|5|7)$/.test(node.textContent.trim())
-      )).map((node) => node.getBoundingClientRect());
-      const overlaps = hits.some((hit) => !(
-        box.right < hit.left || box.left > hit.right || box.bottom < hit.top || box.top > hit.bottom
-      ));
-      return {
-        position: style.position,
-        background: style.backgroundColor,
-        radius: style.borderRadius,
-        padding: style.paddingTop,
-        size: parseFloat(number.fontSize),
-        color: number.color,
-        line: getComputedStyle(card.querySelector(".b-line")).color,
-        overlaps,
-        hits: hits.length
-      };
-    });
-    assert.equal(desk.position, "absolute");
-    assert.equal(desk.background, "rgb(15, 42, 71)");
-    assert.equal(desk.radius, "12px");
-    assert.equal(desk.padding, "24px");
-    assert.ok(desk.size >= 64 && desk.size <= 80, String(desk.size));
-    assert.equal(desk.color, "rgb(255, 194, 51)");
-    assert.equal(desk.line, "rgb(251, 244, 230)");
-    assert.equal(desk.overlaps, false, JSON.stringify(desk));
-    assert.ok(desk.hits >= 3, JSON.stringify(desk));
+    assert.equal(phone.held, false);
   } finally {
     await browser.close();
     await new Promise((resolve) => server.close(resolve));

@@ -7,17 +7,19 @@ const DATASET = "https://data.austintexas.gov/d/ifzc-3xz8";
 
 function assertChartLead(html) {
   const lead = html.match(
-    /<section class="[^"]*\bfront-lead\b[^"]*"[\s\S]*?<\/section>/
+    /<section class="[^"]*\bstory-card--lead\b[^"]*"[\s\S]*?<\/section>/
   )?.[0] ?? "";
   const h1 = lead.indexOf("<h1");
-  const dek = lead.indexOf('class="callout front-deck"');
   const chart = lead.indexOf('class="chart"');
   const source = lead.indexOf('class="source-line"');
-  assert.ok(h1 !== -1 && dek > h1 && chart > dek && source > chart, lead.slice(0, 400));
-  assert.match(lead, /Rent limits end in 2027 for 927 Austin affordable rentals/);
-  assert.match(lead, /affordable rental units in 2027/);
+  assert.ok(h1 !== -1 && chart > h1 && source > chart, lead.slice(0, 400));
+  assert.match(lead, /Rent limits end in 2027/);
+  assert.doesNotMatch(lead, /for 927 Austin affordable rentals/);
+  assert.match(lead, />927</);
   assert.match(lead, /class="bar bar-hi"/);
+  assert.match(lead, /More than three times the 268/);
   assert.match(lead, /An expiration date doesn(?:'|&#39;)t by itself mean rents will rise\./);
+  assert.match(lead, /href="\/lead-story\/"/);
   assert.match(lead, new RegExp(`href="${DATASET.replaceAll("?", "\\?")}"`));
   assert.doesNotMatch(lead, /register-lead|runoff-lead|AI illustration/);
   assert.doesNotMatch(html, /\b(peak|biggest)\b|the most/i);
@@ -31,7 +33,11 @@ test("the homepage lead is the 2027 rent-limit chart", () => {
   assertChartLead(readFileSync("_site/index.html", "utf8"));
   const variant = readFileSync("_site/b/index.html", "utf8");
   assert.match(variant, /data-variant="b"/);
-  assert.match(variant, /class="b-card"/);
+  assert.match(variant, /class="big-box"/);
+  assert.match(variant, /affordable rentals lose rent limits in 2027/);
+  assert.match(variant, /Why it matters/);
+  assert.match(variant, /What you can do/);
+  assert.doesNotMatch(variant, /Court weighs \$197 million/);
   assert.match(variant, /An expiration date doesn(?:'|&#39;)t by itself mean rents will rise\./);
   assert.doesNotMatch(variant, /\b(peak|biggest)\b|the most/i);
 });
@@ -50,7 +56,8 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.doesNotMatch(html, /5 minutes|One email each morning/);
   assert.doesNotMatch(html, /class="results-button"/);
   assert.equal((html.match(/<h1\b/g) || []).length, 1);
-  assert.match(html, /Rent limits end in 2027 for 927 Austin affordable rentals/);
+  assert.match(html, /Rent limits end in 2027/);
+  assert.match(html, /href="\/lead-story\/"/);
   assert.match(html, />927</);
   assert.doesNotMatch(html, /Register by Thursday if a runoff is ordered\./);
   assert.match(html, /class="wordmark"/);
@@ -112,14 +119,16 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.match(page, /class="story-share"/);
   assert.match(page, /700 Lavaca Street/);
   assert.doesNotMatch(page, /Editor notes/);
-  const brand = "https://theaustinbulletin.com/icon-512.png";
-  assert.ok(page.includes(`property="og:image" content="${brand}"`));
+  const art = "https://theaustinbulletin.com/images/2026-11-09/"
+    + "register-lead-desktop-1600.webp";
+  assert.ok(page.includes(`property="og:image" content="${art}"`));
   assert.match(page, /property="og:title" content="Register by Thursday/);
   assert.match(page, /og:description" content="A resident who still needs to register/);
   assert.match(page, /name="twitter:title" content="Register by Thursday/);
   assert.match(page, /twitter:description" content="A resident who still needs to register/);
-  assert.ok(page.includes(`name="twitter:image" content="${brand}"`));
-  assert.doesNotMatch(page, /register-lead|runoff-lead|AI illustration/);
+  assert.ok(page.includes(`name="twitter:image" content="${art}"`));
+  assert.match(page, /register-lead-desktop-1600\.webp/);
+  assert.match(page, /AI-generated illustration: a deadline circled on a calendar\./);
   assert.match(page, /does not say a runoff has been ordered/);
   assert.match(page, /could come earlier/);
   assert.match(page, /9:00 a\.m\./);
@@ -130,15 +139,15 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.doesNotMatch(page, /Unifraktur|class="folio-nav"|class="edition-head"|Vol\. I/);
 });
 
-test("Monday keeps the county headline and drops the lead illustration", () => {
+test("Monday labels the lead illustration and the county headline", () => {
   const html = readFileSync("_site/index.html", "utf8");
   const page = readFileSync("_site/2026/11/09/index.html", "utf8");
   const feed = readFileSync("_site/feed.xml", "utf8");
   const caption = "AI-generated illustration: a deadline circled on a calendar.";
   const headline = "County court meets Thursday to canvass the Nov. 3 election.";
   assert.equal(html.includes(caption), false);
-  assert.equal(page.includes(caption), false);
-  assert.equal(page.includes("Illustration: The Austin Bulletin."), false);
+  assert.equal(page.includes(caption), true);
+  assert.equal(page.includes("Illustration: The Austin Bulletin."), true);
   assert.equal(html.includes("Illustration: The Austin Bulletin."), false);
   assert.equal(page.includes(headline), true);
   assert.equal(feed.includes(headline), true);
@@ -180,7 +189,7 @@ test("the sunday edition stacks each source and names the headline actions", () 
   assert.match(page, /not-to-exceed cap of \$32,906,529/);
   assert.match(page, /A charge is an accusation, not a finding of guilt/);
   assert.match(page, /KUT reports/);
-  assert.doesNotMatch(page, /runoff-lead/);
+  assert.match(page, /runoff-lead-desktop-1600\.webp/);
   assert.doesNotMatch(page, /\$55,326,729/);
   assert.match(page, />Copy story link</);
   assert.match(page, />Share story</);

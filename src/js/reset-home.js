@@ -5,6 +5,7 @@ if (params.get("v") === "b" && !path.endsWith("/b/")) location.replace("/b/");
 else if (params.get("v") === "a" && path.endsWith("/b/")) location.replace("/");
 
 const card = document.querySelector("#pin-card");
+const pins = JSON.parse(document.querySelector("#week-pins")?.textContent || "[]");
 
 function closePins() {
   document.querySelectorAll(".pin.is-selected").forEach((pin) => {
@@ -16,14 +17,21 @@ function closePins() {
 
 document.querySelectorAll(".pin").forEach((pin) => {
   pin.addEventListener("click", (event) => {
-    if (!card) return;
+    if (!card || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     const same = pin.classList.contains("is-selected");
     closePins();
     if (same) return;
     event.preventDefault();
-    card.querySelector("a").href = pin.href;
-    card.querySelector(".pin-kicker").textContent = `District ${pin.dataset.district}`;
-    card.querySelector(".pin-name").textContent = `${pin.dataset.name}: ${pin.dataset.units} units`;
+    const list = card.querySelector("ul");
+    list.replaceChildren();
+    for (const item of pins[Number(pin.dataset.pin)]?.items || []) {
+      const li = document.createElement("li");
+      const link = document.createElement("a");
+      link.href = item.link;
+      link.textContent = item.headline;
+      li.append(link);
+      list.append(li);
+    }
     card.hidden = false;
     pin.classList.add("is-selected");
     pin.setAttribute("aria-expanded", "true");

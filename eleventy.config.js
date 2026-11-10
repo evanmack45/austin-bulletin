@@ -462,7 +462,11 @@ export default function (eleventyConfig) {
     const y = (30.51666 - Number(lat)) * 2210.4992 + 8;
     const r = Math.max(8, 2.6 * Math.sqrt(Number(units) || 0));
     const left = (x / 800) * 100;
-    const top = mode === "b" ? ((y + 190) / 1356) * 100 : (y / 991) * 100;
+    const top = mode === "card"
+      ? ((y + 10) / 1020) * 100
+      : mode === "b"
+        ? ((y + 190) / 1356) * 100
+        : (y / 991) * 100;
     const dot = (r * 2 / 800) * 100;
     return `left:${left.toFixed(2)}%;top:${top.toFixed(2)}%;--dot:${dot.toFixed(2)}%`;
   });

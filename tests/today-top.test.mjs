@@ -56,7 +56,7 @@ test("the homepage leads with the rent-limit number and the edition keeps each s
   const dateline = `${weekdayName(instant)}, ${shortMonthDay(instant)}`;
   assert.ok(html.includes(dateline), dateline);
   assert.doesNotMatch(html, /class="today-top"/);
-  assert.match(html, /Rent limits end in 2027 for 927 Austin affordable rentals/);
+  assert.match(html, /Rent limits end in 2027/);
   assert.equal(html.split(desk.headline).length - 1, 0, desk.headline);
   const page = readFileSync(`_site/${edition.replaceAll("-", "/")}/index.html`, "utf8");
   assert.ok(page.includes(desk.headline), desk.headline);

@@ -1,0 +1,11 @@
+<ul class="week-lines" id="week-list">
+  {% for item in thisWeek.items %}
+  <li>
+    <a href="{{ item.link | escape }}">
+      <span class="icon icon-20" aria-hidden="true">{{ item.iconFile | icon | safe }}</span>
+      <span class="week-date">{{ item.dateLabel | escape }}</span>
+      <span class="week-line">{{ item.headline | escape }}</span>
+    </a>
+  </li>
+  {% endfor %}
+</ul>

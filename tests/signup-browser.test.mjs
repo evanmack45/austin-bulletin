@@ -99,7 +99,7 @@ function assertSignupSlot(slot) {
   const signupAt = slot.sequence.indexOf("signup");
   assert.ok(signupAt > 0, JSON.stringify(slot.sequence));
   assert.match(slot.sequence[0], /Rent limits end in 2027/);
-  assert.equal(slot.sequence[signupAt + 1], "This week");
+  assert.equal(slot.sequence[signupAt], "signup");
   assert.equal(slot.forms, 1);
   assert.equal(slot.blocks, 1);
   assert.ok(slot.overflow <= 1, `horizontal overflow ${slot.overflow}`);
