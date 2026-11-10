@@ -179,12 +179,21 @@
   color: var(--chart-label);
 }
 .bar-value.is-hi, .bar-year.is-hi { color: var(--sun); font-weight: 800; }
+.home-front .chart-bars { height: auto; }
+.home-front .chart-col {
+  display: grid;
+  grid-template-rows: auto 8.75rem auto;
+  align-items: end;
+  justify-items: center;
+  height: auto;
+}
 .bar {
   display: block;
   width: 72%;
-  height: var(--h);
-  min-height: 4px;
-  margin: 4px 0;
+  height: calc(var(--p) * 8.75rem / 100);
+  min-height: 0;
+  margin: 0;
+  align-self: end;
   border-radius: 3px 3px 0 0;
   background: var(--chart-muted);
   transform-origin: bottom center;
@@ -435,8 +444,8 @@
     display: flex;
     flex-direction: column;
   }
-  .story-card--lead .chart { align-self: stretch; min-height: 15rem; }
-  .story-card--lead .chart-bars { flex: 1; height: 100%; min-height: 15rem; }
+  .story-card--lead .chart { align-self: start; min-height: 0; }
+  .story-card--lead .chart-bars { flex: none; height: auto; min-height: 0; }
   .story-card--lead .caveat { grid-column: 1; grid-row: 5; }
   .story-card--lead .source-line { grid-column: 1 / -1; grid-row: 7; align-self: end; }
   .home-front .signup--lead .signup-email { max-width: 30rem; }

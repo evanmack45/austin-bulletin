@@ -13,6 +13,8 @@ test("the Nov. 10 card page uses the fact-checked lines", () => {
   assert.match(page, /proposed certificates total/);
   assert.match(page, /County weighs adding to fiscal 2027 borrowing/);
   assert.match(page, /Bell Textron/);
+  assert.match(page, /highest-ranked respondent/);
+  assert.doesNotMatch(page, /highest-ranked bidder/);
   assert.match(page, /County weighs starting a 2027 bond election/);
   assert.match(page, /consider the Nov\. 3 canvass order/);
   assert.match(page, /Nov\. 17 meeting preview on Y'all City Hall/);

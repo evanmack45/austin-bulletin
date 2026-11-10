@@ -7,10 +7,13 @@
   font-size: var(--fs-body);
   line-height: 1.5;
 }
-.edition-cards main {
-  max-width: var(--content);
+body.edition-cards main,
+body.edition-cards:has(article.bulletin) main {
+  max-width: 72rem;
+  width: 100%;
   margin: 0 auto;
-  padding: 0 var(--s3) var(--s6);
+  padding: 0 16px 32px;
+  box-sizing: border-box;
 }
 .edition-wrap { min-width: 0; }
 .edition-cards .icon { display: inline-flex; }
@@ -121,14 +124,14 @@
   grid-template-columns: repeat(5, minmax(0, 1fr));
   align-items: end;
   gap: var(--s2);
-  height: 8.5rem;
+  height: auto;
 }
 .edition-cards .chart-col {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  height: 100%;
+  display: grid;
+  grid-template-rows: auto 8.75rem auto;
+  align-items: end;
+  justify-items: center;
+  height: auto;
   min-width: 0;
 }
 .edition-cards .bar-value,
@@ -143,16 +146,29 @@
 .edition-cards .bar {
   display: block;
   width: 72%;
-  height: var(--h);
-  min-height: 4px;
-  margin: 4px 0;
+  height: calc(var(--p) * 8.75rem / 100);
+  min-height: 0;
+  margin: 0;
+  align-self: end;
   border-radius: 3px 3px 0 0;
   background: var(--chart-muted);
   transform: none;
 }
+.edition-cards h2::before,
+.edition-cards h2::after,
+.edition-cards .good-thing::before { content: none; border: 0; }
 .edition-cards .bar-hi { background: var(--sun); }
-.edition-cards .lead .src { color: var(--on-night-meta); }
-.edition-cards .lead .src a { color: var(--on-night-meta); }
+.edition-cards .lead .src {
+  display: block;
+  color: var(--on-night-meta);
+}
+.edition-cards .lead .src > span { white-space: nowrap; }
+.edition-cards .lead .src a {
+  display: inline;
+  padding: 0.7rem 0;
+  margin: 0;
+  color: var(--on-night-meta);
+}
 
 /* Sections and cards */
 .edition-cards .section-label {
@@ -204,9 +220,9 @@
 .edition-cards .topic .icon { color: var(--ink); }
 .edition-cards .glyph {
   display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 0 var(--s2);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
   margin: 0;
 }
 .edition-cards .glyph b {
@@ -215,6 +231,7 @@
   font-weight: 800;
   font-stretch: 80%;
   line-height: 1;
+  white-space: nowrap;
   font-feature-settings: var(--num);
 }
 .edition-cards .glyph b u {
@@ -257,6 +274,19 @@
   color: var(--ink);
   text-underline-offset: 0.2em;
 }
+.edition-cards .lead .src { display: block; }
+.edition-cards .lead .src > span { white-space: nowrap; }
+.edition-cards .lead .src a {
+  display: inline;
+  padding: 0.7rem 0;
+  margin: 0;
+}
+.edition-cards .card.good-thing {
+  margin: 0;
+  font-style: normal;
+  text-align: left;
+}
+.edition-cards .good-thing:not(:has(strong))::before { content: none; }
 .edition-cards .src .sep { color: var(--muted); }
 .edition-cards .more .more-src { margin-top: 0; }
 .edition-cards .more .more-src a {
@@ -393,7 +423,9 @@
 .edition-cards .tl span { font-size: var(--fs-label); color: var(--muted); }
 
 .edition-cards .signup--edition {
-  padding: var(--s4) var(--card-pad);
+  margin: 0;
+  border-top: 0;
+  padding: var(--card-pad);
   border: var(--border);
   border-radius: var(--radius-card);
   background: var(--card);
@@ -429,7 +461,7 @@
 
 .edition-cards .site-footer {
   max-width: none;
-  margin: var(--s5) 0 0;
+  margin: 0;
   background: var(--night);
   color: var(--paper);
   font-family: var(--font-display);
@@ -480,6 +512,11 @@
   min-height: 44px;
   min-width: 44px;
 }
+.edition-cards .front-masthead .topics-panel a { color: var(--ink); }
+@media (max-width: 640px) {
+  .edition-cards .front-masthead .site-menu-panel a,
+  .edition-cards .front-masthead summary.topics-button { color: var(--ink); }
+}
 .edition-cards .masthead-dateline a {
   display: inline-block;
   padding: 0.85rem 0.3rem;
@@ -487,7 +524,9 @@
 }
 
 @media (min-width: 1024px) {
-  .edition-cards main { padding-inline: var(--s4); }
+  body.edition-cards main,
+  body.edition-cards:has(article.bulletin) main { padding-inline: 24px; }
+  .edition-cards main { padding-inline: 24px; }
   .edition-cards .site-footer {
     padding-inline: max(var(--s4), calc((100% - var(--content)) / 2 + var(--s4)));
   }
@@ -528,12 +567,11 @@
     display: flex;
     flex-direction: column;
   }
-  .edition-cards .lead .chart-bars { flex: 1; height: auto; min-height: 17rem; }
+  .edition-cards .lead .chart-bars { height: auto; }
   .edition-cards .lead .src {
     grid-column: 1 / -1;
     grid-row: 6;
-    display: flex;
-    align-items: center;
+    display: block;
     min-height: var(--tap);
     margin-top: var(--s3);
     padding-right: 7.5rem;
@@ -568,7 +606,6 @@
 }
 
 @media (max-width: 1023px) {
-  .edition-cards .chart-bars { height: 5.5rem; }
   .edition-cards .lead .chart-kicker { margin: 8px 0 4px; }
   .edition-cards .lead h2 { margin: 4px 0; }
   .edition-cards .lead .deck { margin-bottom: 8px; }
@@ -585,4 +622,46 @@
   box-sizing: border-box;
   min-height: 44px;
   padding: 0 12px;
+}
+
+.edition-page {
+  background: #FBF4E6;
+  color: #14171F;
+}
+.edition-page .bulletin {
+  font-family: Georgia, "Times New Roman", serif;
+}
+.edition-page .signup,
+.edition-page .signup :is(p, label, input, button, a) {
+  font-family: Hanken, Arial, sans-serif;
+}
+.edition-page :is(h1, h2, h3, h4, h5, h6) {
+  font-family: Bricolage, "Times New Roman", Times, serif;
+}
+.edition-page .front-masthead { background: #0F2A47; }
+.edition-page.cover-chrome .front-masthead .wordmark,
+.edition-page.cover-chrome .front-masthead .masthead-dateline,
+.edition-page.cover-chrome .front-masthead .masthead-dateline a,
+.edition-page .front-masthead .site-menu-button {
+  color: #FBF4E6;
+}
+.edition-page .front-masthead .site-menu-button {
+  border: 1px solid #FBF4E6;
+  background: transparent;
+  min-height: 44px;
+  min-width: 44px;
+}
+@media (min-width: 641px) {
+  .edition-page.cover-chrome .front-masthead .site-menu-panel > a,
+  .edition-page.cover-chrome .front-masthead summary.topics-button {
+    color: #FBF4E6;
+  }
+  .edition-page.cover-chrome .front-masthead .topics-panel a { color: #14171F; }
+}
+.edition-page .skim h2 { color: #14171F; }
+.edition-page .story-share-button,
+.edition-page .story-share-link {
+  box-sizing: border-box;
+  min-width: 44px;
+  min-height: 44px;
 }

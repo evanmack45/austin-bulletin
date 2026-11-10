@@ -65,11 +65,16 @@
   display: flex;
   gap: .7rem;
 }
-.cover-chrome .front-masthead nav a {
+.cover-chrome .front-masthead nav a,
+.cover-chrome .front-masthead summary.topics-button {
   display: inline-flex;
   align-items: center;
+  box-sizing: border-box;
+  min-height: 44px;
   padding: .15rem .3rem;
-  font-size: .9rem;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5;
 }
 @media (min-width: 761px) {
   .cover-chrome .front-masthead .site-nav {
