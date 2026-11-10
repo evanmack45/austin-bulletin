@@ -5,22 +5,6 @@ import { parseDesk } from "../scripts/desk.mjs";
 import { homeEdition } from "../scripts/home-stories.mjs";
 import { shortMonthDay, weekdayName } from "../scripts/edition-dates.mjs";
 
-function escapeHtml(value) {
-  return value
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#39;");
-}
-
-function element(html, tag, id) {
-  const pattern = new RegExp(
-    `<${tag}\\b[^>]*\\bid="${id}"[^>]*>[\\s\\S]*?</${tag}>`
-  );
-  return html.match(pattern)?.[0] ?? "";
-}
-
 const LEAD_ONLY = `{% bigstory %}
 ### One sourced lead.
 <p class="source-line">Sources: <a href="https://example.org/lead">City</a></p>
@@ -62,7 +46,7 @@ test("fewer than three sourced items are listed without padding", () => {
   assert.deepEqual(skipped.top.map((item) => item.anchor), ["week-0"]);
 });
 
-test("the homepage shows each edition story once, lead first", () => {
+test("the homepage leads with the rent-limit number and the edition keeps each story", () => {
   const html = readFileSync("_site/index.html", "utf8");
   const edition = html.match(/data-edition="(\d{4}-\d{2}-\d{2})"/)[1];
   const markdown = readFileSync(`src/bulletins/${edition}.md`, "utf8");
@@ -70,31 +54,16 @@ test("the homepage shows each edition story once, lead first", () => {
   const home = homeEdition(markdown);
   const instant = `${edition}T00:00:00.000Z`;
   const dateline = `${weekdayName(instant)}, ${shortMonthDay(instant)}`;
-  const body = html.replace(/<head\b[\s\S]*?<\/head>/i, "")
-    .replaceAll("&amp;", "&")
-    .replaceAll("&#39;", "'");
   assert.ok(html.includes(dateline), dateline);
   assert.doesNotMatch(html, /class="today-top"/);
-  assert.equal(body.split(desk.headline).length - 1, 1, desk.headline);
-  const lead = element(html, "section", "front-lead");
-  assert.ok(lead.includes(escapeHtml(desk.headline)));
-  assert.match(lead, new RegExp(`href="/${edition.replaceAll("-", "/")}/#${home.leadAnchor}"`));
+  assert.match(html, /Affordable rentals lose rent limits in 2027/);
+  assert.equal(html.split(desk.headline).length - 1, 0, desk.headline);
+  const page = readFileSync(`_site/${edition.replaceAll("-", "/")}/index.html`, "utf8");
+  assert.ok(page.includes(desk.headline), desk.headline);
   const stories = home.sections.flatMap((section) => section.stories);
-  assert.ok(stories.length >= 4, "homepage lists the edition past the lead");
+  assert.ok(stories.length >= 4, "edition lists stories past the lead");
   for (const story of stories) {
-    assert.equal(body.split(story.title).length - 1, 1, story.title);
-    const href = `/${edition.replaceAll("-", "/")}/#${story.anchor}`;
-    assert.ok(body.includes(`href="${href}"`), href);
-    assert.ok(body.includes(story.summary), story.summary.slice(0, 48));
-  }
-  const heads = [...body.matchAll(/<h1\b|<h3\b|class="signup signup--lead"/g)].map((match) => (
-    match[0].startsWith("<h1") ? "h1" : match[0].startsWith("<h3") ? "h3" : "signup"
-  ));
-  const signupAt = heads.indexOf("signup");
-  assert.equal(heads.slice(0, signupAt).filter((tag) => tag === "h1" || tag === "h3").length, 3);
-  if (edition === "2026-11-03" || edition === "2026-11-04") {
-    assert.equal((html.match(/>Election results</g) || []).length, 1);
-    assert.match(lead, /class="results-link" href="\/election\/2026-11-03\/"/);
-    assert.doesNotMatch(lead, /results-button/);
+    assert.ok(page.includes(story.title), story.title);
+    assert.equal(html.includes(story.title), false, story.title);
   }
 });

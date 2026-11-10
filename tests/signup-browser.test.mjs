@@ -80,9 +80,9 @@ test("the Kit embed sits under the lead and the phone bar can close", {
 
 async function signupSlot(page) {
   return page.evaluate(() => {
-    const main = document.querySelector(".paper-main");
+    const main = document.querySelector("main");
     const sequence = [...main.querySelectorAll(
-      ".front-lead h1, .front-story h3, .signup--lead, h2.front-section-head"
+      ".front-lead h1, .signup--lead, .week-strip h2"
     )].map((el) => (
       el.classList.contains("signup--lead") ? "signup" : el.textContent.trim()
     ));
@@ -96,25 +96,10 @@ async function signupSlot(page) {
 }
 
 function assertSignupSlot(slot) {
-  const stories = slot.sequence.filter((item) => (
-    item !== "signup" && item !== "News" && item !== "Notices"
-  ));
-  assert.deepEqual(stories, [
-    "Register by Thursday if a runoff is ordered.",
-    "County court meets Thursday to canvass the Nov. 3 election.",
-    "Tuesday's court agenda includes a hearing on a Burleson Road event.",
-    "Water and parks briefings are on Tuesday's committee agenda.",
-    "Mobility briefings are set for Thursday at City Hall.",
-    "November 12 is off the regular session calendar.",
-    "The Texas Book Festival is November 14 and 15 at the Capitol.",
-    "A 20 percent chance of showers tonight, then mostly sunny Tuesday."
-  ]);
   const signupAt = slot.sequence.indexOf("signup");
-  const before = slot.sequence.filter((item, index) => index < signupAt && item !== "News");
-  assert.equal(before.length, 3);
-  assert.equal(slot.sequence[signupAt + 1].startsWith("Water and parks briefings"), true);
-  const notices = slot.sequence.indexOf("Notices");
-  assert.equal(slot.sequence[notices - 1].startsWith("November 12 is off"), true);
+  assert.ok(signupAt > 0, JSON.stringify(slot.sequence));
+  assert.match(slot.sequence[0], /Affordable rentals lose rent limits in 2027/);
+  assert.equal(slot.sequence[signupAt], "signup");
   assert.equal(slot.forms, 1);
   assert.equal(slot.blocks, 1);
   assert.ok(slot.overflow <= 1, `horizontal overflow ${slot.overflow}`);
@@ -125,7 +110,7 @@ async function assertDesktopLead(browser, origin) {
   const posts = await blockKit(page);
   await open(page, origin, "/", 1280);
   const box = await page.evaluate(() => {
-    const block = document.querySelector(".paper-main .signup--lead");
+    const block = document.querySelector("main .signup--lead");
     const form = block.querySelector("form.signup-form");
     const input = form.querySelector("input[name='email_address']");
     const label = form.querySelector("label");
@@ -141,7 +126,7 @@ async function assertDesktopLead(browser, origin) {
       forms: document.querySelectorAll("form.signup-form").length,
       bar: !!document.querySelector(".signup--bar"),
       formTop: formBox.top,
-      photoBottom: document.querySelector(".front-lead .lead-photo")
+      photoBottom: document.querySelector(".front-lead .chart, .front-lead .b-card")
         ?.getBoundingClientRect().bottom ?? 0,
       inputHeight: input.getBoundingClientRect().height,
       labelHeight: labelBox.height,
@@ -199,27 +184,28 @@ async function assertMobileLead(browser, origin) {
   await open(page, origin, "/", 390);
   const fold = await page.evaluate(() => {
     const lead = document.querySelector(".front-lead h1").getBoundingClientRect();
-    const signup = document.querySelector(".paper-main .signup--lead").getBoundingClientRect();
-    const stories = [...document.querySelectorAll(".front-lead h1, .front-story h3")];
-    const followed = stories[1]?.getBoundingClientRect();
+    const number = document.querySelector(".bignum").getBoundingClientRect();
+    const bar = document.querySelector(".bar-hi").getBoundingClientRect();
+    const signup = document.querySelector("main .signup--lead").getBoundingClientRect();
     return {
       topBottom: lead.bottom,
+      numberBottom: number.bottom,
+      barBottom: bar.bottom,
       signupTop: signup.top,
-      followedBottom: followed?.bottom ?? 0,
-      storyCount: stories.length,
       vh: window.innerHeight,
       sky: !!document.querySelector(".masthead-sky, .masthead-banner")
     };
   });
   assert.equal(fold.sky, false);
   assert.ok(fold.topBottom <= fold.vh, `lead headline below the fold: ${fold.topBottom}`);
-  assert.ok(fold.storyCount >= 3, `stories before the signup: ${fold.storyCount}`);
-  assert.ok(fold.signupTop >= fold.followedBottom - 1, `signup starts at ${fold.signupTop}`);
+  assert.ok(fold.numberBottom <= fold.vh, `927 below the fold: ${fold.numberBottom}`);
+  assert.ok(fold.barBottom <= fold.vh, `2027 bar below the fold: ${fold.barBottom}`);
+  assert.ok(fold.signupTop >= fold.barBottom - 1, `signup starts at ${fold.signupTop}`);
   await page.evaluate(() => {
     document.querySelector(".signup--lead").scrollIntoView({ block: "center" });
   });
   const result = await page.evaluate(() => {
-    const block = document.querySelector(".signup--lead");
+    const block = document.querySelector("main .signup--lead");
     const action = document.querySelector(".front-lead .results-link, .front-lead .front-action");
     const anchor = action || document.querySelector(".front-lead");
     const input = block.querySelector("input[name='email_address']");
@@ -250,7 +236,8 @@ async function assertMobileLead(browser, origin) {
 
 async function assertMobileBar(browser, origin) {
   const home = readFileSync("_site/index.html", "utf8");
-  const edition = home.match(/edition-jump"><a href="(\/\d{4}\/\d{2}\/\d{2}\/)/)[1];
+  const editionDate = home.match(/data-edition="([0-9-]+)"/)[1];
+  const edition = `/${editionDate.replaceAll("-", "/")}/`;
   const page = await browser.newPage();
   const posts = await blockKit(page);
   await open(page, origin, edition, 390);

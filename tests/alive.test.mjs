@@ -42,10 +42,15 @@ test("a photo record with no credit fails", () => {
 
 test("an illustration record without the label fails", () => {
   const credits = catalog();
-  credits.closes.alt = "Skyline";
-  credits.closes.caption = "Austin";
+  credits.sample = {
+    ...credits.courthouse,
+    alt: "Skyline",
+    caption: "Austin",
+    credit: "",
+    kind: "illustration"
+  };
   const problems = aliveProblems("## x", credits, files);
-  assert.ok(problems.some((item) => /closes lacks an illustration label/.test(item)));
+  assert.ok(problems.some((item) => /sample lacks an illustration label/.test(item)));
 });
 
 test("a homepage headline over 10 words fails", () => {

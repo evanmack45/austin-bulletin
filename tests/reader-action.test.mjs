@@ -139,11 +139,7 @@ test("action text is escaped and the homepage reads the same fields", () => {
   assert.equal(stories[1].actionHtml, "");
   assert.equal(stories[0].summary.includes("action_text"), false);
   assert.equal(stories[0].summary.includes("Register to speak"), false);
-  const summaryAt = HOME.indexOf("story.summary");
-  const actionAt = HOME.indexOf("story.actionHtml");
-  const sourcesAt = HOME.indexOf("story.sourcesHtml");
-  assert.ok(summaryAt > 0 && summaryAt < actionAt && actionAt < sourcesAt);
-  assert.ok(HOME.indexOf("desk.leadActionHtml") < HOME.indexOf("desk.source"));
+  assert.doesNotMatch(HOME, /What you can do/);
   assert.match(BULLETIN, /withReaderActions/);
 });
 

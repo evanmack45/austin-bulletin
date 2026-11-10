@@ -446,6 +446,31 @@ export default function (eleventyConfig) {
     (content) => `<section class="big-story">\n${md.render(content)}</section>`
   );
 
+  eleventyConfig.addFilter("icon", (name) => {
+    const file = `src/icons/${name}.svg`;
+    if (!existsSync(file)) return "";
+    return readFileSync(file, "utf8")
+      .replace("<svg ", "<svg class=\"icon-svg\" focusable=\"false\" aria-hidden=\"true\" ");
+  });
+  eleventyConfig.addFilter("barPercent", (units, series) => {
+    const max = Math.max(...(series || []).map((item) => Number(item.units) || 0));
+    if (!max) return "0";
+    return ((Number(units) / max) * 100).toFixed(1);
+  });
+  eleventyConfig.addFilter("pinStyle", (lat, lon, units, mode) => {
+    const x = (Number(lon) + 97.93836) * 0.86343 * 2210.4992 + 8;
+    const y = (30.51666 - Number(lat)) * 2210.4992 + 8;
+    const r = Math.max(8, 2.6 * Math.sqrt(Number(units) || 0));
+    const left = (x / 800) * 100;
+    const top = mode === "card"
+      ? ((y + 10) / 1020) * 100
+      : mode === "b"
+        ? ((y + 190) / 1356) * 100
+        : (y / 991) * 100;
+    const dot = (r * 2 / 800) * 100;
+    return `left:${left.toFixed(2)}%;top:${top.toFixed(2)}%;--dot:${dot.toFixed(2)}%`;
+  });
+
   cachedLiveMeetings();
 
   return {

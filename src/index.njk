@@ -1,72 +1,10 @@
 ---
 layout: layout.njk
-title: "Austin Bulletin"
-permalink: "/"
+title: "Affordable rentals lose rent limits in 2027"
+description: "An expiration date doesn't by itself mean rents will rise."
+permalink: /
 homeFront: true
 hasInlineSignup: true
+variant: a
 ---
-{% set latest = collections.bulletins | first %}
-{% set editionDate = latest.date | isoDate %}
-{% set desk = latest.inputPath | homeDesk %}
-{% set photo = imageCredits[desk.photo] %}
-<article class="edited-front paper" data-neutral="false" data-edition="{{ editionDate }}">
-  <div class="paper-wrap">
-    <div class="paper-main">
-      <section class="front-lead" id="front-lead" aria-labelledby="front-lead-title">
-        {% if desk.kicker %}<p class="kicker">{{ desk.kicker | escape }}</p>{% endif %}
-        <h1 id="front-lead-title"><a href="{{ latest.url }}#{{ desk.leadAnchor | escape }}">{{ desk.headline | escape }}</a></h1>
-        {% if desk.figure or desk.deck %}
-        <div class="lead-stat">
-          {% if desk.figure %}<p class="num">{{ desk.figure | escape }}</p>{% endif %}
-          {% if desk.deck %}<p class="front-deck">{{ desk.deck | escape }}</p>{% endif %}
-        </div>
-        {% endif %}
-        {% if desk.action %}
-        <p>{% if desk.action.text %}{{ desk.action.text | escape }}{% endif %}{% if desk.action.href %} <a href="{{ desk.action.href | escape }}" class="front-action">{{ desk.action.linkLabel | escape }}</a>{% endif %}</p>
-        {% endif %}
-        {% if editionDate == election2026.date or editionDate == election2026.homepageThrough %}
-        <p class="results-row"><a class="results-link" href="/election/{{ election2026.date }}/">Election results</a></p>
-        {% endif %}
-        {% set homeLeadSizes = "(max-width: 760px) calc(100vw - 32px), 560px" %}
-        {% set homeLeadKey = latest.data.images.lead.key if latest.data.images and latest.data.images.lead and latest.data.images.lead.key else "" %}
-        {% set leadHtml = latest.data.images | leadForStory(homeLeadKey, homeLeadSizes) %}
-        {% if leadHtml %}
-        {{ leadHtml | safe }}
-        {% elif photo %}
-        <figure class="lead-photo">
-          <img src="{{ photo.file | escape }}"{% if photo.smallSrc %} srcset="{{ photo.smallSrc | escape }} {{ photo.smallWidth }}w, {{ photo.file | escape }} {{ photo.width }}w" sizes="(max-width: 760px) calc(100vw - 32px), 1280px"{% endif %} alt="{{ photo.alt | escape }}" width="{{ photo.width }}" height="{{ photo.height }}" loading="eager" fetchpriority="high" decoding="async">
-          <figcaption>{{ photo.caption | escape }}{% if photo.credit %} Photo: <a href="{{ photo.source | escape }}">{{ photo.credit | escape }}</a>.{% endif %}</figcaption>
-        </figure>
-        {% endif %}
-        {% if desk.leadActionHtml %}{{ desk.leadActionHtml | safe }}{% endif %}
-        {% if desk.source %}<p class="src front-sources">Source: <a href="{{ desk.source.href | escape }}">{{ desk.source.name | escape }}</a></p>{% endif %}
-        <p class="edition-jump edition-jump--lead"><a href="{{ latest.url }}">Read the {{ latest.date | weekday }} edition</a></p>
-      </section>
-      {% set signupId = "lead" %}
-      {% if desk.signupAfterLead %}
-      {% include "signup.njk" %}
-      {% endif %}
-      {% if desk.sections.length %}
-      <div class="front-stories">
-        {% for section in desk.sections %}
-        <section class="front-section" aria-labelledby="front-section-{{ section.slug | escape }}">
-          <h2 class="front-section-head" id="front-section-{{ section.slug | escape }}">{{ section.label | escape }}</h2>
-          {% for story in section.stories %}
-          <article class="front-story{% if section.label == "News" and loop.index == 1 %} front-story--leadpair{% elif section.label == "News" and loop.index == 2 %} front-story--pair{% endif %}">
-            <h3><a href="{{ latest.url }}#{{ story.anchor | escape }}">{{ story.title | escape }}</a></h3>
-            {% if story.summary %}<p class="front-story-summary">{{ story.summary | escape }}</p>{% endif %}
-            {% if story.actionHtml %}{{ story.actionHtml | safe }}{% endif %}
-            {% if story.sourcesHtml %}<div class="front-story-sources">{{ story.sourcesHtml | safe }}</div>{% endif %}
-          </article>
-          {% if story.signupAfter %}
-          {% include "signup.njk" %}
-          {% endif %}
-          {% endfor %}
-        </section>
-        {% endfor %}
-      </div>
-      {% endif %}
-      <p class="edition-jump"><a href="{{ latest.url }}">Full {{ latest.date | weekday }} edition</a></p>
-    </div>
-  </div>
-</article>
+{% include "reset-home.njk" %}

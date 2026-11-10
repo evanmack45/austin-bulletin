@@ -140,7 +140,8 @@ test("the results template and the home and edition links stay wired to the data
   assert.doesNotMatch(page, /is Election Day/);
   assert.doesNotMatch(page, /cast a ballot/);
   assert.doesNotMatch(page, /electionDaySites/);
-  assert.match(home, /href="\/election\/\{\{ election2026\.date \}\}\/"/);
+  assert.match(edition, /href="\/election\/\{\{ election2026\.date \}\}\/"/);
+  assert.match(readFileSync("src/_includes/site-nav.njk", "utf8"), /href="\/vote-2026\/"/);
   assert.match(edition, /editionIso == election2026\.date/);
   assert.match(edition, /Results page/);
 });

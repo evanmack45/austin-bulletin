@@ -1,0 +1,11 @@
+<div class="chart{% if mini %} chart-mini{% endif %}" role="img" aria-label="{{ chartAlt | escape }}">
+  <div class="chart-bars">
+    {% for point in lead.series_by_year %}
+    <div class="chart-col" style="--delay: {{ loop.index0 * 50 }}ms">
+      <span class="bar-value{% if point.highlight %} is-hi{% endif %}" data-budget-exempt>{{ point.units }}</span>
+      <span class="bar{% if point.highlight %} bar-hi{% endif %}" style="--h: {{ point.units | barPercent(lead.series_by_year) }}%"></span>
+      <span class="bar-year{% if point.highlight %} is-hi{% endif %}" data-budget-exempt>{{ point.year }}</span>
+    </div>
+    {% endfor %}
+  </div>
+</div>

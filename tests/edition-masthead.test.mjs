@@ -37,13 +37,16 @@ test("edition pages use the homepage masthead and do not reference a blackletter
   assert.match(header(home), />Vote 2026</);
   assert.match(header(home), /href="https:\/\/yallcityhall\.org\/"/);
   assert.doesNotMatch(header(home), /href="\/subscribe\/"/);
-  assert.match(home, /class="cover-chrome home-front"/);
+  assert.match(home, /class="cover-chrome home-front/);
   assert.match(edition, /class="cover-chrome edition-page"/);
   const homeCss = linkedStyles(home);
   const editionCss = linkedStyles(edition);
-  assert.deepEqual(editionCss, homeCss);
+  assert.ok(homeCss.includes("/css/tokens.css"));
+  assert.ok(homeCss.includes("/css/reset-home.css"));
+  assert.ok(!editionCss.includes("/css/reset-home.css"));
   assert.ok(editionCss.includes("/css/front-cover.css"));
   assert.ok(editionCss.includes("/css/style.css"));
+  assert.ok(homeCss.includes("/css/front-cover.css"));
 
   const css = editionCss.map((href) => readFileSync(`_site${href}`, "utf8")).join("\n");
   assert.doesNotMatch(edition, BLACKLETTER);
@@ -152,9 +155,18 @@ test("homepage and edition mastheads compute the same styles at 390 and 1440", {
       const home = await read("/");
       const edition = await read("/2026/10/27/");
       assert.deepEqual(edition.nav, home.nav, `nav at ${width}`);
-      for (const [selector] of chromeProps) {
-        assert.deepEqual(edition[selector], home[selector], `${selector} at ${width}`);
+      for (const [selector, props] of chromeProps) {
+        for (const prop of props) {
+          if (prop === "backgroundColor" || prop === "color") continue;
+          assert.equal(
+            edition[selector][prop],
+            home[selector][prop],
+            `${selector} ${prop} at ${width}`
+          );
+        }
       }
+      assert.equal(home[".front-masthead"].backgroundColor, "rgb(15, 42, 71)");
+      assert.equal(home[".front-masthead .wordmark"].color, "rgb(251, 244, 230)");
       assert.ok(edition.fonts.some((family) => family.includes("Bricolage")), "Bricolage loads");
       assert.ok(edition.fonts.some((family) => family.includes("Hanken")), "Hanken loads");
       assert.ok(

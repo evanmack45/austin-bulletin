@@ -1,0 +1,66 @@
+/* Austin Bulletin RESET tokens (Kiln, 2026-11-09). Contrast checked by contrast_check.py; see tokens.json. */
+:root {
+  /* Color */
+  --paper: #FBF4E6;      /* page background */
+  --card: #FFFFFF;       /* decision cards, signup field */
+  --ink: #14171F;        /* text, outlines, icons (16.4:1 on paper) */
+  --muted: #5B5650;      /* dates, source lines (6.6:1 on paper) */
+  --night: #0F2A47;      /* bold bands: masthead strip, lead-visual stage, footer */
+  --red: #C8102E;        /* civic accent: count, active district, live mark, link hover (5.4:1 on paper) */
+  --sun: #FFC233;        /* highlight on night; big-number underline; NEVER text on paper */
+  --rule: #D8CCB6;       /* hairlines, card border, district stroke */
+  --district: #EFE5D1;   /* unselected district fill */
+  --data-1: #0072B2;     /* series 1 on paper (Okabe-Ito blue) */
+  --data-2: #C77700;     /* series 2 on paper, marks only (3.2:1 non-text) */
+  --data-2-text: #9A5B00;/* series 2 labels on paper/card (5.0:1) */
+  --data-1-night: #56B4E9; /* series 1 on night stage (6.3:1) */
+  --data-2-night: #E69F00; /* series 2 on night stage (6.5:1) */
+  --on-night: var(--paper);
+  --chart-muted: #5E7A99;
+  --chart-label: #C9D3DE;
+  --on-night-meta: #AFBBC9;
+  --map-highlight: #F6D58A;
+
+  /* Type families: two only */
+  --font-display: Bricolage, "Helvetica Neue", Arial, sans-serif; /* heads, numbers, labels, chips, UI */
+  --font-body: Georgia, "Times New Roman", serif;                  /* deck, one-line "what it means", body */
+  --num: "tnum" 1, "lnum" 1;  /* font-feature-settings for every number; Georgia has old-style figures, so numbers are always Bricolage */
+
+  /* Type scale, phone (390) */
+  --fs-bignum: 4rem;     /* 64px, wght 800, wdth 80, lh .95 */
+  --fs-lead: 2.125rem;   /* 34px, wght 750, lh 1.05 */
+  --fs-head: 1.25rem;    /* 20px card headline, wght 700, lh 1.15 */
+  --fs-deck: 1.125rem;   /* 18px Georgia, lh 1.4 */
+  --fs-body: 1.0625rem;  /* 17px Georgia, lh 1.5 */
+  --fs-label: 0.8125rem; /* 13px, wght 650, lh 1.2 */
+  --fs-meta: 0.875rem;   /* 14px, wght 450 */
+
+  /* Space: 8px base */
+  --s1: 4px; --s2: 8px; --s3: 16px; --s4: 24px; --s5: 48px; --s6: 72px;
+  --measure: 38rem; --content: 72rem;
+
+  /* Shape */
+  --radius-card: 12px; --radius-chip: 999px; --radius-btn: 8px;
+  --border: 1px solid var(--rule);
+  --tap: 44px;
+  --focus: 3px solid var(--red);
+
+  /* Motion */
+  --dur-fast: 150ms; --dur-ui: 250ms; --dur-enter: 400ms; --dur-draw: 1200ms;
+  --ease-out: cubic-bezier(.2,.7,.2,1);
+  --ease-inout: cubic-bezier(.65,0,.35,1);
+}
+@media (min-width: 1024px) {
+  :root {
+    --fs-bignum: 7rem;     /* 112px */
+    --fs-lead: 3.5rem;     /* 56px */
+    --fs-head: 1.375rem;   /* 22px */
+    --fs-deck: 1.375rem;   /* 22px */
+    --fs-body: 1.125rem;   /* 18px */
+    --fs-label: 0.875rem;  /* 14px */
+    --fs-meta: 0.875rem;   /* 14px */
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  :root { --dur-fast: 0ms; --dur-ui: 0ms; --dur-enter: 0ms; --dur-draw: 0ms; }
+}
