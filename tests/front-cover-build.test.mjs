@@ -13,7 +13,7 @@ function assertChartLead(html) {
   const chart = lead.indexOf('class="chart"');
   const source = lead.indexOf('class="source-line"');
   assert.ok(h1 !== -1 && chart > h1 && source > chart, lead.slice(0, 400));
-  assert.match(lead, /Rent limits end in 2027/);
+  assert.match(lead, /Affordable rentals lose rent limits in 2027/);
   assert.doesNotMatch(lead, /for 927 Austin affordable rentals/);
   assert.match(lead, />927</);
   assert.match(lead, /class="bar bar-hi"/);
@@ -56,7 +56,7 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.doesNotMatch(html, /5 minutes|One email each morning/);
   assert.doesNotMatch(html, /class="results-button"/);
   assert.equal((html.match(/<h1\b/g) || []).length, 1);
-  assert.match(html, /Rent limits end in 2027/);
+  assert.match(html, /Affordable rentals lose rent limits in 2027/);
   assert.match(html, /href="\/lead-story\/"/);
   assert.match(html, />927</);
   assert.doesNotMatch(html, /Register by Thursday if a runoff is ordered\./);
@@ -71,12 +71,12 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.match(html, /share-1200x630\.png/);
   assert.ok(html.includes(`property="og:image" content="${SHARE}"`));
   assert.ok(html.includes(`name="twitter:image" content="${SHARE}"`));
-  assert.match(html, /property="og:title" content="Rent limits end in 2027/);
+  assert.match(html, /property="og:title" content="Affordable rentals lose rent limits in 2027/);
   assert.match(
     html,
     /og:description" content="An expiration date doesn(?:'|&#39;)t by itself mean rents will rise\./
   );
-  assert.match(html, /name="twitter:title" content="Rent limits end in 2027/);
+  assert.match(html, /name="twitter:title" content="Affordable rentals lose rent limits in 2027/);
   assert.match(html, new RegExp(
     "twitter:description\" content=\"An expiration date doesn(?:'|&#39;)t " +
     "by itself mean rents will rise"

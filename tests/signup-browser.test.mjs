@@ -98,7 +98,7 @@ async function signupSlot(page) {
 function assertSignupSlot(slot) {
   const signupAt = slot.sequence.indexOf("signup");
   assert.ok(signupAt > 0, JSON.stringify(slot.sequence));
-  assert.match(slot.sequence[0], /Rent limits end in 2027/);
+  assert.match(slot.sequence[0], /Affordable rentals lose rent limits in 2027/);
   assert.equal(slot.sequence[signupAt], "signup");
   assert.equal(slot.forms, 1);
   assert.equal(slot.blocks, 1);

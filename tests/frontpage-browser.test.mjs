@@ -173,7 +173,7 @@ function assertFirstFold(result, width, height) {
  assert.ok(result.action.height >= 44);
  assert.ok(result.nav.every(link => link.height >= 44));
  assert.match(result.sourceName, /Affordable Housing Inventory/);
- assert.match(result.title, /Rent limits end in 2027/);
+ assert.match(result.title, /Affordable rentals lose rent limits in 2027/);
  assertPlacement(result, width, height);
  assert.equal(result.actionColor, "rgb(175, 187, 201)");
  assert.equal(result.actionBg, "rgba(0, 0, 0, 0)");
