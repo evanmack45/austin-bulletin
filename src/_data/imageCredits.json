@@ -13,13 +13,5 @@
     "height": 853,
     "smallSrc": "/images/p-courthouse-800.jpg",
     "smallWidth": 800
-  },
-  "closes": {
-    "file": "/images/ill-before-it-closes.jpg",
-    "alt": "Illustration",
-    "caption": "Illustration",
-    "kind": "illustration",
-    "width": 320,
-    "height": 320
   }
 }

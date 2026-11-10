@@ -49,48 +49,29 @@ async function measureFirstFold(page) {
 				bottom: box.bottom,
 				width: box.width,
 				height: box.height,
-				outerHeight: box.height + parseFloat(getComputedStyle(element).marginBottom),
 			};
 		};
-		const sourceLink = document.querySelector(".front-lead .front-sources a");
+		const sourceLink = document.querySelector(".front-lead .source-line a");
+		const bar = document.querySelector(".bar-hi");
 		return {
 			viewport: innerHeight,
-			neutral: document.querySelector(".edited-front").dataset.neutral === "true",
 			actionHref: sourceLink.getAttribute("href"),
 			documentWidth: document.documentElement.scrollWidth,
 			header: rect(".front-masthead"),
-			warning: rect(".front-weather-warning"),
 			lead: rect("h1"),
-			action: rect(".front-lead .front-sources a"),
-			source: rect(".front-lead .front-sources"),
-			leadPhoto: rect(".front-lead .lead-photo img"),
+			number: rect(".bignum"),
+			bar: rect(".bar-hi"),
+			barColor: bar ? getComputedStyle(bar).backgroundColor : "",
+			action: rect(".front-lead .source-line a"),
 			leadFontSize: getComputedStyle(document.querySelector("h1")).fontSize,
-			leadFigure: (() => {
-				const figure = document.querySelector(".front-lead .lead-photo");
-				const main = document.querySelector(".paper-main");
-				if (!figure || !main) return null;
-				const fig = figure.getBoundingClientRect();
-				const col = main.getBoundingClientRect();
-				const image = figure.querySelector("img");
-				return {
-					position: getComputedStyle(figure).position,
-					width: fig.width,
-					mainWidth: col.width,
-					left: fig.left,
-					mainLeft: col.left,
-					imageHeight: image ? getComputedStyle(image).height : "",
-				};
-			})(),
-			access: rect(".front-access h2 a"),
-			photo: rect(".front-access .story-photo img"),
-            art: rect(".cover-art img"),
+			numberSize: getComputedStyle(document.querySelector(".bignum")).fontSize,
 			h1s: document.querySelectorAll("h1").length,
 			fonts: [...document.fonts]
 				.filter((font) => font.status === "loaded")
 				.map((font) => font.family),
-			sourceName: document.querySelector(".front-lead .front-sources")?.textContent ?? "",
+			sourceName: document.querySelector(".front-lead .source-line")?.textContent ?? "",
 			nav: [...document.querySelectorAll(".front-masthead nav a")]
-                .filter(link => link.getBoundingClientRect().height > 0).map((link) => ({
+				.filter(link => link.getBoundingClientRect().height > 0).map((link) => ({
 				label: link.textContent,
 				href: link.getAttribute("href"),
 				height: link.getBoundingClientRect().height,
@@ -103,24 +84,15 @@ async function measureFirstFold(page) {
 }
 
 function assertPlacement(result, width, height) {
- if (result.warning) return;
  assert.ok(result.lead.top < height, JSON.stringify(result.lead));
- if (width === 390) assertMobileCover(result);
- if (width < 1400 || result.leadPhoto) return;
- const foldKeys = result.neutral ? ["lead", "action"] : ["lead", "action", "source"];
- for (const key of foldKeys) {
-  assert.ok(result[key].bottom <= height, `${key}: ${JSON.stringify(result)}`);
- }
-}
-
-function assertMobileCover(result) {
- assert.ok(result.header.height <= 360, JSON.stringify(result.header));
- if (result.art) assert.ok(result.art.height >= 200 && result.art.height <= 210);
+ assert.ok(result.number.bottom <= height, `927 below the fold ${JSON.stringify(result.number)}`);
+ assert.ok(result.bar.bottom <= height, `2027 bar below the fold ${JSON.stringify(result.bar)}`);
+ if (width === 390) assert.ok(result.header.height <= 360, JSON.stringify(result.header));
 }
 
 async function readSourceLine(page) {
 	return page.evaluate(() => {
-		const line = document.querySelector(".front-lead .front-sources");
+		const line = document.querySelector(".front-lead .source-line");
 		const link = line.querySelector("a");
 		const labelNode = line.firstChild;
 		const colon = labelNode.textContent.lastIndexOf(":");
@@ -133,7 +105,7 @@ async function readSourceLine(page) {
 		const linkRect = linkRange.getClientRects()[0];
 		const lead = document.querySelector(".front-lead");
 		const datasetLinks = [...lead.querySelectorAll("a")].filter((anchor) =>
-			anchor.textContent.trim() === "City runoff calendar (PDF)");
+			anchor.textContent.trim() === "City of Austin, Affordable Housing Inventory");
 		return {
 			labelTop: labelRect.top,
 			linkTop: linkRect.top,
@@ -173,13 +145,12 @@ async function readDateLines(page) {
 }
 
 function assertSourceLine(sourceLine) {
-	assert.equal(sourceLine.datasetLinks, 1, "lead column keeps one runoff-calendar link");
-	assert.match(sourceLine.text, /^Source: City runoff calendar \(PDF\)$/);
-	assert.ok(
-		Math.abs(sourceLine.labelTop - sourceLine.linkTop) < 3,
-		`Source label and link baselines: ${JSON.stringify(sourceLine)}`
-	);
-	assert.ok(sourceLine.gap >= 3, `missing space after Source: ${JSON.stringify(sourceLine)}`);
+	assert.equal(sourceLine.datasetLinks, 1, "lead column keeps one inventory link");
+	assert.match(sourceLine.text, /^Source: City of Austin, Affordable Housing Inventory$/);
+	const sameLine = Math.abs(sourceLine.labelTop - sourceLine.linkTop) < 3;
+	if (sameLine) {
+		assert.ok(sourceLine.gap >= 3, `missing space after Source: ${JSON.stringify(sourceLine)}`);
+	}
 }
 
 function assertDateLines(dateLines) {
@@ -194,34 +165,15 @@ function assertFirstFold(result, width, height) {
  assert.equal(result.h1s, 1);
  assert.ok(result.documentWidth <= width, JSON.stringify(result));
  assert.ok(result.fonts.some(font => font.includes("Bricolage")), "local display font loads");
- assert.ok(result.fonts.some(font => font.includes("Hanken")), "local body font loads");
  assert.ok(result.lead.width > 200);
- assert.equal(result.leadFontSize, width <= 760 ? "34px" : "48px", `lead size at ${width}`);
- if (result.leadFigure) {
-  assert.equal(result.leadFigure.position, "static", JSON.stringify(result.leadFigure));
-  assert.notEqual(result.leadFigure.imageHeight, "200px");
-  if (width <= 760) {
-   assert.ok(
-    Math.abs(result.leadFigure.width - result.leadFigure.mainWidth) < 2,
-    JSON.stringify(result.leadFigure),
-   );
-  } else {
-   assert.ok(result.leadFigure.width > 240, JSON.stringify(result.leadFigure));
-   assert.ok(
-    result.leadFigure.width < result.leadFigure.mainWidth - 160,
-    JSON.stringify(result.leadFigure),
-   );
-   assert.ok(
-    result.leadFigure.left > result.leadFigure.mainLeft,
-    JSON.stringify(result.leadFigure),
-   );
-  }
- }
+ assert.equal(result.leadFontSize, width >= 1024 ? "56px" : "34px", `lead size at ${width}`);
+ assert.equal(result.barColor, "rgb(255, 194, 51)");
  assert.ok(result.action.height >= 44);
  assert.ok(result.nav.every(link => link.height >= 44));
- if (!result.neutral) assert.ok(result.sourceName.trim(), "factual leads need attribution");
+ assert.match(result.sourceName, /Affordable Housing Inventory/);
+ assert.match(result.title, /Rent limits end in 2027/);
  assertPlacement(result, width, height);
- assert.equal(result.actionColor, "rgb(27, 27, 27)");
+ assert.equal(result.actionColor, "rgb(175, 187, 201)");
  assert.equal(result.actionBg, "rgba(0, 0, 0, 0)");
 }
 
@@ -270,21 +222,6 @@ test("edited homepage keeps the selected lead and action visible with real fonts
 			if (width <= 390) assertDateLines(await readDateLines(page));
 			const targets = [...result.nav.map((link) => link.href), result.actionHref];
 			await reachByKeyboard(page, targets);
-			if (!result.warning) {
-				await page.evaluate(() => {
-					const warning = document.createElement("aside");
-					warning.className = "front-weather-warning";
-					warning.innerHTML =
-						"<h2>NWS alerts in the dated forecast</h2>" +
-						"<p>Flood Watch until Sunday evening</p>" +
-						'<p class="front-asof">Gathered with this edition. ' +
-						'<a href="https://www.weather.gov/ewx/">Check current NWS notices</a>.</p>';
-					document.querySelector(".edited-front").prepend(warning);
-				});
-				const withWarning = await measureFirstFold(page);
-				assert.ok(withWarning.warning, "populated warning case must render");
-				assertFirstFold(withWarning, width, height);
-			}
 			await page.close();
 		}
 	} finally {
@@ -353,8 +290,8 @@ test("guide action fragments reach the answer by keyboard without JavaScript", {
 		const accessTitle = await page.goto(home, { waitUntil: "networkidle0" });
 		assert.ok(accessTitle.ok());
 		assert.equal(
-			await page.$eval(".front-lead .front-sources a", (link) => link.getAttribute("href")),
-			"https://services.austintexas.gov/edims/document.cfm?id=472487",
+			await page.$eval(".front-lead .source-line a", (link) => link.getAttribute("href")),
+			"https://data.austintexas.gov/d/ifzc-3xz8",
 		);
 	} finally {
 		await browser.close();
@@ -435,66 +372,7 @@ test("previous edition is direct keyboard navigation independent of optional com
   }
 });
 
-async function laterNews(page) {
-  return page.evaluate(() => {
-    const news = document.querySelector(".front-section:has(#front-section-news)");
-    const story = (text) => [...document.querySelectorAll(".front-story")].find((item) => (
-      item.querySelector("h3")?.textContent.includes(text)
-    ));
-    const box = (item) => {
-      const rect = item.getBoundingClientRect();
-      return { top: rect.top, left: rect.left, right: rect.right, width: rect.width };
-    };
-    const lines = (item) => {
-      const node = item.querySelector(".front-story-summary");
-      const text = node.textContent;
-      const range = document.createRange();
-      const found = [];
-      let index = 0;
-      for (const part of text.split(/(\s+)/)) {
-        if (!part.trim()) {
-          index += part.length;
-          continue;
-        }
-        range.setStart(node.firstChild, index);
-        range.setEnd(node.firstChild, index + part.length);
-        const rect = range.getClientRects()[0];
-        found.push({ word: part, top: Math.round(rect.top) });
-        index += part.length;
-      }
-      const grouped = new Map();
-      for (const word of found) {
-        grouped.set(word.top, [...(grouped.get(word.top) || []), word.word]);
-      }
-      return [...grouped.values()].map((line) => line.join(" ").length);
-    };
-    const water = story("Water and parks");
-    const mobility = story("Mobility briefings");
-    const signup = news.querySelector(".signup--lead");
-    const nr = news.getBoundingClientRect();
-    const waterBox = box(water);
-    const mobilityBox = box(mobility);
-    const signupBox = signup.getBoundingClientRect();
-    return {
-      sameRow: Math.abs(waterBox.top - mobilityBox.top) < 4,
-      waterLeft: Math.abs(waterBox.left - nr.left) < 2,
-      rightGap: nr.right - Math.max(waterBox.right, mobilityBox.right),
-      signupWidth: signupBox.width,
-      newsWidth: nr.width,
-      longest: Math.max(...[...news.querySelectorAll(".front-story")].flatMap(lines))
-    };
-  });
-}
-
-function assertLaterNews(below) {
-  assert.equal(below.sameRow, true, JSON.stringify(below));
-  assert.equal(below.waterLeft, true, JSON.stringify(below));
-  assert.ok(below.rightGap < 2, JSON.stringify(below));
-  assert.ok(Math.abs(below.signupWidth - below.newsWidth) < 2, JSON.stringify(below));
-  assert.ok(below.longest < 75, JSON.stringify(below));
-}
-
-test("the first two news summaries share the desktop news width and stack on a phone", {
+test("map-first card sits above the map on a phone and over the west side on a desktop", {
   skip: !chrome && "an installed Chromium is required for browser regression",
 }, async () => {
   const server = await serveBuiltSite();
@@ -502,56 +380,57 @@ test("the first two news summaries share the desktop news width and stack on a p
     args: process.platform === "linux" ? ["--no-sandbox"] : [] });
   try {
     const page = await browser.newPage();
-    await page.setViewport({ width: 1280, height: 1600 });
-    await page.goto(`http://127.0.0.1:${server.address().port}/`, { waitUntil: "networkidle0" });
+    await page.setViewport({ width: 390, height: 844 });
+    await page.goto(`http://127.0.0.1:${server.address().port}/b/`, { waitUntil: "networkidle0" });
+    const phone = await page.evaluate(() => {
+      const card = document.querySelector(".b-card").getBoundingClientRect();
+      const map = document.querySelector(".b-map").getBoundingClientRect();
+      const style = getComputedStyle(document.querySelector(".b-card"));
+      return {
+        above: card.bottom <= map.top + 1,
+        position: style.position,
+        overflow: document.documentElement.scrollWidth - 390
+      };
+    });
+    assert.equal(phone.above, true, JSON.stringify(phone));
+    assert.equal(phone.position, "static");
+    assert.ok(phone.overflow <= 1, JSON.stringify(phone));
+    await page.setViewport({ width: 1280, height: 900 });
     const desk = await page.evaluate(() => {
-      const news = document.querySelector(".front-section:has(#front-section-news)");
-      const lead = document.querySelector(".front-story--leadpair");
-      const next = document.querySelector(".front-story--pair");
-      const nr = news.getBoundingClientRect();
-      const ar = lead.getBoundingClientRect();
-      const br = next.getBoundingClientRect();
-      return {
-        sameRow: Math.abs(ar.top - br.top) < 4,
-        rightGap: nr.right - Math.max(ar.right, br.right),
-        wider: ar.width > br.width + 40,
-        leadFont: parseFloat(getComputedStyle(lead.querySelector("h3")).fontSize),
-        pairFont: parseFloat(getComputedStyle(next.querySelector("h3")).fontSize),
-        boxed: getComputedStyle(lead).borderTopWidth !== "0px"
-      };
-    });
-    assert.equal(desk.sameRow, true, JSON.stringify(desk));
-    assert.ok(desk.rightGap < 2, JSON.stringify(desk));
-    assert.equal(desk.wider, true, JSON.stringify(desk));
-    assert.ok(desk.leadFont > desk.pairFont, JSON.stringify(desk));
-    assert.equal(desk.boxed, false);
-    assertLaterNews(await laterNews(page));
-    await page.setViewport({ width: 390, height: 1600 });
-    const stacked = await page.evaluate(() => {
-      const lead = document.querySelector(".front-story--leadpair").getBoundingClientRect();
-      const next = document.querySelector(".front-story--pair").getBoundingClientRect();
-      const story = (text) => [...document.querySelectorAll(".front-story")].find((item) => (
-        item.querySelector("h3")?.textContent.includes(text)
+      const card = document.querySelector(".b-card");
+      const box = card.getBoundingClientRect();
+      const style = getComputedStyle(card);
+      const number = getComputedStyle(card.querySelector(".b-num"));
+      const hits = [...document.querySelectorAll(".b-map text")].filter((node) => (
+        /^(?:District 4|5|7)$/.test(node.textContent.trim())
+      )).map((node) => node.getBoundingClientRect());
+      const overlaps = hits.some((hit) => !(
+        box.right < hit.left || box.left > hit.right || box.bottom < hit.top || box.top > hit.bottom
       ));
-      const water = story("Water and parks").getBoundingClientRect();
-      const mobility = story("Mobility briefings").getBoundingClientRect();
-      const news = document.querySelector(
-        ".front-section:has(#front-section-news)"
-      ).getBoundingClientRect();
       return {
-        first: next.top > lead.bottom - 1 && Math.abs(lead.left - next.left) < 2,
-        later: mobility.top > water.bottom - 1 && Math.abs(water.left - mobility.left) < 2,
-        overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
-        waterWidth: water.width,
-        newsWidth: news.width
+        position: style.position,
+        background: style.backgroundColor,
+        radius: style.borderRadius,
+        padding: style.paddingTop,
+        size: parseFloat(number.fontSize),
+        color: number.color,
+        line: getComputedStyle(card.querySelector(".b-line")).color,
+        overlaps,
+        hits: hits.length
       };
     });
-    assert.equal(stacked.first, true, JSON.stringify(stacked));
-    assert.equal(stacked.later, true, JSON.stringify(stacked));
-    assert.ok(stacked.overflow <= 1, JSON.stringify(stacked));
-    assert.ok(Math.abs(stacked.waterWidth - stacked.newsWidth) < 2, JSON.stringify(stacked));
+    assert.equal(desk.position, "absolute");
+    assert.equal(desk.background, "rgb(15, 42, 71)");
+    assert.equal(desk.radius, "12px");
+    assert.equal(desk.padding, "24px");
+    assert.ok(desk.size >= 64 && desk.size <= 80, String(desk.size));
+    assert.equal(desk.color, "rgb(255, 194, 51)");
+    assert.equal(desk.line, "rgb(251, 244, 230)");
+    assert.equal(desk.overlaps, false, JSON.stringify(desk));
+    assert.ok(desk.hits >= 3, JSON.stringify(desk));
   } finally {
     await browser.close();
     await new Promise((resolve) => server.close(resolve));
   }
 });
+

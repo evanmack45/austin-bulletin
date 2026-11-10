@@ -14,6 +14,10 @@ test("rendered section boundaries stay within 44 to 52px", { skip: !chrome }, as
   const pages = ["home-390", "home-1280", "edition-390", "edition-1280"];
   for (const name of pages) {
     const gaps = report[name].sectionGaps;
+    if (name.startsWith("home-")) {
+      assert.deepEqual(gaps, [], `${name} uses the reset lead, not the old section rules`);
+      continue;
+    }
     assert.ok(gaps.length >= 1, `${name} measured no section boundaries`);
     for (const gap of gaps) {
       assert.ok(

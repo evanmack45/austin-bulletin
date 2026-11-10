@@ -18,18 +18,6 @@
     "action": {
       "label": "Read KUT’s reporting",
       "url": "https://www.kut.org/austin/2026-10-05/acl-fest-mud-ada-austin-city-limits-music-festival-disability-accessibility"
-    },
-    "illustration": {
-      "kind": "editorial-illustration",
-      "src": "/images/editorial/acl-access-mud-2026-10-06.webp",
-      "sha256": "efa68a185b7d1633e6747fb10a21e9d6dcd9c05fe5b19b307543a6f2094548e0",
-      "width": 1586,
-      "height": 992,
-      "alt": "Editorial illustration: a wheelchair wheel in mud beside temporary access matting, with abstract festival tents and pennants beyond.",
-      "credit": "The Austin Bulletin",
-      "rightsPath": "/images/editorial/acl-access-mud-2026-10-06-rights.txt",
-      "storyKey": "acl-accessibility",
-      "editionDate": "2026-10-06"
     }
   },
   "access": {

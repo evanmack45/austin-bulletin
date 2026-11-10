@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en"{% if variant %} data-variant="{{ variant }}"{% endif %}>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,16 +27,21 @@
 {% if meta.type == "article" %}  <script type="application/ld+json">{{ meta | articleJsonLd(page.date) | safe }}</script>
 {% endif %}  <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/front-cover.css">
+  {% if homeFront %}
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/reset-home.css">
+  <script>document.documentElement.classList.add("js")</script>
+  {% endif %}
   <link rel="icon" href="/favicon.ico" sizes="32x32">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#1b1b1b">
   {% set artLead = null %}
-  {% if editionPage and images and images.lead and images.lead.kind == "illustration" %}
+  {% if homeFront %}
+  <link rel="preload" as="image" href="/images/reset/share-1200x630.png" fetchpriority="high">
+  {% elif editionPage and images and images.lead and images.lead.kind == "illustration" %}
   {% set artLead = images.lead %}
-  {% elif homeFront and latestEditionMeta and latestEditionMeta.data.images and latestEditionMeta.data.images.lead and latestEditionMeta.data.images.lead.kind == "illustration" %}
-  {% set artLead = latestEditionMeta.data.images.lead %}
   {% endif %}
   {% if artLead and artLead.smallSrc and artLead.src %}
   <link rel="preload" as="image" href="{{ artLead.smallSrc | escape }}" media="(max-width: 760px)" fetchpriority="high">
@@ -44,7 +49,7 @@
   {% endif %}
   <link rel="alternate" type="application/atom+xml" title="The Austin Bulletin" href="/feed.xml">
 </head>
-<body class="cover-chrome{% if homeFront %} home-front{% endif %}{% if editionPage %} edition-page{% endif %}" id="top">
+<body class="cover-chrome{% if homeFront %} home-front variant-{{ variant or "a" }}{% endif %}{% if editionPage %} edition-page{% endif %}" id="top">
   {% include "masthead.njk" %}
   <main>
     {{ content | withPreviewMeeting(page.url, councilMeeting) | safe }}
@@ -106,5 +111,6 @@
   <script type="module" src="/js/site-nav.js"></script>
   <script type="module" src="/js/signup.js"></script>
   {% if editionPage %}<script type="module" src="/js/share.js"></script>{% endif %}
+  {% if homeFront %}<script type="module" src="/js/reset-home.js"></script>{% endif %}
 </body>
 </html>
