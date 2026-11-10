@@ -1,0 +1,50 @@
+{
+  "heading": "This week",
+  "items": [
+    {
+      "id": "canvass",
+      "scope": "countywide",
+      "icon": "gavel-bold",
+      "topic": "courts",
+      "headline": "County canvasses Nov. 3 results",
+      "date": "Thu, Nov. 12",
+      "url": "https://countyclerk.traviscountytx.gov/wp-content/uploads/commissioners_court/11-12-2026SVS.pdf"
+    },
+    {
+      "id": "burleson",
+      "scope": "countywide",
+      "icon": "map-pin-bold",
+      "topic": "place",
+      "headline": "Burleson Road event hearing",
+      "date": "Tue, Nov. 10",
+      "url": "https://countyclerk.traviscountytx.gov/wp-content/uploads/commissioners_court/11-10-2026VSAgenda.pdf"
+    },
+    {
+      "id": "water",
+      "scope": "countywide",
+      "icon": "drop-bold",
+      "topic": "water",
+      "headline": "Water and parks briefings",
+      "date": "Tue, Nov. 10",
+      "url": "https://services.austintexas.gov/edims/document.cfm?id=484616"
+    },
+    {
+      "id": "mobility",
+      "scope": "countywide",
+      "icon": "bus-bold",
+      "topic": "transit",
+      "headline": "Mobility briefings Thursday",
+      "date": "Thu, Nov. 12",
+      "url": "https://services.austintexas.gov/edims/document.cfm?id=484790"
+    },
+    {
+      "id": "council",
+      "scope": "countywide",
+      "icon": "bank-bold",
+      "topic": "council",
+      "headline": "No regular Council Nov. 12",
+      "date": "Thu, Nov. 12",
+      "url": "https://services.austintexas.gov/edims/document.cfm?id=462100"
+    }
+  ]
+}

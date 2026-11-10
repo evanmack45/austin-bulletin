@@ -1,0 +1,8 @@
+chart.svg / chart-390.png / chart-1280.png:
+Chart: Austin affordable rental units whose recorded rent limits end each year. 2027: 927 (highlighted), 2028: 268, 2029: 637, 2030: 953, 2031: 358. An expiration date doesn't by itself mean rents will rise. Source: City of Austin Affordable Housing Inventory.
+
+share-1200x630.png:
+Chart: 927 Austin affordable rental units lose rent limits in 2027, shown against 268 in 2028, 637 in 2029, 953 in 2030 and 358 in 2031. Source: City of Austin Affordable Housing Inventory.
+
+district-2027.svg / district-2027-390.png / district-2027.png:
+Map: Austin council districts with circles sized by affordable rental units whose rent limits end in 2027. District 4 has 433, District 5 has 264, District 7 has 186, District 9 has 36, District 3 has 4, and Districts 1 and 2 have 2 each. Districts 6, 8 and 10 have none. Source: City of Austin Affordable Housing Inventory; district lines from the City of Austin.

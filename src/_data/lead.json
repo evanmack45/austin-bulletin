@@ -1,0 +1,271 @@
+{
+ "title": "Rent limits ending, by year",
+ "headline_ref": "Rent limits end in 2027 for 927 Austin affordable rentals",
+ "unit": "affordable rental units",
+ "source": {
+  "name": "City of Austin, Affordable Housing Inventory",
+  "dataset_id": "ifzc-3xz8",
+  "url": "https://data.austintexas.gov/d/ifzc-3xz8",
+  "api": "https://data.austintexas.gov/resource/ifzc-3xz8.json"
+ },
+ "filter": "housing_tenure='Rental' AND development_status IN ('Project Completed','Certified','Under Construction','Loan Awarded','Loan Closed') AND affordability_expiration_date in calendar year (>= 'YYYY-01-01T00:00:00' AND < 'YYYY+1-01-01T00:00:00'); value = sum(affordable_units)",
+ "retrieved_at_ct": "2026-11-09T20:07:42-06:00",
+ "marrow_pull_ct": "2026-11-09T20:04:03-06:00",
+ "dataset_rows_updated_ct": "2026-11-09T06:01:23-06:00",
+ "caveat": "An expiration date doesn't by itself mean rents will rise.",
+ "callout": {
+  "value": 927,
+  "label": "affordable rental units in 2027"
+ },
+ "series_by_year": [
+  {
+   "year": 2027,
+   "units": 927,
+   "rows": 11,
+   "highlight": true
+  },
+  {
+   "year": 2028,
+   "units": 268,
+   "rows": 6,
+   "highlight": false
+  },
+  {
+   "year": 2029,
+   "units": 637,
+   "rows": 7,
+   "highlight": false
+  },
+  {
+   "year": 2030,
+   "units": 953,
+   "rows": 11,
+   "highlight": false
+  },
+  {
+   "year": 2031,
+   "units": 358,
+   "rows": 3,
+   "highlight": false
+  }
+ ],
+ "by_district_2027": [
+  {
+   "council_district": 1,
+   "units": 2,
+   "properties": 1
+  },
+  {
+   "council_district": 2,
+   "units": 2,
+   "properties": 2
+  },
+  {
+   "council_district": 3,
+   "units": 4,
+   "properties": 1
+  },
+  {
+   "council_district": 4,
+   "units": 433,
+   "properties": 3
+  },
+  {
+   "council_district": 5,
+   "units": 264,
+   "properties": 1
+  },
+  {
+   "council_district": 6,
+   "units": 0,
+   "properties": 0
+  },
+  {
+   "council_district": 7,
+   "units": 186,
+   "properties": 1
+  },
+  {
+   "council_district": 8,
+   "units": 0,
+   "properties": 0
+  },
+  {
+   "council_district": 9,
+   "units": 36,
+   "properties": 2
+  },
+  {
+   "council_district": 10,
+   "units": 0,
+   "properties": 0
+  }
+ ],
+ "key_figures": {
+  "top4_2027_units": 882,
+  "districts_4_5_7_units_2027": 883,
+  "properties_2027": 11,
+  "ratio_2027_to_2028": 3.459
+ },
+ "properties_2027": [
+  {
+   "name": "Cascades at Onion Creek",
+   "address": "2333 Cascades Ave",
+   "address_raw": "2333 CASCADES AVE",
+   "zip": "78747",
+   "council_district": 5,
+   "unit_type": "Multifamily",
+   "affordable_units": 264,
+   "total_units": 264,
+   "expiration_date": "2027-07-15",
+   "latitude": 30.131733,
+   "longitude": -97.793751,
+   "project_id": "5595"
+  },
+  {
+   "name": "Runnymede Apartments",
+   "address": "1101 Rutland Dr",
+   "address_raw": "1101 RUTLAND DR",
+   "zip": "78758",
+   "council_district": 4,
+   "unit_type": "Multifamily",
+   "affordable_units": 252,
+   "total_units": 252,
+   "expiration_date": "2027-10-01",
+   "latitude": 30.367333,
+   "longitude": -97.702373,
+   "project_id": "5435"
+  },
+  {
+   "name": "Legacy Ranch @ Dessau East",
+   "address": "13527 Harrisglenn Dr",
+   "address_raw": "13527 HARRISGLENN DR",
+   "zip": "78753",
+   "council_district": 7,
+   "unit_type": "Multifamily",
+   "affordable_units": 186,
+   "total_units": 232,
+   "expiration_date": "2027-04-06",
+   "latitude": 30.407325,
+   "longitude": -97.640234,
+   "project_id": "5373"
+  },
+  {
+   "name": "Meadowood Apartments",
+   "address": "9601 Middle Fiskville Rd",
+   "address_raw": "9601 MIDDLE FISKVILLE RD",
+   "zip": "78758",
+   "council_district": 4,
+   "unit_type": "Multifamily",
+   "affordable_units": 180,
+   "total_units": 200,
+   "expiration_date": "2027-05-01",
+   "latitude": 30.359409,
+   "longitude": -97.685001,
+   "project_id": "3327"
+  },
+  {
+   "name": "Axis West Campus",
+   "address": "2505 Longview St",
+   "address_raw": "2505 LONGVIEW ST",
+   "zip": "78705",
+   "council_district": 9,
+   "unit_type": "Multifamily",
+   "affordable_units": 34,
+   "total_units": 167,
+   "expiration_date": "2027-09-12",
+   "latitude": 30.290067,
+   "longitude": -97.750235,
+   "project_id": "3578"
+  },
+  {
+   "name": "2407 S 4th Street",
+   "address": "2407 S 4th St",
+   "address_raw": "2407 S 4TH ST",
+   "zip": "78704",
+   "council_district": 3,
+   "unit_type": "Single Family",
+   "affordable_units": 4,
+   "total_units": 4,
+   "expiration_date": "2027-09-05",
+   "latitude": 30.242616,
+   "longitude": -97.763241,
+   "project_id": "3252"
+  },
+  {
+   "name": "1002 Wheeless Street",
+   "address": "1002 Wheeless St",
+   "address_raw": "1002 WHEELESS ST",
+   "zip": "78702",
+   "council_district": 1,
+   "unit_type": "Duplex",
+   "affordable_units": 2,
+   "total_units": 2,
+   "expiration_date": "2027-01-29",
+   "latitude": 30.267972,
+   "longitude": -97.72776,
+   "project_id": "3239"
+  },
+  {
+   "name": "Ellora Apartments",
+   "address": "908 W 21st St",
+   "address_raw": "908 W 21ST ST",
+   "zip": "78705",
+   "council_district": 9,
+   "unit_type": "Multifamily",
+   "affordable_units": 2,
+   "total_units": 23,
+   "expiration_date": "2027-12-13",
+   "latitude": 30.284978,
+   "longitude": -97.747466,
+   "project_id": "3576"
+  },
+  {
+   "name": "AHFC - SF",
+   "address": "7212 Providence Ave",
+   "address_raw": "7212 PROVIDENCE AVE",
+   "zip": "78752",
+   "council_district": 4,
+   "unit_type": "Single Family",
+   "affordable_units": 1,
+   "total_units": 1,
+   "expiration_date": "2027-12-26",
+   "latitude": 30.330522,
+   "longitude": -97.696857,
+   "project_id": "5470"
+  },
+  {
+   "name": "2014 Covered Wagon Pass",
+   "address": "2014 Covered Wagon Pass",
+   "address_raw": "2014 COVERED WAGON PASS",
+   "zip": "78744",
+   "council_district": 2,
+   "unit_type": "Single Family",
+   "affordable_units": 1,
+   "total_units": 1,
+   "expiration_date": "2027-05-31",
+   "latitude": 30.193222,
+   "longitude": -97.758702,
+   "project_id": "3254"
+  },
+  {
+   "name": "5611 Teri Road",
+   "address": "5611 Teri Rd",
+   "address_raw": "5611 TERI RD",
+   "zip": "78744",
+   "council_district": 2,
+   "unit_type": "Single Family",
+   "affordable_units": 1,
+   "total_units": 1,
+   "expiration_date": "2027-05-02",
+   "latitude": 30.192753,
+   "longitude": -97.73382,
+   "project_id": "3255"
+  }
+ ],
+ "notes": [
+  "Series 2030 (953) is larger than 2027 (927); 2027 is highlighted as the next year, not the largest.",
+  "Rows with placeholder expiration dates (e.g. 3799-12-30, 1900-12-30) and rows with status 'Affordability Period Expired' or 'Affordability Released' are excluded by the filter.",
+  "Latitude/longitude are the dataset's own latitude/longitude fields; each point falls inside its listed council district on the City's official (unsimplified) boundary layer."
+ ]
+}
