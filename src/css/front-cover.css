@@ -414,6 +414,27 @@
   font-weight: 400;
   line-height: 1.5;
 }
+.home-front .what-you-can-do,
+.edition-page .what-you-can-do {
+  max-width: 32.5rem;
+  margin: 0.75rem 0 0.35rem;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #1b1b1b;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  text-wrap: pretty;
+}
+.what-you-can-do-label { font-weight: 700; }
+.home-front .what-you-can-do a,
+.edition-page .what-you-can-do a {
+  color: #1b1b1b;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
 .home-front .front-story-sources .src,
 .home-front .front-story-sources .source-line {
   display: block;
@@ -453,6 +474,15 @@
   .masthead-inner { padding: 0 16px; }
   .num { font-size: 3.5rem; }
   .home-front .front-lead h1 { font-size: 2.125rem; line-height: 1.12; }
+  .home-front .what-you-can-do a,
+  .edition-page .what-you-can-do a {
+    display: inline-block;
+    box-sizing: border-box;
+    max-width: 100%;
+    min-width: 44px;
+    min-height: 44px;
+    padding-block: 10px;
+  }
 }
 @media (min-width: 761px) {
   .home-front .front-story h3 { font-size: 1.5rem; }

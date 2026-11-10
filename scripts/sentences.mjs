@@ -12,6 +12,8 @@
 // The edition skim (nav.skim) repeats story headlines the same way.
 // That index is not a second telling either. The signup promise is the same
 // line in the page block and the mobile bar, so those sections are left out.
+// A "What you can do" line can repeat when several items share one official
+// next step. It is an instruction, not a second telling of the news.
 
 import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
@@ -61,6 +63,7 @@ export function visibleText(html) {
     .replace(/<nav\b[^>]*\btoday-top\b[^>]*>[\s\S]*?<\/nav>/gi, " ")
     .replace(/<nav\b[^>]*\bskim\b[^>]*>[\s\S]*?<\/nav>/gi, " ")
     .replace(/<p\b[^>]*\bclass="[^"]*\bcouncil-did\b[^"]*"[^>]*>[\s\S]*?<\/p>/gi, " ")
+    .replace(/<p\b[^>]*\bclass="[^"]*\bwhat-you-can-do\b[^"]*"[^>]*>[\s\S]*?<\/p>/gi, " ")
     .replace(/<section\b[^>]*\bclass="[^"]*\bsignup\b[^"]*"[^>]*>[\s\S]*?<\/section>/gi, " ");
   const text = decode(withoutTitle.replace(/<[^>]+>/g, " "));
   return text.replace(/\s+/g, " ").trim();
