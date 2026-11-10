@@ -107,6 +107,32 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.match(page, /November 9, 2026/);
 });
 
+test("an older edition dates itself and links to the latest", () => {
+  const older = readFileSync("_site/2026/11/09/index.html", "utf8").replaceAll("\u00a0", " ");
+  const sunday = readFileSync("_site/2026/11/08/index.html", "utf8").replaceAll("\u00a0", " ");
+  const latest = readFileSync("_site/2026/11/10/index.html", "utf8").replaceAll("\u00a0", " ");
+  const home = readFileSync("_site/index.html", "utf8").replaceAll("\u00a0", " ");
+  const line = (html) => html.match(/class="masthead-dateline">([\s\S]*?)<\/p>/)[1];
+  const nov9 = line(older);
+  assert.match(nov9, /Monday, Nov\. 9/);
+  assert.match(nov9, /Latest:/);
+  assert.match(nov9, /href="\/2026\/11\/10\/"/);
+  assert.match(nov9, />Nov\. 10</);
+  assert.doesNotMatch(nov9, /Previous:/);
+  assert.doesNotMatch(nov9, /Tuesday, Nov\. 10/);
+  const nov8 = line(sunday);
+  assert.match(nov8, /Sunday, Nov\. 8/);
+  assert.match(nov8, /href="\/2026\/11\/10\/"/);
+  assert.doesNotMatch(nov8, /Previous:/);
+  for (const html of [latest, home]) {
+    const current = line(html);
+    assert.match(current, /Tuesday, Nov\. 10/);
+    assert.match(current, /Previous:/);
+    assert.match(current, /href="\/2026\/11\/09\/"/);
+    assert.doesNotMatch(current, /Latest:/);
+  }
+});
+
 test("Monday labels the lead illustration and the county headline", () => {
   const html = readFileSync("_site/index.html", "utf8");
   const page = readFileSync("_site/2026/11/09/index.html", "utf8");
@@ -159,8 +185,10 @@ test("the sunday edition stacks each source and names the headline actions", () 
   assert.match(page, /KUT reports/);
   assert.match(page, /runoff-lead-desktop-1600\.webp/);
   assert.doesNotMatch(page, /\$55,326,729/);
-  assert.match(page, />Copy story link</);
-  assert.match(page, />Share story</);
+  assert.match(page, /class="share"/);
+  assert.match(page, /aria-label="Share: Thursday is the registration deadline/);
+  assert.match(page, /for a possible runoff\."/);
+  assert.doesNotMatch(page, />Share story</);
   assert.doesNotMatch(page, />Link</);
   const css = readFileSync("src/css/front-cover.css", "utf8");
   assert.match(css, /\.edition-page \.skim li \{[^}]*align-items:\s*flex-start/);

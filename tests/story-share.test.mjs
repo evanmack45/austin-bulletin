@@ -24,11 +24,11 @@ test("story share keeps existing ids and slugs headlines that have none", () => 
   assert.match(html, /<h5 id="custom-id">Other headline<\/h5><div class="story-share">/);
   assert.match(html, /<h5 id="new-story-bills">New story &amp; bills<\/h5>/);
   assert.match(html, /<h5 id="new-story-bills-2">/);
-  assert.match(html, /<button type="button" class="story-share-button" hidden/);
-  assert.match(html, />Share story<\/button>/);
-  assert.match(html, />Copy story link<\/a>/);
-  assert.match(html, /aria-label="Share story: New story &amp; bills"/);
-  assert.match(html, /aria-live="polite"/);
+  assert.match(html, /<a class="share" href="[^"]+" data-share-title="Park access"/);
+  assert.match(html, /<span class="share-word">Share<\/span>/);
+  assert.match(html, /aria-label="Share: New story &amp; bills"/);
+  assert.match(html, /class="icon-svg"/);
+  assert.doesNotMatch(html, />Share story</);
   assert.match(html, /data-share-title="New story &amp; bills"/);
   assert.equal(withStoryShare(html, page), html);
   const ids = storyAnchorIds(html);

@@ -567,7 +567,7 @@ body.edition-cards:has(article.bulletin) main {
     display: flex;
     flex-direction: column;
   }
-  .edition-cards .lead .chart-bars { height: auto; }
+  .edition-cards .lead .chart-bars { flex: 1 1 auto; height: auto; min-height: 0; }
   .edition-cards .lead .src {
     grid-column: 1 / -1;
     grid-row: 6;
@@ -605,6 +605,25 @@ body.edition-cards:has(article.bulletin) main {
   }
 }
 
+@media (min-width: 768px) {
+  .edition-cards .lead .chart {
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
+    min-height: 0;
+  }
+  .edition-cards .lead .chart-bars {
+    flex: 1 1 auto;
+    align-items: stretch;
+    height: auto;
+    min-height: 0;
+  }
+  .edition-cards .lead .chart-col {
+    grid-template-rows: auto minmax(8.75rem, 1fr) auto;
+    height: 100%;
+  }
+  .edition-cards .lead .bar { height: var(--h); }
+}
 @media (max-width: 1023px) {
   .edition-cards .lead .chart-kicker { margin: 8px 0 4px; }
   .edition-cards .lead h2 { margin: 4px 0; }
@@ -616,12 +635,63 @@ body.edition-cards:has(article.bulletin) main {
   .edition-cards .bar { transition: none; animation: none; }
 }
 
-.edition-page .jump a {
+.edition-page:not(.edition-cards) .jump {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 8px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.edition-page:not(.edition-cards) .jump a {
   display: inline-flex;
   align-items: center;
   box-sizing: border-box;
   min-height: 44px;
   padding: 0 12px;
+  border: 1px solid #D8CCB6;
+  border-radius: 999px;
+  background: #FFFFFF;
+  color: #14171F;
+  font-family: Bricolage, "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 650;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.edition-page .briefing-meta,
+.edition-page .briefing-meta a,
+.edition-page .trust-link {
+  color: var(--muted);
+}
+.edition-page .story-share .share {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: 1px solid #14171F;
+  border-radius: 8px;
+  background: transparent;
+  color: #14171F;
+  text-decoration: none;
+}
+.edition-page .story-share .icon { display: inline-flex; }
+.edition-page .story-share .icon-svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  display: block;
+}
+.edition-page .story-share .share-word {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
 }
 
 .edition-page {

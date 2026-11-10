@@ -1,6 +1,13 @@
 // Per-story permalinks on an edition page. Existing heading ids stay put.
+import { readFileSync } from "node:fs";
 import { canonicalUrl, plainText } from "./metadata.mjs";
 import { slug } from "./river.mjs";
+
+const shareSvg = new URL("../src/icons/share-network-bold.svg", import.meta.url);
+const SHARE_ICON = readFileSync(shareSvg, "utf8").replace(
+  "<svg ",
+  "<svg class=\"icon-svg\" focusable=\"false\" aria-hidden=\"true\" "
+);
 
 function escapeAttr(value) {
   return String(value)
@@ -40,13 +47,11 @@ function headingTag(level, attrs, id, inner) {
 function shareBlock(title, url) {
   const safeTitle = escapeAttr(title);
   const safeUrl = escapeAttr(url);
-  const label = escapeAttr(`Share story: ${title}`);
+  const label = escapeAttr(`Share: ${title}`);
   return `<div class="story-share">` +
-    `<a class="story-share-link" href="${safeUrl}">Copy story link</a>` +
-    `<button type="button" class="story-share-button" hidden ` +
-    `data-share-title="${safeTitle}" data-share-url="${safeUrl}" ` +
-    `aria-label="${label}">Share story</button>` +
-    `<span class="story-share-status" aria-live="polite"></span></div>`;
+    `<a class="share" href="${safeUrl}" data-share-title="${safeTitle}" ` +
+    `aria-label="${label}"><span class="icon">${SHARE_ICON}</span>` +
+    `<span class="share-word">Share</span></a></div>`;
 }
 
 function renderHeading(level, attrs, inner, page, used) {

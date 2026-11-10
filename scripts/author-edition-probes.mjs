@@ -122,7 +122,9 @@ const MEASURE = `(() => {
     heads,
     leadLines: lead ? words(lead).map((line) => line.text) : [],
     sourceText: source ? source.innerText.replace(/\\s+/g, " ").trim() : "",
-    share: [...document.querySelectorAll(".story-share-button, .story-share-link")]
+    share: [...document.querySelectorAll(
+      ".story-share .share, .story-share-button, .story-share-link"
+    )]
       .filter((el) => !el.hidden && el.getClientRects().length)
       .slice(0, 3)
       .map((el) => ({
