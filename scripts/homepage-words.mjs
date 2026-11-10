@@ -102,7 +102,7 @@ function readLimits() {
 if (process.argv[1] && process.argv[1].endsWith("homepage-words.mjs")) {
   const limits = readLimits();
   let failed = false;
-  for (const file of ["_site/index.html", "_site/b/index.html"]) {
+  for (const file of ["_site/index.html"]) {
     const result = budgetProblems(readFileSync(file, "utf8"), limits);
     console.log(`${file}: fold ${result.fold}, page ${result.page}`);
     for (const problem of result.problems) {

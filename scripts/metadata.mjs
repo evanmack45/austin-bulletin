@@ -155,7 +155,7 @@ export function pageMetadata(route, originalTitle, content, description) {
   const canonical = canonicalUrl(route);
   const normalized = new URL(canonical).pathname;
   const dated = /^\/\d{4}\/\d{2}\/\d{2}\/$/.test(normalized);
-  const edition = normalized === "/" || normalized === "/b/" || dated;
+  const edition = normalized === "/" || dated;
   const lead = edition ? leadFrom(content) : { heading: "", paragraph: "" };
   const title = titleFor(originalTitle, content, lead);
   return {

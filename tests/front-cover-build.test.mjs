@@ -31,15 +31,6 @@ function assertChartLead(html) {
 
 test("the homepage lead is the 2027 rent-limit chart", () => {
   assertChartLead(readFileSync("_site/index.html", "utf8"));
-  const variant = readFileSync("_site/b/index.html", "utf8");
-  assert.match(variant, /data-variant="b"/);
-  assert.match(variant, /class="big-box"/);
-  assert.match(variant, /affordable rentals lose rent limits in 2027/);
-  assert.match(variant, /Why it matters/);
-  assert.match(variant, /What you can do/);
-  assert.doesNotMatch(variant, /Court weighs \$197 million/);
-  assert.match(variant, /An expiration date doesn(?:'|&#39;)t by itself mean rents will rise\./);
-  assert.doesNotMatch(variant, /\b(peak|biggest)\b|the most/i);
 });
 
 test("the homepage is one lead, and dated editions keep their own page", () => {
