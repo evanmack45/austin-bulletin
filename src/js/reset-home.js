@@ -1,8 +1,4 @@
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-const params = new URLSearchParams(location.search);
-const path = location.pathname.replace(/\/index\.html$/, "/");
-if (params.get("v") === "b" && !path.endsWith("/b/")) location.replace("/b/");
-else if (params.get("v") === "a" && path.endsWith("/b/")) location.replace("/");
 
 const card = document.querySelector("#pin-card");
 const pins = JSON.parse(document.querySelector("#week-pins")?.textContent || "[]");

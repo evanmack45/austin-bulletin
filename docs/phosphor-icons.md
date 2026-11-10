@@ -14,5 +14,3 @@
 | place (map pin) | map-pin-bold.svg |
 | courts / public safety (optional) | gavel-bold.svg |
 | streets / roads (optional) | road-horizon-bold.svg |
-| why it matters | info-bold.svg |
-| what you can do | arrow-right-bold.svg |

@@ -5,8 +5,8 @@ import { budgetProblems } from "../scripts/homepage-words.mjs";
 
 const limits = JSON.parse(readFileSync("src/_data/homepageBudget.json", "utf8"));
 
-test("both homepage variants stay inside the word budget", () => {
-  for (const file of ["_site/index.html", "_site/b/index.html"]) {
+test("the homepage stays inside the word budget", () => {
+  for (const file of ["_site/index.html"]) {
     const result = budgetProblems(readFileSync(file, "utf8"), limits);
     assert.deepEqual(result.problems, [], `${file} fold ${result.fold} page ${result.page}`);
     assert.ok(result.fold <= limits.aboveFoldMax);

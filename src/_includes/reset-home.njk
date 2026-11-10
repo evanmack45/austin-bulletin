@@ -3,35 +3,7 @@
 {% set chartAlt = "Chart: Austin affordable rental units whose recorded rent limits end each year. 2027: 927 (highlighted), 2028: 268, 2029: 637, 2030: 953, 2031: 358. An expiration date doesn't by itself mean rents will rise. Source: City of Austin Affordable Housing Inventory." %}
 {% set inventory = lead.source.url %}
 <article class="reset-home paper-main" data-edition="{{ editionDate }}" data-variant="{{ variant }}">
-  {% if variant == "b" %}
-  <section class="brief front-lead" id="lead" data-fold data-animate>
-    <div class="big-box">
-      <img class="share-image" src="/images/reset/share-1200x630.png" alt="{{ shareAlt | escape }}" width="1200" height="630" aria-hidden="true">
-      <a class="hero-link" href="/lead-story/">
-        <span class="bignum" data-count="{{ lead.callout.value }}">{{ lead.callout.value }}</span>
-        <h1>affordable rentals lose rent limits in 2027</h1>
-      </a>
-      {% set mini = true %}
-      {% include "reset-chart.njk" %}
-      <p class="source-line" data-budget-exempt>Source: <a href="{{ inventory | escape }}">{{ lead.source.name | escape }}</a></p>
-    </div>
-    <p class="opener front-deck">More than three times the 268 listed for 2028.</p>
-  </section>
-  <ul class="axiom-rows">
-    <li>
-      <span class="icon icon-20" aria-hidden="true">{{ "info-bold" | icon | safe }}</span>
-      <p><span class="row-label">Why it matters</span> {{ lead.caveat | escape }}</p>
-    </li>
-    <li>
-      <span class="icon icon-20" aria-hidden="true">{{ "arrow-right-bold" | icon | safe }}</span>
-      <p><span class="row-label">What you can do</span> <a href="{{ inventory | escape }}">Open the city inventory and read the 11 properties.</a></p>
-    </li>
-  </ul>
-  <section class="week-lines-wrap" aria-labelledby="this-week">
-    <h2 id="this-week">{{ thisWeek.heading | escape }}</h2>
-    {% include "reset-week.njk" %}
-  </section>
-  {% else %}
+  
   <div class="story-grid">
     <section class="story-card story-card--lead front-lead" id="lead" data-fold data-animate>
       <img class="share-image" src="/images/reset/share-1200x630.png" alt="{{ shareAlt | escape }}" width="1200" height="630" aria-hidden="true">
@@ -69,7 +41,7 @@
       <p class="source-line source-ink" data-budget-exempt><a href="{{ inventory | escape }}">City inventory</a></p>
     </section>
   </div>
-  {% endif %}
+  
   {% set signupId = "lead" %}
   {% include "signup.njk" %}
 </article>

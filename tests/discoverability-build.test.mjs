@@ -33,7 +33,7 @@ test("built content pages have their own escaped canonical and social metadata",
     const url = `/${path.relative("_site", file).replace(/index\.html$/, "")}`;
     assert.ok(source.includes(`rel="canonical" href="https://theaustinbulletin.com${url}"`), file);
     assert.match(source, /property="og:description" content="[^"]+"/);
-    const edition = url === "/" || url === "/b/" || /^\/\d{4}\/\d{2}\/\d{2}\/$/.test(url);
+    const edition = url === "/" || /^\/\d{4}\/\d{2}\/\d{2}\/$/.test(url);
     const card = edition ? "summary_large_image" : "summary";
     assert.match(source, new RegExp(`name="twitter:card" content="${card}"`));
     if (edition) {
@@ -69,4 +69,25 @@ test("feed order and archive completeness still follow actual source editions", 
   assert.deepEqual(entries, urls.slice(0, 10).map(url => `https://theaustinbulletin.com${url}`));
   const archive = await readFile("_site/archive/index.html", "utf8");
   for (const url of urls) assert.ok(archive.includes(`href="${url}"`), url);
+});
+
+test("/b/ is not in the build output", {
+  skip: !built && "run npm run build before integration checks"
+}, async () => {
+  assert.equal(existsSync("_site/b"), false);
+  assert.equal(existsSync("_site/b/index.html"), false);
+  const pages = await htmlFiles("_site");
+  assert.equal(pages.some((file) => file.split(path.sep).includes("b")), false);
+  const route = /(?:href|loc|id)="[^"]*\/b\/|theaustinbulletin\.com\/b\//;
+  const sitemap = await readFile("_site/sitemap.xml", "utf8");
+  const feed = await readFile("_site/feed.xml", "utf8");
+  const home = await readFile("_site/index.html", "utf8");
+  const nav = home.match(/<nav class="site-nav"[\s\S]*?<\/nav>/)?.[0] ?? "";
+  assert.doesNotMatch(sitemap, route);
+  assert.doesNotMatch(feed, route);
+  assert.doesNotMatch(nav, /\/b\//);
+  for (const file of pages) {
+    assert.doesNotMatch(await readFile(file, "utf8"), route, file);
+  }
+  assert.doesNotMatch(await readFile("_site/js/reset-home.js", "utf8"), /\/b\//);
 });
