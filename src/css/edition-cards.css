@@ -546,13 +546,13 @@ body.edition-cards:has(article.bulletin) main {
   }
   .datestrip { display: contents; }
   .datestrip time { grid-column: 1; grid-row: 1; }
-  .jump { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
+  .jump { grid-column: 2; grid-row: 1; align-self: center; }
   .today {
-    grid-column: 1;
+    grid-column: 1 / -1;
     grid-row: 2;
     margin: var(--s2) 0 var(--s4);
     font-size: var(--fs-deck);
-    max-width: 52rem;
+    max-width: none;
   }
   .edition-cards .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .edition-cards .grid > .signup { grid-column: 1 / -1; }

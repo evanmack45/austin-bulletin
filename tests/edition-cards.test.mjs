@@ -2,9 +2,8 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
-const TODAY = "City records list rent limits ending on hundreds of affordable " +
-  "rentals each year from 2027 to 2031. Commissioners meet at 9 a.m. on " +
-  "borrowing, STAR Flight and a bond election.";
+const TODAY = "Rent limits end each year from 2027 to 2031. At 9 a.m.: borrowing, " +
+  "STAR Flight and a bond election.";
 
 test("the Nov. 10 card page uses the fact-checked lines", () => {
   const page = readFileSync("_site/2026/11/10/index.html", "utf8").replaceAll("\u00a0", " ");
