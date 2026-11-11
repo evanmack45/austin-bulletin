@@ -448,6 +448,7 @@ body.edition-cards.edition-scoreboard main {
   margin-top: 28px;
 }
 .edition-scoreboard .after > * { min-width: 0; }
+.edition-scoreboard .edition-wrap > .signup--edition { margin-top: 28px; }
 .edition-scoreboard .signup--edition {
   margin: 0;
   padding: 20px;

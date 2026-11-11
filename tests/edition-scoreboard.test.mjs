@@ -27,6 +27,7 @@ test("the Wednesday lead is 71.68 and keeps the exact figure in Method", () => {
   assert.match(lead, />71\.68</);
   assert.match(lead, /of 100 points/);
   assert.match(lead, /Bell(?:'|&#39;)s helicopter bid won despite lowest cost score/);
+  assert.match(lead, /ranked last of four on initial cost/);
   assert.match(lead, /lowest initial-cost score/);
   assert.match(lead, /Agustawestland/);
   assert.equal(lead.includes("\u00ad"), false);
@@ -94,4 +95,26 @@ test("the Wednesday lead is 71.68 and keeps the exact figure in Method", () => {
     "The Austin Bulletin — Wednesday, November 11, 2026"
   ));
   assert.match(tuesdayPage, /is up for another board term/);
+});
+
+test("the scoreboard signup follows the whole board", () => {
+  const signup = wednesday.indexOf('class="signup signup--edition"');
+  const next = wednesday.indexOf('id="next-h"');
+  const notices = wednesday.indexOf('id="notices-h"');
+  const cells = [
+    "immigrant legal aid",
+    "Ann Kitchen reappointed",
+    "Only county cars",
+    "digital twin of Balcones"
+  ];
+  for (const cell of cells) {
+    assert.ok(wednesday.indexOf(cell) < signup, cell);
+  }
+  assert.ok(signup < next && next < notices);
+  assert.equal(wednesday.split('class="signup signup--edition"').length - 1, 1);
+  assert.equal(wednesday.split('<div class="board">').length - 1, 1);
+  assert.match(wednesday, /item\u00a025/);
+  assert.match(wednesday, /item\u00a011/);
+  assert.match(wednesday, /item\u00a038/);
+  assert.match(wednesday, /item\u00a033/);
 });

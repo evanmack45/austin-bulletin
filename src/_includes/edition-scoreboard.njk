@@ -52,12 +52,6 @@
     <h2 class="section-label" id="{{ section.id | escape }}"><span>{{ section.label | tightTokens }}</span></h2>
     <div class="board">
       {% for item in section.items %}
-      {% if item.signupBefore %}
-    </div>
-    {% set signupId = "edition" %}
-    {% include "signup.njk" %}
-    <div class="board">
-      {% endif %}
       <details class="oc" id="{{ item.id | escape }}">
         <summary><span class="mark{% if item.markWord %} word{% endif %}">{{ item.markText | escape }}{% if item.markQualifier %}<small>{{ item.markQualifier | tightTokens }}</small>{% endif %}</span><span class="oc-head"><span>{{ item.headline | tightTokens }}</span><span class="icon">{{ "caret-down-bold" | icon | safe }}</span></span></summary>
         <div class="oc-body">
@@ -73,11 +67,10 @@
   </section>
   {% endfor %}
 
+  {% set signupId = "edition" %}
+  {% include "signup.njk" %}
+
   <div class="after">
-    {% if model.signupAtEnd %}
-    {% set signupId = "edition" %}
-    {% include "signup.njk" %}
-    {% endif %}
     {% if model.nextItems | length %}
     <section class="list" aria-labelledby="next-h">
       <h2 id="next-h">Next</h2>

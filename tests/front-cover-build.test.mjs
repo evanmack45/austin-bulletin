@@ -16,7 +16,7 @@ function assertChartLead(html) {
   assert.match(lead, /Bell(?:'|&#39;)s helicopter bid won despite lowest cost score/);
   assert.match(lead, />71\.68</);
   assert.match(lead, /of 100 points/);
-  assert.match(lead, /lowest initial-cost score/);
+  assert.match(lead, /ranked last of four on initial cost/);
   assert.match(lead, /Agustawestland/);
   assert.match(lead, /class="bar bar-hi"/);
   assert.doesNotMatch(lead, /\$67\.8M|>927</);
@@ -70,7 +70,7 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   );
   assert.match(html, new RegExp(
     "og:description\" content=\"Bell led on aviation and cabin scores " +
-    "but had the lowest initial-cost score\\."
+    "but ranked last of four on initial cost\\."
   ));
   assert.match(
     html,
@@ -78,7 +78,7 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   );
   assert.match(html, new RegExp(
     "twitter:description\" content=\"Bell led on aviation and cabin scores " +
-    "but had the lowest initial-cost score"
+    "but ranked last of four on initial cost"
   ));
   assert.match(html, /Wednesday, Nov\. 11/);
   assert.match(html, /href="\/2026\/11\/10\/"/);
