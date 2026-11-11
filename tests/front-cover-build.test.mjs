@@ -2,8 +2,8 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
-const SHARE = "https://theaustinbulletin.com/images/reset/share-1200x630.png";
-const DATASET = "https://data.austintexas.gov/d/ifzc-3xz8";
+const SHARE = "https://theaustinbulletin.com/icon-512.png";
+const MATRIX = "https://traviscotx.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=13358,plainText=false)";
 
 function assertChartLead(html) {
   const lead = html.match(
@@ -13,14 +13,15 @@ function assertChartLead(html) {
   const chart = lead.indexOf('class="chart"');
   const source = lead.indexOf('class="source-line"');
   assert.ok(h1 !== -1 && chart > h1 && source > chart, lead.slice(0, 400));
-  assert.match(lead, /Affordable rentals lose rent limits in 2027/);
-  assert.doesNotMatch(lead, /for 927 Austin affordable rentals/);
-  assert.match(lead, />927</);
+  assert.match(lead, /Bell(?:'|&#39;)s helicopter bid won despite lowest cost score/);
+  assert.match(lead, />71\.68</);
+  assert.match(lead, /of 100 points/);
+  assert.match(lead, /lowest initial-cost score/);
+  assert.match(lead, /Agustawestland/);
   assert.match(lead, /class="bar bar-hi"/);
-  assert.match(lead, /More than three times the 268/);
-  assert.match(lead, /An expiration date doesn(?:'|&#39;)t by itself mean rents will rise\./);
-  assert.match(lead, /href="\/lead-story\/"/);
-  assert.match(lead, new RegExp(`href="${DATASET.replaceAll("?", "\\?")}"`));
+  assert.doesNotMatch(lead, /\$67\.8M|>927</);
+  assert.match(lead, /href="\/2026\/11\/11\/#bells-helicopter-bid-won-despite-lowest-cost-score"/);
+  assert.ok(lead.includes(MATRIX), "matrix source");
   assert.doesNotMatch(lead, /register-lead|runoff-lead|AI illustration/);
   assert.doesNotMatch(html, /\b(peak|biggest)\b|the most/i);
   const css = readFileSync("src/css/front-cover.css", "utf8");
@@ -29,7 +30,7 @@ function assertChartLead(html) {
   assert.match(css, /\.home-front \.results-link \{[\s\S]*?background:\s*transparent;/);
 }
 
-test("the homepage lead is the 2027 rent-limit chart", () => {
+test("the homepage lead is Wednesday's 71.68 bid chart", () => {
   assertChartLead(readFileSync("_site/index.html", "utf8"));
 });
 
@@ -47,9 +48,10 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.doesNotMatch(html, /5 minutes|One email each morning/);
   assert.doesNotMatch(html, /class="results-button"/);
   assert.equal((html.match(/<h1\b/g) || []).length, 1);
-  assert.match(html, /Affordable rentals lose rent limits in 2027/);
-  assert.match(html, /href="\/lead-story\/"/);
-  assert.match(html, />927</);
+  assert.match(html, /Bell(?:'|&#39;)s helicopter bid won despite lowest cost score/);
+  assert.match(html, /href="\/2026\/11\/11\/#bells-helicopter-bid-won-despite-lowest-cost-score"/);
+  assert.match(html, />71\.68</);
+  assert.doesNotMatch(html.match(/story-card--lead[\s\S]*?<\/section>/)?.[0] ?? "", />927</);
   assert.doesNotMatch(html, /Register by Thursday if a runoff is ordered\./);
   assert.match(html, /class="wordmark"/);
   assert.match(html, /class="masthead-dateline"/);
@@ -59,21 +61,27 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.doesNotMatch(html, /election-results\.webp/);
   assert.doesNotMatch(html, /register-lead|runoff-lead/);
   assert.match(html, /front-deck/);
-  assert.match(html, /share-1200x630\.png/);
+  assert.doesNotMatch(html, /share-1200x630\.png/);
   assert.ok(html.includes(`property="og:image" content="${SHARE}"`));
   assert.ok(html.includes(`name="twitter:image" content="${SHARE}"`));
-  assert.match(html, /property="og:title" content="Affordable rentals lose rent limits in 2027/);
   assert.match(
     html,
-    /og:description" content="An expiration date doesn(?:'|&#39;)t by itself mean rents will rise\./
+    /property="og:title" content="Bell(?:'|&#39;)s helicopter bid won despite lowest cost score"/
   );
-  assert.match(html, /name="twitter:title" content="Affordable rentals lose rent limits in 2027/);
   assert.match(html, new RegExp(
-    "twitter:description\" content=\"An expiration date doesn(?:'|&#39;)t " +
-    "by itself mean rents will rise"
+    "og:description\" content=\"Bell led on aviation and cabin scores " +
+    "but had the lowest initial-cost score\\."
   ));
-  assert.match(html, /Tuesday, Nov\. 10/);
-  assert.match(html, /href="\/2026\/11\/09\/"/);
+  assert.match(
+    html,
+    /name="twitter:title" content="Bell(?:'|&#39;)s helicopter bid won despite lowest cost score"/
+  );
+  assert.match(html, new RegExp(
+    "twitter:description\" content=\"Bell led on aviation and cabin scores " +
+    "but had the lowest initial-cost score"
+  ));
+  assert.match(html, /Wednesday, Nov\. 11/);
+  assert.match(html, /href="\/2026\/11\/10\/"/);
   assert.match(html, /Nov\. 10 · 6 outcomes/);
   assert.match(html, /This week · 2 items/);
   assert.match(html, /<u>4\u20110<\/u>[\s\S]*Kaskade permit approved</);
@@ -106,6 +114,12 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.ok(!html.includes("Original illustration"));
   assert.ok(!html.includes("Keep these close"));
   assert.ok(!html.includes("barton-springs-960.webp"));
+  const disclosure = '<p class="ai-disclosure">' +
+    '<a href="/about/#trust">An AI system produces this site.</a></p>';
+  assert.equal(html.includes(disclosure), true);
+});
+
+test("a dated edition keeps the card page and the AI disclosure", () => {
   const edition = "2026-11-09";
   const page = readFileSync(`_site/${edition.replaceAll("-", "/")}/index.html`, "utf8");
   assert.match(page, /class="wordmark"/);
@@ -122,7 +136,6 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.equal(page.includes("About our reporting"), false);
   const disclosure = '<p class="ai-disclosure">' +
     '<a href="/about/#trust">An AI system produces this site.</a></p>';
-  assert.equal(html.includes(disclosure), true);
   assert.equal(page.includes(disclosure), true);
   const lead = page.match(/<h3\b[^>]*\bid="([^"]+)"/);
   assert.ok(lead, "edition lead heading");
@@ -137,25 +150,31 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
 test("an older edition dates itself and links to the latest", () => {
   const older = readFileSync("_site/2026/11/09/index.html", "utf8").replaceAll("\u00a0", " ");
   const sunday = readFileSync("_site/2026/11/08/index.html", "utf8").replaceAll("\u00a0", " ");
-  const latest = readFileSync("_site/2026/11/10/index.html", "utf8").replaceAll("\u00a0", " ");
+  const tuesday = readFileSync("_site/2026/11/10/index.html", "utf8").replaceAll("\u00a0", " ");
+  const latest = readFileSync("_site/2026/11/11/index.html", "utf8").replaceAll("\u00a0", " ");
   const home = readFileSync("_site/index.html", "utf8").replaceAll("\u00a0", " ");
   const line = (html) => html.match(/class="masthead-dateline">([\s\S]*?)<\/p>/)[1];
   const nov9 = line(older);
   assert.match(nov9, /Monday, Nov\. 9/);
   assert.match(nov9, /Latest:/);
-  assert.match(nov9, /href="\/2026\/11\/10\/"/);
-  assert.match(nov9, />Nov\. 10</);
+  assert.match(nov9, /href="\/2026\/11\/11\/"/);
+  assert.match(nov9, />Nov\. 11</);
   assert.doesNotMatch(nov9, /Previous:/);
-  assert.doesNotMatch(nov9, /Tuesday, Nov\. 10/);
+  assert.doesNotMatch(nov9, /Wednesday, Nov\. 11/);
   const nov8 = line(sunday);
   assert.match(nov8, /Sunday, Nov\. 8/);
-  assert.match(nov8, /href="\/2026\/11\/10\/"/);
+  assert.match(nov8, /href="\/2026\/11\/11\/"/);
   assert.doesNotMatch(nov8, /Previous:/);
+  const nov10 = line(tuesday);
+  assert.match(nov10, /Tuesday, Nov\. 10/);
+  assert.match(nov10, /Latest:/);
+  assert.match(nov10, /href="\/2026\/11\/11\/"/);
+  assert.doesNotMatch(nov10, /Previous:/);
   for (const html of [latest, home]) {
     const current = line(html);
-    assert.match(current, /Tuesday, Nov\. 10/);
+    assert.match(current, /Wednesday, Nov\. 11/);
     assert.match(current, /Previous:/);
-    assert.match(current, /href="\/2026\/11\/09\/"/);
+    assert.match(current, /href="\/2026\/11\/10\/"/);
     assert.doesNotMatch(current, /Latest:/);
   }
 });

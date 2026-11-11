@@ -34,6 +34,7 @@
   {% elif editionPage %}
   <link rel="stylesheet" href="/css/tokens-edition.css">
   <link rel="stylesheet" href="/css/edition-cards.css">
+  {% if edition_cards %}<link rel="stylesheet" href="/css/scoreboard.css">{% endif %}
   {% endif %}
   <link rel="icon" href="/favicon.ico" sizes="32x32">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -41,9 +42,7 @@
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#1b1b1b">
   {% set artLead = null %}
-  {% if homeFront %}
-  <link rel="preload" as="image" href="/images/reset/share-1200x630.png" fetchpriority="high">
-  {% elif editionPage and images and images.lead and images.lead.kind == "illustration" %}
+  {% if editionPage and images and images.lead and images.lead.kind == "illustration" %}
   {% set artLead = images.lead %}
   {% endif %}
   {% if artLead and artLead.smallSrc and artLead.src %}
@@ -52,7 +51,7 @@
   {% endif %}
   <link rel="alternate" type="application/atom+xml" title="The Austin Bulletin" href="/feed.xml">
 </head>
-<body class="cover-chrome{% if homeFront %} home-front variant-{{ variant or "a" }}{% endif %}{% if editionPage %} edition-page{% endif %}{% if edition_cards or cardChrome %} edition-cards{% endif %}" id="top">
+<body class="cover-chrome{% if homeFront %} home-front variant-{{ variant or "a" }}{% endif %}{% if editionPage %} edition-page{% endif %}{% if edition_cards or cardChrome %} edition-cards{% endif %}{% if edition_cards %} edition-scoreboard{% endif %}" id="top">
   {% include "masthead.njk" %}
   <main>
     {{ content | withPreviewMeeting(page.url, councilMeeting) | safe }}

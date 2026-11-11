@@ -45,7 +45,8 @@ test("the homepage signup follows the rent-limit lead", () => {
   const signupAt = heads.indexOf("signup");
   assert.equal(heads.filter((tag) => tag === "signup").length, 1);
   assert.ok(heads.indexOf("h1") >= 0 && heads.indexOf("h1") < signupAt);
-  assert.ok(main.indexOf("927") < main.indexOf('class="signup signup--lead"'));
+  assert.ok(main.indexOf("71.68") < main.indexOf('class="signup signup--lead"'));
+  assert.equal(main.includes(">927<"), false);
   assert.equal(main.includes('class="paper-side"'), false);
   assert.match(main, VALUE);
   assert.match(main, NOTE);
@@ -85,11 +86,12 @@ test("every edition has one signup after the third story and the mobile bar is d
   assert.match(edition, /class="signup signup--edition"/);
   assert.match(edition, VALUE);
   assert.match(edition, NOTE);
-  const signupAt = edition.indexOf('class="signup signup--edition"');
-  const goodThing = edition.search(/class="[^"]*\bgood-thing\b/);
-  assert.ok(goodThing > 0 && signupAt < goodThing);
   assert.equal(count(edition, 'class="signup signup--edition"'), 1);
-  assert.equal(storiesBeforeSignup(edition), 3);
+  const monday = readFileSync("_site/2026/11/09/index.html", "utf8");
+  const mondaySignup = monday.indexOf('class="signup signup--edition"');
+  const mondayGood = monday.search(/class="[^"]*\bgood-thing\b/);
+  assert.ok(mondayGood > 0 && mondaySignup < mondayGood);
+  assert.equal(storiesBeforeSignup(monday), 3);
   const sunday = readFileSync("_site/2026/11/08/index.html", "utf8");
   const sundaySignup = sunday.indexOf('class="signup signup--edition"');
   const hornsby = sunday.indexOf(

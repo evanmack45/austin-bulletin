@@ -25,7 +25,10 @@
         "id": "county-court-weighs-197-million-in-borrowing-for-2027-projects",
         "section": "news",
         "outcome": 4,
-        "glyph": { "value": "$197M", "qualifier": "approved certificates total" },
+        "glyph": {
+          "value": "$197M",
+          "qualifier": "approved certificates total"
+        },
         "headline": "County certificates approved",
         "summary": "Approved Nov. 10 on the consent agenda. Commissioners raised planned 2027 certificates by $13.5 million, to $197.1 million.",
         "homeDek": "Consent agenda raised planned 2027 certificates $13.5 million, to $197.1 million.",
@@ -47,7 +50,10 @@
         "id": "678-million-contract-for-new-star-flight-helicopters-is-up-today",
         "section": "news",
         "outcome": 5,
-        "glyph": { "value": "$67.8M", "qualifier": "approved contract" },
+        "glyph": {
+          "value": "$67.8M",
+          "qualifier": "approved contract"
+        },
         "headline": "STAR Flight contract approved",
         "summary": "Approved Nov. 10. Bell Textron STAR Flight contract for $67,757,745.12; judge called it unanimous, vote record not posted.",
         "homeDek": "Bell Textron, $67,757,745.12. Judge called it unanimous; vote record not posted.",
@@ -92,6 +98,7 @@
         "headline": "Ann Kitchen is up for another board term",
         "summary": "The reappointment to Travis County's hospital district board would run through Dec. 31, 2030.",
         "full": [
+          "Update: Approved 4-0 Nov. 10.",
           "Today's county agenda lists the reappointment of Ann Kitchen to the Central Health Board of Managers for a term ending Dec. 31, 2030. Central Health is Travis County's hospital district; the county and the city each appoint four of its board managers, plus one jointly."
         ],
         "sources": [
@@ -176,7 +183,10 @@
         "good": true,
         "icon": "sun",
         "topic": "One good thing",
-        "glyph": { "value": "79°", "qualifier": "Wednesday high" },
+        "glyph": {
+          "value": "79°",
+          "qualifier": "Wednesday high"
+        },
         "headline": "Sun returns for Veterans Day",
         "summary": "Mostly cloudy today, high near 71. Fog early Wednesday, then sun; no rain chance.",
         "full": [
@@ -233,9 +243,23 @@
         "summary": "Canvass and any runoff order at 11 a.m. The Council agenda is still a draft.",
         "timelineAlt": "Timeline: today Nov. 10; city canvass Nov. 17; Council meeting Nov. 19.",
         "timeline": [
-          { "day": 0, "date": "Nov. 10", "label": "Today" },
-          { "day": 7, "date": "Nov. 17", "label": "Canvass", "hi": true },
-          { "day": 9, "date": "Nov. 19", "label": "Council", "hi": true }
+          {
+            "day": 0,
+            "date": "Nov. 10",
+            "label": "Today"
+          },
+          {
+            "day": 7,
+            "date": "Nov. 17",
+            "label": "Canvass",
+            "hi": true
+          },
+          {
+            "day": 9,
+            "date": "Nov. 19",
+            "label": "Council",
+            "hi": true
+          }
         ],
         "full": [
           "The city canvass of Nov. 3 results, and ordering of any necessary runoff, is set for 11 a.m. Tuesday, Nov. 17, possibly earlier. The regular Council meeting is at 10 a.m. Thursday, Nov. 19. That agenda is still a draft. The meeting page was updated Nov. 6, 2026, at 3:12 p.m., and was unchanged as of 7:36 a.m. today.",
@@ -255,6 +279,210 @@
             "url": "https://www.austintexas.gov/council/2026/20261119-reg"
           }
         ]
+      }
+    ]
+  },
+  "2026-11-11": {
+    "cards": [
+      {
+        "id": "bells-helicopter-bid-won-despite-lowest-cost-score",
+        "section": "news",
+        "lead": true,
+        "bignum": "71.68",
+        "qualifier": "of 100 points",
+        "headline": "Bell's helicopter bid won despite lowest cost score",
+        "deck": "Bell led on aviation and cabin scores but had the lowest initial-cost score. First delivery: December 2027.",
+        "chartTitle": "How the county scored the helicopter bids (out of 100)",
+        "chartAlt": "Chart: Bell Textron scored 71.68 of 100, ahead of Agustawestland 53.17, Airbus 51.89 and Davenport 46.16.",
+        "sourcePrefix": "Source: Travis County Final RFP Evaluation Matrix, RFP 196-JJ (Nov. 10 agenda packet, p. 822).",
+        "bars": [
+          {
+            "label": "Bell Textron",
+            "value": "71.68",
+            "p": 100,
+            "hi": true
+          },
+          {
+            "label": "Agustawestland",
+            "value": "53.17",
+            "p": 74.2,
+            "nowrap": true
+          },
+          {
+            "label": "Airbus",
+            "value": "51.89",
+            "p": 72.4
+          },
+          {
+            "label": "Davenport",
+            "value": "46.16",
+            "p": 64.4
+          }
+        ],
+        "method": [
+          "Scores aren't prices; Bell had the lowest initial-cost score, and the matrix lists no bid amounts. The agenda awards the contract in the amount of $67,757,745.12. Delivery months are from the draft contract; the agenda says no later than the fourth quarter of 2027. Approval is from the meeting video; the official vote isn't posted yet."
+        ],
+        "sources": [
+          {
+            "label": "Evaluation matrix, packet p. 822",
+            "url": "https://traviscotx.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=13358,plainText=false)"
+          },
+          {
+            "label": "Nov. 10 meeting video",
+            "url": "https://traviscotx.portal.civicclerk.com/event/3727/media"
+          }
+        ]
+      },
+      {
+        "id": "county-doubles-immigrant-legal-aid-contract",
+        "section": "news",
+        "sectionLabel": "Tuesday's outcomes (Nov. 10)",
+        "glyph": {
+          "value": "$1M",
+          "qualifier": "new contract limit"
+        },
+        "headline": "County doubles immigrant legal aid contract",
+        "summary": "Commissioners voted 4-0 to add $500,000 for American Gateways. It's the second increase since September 2025.",
+        "sources": [
+          {
+            "label": "Nov. 10 record, item 25",
+            "url": "https://traviscotx.portal.civicclerk.com/event/3727/overview"
+          },
+          {
+            "label": "Agenda packet",
+            "url": "https://traviscotx.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=13358,plainText=false)"
+          }
+        ]
+      },
+      {
+        "id": "ann-kitchen-reappointed-to-central-health-board",
+        "section": "news",
+        "sectionLabel": "Tuesday's outcomes (Nov. 10)",
+        "mark": "4-0",
+        "headline": "Ann Kitchen reappointed to Central Health board",
+        "summary": "Commissioners voted 4-0 for a term through Dec. 31, 2030. She has served since 2022.",
+        "sources": [
+          {
+            "label": "Nov. 10 record, item 11",
+            "url": "https://traviscotx.portal.civicclerk.com/event/3727/overview"
+          },
+          {
+            "label": "Agenda packet",
+            "url": "https://traviscotx.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=13358,plainText=false)"
+          }
+        ]
+      },
+      {
+        "id": "only-county-cars-charge-free-at-county-chargers",
+        "section": "news",
+        "sectionLabel": "Tuesday's outcomes (Nov. 10)",
+        "mark": "4-0",
+        "headline": "Only county cars charge free at county chargers",
+        "summary": "A new policy, approved 4-0, counts employees' cars as public use for fees. The county has 10 non-fleet chargers.",
+        "sources": [
+          {
+            "label": "Nov. 10 record, item 38",
+            "url": "https://traviscotx.portal.civicclerk.com/event/3727/overview"
+          },
+          {
+            "label": "Agenda packet",
+            "url": "https://traviscotx.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=13358,plainText=false)"
+          }
+        ]
+      },
+      {
+        "id": "county-backs-a-digital-twin-of-balcones-preserve",
+        "section": "news",
+        "sectionLabel": "Tuesday's outcomes (Nov. 10)",
+        "mark": "4-0",
+        "headline": "County backs a digital twin of Balcones preserve",
+        "summary": "A 4-0 vote starts a Texas State pilot using drones to spot oak wilt and dead trees earlier.",
+        "sources": [
+          {
+            "label": "Nov. 10 record, item 33",
+            "url": "https://traviscotx.portal.civicclerk.com/event/3727/overview"
+          },
+          {
+            "label": "Agenda packet",
+            "url": "https://traviscotx.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=13358,plainText=false)"
+          }
+        ]
+      },
+      {
+        "id": "city-offices-closed-today-trash-pickup-runs-as-usual",
+        "section": "notices",
+        "topic": "Veterans Day",
+        "headline": "City offices closed; trash pickup runs as usual",
+        "summary": "Libraries, courts and the animal shelter are closed. Hornsby Bend takes brush 8 a.m.–3 p.m.",
+        "sources": [
+          {
+            "label": "City of Austin",
+            "url": "https://www.austintexas.gov/communications/news/city-austin-closures-veterans-day-2026"
+          },
+          {
+            "label": "Travis County Clerk",
+            "url": "https://countyclerk.traviscountytx.gov/departments/commissioners-court/"
+          }
+        ]
+      },
+      {
+        "id": "fog-early-then-a-partly-sunny-78",
+        "section": "good",
+        "glyph": {
+          "value": "78°",
+          "qualifier": "high today"
+        },
+        "headline": "Fog early, then partly sunny",
+        "summary": "Patchy fog before 7 a.m. Thursday is sunny, near 76, with no rain in the forecast.",
+        "sources": [
+          {
+            "label": "NWS forecast",
+            "url": "https://forecast.weather.gov/MapClick.php?lat=30.2672&lon=-97.7431"
+          }
+        ]
+      },
+      {
+        "id": "next-mobility",
+        "section": "next",
+        "when": "Thu Nov. 12, 1 p.m.",
+        "headline": "Mobility Committee meets",
+        "sources": [
+          {
+            "label": "Meeting page",
+            "url": "https://www.austintexas.gov/council/2026/20261112-mobc"
+          },
+          {
+            "label": "Agenda",
+            "url": "https://services.austintexas.gov/edims/document.cfm?id=484790"
+          }
+        ],
+        "summary": "Mobility Committee meets Thursday, Nov. 12, at 1 p.m."
+      },
+      {
+        "id": "next-county-canvass",
+        "section": "next",
+        "when": "Thu Nov. 12, 9 a.m.",
+        "headline": "County canvasses Nov. 3 returns",
+        "sources": [
+          {
+            "label": "Nov. 12 agenda",
+            "url": "https://countyclerk.traviscountytx.gov/wp-content/uploads/commissioners_court/11-12-2026SVS.pdf"
+          }
+        ],
+        "summary": "County special session Thursday, Nov. 12, at 9 a.m., canvasses Nov. 3 returns."
+      },
+      {
+        "id": "next-city-canvass",
+        "section": "next",
+        "when": "Tue Nov. 17, 11 a.m.",
+        "headline": "City canvass of Nov. 3 results",
+        "sources": [
+          {
+            "label": "City runoff calendar",
+            "url": "https://services.austintexas.gov/edims/document.cfm?id=472487"
+          }
+        ],
+        "summary": "City canvass of Nov. 3 results is Tuesday, Nov. 17, at 11 a.m."
       }
     ]
   }

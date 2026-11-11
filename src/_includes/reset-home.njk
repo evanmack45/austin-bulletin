@@ -1,35 +1,26 @@
 {% set editionDate = (collections.bulletins | first).date | isoDate %}
-{% set s = lead.series_by_year %}
-{% set hero = s | selectattr("highlight") | first %}
-{% set n = hero.units %}
-{% set d4 = (lead.by_district_2027 | selectattr("council_district", "equalto", 4) | first) %}
-{% set d5 = (lead.by_district_2027 | selectattr("council_district", "equalto", 5) | first) %}
-{% set d7 = (lead.by_district_2027 | selectattr("council_district", "equalto", 7) | first) %}
-{% set shareAlt = "Chart: " ~ n ~ " Austin affordable rental units lose rent limits in " ~ hero.year ~ ", shown against " ~ s[1].units ~ " in " ~ s[1].year ~ ", " ~ s[2].units ~ " in " ~ s[2].year ~ ", " ~ s[3].units ~ " in " ~ s[3].year ~ " and " ~ s[4].units ~ " in " ~ s[4].year ~ ". Source: City of Austin Affordable Housing Inventory." %}
-{% set chartAlt = "Chart: Austin affordable rental units whose recorded rent limits end each year. " ~ hero.year ~ ": " ~ n ~ " (highlighted), " ~ s[1].year ~ ": " ~ s[1].units ~ ", " ~ s[2].year ~ ": " ~ s[2].units ~ ", " ~ s[3].year ~ ": " ~ s[3].units ~ ", " ~ s[4].year ~ ": " ~ s[4].units ~ ". An expiration date doesn't by itself mean rents will rise. Each bar is the sum of affordable units. Source: City of Austin Affordable Housing Inventory." %}
-{% set inventory = lead.source.url %}
+{% set wed = editionCardData["2026-11-11"].cards | selectattr("lead") | first %}
 <article class="reset-home paper-main" data-edition="{{ editionDate }}" data-variant="{{ variant }}">
   
   <div class="story-grid">
     <section class="story-card story-card--lead front-lead" id="lead" data-fold data-animate>
-      <img class="share-image" src="/images/reset/share-1200x630.png" alt="{{ shareAlt | escape }}" width="1200" height="630" aria-hidden="true">
-      <a class="hero-link" href="/lead-story/">
-        <span class="bignum" data-count="{{ n }}">{{ n }}</span>
-        <h1>Affordable rentals lose rent limits in 2027</h1>
-      </a>
-      <p class="card-blurb front-deck">More than three times the {{ s[1].units }} units listed for {{ s[1].year }}.</p>
-      <p class="chart-kicker" data-budget-exempt><span class="icon icon-20" aria-hidden="true">{{ "house-line-bold" | icon | safe }}</span> CHART</p>
-      {% set mini = false %}
-      {% include "reset-chart.njk" %}
-      <p class="caveat">{{ lead.caveat | escape }}</p>
-      <p class="source-line" data-budget-exempt>Source: <a href="{{ inventory | escape }}">{{ lead.source.name | escape }}</a></p>
-    </section>
-    <section class="story-card story-card--rent">
-      <h2>Where 2027 rent limits end</h2>
-      <div class="map-frame rent-map">
-        {% include "reset/district-2027.svg" %}
+      <p class="bignum">{{ wed.bignum | escape }} <span class="qual">{{ wed.qualifier | escape }}</span></p>
+      <h1><a href="/2026/11/11/#{{ wed.id | escape }}">{{ wed.headline | tightTokens }}</a></h1>
+      <p class="card-blurb front-deck">{{ wed.deck | tightTokens }}</p>
+      <p class="chart-kicker" data-budget-exempt><span class="icon icon-20" aria-hidden="true">{{ "chart-bar-bold" | icon | safe }}</span> CHART</p>
+      <div class="chart" role="img" aria-label="{{ wed.chartAlt | escape }}">
+        <p class="chart-title" data-budget-exempt>{{ wed.chartTitle | tightTokens }}</p>
+        <div class="chart-bars chart-bars--bids">
+          {% for bar in wed.bars %}
+          <div class="chart-col">
+            <span class="bar-value{% if bar.hi %} is-hi{% endif %}" data-budget-exempt>{{ bar.value | escape }}</span>
+            <span class="bar{% if bar.hi %} bar-hi{% endif %}" style="--h: {{ bar.p }}%; --p: {{ bar.p }}"></span>
+            <span class="bar-year{% if bar.hi %} is-hi{% endif %}{% if bar.nowrap %} bid-name{% endif %}" data-budget-exempt>{{ bar.label | escape }}</span>
+          </div>
+          {% endfor %}
+        </div>
       </div>
-      <p class="source-line source-ink" data-budget-exempt>Map: City of Austin (CTM, Citygate GIS, Travis County Clerk Elections Division).</p>
+      <p class="source-line" data-budget-exempt>Source: <a href="{{ wed.sources[0].url | escape }}">{{ wed.sources[0].label | escape }}</a></p>
     </section>
     <section class="story-card story-card--week">
       {% if thisWeek.outcomes.length %}
@@ -49,17 +40,6 @@
       {% endif %}
       <h2 class="week-kicker" id="this-week-a">This week · {{ thisWeek.items | length }} items</h2>
       {% include "reset-week.njk" %}
-    </section>
-    <section class="story-card story-card--districts">
-      <p class="card-num">{{ lead.key_figures.districts_4_5_7_units_2027 }}</p>
-      <h2>Districts 4, 5 and 7</h2>
-      <p class="card-blurb">Of the {{ n }} rental units.</p>
-      <div class="mini" role="img" aria-label="District 4 has {{ d4.units }} units, District 5 has {{ d5.units }}, and District 7 has {{ d7.units }}.">
-        <div class="mini-row"><span data-budget-exempt>D4</span><span class="mini-bar" style="--h: 100%"></span><span data-budget-exempt>{{ d4.units }}</span></div>
-        <div class="mini-row"><span data-budget-exempt>D5</span><span class="mini-bar" style="--h: {{ (d5.units / d4.units * 100) | round }}%"></span><span data-budget-exempt>{{ d5.units }}</span></div>
-        <div class="mini-row"><span data-budget-exempt>D7</span><span class="mini-bar" style="--h: {{ (d7.units / d4.units * 100) | round }}%"></span><span data-budget-exempt>{{ d7.units }}</span></div>
-      </div>
-      <p class="source-line source-ink" data-budget-exempt><a href="{{ inventory | escape }}">City inventory</a></p>
     </section>
   </div>
   

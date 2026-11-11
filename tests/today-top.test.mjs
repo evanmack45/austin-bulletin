@@ -56,7 +56,9 @@ test("the homepage leads with the rent-limit number and the edition keeps each s
   const dateline = `${weekdayName(instant)}, ${shortMonthDay(instant)}`;
   assert.ok(html.includes(dateline), dateline);
   assert.doesNotMatch(html, /class="today-top"/);
-  assert.match(html, /Affordable rentals lose rent limits in 2027/);
+  assert.match(html, /Bell(?:'|&#39;)s helicopter bid won despite lowest cost score/);
+  assert.match(html, />71\.68</);
+  assert.doesNotMatch(html, />927</);
   if (desk.headline) {
     assert.equal(html.split(desk.headline).length - 1, 0, desk.headline);
   }
@@ -75,7 +77,11 @@ test("the homepage leads with the rent-limit number and the edition keeps each s
   }
   if (!desk.headline) {
     const cards = readFileSync(`_site/${edition.replaceAll("-", "/")}/index.html`, "utf8");
-    assert.match(cards, /Rent limits on affordable rentals end in 2027/);
+    assert.match(cards, /Bell(?:'|&#39;)s helicopter bid won despite lowest cost score/);
+    assert.match(cards, />71\.68</);
+    const tuesday = readFileSync("_site/2026/11/10/index.html", "utf8");
+    assert.match(tuesday, /Rent limits on affordable rentals end in 2027/);
     assert.equal(html.includes("Rent limits on affordable rentals end in 2027"), false);
+    assert.equal(html.includes("$67.8M"), true);
   }
 });

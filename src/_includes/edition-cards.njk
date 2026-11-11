@@ -12,6 +12,9 @@
 <div class="more">{% for para in item.full %}<p>{{ para | tightTokens | safe }}</p>{% endfor %}</div>
 {% endif %}
 {% endmacro %}
+{% if edition_cards %}
+{% include "edition-scoreboard.njk" %}
+{% else %}
 <div class="edition-wrap">
   <div class="edition-intro">
     <div class="datestrip">
@@ -143,3 +146,4 @@
   {% include "signup.njk" %}
   {% endif %}
 </div>
+{% endif %}
