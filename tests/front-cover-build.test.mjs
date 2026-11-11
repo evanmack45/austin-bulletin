@@ -76,7 +76,7 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.match(html, /href="\/2026\/11\/09\/"/);
   assert.match(html, /Nov\. 10 · 6 outcomes/);
   assert.match(html, /This week · 2 items/);
-  assert.match(html, /Kaskade permit approved, 4-0/);
+  assert.match(html, /<u>4\u20110<\/u>[\s\S]*Kaskade permit approved</);
   assert.match(html, /\$197M[\s\S]*County certificates approved/);
   assert.match(html, /\$67\.8M[\s\S]*STAR Flight contract approved/);
   assert.match(html, /No action on bond committee/);
@@ -94,7 +94,7 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
     .replace(/<[^>]+>/g, " ");
   assert.equal(outcomes.includes("https://"), true);
   assert.equal(outcomeText.includes("https://"), false);
-  assert.equal(outcomeText.includes("4-0"), true);
+  assert.equal(outcomeText.includes("4\u20110") && !outcomeText.includes("4-0"), true);
   assert.equal(outcomeText.includes("5-0"), false);
   assert.equal(outcomeText.includes("Briefed Nov."), false);
   assert.equal(outcomeText.includes("Approved Nov."), false);

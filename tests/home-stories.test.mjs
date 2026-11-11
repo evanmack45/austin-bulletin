@@ -384,14 +384,17 @@ test("Nov. 10 meetings are outcomes and Nov. 12 stays upcoming", () => {
   assert.deepEqual(thisWeek.outcomes.map((item) => item.headline), [
     "Barton Springs briefing held",
     "Pease Park briefing held",
-    "Kaskade permit approved, 4-0",
+    "Kaskade permit approved",
     "County certificates approved",
     "STAR Flight contract approved",
     "No action on bond committee"
   ]);
   assert.deepEqual(thisWeek.outcomes.map((item) => item.glyph), [
-    "", "", "", "$197M", "$67.8M", ""
+    "", "", "4\u20110", "$197M", "$67.8M", ""
   ]);
+  const kaskade = thisWeek.outcomes.find((item) => item.id === "kaskade-origin-permit");
+  assert.equal(kaskade.glyph.includes("-"), false);
+  assert.equal(kaskade.headline.includes("4"), false);
   const text = thisWeek.outcomes.map((item) => item.text).join("\n");
   assert.match(text, /Balcones Canyonlands/);
   assert.match(text, /Pease Park Conservancy/);

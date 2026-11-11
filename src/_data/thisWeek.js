@@ -45,10 +45,13 @@ const outcomes = (editionCards["2026-11-10"]?.cards || [])
   .sort((a, b) => a.outcome - b.outcome)
   .map((card) => {
     const sources = Array.isArray(card.sources) ? card.sources : [];
-    const glyph = card.glyph?.value || "";
+    // Homepage only. The edition headline still carries "4-0". A non-breaking
+    // hyphen keeps the tally in the mark from splitting the way a headline wrap did.
+    const kaskade = card.id === "kaskade-origin-permit";
+    const glyph = kaskade ? "4\u20110" : (card.glyph?.value || "");
     return {
       id: card.id,
-      headline: card.headline || "",
+      headline: kaskade ? "Kaskade permit approved" : (card.headline || ""),
       topic: glyph ? "" : (card.topic || ""),
       glyph,
       glyphLabel: glyph ? (card.glyph?.qualifier || "") : "",
