@@ -373,11 +373,44 @@ test("November 9 lists the registration lead, then news, then the forecast", () 
   }
 });
 
-test("the homepage week list keeps the certificates item", () => {
-  assert.equal(thisWeek.held, undefined);
-  assert.equal(thisWeek.items.length, 8);
-  const headlines = thisWeek.items.map((item) => item.headline);
-  assert.ok(headlines.includes("Court weighs $197 million in certificates"));
+test("Nov. 10 meetings are outcomes and Nov. 12 stays upcoming", () => {
+  assert.equal(thisWeek.items.length, 2);
+  assert.deepEqual(thisWeek.items.map((item) => item.date), ["2026-11-12", "2026-11-12"]);
+  assert.deepEqual(thisWeek.items.map((item) => item.headline), [
+    "Committee hears downtown transportation plan",
+    "Court takes up November 3 canvass"
+  ]);
+  assert.equal(thisWeek.outcomes.length, 6);
+  const text = thisWeek.outcomes.map((item) => item.text).join("\n");
+  assert.match(text, /Balcones Canyonlands/);
+  assert.match(text, /Pease Park Conservancy/);
+  assert.match(text, /Approved Nov\. 10, 4-0/);
+  assert.match(text, /Kaskade Origin/);
+  assert.equal(text.includes("Cascade"), false);
+  assert.match(text, /\$13\.5 million, to \$197\.1 million/);
+  assert.match(text, /\$67,757,745\.12/);
+  assert.match(text, /No action Nov\. 10/);
+  assert.match(text, /closed session/);
+  assert.equal(text.includes("5-0"), false);
+  assert.equal(text.includes("three helicopters"), false);
+  assert.equal(text.includes("ceiling"), false);
+  assert.equal(text.includes("Shea"), false);
+  assert.equal(text.includes("CivicClerk"), false);
+  const star = thisWeek.outcomes.find((item) => item.id.startsWith("678-million"));
+  assert.equal(star.text.includes("4-0"), false);
+  assert.equal(star.text.includes("5-0"), false);
+  const certificates = thisWeek.outcomes.find((item) => item.text.includes("$197.1 million"));
+  const consent = certificates.sources.some((source) => source.label.includes("consent motion"));
+  assert.equal(consent, true);
+  assert.equal(certificates.text.includes("item 18"), false);
+  for (const item of thisWeek.outcomes) {
+    assert.equal(item.text.includes("http"), false, item.id);
+    assert.ok(item.sources.length > 0, item.id);
+    for (const source of item.sources) {
+      assert.match(source.url, /^https:\/\//);
+      assert.equal(source.label.includes("http"), false);
+    }
+  }
 });
 
 test("November 8 home cards use the short Hornsby and Muny openings", () => {

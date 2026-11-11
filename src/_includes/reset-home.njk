@@ -32,6 +32,17 @@
       <p class="source-line source-ink" data-budget-exempt>Map: City of Austin (CTM, Citygate GIS, Travis County Clerk Elections Division).</p>
     </section>
     <section class="story-card story-card--week">
+      {% if thisWeek.outcomes.length %}
+      <h2 class="week-kicker" id="week-outcomes">Nov. 10 · {{ thisWeek.outcomes | length }} outcomes</h2>
+      <ul class="week-outcomes">
+        {% for item in thisWeek.outcomes %}
+        <li>
+          <p>{{ item.text | tightTokens }}</p>
+          <p class="source-line" data-budget-exempt>{% if item.sources | length == 1 %}Source{% else %}Sources{% endif %}: {% for source in item.sources %}{% if not loop.first %}<span aria-hidden="true"> · </span>{% endif %}<a href="{{ source.url | escape }}">{{ source.label | escape }}</a>{% endfor %}</p>
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
       <h2 class="week-kicker" id="this-week-a">This week · {{ thisWeek.items | length }} items</h2>
       {% include "reset-week.njk" %}
     </section>

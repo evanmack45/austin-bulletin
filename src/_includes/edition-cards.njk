@@ -126,7 +126,11 @@
         <div class="tl" role="img" aria-label="{{ item.timelineAlt | escape }}"><ol>{% for point in item.timeline %}<li{% if point.hi %} class="hi"{% endif %} style="left:{{ point.left }}%"><b>{{ point.date | tightTokens }}</b><span>{{ point.label | escape }}</span></li>{% endfor %}</ol></div>
         {% endif %}
         <h3>{{ item.headline | tightTokens }}</h3>
+        {% if item.outcome %}
+        {% for para in item.full %}<p class="sum">{{ para | tightTokens }}</p>{% endfor %}
+        {% else %}
         {{ itemBody(item) }}
+        {% endif %}
         {% if item.shownSources | length %}{{ sourceLine(item.shownSources, false) }}{% endif %}
         {% endif %}
       </article>

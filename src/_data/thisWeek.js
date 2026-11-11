@@ -14,6 +14,7 @@ const MONTHS = ["Jan.", "Feb.", "Mar.", "Apr.", "May", "Jun.",
   "Jul.", "Aug.", "Sep.", "Oct.", "Nov.", "Dec."];
 
 const raw = JSON.parse(readFileSync(new URL("./weekItems.json", import.meta.url), "utf8"));
+const editionCards = JSON.parse(readFileSync(new URL("./editionCardData.json", import.meta.url), "utf8"));
 
 function dateLabel(iso) {
   const [, month, day] = iso.split("-").map(Number);
@@ -39,9 +40,19 @@ for (const item of items) {
 
 const placed = pins.map((pin) => ({ ...pin, count: pin.items.length }));
 
+const outcomes = (editionCards["2026-11-10"]?.cards || [])
+  .filter((card) => Number.isInteger(card.outcome))
+  .sort((a, b) => a.outcome - b.outcome)
+  .map((card) => ({
+    id: card.id,
+    text: card.summary || "",
+    sources: Array.isArray(card.sources) ? card.sources : []
+  }));
+
 export default {
   heading: "This week",
   items,
+  outcomes,
   pins: placed,
   pinsJson: JSON.stringify(placed)
 };
