@@ -42,6 +42,22 @@ test("a lead photograph is the share image ahead of a later story graphic", () =
   assert.equal(meta.imageAlt, "Travis County Courthouse, 2011");
 });
 
+test("a scoreboard lead uses its headline, deck, and chart image", () => {
+  const html = `<time class="edition-date">Tue., Nov. 10, 2026</time>` +
+    `<section class="lead"><img class="share-image" ` +
+    `src="/images/2026-11-10/rent-limits-desktop-1600.webp" alt="Chart. Units.">` +
+    `<h1>Rent limits on affordable rentals end in 2027</h1>` +
+    `<p class="deck">More than three times the 268 units listed for 2028.</p></section>`;
+  const meta = pageMetadata("/2026/11/10/", "The Austin Bulletin — Tuesday", html,
+    "More than three times the 268 units listed for 2028.");
+  assert.equal(meta.ogTitle, "Rent limits on affordable rentals end in 2027");
+  assert.match(meta.title, /Rent limits on affordable rentals end in 2027 — Tue\., Nov\. 10, 2026/);
+  assert.equal(meta.image,
+    "https://theaustinbulletin.com/images/2026-11-10/rent-limits-desktop-1600.webp");
+  assert.equal(meta.imageAlt, "Chart. Units.");
+  assert.equal(meta.description, "More than three times the 268 units listed for 2028.");
+});
+
 test("a card lead uses that edition's art as the share image", () => {
   const html = `<article class="lead"><img class="share-image" ` +
     `src="/images/2026-11-10/rent-limits-desktop-1600.webp" alt="Chart. Units.">` +

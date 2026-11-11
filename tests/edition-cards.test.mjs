@@ -30,8 +30,8 @@ test("the Nov. 10 card page uses the fact-checked lines", () => {
   for (const line of [
     "Balcones Canyonlands Preserve",
     "Pease Park Conservancy",
-    "Approved Nov. 10, 4-0.",
-    "Kaskade Origin event Nov. 20-21 at 8509 Burleson Road",
+    "Approved Nov. 10, 4\u20110.",
+    "Kaskade Origin event Nov. 20\u201121 at 8509 Burleson Road",
     "by $13.5 million, to $197.1 million",
     "The judge called it unanimous, according to the meeting video.",
     "The county has not yet posted the vote record.",
@@ -47,7 +47,7 @@ test("the Nov. 10 card page uses the fact-checked lines", () => {
     .replace(/<script[\s\S]*?<\/script>/g, " ")
     .replace(/<[^>]+>/g, " ");
   assert.equal(visible.includes("https://"), false);
-  const kaskade = page.match(/id="kaskade-origin-permit"[\s\S]*?<\/article>/)?.[0] ?? "";
+  const kaskade = page.match(/id="kaskade-origin-permit"[\s\S]*?<\/details>/)?.[0] ?? "";
   assert.match(kaskade, /Kaskade Origin/);
   assert.equal(kaskade.includes("Cascade"), false);
   assert.equal(page.includes("three helicopters"), false);
@@ -58,7 +58,7 @@ test("the Nov. 10 card page uses the fact-checked lines", () => {
   assert.equal(page.includes("5-0"), false);
   assert.equal(page.includes("Listed for consideration, not approval"), false);
   assert.doesNotMatch(page, /would award|will consider approving|may decide a permit/);
-  const star = page.match(/id="678-million-contract[\s\S]*?<\/article>/)?.[0] ?? "";
+  const star = page.match(/id="678-million-contract[\s\S]*?<\/details>/)?.[0] ?? "";
   assert.equal(star.includes("4-0"), false);
   assert.equal(star.includes("5-0"), false);
   assert.match(page, /Mobility Committee meets at 1/);

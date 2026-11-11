@@ -117,8 +117,11 @@ function collectIds(inner, level, ids) {
 }
 
 function collectCardIds(html, ids) {
+  const source = String(html);
   const re = /<article\b[^>]*class="[^"]*\b(?:lead|card)\b[^"]*"[^>]*\sid="([^"]*)"/gi;
-  for (const match of String(html).matchAll(re)) ids.push(match[1] ?? "");
+  for (const match of source.matchAll(re)) ids.push(match[1] ?? "");
+  const lead = source.match(/<section\b[^>]*class="lead"[^>]*\sid="([^"]+)"/i);
+  if (lead) ids.push(lead[1]);
 }
 
 export function storyAnchorIds(html) {

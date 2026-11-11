@@ -79,9 +79,15 @@ test("the built archive lists those titles and the homepage card stays the lead"
   assert.doesNotMatch(archive, /Early voting is over: 47\.20%/);
   assert.doesNotMatch(archive, /Last day of early voting: 41\.98%/);
   const home = readFileSync(path.join(root, "_site/index.html"), "utf8");
-  assert.match(home, /property="og:title" content="Affordable rentals lose rent limits in 2027/);
-  assert.match(home, /name="twitter:title" content="Affordable rentals lose rent limits in 2027/);
-  const card = "https://theaustinbulletin.com/images/reset/share-1200x630.png";
+  assert.match(
+    home,
+    /property="og:title" content="Bell(?:'|&#39;)s helicopter bid won despite lowest cost score"/
+  );
+  assert.match(
+    home,
+    /name="twitter:title" content="Bell(?:'|&#39;)s helicopter bid won despite lowest cost score"/
+  );
+  const card = "https://theaustinbulletin.com/images/2026-11-11/bid-scores-desktop-1600.webp";
   assert.ok(home.includes(`property="og:image" content="${card}"`));
   assert.match(archive, /Austin Energy bonds, a \$5\.48 million trail purchase/);
   assert.match(archive, /href="\/2026\/11\/08\/"/);

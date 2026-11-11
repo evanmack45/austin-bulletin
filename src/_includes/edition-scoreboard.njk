@@ -1,0 +1,95 @@
+{% set story = model.lead %}
+<div class="edition-wrap">
+  <p class="sr-only"><time class="edition-date" datetime="{{ editionDate | isoDate }}">{{ editionDate | stripDate }}</time></p>
+  {% if today and not hide_today %}
+  <p class="today"><strong>Today:</strong> {{ today | tightTokens }}</p>
+  {% endif %}
+  {% if story %}
+  {% set shareUrl = (page.url | canonicalUrl) + "#" + story.id %}
+  <section class="lead" id="{{ story.id | escape }}" aria-labelledby="lead-h">
+    {% if images and images.lead and images.lead.src %}
+    <img class="share-image" src="{{ images.lead.src | escape }}" alt="{{ images.lead.alt | escape }}" width="{{ images.lead.width }}" height="{{ images.lead.height }}" aria-hidden="true">
+    {% endif %}
+    <div class="lead-text">
+      <p class="bignum">{{ story.bignum | escape }}{% if story.qualifier %}<span class="qual">{{ story.qualifier | escape }}</span>{% endif %}</p>
+      <h1 id="lead-h">{{ story.headline | tightTokens }}</h1>
+      <p class="deck">{{ story.deck | tightTokens | safe }}</p>
+    </div>
+    <figure class="chart" aria-labelledby="chart-alt">
+      <p class="kicker chart-kicker" data-budget-exempt><span class="icon">{{ "chart-bar-bold" | icon | safe }}</span><span>Chart</span></p>
+      <p class="sr-only" id="chart-alt">{{ story.chartAlt | escape }}</p>
+      {% if story.chartTitle %}
+      <p class="chart-title" data-budget-exempt>{{ story.chartTitle | tightTokens | safe }}</p>
+      {% endif %}
+      <div class="bars" aria-hidden="true" data-budget-exempt>
+        {% if story.bars %}
+        {% for bar in story.bars %}
+        <div class="col"><span class="val{% if bar.hi %} is-hi{% endif %}">{{ bar.value | escape }}</span><span class="bar{% if bar.hi %} hi{% endif %}" style="--p:{{ bar.p }}"></span><span class="lab{% if bar.hi %} is-hi{% endif %}">{% if bar.nowrap %}<span class="nb">{{ bar.label | escape }}</span>{% else %}{{ bar.label | escape }}{% endif %}</span></div>
+        {% endfor %}
+        {% else %}
+        {% for point in lead.series_by_year %}
+        <div class="col"><span class="bar-value val{% if point.highlight %} is-hi{% endif %}">{{ point.units }}</span><span class="bar{% if point.highlight %} hi bar-hi{% endif %}" style="--p:{{ point.units | barPercent(lead.series_by_year) }}"></span><span class="lab bar-year{% if point.highlight %} is-hi{% endif %}">{{ point.year }}</span></div>
+        {% endfor %}
+        {% endif %}
+      </div>
+      <a class="share" href="{{ shareUrl | escape }}" data-share-title="{{ story.headline | escape }}" aria-label="Share: {{ story.headline | escape }}"><span class="icon">{{ "share-network-bold" | icon | safe }}</span><span class="share-word">Share</span></a>
+    </figure>
+    <div class="lead-foot">
+      <p class="srcline" data-budget-exempt>{% if story.sourcePrefix %}{{ story.sourcePrefix | tightTokens }}{% else %}Source{% if story.sources | length > 1 %}s{% endif %}:{% endif %}{% for source in story.sources %} <a href="{{ source.url | escape }}">{{ source.label | tightTokens }}</a>{% endfor %}</p>
+      <details class="method">
+        <summary>Method <span class="icon">{{ "caret-down-bold" | icon | safe }}</span></summary>
+        <div class="method-body">
+          {% if story.caveat %}<p>{{ story.caveat | tightTokens }}</p>{% endif %}
+          {% for para in story.method %}<p>{{ para | tightTokens | safe }}</p>{% endfor %}
+        </div>
+      </details>
+    </div>
+  </section>
+  {% endif %}
+
+  {% for section in model.boards %}
+  <section aria-labelledby="{{ section.id | escape }}">
+    <h2 class="section-label" id="{{ section.id | escape }}"><span>{{ section.label | tightTokens }}</span></h2>
+    <div class="board">
+      {% for item in section.items %}
+      <details class="oc" id="{{ item.id | escape }}">
+        <summary><span class="mark{% if item.markWord %} word{% endif %}">{{ item.markText | escape }}{% if item.markQualifier %}<small>{{ item.markQualifier | tightTokens }}</small>{% endif %}</span><span class="oc-head"><span>{{ item.headline | tightTokens }}</span><span class="icon">{{ "caret-down-bold" | icon | safe }}</span></span></summary>
+        <div class="oc-body">
+          {% for para in item.boardRecap %}<p>{{ para | tightTokens | safe }}</p>{% endfor %}
+          {% if item.shownSources | length %}
+          <p class="src"><span class="src-k">{% if item.shownSources | length == 1 %}Source{% else %}Sources{% endif %}</span>{% for source in item.shownSources %}<a href="{{ source.url | escape }}">{{ source.label | tightTokens }}</a>{% endfor %}</p>
+          {% endif %}
+          {% for source in item.moreSources %}<a class="src-more" href="{{ source.url | escape }}">{{ source.label | tightTokens }}</a>{% endfor %}
+        </div>
+      </details>
+      {% endfor %}
+    </div>
+  </section>
+  {% endfor %}
+
+  {% set signupId = "edition" %}
+  {% include "signup.njk" %}
+
+  <div class="after">
+    {% if model.nextItems | length %}
+    <section class="list" aria-labelledby="next-h">
+      <h2 id="next-h">Next</h2>
+      <ul>
+        {% for item in model.nextItems %}
+        <li id="{{ item.id | escape }}">{% if item.when %}<span class="when">{{ item.when | tightTokens }}</span>{% elif item.glyphValue %}<span class="when">{{ item.glyphValue | tightTokens }}</span>{% endif %}<span class="list-main">{% if item.sources and item.sources[0] %}<a href="{{ item.sources[0].url | escape }}">{{ item.headline | tightTokens }}</a>{% else %}{{ item.headline | tightTokens }}{% endif %}{% for source in item.sources %}{% if not loop.first %}<a href="{{ source.url | escape }}">{{ source.label | tightTokens }}</a>{% endif %}{% endfor %}</span>{% if item.listRecap | length %}<div class="list-copy">{% for para in item.listRecap %}<p>{{ para | tightTokens | safe }}</p>{% endfor %}</div>{% endif %}</li>
+        {% endfor %}
+      </ul>
+    </section>
+    {% endif %}
+    {% if model.noticeItems | length %}
+    <section class="list" aria-labelledby="notices-h">
+      <h2 id="notices-h">Notices</h2>
+      <ul>
+        {% for item in model.noticeItems %}
+        <li id="{{ item.id | escape }}">{% if item.when %}<span class="when">{{ item.when | tightTokens }}</span>{% elif item.glyphValue %}<span class="when">{{ item.glyphValue | tightTokens }}{% if item.markQualifier %}<small>{{ item.markQualifier | tightTokens }}</small>{% endif %}</span>{% elif item.topic %}<span class="when">{{ item.topic | tightTokens }}</span>{% endif %}<span class="list-main">{% if item.sources and item.sources[0] %}<a href="{{ item.sources[0].url | escape }}">{{ item.headline | tightTokens }}</a>{% else %}{{ item.headline | tightTokens }}{% endif %}{% for source in item.sources %}{% if not loop.first %}<a class="src-more" href="{{ source.url | escape }}" data-budget-exempt>{{ source.label | tightTokens }}</a>{% endif %}{% endfor %}</span>{% if item.summary %}<div class="list-copy"><p>{{ item.summary | tightTokens }}</p></div>{% endif %}</li>
+        {% endfor %}
+      </ul>
+    </section>
+    {% endif %}
+  </div>
+</div>

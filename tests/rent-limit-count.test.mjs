@@ -21,24 +21,23 @@ function barValues(html) {
 
 test("the hero, 2027 bar, and summary line are the same unit count", () => {
   const html = readFileSync("_site/index.html", "utf8");
-  const heroes = [...html.matchAll(/<span class="bignum" data-count="(\d+)">(\d+)<\/span>/g)];
-  assert.equal(heroes.length, 1);
-  assert.equal(heroes[0][1], heroes[0][2]);
-  const summary = html.match(/Of the (\d+) rental units/);
-  assert.ok(summary);
-  const bars = barValues(html);
-  const highlighted = bars.filter((bar) => bar.highlight);
-  assert.equal(highlighted.length, 1);
-  assert.equal(heroes[0][1], String(highlighted[0].units));
-  assert.equal(summary[1], heroes[0][1]);
-  assert.equal(heroes[0][1], "927");
-  assert.match(html, /sum of affordable units/);
+  const lead = html.match(
+    /<section class="[^"]*story-card--lead[^"]*"[\s\S]*?<\/section>/
+  )?.[0] ?? "";
+  const hero = lead.match(/<p class="bignum">([^<]+)/);
+  assert.ok(hero);
+  assert.match(hero[1], /71\.68/);
+  assert.doesNotMatch(lead, />927</);
+  assert.doesNotMatch(lead, /\$67\.8M/);
+  const homeBars = [...html.matchAll(/<span class="bar-value([^"]*)"[^>]*>([^<]+)<\/span>/g)]
+    .map((match) => ({ highlight: match[1].includes("is-hi"), units: match[2].trim() }));
+  assert.equal(homeBars.find((bar) => bar.highlight).units, "71.68");
 
   const edition = readFileSync("_site/2026/11/10/index.html", "utf8");
   assert.match(edition, /<p class="bignum">927<\/p>/);
   const editionBars = barValues(edition);
   assert.equal(editionBars.find((bar) => bar.highlight).units, 927);
-  assert.deepEqual(editionBars.map((bar) => bar.units), bars.map((bar) => bar.units));
+  assert.deepEqual(editionBars.map((bar) => bar.units), [927, 268, 637, 953, 358]);
   const story = readFileSync("_site/lead-story/index.html", "utf8");
   for (const page of [edition, story]) {
     assert.match(page, /Each chart bar sums affordable units/);
@@ -59,7 +58,7 @@ test("every chart bar matches the five-status inventory query", () => {
     lead.series_by_year.map((point) => ({ year: point.year, units: point.units })),
     evidence.years.map((year) => ({ year: year.year, units: year.units }))
   );
-  const html = readFileSync("_site/index.html", "utf8");
+  const html = readFileSync("_site/2026/11/10/index.html", "utf8");
   assert.deepEqual(
     barValues(html).map((bar) => bar.units),
     evidence.years.map((year) => year.units)

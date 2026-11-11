@@ -76,5 +76,6 @@ export function stripDate(value) {
 export function tightTokens(value) {
   return String(value ?? "")
     .replace(/\b([A-Z][a-z]{2,8}\.) (\d)/g, "$1\u00a0$2")
-    .replace(/\b(\d{1,2}(?::\d{2})?) (a\.m\.|p\.m\.)/g, "$1\u00a0$2");
+    .replace(/\b(\d{1,2}(?::\d{2})?) (a\.m\.|p\.m\.)/g, "$1\u00a0$2")
+    .replace(/\bitem (\d+)/g, "item\u00a0$1");
 }

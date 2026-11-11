@@ -85,8 +85,8 @@ async function measureFirstFold(page) {
 
 function assertPlacement(result, width, height) {
  assert.ok(result.lead.top < height, JSON.stringify(result.lead));
- assert.ok(result.number.bottom <= height, `927 below the fold ${JSON.stringify(result.number)}`);
- assert.ok(result.bar.bottom <= height, `2027 bar below the fold ${JSON.stringify(result.bar)}`);
+ assert.ok(result.number.bottom <= height, `71.68 below the fold ${JSON.stringify(result.number)}`);
+ assert.ok(result.bar.bottom <= height, `bid bar below the fold ${JSON.stringify(result.bar)}`);
  if (width === 390) assert.ok(result.header.height <= 360, JSON.stringify(result.header));
 }
 
@@ -105,7 +105,7 @@ async function readSourceLine(page) {
 		const linkRect = linkRange.getClientRects()[0];
 		const lead = document.querySelector(".front-lead");
 		const datasetLinks = [...lead.querySelectorAll("a")].filter((anchor) =>
-			anchor.textContent.trim() === "City of Austin, Affordable Housing Inventory");
+			anchor.textContent.trim() === "Evaluation matrix, packet p. 822");
 		return {
 			labelTop: labelRect.top,
 			linkTop: linkRect.top,
@@ -145,8 +145,8 @@ async function readDateLines(page) {
 }
 
 function assertSourceLine(sourceLine) {
-	assert.equal(sourceLine.datasetLinks, 1, "lead column keeps one inventory link");
-	assert.match(sourceLine.text, /^Source: City of Austin, Affordable Housing Inventory$/);
+	assert.equal(sourceLine.datasetLinks, 1, "lead column keeps one matrix link");
+	assert.match(sourceLine.text, /^Source: Evaluation matrix, packet p\. 822$/);
 	const sameLine = Math.abs(sourceLine.labelTop - sourceLine.linkTop) < 3;
 	if (sameLine) {
 		assert.ok(sourceLine.gap >= 3, `missing space after Source: ${JSON.stringify(sourceLine)}`);
@@ -172,8 +172,9 @@ function assertFirstFold(result, width, height) {
  assert.equal(result.barColor, "rgb(255, 194, 51)");
  assert.ok(result.action.height >= 44);
  assert.ok(result.nav.every(link => link.height >= 44));
- assert.match(result.sourceName, /Affordable Housing Inventory/);
- assert.match(result.title, /Affordable rentals lose rent limits in 2027/);
+ assert.match(result.sourceName, /Evaluation matrix, packet p\. 822/);
+ assert.match(result.title, /Bell's helicopter bid won despite lowest cost score/);
+ assert.equal(result.title.includes("$67.8M"), false);
  assertPlacement(result, width, height);
  assert.equal(result.actionColor, "rgb(175, 187, 201)");
  assert.equal(result.actionBg, "rgba(0, 0, 0, 0)");
@@ -293,7 +294,7 @@ test("guide action fragments reach the answer by keyboard without JavaScript", {
 		assert.ok(accessTitle.ok());
 		assert.equal(
 			await page.$eval(".front-lead .source-line a", (link) => link.getAttribute("href")),
-			"https://data.austintexas.gov/d/ifzc-3xz8",
+			"https://traviscotx.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=13358,plainText=false)",
 		);
 	} finally {
 		await browser.close();
