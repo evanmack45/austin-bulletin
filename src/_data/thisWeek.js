@@ -43,11 +43,22 @@ const placed = pins.map((pin) => ({ ...pin, count: pin.items.length }));
 const outcomes = (editionCards["2026-11-10"]?.cards || [])
   .filter((card) => Number.isInteger(card.outcome))
   .sort((a, b) => a.outcome - b.outcome)
-  .map((card) => ({
-    id: card.id,
-    text: card.summary || "",
-    sources: Array.isArray(card.sources) ? card.sources : []
-  }));
+  .map((card) => {
+    const sources = Array.isArray(card.sources) ? card.sources : [];
+    const glyph = card.glyph?.value || "";
+    return {
+      id: card.id,
+      headline: card.headline || "",
+      topic: glyph ? "" : (card.topic || ""),
+      glyph,
+      glyphLabel: glyph ? (card.glyph?.qualifier || "") : "",
+      text: card.homeDek || "",
+      // A long label cannot share a phone line with the next source. Stack
+      // that row so the separator is not left at the end of a line.
+      stackSources: sources.some((source) => String(source.label || "").length > 24),
+      sources
+    };
+  });
 
 export default {
   heading: "This week",

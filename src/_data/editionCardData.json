@@ -28,6 +28,7 @@
         "glyph": { "value": "$197M", "qualifier": "approved certificates total" },
         "headline": "County certificates approved",
         "summary": "Approved Nov. 10 on the consent agenda. Commissioners raised planned 2027 certificates by $13.5 million, to $197.1 million.",
+        "homeDek": "Consent agenda raised planned 2027 certificates $13.5 million, to $197.1 million.",
         "full": [
           "Approved Nov. 10 on the consent agenda. Commissioners raised the county's planned 2027 certificates of obligation by $13.5 million, to $197.1 million."
         ],
@@ -49,6 +50,7 @@
         "glyph": { "value": "$67.8M", "qualifier": "approved contract" },
         "headline": "STAR Flight contract approved",
         "summary": "Approved Nov. 10. Bell Textron STAR Flight contract for $67,757,745.12; judge called it unanimous, vote record not posted.",
+        "homeDek": "Bell Textron, $67,757,745.12. Judge called it unanimous; vote record not posted.",
         "full": [
           "Approved Nov. 10. Travis County commissioners approved a $67.8 million contract with Bell Textron for new STAR Flight helicopters, in the amount of $67,757,745.12. The judge called it unanimous, according to the meeting video. The county has not yet posted the vote record."
         ],
@@ -71,6 +73,7 @@
         "topic": "Bond election",
         "headline": "No action on bond committee",
         "summary": "No action Nov. 10. The court discussed the 2027 bond committee in closed session.",
+        "homeDek": "Closed session.",
         "full": [
           "No action Nov. 10. Commissioners discussed the proposed 2027 bond election and citizens advisory committee in closed session and took no action, according to the meeting video."
         ],
@@ -110,6 +113,7 @@
         "topic": "Briefing",
         "headline": "Barton Springs briefing held",
         "summary": "Briefed Nov. 10: Austin Water briefed Balcones Canyonlands and Barton Springs aquifer, no vote scheduled.",
+        "homeDek": "Austin Water on Balcones Canyonlands and the Barton Springs aquifer. No vote scheduled.",
         "full": [
           "Briefed Nov. 10: Austin Water staff briefed the council's climate and parks committee on managing the Balcones Canyonlands Preserve and protecting the Barton Springs segment of the Edwards Aquifer. No vote was scheduled."
         ],
@@ -132,6 +136,7 @@
         "topic": "Briefing",
         "headline": "Pease Park briefing held",
         "summary": "Briefed Nov. 10: Pease Park Conservancy and parks staff briefed partnership and restoration plans, no vote scheduled.",
+        "homeDek": "Pease Park Conservancy and parks staff on partnership and restoration. No vote scheduled.",
         "full": [
           "Briefed Nov. 10: The Pease Park Conservancy and city parks staff briefed the committee on their partnership and future restoration plans for Pease Park. No vote was scheduled."
         ],
@@ -154,6 +159,7 @@
         "topic": "Permit",
         "headline": "Kaskade permit approved, 4-0",
         "summary": "Approved Nov. 10, 4-0, no speakers, for Kaskade Origin Nov. 20-21 at 8509 Burleson Road.",
+        "homeDek": "No speakers. Kaskade Origin, Nov. 20-21, at 8509 Burleson Road.",
         "full": [
           "Approved Nov. 10, 4-0. After a public hearing with no speakers, Travis County commissioners approved a mass-gathering permit for the Kaskade Origin event Nov. 20-21 at 8509 Burleson Road."
         ],

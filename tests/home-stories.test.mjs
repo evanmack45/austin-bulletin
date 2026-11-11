@@ -381,28 +381,45 @@ test("Nov. 10 meetings are outcomes and Nov. 12 stays upcoming", () => {
     "Court takes up November 3 canvass"
   ]);
   assert.equal(thisWeek.outcomes.length, 6);
+  assert.deepEqual(thisWeek.outcomes.map((item) => item.headline), [
+    "Barton Springs briefing held",
+    "Pease Park briefing held",
+    "Kaskade permit approved, 4-0",
+    "County certificates approved",
+    "STAR Flight contract approved",
+    "No action on bond committee"
+  ]);
+  assert.deepEqual(thisWeek.outcomes.map((item) => item.glyph), [
+    "", "", "", "$197M", "$67.8M", ""
+  ]);
   const text = thisWeek.outcomes.map((item) => item.text).join("\n");
   assert.match(text, /Balcones Canyonlands/);
   assert.match(text, /Pease Park Conservancy/);
-  assert.match(text, /Approved Nov\. 10, 4-0/);
   assert.match(text, /Kaskade Origin/);
   assert.equal(text.includes("Cascade"), false);
+  assert.equal(text.includes("Briefed Nov."), false);
+  assert.equal(text.includes("Approved Nov."), false);
   assert.match(text, /\$13\.5 million, to \$197\.1 million/);
   assert.match(text, /\$67,757,745\.12/);
-  assert.match(text, /No action Nov\. 10/);
-  assert.match(text, /closed session/);
+  assert.match(text, /Closed session/);
   assert.equal(text.includes("5-0"), false);
   assert.equal(text.includes("three helicopters"), false);
   assert.equal(text.includes("ceiling"), false);
   assert.equal(text.includes("Shea"), false);
   assert.equal(text.includes("CivicClerk"), false);
+  assert.equal(text.includes("Not voted yet"), false);
   const star = thisWeek.outcomes.find((item) => item.id.startsWith("678-million"));
   assert.equal(star.text.includes("4-0"), false);
+  assert.equal(star.headline.includes("4-0"), false);
   assert.equal(star.text.includes("5-0"), false);
+  assert.equal(star.glyph, "$67.8M");
   const certificates = thisWeek.outcomes.find((item) => item.text.includes("$197.1 million"));
   const consent = certificates.sources.some((source) => source.label.includes("consent motion"));
   assert.equal(consent, true);
+  assert.equal(certificates.stackSources, true);
   assert.equal(certificates.text.includes("item 18"), false);
+  assert.equal(certificates.text.includes("4-0"), false);
+  assert.equal(certificates.headline.includes("4-0"), false);
   for (const item of thisWeek.outcomes) {
     assert.equal(item.text.includes("http"), false, item.id);
     assert.ok(item.sources.length > 0, item.id);
