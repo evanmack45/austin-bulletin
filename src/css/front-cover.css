@@ -487,8 +487,7 @@
     padding: 12px 16px 8px;
   }
   .cover-chrome .masthead-strip .wordmark,
-  .cover-chrome .masthead-strip .masthead-dateline a,
-  .cover-chrome .masthead-strip .site-menu-button {
+  .cover-chrome .masthead-strip .masthead-dateline a {
     box-sizing: border-box;
     min-height: 48px;
   }
@@ -564,6 +563,24 @@
   }
 }
 @media (max-width: 640px) {
+  /* One rule for home and edition. The 44px target is padding on the
+     link; the negative margin keeps that padding out of the strip. */
+  .cover-chrome .masthead-strip.front-masthead .site-menu-button {
+    box-sizing: border-box;
+    min-width: 44px;
+    min-height: 44px;
+    margin-block: -0.625rem;
+    padding: 0.625rem 0.15rem;
+    border: 0;
+    background: transparent;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: 0;
+    text-decoration: underline;
+    text-underline-offset: 0.12em;
+  }
   .cover-chrome .site-menu-panel.is-open,
   .cover-chrome .site-menu-panel:target,
   .cover-chrome .site-menu-button[aria-expanded="true"] + .site-menu-panel {
