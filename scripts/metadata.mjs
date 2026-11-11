@@ -107,11 +107,24 @@ function cardLead(content) {
   return { heading, paragraph: deck || firstCopy(article) };
 }
 
+function scoreboardLead(content) {
+  const section = String(content ?? "").match(
+    /<section\b[^>]*class="lead"[^>]*>([\s\S]*?)<\/section>/i
+  )?.[1] ?? "";
+  const heading = reliableText(section.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1]);
+  const paragraph = reliableText(section.match(
+    /<p\b[^>]*class="[^"]*\bdeck\b[^"]*"[^>]*>([\s\S]*?)<\/p>/i
+  )?.[1]);
+  return { heading, paragraph };
+}
+
 function leadFrom(content) {
   const story = bigStoryLead(content);
   if (story.heading) return story;
   const card = cardLead(content);
   if (card.heading) return card;
+  const board = scoreboardLead(content);
+  if (board.heading) return board;
   const front = frontPageLead(content);
   if (front.heading) return front;
   return story;
@@ -156,6 +169,8 @@ function storySection(content) {
     /<section\b[^>]*class="[^"]*\b(?:big-story|front-lead)\b[^"]*"[^>]*>[\s\S]*?<\/section>/i
   );
   if (section) return section[0];
+  const board = html.match(/<section\b[^>]*class="lead"[^>]*>[\s\S]*?<\/section>/i);
+  if (board) return board[0];
   return html.match(/<article\b[^>]*class="lead"[^>]*>[\s\S]*?<\/article>/i)?.[0] ?? "";
 }
 

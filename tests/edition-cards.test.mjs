@@ -30,8 +30,8 @@ test("the Nov. 10 card page uses the fact-checked lines", () => {
   for (const line of [
     "Balcones Canyonlands Preserve",
     "Pease Park Conservancy",
-    "Approved Nov. 10, 4-0.",
-    "Kaskade Origin event Nov. 20-21 at 8509 Burleson Road",
+    "Approved Nov. 10, 4\u20110.",
+    "Kaskade Origin event Nov. 20\u201121 at 8509 Burleson Road",
     "by $13.5 million, to $197.1 million",
     "The judge called it unanimous, according to the meeting video.",
     "The county has not yet posted the vote record.",

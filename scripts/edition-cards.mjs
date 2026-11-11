@@ -90,23 +90,42 @@ function listRecap(card) {
 
 function displayMark(card, glyphValue) {
   const raw = card.mark || glyphValue || card.topic || "";
-  return String(raw).replace(/(\d)-(\d)/g, "$1\u2011$2");
+  return tightTallies(raw);
+}
+
+// A tally such as 4-0 stays on one line. The collapsed mark already uses
+// U+2011; the same hyphen belongs in the opened recap and the update line.
+function tightTallies(value) {
+  return String(value ?? "").replace(/(\d)-(\d)/g, "$1\u2011$2");
+}
+
+function tightParts(list) {
+  return Array.isArray(list) ? list.map((part) => tightTallies(part)) : list;
 }
 
 function decorate(card, index, now) {
   const sources = Array.isArray(card.sources) ? card.sources : [];
-  const glyph = glyphText(card.glyph, now);
-  const markText = displayMark(card, glyph.glyphValue);
-  return {
+  const copy = {
     ...card,
+    headline: tightTallies(card.headline),
+    summary: tightTallies(card.summary),
+    deck: tightTallies(card.deck),
+    caveat: tightTallies(card.caveat),
+    full: tightParts(card.full),
+    method: tightParts(card.method)
+  };
+  const glyph = glyphText(copy.glyph, now);
+  const markText = displayMark(copy, glyph.glyphValue);
+  return {
+    ...copy,
     index,
     ...glyph,
     markText,
     markQualifier: card.markQualifier || glyph.glyphQualifier,
     markWord: /^[A-Za-z]/.test(markText),
-    boardRecap: boardRecap(card),
-    listRecap: listRecap(card),
-    timeline: placeTimeline(card.timeline),
+    boardRecap: boardRecap(copy),
+    listRecap: listRecap(copy),
+    timeline: placeTimeline(copy.timeline),
     shownSources: sources.slice(0, 2),
     moreSources: sources.slice(2),
     signupBefore: false

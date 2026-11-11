@@ -1,6 +1,6 @@
 {% set story = model.lead %}
 <div class="edition-wrap">
-  <p class="sr-only"><time datetime="{{ editionDate | isoDate }}">{{ editionDate | longDate }}</time></p>
+  <p class="sr-only"><time class="edition-date" datetime="{{ editionDate | isoDate }}">{{ editionDate | stripDate }}</time></p>
   {% if today and not hide_today %}
   <p class="today"><strong>Today:</strong> {{ today | tightTokens }}</p>
   {% endif %}
@@ -8,7 +8,7 @@
   {% set shareUrl = (page.url | canonicalUrl) + "#" + story.id %}
   <section class="lead" id="{{ story.id | escape }}" aria-labelledby="lead-h">
     {% if images and images.lead and images.lead.src %}
-    <img class="share-image" src="{{ images.lead.src | escape }}" alt="" width="{{ images.lead.width }}" height="{{ images.lead.height }}" aria-hidden="true">
+    <img class="share-image" src="{{ images.lead.src | escape }}" alt="{{ images.lead.alt | escape }}" width="{{ images.lead.width }}" height="{{ images.lead.height }}" aria-hidden="true">
     {% endif %}
     <div class="lead-text">
       <p class="bignum">{{ story.bignum | escape }}{% if story.qualifier %}<span class="qual">{{ story.qualifier | escape }}</span>{% endif %}</p>

@@ -65,6 +65,33 @@ test("the Wednesday lead is 71.68 and keeps the exact figure in Method", () => {
   assert.match(home, />71\.68</);
   assert.doesNotMatch(home, />927</);
   const tuesdayPage = tuesday.replaceAll("\u00a0", " ");
-  assert.match(tuesdayPage, /Update: Approved 4-0 Nov\. 10\./);
+  assert.match(tuesdayPage, /Update: Approved 4\u20110 Nov\. 10\./);
+  assert.match(tuesdayPage, new RegExp(
+    "Rent limits on affordable rentals end in 2027 — " +
+    "Tue\\., Nov\\. 10, 2026"
+  ));
+  assert.match(tuesdayPage, new RegExp(
+    "property=\"og:title\" content=\"Rent limits on affordable " +
+    "rentals end in 2027\""
+  ));
+  assert.match(tuesdayPage, new RegExp(
+    "property=\"og:image\" content=\"https://theaustinbulletin.com" +
+    "/images/2026-11-10/rent-limits-desktop-1600.webp\""
+  ));
+  assert.match(tuesdayPage, new RegExp(
+    "Chart\\. Austin affordable rental units by the year " +
+    "recorded rent limits end"
+  ));
+  assert.match(wednesday, new RegExp(
+    "property=\"og:title\" content=\"Bell(?:'|&#39;)s helicopter " +
+    "bid won despite lowest cost score\""
+  ));
+  assert.match(wednesday, new RegExp(
+    "property=\"og:image\" content=\"https://theaustinbulletin.com" +
+    "/images/2026-11-11/bid-scores-desktop-1600.webp\""
+  ));
+  assert.doesNotMatch(wednesday, new RegExp(
+    "The Austin Bulletin — Wednesday, November 11, 2026"
+  ));
   assert.match(tuesdayPage, /is up for another board term/);
 });

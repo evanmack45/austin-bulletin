@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
-const SHARE = "https://theaustinbulletin.com/icon-512.png";
+const SHARE = "https://theaustinbulletin.com/images/2026-11-11/bid-scores-desktop-1600.webp";
 const MATRIX = "https://traviscotx.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=13358,plainText=false)";
 
 function assertChartLead(html) {

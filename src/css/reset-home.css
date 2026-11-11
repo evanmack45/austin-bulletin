@@ -636,3 +636,18 @@
 @media (prefers-reduced-motion: reduce) {
   .js .bar { transform: none; animation: none; }
 }
+/* Bid columns are equal. A bar is a share of its column, not of its label. */
+.home-front .chart-bars--bids {
+  width: 100%;
+}
+.home-front .chart-bars--bids > .chart-col {
+  width: 100%;
+  min-width: 0;
+  grid-template-columns: minmax(0, 1fr);
+}
+.home-front .chart-bars--bids > .chart-col > .bar {
+  width: 64%;
+  min-width: 0;
+  max-width: none;
+  justify-self: center;
+}
