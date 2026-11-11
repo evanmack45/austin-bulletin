@@ -118,3 +118,30 @@ test("the scoreboard signup follows the whole board", () => {
   assert.match(wednesday, /item\u00a038/);
   assert.match(wednesday, /item\u00a033/);
 });
+
+test("Nov. 19 follows the Nov. 12 Next items", () => {
+  const next = wednesday.match(
+    /<section class="list" aria-labelledby="next-h">[\s\S]*?<\/section>/
+  )?.[0] ?? "";
+  assert.ok(next, "next list");
+  const text = next.replace(/<[^>]+>/g, "\n");
+  const order = [
+    "Mobility Committee meets",
+    "County canvasses Nov",
+    "City canvass of Nov",
+    "Council votes: see what"
+  ].map((label) => text.indexOf(label));
+  assert.ok(order.every((index, place) => index > (order[place - 1] ?? -1)));
+  const item = next.match(/id="next-district-agenda"[\s\S]*?<\/li>/)?.[0] ?? "";
+  assert.match(item, /<span class="when">Nov\.\u00a019<\/span>/);
+  assert.match(item, new RegExp(
+    "href=\"https://yallcityhall\\.org/\"[^>]*>" +
+    "Council votes: see what(?:'|&#39;)s on for your district</a>"
+  ));
+  assert.match(item, new RegExp(
+    "href=\"https://services\\.austintexas\\.gov/edims/" +
+    "document\\.cfm\\?id=484837\"[^>]*>Nov\\.\\u00a019 agenda</a>"
+  ));
+  assert.equal(item.includes("Not voted yet"), false);
+  assert.equal(item.includes("list-copy"), false);
+});

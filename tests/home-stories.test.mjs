@@ -374,12 +374,22 @@ test("November 9 lists the registration lead, then news, then the forecast", () 
 });
 
 test("Nov. 10 meetings are outcomes and Nov. 12 stays upcoming", () => {
-  assert.equal(thisWeek.items.length, 2);
-  assert.deepEqual(thisWeek.items.map((item) => item.date), ["2026-11-12", "2026-11-12"]);
+  assert.equal(thisWeek.items.length, 3);
+  assert.deepEqual(thisWeek.items.map((item) => item.date), [
+    "2026-11-12",
+    "2026-11-12",
+    "2026-11-19"
+  ]);
   assert.deepEqual(thisWeek.items.map((item) => item.headline), [
     "Committee hears downtown transportation plan",
-    "Court takes up November 3 canvass"
+    "Court takes up November 3 canvass",
+    "Council votes: see what's on for your district"
   ]);
+  const district = thisWeek.items[2];
+  assert.equal(district.link, "https://yallcityhall.org/");
+  assert.equal(district.source.url, "https://services.austintexas.gov/edims/document.cfm?id=484837");
+  assert.equal(district.source.label, "Nov. 19 agenda");
+  assert.equal(`${district.headline} ${district.dateLabel}`.includes("Not voted yet"), false);
   assert.equal(thisWeek.outcomes.length, 6);
   assert.deepEqual(thisWeek.outcomes.map((item) => item.headline), [
     "Barton Springs briefing held",

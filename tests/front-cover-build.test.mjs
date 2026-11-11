@@ -83,7 +83,7 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.match(html, /Wednesday, Nov\. 11/);
   assert.match(html, /href="\/2026\/11\/10\/"/);
   assert.match(html, /Nov\. 10 · 6 outcomes/);
-  assert.match(html, /This week · 2 items/);
+  assert.match(html, /This week · 3 items/);
   assert.match(html, /<u>4\u20110<\/u>[\s\S]*Kaskade permit approved</);
   assert.match(html, /\$197M[\s\S]*County certificates approved/);
   assert.match(html, /\$67\.8M[\s\S]*STAR Flight contract approved/);
@@ -117,6 +117,24 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   const disclosure = '<p class="ai-disclosure">' +
     '<a href="/about/#trust">An AI system produces this site.</a></p>';
   assert.equal(html.includes(disclosure), true);
+});
+
+test("Nov. 19 follows the two Nov. 12 week items", () => {
+  const html = readFileSync("_site/index.html", "utf8");
+  const week = html.match(/<ul class="week-lines"[\s\S]*?<\/ul>/)?.[0] ?? "";
+  const weekText = week.replace(/<[^>]+>/g, " ");
+  const order = [
+    "Committee hears downtown transportation plan",
+    "Court takes up November 3 canvass",
+    "Council votes: see what"
+  ].map((label) => weekText.indexOf(label));
+  assert.ok(order.every((index, place) => index > (order[place - 1] ?? -1)));
+  const agenda = "services.austintexas.gov/edims/document.cfm?id=484837";
+  const escaped = agenda.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  assert.match(week, /href="https:\/\/yallcityhall\.org\/"/);
+  assert.match(week, new RegExp(`${escaped}[^>]*class="week-source"`));
+  assert.match(week, /Nov\.\u00a019 agenda/);
+  assert.equal(week.includes("Not voted yet"), false);
 });
 
 test("a dated edition keeps the card page and the AI disclosure", () => {
