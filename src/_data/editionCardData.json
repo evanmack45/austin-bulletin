@@ -483,6 +483,23 @@
           }
         ],
         "summary": "City canvass of Nov. 3 results is Tuesday, Nov. 17, at 11 a.m."
+      },
+      {
+        "id": "next-district-agenda",
+        "section": "next",
+        "when": "Nov. 19",
+        "headline": "Council votes: see what's on for your district",
+        "sources": [
+          {
+            "label": "Y'all City Hall",
+            "url": "https://yallcityhall.org/"
+          },
+          {
+            "label": "Nov. 19 agenda",
+            "url": "https://services.austintexas.gov/edims/document.cfm?id=484837"
+          }
+        ],
+        "summary": "Regular Council meeting is Thursday, Nov. 19, at 10 a.m. The agenda is still a draft."
       }
     ]
   }

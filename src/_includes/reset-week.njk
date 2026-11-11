@@ -6,6 +6,9 @@
       <span class="week-date">{{ item.dateLabel | escape }}</span>
       <span class="week-line">{{ item.headline | escape }}</span>
     </a>
+    {% if item.source and item.source.url %}
+    <a href="{{ item.source.url | escape }}" class="week-source" data-budget-exempt>{{ item.source.label | tightTokens }}</a>
+    {% endif %}
   </li>
   {% endfor %}
 </ul>
