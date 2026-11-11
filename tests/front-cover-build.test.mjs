@@ -74,7 +74,32 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   ));
   assert.match(html, /Tuesday, Nov\. 10/);
   assert.match(html, /href="\/2026\/11\/09\/"/);
-  assert.match(html, /Court weighs \$197 million in certificates/);
+  assert.match(html, /Nov\. 10 · 6 outcomes/);
+  assert.match(html, /This week · 2 items/);
+  assert.match(html, /<u>4\u20110<\/u>[\s\S]*Kaskade permit approved</);
+  assert.match(html, /\$197M[\s\S]*County certificates approved/);
+  assert.match(html, /\$67\.8M[\s\S]*STAR Flight contract approved/);
+  assert.match(html, /No action on bond committee/);
+  assert.match(html, /Balcones Canyonlands/);
+  assert.match(html, /Kaskade Origin/);
+  assert.match(html, /\$67,757,745\.12/);
+  assert.match(html, /Committee hears downtown transportation plan/);
+  assert.match(html, /Court takes up November 3 canvass/);
+  assert.doesNotMatch(html, /Court weighs \$197 million in certificates/);
+  assert.doesNotMatch(html, /Hearing set on Burleson Road event/);
+  assert.doesNotMatch(html, /Committee hears Barton Springs briefing/);
+  const outcomes = html.match(/<ul class="week-outcomes">[\s\S]*?<\/ul>/)?.[0] ?? "";
+  const outcomeText = outcomes
+    .replace(/<script[\s\S]*?<\/script>/g, " ")
+    .replace(/<[^>]+>/g, " ");
+  assert.equal(outcomes.includes("https://"), true);
+  assert.equal(outcomeText.includes("https://"), false);
+  assert.equal(outcomeText.includes("4\u20110") && !outcomeText.includes("4-0"), true);
+  assert.equal(outcomeText.includes("5-0"), false);
+  assert.equal(outcomeText.includes("Briefed Nov."), false);
+  assert.equal(outcomeText.includes("Approved Nov."), false);
+  assert.match(outcomes, /source-line source-line--stack/);
+  assert.match(outcomes, /<span class="source-group"><span class="sep"/);
   assert.doesNotMatch(html, /If you (haven't|want|live|are)\b/);
   assert.ok(!html.includes("front-news-rail"), "the rail is gone");
   assert.ok(!html.includes("Austin, up close."));

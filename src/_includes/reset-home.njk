@@ -32,6 +32,21 @@
       <p class="source-line source-ink" data-budget-exempt>Map: City of Austin (CTM, Citygate GIS, Travis County Clerk Elections Division).</p>
     </section>
     <section class="story-card story-card--week">
+      {% if thisWeek.outcomes.length %}
+      <h2 class="week-kicker" id="week-outcomes">Nov. 10 · {{ thisWeek.outcomes | length }} outcomes</h2>
+      <ul class="week-outcomes">
+        {% for item in thisWeek.outcomes %}
+        <li>
+          {% if item.glyph or item.topic %}
+          <p class="outcome-mark">{% if item.glyph %}<b><u>{{ item.glyph | escape }}</u></b>{% if item.glyphLabel %}<span>{{ item.glyphLabel | escape }}</span>{% endif %}{% else %}<span class="outcome-topic">{{ item.topic | escape }}</span>{% endif %}</p>
+          {% endif %}
+          <h3>{{ item.headline | tightTokens }}</h3>
+          <p class="outcome-dek">{{ item.text | tightTokens }}</p>
+          <p class="source-line{% if item.stackSources %} source-line--stack{% endif %}" data-budget-exempt>{% for source in item.sources %}<span class="source-group">{% if loop.first %}<span class="source-label">{% if item.sources | length == 1 %}Source{% else %}Sources{% endif %}:</span> {% else %}<span class="sep" aria-hidden="true">·</span> {% endif %}<a href="{{ source.url | escape }}">{{ source.label | escape }}</a></span>{% endfor %}</p>
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
       <h2 class="week-kicker" id="this-week-a">This week · {{ thisWeek.items | length }} items</h2>
       {% include "reset-week.njk" %}
     </section>
