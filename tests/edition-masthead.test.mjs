@@ -160,6 +160,8 @@ test("homepage and edition mastheads compute the same styles at 390 and 1440", {
             href: link.getAttribute("href"),
           }));
           out.fonts = [...document.fonts].map((font) => font.family);
+          const masthead = document.querySelector(".front-masthead");
+          out.mastheadHeight = masthead.getBoundingClientRect().height;
           return out;
         }, chromeProps);
         await page.close();
@@ -167,6 +169,7 @@ test("homepage and edition mastheads compute the same styles at 390 and 1440", {
       };
       const home = await read("/");
       const edition = await read("/2026/10/27/");
+      assert.equal(edition.mastheadHeight, home.mastheadHeight, `masthead height at ${width}`);
       assert.deepEqual(edition.nav, home.nav, `nav at ${width}`);
       for (const [selector, props] of chromeProps) {
         for (const prop of props) {

@@ -4,8 +4,7 @@ import { readFileSync } from "node:fs";
 
 const STRIP = [
   ".cover-chrome .masthead-strip .wordmark,",
-  ".cover-chrome .masthead-strip .masthead-dateline a,",
-  ".cover-chrome .masthead-strip .site-menu-button"
+  ".cover-chrome .masthead-strip .masthead-dateline a"
 ].join("\\s*");
 
 test("home and edition mastheads share one strip rule", () => {
@@ -19,7 +18,24 @@ test("home and edition mastheads share one strip rule", () => {
   const rule = css.match(new RegExp(`${STRIP}\\s*\\{[^}]*\\}`));
   assert.ok(rule, "shared masthead rule");
   assert.match(rule[0], /min-height:\s*48px/);
-  assert.doesNotMatch(rule[0], /\.home-front|\.edition-page/);
+  assert.doesNotMatch(rule[0], /\.home-front|\.edition-page|\.site-menu-button/);
+});
+
+test("phone menu is one text link and its tap target does not stretch the strip", () => {
+  const css = readFileSync("src/css/front-cover.css", "utf8");
+  const menuRule = [
+    "\\.cover-chrome \\.masthead-strip\\.front-masthead",
+    " \\.site-menu-button \\{([^}]*)\\}"
+  ].join("");
+  const rule = css.match(new RegExp(`@media \\(max-width: 640px\\) \\{[\\s\\S]*?${menuRule}`));
+  assert.ok(rule, "shared phone menu rule");
+  assert.match(rule[1], /border:\s*0/);
+  assert.match(rule[1], /text-decoration:\s*underline/);
+  assert.match(rule[1], /font-family:\s*var\(--font-display\)/);
+  assert.match(rule[1], /padding:\s*0\.625rem 0\.15rem/);
+  assert.match(rule[1], /margin-block:\s*-0\.625rem/);
+  assert.match(rule[1], /min-height:\s*44px/);
+  assert.doesNotMatch(rule[1], /48px|\.home-front|\.edition-page/);
 });
 
 test("older editions render edition cards", () => {
