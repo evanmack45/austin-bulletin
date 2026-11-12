@@ -7,9 +7,9 @@ import path from "node:path";
 import { promisify } from "node:util";
 import { fileURLToPath } from "node:url";
 import {
-  buildSnapshot, daysFromGroups, lastCalendarDays, missingAccountError,
-  pullAndWrite, renderMarkdown, resolveAccountId, SITES, sitesFromEnv,
-  stampSnapshot
+  buildQuery, buildSnapshot, chicagoMidnightUtc, chicagoRange, daysFromGroups,
+  lastCalendarDays, missingAccountError, pullAndWrite, renderMarkdown,
+  resolveAccountId, SITES, sitesFromEnv, stampSnapshot
 } from "../scripts/visits.mjs";
 
 const execFileAsync = promisify(execFile);
@@ -29,13 +29,18 @@ function jsonResponse(body, status = 200) {
   };
 }
 
-function dayGroup(date, visits, pageviews, sampleInterval) {
+function hourGroup(datetimeHour, visits, pageviews, sampleInterval) {
   return {
     count: pageviews,
     avg: { sampleInterval },
     sum: { visits },
-    dimensions: { date }
+    dimensions: { datetimeHour }
   };
+}
+
+// One hour bucket at 18:00 UTC, which is noon or 1 p.m. Central that date.
+function dayGroup(date, visits, pageviews, sampleInterval) {
+  return hourGroup(`${date}T18:00:00Z`, visits, pageviews, sampleInterval);
 }
 
 function payloadFor(accountId) {
@@ -46,7 +51,7 @@ function payloadFor(accountId) {
           bulletin: [
             dayGroup("2026-11-04", 2, 4, 1),
             dayGroup("2026-11-05", "3", "8", 10),
-            dayGroup("2026-11-04", 9, 9, 1)
+            hourGroup("2026-11-04T20:00:00Z", 7, 5, 1)
           ],
           ych: [dayGroup("2026-11-03", 1, 1, 1)]
         }]
@@ -60,6 +65,9 @@ function graphql(body, accountId) {
   const query = JSON.parse(body).query;
   assert.equal(query.includes(TOKEN), false);
   assert.match(query, /bot: 0/);
+  assert.match(query, /datetime_geq: "2026-10-30T05:00:00Z"/);
+  assert.match(query, /datetime_lt: "2026-11-06T06:00:00Z"/);
+  assert.match(query, /dimensions \{ datetimeHour \}/);
   assert.match(query, /f715e3efc034482ea16a102bcb2c2d36/);
   assert.match(query, /7344ab7bea3140de8c29211155de95fc/);
   if (accountId && !query.includes(accountId)) {
@@ -102,11 +110,11 @@ test("the Chicago window ends today and holds seven dates", () => {
   assert.equal(beforeMidnight[0], "2026-10-29");
 });
 
-test("a day's row is replaced and days outside the window are dropped", () => {
+test("hours in one Chicago day add up and days outside the window are dropped", () => {
   const windowDays = lastCalendarDays(NOON);
   const days = daysFromGroups([
     dayGroup("2026-11-04", 2, 4, 1),
-    dayGroup("2026-11-04", 9, 9, 1),
+    hourGroup("2026-11-04T20:00:00Z", 7, 5, 1),
     dayGroup("2026-10-01", 50, 50, 1)
   ], windowDays);
   assert.equal(days.length, 7);
@@ -119,6 +127,73 @@ test("a day's row is replaced and days outside the window are dropped", () => {
   assert.deepEqual(empty, {
     date: "2026-10-30", visits: 0, pageviews: 0, sampleInterval: null
   });
+});
+
+test("Chicago midnight is 05:00 UTC in daylight time and 06:00 UTC in standard time", () => {
+  assert.equal(chicagoMidnightUtc("2026-10-30"), "2026-10-30T05:00:00Z");
+  assert.equal(chicagoMidnightUtc("2026-11-01"), "2026-11-01T05:00:00Z");
+  assert.equal(chicagoMidnightUtc("2026-11-02"), "2026-11-02T06:00:00Z");
+  assert.equal(chicagoMidnightUtc("2026-03-08"), "2026-03-08T06:00:00Z");
+  assert.equal(chicagoMidnightUtc("2026-03-09"), "2026-03-09T05:00:00Z");
+  assert.deepEqual(chicagoRange("2026-11-05", "2026-11-11"), {
+    since: "2026-11-05T06:00:00Z",
+    until: "2026-11-12T06:00:00Z"
+  });
+});
+
+test("evening Central hours stay on the Chicago day, not the next UTC date", () => {
+  const windowDays = ["2026-11-10", "2026-11-11", "2026-11-12"];
+  const days = daysFromGroups([
+    // 11:00 p.m. Central Nov 10 is 05:00 UTC Nov 11.
+    hourGroup("2026-11-11T05:00:00Z", 1, 1, 1),
+    // Midnight Central Nov 11 is 06:00 UTC Nov 11.
+    hourGroup("2026-11-11T06:00:00Z", 2, 2, 1),
+    // 8:00 p.m. Central Nov 11 is 02:00 UTC Nov 12.
+    hourGroup("2026-11-12T02:00:00Z", 3, 4, 10),
+    // 11:00 p.m. Central Nov 11 is 05:00 UTC Nov 12.
+    hourGroup("2026-11-12T05:00:00Z", 1, 1, 1)
+  ], windowDays);
+  assert.deepEqual(days, [
+    { date: "2026-11-10", visits: 1, pageviews: 1, sampleInterval: 1 },
+    { date: "2026-11-11", visits: 6, pageviews: 7, sampleInterval: 10 },
+    { date: "2026-11-12", visits: 0, pageviews: 0, sampleInterval: null }
+  ]);
+});
+
+test("the fall-back day holds 25 UTC hours, all on Nov. 1", () => {
+  const groups = [];
+  for (let hour = 5; hour < 30; hour += 1) {
+    const at = new Date(Date.UTC(2026, 10, 1, hour)).toISOString();
+    groups.push(hourGroup(at, 1, 1, 1));
+  }
+  const days = daysFromGroups(groups, ["2026-10-31", "2026-11-01", "2026-11-02"]);
+  assert.equal(days[0].pageviews, 0);
+  assert.equal(days[1].pageviews, 25);
+  assert.equal(days[2].pageviews, 0);
+});
+
+test("the query asks for UTC hours across the Chicago window", () => {
+  const query = buildQuery({
+    accountId: ACCOUNT, sites: SITES, start: "2026-11-06", end: "2026-11-12"
+  });
+  assert.match(query, /datetime_geq: "2026-11-06T06:00:00Z"/);
+  assert.match(query, /datetime_lt: "2026-11-13T06:00:00Z"/);
+  assert.match(query, /orderBy: \[datetimeHour_ASC\]/);
+  assert.doesNotMatch(query, /date_geq|date_leq|dimensions \{ date \}/);
+});
+
+test("a day with no Cloudflare rows says no rows, and the basis is named", () => {
+  const snapshot = buildSnapshot({
+    sites: SITES,
+    groupsById: { bulletin: [dayGroup("2026-11-11", 1, 1, 1)], ych: [] },
+    windowDays: ["2026-11-11"],
+    fetchedAt: "2026-11-12T12:00:00.000Z"
+  });
+  assert.equal(snapshot.day_basis, "America/Chicago calendar day, summed from Cloudflare UTC hour buckets");
+  const markdown = renderMarkdown(snapshot);
+  assert.match(markdown, /\| 2026-11-11 \| 1 \| 1 \| 1 \|/);
+  assert.match(markdown, /\| 2026-11-11 \| 0 \| 0 \| no rows \|/);
+  assert.match(markdown, /America\/Chicago calendar day/);
 });
 
 test("an unchanged snapshot keeps its fetched_at", () => {

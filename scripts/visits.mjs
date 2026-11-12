@@ -37,16 +37,44 @@ const TAG_ENV = {
 
 export const SAMPLE_NOTE = [
   "Pageviews are the GraphQL count and visits are sum.visits",
-  "for human pageloads (bot 0), grouped by date.",
-  "sampleInterval is Cloudflare's sampling interval for that day:",
-  "1 means the figure was not sampled down, and a higher number",
-  "means the figure is an estimate at that granularity.",
+  "for human pageloads (bot 0). Cloudflare returns UTC hour buckets;",
+  "each date here is an America/Chicago calendar day, the sum of the",
+  "hours that fall in it.",
+  "sampleInterval is the largest of Cloudflare's hourly sampling",
+  "intervals that day: 1 means no hour was sampled down, and a higher",
+  "number means the figure is an estimate at that granularity.",
+  "\"no rows\" means Cloudflare returned nothing for that day.",
   "Visits and pageviews are stored as the API returned them."
 ].join(" ");
+
+export const DAY_BASIS =
+  "America/Chicago calendar day, summed from Cloudflare UTC hour buckets";
 
 export function shiftIsoDate(iso, days) {
   const [year, month, day] = iso.split("-").map(Number);
   return new Date(Date.UTC(year, month - 1, day + days)).toISOString().slice(0, 10);
+}
+
+// The UTC instant when an America/Chicago calendar day begins. Central is
+// UTC-6 or UTC-5, so local midnight is 05:00 or 06:00 UTC.
+export function chicagoMidnightUtc(iso) {
+  const [year, month, day] = iso.split("-").map(Number);
+  for (const offset of [5, 6]) {
+    const instant = new Date(Date.UTC(year, month - 1, day, offset));
+    const before = new Date(instant.getTime() - 1);
+    if (chicagoDate(instant) === iso && chicagoDate(before) !== iso) {
+      return instant.toISOString().replace(".000Z", "Z");
+    }
+  }
+  throw new Error(`no Chicago midnight found for ${iso}`);
+}
+
+// Half-open UTC range covering the Chicago days start..end inclusive.
+export function chicagoRange(start, end) {
+  return {
+    since: chicagoMidnightUtc(start),
+    until: chicagoMidnightUtc(shiftIsoDate(end, 1))
+  };
 }
 
 export function lastCalendarDays(now = new Date(), count = WINDOW_DAYS) {
@@ -71,9 +99,17 @@ function field(object, key) {
   return object == null ? undefined : object[key];
 }
 
+// Every Central offset is a whole hour, so a UTC hour bucket lies inside
+// exactly one Chicago day.
+export function chicagoDayOfHour(hour) {
+  const instant = new Date(String(hour || ""));
+  return Number.isNaN(instant.getTime()) ? "" : chicagoDate(instant);
+}
+
 export function rowFromGroup(group) {
   const sample = field(field(group, "avg"), "sampleInterval");
-  const date = field(field(group, "dimensions"), "date") || "";
+  const hour = field(field(group, "dimensions"), "datetimeHour");
+  const date = chicagoDayOfHour(hour);
   return {
     date,
     visits: finiteNumber(field(field(group, "sum"), "visits")),
@@ -86,11 +122,22 @@ function zeroDay(date) {
   return { date, visits: 0, pageviews: 0, sampleInterval: null };
 }
 
+function addHour(day, row) {
+  if (!day) return { ...row };
+  const samples = [day.sampleInterval, row.sampleInterval].filter((value) => value != null);
+  return {
+    date: day.date,
+    visits: day.visits + row.visits,
+    pageviews: day.pageviews + row.pageviews,
+    sampleInterval: samples.length ? Math.max(...samples) : null
+  };
+}
+
 export function daysFromGroups(groups, windowDays) {
   const byDate = new Map();
   for (const group of groups || []) {
     const row = rowFromGroup(group);
-    if (windowDays.includes(row.date)) byDate.set(row.date, row);
+    if (windowDays.includes(row.date)) byDate.set(row.date, addHour(byDate.get(row.date), row));
   }
   return windowDays.map((date) => byDate.get(date) || zeroDay(date));
 }
@@ -120,6 +167,7 @@ export function buildSnapshot({ sites, groupsById, windowDays, fetchedAt }) {
   return {
     fetched_at: fetchedAt,
     timezone: "America/Chicago",
+    day_basis: DAY_BASIS,
     window: {
       start: windowDays[0],
       end: windowDays[windowDays.length - 1],
@@ -142,7 +190,9 @@ export function stampSnapshot(previous, snapshot) {
 }
 
 function dayLine(day) {
-  const sample = day.sampleInterval == null ? "" : String(day.sampleInterval);
+  // A null interval means Cloudflare returned no rows for that date,
+  // which is not the same as a recorded zero.
+  const sample = day.sampleInterval == null ? "no rows" : String(day.sampleInterval);
   return `| ${day.date} | ${day.visits} | ${day.pageviews} | ${sample} |`;
 }
 
@@ -255,26 +305,27 @@ function assertShape(label, value, pattern) {
   }
 }
 
-function selection(site, start, end) {
+function selection(site, since, until) {
   return `${site.id}: rumPageloadEventsAdaptiveGroups(
     limit: ${GROUP_LIMIT}
     filter: {
-      date_geq: "${start}"
-      date_leq: "${end}"
+      datetime_geq: "${since}"
+      datetime_lt: "${until}"
       bot: 0
       siteTag: "${site.siteTag}"
     }
-    orderBy: [date_ASC]
+    orderBy: [datetimeHour_ASC]
   ) {
     count
     avg { sampleInterval }
     sum { visits }
-    dimensions { date }
+    dimensions { datetimeHour }
   }`;
 }
 
 export function buildQuery({ accountId, sites, start, end }) {
-  const fields = sites.map((site) => selection(site, start, end)).join("\n");
+  const { since, until } = chicagoRange(start, end);
+  const fields = sites.map((site) => selection(site, since, until)).join("\n");
   return `query {
     viewer {
       accounts(filter: { accountTag: "${accountId}" }) {
