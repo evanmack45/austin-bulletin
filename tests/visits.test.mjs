@@ -7,7 +7,7 @@ import path from "node:path";
 import { promisify } from "node:util";
 import { fileURLToPath } from "node:url";
 import {
-  buildQuery, buildSnapshot, chicagoMidnightUtc, chicagoRange, daysFromGroups,
+  buildQuery, buildSnapshot, chicagoMidnightUtc, DAY_BASIS, chicagoRange, daysFromGroups,
   lastCalendarDays, missingAccountError, pullAndWrite, renderMarkdown,
   resolveAccountId, SITES, sitesFromEnv, stampSnapshot
 } from "../scripts/visits.mjs";
@@ -189,7 +189,8 @@ test("a day with no Cloudflare rows says no rows, and the basis is named", () =>
     windowDays: ["2026-11-11"],
     fetchedAt: "2026-11-12T12:00:00.000Z"
   });
-  assert.equal(snapshot.day_basis, "America/Chicago calendar day, summed from Cloudflare UTC hour buckets");
+  assert.equal(snapshot.day_basis, DAY_BASIS);
+  assert.match(DAY_BASIS, /America\/Chicago calendar day/);
   const markdown = renderMarkdown(snapshot);
   assert.match(markdown, /\| 2026-11-11 \| 1 \| 1 \| 1 \|/);
   assert.match(markdown, /\| 2026-11-11 \| 0 \| 0 \| no rows \|/);
