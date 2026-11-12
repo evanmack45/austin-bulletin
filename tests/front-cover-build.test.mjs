@@ -108,7 +108,9 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.equal(outcomeText.includes("5-0"), false);
   assert.equal(outcomeText.includes("Briefed Nov."), false);
   assert.equal(outcomeText.includes("Approved Nov."), false);
-  assert.match(outcomes, /source-line source-line--stack/);
+  assert.match(outcomes, /Vote record/);
+  assert.match(outcomes, /Meeting video/);
+  assert.doesNotMatch(outcomes, /source-line--stack/);
   assert.match(outcomes, /<span class="source-group"><span class="sep"/);
   assert.doesNotMatch(html, /If you (haven't|want|live|are)\b/);
   assert.ok(!html.includes("front-news-rail"), "the rail is gone");

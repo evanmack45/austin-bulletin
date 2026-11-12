@@ -427,9 +427,15 @@ test("Nov. 10 meetings are outcomes and Nov. 12 stays upcoming", () => {
   assert.equal(star.text.includes("5-0"), false);
   assert.equal(star.glyph, "$67.8M");
   const certificates = thisWeek.outcomes.find((item) => item.text.includes("$197.1 million"));
-  const consent = certificates.sources.some((source) => source.label.includes("consent motion"));
-  assert.equal(consent, true);
-  assert.equal(certificates.stackSources, true);
+  assert.deepEqual(certificates.sources.map((source) => source.label), [
+    "Vote record",
+    "Meeting video"
+  ]);
+  assert.deepEqual(certificates.sources.map((source) => source.url), [
+    "https://traviscotx.portal.civicclerk.com/event/3727/overview",
+    "https://traviscotx.portal.civicclerk.com/event/3727/media"
+  ]);
+  assert.equal(certificates.stackSources, false);
   assert.equal(certificates.text.includes("item 18"), false);
   assert.equal(certificates.text.includes("4-0"), false);
   assert.equal(certificates.headline.includes("4-0"), false);

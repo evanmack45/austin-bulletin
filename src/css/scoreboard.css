@@ -485,6 +485,25 @@ body.edition-cards.edition-scoreboard main {
   white-space: normal;
   overflow-wrap: normal;
 }
+.bulletin--2026-11-12 .src,
+.bulletin--2026-11-12 .src.src--line {
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  column-gap: 0.35em;
+  max-width: 100%;
+}
+.bulletin--2026-11-12 .src > .src-k,
+.bulletin--2026-11-12 .src > .sep,
+.bulletin--2026-11-12 .src > a {
+  flex: 0 0 auto;
+  max-width: none;
+  white-space: nowrap;
+}
+.bulletin--2026-11-12 .src > a {
+  min-width: 44px;
+  min-height: 44px;
+}
 .edition-scoreboard .src-more { font-family: var(--font-display); font-size: 1rem; }
 
 @media (max-width: 767px) {

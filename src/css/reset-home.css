@@ -423,8 +423,9 @@
 }
 .week-outcomes .source-group {
   display: inline-flex;
+  flex: 1 1 auto;
   flex-flow: row nowrap;
-  align-items: flex-start;
+  align-items: center;
   column-gap: 0.35rem;
   max-width: 100%;
   min-height: 44px;
@@ -437,13 +438,14 @@
   line-height: 1.25;
 }
 .home-front .week-outcomes .source-line a {
-  display: inline-block;
+  display: inline-flex;
   flex: 1 1 auto;
   box-sizing: border-box;
   max-width: 100%;
   min-width: 44px;
   min-height: 44px;
-  padding-block: max(0px, calc((44px - 1.25em) / 2));
+  padding-block: 0;
+  align-items: center;
   line-height: 1.25;
   white-space: normal;
   overflow-wrap: normal;
