@@ -502,5 +502,173 @@
         "summary": "Regular Council meeting is Thursday, Nov. 19, at 10 a.m. The agenda is still a draft."
       }
     ]
+  },
+  "2026-11-12": {
+    "cards": [
+      {
+        "id": "licensed-short-term-rentals-rise-since-september",
+        "lead": true,
+        "section": "news",
+        "label": "Bulletin original",
+        "bignum": "3,663",
+        "qualifier": "active licenses, Nov. 10",
+        "headline": "Licensed short-term rentals rise since September",
+        "deck": "The City's daily count, which starts Feb. 28, 2025, is up 21.5% since Sept. 30.",
+        "summary": "The City's daily count is up 21.5% since Sept. 30. Applications pause Nov. 16 through Dec. 3.",
+        "lineChart": true,
+        "chartKicker": "Active short-term rental licenses in Austin, by day",
+        "chartSource": "Source: City of Austin, Active Short-Term Rental Counts (mydx-h5dy), as of Nov. 10, 2026.",
+        "chartAlt": "Chart: Daily count of active Austin short-term rental licenses from Sept. 1, 2025, to Nov. 10, 2026, ending at 3,663.",
+        "method": [
+          "These are counts of active licenses, not listings, bookings, or short-term rentals actually operating. Unlicensed rentals are not counted. The count is net: it rises with new licenses and falls when licenses expire or are revoked. The data does not say why the count rose. The City's daily count starts Feb. 28, 2025. The Sept. 30 to Nov. 10 window is 41 days. The City says it will pause applications and renewals Nov. 16 through Dec. 3 and will not update the dataset during that pause."
+        ],
+        "sources": [
+          {
+            "label": "City dataset mydx-h5dy",
+            "url": "https://data.austintexas.gov/d/mydx-h5dy"
+          },
+          {
+            "label": "City STR page",
+            "url": "https://www.austintexas.gov/development-services/short-term-rentals"
+          }
+        ]
+      },
+      {
+        "id": "north-austin-flood-project-hits-a-milestone",
+        "section": "news",
+        "glyph": {
+          "value": "$28.8M",
+          "qualifier": "construction cost"
+        },
+        "headline": "North Austin flood project hits a milestone",
+        "summary": "New weirs divert Little Walnut Creek floodwater near Cook Elementary. Some homes stay in the 100-year floodplain.",
+        "sources": [
+          {
+            "label": "City of Austin, Nov. 10",
+            "url": "https://www.austintexas.gov/watershed-protection/news/city-austin-celebrates-little-walnut-creek-flood-risk-reduction-milestone"
+          }
+        ]
+      },
+      {
+        "id": "preserve-habitat-permit-up-for-renewal",
+        "section": "news",
+        "icon": "bird",
+        "topic": "Balcones Canyonlands",
+        "headline": "30-year habitat permit is up for renewal",
+        "summary": "The county and City seek residents and biologists for two advisory groups. Applications close Jan. 8, 2027.",
+        "sources": [
+          {
+            "label": "City/County release, Nov. 10",
+            "url": "https://www.austintexas.gov/water/news/balcones-canyonlands-conservation-plan-permit-renewal-underway"
+          }
+        ]
+      },
+      {
+        "id": "mobility-committee-takes-up-downtown-and-parmer",
+        "section": "news",
+        "icon": "bus",
+        "topic": "City Hall, 1 p.m.",
+        "signupBreak": true,
+        "headline": "Mobility Committee takes up downtown, Parmer Lane",
+        "summary": "Council members get a downtown transportation plan briefing and commission recommendations on the Parmer Lane project.",
+        "sources": [
+          {
+            "label": "Agenda (PDF)",
+            "url": "https://services.austintexas.gov/edims/document.cfm?id=484790"
+          },
+          {
+            "label": "Meeting page",
+            "url": "https://www.austintexas.gov/council/2026/20261112-mobc"
+          }
+        ]
+      },
+      {
+        "id": "last-day-to-register-for-a-possible-runoff",
+        "section": "notices",
+        "icon": "ballot",
+        "topic": "Dec. 12 runoff",
+        "headline": "Last day to register for a possible runoff",
+        "summary": "Registration closes today for a possible Dec. 12 city runoff. The City canvasses results Nov. 17.",
+        "sources": [
+          {
+            "label": "City runoff calendar",
+            "url": "https://services.austintexas.gov/edims/document.cfm?id=472487"
+          }
+        ]
+      },
+      {
+        "id": "smoke-possible-from-108-acre-burn",
+        "section": "notices",
+        "icon": "fire",
+        "topic": "Prescribed burn",
+        "headline": "Smoke possible southwest of Austin from burn",
+        "summary": "Austin Water plans a 108-acre burn today. Smoke may be visible 10 a.m. to sunset.",
+        "sources": [
+          {
+            "label": "Austin Water, Nov. 10",
+            "url": "https://www.austintexas.gov/water/news/prescribed-burns-planned-help-restore-native-grasslands-austins-water-quality-2"
+          }
+        ]
+      },
+      {
+        "id": "book-festival-road-closures-start-today",
+        "section": "notices",
+        "icon": "book",
+        "topic": "Texas Book Festival",
+        "headline": "Book Festival road closures start downtown today",
+        "summary": "Closures begin at 9 a.m. The free festival runs Nov. 14–15 at the Capitol.",
+        "sources": [
+          {
+            "label": "City of Austin, Nov. 9",
+            "url": "https://www.austintexas.gov/communications/news/31st-annual-texas-book-festival-happening-nov-14-15"
+          }
+        ]
+      },
+      {
+        "id": "deep-eddy-pool-closes-for-three-weeks",
+        "section": "notices",
+        "icon": "pool",
+        "topic": "Deep Eddy",
+        "headline": "Deep Eddy Pool closes for three weeks",
+        "summary": "Valve repairs close it Nov. 30 through Dec. 21. Barton Springs and four other pools stay open.",
+        "sources": [
+          {
+            "label": "Austin Parks, Nov. 10",
+            "url": "https://www.austintexas.gov/parks/news/deep-eddy-pool-closed-repairs-november-30-december-21"
+          }
+        ]
+      },
+      {
+        "id": "free-flood-preparedness-class-nov-17",
+        "section": "notices",
+        "icon": "umbrella",
+        "topic": "Emergency prep",
+        "headline": "Free online flood-prep class Nov. 17",
+        "summary": "Austin Emergency Management hosts at 5:30 p.m. Spanish and ASL interpretation available.",
+        "sources": [
+          {
+            "label": "Austin Emergency Management",
+            "url": "https://www.austintexas.gov/emergency-management/news/austin-emergency-management-host-free-flood-preparedness-training"
+          }
+        ]
+      },
+      {
+        "id": "sunny-and-mild-today",
+        "section": "good",
+        "icon": "sun",
+        "glyph": {
+          "value": "76°",
+          "qualifier": "high today"
+        },
+        "headline": "Sunny and mild, clear tonight",
+        "summary": "Clear tonight, low around 52. Friday is sunny, near 77.",
+        "sources": [
+          {
+            "label": "NWS forecast",
+            "url": "https://forecast.weather.gov/MapClick.php?lat=30.2672&lon=-97.7431"
+          }
+        ]
+      }
+    ]
   }
 }

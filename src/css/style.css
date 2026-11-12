@@ -1390,3 +1390,39 @@ body:has(article.bulletin) main { max-width: 48rem; }
   padding-left: 1.2rem;
 }
 .record-disclosure li { margin: 0.2rem 0; }
+.line-stage { position: relative; }
+.line-chart svg { display: block; width: 100%; height: auto; }
+.line-chart .callout {
+  position: absolute;
+  margin: 0;
+  transform: translate(-100%, -115%);
+  text-align: right;
+  font-family: var(--font-display, Bricolage), "Helvetica Neue", Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.15;
+  letter-spacing: 0;
+  color: var(--chart-label, #C9D3DE);
+  white-space: nowrap;
+}
+.line-chart .callout b {
+  display: block;
+  font-weight: 800;
+  letter-spacing: 0;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+.line-chart .callout-end b { color: var(--sun, #FFC233); }
+.line-chart .callout-mark { transform: translate(-100%, 12%); }
+.line-chart .callout-mark b { color: var(--paper, #FBF4E6); }
+.line-chart .axis {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 4px 0 0;
+  font-family: var(--font-display, Bricolage), "Helvetica Neue", Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.2;
+  letter-spacing: 0;
+  color: var(--chart-label, #C9D3DE);
+}

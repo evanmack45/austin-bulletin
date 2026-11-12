@@ -98,7 +98,7 @@ async function signupSlot(page) {
 function assertSignupSlot(slot) {
   const signupAt = slot.sequence.indexOf("signup");
   assert.ok(signupAt > 0, JSON.stringify(slot.sequence));
-  assert.match(slot.sequence[0], /Bell's helicopter bid won despite lowest cost score/);
+  assert.match(slot.sequence[0], /Licensed short-term rentals rise since September/);
   assert.equal(slot.sequence[signupAt], "signup");
   assert.equal(slot.forms, 1);
   assert.equal(slot.blocks, 1);
@@ -185,7 +185,7 @@ async function assertMobileLead(browser, origin) {
   const fold = await page.evaluate(() => {
     const lead = document.querySelector(".front-lead h1").getBoundingClientRect();
     const number = document.querySelector(".bignum").getBoundingClientRect();
-    const bar = document.querySelector(".bar-hi").getBoundingClientRect();
+    const bar = document.querySelector(".line-chart").getBoundingClientRect();
     const signup = document.querySelector("main .signup--lead").getBoundingClientRect();
     return {
       topBottom: lead.bottom,
@@ -198,8 +198,8 @@ async function assertMobileLead(browser, origin) {
   });
   assert.equal(fold.sky, false);
   assert.ok(fold.topBottom <= fold.vh, `lead headline below the fold: ${fold.topBottom}`);
-  assert.ok(fold.numberBottom <= fold.vh, `71.68 below the fold: ${fold.numberBottom}`);
-  assert.ok(fold.barBottom <= fold.vh, `bid bar below the fold: ${fold.barBottom}`);
+  assert.ok(fold.numberBottom <= fold.vh, `3,663 below the fold: ${fold.numberBottom}`);
+  assert.ok(fold.barBottom <= fold.vh, `license chart below the fold: ${fold.barBottom}`);
   assert.ok(fold.signupTop >= fold.barBottom - 1, `signup starts at ${fold.signupTop}`);
   await page.evaluate(() => {
     document.querySelector(".signup--lead").scrollIntoView({ block: "center" });

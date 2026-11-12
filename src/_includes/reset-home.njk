@@ -1,27 +1,20 @@
 {% set editionDate = (collections.bulletins | first).date | isoDate %}
-{% set wed = editionCardData["2026-11-11"].cards | selectattr("lead") | first %}
+{% set lead = editionCardData["2026-11-12"].cards | selectattr("lead") | first %}
 <article class="reset-home paper-main" data-edition="{{ editionDate }}" data-variant="{{ variant }}">
   
   <div class="story-grid">
     <section class="story-card story-card--lead front-lead" id="lead" data-fold data-animate>
-      <img class="share-image" src="/images/2026-11-11/bid-scores-desktop-1600.webp" alt="{{ wed.chartAlt | escape }}" width="1600" height="1067">
-      <p class="bignum">{{ wed.bignum | escape }} <span class="qual">{{ wed.qualifier | escape }}</span></p>
-      <h1><a href="/2026/11/11/#{{ wed.id | escape }}">{{ wed.headline | tightTokens }}</a></h1>
-      <p class="card-blurb front-deck">{{ wed.deck | tightTokens }}</p>
-      <p class="chart-kicker" data-budget-exempt><span class="icon icon-20" aria-hidden="true">{{ "chart-bar-bold" | icon | safe }}</span> CHART</p>
-      <div class="chart" role="img" aria-label="{{ wed.chartAlt | escape }}">
-        <p class="chart-title" data-budget-exempt>{{ wed.chartTitle | tightTokens }}</p>
-        <div class="chart-bars chart-bars--bids">
-          {% for bar in wed.bars %}
-          <div class="chart-col">
-            <span class="bar-value{% if bar.hi %} is-hi{% endif %}" data-budget-exempt>{{ bar.value | escape }}</span>
-            <span class="bar{% if bar.hi %} bar-hi{% endif %}" style="--h: {{ bar.p }}%; --p: {{ bar.p }}"></span>
-            <span class="bar-year{% if bar.hi %} is-hi{% endif %}{% if bar.nowrap %} bid-name{% endif %}" data-budget-exempt>{{ bar.label | escape }}</span>
-          </div>
-          {% endfor %}
-        </div>
+      <img class="share-image" src="/images/2026-11-12/str-licenses-desktop-1600.webp" alt="{{ lead.chartAlt | escape }}" width="1600" height="1067">
+      <p class="original-kicker">{{ lead.label | escape }}</p>
+      <p class="bignum">{{ lead.bignum | escape }} <span class="qual">{{ lead.qualifier | escape }}</span></p>
+      <h1><a href="/2026/11/12/#{{ lead.id | escape }}">{{ lead.headline | tightTokens }}</a></h1>
+      <p class="card-blurb front-deck">{{ lead.deck | tightTokens }}</p>
+      <div class="chart">
+        <p class="chart-kicker chart-kicker--sentence">{{ lead.chartKicker | tightTokens }}</p>
+        <div role="img" aria-label="{{ lead.chartAlt | escape }}">{{ strLineChart | safe }}</div>
       </div>
-      <p class="source-line" data-budget-exempt>Source: <a href="{{ wed.sources[0].url | escape }}">{{ wed.sources[0].label | escape }}</a></p>
+      <p class="chart-source" data-budget-exempt>{{ lead.chartSource | tightTokens }}</p>
+      <p class="source-line" data-budget-exempt><span class="source-group"><span class="source-label">Sources:</span> {% for source in lead.sources %}{% if not loop.first %} <span class="sep" aria-hidden="true">·</span> {% endif %}<a href="{{ source.url | escape }}">{{ source.label | escape }}</a>{% endfor %}</span></p>
     </section>
     <section class="story-card story-card--week">
       {% if thisWeek.outcomes.length %}

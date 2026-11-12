@@ -63,7 +63,8 @@ test("the Wednesday lead is 71.68 and keeps the exact figure in Method", () => {
   assert.match(wednesday, /City canvass of Nov/);
   assert.equal(wednesday.includes("79°"), false);
   const home = readFileSync("_site/index.html", "utf8");
-  assert.match(home, />71\.68</);
+  assert.match(home, />3,663</);
+  assert.doesNotMatch(home, />71\.68</);
   assert.doesNotMatch(home, />927</);
   const tuesdayPage = tuesday.replaceAll("\u00a0", " ");
   assert.match(tuesdayPage, /Update: Approved 4\u20110 Nov\. 10\./);
@@ -144,4 +145,37 @@ test("Nov. 19 follows the Nov. 12 Next items", () => {
   ));
   assert.equal(item.includes("Not voted yet"), false);
   assert.equal(item.includes("list-copy"), false);
+});
+
+test("Thursday lead is the 3,663 chart and signup follows habitat", () => {
+  const thursday = readFileSync("_site/2026/11/12/index.html", "utf8").replaceAll("\u00a0", " ");
+  const lead = leadOf(thursday);
+  assert.match(lead, />3,663</);
+  assert.match(lead, /active licenses, Nov\. 10/);
+  assert.match(lead, /Licensed short-term rentals rise since September/);
+  assert.match(lead, /up 21\.5% since Sept\. 30/);
+  assert.match(lead, /Applications pause Nov\. 16 through Dec\. 3/);
+  assert.match(lead, /class="end-dot"/);
+  assert.match(lead, /3,015/);
+  assert.match(lead, /<details class="method"/);
+  assert.equal(lead.includes('open=""') || lead.includes(" open"), false);
+  const method = lead.match(/<details class="method"[\s\S]*?<\/details>/)?.[0] ?? "";
+  assert.match(method, /pause applications and renewals Nov\. 16 through Dec\. 3/);
+  assert.match(method, /not listings, bookings/);
+  assert.doesNotMatch(thursday, /hotel occupancy|occupancy tax/i);
+  assert.doesNotMatch(thursday, /\b(peak|all-time high)\b/i);
+  assert.doesNotMatch(thursday, /tomorrow|Not voted yet/);
+  assert.match(thursday, /City dataset mydx-h5dy/);
+  assert.match(thursday, /City STR page/);
+  assert.match(thursday, /Thursday, Nov\. 12, 2026/);
+  const signup = thursday.indexOf('class="signup signup--edition"');
+  const habitat = thursday.indexOf("30-year habitat permit is up for renewal");
+  const mobility = thursday.indexOf("Mobility Committee takes up downtown, Parmer Lane");
+  const notices = thursday.indexOf('id="notices-h"');
+  assert.ok(habitat < signup && signup < mobility && mobility < notices);
+  assert.equal(thursday.split('class="signup signup--edition"').length - 1, 1);
+  assert.match(thursday, new RegExp(
+    "property=\"og:title\" content=\"Licensed short-term rentals rise since September\""
+  ));
+  assert.match(thursday, /str-licenses-desktop-1600\.webp/);
 });
