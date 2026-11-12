@@ -1,14 +1,15 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { execFile } from "node:child_process";
-import { mkdtemp, readFile } from "node:fs/promises";
+import { mkdtemp, readdir, readFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { promisify } from "node:util";
 import { fileURLToPath } from "node:url";
 import {
-  buildQuery, buildSnapshot, chicagoMidnightUtc, DAY_BASIS, chicagoRange, daysFromGroups,
-  lastCalendarDays, missingAccountError, pullAndWrite, renderMarkdown,
+  buildQuery, buildSnapshot, chicagoMidnightUtc, chicagoRange, DAY_BASIS,
+  daysFromGroups, dryRunHourly, FALLBACK_BASIS, lastCalendarDays,
+  missingAccountError, pullAndWrite, renderDryRun, renderMarkdown,
   resolveAccountId, SITES, sitesFromEnv, stampSnapshot
 } from "../scripts/visits.mjs";
 
@@ -339,5 +340,205 @@ test("the script exits when the token is missing and does not print one", async 
     const output = `${err.stdout || ""}\n${err.stderr || ""}`;
     assert.match(output, /CLOUDFLARE_ANALYTICS_TOKEN is not set/);
     assert.equal(output.includes("Bearer"), false);
+  }
+});
+
+const UNKNOWN_FIELD = {
+  data: null,
+  errors: [{ message: "unknown field \"datetimeHour\"", path: ["viewer"] }]
+};
+
+function dailyPayload() {
+  return {
+    data: {
+      viewer: {
+        accounts: [{
+          bulletin: [{
+            count: 4, avg: { sampleInterval: 1 }, sum: { visits: 3 },
+            dimensions: { date: "2026-11-05" }
+          }],
+          ych: []
+        }]
+      }
+    }
+  };
+}
+
+// Answers the hourly query with `hourly` and the daily query with `daily`,
+// and records which kind of query each call was.
+function fallbackFetch(hourly, daily, calls) {
+  return async (url, init) => {
+    const query = JSON.parse(init.body).query;
+    const kind = query.includes("datetimeHour") ? "hourly" : "daily";
+    calls.push(kind);
+    if (kind === "daily") {
+      assert.match(query, /date_geq: "2026-10-30"/);
+      assert.match(query, /date_leq: "2026-11-05"/);
+      assert.match(query, /dimensions \{ date \}/);
+    }
+    return kind === "hourly" ? hourly() : daily();
+  };
+}
+
+const ENV = { CLOUDFLARE_ANALYTICS_TOKEN: TOKEN, CLOUDFLARE_ACCOUNT_ID: ACCOUNT };
+
+test("a rejected hourly query falls back to the daily query and still writes", async () => {
+  const dir = await mkdtemp(path.join(tmpdir(), "visits-"));
+  const calls = [];
+  const logged = [];
+  const result = await pullAndWrite({
+    now: NOON,
+    root: dir,
+    env: ENV,
+    log: (line) => logged.push(line),
+    fetchImpl: fallbackFetch(
+      () => jsonResponse(UNKNOWN_FIELD),
+      () => jsonResponse(dailyPayload()),
+      calls
+    )
+  });
+  assert.deepEqual(calls, ["hourly", "daily"]);
+  assert.equal(logged.length, 1);
+  assert.match(logged[0], /Hourly visits query rejected: .*unknown field "datetimeHour"/);
+  assert.match(logged[0], /utc-date \(hourly query rejected\)/);
+  assert.equal(logged[0].includes(TOKEN), false);
+  const saved = JSON.parse(await readFile(path.join(dir, "metrics/visits.json"), "utf8"));
+  assert.equal(saved.day_basis, FALLBACK_BASIS);
+  assert.equal(FALLBACK_BASIS, "utc-date (hourly query rejected)");
+  assert.match(saved.sample_interval_note, /UTC date/);
+  const nov5 = saved.sites[0].days.find((day) => day.date === "2026-11-05");
+  assert.deepEqual(nov5, { date: "2026-11-05", visits: 3, pageviews: 4, sampleInterval: 1 });
+  const markdown = await readFile(path.join(dir, "metrics/visits.md"), "utf8");
+  assert.match(markdown, /Day basis: utc-date \(hourly query rejected\)\./);
+  assert.match(markdown, /\| 2026-11-04 \| 0 \| 0 \| no rows \|/);
+  assert.equal(result.snapshot.day_basis, FALLBACK_BASIS);
+});
+
+test("a non-2xx reply to the hourly query also falls back", async () => {
+  const dir = await mkdtemp(path.join(tmpdir(), "visits-"));
+  const calls = [];
+  const result = await pullAndWrite({
+    now: NOON,
+    root: dir,
+    env: ENV,
+    log: () => {},
+    fetchImpl: fallbackFetch(
+      () => jsonResponse({ errors: [{ message: "bad filter datetime_lt" }] }, 400),
+      () => jsonResponse(dailyPayload()),
+      calls
+    )
+  });
+  assert.deepEqual(calls, ["hourly", "daily"]);
+  assert.equal(result.snapshot.day_basis, FALLBACK_BASIS);
+});
+
+test("an accepted hourly query never runs the daily query", async () => {
+  const dir = await mkdtemp(path.join(tmpdir(), "visits-"));
+  const calls = [];
+  const logged = [];
+  const result = await pullAndWrite({
+    now: NOON,
+    root: dir,
+    env: ENV,
+    log: (line) => logged.push(line),
+    fetchImpl: fallbackFetch(
+      () => jsonResponse({ data: payloadFor(ACCOUNT).data }),
+      () => assert.fail("daily query should not run"),
+      calls
+    )
+  });
+  assert.deepEqual(calls, ["hourly"]);
+  assert.deepEqual(logged, []);
+  assert.equal(result.snapshot.day_basis, DAY_BASIS);
+  const markdown = await readFile(path.join(dir, "metrics/visits.md"), "utf8");
+  assert.match(markdown, /Day basis: America\/Chicago calendar day/);
+});
+
+test("when both queries are rejected the run fails and writes nothing", async () => {
+  const dir = await mkdtemp(path.join(tmpdir(), "visits-"));
+  const calls = [];
+  await assert.rejects(
+    () => pullAndWrite({
+      now: NOON,
+      root: dir,
+      env: ENV,
+      log: () => {},
+      fetchImpl: fallbackFetch(
+        () => jsonResponse(UNKNOWN_FIELD),
+        () => jsonResponse({ errors: [{ message: "daily broke too" }] }),
+        calls
+      )
+    }),
+    /daily broke too/
+  );
+  assert.deepEqual(calls, ["hourly", "daily"]);
+  assert.deepEqual(await readdir(dir), []);
+});
+
+test("the dry run sends only the hourly query, counts hour rows, and writes nothing", async () => {
+  const dir = await mkdtemp(path.join(tmpdir(), "visits-"));
+  const calls = [];
+  const hourly = {
+    data: {
+      viewer: {
+        accounts: [{
+          bulletin: [
+            hourGroup("2026-11-04T18:00:00Z", 2, 4, 1),
+            hourGroup("2026-11-05T02:00:00Z", 1, 1, 1)
+          ],
+          ych: []
+        }]
+      }
+    }
+  };
+  const result = await dryRunHourly({
+    now: NOON,
+    root: dir,
+    env: ENV,
+    fetchImpl: fallbackFetch(
+      () => jsonResponse(hourly),
+      () => assert.fail("dry run must not fall back"),
+      calls
+    )
+  });
+  assert.deepEqual(calls, ["hourly"]);
+  assert.deepEqual(await readdir(dir), []);
+  assert.equal(result.since, "2026-10-30T05:00:00Z");
+  assert.equal(result.until, "2026-11-06T06:00:00Z");
+  const nov4 = result.sites[0].days.find((day) => day.date === "2026-11-04");
+  assert.equal(nov4.hourRows, 2);
+  assert.equal(nov4.pageviews, 5);
+  const text = renderDryRun(result);
+  assert.match(text, /nothing written/);
+  assert.match(text, /2026-11-04 2 hour rows, 3 visits, 5 pageviews/);
+  assert.match(text, /yallcityhall\.org\n {2}2026-10-30 no rows/);
+});
+
+test("a rejected hourly query fails the dry run without falling back", async () => {
+  const calls = [];
+  await assert.rejects(
+    () => dryRunHourly({
+      now: NOON,
+      env: ENV,
+      fetchImpl: fallbackFetch(
+        () => jsonResponse(UNKNOWN_FIELD),
+        () => assert.fail("dry run must not fall back"),
+        calls
+      )
+    }),
+    /Hourly visits query rejected: .*unknown field/
+  );
+  assert.deepEqual(calls, ["hourly"]);
+});
+
+test("--dry-run exits without a token and prints none", async () => {
+  const env = { ...process.env };
+  delete env.CLOUDFLARE_ANALYTICS_TOKEN;
+  try {
+    await execFileAsync(process.execPath, [script, "--dry-run"], { cwd: root, env });
+    assert.fail("expected the dry run to exit");
+  } catch (err) {
+    assert.equal(err.code, 1);
+    assert.match(`${err.stdout}\n${err.stderr}`, /CLOUDFLARE_ANALYTICS_TOKEN is not set/);
   }
 });
