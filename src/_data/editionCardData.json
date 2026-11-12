@@ -37,11 +37,11 @@
         ],
         "sources": [
           {
-            "label": "county vote record (consent motion)",
+            "label": "County vote record (consent motion)",
             "url": "https://traviscotx.portal.civicclerk.com/event/3727/overview"
           },
           {
-            "label": "meeting video",
+            "label": "Meeting video",
             "url": "https://traviscotx.portal.civicclerk.com/event/3727/media"
           }
         ]
@@ -62,11 +62,11 @@
         ],
         "sources": [
           {
-            "label": "meeting video",
+            "label": "Meeting video",
             "url": "https://traviscotx.portal.civicclerk.com/event/3727/media"
           },
           {
-            "label": "agenda",
+            "label": "Agenda",
             "url": "https://countyclerk.traviscountytx.gov/wp-content/uploads/commissioners_court/11-10-2026VSAgenda.pdf"
           }
         ]
@@ -85,7 +85,7 @@
         ],
         "sources": [
           {
-            "label": "meeting video",
+            "label": "Meeting video",
             "url": "https://traviscotx.portal.civicclerk.com/event/3727/media"
           }
         ]
@@ -126,11 +126,11 @@
         ],
         "sources": [
           {
-            "label": "meeting video",
+            "label": "Meeting video",
             "url": "https://austintx.new.swagit.com/videos/408271"
           },
           {
-            "label": "agenda",
+            "label": "Agenda",
             "url": "https://services.austintexas.gov/edims/document.cfm?id=484616"
           }
         ]
@@ -149,11 +149,11 @@
         ],
         "sources": [
           {
-            "label": "meeting video",
+            "label": "Meeting video",
             "url": "https://austintx.new.swagit.com/videos/408271"
           },
           {
-            "label": "agenda",
+            "label": "Agenda",
             "url": "https://services.austintexas.gov/edims/document.cfm?id=484616"
           }
         ]
@@ -172,7 +172,7 @@
         ],
         "sources": [
           {
-            "label": "county vote record",
+            "label": "County vote record",
             "url": "https://traviscotx.portal.civicclerk.com/event/3727/overview"
           }
         ]

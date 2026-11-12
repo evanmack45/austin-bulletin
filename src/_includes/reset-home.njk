@@ -28,7 +28,7 @@
           {% endif %}
           <h3>{{ item.headline | tightTokens }}</h3>
           <p class="outcome-dek">{{ item.text | tightTokens }}</p>
-          <p class="source-line{% if item.stackSources %} source-line--stack{% endif %}" data-budget-exempt>{% for source in item.sources %}<span class="source-group">{% if loop.first %}<span class="source-label">{% if item.sources | length == 1 %}Source{% else %}Sources{% endif %}:</span> {% else %}<span class="sep" aria-hidden="true">·</span> {% endif %}<a href="{{ source.url | escape }}">{{ source.label | escape }}</a></span>{% endfor %}</p>
+          <p class="source-line{% if item.stackSources %} source-line--stack{% endif %}" data-budget-exempt>{% for source in item.sources %}<span class="source-group">{% if loop.first %}<span class="source-label">{% if item.sources | length == 1 %}Source{% else %}Sources{% endif %}:</span> {% else %} <span class="sep" aria-hidden="true">·</span> {% endif %}<a href="{{ source.url | escape }}">{{ source.label | escape }}</a></span>{% endfor %}</p>
         </li>
         {% endfor %}
       </ul>

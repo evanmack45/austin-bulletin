@@ -413,8 +413,9 @@
 .week-outcomes .source-line {
   display: flex;
   flex-flow: row wrap;
-  align-items: center;
-  column-gap: 0.35rem;
+  align-items: baseline;
+  justify-content: flex-start;
+  column-gap: 6px;
   row-gap: 0;
   max-width: none;
   margin-top: var(--s2);
@@ -423,29 +424,31 @@
 }
 .week-outcomes .source-group {
   display: inline-flex;
-  flex: 1 1 auto;
+  flex: 0 1 auto;
   flex-flow: row nowrap;
-  align-items: center;
-  column-gap: 0.35rem;
+  align-items: baseline;
+  justify-content: flex-start;
+  column-gap: 6px;
   max-width: 100%;
+  min-width: 0;
   min-height: 44px;
 }
 .week-outcomes .source-label,
 .week-outcomes .sep {
   flex: 0 0 auto;
   white-space: nowrap;
-  padding-top: max(0px, calc((44px - 1.25em) / 2));
+  padding-top: 0;
   line-height: 1.25;
 }
 .home-front .week-outcomes .source-line a {
   display: inline-flex;
-  flex: 1 1 auto;
+  flex: 0 1 auto;
   box-sizing: border-box;
+  align-items: center;
   max-width: 100%;
   min-width: 44px;
   min-height: 44px;
-  padding-block: 0;
-  align-items: center;
+  padding-block: 12px;
   line-height: 1.25;
   white-space: normal;
   overflow-wrap: normal;

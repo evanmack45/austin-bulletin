@@ -489,9 +489,11 @@ body.edition-cards.edition-scoreboard main {
 .bulletin--2026-11-12 .src.src--line {
   flex-direction: row;
   flex-wrap: nowrap;
-  align-items: center;
-  column-gap: 0.35em;
+  align-items: baseline;
+  justify-content: flex-start;
+  column-gap: 6px;
   max-width: 100%;
+  min-height: 44px;
 }
 .bulletin--2026-11-12 .src > .src-k,
 .bulletin--2026-11-12 .src > .sep,
@@ -501,8 +503,13 @@ body.edition-cards.edition-scoreboard main {
   white-space: nowrap;
 }
 .bulletin--2026-11-12 .src > a {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
   min-width: 44px;
   min-height: 44px;
+  margin-block: 0;
+  padding-block: 10px;
 }
 .edition-scoreboard .src-more { font-family: var(--font-display); font-size: 1rem; }
 
@@ -627,6 +634,9 @@ body.edition-cards.edition-scoreboard main {
   align-items: center;
   min-height: 44px;
   margin-block: -11px;
+}
+.edition-scoreboard .bulletin--2026-11-12 .list li .src > a {
+  margin-block: 0;
 }
 .edition-scoreboard .list-main {
   display: flex;
