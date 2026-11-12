@@ -101,8 +101,9 @@ function dot(mark, scale) {
 
 function callout(mark, scale) {
   const cls = mark.kind === "end" ? "callout callout-end" : "callout callout-mark";
+  const drop = mark.kind === "mark" ? 28 : 0;
   const left = pct(scale.x(mark.date), VB.w);
-  const top = pct(scale.y(mark.count), VB.h);
+  const top = pct(scale.y(mark.count) + drop, VB.h);
   return `<p class="${cls}" style="left:${left};top:${top}">` +
     `<b>${mark.value}</b><span>${mark.caption}</span></p>`;
 }

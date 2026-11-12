@@ -524,7 +524,7 @@
         ],
         "sources": [
           {
-            "label": "City dataset mydx-h5dy",
+            "label": "City data",
             "url": "https://data.austintexas.gov/d/mydx-h5dy"
           },
           {

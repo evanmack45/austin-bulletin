@@ -464,6 +464,27 @@ body.edition-cards.edition-scoreboard main {
   white-space: normal;
 }
 .edition-scoreboard .src-k { font-weight: 650; }
+.edition-scoreboard .src--line {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 0.35em;
+  row-gap: 0;
+  max-width: 100%;
+}
+.edition-scoreboard .src--line > .src-k,
+.edition-scoreboard .src--line > .sep {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+.edition-scoreboard .src--line > a {
+  flex: 0 1 auto;
+  max-width: 100%;
+  min-width: 44px;
+  min-height: 44px;
+  white-space: normal;
+  overflow-wrap: normal;
+}
 .edition-scoreboard .src-more { font-family: var(--font-display); font-size: 1rem; }
 
 @media (max-width: 767px) {
@@ -496,14 +517,6 @@ body.edition-cards.edition-scoreboard main {
   .edition-scoreboard .method > summary,
   .edition-scoreboard .chart-source,
   .edition-scoreboard .source-line { font-size: 1rem; }
-  .edition-scoreboard .list .src--line,
-  .edition-scoreboard .board .oc:last-child:nth-child(odd) > .src--line {
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: center;
-    column-gap: 0.35em;
-  }
-  .edition-scoreboard .source-line .source-group { flex-wrap: nowrap; }
 }
 @media (max-width: 359px) {
   .edition-scoreboard .list .src--line,

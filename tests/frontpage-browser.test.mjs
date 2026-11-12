@@ -133,7 +133,7 @@ async function readDateLines(page) {
 }
 
 function assertSourceLine(sourceLine, width) {
-	assert.match(sourceLine.text, /^Sources: City dataset mydx-h5dy · City STR page$/);
+	assert.match(sourceLine.text, /^Sources: City data · City STR page$/);
 	assert.ok(sourceLine.heights.every((height) => height >= 44), JSON.stringify(sourceLine));
 	if (width >= 360) assert.equal(sourceLine.sameLine, true, JSON.stringify(sourceLine));
 }
@@ -157,7 +157,7 @@ function assertFirstFold(result, width, height) {
  assert.equal(result.barColor, "rgb(255, 194, 51)");
  assert.ok(result.action.height >= 44);
  assert.ok(result.nav.every(link => link.height >= 44));
- assert.match(result.sourceName, /City dataset mydx-h5dy/);
+ assert.match(result.sourceName, /City data/);
  assert.match(result.sourceName, /City STR page/);
  assert.match(result.title, /Licensed short-term rentals rise since September/);
  assert.equal(result.title.includes("$67.8M"), false);

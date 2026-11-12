@@ -373,14 +373,27 @@ h3 { font-size: 1.7rem; font-weight: 800; letter-spacing: -0.01em; margin: 2.2re
   align-items: center;
   column-gap: 0.35em;
   max-width: 100%;
+  min-width: 0;
   min-height: 44px;
 }
-.source-group a {
+.source-chunk {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  column-gap: 0.35em;
+  max-width: 100%;
+  white-space: nowrap;
+}
+.source-chunk .sep { padding-inline: 0.15em; }
+.source-group a,
+.source-chunk a {
   display: inline-flex;
   align-items: center;
   box-sizing: border-box;
-  min-width: 44px;
+  flex: 0 0 auto;
+  min-width: max(44px, max-content);
   min-height: 44px;
+  white-space: nowrap;
   text-decoration: underline;
   text-underline-offset: 0.15em;
 }
@@ -1183,11 +1196,15 @@ body:has(article.bulletin) main { max-width: 48rem; }
     overflow-wrap: anywhere;
     vertical-align: middle;
   }
-  .source-group a {
+  .source-group a,
+  .source-chunk a {
     display: inline-flex;
     align-items: center;
-    min-width: 44px;
+    flex: 0 0 auto;
+    min-width: max(44px, max-content);
     min-height: 44px;
+    white-space: nowrap;
+    overflow-wrap: normal;
   }
   /* Official document titles in a source tag are wider than a phone when
      the tag stays on one line. Let the tag wrap; the link stays a 24px target. */
@@ -1412,13 +1429,13 @@ body:has(article.bulletin) main { max-width: 48rem; }
   font-feature-settings: "tnum" 1, "lnum" 1;
 }
 .line-chart .callout-end b { color: var(--sun, #FFC233); }
-.line-chart .callout-mark { transform: translate(-100%, 12%); }
+.line-chart .callout-mark { transform: translate(-100%, 0); }
 .line-chart .callout-mark b { color: var(--paper, #FBF4E6); }
 .line-chart .axis {
   display: flex;
   justify-content: space-between;
   gap: 12px;
-  margin: 4px 0 0;
+  margin: 18px 0 0;
   font-family: var(--font-display, Bricolage), "Helvetica Neue", Arial, sans-serif;
   font-size: 1rem;
   font-weight: 650;

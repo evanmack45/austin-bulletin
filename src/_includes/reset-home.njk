@@ -14,7 +14,8 @@
         <div role="img" aria-label="{{ lead.chartAlt | escape }}">{{ strLineChart | safe }}</div>
       </div>
       <p class="chart-source" data-budget-exempt>{{ lead.chartSource | tightTokens }}</p>
-      <p class="source-line" data-budget-exempt><span class="source-group"><span class="source-label">Sources:</span> {% for source in lead.sources %}{% if not loop.first %} <span class="sep" aria-hidden="true">·</span> {% endif %}<a href="{{ source.url | escape }}">{{ source.label | escape }}</a>{% endfor %}</span></p>
+      {% set sources = lead.sources %}
+      {% include "source-line.njk" %}
     </section>
     <section class="story-card story-card--week">
       {% if thisWeek.outcomes.length %}

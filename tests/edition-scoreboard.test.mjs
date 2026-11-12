@@ -165,7 +165,7 @@ test("Thursday lead is the 3,663 chart and signup follows habitat", () => {
   assert.doesNotMatch(thursday, /hotel occupancy|occupancy tax/i);
   assert.doesNotMatch(thursday, /\b(peak|all-time high)\b/i);
   assert.doesNotMatch(thursday, /tomorrow|Not voted yet/);
-  assert.match(thursday, /City dataset mydx-h5dy/);
+  assert.match(thursday, /City data/);
   assert.match(thursday, /City STR page/);
   assert.match(thursday, /Thursday, Nov\. 12, 2026/);
   const signup = thursday.indexOf('class="signup signup--edition"');
