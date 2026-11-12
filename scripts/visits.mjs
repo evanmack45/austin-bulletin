@@ -142,7 +142,9 @@ export function stampSnapshot(previous, snapshot) {
 }
 
 function dayLine(day) {
-  const sample = day.sampleInterval == null ? "" : String(day.sampleInterval);
+  // A null interval means Cloudflare returned no rows for that date,
+  // which is not the same as a recorded zero.
+  const sample = day.sampleInterval == null ? "no rows" : String(day.sampleInterval);
   return `| ${day.date} | ${day.visits} | ${day.pageviews} | ${sample} |`;
 }
 

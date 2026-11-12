@@ -265,3 +265,25 @@ test("the script exits when the token is missing and does not print one", async 
     assert.equal(output.includes("Bearer"), false);
   }
 });
+
+test("the page beacon sends the site token, not the GraphQL site tag", async () => {
+  const layout = await readFile(
+    path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "src", "_includes", "layout.njk"),
+    "utf8"
+  );
+  const token = layout.match(/data-cf-beacon='\{"token": "([a-f0-9]{32})"\}'/)?.[1];
+  // Cloudflare's RUM endpoint answers 204 for this token and 404 for the
+  // site tag (checked 2026-11-11). The two values are different by design.
+  assert.equal(token, "fa631a41b1134237bc0c66e3c19f5e5d");
+  assert.notEqual(token, SITES[0].siteTag);
+});
+
+test("a day with no Cloudflare rows reads as no rows, not a blank", () => {
+  const snapshot = buildSnapshot({
+    sites: SITES,
+    groupsById: { bulletin: [], ych: [] },
+    windowDays: ["2026-11-11"],
+    fetchedAt: "2026-11-12T12:00:00.000Z"
+  });
+  assert.match(renderMarkdown(snapshot), /\| 2026-11-11 \| 0 \| 0 \| no rows \|/);
+});
