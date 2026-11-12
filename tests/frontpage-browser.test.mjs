@@ -52,7 +52,7 @@ async function measureFirstFold(page) {
 			};
 		};
 		const sourceLink = document.querySelector(".front-lead .source-line a");
-		const bar = document.querySelector(".bar-hi");
+		const endDot = document.querySelector(".end-dot");
 		return {
 			viewport: innerHeight,
 			actionHref: sourceLink.getAttribute("href"),
@@ -60,8 +60,8 @@ async function measureFirstFold(page) {
 			header: rect(".front-masthead"),
 			lead: rect("h1"),
 			number: rect(".bignum"),
-			bar: rect(".bar-hi"),
-			barColor: bar ? getComputedStyle(bar).backgroundColor : "",
+			bar: rect(".line-chart"),
+			barColor: endDot ? getComputedStyle(endDot).fill : "",
 			action: rect(".front-lead .source-line a"),
 			leadFontSize: getComputedStyle(document.querySelector("h1")).fontSize,
 			numberSize: getComputedStyle(document.querySelector(".bignum")).fontSize,
@@ -85,32 +85,20 @@ async function measureFirstFold(page) {
 
 function assertPlacement(result, width, height) {
  assert.ok(result.lead.top < height, JSON.stringify(result.lead));
- assert.ok(result.number.bottom <= height, `71.68 below the fold ${JSON.stringify(result.number)}`);
- assert.ok(result.bar.bottom <= height, `bid bar below the fold ${JSON.stringify(result.bar)}`);
+ assert.ok(result.number.bottom <= height, `number low ${JSON.stringify(result.number)}`);
+ assert.ok(result.bar.bottom <= height, `chart below the fold ${JSON.stringify(result.bar)}`);
  if (width === 390) assert.ok(result.header.height <= 360, JSON.stringify(result.header));
 }
 
 async function readSourceLine(page) {
 	return page.evaluate(() => {
 		const line = document.querySelector(".front-lead .source-line");
-		const link = line.querySelector("a");
-		const labelNode = line.firstChild;
-		const colon = labelNode.textContent.lastIndexOf(":");
-		const labelRange = document.createRange();
-		labelRange.setStart(labelNode, 0);
-		labelRange.setEnd(labelNode, colon + 1);
-		const linkRange = document.createRange();
-		linkRange.selectNodeContents(link);
-		const labelRect = labelRange.getClientRects()[0];
-		const linkRect = linkRange.getClientRects()[0];
-		const lead = document.querySelector(".front-lead");
-		const datasetLinks = [...lead.querySelectorAll("a")].filter((anchor) =>
-			anchor.textContent.trim() === "Evaluation matrix, packet p. 822");
+		const links = [...line.querySelectorAll("a")];
+		const tops = links.map((link) => link.getBoundingClientRect().top);
 		return {
-			labelTop: labelRect.top,
-			linkTop: linkRect.top,
-			gap: linkRect.left - labelRect.right,
-			datasetLinks: datasetLinks.length,
+			tops,
+			heights: links.map((link) => link.getBoundingClientRect().height),
+			sameLine: tops.length > 1 && Math.max(...tops) - Math.min(...tops) < 3,
 			text: line.textContent.replace(/\s+/g, " ").trim(),
 		};
 	});
@@ -144,13 +132,10 @@ async function readDateLines(page) {
 	});
 }
 
-function assertSourceLine(sourceLine) {
-	assert.equal(sourceLine.datasetLinks, 1, "lead column keeps one matrix link");
-	assert.match(sourceLine.text, /^Source: Evaluation matrix, packet p\. 822$/);
-	const sameLine = Math.abs(sourceLine.labelTop - sourceLine.linkTop) < 3;
-	if (sameLine) {
-		assert.ok(sourceLine.gap >= 3, `missing space after Source: ${JSON.stringify(sourceLine)}`);
-	}
+function assertSourceLine(sourceLine, width) {
+	assert.match(sourceLine.text, /^Sources: City data · City STR page$/);
+	assert.ok(sourceLine.heights.every((height) => height >= 44), JSON.stringify(sourceLine));
+	if (width >= 360) assert.equal(sourceLine.sameLine, true, JSON.stringify(sourceLine));
 }
 
 function assertDateLines(dateLines) {
@@ -172,8 +157,9 @@ function assertFirstFold(result, width, height) {
  assert.equal(result.barColor, "rgb(255, 194, 51)");
  assert.ok(result.action.height >= 44);
  assert.ok(result.nav.every(link => link.height >= 44));
- assert.match(result.sourceName, /Evaluation matrix, packet p\. 822/);
- assert.match(result.title, /Bell's helicopter bid won despite lowest cost score/);
+ assert.match(result.sourceName, /City data/);
+ assert.match(result.sourceName, /City STR page/);
+ assert.match(result.title, /Licensed short-term rentals rise since September/);
  assert.equal(result.title.includes("$67.8M"), false);
  assertPlacement(result, width, height);
  assert.equal(result.actionColor, "rgb(175, 187, 201)");
@@ -221,7 +207,7 @@ test("edited homepage keeps the selected lead and action visible with real fonts
 			await page.evaluate(() => document.fonts.ready);
 			const result = await measureFirstFold(page);
 			assertFirstFold(result, width, height);
-			assertSourceLine(await readSourceLine(page));
+			assertSourceLine(await readSourceLine(page), width);
 			if (width <= 390) assertDateLines(await readDateLines(page));
 			const targets = [...result.nav.map((link) => link.href), result.actionHref];
 			await reachByKeyboard(page, targets);
@@ -294,7 +280,7 @@ test("guide action fragments reach the answer by keyboard without JavaScript", {
 		assert.ok(accessTitle.ok());
 		assert.equal(
 			await page.$eval(".front-lead .source-line a", (link) => link.getAttribute("href")),
-			"https://traviscotx.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=13358,plainText=false)",
+			"https://data.austintexas.gov/d/mydx-h5dy",
 		);
 	} finally {
 		await browser.close();

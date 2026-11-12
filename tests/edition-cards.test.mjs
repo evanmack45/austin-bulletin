@@ -36,9 +36,9 @@ test("the Nov. 10 card page uses the fact-checked lines", () => {
     "The judge called it unanimous, according to the meeting video.",
     "The county has not yet posted the vote record.",
     "took no action, according to the meeting video.",
-    "county vote record (consent motion)",
-    ">meeting video<",
-    ">agenda<"
+    "County vote record (consent motion)",
+    ">Meeting video<",
+    ">Agenda<"
   ]) {
     assert.equal(page.includes(line), true, line);
   }

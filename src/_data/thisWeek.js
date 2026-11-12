@@ -40,11 +40,25 @@ for (const item of items) {
 
 const placed = pins.map((pin) => ({ ...pin, count: pin.items.length }));
 
+const HOME_LABELS = {
+  "county-court-weighs-197-million-in-borrowing-for-2027-projects": ["Vote record", "Meeting video"]
+};
+
+function homeSources(card) {
+  const sources = Array.isArray(card.sources) ? card.sources : [];
+  const labels = HOME_LABELS[card.id];
+  if (!labels) return sources;
+  return sources.map((source, index) => ({
+    ...source,
+    label: labels[index] || source.label
+  }));
+}
+
 const outcomes = (editionCards["2026-11-10"]?.cards || [])
   .filter((card) => Number.isInteger(card.outcome))
   .sort((a, b) => a.outcome - b.outcome)
   .map((card) => {
-    const sources = Array.isArray(card.sources) ? card.sources : [];
+    const sources = homeSources(card);
     // Homepage only. The edition headline still carries "4-0". A non-breaking
     // hyphen keeps the tally in the mark from splitting the way a headline wrap did.
     const kaskade = card.id === "kaskade-origin-permit";

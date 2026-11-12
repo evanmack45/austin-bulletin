@@ -5,7 +5,7 @@
 <header class="front-masthead masthead-strip">
   <div class="masthead-title">
     <a class="wordmark" href="/">The Austin Bulletin<span class="masthead-dot" aria-hidden="true">·</span></a>
-    <p class="masthead-dateline">{% if archiveEdition %}{{ page.date | weekday }}, {{ page.date | shortMonthDay }} <span class="latest-edition">· Latest: <a href="{{ latestFront.url | escape }}">{{ latestFront.date | shortMonthDay }}</a></span>{% else %}{{ latestFront.date | weekday }}, {{ latestFront.date | shortMonthDay }}{% if deskLine.weather %} · {{ deskLine.weather | escape }}{% endif %}{% if previousFront %} <span class="prev-edition">· Previous: <a href="{{ previousFront.url | escape }}">{{ previousFront.date | shortMonthDay }}</a></span>{% endif %}{% endif %}</p>
+    <p class="masthead-dateline">{% if archiveEdition %}{{ page.date | weekday }}, {{ page.date | shortMonthDay }}, {{ page.date | editionYear }} <span class="latest-edition">· Latest: <a href="{{ latestFront.url | escape }}">{{ latestFront.date | shortMonthDay }}</a></span>{% else %}{{ latestFront.date | weekday }}, {{ latestFront.date | shortMonthDay }}, {{ latestFront.date | editionYear }}{% if deskLine.weather %} · {{ deskLine.weather | escape }}{% endif %}{% if previousFront %} <span class="prev-edition">· Previous: <a href="{{ previousFront.url | escape }}">{{ previousFront.date | shortMonthDay }}</a></span>{% endif %}{% endif %}</p>
   </div>
   <div class="masthead-inner">
     {% include "site-nav.njk" %}

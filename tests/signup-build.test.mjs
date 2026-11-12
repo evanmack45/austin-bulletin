@@ -45,7 +45,7 @@ test("the homepage signup follows the rent-limit lead", () => {
   const signupAt = heads.indexOf("signup");
   assert.equal(heads.filter((tag) => tag === "signup").length, 1);
   assert.ok(heads.indexOf("h1") >= 0 && heads.indexOf("h1") < signupAt);
-  assert.ok(main.indexOf("71.68") < main.indexOf('class="signup signup--lead"'));
+  assert.ok(main.indexOf("3,663") < main.indexOf('class="signup signup--lead"'));
   assert.equal(main.includes(">927<"), false);
   assert.equal(main.includes('class="paper-side"'), false);
   assert.match(main, VALUE);

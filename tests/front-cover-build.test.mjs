@@ -2,26 +2,28 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
-const SHARE = "https://theaustinbulletin.com/images/2026-11-11/bid-scores-desktop-1600.webp";
-const MATRIX = "https://traviscotx.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=13358,plainText=false)";
+const SHARE = "https://theaustinbulletin.com/images/2026-11-12/str-licenses-desktop-1600.webp";
+const DATASET = "https://data.austintexas.gov/d/mydx-h5dy";
 
 function assertChartLead(html) {
-  const lead = html.match(
+  const lead = (html.match(
     /<section class="[^"]*\bstory-card--lead\b[^"]*"[\s\S]*?<\/section>/
-  )?.[0] ?? "";
+  )?.[0] ?? "").replaceAll("\u00a0", " ");
   const h1 = lead.indexOf("<h1");
   const chart = lead.indexOf('class="chart"');
   const source = lead.indexOf('class="source-line"');
   assert.ok(h1 !== -1 && chart > h1 && source > chart, lead.slice(0, 400));
-  assert.match(lead, /Bell(?:'|&#39;)s helicopter bid won despite lowest cost score/);
-  assert.match(lead, />71\.68</);
-  assert.match(lead, /of 100 points/);
-  assert.match(lead, /ranked last of four on initial cost/);
-  assert.match(lead, /Agustawestland/);
-  assert.match(lead, /class="bar bar-hi"/);
+  assert.match(lead, /Licensed short-term rentals rise since September/);
+  assert.match(lead, />3,663</);
+  assert.match(lead, /active licenses, Nov\. 10/);
+  assert.match(lead, /up 21\.5% since Sept\. 30/);
+  assert.match(lead, /class="end-dot"/);
+  assert.match(lead, /3,015/);
+  assert.match(lead, /Sept\. 30/);
   assert.doesNotMatch(lead, /\$67\.8M|>927</);
-  assert.match(lead, /href="\/2026\/11\/11\/#bells-helicopter-bid-won-despite-lowest-cost-score"/);
-  assert.ok(lead.includes(MATRIX), "matrix source");
+  assert.match(lead, /href="\/2026\/11\/12\/#licensed-short-term-rentals-rise-since-september"/);
+  assert.ok(lead.includes(DATASET), "city dataset source");
+  assert.match(lead, /City STR page/);
   assert.doesNotMatch(lead, /register-lead|runoff-lead|AI illustration/);
   assert.doesNotMatch(html, /\b(peak|biggest)\b|the most/i);
   const css = readFileSync("src/css/front-cover.css", "utf8");
@@ -30,7 +32,7 @@ function assertChartLead(html) {
   assert.match(css, /\.home-front \.results-link \{[\s\S]*?background:\s*transparent;/);
 }
 
-test("the homepage lead is Wednesday's 71.68 bid chart", () => {
+test("the homepage lead is Thursday's 3,663 license chart", () => {
   assertChartLead(readFileSync("_site/index.html", "utf8"));
 });
 
@@ -41,16 +43,16 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
     "/css/reset-home.css",
     "front-lead",
     "class=\"source-line\"",
-    "CHART</p>"
+    "chart-kicker--sentence"
   ]) assert.ok(html.includes(text), text);
   assert.doesNotMatch(html, /week-block|Before it closes|id="week-title"/);
   assert.match(html, /Get the morning email\./);
   assert.doesNotMatch(html, /5 minutes|One email each morning/);
   assert.doesNotMatch(html, /class="results-button"/);
   assert.equal((html.match(/<h1\b/g) || []).length, 1);
-  assert.match(html, /Bell(?:'|&#39;)s helicopter bid won despite lowest cost score/);
-  assert.match(html, /href="\/2026\/11\/11\/#bells-helicopter-bid-won-despite-lowest-cost-score"/);
-  assert.match(html, />71\.68</);
+  assert.match(html, /Licensed short-term rentals rise since September/);
+  assert.match(html, /href="\/2026\/11\/12\/#licensed-short-term-rentals-rise-since-september"/);
+  assert.match(html, />3,663</);
   assert.doesNotMatch(html.match(/story-card--lead[\s\S]*?<\/section>/)?.[0] ?? "", />927</);
   assert.doesNotMatch(html, /Register by Thursday if a runoff is ordered\./);
   assert.match(html, /class="wordmark"/);
@@ -66,22 +68,22 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.ok(html.includes(`name="twitter:image" content="${SHARE}"`));
   assert.match(
     html,
-    /property="og:title" content="Bell(?:'|&#39;)s helicopter bid won despite lowest cost score"/
+    /property="og:title" content="Licensed short-term rentals rise since September"/
   );
   assert.match(html, new RegExp(
-    "og:description\" content=\"Bell led on aviation and cabin scores " +
-    "but ranked last of four on initial cost\\."
+    "og:description\" content=\"The City(?:'|&#39;)s daily count, which starts Feb\\. 28, 2025, " +
+    "is up 21\\.5% since Sept\\. 30\\."
   ));
   assert.match(
     html,
-    /name="twitter:title" content="Bell(?:'|&#39;)s helicopter bid won despite lowest cost score"/
+    /name="twitter:title" content="Licensed short-term rentals rise since September"/
   );
   assert.match(html, new RegExp(
-    "twitter:description\" content=\"Bell led on aviation and cabin scores " +
-    "but ranked last of four on initial cost"
+    "twitter:description\" content=\"The City(?:'|&#39;)s daily count, " +
+    "which starts Feb\\. 28, 2025, is up 21\\.5% since Sept\\. 30"
   ));
-  assert.match(html, /Wednesday, Nov\. 11/);
-  assert.match(html, /href="\/2026\/11\/10\/"/);
+  assert.match(html, /Thursday, Nov\. 12, 2026/);
+  assert.match(html, /href="\/2026\/11\/11\/"/);
   assert.match(html, /Nov\. 10 · 6 outcomes/);
   assert.match(html, /This week · 3 items/);
   assert.match(html, /<u>4\u20110<\/u>[\s\S]*Kaskade permit approved</);
@@ -106,8 +108,10 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.equal(outcomeText.includes("5-0"), false);
   assert.equal(outcomeText.includes("Briefed Nov."), false);
   assert.equal(outcomeText.includes("Approved Nov."), false);
-  assert.match(outcomes, /source-line source-line--stack/);
-  assert.match(outcomes, /<span class="source-group"><span class="sep"/);
+  assert.match(outcomes, /Vote record/);
+  assert.match(outcomes, /Meeting video/);
+  assert.doesNotMatch(outcomes, /source-line--stack/);
+  assert.match(outcomes, /<span class="source-group">\s*<span class="sep"/);
   assert.doesNotMatch(html, /If you (haven't|want|live|are)\b/);
   assert.ok(!html.includes("front-news-rail"), "the rail is gone");
   assert.ok(!html.includes("Austin, up close."));
@@ -169,30 +173,36 @@ test("an older edition dates itself and links to the latest", () => {
   const older = readFileSync("_site/2026/11/09/index.html", "utf8").replaceAll("\u00a0", " ");
   const sunday = readFileSync("_site/2026/11/08/index.html", "utf8").replaceAll("\u00a0", " ");
   const tuesday = readFileSync("_site/2026/11/10/index.html", "utf8").replaceAll("\u00a0", " ");
-  const latest = readFileSync("_site/2026/11/11/index.html", "utf8").replaceAll("\u00a0", " ");
+  const wednesday = readFileSync("_site/2026/11/11/index.html", "utf8").replaceAll("\u00a0", " ");
+  const thursday = readFileSync("_site/2026/11/12/index.html", "utf8").replaceAll("\u00a0", " ");
   const home = readFileSync("_site/index.html", "utf8").replaceAll("\u00a0", " ");
   const line = (html) => html.match(/class="masthead-dateline">([\s\S]*?)<\/p>/)[1];
   const nov9 = line(older);
   assert.match(nov9, /Monday, Nov\. 9/);
   assert.match(nov9, /Latest:/);
-  assert.match(nov9, /href="\/2026\/11\/11\/"/);
-  assert.match(nov9, />Nov\. 11</);
+  assert.match(nov9, /href="\/2026\/11\/12\/"/);
+  assert.match(nov9, />Nov\. 12</);
   assert.doesNotMatch(nov9, /Previous:/);
   assert.doesNotMatch(nov9, /Wednesday, Nov\. 11/);
   const nov8 = line(sunday);
   assert.match(nov8, /Sunday, Nov\. 8/);
-  assert.match(nov8, /href="\/2026\/11\/11\/"/);
+  assert.match(nov8, /href="\/2026\/11\/12\/"/);
   assert.doesNotMatch(nov8, /Previous:/);
   const nov10 = line(tuesday);
   assert.match(nov10, /Tuesday, Nov\. 10/);
   assert.match(nov10, /Latest:/);
-  assert.match(nov10, /href="\/2026\/11\/11\/"/);
+  assert.match(nov10, /href="\/2026\/11\/12\/"/);
   assert.doesNotMatch(nov10, /Previous:/);
-  for (const html of [latest, home]) {
+  const nov11 = line(wednesday);
+  assert.match(nov11, /Wednesday, Nov\. 11/);
+  assert.match(nov11, /Latest:/);
+  assert.match(nov11, /href="\/2026\/11\/12\/"/);
+  assert.doesNotMatch(nov11, /Previous:/);
+  for (const html of [thursday, home]) {
     const current = line(html);
-    assert.match(current, /Wednesday, Nov\. 11/);
+    assert.match(current, /Thursday, Nov\. 12, 2026/);
     assert.match(current, /Previous:/);
-    assert.match(current, /href="\/2026\/11\/10\/"/);
+    assert.match(current, /href="\/2026\/11\/11\/"/);
     assert.doesNotMatch(current, /Latest:/);
   }
 });

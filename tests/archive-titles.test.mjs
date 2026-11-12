@@ -81,13 +81,13 @@ test("the built archive lists those titles and the homepage card stays the lead"
   const home = readFileSync(path.join(root, "_site/index.html"), "utf8");
   assert.match(
     home,
-    /property="og:title" content="Bell(?:'|&#39;)s helicopter bid won despite lowest cost score"/
+    /property="og:title" content="Licensed short-term rentals rise since September"/
   );
   assert.match(
     home,
-    /name="twitter:title" content="Bell(?:'|&#39;)s helicopter bid won despite lowest cost score"/
+    /name="twitter:title" content="Licensed short-term rentals rise since September"/
   );
-  const card = "https://theaustinbulletin.com/images/2026-11-11/bid-scores-desktop-1600.webp";
+  const card = "https://theaustinbulletin.com/images/2026-11-12/str-licenses-desktop-1600.webp";
   assert.ok(home.includes(`property="og:image" content="${card}"`));
   assert.match(archive, /Austin Energy bonds, a \$5\.48 million trail purchase/);
   assert.match(archive, /href="\/2026\/11\/08\/"/);

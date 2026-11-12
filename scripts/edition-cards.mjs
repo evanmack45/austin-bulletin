@@ -155,6 +155,29 @@ function scoreboardLayout(sections) {
   return { boards, nextItems, noticeItems };
 }
 
+function splitBoard(section) {
+  const at = section.items.findIndex((item) => item.signupBreak);
+  if (at <= 0) return [section];
+  return [
+    { ...section, items: section.items.slice(0, at) },
+    {
+      ...section,
+      id: `${section.id}-more`,
+      hideLabel: true,
+      signupBefore: true,
+      items: section.items.slice(at)
+    }
+  ];
+}
+
+function splitSignup(boards) {
+  const next = boards.flatMap(splitBoard);
+  return {
+    boards: next,
+    signupInside: next.some((section) => section.signupBefore)
+  };
+}
+
 function groupSections(body) {
   const sections = [];
   for (const item of body) {
@@ -177,10 +200,15 @@ export function editionCardModel(cards, now = new Date()) {
   const signupItem = indexed.find((card) => card !== lead && card.index > 2);
   if (signupItem) signupItem.signupBefore = true;
   const sections = groupSections(body);
+  const laid = scoreboardLayout(sections);
+  const split = splitSignup(laid.boards);
   return {
     lead,
     sections,
-    ...scoreboardLayout(sections),
+    boards: split.boards,
+    nextItems: laid.nextItems,
+    noticeItems: laid.noticeItems,
+    signupInside: split.signupInside,
     signupAtEnd: Boolean(lead) && !signupItem
   };
 }

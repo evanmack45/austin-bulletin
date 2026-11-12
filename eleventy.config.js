@@ -301,6 +301,7 @@ export default function (eleventyConfig) {
 
   eleventyConfig.addFilter("isoDate", isoDate);
   eleventyConfig.addFilter("shortMonthDay", shortMonthDay);
+  eleventyConfig.addFilter("editionYear", (value) => new Date(value).getUTCFullYear());
   eleventyConfig.addFilter("archiveDate", archiveDate);
   eleventyConfig.addFilter("homeDesk", (inputPath) => {
     const markdown = readFileSync(inputPath, "utf8");
