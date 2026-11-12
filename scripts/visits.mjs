@@ -37,16 +37,56 @@ const TAG_ENV = {
 
 export const SAMPLE_NOTE = [
   "Pageviews are the GraphQL count and visits are sum.visits",
-  "for human pageloads (bot 0), grouped by date.",
-  "sampleInterval is Cloudflare's sampling interval for that day:",
-  "1 means the figure was not sampled down, and a higher number",
-  "means the figure is an estimate at that granularity.",
+  "for human pageloads (bot 0). Cloudflare returns UTC hour buckets;",
+  "each date here is an America/Chicago calendar day, the sum of the",
+  "hours that fall in it.",
+  "sampleInterval is the largest of Cloudflare's hourly sampling",
+  "intervals that day: 1 means no hour was sampled down, and a higher",
+  "number means the figure is an estimate at that granularity.",
+  "\"no rows\" means Cloudflare returned nothing for that day.",
   "Visits and pageviews are stored as the API returned them."
+].join(" ");
+
+export const DAY_BASIS =
+  "America/Chicago calendar day, summed from Cloudflare UTC hour buckets";
+
+// Used only when Cloudflare rejects the hourly query. The daily query is
+// the one this script ran before hour buckets, so a snapshot still lands.
+export const FALLBACK_BASIS = "utc-date (hourly query rejected)";
+
+export const FALLBACK_NOTE = [
+  "Cloudflare rejected the hourly query, so these figures come from the",
+  "daily query: each date is a UTC date, not an America/Chicago day.",
+  "Pageviews are the GraphQL count and visits are sum.visits for human",
+  "pageloads (bot 0). sampleInterval is Cloudflare's sampling interval for",
+  "that date. \"no rows\" means Cloudflare returned nothing for that date."
 ].join(" ");
 
 export function shiftIsoDate(iso, days) {
   const [year, month, day] = iso.split("-").map(Number);
   return new Date(Date.UTC(year, month - 1, day + days)).toISOString().slice(0, 10);
+}
+
+// The UTC instant when an America/Chicago calendar day begins. Central is
+// UTC-6 or UTC-5, so local midnight is 05:00 or 06:00 UTC.
+export function chicagoMidnightUtc(iso) {
+  const [year, month, day] = iso.split("-").map(Number);
+  for (const offset of [5, 6]) {
+    const instant = new Date(Date.UTC(year, month - 1, day, offset));
+    const before = new Date(instant.getTime() - 1);
+    if (chicagoDate(instant) === iso && chicagoDate(before) !== iso) {
+      return instant.toISOString().replace(".000Z", "Z");
+    }
+  }
+  throw new Error(`no Chicago midnight found for ${iso}`);
+}
+
+// Half-open UTC range covering the Chicago days start..end inclusive.
+export function chicagoRange(start, end) {
+  return {
+    since: chicagoMidnightUtc(start),
+    until: chicagoMidnightUtc(shiftIsoDate(end, 1))
+  };
 }
 
 export function lastCalendarDays(now = new Date(), count = WINDOW_DAYS) {
@@ -71,9 +111,19 @@ function field(object, key) {
   return object == null ? undefined : object[key];
 }
 
+// Every Central offset is a whole hour, so a UTC hour bucket lies inside
+// exactly one Chicago day.
+export function chicagoDayOfHour(hour) {
+  const instant = new Date(String(hour || ""));
+  return Number.isNaN(instant.getTime()) ? "" : chicagoDate(instant);
+}
+
 export function rowFromGroup(group) {
   const sample = field(field(group, "avg"), "sampleInterval");
-  const date = field(field(group, "dimensions"), "date") || "";
+  const dimensions = field(group, "dimensions");
+  const hour = field(dimensions, "datetimeHour");
+  // Hour buckets become Chicago days; a daily fallback row keeps its UTC date.
+  const date = hour ? chicagoDayOfHour(hour) : field(dimensions, "date") || "";
   return {
     date,
     visits: finiteNumber(field(field(group, "sum"), "visits")),
@@ -86,11 +136,22 @@ function zeroDay(date) {
   return { date, visits: 0, pageviews: 0, sampleInterval: null };
 }
 
+function addHour(day, row) {
+  if (!day) return { ...row };
+  const samples = [day.sampleInterval, row.sampleInterval].filter((value) => value != null);
+  return {
+    date: day.date,
+    visits: day.visits + row.visits,
+    pageviews: day.pageviews + row.pageviews,
+    sampleInterval: samples.length ? Math.max(...samples) : null
+  };
+}
+
 export function daysFromGroups(groups, windowDays) {
   const byDate = new Map();
   for (const group of groups || []) {
     const row = rowFromGroup(group);
-    if (windowDays.includes(row.date)) byDate.set(row.date, row);
+    if (windowDays.includes(row.date)) byDate.set(row.date, addHour(byDate.get(row.date), row));
   }
   return windowDays.map((date) => byDate.get(date) || zeroDay(date));
 }
@@ -105,7 +166,9 @@ export function totalsFor(days) {
   return { visits, pageviews };
 }
 
-export function buildSnapshot({ sites, groupsById, windowDays, fetchedAt }) {
+export function buildSnapshot({
+  sites, groupsById, windowDays, fetchedAt, dayBasis = DAY_BASIS
+}) {
   const built = sites.map((site) => {
     const days = daysFromGroups(groupsById[site.id], windowDays);
     return {
@@ -120,12 +183,13 @@ export function buildSnapshot({ sites, groupsById, windowDays, fetchedAt }) {
   return {
     fetched_at: fetchedAt,
     timezone: "America/Chicago",
+    day_basis: dayBasis,
     window: {
       start: windowDays[0],
       end: windowDays[windowDays.length - 1],
       days: windowDays.length
     },
-    sample_interval_note: SAMPLE_NOTE,
+    sample_interval_note: dayBasis === DAY_BASIS ? SAMPLE_NOTE : FALLBACK_NOTE,
     sites: built
   };
 }
@@ -168,6 +232,7 @@ export function renderMarkdown(snapshot) {
     "",
     `Pulled ${snapshot.fetched_at}.`,
     `Window ${snapshot.window.start} through ${snapshot.window.end} (${snapshot.timezone}).`,
+    `Day basis: ${snapshot.day_basis || DAY_BASIS}.`,
     "",
     snapshot.sample_interval_note,
     "",
@@ -257,26 +322,39 @@ function assertShape(label, value, pattern) {
   }
 }
 
-function selection(site, start, end) {
+function selection(site, bounds, dimension) {
   return `${site.id}: rumPageloadEventsAdaptiveGroups(
     limit: ${GROUP_LIMIT}
     filter: {
-      date_geq: "${start}"
-      date_leq: "${end}"
+      ${bounds}
       bot: 0
       siteTag: "${site.siteTag}"
     }
-    orderBy: [date_ASC]
+    orderBy: [${dimension}_ASC]
   ) {
     count
     avg { sampleInterval }
     sum { visits }
-    dimensions { date }
+    dimensions { ${dimension} }
   }`;
 }
 
-export function buildQuery({ accountId, sites, start, end }) {
-  const fields = sites.map((site) => selection(site, start, end)).join("\n");
+function queryShape(basis, start, end) {
+  if (basis === "daily") {
+    return { dimension: "date", bounds: `date_geq: "${start}"\n      date_leq: "${end}"` };
+  }
+  const { since, until } = chicagoRange(start, end);
+  return {
+    dimension: "datetimeHour",
+    bounds: `datetime_geq: "${since}"\n      datetime_lt: "${until}"`
+  };
+}
+
+// basis "hourly" (default) asks for UTC hour buckets across the Chicago
+// window. basis "daily" is the older UTC-date query, kept as a fallback.
+export function buildQuery({ accountId, sites, start, end, basis = "hourly" }) {
+  const { bounds, dimension } = queryShape(basis, start, end);
+  const fields = sites.map((site) => selection(site, bounds, dimension)).join("\n");
   return `query {
     viewer {
       accounts(filter: { accountTag: "${accountId}" }) {
@@ -317,13 +395,13 @@ export function groupsFromPayload(body, sites, token) {
   return groupsById;
 }
 
-export async function queryVisits(options) {
+export async function queryGroups(options, basis = "hourly") {
   const { token, accountId, sites, start, end, fetchImpl } = options;
   assertShape("account", accountId, HEX);
   assertShape("start", start, DAY);
   assertShape("end", end, DAY);
   for (const site of sites) assertShape(site.id, site.siteTag, HEX);
-  const query = buildQuery({ accountId, sites, start, end });
+  const query = buildQuery({ accountId, sites, start, end, basis });
   const body = await cloudflare(GRAPHQL_URL, token, fetchImpl, {
     method: "POST",
     body: JSON.stringify({ query })
@@ -331,9 +409,29 @@ export async function queryVisits(options) {
   return groupsFromPayload(body, sites, token);
 }
 
+// Try the hourly query first. If Cloudflare rejects it (GraphQL errors,
+// an unknown field, a non-2xx reply), say so and run the daily UTC-date
+// query instead, so a rejected query never costs a snapshot. If the daily
+// query fails too, that error is thrown.
+export async function queryVisits(options) {
+  const log = options.log || ((line) => console.error(line));
+  try {
+    const groupsById = await queryGroups(options, "hourly");
+    return { groupsById, dayBasis: DAY_BASIS };
+  } catch (err) {
+    log([
+      `Hourly visits query rejected: ${err.message}.`,
+      "Falling back to the daily UTC-date query;",
+      `this snapshot's day_basis is "${FALLBACK_BASIS}".`
+    ].join(" "));
+  }
+  const groupsById = await queryGroups(options, "daily");
+  return { groupsById, dayBasis: FALLBACK_BASIS };
+}
+
 async function rowsForAccount(accountId, options) {
   try {
-    const groups = await queryVisits({ ...options, accountId });
+    const { groupsById: groups } = await queryVisits({ ...options, accountId });
     return Object.values(groups).reduce((sum, rows) => sum + rows.length, 0);
   } catch (err) {
     return { error: err.message };
@@ -423,15 +521,67 @@ export async function pullAndWrite(options = {}) {
     ...shared,
     accountId: settings.env.CLOUDFLARE_ACCOUNT_ID
   });
-  const groupsById = await queryVisits({ ...shared, accountId });
+  const { groupsById, dayBasis } = await queryVisits({
+    ...shared, accountId, log: options.log
+  });
   const fresh = buildSnapshot({
     sites,
     groupsById,
     windowDays,
-    fetchedAt: settings.now.toISOString()
+    fetchedAt: settings.now.toISOString(),
+    dayBasis
   });
   const written = await writtenSnapshot(settings, fresh);
   return { ...written, accountId };
+}
+
+// Read-only check of the hourly query. Sends only that query (no fallback),
+// returns hour-row counts per Chicago day, and writes nothing.
+export async function dryRunHourly(options = {}) {
+  const settings = pullOptions(options);
+  const token = settings.env.CLOUDFLARE_ANALYTICS_TOKEN || "";
+  if (!token) throw new Error("CLOUDFLARE_ANALYTICS_TOKEN is not set");
+  const sites = sitesFromEnv(settings.env);
+  const windowDays = lastCalendarDays(settings.now);
+  const start = windowDays[0];
+  const end = windowDays[windowDays.length - 1];
+  const shared = { token, sites, start, end, fetchImpl: settings.fetchImpl };
+  const accountId = await resolveAccountId({
+    ...shared, accountId: settings.env.CLOUDFLARE_ACCOUNT_ID
+  });
+  let groupsById;
+  try {
+    groupsById = await queryGroups({ ...shared, accountId }, "hourly");
+  } catch (err) {
+    throw new Error(`Hourly visits query rejected: ${err.message}`);
+  }
+  return {
+    ...chicagoRange(start, end),
+    sites: sites.map((site) => {
+      const hours = new Map(windowDays.map((date) => [date, 0]));
+      for (const group of groupsById[site.id]) {
+        const date = rowFromGroup(group).date;
+        if (hours.has(date)) hours.set(date, hours.get(date) + 1);
+      }
+      const days = daysFromGroups(groupsById[site.id], windowDays)
+        .map((day) => ({ ...day, hourRows: hours.get(day.date) }));
+      return { id: site.id, host: site.host, days };
+    })
+  };
+}
+
+export function renderDryRun(result) {
+  const lines = [
+    `Dry run, hourly query, nothing written. UTC ${result.since} to ${result.until}.`
+  ];
+  for (const site of result.sites) {
+    lines.push(site.host);
+    for (const day of site.days) {
+      const rows = day.hourRows === 0 ? "no rows" : `${day.hourRows} hour rows`;
+      lines.push(`  ${day.date} ${rows}, ${day.visits} visits, ${day.pageviews} pageviews`);
+    }
+  }
+  return lines.join("\n");
 }
 
 function invokedDirectly() {
@@ -440,9 +590,13 @@ function invokedDirectly() {
 }
 
 async function main() {
+  if (process.argv.includes("--dry-run")) {
+    console.log(renderDryRun(await dryRunHourly()));
+    return;
+  }
   const { snapshot } = await pullAndWrite();
   const { start, end } = snapshot.window;
-  console.log(`Visits ${start} through ${end}`);
+  console.log(`Visits ${start} through ${end} (${snapshot.day_basis})`);
   for (const site of snapshot.sites) {
     const { visits, pageviews } = site.totals;
     console.log(`${site.host} ${visits} visits, ${pageviews} pageviews`);
