@@ -24,22 +24,46 @@
       {% set sources = lead.sources %}
       {% include "source-line.njk" %}
     </section>
-    <section class="story-card story-card--week">
-      {% if thisWeek.outcomes.length %}
-      <h2 class="week-kicker" id="week-outcomes">Nov. 10 · {{ thisWeek.outcomes | length }} outcomes</h2>
-      <ul class="week-outcomes">
-        {% for item in thisWeek.outcomes %}
-        <li>
-          {% if item.glyph or item.topic %}
-          <p class="outcome-mark">{% if item.glyph %}<b><u>{{ item.glyph | escape }}</u></b>{% if item.glyphLabel %}<span>{{ item.glyphLabel | escape }}</span>{% endif %}{% else %}<span class="outcome-topic">{{ item.topic | escape }}</span>{% endif %}</p>
+    {% if thisWeek.board.tiles.length %}
+    <section class="story-card story-card--outcomes" aria-labelledby="week-outcomes">
+      <h2 class="ob-kicker" id="week-outcomes">{{ thisWeek.board.dateLabel }} · <b>{{ thisWeek.board.count }} outcomes</b></h2>
+      <ul class="ob">
+        {% for tile in thisWeek.board.tiles %}
+        <li class="t t--{{ tile.role }}">
+          <p class="t-tag">{% if tile.tagIcon %}{{ tile.tagIcon | icon | safe }}{% endif %}{{ tile.tag | escape }}</p>
+          <p class="t-num{% if tile.markKind == "word" %} t-word{% endif %}">{{ tile.mark | escape }}</p>
+          {% if tile.markKind == "tally" %}
+          <div class="tally" role="img" aria-label="{{ tile.tallyLabel | escape }}">{% for square in tile.squares %}<i aria-hidden="true"></i>{% endfor %}</div>
           {% endif %}
-          <h3>{{ item.headline | tightTokens }}</h3>
-          <p class="outcome-dek">{{ item.text | tightTokens }}</p>
-          <p class="source-line{% if item.stackSources %} source-line--stack{% endif %}" data-budget-exempt>{% for source in item.sources %}<span class="source-group">{% if loop.first %}<span class="source-label">Sources:</span> {% else %} <span class="sep" aria-hidden="true">·</span> {% endif %}<a href="{{ source.url | escape }}">{{ source | sourceLabel | escape }}</a></span>{% endfor %}</p>
+          <h3 class="t-lab">{% if tile.href %}<a href="{{ tile.href | escape }}">{{ tile.label | escape }}</a>{% else %}{{ tile.label | escape }}{% endif %}</h3>
+          {% if tile.markKind == "money" %}
+          <div class="t-bar" role="img" aria-label="{{ tile.bar.label | escape }}">
+            <span class="fill" style="--w:{{ tile.bar.base }}"></span>
+            {% if tile.bar.add %}<span class="add" style="--x:{{ tile.bar.base }};--w:{{ tile.bar.add }}"></span>{% endif %}
+            <span class="dot" style="--x:{{ tile.bar.end }}"></span>
+            {% if tile.bar.callout %}<p class="call" aria-hidden="true">{{ tile.bar.callout | escape }}</p>{% endif %}
+          </div>
+          {% if tile.axis %}
+          <p class="t-axis" aria-hidden="true"><span>{{ tile.axis[0] | escape }}</span><span>{{ tile.axis[1] | escape }}</span></p>
+          {% endif %}
+          {% endif %}
+          {% if tile.rows.length %}
+          <ul class="t-rows">
+            {% for row in tile.rows %}
+            <li class="t-row"><a href="{{ row.href | escape }}">{{ row.icon | icon | safe }}<span>{{ row.label | escape }}</span></a></li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+          {% if tile.note %}
+          <p class="t-note">{% if tile.note.date %}{{ tile.note.before | escape }} <span class="nb">{{ tile.note.date | escape }}</span> {{ tile.note.after | escape }}{% else %}{{ tile.note.text | escape }}{% endif %}</p>
+          {% endif %}
+          <p class="t-src source-line" data-budget-exempt>{% for source in tile.sources %}<span class="source-group">{% if loop.first %}<span class="source-label">Sources:</span>{% else %}<span class="sep" aria-hidden="true">·</span>{% endif %}<a href="{{ source.url | escape }}">{{ source.label | escape }}</a></span>{% endfor %}</p>
         </li>
         {% endfor %}
       </ul>
-      {% endif %}
+    </section>
+    {% endif %}
+    <section class="story-card story-card--week">
       <div id="week-block"{% if thisWeek.items.length == 0 %} hidden{% endif %}>
         <h2 class="week-kicker" id="this-week-a">This week · <span id="week-count">{{ thisWeek.items.length }}</span> <span id="week-word">{% if thisWeek.items.length == 1 %}item{% else %}items{% endif %}</span></h2>
         {% include "reset-week.njk" %}

@@ -85,8 +85,8 @@ const chartLead = {
   width: 1280,
   height: 1080,
   smallWidth: 800,
-  alt: "Chart, not a photograph.",
-  caption: "Chart. Not a photograph.",
+  alt: "Chart: Travis County unofficial results.",
+  caption: "Chart: Travis County unofficial results.",
   credit: "Travis County unofficial results",
   source: "https://results.enr.clarityelections.com/TX/Travis/127492/",
   license: "CC0 1.0",
@@ -102,7 +102,8 @@ test("a chart lead is labeled, eager, and offers an 800w source", () => {
   assert.match(html, /width="1280" height="1080"/);
   assert.match(html, /election-results-800\.webp 800w/);
   assert.match(html, /election-results\.webp 1280w/);
-  assert.match(html, /Not a photograph/);
+  assert.match(html, /Chart: Travis County unofficial results/);
+  assert.doesNotMatch(html, /Not a photograph/);
   assert.doesNotMatch(html, /Photo:/);
   assert.doesNotMatch(html, />Travis County unofficial results</);
   assert.match(html, /creativecommons\.org\/publicdomain\/zero\/1\.0/);

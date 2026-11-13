@@ -67,6 +67,10 @@ function ensureButton(row) {
   return button;
 }
 
+function packFloor(row) {
+  return row.closest(".story-card--outcomes") ? 1 : 0;
+}
+
 function packRow(row) {
   if (row.dataset.packedOpen === "1" || !onScreen(row)) return;
   const button = ensureButton(row);
@@ -79,18 +83,30 @@ function packRow(row) {
     button.remove();
     return;
   }
+<<<<<<< HEAD
   // Keep the first named link visible. "+N more" is only for later links.
   let hidden = 0;
   for (let index = links.length - 1; index >= 1; index -= 1) {
+=======
+  const floor = packFloor(row);
+  button.hidden = false;
+  let hidden = 0;
+  for (let index = links.length - 1; index >= floor; index -= 1) {
+>>>>>>> 8417212 (Replace the homepage outcomes list with one navy board.)
     hideLink(links[index]);
     hidden += 1;
     button.hidden = false;
     button.textContent = `+${hidden} more`;
     if (fits(row)) return;
   }
+<<<<<<< HEAD
   if (hidden === 0) button.remove();
   // Last resort: wrap rather than hide the first named link or shrink type.
   if (!fits(row)) row.classList.add("is-wrap");
+=======
+  if (!hidden) button.remove();
+  clipLabel(row, true);
+>>>>>>> 8417212 (Replace the homepage outcomes list with one navy board.)
 }
 
 export function packSourceRows(root = document) {
