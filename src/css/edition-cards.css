@@ -262,32 +262,44 @@ body.edition-cards:has(article.bulletin) main {
 
 .edition-cards .src {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  flex-flow: row nowrap;
+  align-items: baseline;
+  justify-content: flex-start;
   column-gap: 6px;
+  max-width: 100%;
+  min-width: 0;
   margin: 0;
-  min-height: 1.25rem;
+  min-height: 44px;
+  overflow: hidden;
+  white-space: nowrap;
   font-family: var(--font-display);
   font-size: var(--fs-meta);
   line-height: 1.2;
   color: var(--muted);
 }
+.edition-cards .src > * {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
 .edition-cards .card > .src { margin-top: auto; padding-top: 6px; }
-.edition-cards .src a {
-  display: inline-block;
-  padding-block: 12px;
-  margin-block: -12px;
+.edition-cards .src a,
+.edition-cards .src .src-more {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  min-width: 44px;
+  min-height: 44px;
+  padding-block: 10px;
+  margin-block: 0;
   line-height: 1.25rem;
   color: var(--ink);
+  background: transparent;
   text-underline-offset: 0.2em;
+  white-space: nowrap;
 }
-.edition-cards .lead .src { display: block; }
+.edition-cards .lead .src { display: flex; }
 .edition-cards .lead .src > span { white-space: nowrap; }
-.edition-cards .lead .src a {
-  display: inline;
-  padding: 0.7rem 0;
-  margin: 0;
-}
 .edition-cards .card.good-thing {
   margin: 0;
   font-style: normal;

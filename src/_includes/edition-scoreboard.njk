@@ -55,7 +55,7 @@
       {% set sources = story.sources %}
       {% include "source-line.njk" %}
       {% else %}
-      <p class="srcline" data-budget-exempt>{% if story.sourcePrefix %}{{ story.sourcePrefix | tightTokens }}{% else %}Source{% if story.sources | length > 1 %}s{% endif %}:{% endif %}{% for source in story.sources %} <a href="{{ source.url | escape }}">{{ source.label | tightTokens }}</a>{% endfor %}</p>
+      <p class="srcline" data-budget-exempt><span class="src-k">{% if story.sourcePrefix %}{{ story.sourcePrefix | tightTokens }}{% else %}Source{% if story.sources | length > 1 %}s{% endif %}:{% endif %}</span>{% for source in story.sources %} <a href="{{ source.url | escape }}">{{ source.label | tightTokens }}</a>{% endfor %}</p>
       {% endif %}
       <details class="method">
         <summary>Method <span class="icon">{{ "caret-down-bold" | icon | safe }}</span></summary>

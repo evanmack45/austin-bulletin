@@ -45,9 +45,7 @@ function editionRoutes() {
     for (const day of readdirSync(path.join(yearDir, month))) {
       const file = path.join(yearDir, month, day, "index.html");
       if (!existsSync(file)) continue;
-      const html = readFileSync(file, "utf8");
-      const card = html.includes('class="oc"') || html.includes('class="card');
-      if (card) routes.push(`/2026/${month}/${day}/`);
+      routes.push(`/2026/${month}/${day}/`);
     }
   }
   return routes;
@@ -118,8 +116,63 @@ function closedSourceProblems() {
   return problems;
 }
 
+function sourceLineProblems() {
+  function shown(el) {
+    if (!el || el.hidden || el.closest("[hidden]")) return false;
+    const box = el.getBoundingClientRect();
+    return box.width > 0 && box.height > 0;
+  }
+  function textTop(node) {
+    const range = document.createRange();
+    range.selectNodeContents(node);
+    const box = range.getBoundingClientRect();
+    return box.height > 0 ? box.top : null;
+  }
+  function isSources(row) {
+    if (row.parentElement?.closest(".source-line, .srcline, .src")) return false;
+    const label = row.querySelector(".source-label, .src-k");
+    const head = label ? label.textContent : row.textContent;
+    return /^\s*(?:More sources|Sources?):/.test(head || "");
+  }
+  function bits(row) {
+    const found = [];
+    for (const node of row.querySelectorAll(".source-label, .src-k, .sep, a, .src-more")) {
+      if (shown(node)) found.push(node);
+    }
+    return found;
+  }
+  function lineName(row) {
+    return row.textContent.replace(/\s+/g, " ").trim().slice(0, 48);
+  }
+  function boxProblem(row, name) {
+    const height = row.getBoundingClientRect().height;
+    if (height > 80) return `${name}: tall ${Math.round(height)}`;
+    if (row.scrollWidth > row.clientWidth + 1) return `${name}: overflow`;
+    return "";
+  }
+  function problem(row) {
+    if (!isSources(row) || !shown(row)) return "";
+    const tops = [];
+    for (const part of bits(row)) {
+      const top = textTop(part);
+      if (top !== null) tops.push(top);
+    }
+    if (!tops.length) return "";
+    const spread = Math.max(...tops) - Math.min(...tops);
+    const name = lineName(row);
+    if (spread > 2) return `${name}: wrapped ${Math.round(spread)}`;
+    return boxProblem(row, name);
+  }
+  const problems = [];
+  for (const row of document.querySelectorAll(".source-line, .srcline, .src")) {
+    const hit = problem(row);
+    if (hit) problems.push(hit);
+  }
+  return problems;
+}
+
 test("closed edition cards keep one visible sources row inside the card", async () => {
-  const routes = editionRoutes();
+  const routes = ["/", ...editionRoutes()];
   assert.ok(routes.length > 0, "edition routes");
   const server = await serveBuiltSite();
   const origin = `http://127.0.0.1:${server.address().port}`;
@@ -135,9 +188,16 @@ test("closed edition cards keep one visible sources row inside the card", async 
       await page.setViewport({ width, height: 900 });
       for (const route of routes) {
         await page.goto(origin + route, { waitUntil: "domcontentloaded" });
-        await page.evaluate(() => document.fonts.ready);
+        await page.waitForFunction(() => typeof window.packSourceRows === "function");
+        await page.evaluate(async () => {
+          await document.fonts.ready;
+          window.packSourceRows();
+        });
         const problems = await page.evaluate(closedSourceProblems);
-        for (const problem of problems) failures.push(`${width} ${route} ${problem}`);
+        const lines = await page.evaluate(sourceLineProblems);
+        for (const problem of [...problems, ...lines]) {
+          failures.push(`${width} ${route} ${problem}`);
+        }
       }
     }
   } finally {

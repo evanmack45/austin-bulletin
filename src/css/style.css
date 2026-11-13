@@ -354,12 +354,20 @@ h3 { font-size: 1.7rem; font-weight: 800; letter-spacing: -0.01em; margin: 2.2re
 .briefing-meta a:hover { text-decoration: underline; }
 
 .source-line,
-.src:has(.source-group) {
+.srcline,
+.src:has(.source-group),
+.src:has(.src-k) {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  max-width: min(100%, 52ch);
-  white-space: normal;
+  flex-flow: row nowrap;
+  align-items: baseline;
+  justify-content: flex-start;
+  column-gap: 6px;
+  row-gap: 0;
+  max-width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .source-line {
   font-size: 0.86rem;
@@ -369,11 +377,12 @@ h3 { font-size: 1.7rem; font-weight: 800; letter-spacing: -0.01em; margin: 2.2re
 }
 .source-group {
   display: flex;
-  flex-wrap: wrap;
+  flex: 0 0 auto;
+  flex-wrap: nowrap;
   align-items: baseline;
   justify-content: flex-start;
   column-gap: 6px;
-  max-width: 100%;
+  max-width: none;
   min-width: 0;
   min-height: 44px;
 }
@@ -858,7 +867,7 @@ h2.glance-title::after { content: none; }
   white-space: nowrap;
 }
 .src:has(.source-group),
-.source-line:has(.source-group) { white-space: normal; }
+.source-line:has(.source-group) { white-space: nowrap; }
 
 .standings { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
 .standings th {
@@ -1444,4 +1453,81 @@ body:has(article.bulletin) main { max-width: 48rem; }
   line-height: 1.2;
   letter-spacing: 0;
   color: var(--chart-label, #C9D3DE);
+}
+
+/* Every Sources row is one line. Links that do not fit are hidden by
+   source-pack.js, which shows them again from "+N more". Author display
+   would otherwise override the hidden attribute. */
+[data-packed] { display: none !important; }
+.source-line > *,
+.srcline > *,
+.src:has(.src-k) > *,
+.source-chunk,
+.source-label,
+.source-line .sep,
+.src .sep {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+.source-line a,
+.srcline a,
+.src:has(.src-k) a,
+.src-more {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  max-width: none;
+  min-width: 44px;
+  min-height: 44px;
+  margin-block: 0;
+  padding-block: 10px;
+  padding-inline: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  white-space: nowrap;
+  overflow-wrap: normal;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  cursor: pointer;
+}
+.src-more { cursor: pointer; }
+.src.is-clip-label > .src-k,
+.src.is-clip-label > span:first-child,
+.srcline.is-clip-label > .src-k,
+.source-line.is-clip-label > .source-group:first-child {
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.source-line.is-clip-label .source-label {
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.source-line.is-expanded,
+.srcline.is-expanded,
+.src.is-expanded,
+.source-line.is-expanded .source-group,
+.source-line.is-expanded .source-chunk {
+  flex-wrap: wrap;
+  overflow: visible;
+  white-space: normal;
+  max-width: 100%;
+}
+.source-line.is-expanded a,
+.srcline.is-expanded a,
+.src.is-expanded a,
+.source-line.is-expanded .source-label,
+.srcline.is-expanded > .src-k,
+.src.is-expanded > .src-k {
+  white-space: normal;
+  max-width: 100%;
 }

@@ -15,7 +15,14 @@ function serveBuiltSite() {
     const pathname = new URL(request.url, "http://localhost").pathname;
     const file = path.join(root, pathname.endsWith("/") ? `${pathname}index.html` : pathname);
     try {
-      const type = file.endsWith(".css") ? "text/css" : "text/html";
+      const types = {
+        ".css": "text/css",
+        ".js": "text/javascript",
+        ".svg": "image/svg+xml",
+        ".woff2": "font/woff2",
+        ".png": "image/png"
+      };
+      const type = types[path.extname(file)] || "text/html";
       response.writeHead(200, { "Content-Type": type }).end(readFileSync(file));
     } catch {
       response.writeHead(404).end();
@@ -44,10 +51,16 @@ function rowProblems() {
     }
     return problems;
   }
+  function visibleLinks(row) {
+    return [...row.querySelectorAll("a")].filter((link) => {
+      const box = link.getBoundingClientRect();
+      return box.width > 0 && box.height > 0;
+    });
+  }
   function linkProblems(row) {
     const problems = [];
     const rowBox = row.getBoundingClientRect();
-    for (const link of row.querySelectorAll("a")) {
+    for (const link of visibleLinks(row)) {
       const box = link.getBoundingClientRect();
       if (box.height < 44) problems.push("short");
       if (box.top < rowBox.top - 1 || box.bottom > rowBox.bottom + 1) problems.push("spill");
@@ -64,8 +77,11 @@ function rowProblems() {
     }
     return problems;
   }
-  return [...document.querySelectorAll(".source-line, .src")].flatMap((row) => {
-    const links = [...row.querySelectorAll("a")];
+  return [...document.querySelectorAll(".source-line, .srcline, .src")].flatMap((row) => {
+    const links = [...row.querySelectorAll("a")].filter((link) => {
+      const box = link.getBoundingClientRect();
+      return box.width > 0 && box.height > 0;
+    });
     const label = row.querySelector(".source-label, .src-k");
     const problems = [...flexProblems(row), ...linkProblems(row), ...gapProblems(links)];
     if (label && links[0]) {
@@ -91,8 +107,12 @@ test("source rows pack left on one baseline", async () => {
   for (const width of widths) {
     await page.setViewport({ width, height: 1400 });
     for (const route of routes) {
-      await page.goto(origin + route, { waitUntil: "networkidle0" });
-      await page.evaluate(() => document.fonts.ready);
+      await page.goto(origin + route, { waitUntil: "domcontentloaded" });
+      await page.waitForFunction(() => typeof window.packSourceRows === "function");
+      await page.evaluate(async () => {
+        await document.fonts.ready;
+        window.packSourceRows();
+      });
       const problems = await page.evaluate(rowProblems);
       for (const problem of problems) failures.push(`${width} ${route} ${problem}`);
     }
