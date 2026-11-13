@@ -48,7 +48,8 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
     "class=\"source-line\"",
     "chart-kicker--sentence"
   ]) assert.ok(html.includes(text), text);
-  assert.doesNotMatch(html, /week-block|Before it closes|id="week-title"/);
+  assert.match(html, /id="week-block"/);
+  assert.doesNotMatch(html, /Before it closes|id="week-title"/);
   assert.match(html, /Get the morning email\./);
   assert.doesNotMatch(html, /5 minutes|One email each morning/);
   assert.doesNotMatch(html, /class="results-button"/);
@@ -86,7 +87,8 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.match(html, /Friday, Nov\. 13, 2026/);
   assert.match(html, /href="\/2026\/11\/12\/"/);
   assert.match(html, /Nov\. 10 · 6 outcomes/);
-  assert.match(html, /This week · 3 items/);
+  assert.match(html, /id="week-count">1<\/span>/);
+  assert.match(html, /id="week-word">item<\/span>/);
   assert.match(html, /<u>4\u20110<\/u>[\s\S]*Kaskade permit approved</);
   assert.match(html, /\$197M[\s\S]*County certificates approved/);
   assert.match(html, /\$67\.8M[\s\S]*STAR Flight contract approved/);
@@ -94,8 +96,9 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.match(html, /Balcones Canyonlands/);
   assert.match(html, /Kaskade Origin/);
   assert.match(html, /\$67,757,745\.12/);
-  assert.match(html, /Committee hears downtown transportation plan/);
-  assert.match(html, /Court takes up November 3 canvass/);
+  assert.doesNotMatch(html, /Committee hears downtown transportation plan/);
+  assert.doesNotMatch(html, /Court takes up November 3 canvass/);
+  assert.match(html, /Council votes: see what/);
   assert.doesNotMatch(html, /Court weighs \$197 million in certificates/);
   assert.doesNotMatch(html, /Hearing set on Burleson Road event/);
   assert.doesNotMatch(html, /Committee hears Barton Springs briefing/);
@@ -124,16 +127,22 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.equal(html.includes(disclosure), true);
 });
 
-test("Nov. 19 follows the two Nov. 12 week items", () => {
+test("This week lists only the Nov. 19 Council item", () => {
   const html = readFileSync("_site/index.html", "utf8");
   const week = html.match(/<ul class="week-lines"[\s\S]*?<\/ul>/)?.[0] ?? "";
   const weekText = week.replace(/<[^>]+>/g, " ");
-  const order = [
-    "Committee hears downtown transportation plan",
-    "Court takes up November 3 canvass",
-    "Council votes: see what"
-  ].map((label) => weekText.indexOf(label));
-  assert.ok(order.every((index, place) => index > (order[place - 1] ?? -1)));
+  const weekHeading = (html.match(/id="this-week-a"[^>]*>([\s\S]*?)<\/h2>/)?.[1] ?? "")
+    .replace(/<[^>]+>/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+  assert.equal(weekHeading, "This week · 1 item");
+  assert.match(week, /data-date="2026-11-19"/);
+  assert.equal((week.match(/<li\b/g) || []).length, 1);
+  assert.match(weekText, /Council votes: see what/);
+  assert.doesNotMatch(weekText, /Committee hears downtown transportation plan/);
+  assert.doesNotMatch(weekText, /Court takes up November 3 canvass/);
+  assert.match(html, /id="week-block"/);
+  assert.match(html, /getElementById\("week-block"\)/);
   const agenda = "services.austintexas.gov/edims/document.cfm?id=484837";
   const escaped = agenda.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   assert.match(week, /href="https:\/\/yallcityhall\.org\/"/);

@@ -750,3 +750,9 @@
   .story-card--lead .original-kicker { grid-column: 1; grid-row: 1; align-self: start; }
   .story-card--lead .chart-source { grid-column: 1; grid-row: 5; }
 }
+
+/* The hidden attribute must win if #week-block or the list later gets a display. */
+#week-block[hidden],
+#week-list li[hidden] {
+  display: none;
+}

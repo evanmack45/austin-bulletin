@@ -1,6 +1,6 @@
 <ul class="week-lines" id="week-list">
   {% for item in thisWeek.items %}
-  <li>
+  <li data-date="{{ item.date | escape }}">
     <a href="{{ item.link | escape }}">
       <span class="icon icon-20" aria-hidden="true">{{ item.iconFile | icon | safe }}</span>
       <span class="week-date">{{ item.dateLabel | escape }}</span>
@@ -12,3 +12,31 @@
   </li>
   {% endfor %}
 </ul>
+<script>
+(function () {
+  var block = document.getElementById("week-block");
+  var list = document.getElementById("week-list");
+  var countEl = document.getElementById("week-count");
+  var wordEl = document.getElementById("week-word");
+  if (!block || !list) return;
+  var parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/Chicago",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  }).formatToParts(new Date());
+  var value = function (type) {
+    return parts.find(function (part) { return part.type === type; }).value;
+  };
+  var today = value("year") + "-" + value("month") + "-" + value("day");
+  var visible = 0;
+  var rows = list.querySelectorAll("li[data-date]");
+  for (var i = 0; i < rows.length; i += 1) {
+    if (rows[i].getAttribute("data-date") < today) rows[i].hidden = true;
+    else visible += 1;
+  }
+  if (countEl) countEl.textContent = String(visible);
+  if (wordEl) wordEl.textContent = visible === 1 ? "item" : "items";
+  if (visible === 0) block.hidden = true;
+})();
+</script>

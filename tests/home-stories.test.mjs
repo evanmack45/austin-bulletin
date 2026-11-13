@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { homeEdition } from "../scripts/home-stories.mjs";
 import thisWeek from "../src/_data/thisWeek.js";
+import { chicagoToday, upcomingOnly } from "../src/_includes/week-upcoming.js";
 
 const FIRST_PERSON = /\b(we|our|us)\b/i;
 
@@ -373,19 +374,42 @@ test("November 9 lists the registration lead, then news, then the forecast", () 
   }
 });
 
-test("Nov. 10 meetings are outcomes and Nov. 12 stays upcoming", () => {
-  assert.equal(thisWeek.items.length, 3);
-  assert.deepEqual(thisWeek.items.map((item) => item.date), [
+test("upcomingOnly keeps today and later Chicago dates", () => {
+  const rows = [
+    { date: "2026-11-12", headline: "past" },
+    { date: "2026-11-13", headline: "today" },
+    { date: "2026-11-19", headline: "later" }
+  ];
+  assert.deepEqual(upcomingOnly(rows, "2026-11-13").map((item) => item.headline), [
+    "today",
+    "later"
+  ]);
+  assert.deepEqual(upcomingOnly(rows, "2026-11-12").map((item) => item.date), [
     "2026-11-12",
-    "2026-11-12",
+    "2026-11-13",
     "2026-11-19"
   ]);
+  assert.equal(upcomingOnly(rows, "2026-11-20").length, 0);
+  assert.match(chicagoToday(new Date("2026-11-13T18:00:00-06:00")), /^2026-11-13$/);
+  assert.match(chicagoToday(new Date("2026-11-13T23:30:00-06:00")), /^2026-11-13$/);
+  assert.match(chicagoToday(new Date("2026-11-14T00:30:00-06:00")), /^2026-11-14$/);
+});
+
+test("Nov. 10 meetings are outcomes and only Nov. 19 is upcoming", () => {
+  const raw = JSON.parse(readFileSync("src/_data/weekItems.json", "utf8"));
+  assert.equal(raw.every((item) => item.date >= "2026-11-13"), true);
+  const downtown = "Committee hears downtown transportation plan";
+  assert.equal(raw.some((item) => item.headline.includes(downtown)), false);
+  assert.deepEqual(
+    upcomingOnly(raw, "2026-11-13").map((item) => item.headline),
+    ["Council votes: see what's on for your district"]
+  );
+  assert.equal(thisWeek.items.length, upcomingOnly(raw, chicagoToday()).length);
+  assert.deepEqual(thisWeek.items.map((item) => item.date), ["2026-11-19"]);
   assert.deepEqual(thisWeek.items.map((item) => item.headline), [
-    "Committee hears downtown transportation plan",
-    "Court takes up November 3 canvass",
     "Council votes: see what's on for your district"
   ]);
-  const district = thisWeek.items[2];
+  const district = thisWeek.items[0];
   assert.equal(district.link, "https://yallcityhall.org/");
   assert.equal(district.source.url, "https://services.austintexas.gov/edims/document.cfm?id=484837");
   assert.equal(district.source.label, "Nov. 19 agenda");

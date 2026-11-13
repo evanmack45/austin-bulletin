@@ -40,8 +40,10 @@
         {% endfor %}
       </ul>
       {% endif %}
-      <h2 class="week-kicker" id="this-week-a">This week · {{ thisWeek.items | length }} items</h2>
-      {% include "reset-week.njk" %}
+      <div id="week-block"{% if thisWeek.items.length == 0 %} hidden{% endif %}>
+        <h2 class="week-kicker" id="this-week-a">This week · <span id="week-count">{{ thisWeek.items.length }}</span> <span id="week-word">{% if thisWeek.items.length == 1 %}item{% else %}items{% endif %}</span></h2>
+        {% include "reset-week.njk" %}
+      </div>
     </section>
   </div>
   
