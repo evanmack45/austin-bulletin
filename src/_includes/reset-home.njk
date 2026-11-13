@@ -1,19 +1,26 @@
 {% set editionDate = (collections.bulletins | first).date | isoDate %}
-{% set lead = editionCardData["2026-11-12"].cards | selectattr("lead") | first %}
+{% set lead = editionCardData["2026-11-13"].cards | selectattr("lead") | first %}
 <article class="reset-home paper-main" data-edition="{{ editionDate }}" data-variant="{{ variant }}">
   
   <div class="story-grid">
     <section class="story-card story-card--lead front-lead" id="lead" data-fold data-animate>
-      <img class="share-image" src="/images/2026-11-12/str-licenses-desktop-1600.webp" alt="{{ lead.chartAlt | escape }}" width="1600" height="1067">
+      <img class="share-image" src="/images/2026-11-13/house-permits-desktop-1600.webp" alt="{{ lead.chartAlt | escape }}" width="1600" height="1067">
       <p class="original-kicker">{{ lead.label | escape }}</p>
       <p class="bignum">{{ lead.bignum | escape }} <span class="qual">{{ lead.qualifier | escape }}</span></p>
-      <h1><a href="/2026/11/12/#{{ lead.id | escape }}">{{ lead.headline | tightTokens }}</a></h1>
+      <h1><a href="/2026/11/13/#{{ lead.id | escape }}">{{ lead.headline | tightTokens }}</a></h1>
       <p class="card-blurb front-deck">{{ lead.deck | tightTokens }}</p>
       <div class="chart">
         <p class="chart-kicker chart-kicker--sentence">{{ lead.chartKicker | tightTokens }}</p>
-        <div role="img" aria-label="{{ lead.chartAlt | escape }}">{{ strLineChart | safe }}</div>
+        <div class="chart-bars chart-bars--bids" role="img" aria-label="{{ lead.chartAlt | escape }}">
+          {% for bar in lead.bars %}
+          <div class="chart-col" style="--delay: {{ loop.index0 * 50 }}ms">
+            <span class="bar-value{% if bar.hi %} is-hi{% endif %}" data-budget-exempt>{{ bar.value | escape }}</span>
+            <span class="bar{% if bar.hi %} bar-hi{% endif %}" style="--h: {{ bar.p }}%; --p: {{ bar.p }}"></span>
+            <span class="bar-year{% if bar.hi %} is-hi{% endif %}" data-budget-exempt>{{ bar.label | escape }}</span>
+          </div>
+          {% endfor %}
+        </div>
       </div>
-      <p class="chart-source" data-budget-exempt>{{ lead.chartSource | tightTokens }}</p>
       {% set sources = lead.sources %}
       {% include "source-line.njk" %}
     </section>

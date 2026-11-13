@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
-const PAGES = ["_site/index.html", "_site/2026/11/12/index.html"];
+const PAGES = ["_site/index.html", "_site/2026/11/12/index.html", "_site/2026/11/13/index.html"];
 
 function sourceLabels(html) {
   const pattern = /<p class="[^"]*\b(?:source-line|src)\b[^"]*"[^>]*>[\s\S]*?<\/p>/g;
@@ -11,7 +11,9 @@ function sourceLabels(html) {
     .map((match) => match[1].replaceAll("\u00a0", " ").trim()));
 }
 
-const PROPER = new Set(["City", "STR", "Austin", "NWS", "PDF", "Water", "Parks"]);
+const PROPER = new Set([
+  "City", "STR", "Austin", "NWS", "PDF", "Water", "Parks", "Police", "County", "Nov."
+]);
 
 function bareWord(word) {
   return word.replace(/^[^A-Za-z0-9]+|[^A-Za-z0-9.]+$/g, "");

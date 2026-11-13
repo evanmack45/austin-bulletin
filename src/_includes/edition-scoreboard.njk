@@ -15,7 +15,7 @@
       <p class="bignum">{{ story.bignum | escape }}{% if story.qualifier %}<span class="qual">{{ story.qualifier | escape }}</span>{% endif %}</p>
       <h1 id="lead-h">{{ story.headline | tightTokens }}</h1>
       <p class="deck">{{ story.deck | tightTokens | safe }}</p>
-      {% if story.lineChart and story.summary %}<p class="lead-summary">{{ story.summary | tightTokens }}</p>{% endif %}
+      {% if story.summary and (story.lineChart or story.showSummary) %}<p class="lead-summary">{{ story.summary | tightTokens }}</p>{% endif %}
     </div>
     <figure class="chart">
       {% if story.lineChart %}
@@ -51,7 +51,12 @@
       {% set sources = story.sources %}
       {% include "source-line.njk" %}
       {% else %}
+      {% if story.sourceLine %}
+      {% set sources = story.sources %}
+      {% include "source-line.njk" %}
+      {% else %}
       <p class="srcline" data-budget-exempt>{% if story.sourcePrefix %}{{ story.sourcePrefix | tightTokens }}{% else %}Source{% if story.sources | length > 1 %}s{% endif %}:{% endif %}{% for source in story.sources %} <a href="{{ source.url | escape }}">{{ source.label | tightTokens }}</a>{% endfor %}</p>
+      {% endif %}
       <details class="method">
         <summary>Method <span class="icon">{{ "caret-down-bold" | icon | safe }}</span></summary>
         <div class="method-body">

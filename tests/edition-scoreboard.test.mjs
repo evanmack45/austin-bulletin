@@ -63,7 +63,8 @@ test("the Wednesday lead is 71.68 and keeps the exact figure in Method", () => {
   assert.match(wednesday, /City canvass of Nov/);
   assert.equal(wednesday.includes("79°"), false);
   const home = readFileSync("_site/index.html", "utf8");
-  assert.match(home, />3,663</);
+  assert.match(home, />1,845</);
+  assert.doesNotMatch(home, />3,663</);
   assert.doesNotMatch(home, />71\.68</);
   assert.doesNotMatch(home, />927</);
   const tuesdayPage = tuesday.replaceAll("\u00a0", " ");
@@ -178,4 +179,39 @@ test("Thursday lead is the 3,663 chart and signup follows habitat", () => {
     "property=\"og:title\" content=\"Licensed short-term rentals rise since September\""
   ));
   assert.match(thursday, /str-licenses-desktop-1600\.webp/);
+});
+
+test("Friday lead is the 1,845 permit chart and signup follows the burglary", () => {
+  const friday = readFileSync("_site/2026/11/13/index.html", "utf8").replaceAll("\u00a0", " ");
+  const lead = leadOf(friday);
+  assert.match(lead, />1,845</);
+  assert.match(lead, /1,348/);
+  assert.match(lead, /1,498/);
+  assert.match(lead, /1,743/);
+  assert.match(lead, /new-house permits, Jan\.–Oct\./);
+  assert.match(lead, /New-house permits rise a third straight year/);
+  assert.match(lead, /Up 5\.9% from the same months of 2025/);
+  assert.match(lead, /A permit isn(?:'|&#39;)t a finished home/);
+  assert.match(lead, /<details class="method"/);
+  assert.equal(lead.includes('open=""') || lead.includes(" open"), false);
+  const method = lead.match(/<details class="method"[\s\S]*?<\/details>/)?.[0] ?? "";
+  assert.match(method, /not homes finished or sold/);
+  assert.match(method, /does not say why permits rose/);
+  assert.match(method, /as of Nov\. 12, 2026/);
+  assert.doesNotMatch(friday, /housing_units|homes built|homes sold/i);
+  assert.match(friday, /City dataset 3syk-w9eu/);
+  assert.match(friday, /https:\/\/data\.austintexas\.gov\/d\/3syk-w9eu/);
+  assert.match(friday, /Friday, Nov\. 13, 2026/);
+  const signup = friday.indexOf('class="signup signup--edition"');
+  const burglary = friday.indexOf("Burglary victims: police may have your property");
+  const tires = friday.indexOf("Police seek video after 12 tire slashings");
+  const notices = friday.indexOf('id="notices-h"');
+  assert.ok(burglary < signup && signup < tires && tires < notices);
+  assert.equal(friday.split('class="signup signup--edition"').length - 1, 1);
+  assert.equal(friday.split('class="source-line"').length - 1, 1);
+  assert.match(friday, new RegExp(
+    "property=\"og:title\" content=\"New-house permits rise a third straight year\""
+  ));
+  assert.match(friday, /house-permits-desktop-1600\.webp/);
+  assert.match(friday, /Bulletin original/);
 });

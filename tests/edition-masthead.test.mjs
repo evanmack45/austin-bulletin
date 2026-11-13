@@ -40,7 +40,7 @@ test("edition pages use the homepage masthead and do not reference a blackletter
   const editionLine = header(edition).match(/masthead-dateline">([\s\S]*?)<\/p>/)[1];
   assert.match(editionLine, /Tuesday, Oct\. 27/);
   assert.match(editionLine, /Latest:/);
-  assert.match(editionLine, /href="\/2026\/11\/12\/"/);
+  assert.match(editionLine, /href="\/2026\/11\/13\/"/);
   assert.doesNotMatch(editionLine, /Previous:/);
   assert.match(header(home), /Previous:/);
   assert.match(header(home), /The Austin Bulletin/);

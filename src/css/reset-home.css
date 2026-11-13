@@ -710,6 +710,24 @@
   color: var(--on-night-meta);
 }
 .home-front .story-card--lead .source-line { font-size: 1rem; letter-spacing: 0; }
+/* The label stays one line at body size. At a doubled root it may wrap
+   inside the card instead of widening the page. */
+.home-front .story-card--lead .source-group,
+.home-front .story-card--lead .source-chunk {
+  max-width: 100%;
+  min-width: 0;
+}
+.home-front .story-card--lead .source-chunk {
+  flex: 0 1 auto;
+  white-space: normal;
+}
+.home-front .story-card--lead .source-chunk a {
+  flex: 0 1 auto;
+  min-width: 44px;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
 @media (min-width: 1024px) {
   .story-card--lead .original-kicker { grid-column: 1; grid-row: 1; align-self: start; }
   .story-card--lead .chart-source { grid-column: 1; grid-row: 5; }
