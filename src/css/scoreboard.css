@@ -534,6 +534,19 @@ body.edition-cards.edition-scoreboard main {
 }
 @media (max-width: 767px) {
   .edition-scoreboard .board { grid-template-columns: 1fr; }
+  .edition-scoreboard .board .oc > details > summary,
+  .edition-scoreboard .board .oc:nth-child(even) > details > summary,
+  .edition-scoreboard .board .oc > .src-face,
+  .edition-scoreboard .board .oc:nth-child(even) > .src-face,
+  .edition-scoreboard .board .oc .oc-body,
+  .edition-scoreboard .board .oc:nth-child(even) .oc-body {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+    margin-right: 0;
+    border-left: 0;
+    border-right: 0;
+  }
 }
 .edition-scoreboard .src-more {
   font-family: inherit;
@@ -634,7 +647,7 @@ body.edition-cards.edition-scoreboard main {
 .edition-scoreboard .list ul { margin: 0; padding: 0; list-style: none; }
 .edition-scoreboard .list li {
   display: grid;
-  grid-template-columns: max-content 1fr;
+  grid-template-columns: minmax(0, 1fr);
   column-gap: 16px;
   align-items: baseline;
   min-height: 44px;
@@ -668,6 +681,14 @@ body.edition-cards.edition-scoreboard main {
 .edition-scoreboard .list li .src > .src-more {
   margin-block: 0;
 }
+.edition-scoreboard .list li:has(.when) {
+  grid-template-columns: max-content minmax(0, 1fr);
+}
+.edition-scoreboard .list-main,
+.edition-scoreboard .list-copy {
+  min-width: 0;
+  max-width: 100%;
+}
 .edition-scoreboard .list-main {
   display: flex;
   flex-direction: column;
@@ -675,6 +696,7 @@ body.edition-cards.edition-scoreboard main {
 }
 .edition-scoreboard .list li .list-main a {
   min-width: 44px;
+  max-width: 100%;
   margin-block: 0;
 }
 .edition-scoreboard .list-copy,
