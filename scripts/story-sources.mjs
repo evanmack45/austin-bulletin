@@ -160,13 +160,22 @@ function stripSources(html) {
     .replace(/\n{3,}/g, "\n\n");
 }
 
-function attributionLabel(linkCount, noteCount) {
-  return linkCount === 1 && noteCount === 0 ? "Source" : "Sources";
+const SHORT_LABELS = {
+  "National Weather Service forecast": "NWS forecast",
+  "Travis County active-alert snapshot": "Travis alerts"
+};
+
+function displayName(name) {
+  return SHORT_LABELS[name] || name;
+}
+
+function attributionLabel(_linkCount, _noteCount) {
+  return "Sources";
 }
 
 function groupedSources(label, note, links) {
   return links.map((link, index) => {
-    const anchor = `<a href="${link.href}">${escapeHtml(link.name)}</a>`;
+    const anchor = `<a href="${link.href}">${escapeHtml(displayName(link.name))}</a>`;
     if (index > 0) return `<span class="source-group">${anchor}</span>`;
     const lead = note ? `${escapeHtml(note)} ` : "";
     const marked = `<span class="source-label">${label}:</span> `;

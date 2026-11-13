@@ -56,8 +56,8 @@ test("the homepage leads with the rent-limit number and the edition keeps each s
   const dateline = `${weekdayName(instant)}, ${shortMonthDay(instant)}`;
   assert.ok(html.includes(dateline), dateline);
   assert.doesNotMatch(html, /class="today-top"/);
-  assert.match(html, /Licensed short-term rentals rise since September/);
-  assert.match(html, />3,663</);
+  assert.match(html, /New-house permits rise a third straight year/);
+  assert.match(html, />1,845</);
   assert.doesNotMatch(html, />927</);
   if (desk.headline) {
     assert.equal(html.split(desk.headline).length - 1, 0, desk.headline);
@@ -77,8 +77,8 @@ test("the homepage leads with the rent-limit number and the edition keeps each s
   }
   if (!desk.headline) {
     const cards = readFileSync(`_site/${edition.replaceAll("-", "/")}/index.html`, "utf8");
-    assert.match(cards, /Licensed short-term rentals rise since September/);
-    assert.match(cards, />3,663</);
+    assert.match(cards, /New-house permits rise a third straight year/);
+    assert.match(cards, />1,845</);
     const tuesday = readFileSync("_site/2026/11/10/index.html", "utf8");
     assert.match(tuesday, /Rent limits on affordable rentals end in 2027/);
     assert.equal(html.includes("Rent limits on affordable rentals end in 2027"), false);

@@ -7,7 +7,7 @@ import puppeteer from "puppeteer-core";
 
 const chrome = ["/usr/bin/google-chrome", "/usr/bin/chromium"].find(existsSync);
 const widths = [360, 390, 1280];
-const routes = ["/", "/2026/11/12/"];
+const routes = ["/", "/2026/11/10/", "/2026/11/11/", "/2026/11/12/", "/2026/11/13/"];
 
 function serveBuiltSite() {
   const root = path.resolve("_site");
@@ -15,7 +15,14 @@ function serveBuiltSite() {
     const pathname = new URL(request.url, "http://localhost").pathname;
     const file = path.join(root, pathname.endsWith("/") ? `${pathname}index.html` : pathname);
     try {
-      const type = file.endsWith(".css") ? "text/css" : "text/html";
+      const types = {
+        ".css": "text/css",
+        ".js": "text/javascript",
+        ".svg": "image/svg+xml",
+        ".woff2": "font/woff2",
+        ".png": "image/png"
+      };
+      const type = types[path.extname(file)] || "text/html";
       response.writeHead(200, { "Content-Type": type }).end(readFileSync(file));
     } catch {
       response.writeHead(404).end();
@@ -44,10 +51,16 @@ function rowProblems() {
     }
     return problems;
   }
+  function visibleLinks(row) {
+    return [...row.querySelectorAll("a")].filter((link) => {
+      const box = link.getBoundingClientRect();
+      return box.width > 0 && box.height > 0;
+    });
+  }
   function linkProblems(row) {
     const problems = [];
     const rowBox = row.getBoundingClientRect();
-    for (const link of row.querySelectorAll("a")) {
+    for (const link of visibleLinks(row)) {
       const box = link.getBoundingClientRect();
       if (box.height < 44) problems.push("short");
       if (box.top < rowBox.top - 1 || box.bottom > rowBox.bottom + 1) problems.push("spill");
@@ -64,8 +77,11 @@ function rowProblems() {
     }
     return problems;
   }
-  return [...document.querySelectorAll(".source-line, .src")].flatMap((row) => {
-    const links = [...row.querySelectorAll("a")];
+  return [...document.querySelectorAll(".source-line, .srcline, .src")].flatMap((row) => {
+    const links = [...row.querySelectorAll("a")].filter((link) => {
+      const box = link.getBoundingClientRect();
+      return box.width > 0 && box.height > 0;
+    });
     const label = row.querySelector(".source-label, .src-k");
     const problems = [...flexProblems(row), ...linkProblems(row), ...gapProblems(links)];
     if (label && links[0]) {
@@ -91,13 +107,56 @@ test("source rows pack left on one baseline", async () => {
   for (const width of widths) {
     await page.setViewport({ width, height: 1400 });
     for (const route of routes) {
-      await page.goto(origin + route, { waitUntil: "networkidle0" });
-      await page.evaluate(() => document.fonts.ready);
+      await page.goto(origin + route, { waitUntil: "domcontentloaded" });
+      await page.waitForFunction(() => typeof window.packSourceRows === "function");
+      await page.evaluate(async () => {
+        await document.fonts.ready;
+        window.packSourceRows();
+      });
       const problems = await page.evaluate(rowProblems);
       for (const problem of problems) failures.push(`${width} ${route} ${problem}`);
+      const packProblems = await page.evaluate(packRuleProblems);
+      for (const problem of packProblems) failures.push(`${width} ${route} ${problem}`);
     }
   }
   await browser.close();
   server.close();
   assert.deepEqual(failures, []);
 });
+
+function packRuleProblems() {
+  function onScreenRow(row) {
+    if (row.parentElement?.closest(".source-line, .srcline, .src")) return false;
+    if (row.closest(".method-body, .sr-only")) return false;
+    const style = getComputedStyle(row);
+    return style.display !== "none" && style.visibility !== "hidden"
+      && row.getClientRects().length > 0;
+  }
+  function namedLinkVisible(row) {
+    return [...row.querySelectorAll("a")].some((link) => {
+      if (link.hidden) return false;
+      const box = link.getBoundingClientRect();
+      return box.width > 0 && box.height > 0;
+    });
+  }
+  function moreIsVisible(row) {
+    const more = row.querySelector(":scope > .src-more");
+    return Boolean(more && !more.hidden && more.getBoundingClientRect().width > 0);
+  }
+  function ruleHit(row) {
+    if (!onScreenRow(row)) return "";
+    const label = row.querySelector(".source-label, .src-k");
+    const labelText = (label?.textContent || "").replace(/\s+/g, " ").trim();
+    const problems = [];
+    if (labelText !== "Sources:") problems.push(`label ${JSON.stringify(labelText)}`);
+    if (moreIsVisible(row) && !namedLinkVisible(row)) {
+      problems.push("+N more without a named link");
+    }
+    if (!problems.length) return "";
+    const text = row.textContent.replace(/\s+/g, " ").trim().slice(0, 80);
+    return `${text}: ${problems.join(", ")}`;
+  }
+  return [...document.querySelectorAll(".source-line, .srcline, .src")]
+    .map(ruleHit)
+    .filter(Boolean);
+}

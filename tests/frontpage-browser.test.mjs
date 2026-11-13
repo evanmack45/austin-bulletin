@@ -52,7 +52,7 @@ async function measureFirstFold(page) {
 			};
 		};
 		const sourceLink = document.querySelector(".front-lead .source-line a");
-		const endDot = document.querySelector(".end-dot");
+		const hi = document.querySelector(".bar-hi");
 		return {
 			viewport: innerHeight,
 			actionHref: sourceLink.getAttribute("href"),
@@ -60,8 +60,8 @@ async function measureFirstFold(page) {
 			header: rect(".front-masthead"),
 			lead: rect("h1"),
 			number: rect(".bignum"),
-			bar: rect(".line-chart"),
-			barColor: endDot ? getComputedStyle(endDot).fill : "",
+			bar: rect(".front-lead .chart"),
+			barColor: hi ? getComputedStyle(hi).backgroundColor : "",
 			action: rect(".front-lead .source-line a"),
 			leadFontSize: getComputedStyle(document.querySelector("h1")).fontSize,
 			numberSize: getComputedStyle(document.querySelector(".bignum")).fontSize,
@@ -133,9 +133,11 @@ async function readDateLines(page) {
 }
 
 function assertSourceLine(sourceLine, width) {
-	assert.match(sourceLine.text, /^Sources: City data · City STR page$/);
+	assert.match(sourceLine.text, /^Sources: City dataset 3syk-w9eu$/);
 	assert.ok(sourceLine.heights.every((height) => height >= 44), JSON.stringify(sourceLine));
-	if (width >= 360) assert.equal(sourceLine.sameLine, true, JSON.stringify(sourceLine));
+	const oneLine = sourceLine.tops.length < 2
+		|| Math.max(...sourceLine.tops) - Math.min(...sourceLine.tops) < 3;
+	if (width >= 360) assert.equal(oneLine, true, JSON.stringify(sourceLine));
 }
 
 function assertDateLines(dateLines) {
@@ -157,9 +159,8 @@ function assertFirstFold(result, width, height) {
  assert.equal(result.barColor, "rgb(255, 194, 51)");
  assert.ok(result.action.height >= 44);
  assert.ok(result.nav.every(link => link.height >= 44));
- assert.match(result.sourceName, /City data/);
- assert.match(result.sourceName, /City STR page/);
- assert.match(result.title, /Licensed short-term rentals rise since September/);
+ assert.match(result.sourceName, /Sources: City dataset 3syk-w9eu/);
+ assert.match(result.title, /New-house permits rise a third straight year/);
  assert.equal(result.title.includes("$67.8M"), false);
  assertPlacement(result, width, height);
  assert.equal(result.actionColor, "rgb(175, 187, 201)");
@@ -280,7 +281,7 @@ test("guide action fragments reach the answer by keyboard without JavaScript", {
 		assert.ok(accessTitle.ok());
 		assert.equal(
 			await page.$eval(".front-lead .source-line a", (link) => link.getAttribute("href")),
-			"https://data.austintexas.gov/d/mydx-h5dy",
+			"https://data.austintexas.gov/d/3syk-w9eu",
 		);
 	} finally {
 		await browser.close();

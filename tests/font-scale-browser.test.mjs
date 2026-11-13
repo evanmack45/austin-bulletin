@@ -76,6 +76,9 @@ test("reader text doubles with the root font and stays inside a phone", {
       const at100 = await page.evaluate(overflowScript);
       assert.ok(at100.scroll <= at100.client + 1, `${route} 100% ${at100.scroll}`);
       await setRoot(page, 32);
+      await page.evaluate(() => {
+        if (typeof window.packSourceRows === "function") window.packSourceRows();
+      });
       const at200 = await page.evaluate(overflowScript);
       assert.deepEqual(at200.offenders, [], `${route} 200%`);
       assert.ok(at200.scroll <= at200.client + 1, `${route} 200% scroll ${at200.scroll}`);

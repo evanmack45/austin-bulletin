@@ -4,28 +4,6 @@
     "location": "Austin City Hall, 301 W. Second Street, Austin, TX 78701",
     "lat": 30.2648103,
     "lng": -97.7472145,
-    "headline": "Committee hears downtown transportation plan",
-    "date": "2026-11-12",
-    "link": "https://services.austintexas.gov/edims/document.cfm?id=484790",
-    "icon": "transit",
-    "source_checked_at_ct": "2026-11-09T19:59:41-06:00"
-  },
-  {
-    "district": "countywide",
-    "location": "Travis County Commissioners Courtroom, 700 Lavaca Street, Austin, TX 78701",
-    "lat": 30.2702641,
-    "lng": -97.7452847,
-    "headline": "Court takes up November 3 canvass",
-    "date": "2026-11-12",
-    "link": "https://countyclerk.traviscountytx.gov/wp-content/uploads/commissioners_court/11-12-2026SVS.pdf",
-    "icon": "vote",
-    "source_checked_at_ct": "2026-11-09T20:03:30-06:00"
-  },
-  {
-    "district": "citywide",
-    "location": "Austin City Hall, 301 W. Second Street, Austin, TX 78701",
-    "lat": 30.2648103,
-    "lng": -97.7472145,
     "headline": "Council votes: see what's on for your district",
     "date": "2026-11-19",
     "link": "https://yallcityhall.org/",

@@ -17,7 +17,8 @@
         "sources": [
           {
             "label": "City of Austin, Affordable Housing Inventory",
-            "url": "https://data.austintexas.gov/d/ifzc-3xz8"
+            "url": "https://data.austintexas.gov/d/ifzc-3xz8",
+            "shortLabel": "City dataset ifzc-3xz8"
           }
         ]
       },
@@ -38,7 +39,8 @@
         "sources": [
           {
             "label": "County vote record (consent motion)",
-            "url": "https://traviscotx.portal.civicclerk.com/event/3727/overview"
+            "url": "https://traviscotx.portal.civicclerk.com/event/3727/overview",
+            "shortLabel": "Vote record"
           },
           {
             "label": "Meeting video",
@@ -104,7 +106,8 @@
         "sources": [
           {
             "label": "Nov. 10 agenda",
-            "url": "https://countyclerk.traviscountytx.gov/wp-content/uploads/commissioners_court/11-10-2026VSAgenda.pdf"
+            "url": "https://countyclerk.traviscountytx.gov/wp-content/uploads/commissioners_court/11-10-2026VSAgenda.pdf",
+            "shortLabel": "Nov. 10"
           },
           {
             "label": "Central Health board",
@@ -173,7 +176,8 @@
         "sources": [
           {
             "label": "County vote record",
-            "url": "https://traviscotx.portal.civicclerk.com/event/3727/overview"
+            "url": "https://traviscotx.portal.civicclerk.com/event/3727/overview",
+            "shortLabel": "Vote record"
           }
         ]
       },
@@ -195,7 +199,8 @@
         "sources": [
           {
             "label": "NWS forecast for Austin",
-            "url": "https://forecast.weather.gov/MapClick.php?lat=30.2672&lon=-97.7431"
+            "url": "https://forecast.weather.gov/MapClick.php?lat=30.2672&lon=-97.7431",
+            "shortLabel": "NWS forecast"
           }
         ]
       },
@@ -325,7 +330,8 @@
         "sources": [
           {
             "label": "Evaluation matrix, packet p. 822",
-            "url": "https://traviscotx.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=13358,plainText=false)"
+            "url": "https://traviscotx.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=13358,plainText=false)",
+            "shortLabel": "Evaluation matrix"
           },
           {
             "label": "Nov. 10 meeting video",
@@ -346,7 +352,8 @@
         "sources": [
           {
             "label": "Nov. 10 record, item 25",
-            "url": "https://traviscotx.portal.civicclerk.com/event/3727/overview"
+            "url": "https://traviscotx.portal.civicclerk.com/event/3727/overview",
+            "shortLabel": "Item 25"
           },
           {
             "label": "Agenda packet",
@@ -364,7 +371,8 @@
         "sources": [
           {
             "label": "Nov. 10 record, item 11",
-            "url": "https://traviscotx.portal.civicclerk.com/event/3727/overview"
+            "url": "https://traviscotx.portal.civicclerk.com/event/3727/overview",
+            "shortLabel": "Item 11"
           },
           {
             "label": "Agenda packet",
@@ -382,7 +390,8 @@
         "sources": [
           {
             "label": "Nov. 10 record, item 38",
-            "url": "https://traviscotx.portal.civicclerk.com/event/3727/overview"
+            "url": "https://traviscotx.portal.civicclerk.com/event/3727/overview",
+            "shortLabel": "Item 38"
           },
           {
             "label": "Agenda packet",
@@ -400,7 +409,8 @@
         "sources": [
           {
             "label": "Nov. 10 record, item 33",
-            "url": "https://traviscotx.portal.civicclerk.com/event/3727/overview"
+            "url": "https://traviscotx.portal.civicclerk.com/event/3727/overview",
+            "shortLabel": "Item 33"
           },
           {
             "label": "Agenda packet",
@@ -662,6 +672,132 @@
         },
         "headline": "Sunny and mild, clear tonight",
         "summary": "Clear tonight, low around 52. Friday is sunny, near 77.",
+        "sources": [
+          {
+            "label": "NWS forecast",
+            "url": "https://forecast.weather.gov/MapClick.php?lat=30.2672&lon=-97.7431"
+          }
+        ]
+      }
+    ]
+  },
+  "2026-11-13": {
+    "cards": [
+      {
+        "id": "new-house-permits-rise-third-straight-year",
+        "lead": true,
+        "section": "news",
+        "label": "Bulletin original",
+        "bignum": "1,845",
+        "qualifier": "new-house permits, Jan.–Oct.",
+        "headline": "New-house permits rise a third straight year",
+        "deck": "Up 5.9% from the same months of 2025 and 36.9% from 2023.",
+        "summary": "Up 5.9% from 2025 in the same months. A permit isn't a finished home.",
+        "showSummary": true,
+        "sourceLine": true,
+        "chartKicker": "New single-family house permits, January–October",
+        "chartTitle": "New single-family house permits, January–October",
+        "chartAlt": "Bar chart: Austin permits for new single-family houses, January through October: 1,348 in 2023, 1,498 in 2024, 1,743 in 2025 and 1,845 in 2026.",
+        "bars": [
+          { "label": "2023", "value": "1,348", "p": 73.1 },
+          { "label": "2024", "value": "1,498", "p": 81.2 },
+          { "label": "2025", "value": "1,743", "p": 94.5 },
+          { "label": "2026", "value": "1,845", "p": 100, "hi": true }
+        ],
+        "method": [
+          "These are City of Austin building permits for new single-family houses, not homes finished or sold. Duplexes, apartments and accessory units are not included. A few addresses carry more than one permit. Recent months can be revised. The data does not say why permits rose.",
+          "Source: City of Austin, Issued Construction Permits (3syk-w9eu), as of Nov. 12, 2026."
+        ],
+        "sources": [
+          {
+            "label": "City dataset 3syk-w9eu",
+            "url": "https://data.austintexas.gov/d/3syk-w9eu"
+          }
+        ]
+      },
+      {
+        "id": "convention-center-picks-10-local-artists",
+        "section": "news",
+        "glyph": {
+          "value": "$17.7M",
+          "qualifier": "public art"
+        },
+        "headline": "Convention Center picks 10 local artists",
+        "summary": "Their works will be built into the $1.6 billion redevelopment. Smaller commissions are expected in 2027.",
+        "sources": [
+          {
+            "label": "City of Austin, Nov. 12",
+            "url": "https://www.austintexas.gov/arts-culture/news/austin-convention-center-announces-10-local-artists-bring-creative-spirit"
+          }
+        ]
+      },
+      {
+        "id": "police-may-have-stolen-property",
+        "section": "news",
+        "icon": "shield",
+        "topic": "South Austin",
+        "headline": "Burglary victims: police may have your property",
+        "summary": "APD recovered jewelry, coins, passports and firearms near Williamson Creek. Some items weren't reported stolen.",
+        "sources": [
+          {
+            "label": "Austin Police, Nov. 12",
+            "url": "https://www.austintexas.gov/police/news/apd-detectives-arrest-suspect-connection-series-burglaries"
+          }
+        ]
+      },
+      {
+        "id": "tire-slashings-southeast-austin",
+        "section": "news",
+        "icon": "car",
+        "topic": "Southeast Austin",
+        "signupBreak": true,
+        "headline": "Police seek video after 12 tire slashings",
+        "summary": "Mostly overnight on weekdays at apartments near Mabel Davis since August. Upload footage to APD's portal.",
+        "sources": [
+          {
+            "label": "Austin Police, Nov. 10",
+            "url": "https://www.austintexas.gov/police/news/apd-investigating-multiple-tire-slashing-incidents-southeast-austin"
+          }
+        ]
+      },
+      {
+        "id": "resource-fair-saturday-ojeda",
+        "section": "notices",
+        "icon": "people",
+        "topic": "Saturday",
+        "headline": "Free City resource fair Saturday",
+        "summary": "11 a.m.–4 p.m. at Ojeda Middle School: food bank drive-through, vaccinations, utility-bill help.",
+        "sources": [
+          {
+            "label": "City of Austin, Nov. 10",
+            "url": "https://www.austintexas.gov/communications/news/community-connections-resource-fair-brings-city-providers-health-and-social"
+          }
+        ]
+      },
+      {
+        "id": "county-road-plan-comments-nov-20",
+        "section": "notices",
+        "icon": "road",
+        "topic": "Travis County",
+        "headline": "Comment on county road plan by Nov. 20",
+        "summary": "A virtual open house covers changes to the 30-year plan for unincorporated areas.",
+        "sources": [
+          {
+            "label": "Travis County",
+            "url": "https://www.traviscountytx.gov/news/2026/2947-voh-transportation-blueprint-amendment"
+          }
+        ]
+      },
+      {
+        "id": "sunny-then-rain-saturday-night",
+        "section": "good",
+        "icon": "sun",
+        "glyph": {
+          "value": "77°",
+          "qualifier": "high today"
+        },
+        "headline": "Sunny today, rain likely Saturday night",
+        "summary": "Saturday high near 70 with gusts to 30 mph. Showers likely Saturday night (70%).",
         "sources": [
           {
             "label": "NWS forecast",

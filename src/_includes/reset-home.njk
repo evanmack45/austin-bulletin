@@ -1,19 +1,26 @@
 {% set editionDate = (collections.bulletins | first).date | isoDate %}
-{% set lead = editionCardData["2026-11-12"].cards | selectattr("lead") | first %}
+{% set lead = editionCardData["2026-11-13"].cards | selectattr("lead") | first %}
 <article class="reset-home paper-main" data-edition="{{ editionDate }}" data-variant="{{ variant }}">
   
   <div class="story-grid">
     <section class="story-card story-card--lead front-lead" id="lead" data-fold data-animate>
-      <img class="share-image" src="/images/2026-11-12/str-licenses-desktop-1600.webp" alt="{{ lead.chartAlt | escape }}" width="1600" height="1067">
+      <img class="share-image" src="/images/2026-11-13/house-permits-desktop-1600.webp" alt="{{ lead.chartAlt | escape }}" width="1600" height="1067">
       <p class="original-kicker">{{ lead.label | escape }}</p>
       <p class="bignum">{{ lead.bignum | escape }} <span class="qual">{{ lead.qualifier | escape }}</span></p>
-      <h1><a href="/2026/11/12/#{{ lead.id | escape }}">{{ lead.headline | tightTokens }}</a></h1>
+      <h1><a href="/2026/11/13/#{{ lead.id | escape }}">{{ lead.headline | tightTokens }}</a></h1>
       <p class="card-blurb front-deck">{{ lead.deck | tightTokens }}</p>
       <div class="chart">
         <p class="chart-kicker chart-kicker--sentence">{{ lead.chartKicker | tightTokens }}</p>
-        <div role="img" aria-label="{{ lead.chartAlt | escape }}">{{ strLineChart | safe }}</div>
+        <div class="chart-bars chart-bars--bids" role="img" aria-label="{{ lead.chartAlt | escape }}">
+          {% for bar in lead.bars %}
+          <div class="chart-col" style="--delay: {{ loop.index0 * 50 }}ms">
+            <span class="bar-value{% if bar.hi %} is-hi{% endif %}" data-budget-exempt>{{ bar.value | escape }}</span>
+            <span class="bar{% if bar.hi %} bar-hi{% endif %}" style="--h: {{ bar.p }}%; --p: {{ bar.p }}"></span>
+            <span class="bar-year{% if bar.hi %} is-hi{% endif %}" data-budget-exempt>{{ bar.label | escape }}</span>
+          </div>
+          {% endfor %}
+        </div>
       </div>
-      <p class="chart-source" data-budget-exempt>{{ lead.chartSource | tightTokens }}</p>
       {% set sources = lead.sources %}
       {% include "source-line.njk" %}
     </section>
@@ -28,13 +35,15 @@
           {% endif %}
           <h3>{{ item.headline | tightTokens }}</h3>
           <p class="outcome-dek">{{ item.text | tightTokens }}</p>
-          <p class="source-line{% if item.stackSources %} source-line--stack{% endif %}" data-budget-exempt>{% for source in item.sources %}<span class="source-group">{% if loop.first %}<span class="source-label">{% if item.sources | length == 1 %}Source{% else %}Sources{% endif %}:</span> {% else %} <span class="sep" aria-hidden="true">·</span> {% endif %}<a href="{{ source.url | escape }}">{{ source.label | escape }}</a></span>{% endfor %}</p>
+          <p class="source-line{% if item.stackSources %} source-line--stack{% endif %}" data-budget-exempt>{% for source in item.sources %}<span class="source-group">{% if loop.first %}<span class="source-label">Sources:</span> {% else %} <span class="sep" aria-hidden="true">·</span> {% endif %}<a href="{{ source.url | escape }}">{{ source | sourceLabel | escape }}</a></span>{% endfor %}</p>
         </li>
         {% endfor %}
       </ul>
       {% endif %}
-      <h2 class="week-kicker" id="this-week-a">This week · {{ thisWeek.items | length }} items</h2>
-      {% include "reset-week.njk" %}
+      <div id="week-block"{% if thisWeek.items.length == 0 %} hidden{% endif %}>
+        <h2 class="week-kicker" id="this-week-a">This week · <span id="week-count">{{ thisWeek.items.length }}</span> <span id="week-word">{% if thisWeek.items.length == 1 %}item{% else %}items{% endif %}</span></h2>
+        {% include "reset-week.njk" %}
+      </div>
     </section>
   </div>
   

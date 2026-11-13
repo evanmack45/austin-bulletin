@@ -1,4 +1,6 @@
 import { readFileSync } from "node:fs";
+import { chicagoToday, upcomingOnly } from "../_includes/week-upcoming.js";
+
 
 const ICONS = {
   water: "drop-bold",
@@ -21,11 +23,11 @@ function dateLabel(iso) {
   return `${MONTHS[month - 1]} ${day}`;
 }
 
-const items = raw.map((item) => ({
+const items = upcomingOnly(raw.map((item) => ({
   ...item,
   iconFile: ICONS[item.icon] || "map-pin-bold",
   dateLabel: dateLabel(item.date)
-}));
+})));
 
 const pins = [];
 for (const item of items) {
@@ -48,10 +50,10 @@ function homeSources(card) {
   const sources = Array.isArray(card.sources) ? card.sources : [];
   const labels = HOME_LABELS[card.id];
   if (!labels) return sources;
-  return sources.map((source, index) => ({
-    ...source,
-    label: labels[index] || source.label
-  }));
+  return sources.map((source, index) => {
+    const label = labels[index] || source.shortLabel || source.label;
+    return { ...source, label, shortLabel: label };
+  });
 }
 
 const outcomes = (editionCards["2026-11-10"]?.cards || [])
@@ -82,5 +84,7 @@ export default {
   items,
   outcomes,
   pins: placed,
-  pinsJson: JSON.stringify(placed)
+  pinsJson: JSON.stringify(placed),
+  chicagoToday,
+  upcomingOnly
 };

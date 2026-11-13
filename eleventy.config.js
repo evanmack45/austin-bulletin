@@ -149,6 +149,8 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("withStoryAnchors", withStoryAnchors);
   eleventyConfig.addFilter("skimList", skimList);
   eleventyConfig.addFilter("collapseSourceLists", collapseSourceLists);
+  eleventyConfig.addFilter("sourceLabel", (source) =>
+    source && (source.shortLabel || source.label) || "");
   eleventyConfig.addFilter("consolidateStorySources", consolidateStorySources);
   eleventyConfig.addFilter("withReaderActions", withReaderActions);
   eleventyConfig.addFilter("centralTime", centralTime);
