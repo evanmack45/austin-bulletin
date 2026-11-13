@@ -1,12 +1,13 @@
 {
-  "fetched_at": "2026-11-12T12:08:52.556Z",
+  "fetched_at": "2026-11-13T12:08:12.671Z",
   "timezone": "America/Chicago",
+  "day_basis": "America/Chicago calendar day, summed from Cloudflare UTC hour buckets",
   "window": {
-    "start": "2026-11-06",
-    "end": "2026-11-12",
+    "start": "2026-11-07",
+    "end": "2026-11-13",
     "days": 7
   },
-  "sample_interval_note": "Pageviews are the GraphQL count and visits are sum.visits for human pageloads (bot 0), grouped by date. sampleInterval is Cloudflare's sampling interval for that day: 1 means the figure was not sampled down, and a higher number means the figure is an estimate at that granularity. Visits and pageviews are stored as the API returned them.",
+  "sample_interval_note": "Pageviews are the GraphQL count and visits are sum.visits for human pageloads (bot 0). Cloudflare returns UTC hour buckets; each date here is an America/Chicago calendar day, the sum of the hours that fall in it. sampleInterval is the largest of Cloudflare's hourly sampling intervals that day: 1 means no hour was sampled down, and a higher number means the figure is an estimate at that granularity. \"no rows\" means Cloudflare returned nothing for that day. Visits and pageviews are stored as the API returned them.",
   "sites": [
     {
       "id": "bulletin",
@@ -14,12 +15,6 @@
       "host": "theaustinbulletin.com",
       "siteTag": "f715e3efc034482ea16a102bcb2c2d36",
       "days": [
-        {
-          "date": "2026-11-06",
-          "visits": 1,
-          "pageviews": 1,
-          "sampleInterval": 1
-        },
         {
           "date": "2026-11-07",
           "visits": 5,
@@ -46,20 +41,26 @@
         },
         {
           "date": "2026-11-11",
-          "visits": 0,
-          "pageviews": 0,
-          "sampleInterval": null
+          "visits": 2,
+          "pageviews": 2,
+          "sampleInterval": 1
         },
         {
           "date": "2026-11-12",
-          "visits": 2,
-          "pageviews": 2,
+          "visits": 8,
+          "pageviews": 8,
+          "sampleInterval": 1
+        },
+        {
+          "date": "2026-11-13",
+          "visits": 1,
+          "pageviews": 1,
           "sampleInterval": 1
         }
       ],
       "totals": {
-        "visits": 8,
-        "pageviews": 8
+        "visits": 16,
+        "pageviews": 16
       }
     },
     {
@@ -68,12 +69,6 @@
       "host": "yallcityhall.org",
       "siteTag": "7344ab7bea3140de8c29211155de95fc",
       "days": [
-        {
-          "date": "2026-11-06",
-          "visits": 0,
-          "pageviews": 0,
-          "sampleInterval": null
-        },
         {
           "date": "2026-11-07",
           "visits": 0,
@@ -106,6 +101,12 @@
         },
         {
           "date": "2026-11-12",
+          "visits": 0,
+          "pageviews": 0,
+          "sampleInterval": null
+        },
+        {
+          "date": "2026-11-13",
           "visits": 0,
           "pageviews": 0,
           "sampleInterval": null
