@@ -312,7 +312,7 @@ body.edition-cards.edition-scoreboard main {
   text-underline-offset: .2em;
 }
 .edition-scoreboard .method > summary::-webkit-details-marker,
-.edition-scoreboard .oc > summary::-webkit-details-marker { display: none; }
+.edition-scoreboard .oc > details > summary::-webkit-details-marker { display: none; }
 .edition-scoreboard .method > summary .icon-svg,
 .edition-scoreboard .method > summary svg { width: 14px; height: 14px; transition: transform var(--dur-ui) var(--ease-out); }
 .edition-scoreboard .method[open] > summary .icon-svg,
@@ -360,18 +360,28 @@ body.edition-cards.edition-scoreboard main {
   background: var(--rule);
   border-bottom: 1px solid var(--rule);
 }
-.edition-scoreboard .oc { background: var(--paper); min-width: 0; }
-.edition-scoreboard .oc > summary {
+.edition-scoreboard .oc {
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  min-width: 0;
+}
+.edition-scoreboard .oc > details { flex: 1 1 auto; min-width: 0; }
+.edition-scoreboard .oc > details > summary {
   display: grid;
   grid-template-rows: auto 1fr;
   gap: 10px;
   min-height: 44px;
   height: 100%;
+  box-sizing: border-box;
   padding: 14px 12px 14px 0;
   list-style: none;
   cursor: pointer;
 }
-.edition-scoreboard .board .oc:nth-child(even) > summary { padding-left: 14px; padding-right: 0; }
+.edition-scoreboard .board .oc:nth-child(even) > details > summary {
+  padding-left: 14px;
+  padding-right: 0;
+}
 .edition-scoreboard .mark {
   justify-self: start;
   font-family: var(--font-display);
@@ -397,7 +407,7 @@ body.edition-cards.edition-scoreboard main {
     letter-spacing: -0.03em;
     max-width: 100%;
   }
-  .edition-scoreboard .oc > summary,
+  .edition-scoreboard .oc > details > summary,
   .edition-scoreboard .oc-head,
   .edition-scoreboard .oc-head > span:first-child { min-width: 0; }
 }
@@ -431,16 +441,23 @@ body.edition-cards.edition-scoreboard main {
   color: var(--muted);
   transition: transform var(--dur-ui) var(--ease-out);
 }
-.edition-scoreboard .oc[open] .oc-head .icon-svg,
-.edition-scoreboard .oc[open] .oc-head svg { transform: rotate(180deg); }
-.edition-scoreboard .oc > summary:hover .oc-head > span:first-child {
+.edition-scoreboard .oc > details[open] .oc-head .icon-svg,
+.edition-scoreboard .oc > details[open] .oc-head svg { transform: rotate(180deg); }
+.edition-scoreboard .oc > details > summary:hover .oc-head > span:first-child {
   text-decoration: underline;
   text-underline-offset: .18em;
 }
-.edition-scoreboard .oc[open] > summary,
-.edition-scoreboard .oc:has(> .src-face) > summary { height: auto; }
-.edition-scoreboard details:not([open]) > :not(summary):not(.src-face) { display: none; }
-.edition-scoreboard .oc > .src-face { display: flex; padding: 0 12px 10px 0; }
+.edition-scoreboard .oc > details[open] > summary { height: auto; }
+.edition-scoreboard .oc > details:not([open]) > .oc-body { display: none; }
+.edition-scoreboard .oc > .src-face {
+  display: flex;
+  flex-shrink: 0;
+  padding: 0 12px 10px 0;
+}
+.edition-scoreboard .board .oc:nth-child(even) > .src-face {
+  padding-left: 14px;
+  padding-right: 0;
+}
 .edition-scoreboard .oc-body { padding: 0 12px 16px 0; }
 .edition-scoreboard .board .oc:nth-child(even) .oc-body { padding-left: 14px; padding-right: 0; }
 .edition-scoreboard .oc-body p { margin: 0 0 6px; font-family: Georgia, "Times New Roman", serif; font-size: 1rem; line-height: 1.45; max-width: 34rem; }
@@ -524,13 +541,17 @@ body.edition-cards.edition-scoreboard main {
 
 @media (max-width: 767px) {
   .edition-scoreboard .board .oc:last-child:nth-child(odd) { grid-column: 1 / -1; }
-  .edition-scoreboard .board .oc:last-child:nth-child(odd) > summary {
+  .edition-scoreboard .board .oc:last-child:nth-child(odd) > details > summary {
     padding-left: 0;
     padding-right: 0;
     grid-template-columns: auto 1fr;
     grid-template-rows: none;
     align-items: end;
     column-gap: 16px;
+  }
+  .edition-scoreboard .board .oc:last-child:nth-child(odd) > .src-face {
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 @media (max-width: 1023px) {
@@ -714,9 +735,12 @@ body.edition-cards.edition-scoreboard main {
   .edition-scoreboard .board:has(.oc:nth-child(3)) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .edition-scoreboard .board:has(.oc:nth-child(4)) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .edition-scoreboard .board:has(.oc:nth-child(5)) { grid-template-columns: repeat(5, minmax(0, 1fr)); }
-  .edition-scoreboard .oc > summary,
-  .edition-scoreboard .board .oc:nth-child(even) > summary { padding: 16px; }
-  .edition-scoreboard .board .oc:first-child > summary { padding-left: 0; }
+  .edition-scoreboard .oc > details > summary,
+  .edition-scoreboard .board .oc:nth-child(even) > details > summary { padding: 16px; }
+  .edition-scoreboard .board .oc:first-child > details > summary { padding-left: 0; }
+  .edition-scoreboard .oc > .src-face,
+  .edition-scoreboard .board .oc:nth-child(even) > .src-face { padding: 0 16px 12px; }
+  .edition-scoreboard .board .oc:first-child > .src-face { padding-left: 0; }
   .edition-scoreboard .oc-body,
   .edition-scoreboard .board .oc:nth-child(even) .oc-body,
   .edition-scoreboard .board .oc:nth-child(odd) .oc-body { padding: 0 16px 16px; }

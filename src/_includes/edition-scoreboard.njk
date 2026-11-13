@@ -78,15 +78,18 @@
     <h2 class="section-label{% if section.hideLabel %} sr-only{% endif %}" id="{{ section.id | escape }}"><span>{{ section.label | tightTokens }}</span></h2>
     <div class="board">
       {% for item in section.items %}
-      <details class="oc" id="{{ item.id | escape }}">
-        <summary><span class="mark{% if item.markWord %} word{% endif %}">{% set markIcon = item.icon | icon %}{% if markIcon and not item.glyphValue %}<span class="mark-icon">{{ markIcon | safe }}</span>{% endif %}{{ item.markText | escape }}{% if item.markQualifier %}<small>{{ item.markQualifier | tightTokens }}</small>{% endif %}</span><span class="oc-head"><span>{{ item.headline | tightTokens }}</span><span class="icon">{{ "caret-down-bold" | icon | safe }}</span></span></summary>
-        <div class="oc-body">
-          {% for para in item.boardRecap %}<p>{{ para | tightTokens | safe }}</p>{% endfor %}
-        </div>
+      {# The source row is the card's own row, outside details. A closed details sizes only to its summary. #}
+      <div class="oc" id="{{ item.id | escape }}">
+        <details>
+          <summary><span class="mark{% if item.markWord %} word{% endif %}">{% set markIcon = item.icon | icon %}{% if markIcon and not item.glyphValue %}<span class="mark-icon">{{ markIcon | safe }}</span>{% endif %}{{ item.markText | escape }}{% if item.markQualifier %}<small>{{ item.markQualifier | tightTokens }}</small>{% endif %}</span><span class="oc-head"><span>{{ item.headline | tightTokens }}</span><span class="icon">{{ "caret-down-bold" | icon | safe }}</span></span></summary>
+          <div class="oc-body">
+            {% for para in item.boardRecap %}<p>{{ para | tightTokens | safe }}</p>{% endfor %}
+          </div>
+        </details>
         {% if item.sources | length %}
         <p class="src src-face{% if item.sources | length > 1 %} src--line{% endif %}"><span class="src-k">{% if item.sources | length == 1 %}Source{% else %}Sources{% endif %}:</span> {% for source in item.sources %}{% if not loop.first %}<span class="sep" aria-hidden="true">·</span> {% endif %}<a href="{{ source.url | escape }}">{{ source.label | tightTokens }}</a>{% endfor %}</p>
         {% endif %}
-      </details>
+      </div>
       {% endfor %}
     </div>
   </section>
