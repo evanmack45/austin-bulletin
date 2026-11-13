@@ -1,0 +1,108 @@
+/* S-10 outcomes board (Kiln comp, 2026-11-13). Night stage, same marks as the hero chart. */
+:root {
+  --night-rule: #2C4A6B;   /* 1px tile rules on night (new token) */
+  --night-hover: #143557;  /* tile hover/focus wash (new token) */
+}
+.home-front .story-card--outcomes {
+  padding: 0; overflow: hidden;
+  background: var(--night); border-color: var(--night); color: var(--on-night);
+}
+.home-front .story-card--outcomes .ob-kicker {
+  margin: 0 !important; padding: 14px 16px 12px;
+  font: 650 1rem/1.3 var(--font-display) !important; color: var(--on-night) !important;
+  border-bottom: 1px solid var(--night-rule);
+}
+.ob-kicker b { color: var(--sun); font-weight: 700; }
+.ob {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: minmax(0, 1.03fr) minmax(0, .97fr); /* C gets the wider phone column so its Sources row keeps room */
+  gap: 1px; background: var(--night-rule);
+}
+.t {
+  position: relative; min-width: 0;
+  display: flex; flex-direction: column; gap: 6px;
+  padding: 14px 14px 0; background: var(--night);
+}
+.t:hover, .t:focus-within { background: var(--night-hover); }
+.t--a, .t--b, .t--e { grid-column: 1 / -1; }
+.t-tag {
+  margin: 0; display: flex; align-items: center; gap: 6px;
+  font: 650 .8125rem/1.2 var(--font-display); color: var(--chart-label);
+}
+.t-tag .ic, .t-row .ic { width: 20px; height: 20px; flex: 0 0 20px; color: var(--sun); }
+.t-num {
+  margin: 2px 0 0; font-family: var(--font-display); font-weight: 800; font-stretch: 80%;
+  line-height: .95; font-feature-settings: "tnum" 1, "lnum" 1; color: var(--sun);
+  font-size: 2.75rem; white-space: nowrap;
+}
+.t--a .t-num { font-size: var(--fs-bignum); }
+.t-word { font-size: 2rem; font-stretch: 80%; }
+.t-lab { margin: 0 !important; font: 700 1.125rem/1.2 var(--font-display) !important; color: var(--on-night); }
+.t-lab a { color: inherit; text-decoration: none; }
+.t-lab a::after { content: ""; position: absolute; inset: 0; z-index: 0; }
+.t-lab a:focus-visible { outline: none; }
+.t:has(.t-lab a:focus-visible) { outline: var(--focus); outline-offset: -3px; }
+.t--a .t-lab { font-size: 1.375rem !important; }
+@media (max-width: 1023px) { .t--c .t-lab, .t--d .t-lab { font-size: 1rem !important; } }
+.t-note { margin: 0; font: 450 .9375rem/1.3 var(--font-display); color: var(--chart-label); }
+
+/* Dollar bars: one scale ($197.1M = full track) across both money tiles. */
+.t-bar { position: relative; height: 34px; margin: 4px 0 2px; }
+.t-bar::before { content: ""; position: absolute; left: 0; right: 8px; top: 21px; height: 2px; background: var(--chart-muted); }
+.t-bar .fill { position: absolute; left: 0; top: 16px; height: 12px; width: calc((100% - 8px) * var(--w)); background: var(--sun); border-radius: 6px 0 0 6px; }
+.t-bar .add { position: absolute; top: 16px; height: 12px; left: calc((100% - 8px) * var(--x)); width: calc((100% - 8px) * var(--w)); background: var(--data-1-night); }
+.t-bar .dot { position: absolute; top: 14px; width: 16px; height: 16px; border-radius: 50%; left: calc((100% - 8px) * var(--x) - 8px); background: var(--sun); }
+.t-bar .dot--blue { background: var(--data-1-night); }
+.t-bar .call { position: absolute; top: -4px; right: 0; margin: 0; font: 700 .9375rem/1.2 var(--font-display); color: var(--data-1-night); font-feature-settings: "tnum" 1, "lnum" 1; }
+
+/* Axis under the second bar: same scale cue as the hero chart's axis row. */
+.t-axis { display: flex; justify-content: space-between; margin: -4px 8px 0 0; font: 650 .8125rem/1.2 var(--font-display); color: var(--chart-label); font-feature-settings: "tnum" 1, "lnum" 1; }
+
+/* Vote tally: one square per vote. Filled = for. */
+.tally { display: flex; gap: 5px; margin: 2px 0; }
+.tally i { width: 18px; height: 18px; border-radius: 3px; background: var(--sun); }
+
+.t-rows { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.t-row a { position: relative; z-index: 1; display: flex; align-items: center; gap: 8px; min-height: 44px; color: var(--on-night); text-decoration: none; font: 700 1.125rem/1.2 var(--font-display); }
+.t-row a:hover span, .t-row a:focus-visible span { text-decoration: underline; }
+
+/* Sources: one row, one line, 44px tap, 6px each side of a centered dot. */
+.t-src {
+  position: relative; z-index: 1; margin: auto 0 0; padding: 0;
+  display: flex; flex-wrap: nowrap; align-items: baseline; column-gap: 6px;
+  min-height: 44px; white-space: nowrap; overflow: hidden;
+  font: 450 .8125rem/1.25 var(--font-display); color: var(--on-night-meta);
+}
+.t-src a, .t-src summary { display: inline-flex; align-items: center; min-height: 44px; color: var(--on-night-meta); text-decoration: underline; text-underline-offset: 2px; }
+.t-src .source-label, .t-src .sep { display: inline-flex; align-items: center; min-height: 44px; }
+
+@media (min-width: 1024px) {
+  .home-front .story-card--outcomes { grid-column: 1 / -1; grid-row: 2; }
+  .home-front .story-card--week { grid-row: 3; }
+  .ob-kicker { padding: 16px 20px 14px; }
+  .ob { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+  .t { padding: 18px 20px 0; gap: 8px; }
+  .t--a { grid-column: 1 / span 8; grid-row: 1; }
+  .t--c { grid-column: 9 / span 4; grid-row: 1; }
+  .t--b { grid-column: 1 / span 8; grid-row: 2; }
+  .t--d { grid-column: 9 / span 4; grid-row: 2; }
+  .t--e { grid-column: 1 / -1; grid-row: 3; display: grid; grid-template-columns: auto auto 1fr; align-items: center; column-gap: 24px; padding-bottom: 0; }
+  .t--e .t-tag { grid-column: 1 / -1; }
+  .t--e .t-num { grid-row: 2; }
+  .t--e .t-lab { grid-row: 2; }
+  .t--e .t-rows { grid-row: 2; grid-auto-flow: column; column-gap: 28px; justify-content: start; }
+  .t--e .t-src { grid-row: 3; grid-column: 1 / -1; margin: 0; }
+  .t-num { font-size: 3.5rem; }
+  .t--a .t-num { font-size: var(--fs-bignum); }
+  .t-word { font-size: 2.5rem; }
+  .tally { gap: 6px; }
+  .tally i { width: 26px; height: 26px; border-radius: 4px; }
+  .t--c .t-num { font-size: 5rem; }
+  .t--a .t-lab { font-size: 1.75rem !important; }
+  .t-bar { height: 40px; }
+  .t-bar::before { top: 25px; }
+  .t-bar .fill, .t-bar .add { top: 20px; height: 14px; }
+  .t-bar .dot { top: 18px; width: 18px; height: 18px; left: calc((100% - 8px) * var(--x) - 9px); }
+  .t-src { font-size: .875rem; }
+}
+.nb { white-space: nowrap; }
