@@ -74,19 +74,23 @@ function packRow(row) {
   showPacked(row);
   button.hidden = true;
   clipLabel(row, false);
+  row.classList.remove("is-wrap");
   if (fits(row)) {
     button.remove();
     return;
   }
-  button.hidden = false;
+  // Keep the first named link visible. "+N more" is only for later links.
   let hidden = 0;
-  for (let index = links.length - 1; index >= 0; index -= 1) {
+  for (let index = links.length - 1; index >= 1; index -= 1) {
     hideLink(links[index]);
     hidden += 1;
+    button.hidden = false;
     button.textContent = `+${hidden} more`;
     if (fits(row)) return;
   }
-  clipLabel(row, true);
+  if (hidden === 0) button.remove();
+  // Last resort: wrap rather than hide the first named link or shrink type.
+  if (!fits(row)) row.classList.add("is-wrap");
 }
 
 export function packSourceRows(root = document) {

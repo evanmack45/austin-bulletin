@@ -51,15 +51,12 @@
       {% set sources = story.sources %}
       {% include "source-line.njk" %}
       {% else %}
-      {% if story.sourceLine %}
       {% set sources = story.sources %}
       {% include "source-line.njk" %}
-      {% else %}
-      <p class="srcline" data-budget-exempt><span class="src-k">{% if story.sourcePrefix %}{{ story.sourcePrefix | tightTokens }}{% else %}Source{% if story.sources | length > 1 %}s{% endif %}:{% endif %}</span>{% for source in story.sources %} <a href="{{ source.url | escape }}">{{ source.label | tightTokens }}</a>{% endfor %}</p>
-      {% endif %}
       <details class="method">
         <summary>Method <span class="icon">{{ "caret-down-bold" | icon | safe }}</span></summary>
         <div class="method-body">
+          {% if story.sourcePrefix %}<p>{{ story.sourcePrefix | tightTokens }}</p>{% endif %}
           {% if story.caveat %}<p>{{ story.caveat | tightTokens }}</p>{% endif %}
           {% for para in story.method %}<p>{{ para | tightTokens | safe }}</p>{% endfor %}
         </div>
@@ -87,7 +84,7 @@
           </div>
         </details>
         {% if item.sources | length %}
-        <p class="src src-face{% if item.sources | length > 1 %} src--line{% endif %}"><span class="src-k">{% if item.sources | length == 1 %}Source{% else %}Sources{% endif %}:</span> {% for source in item.sources %}{% if not loop.first %}<span class="sep" aria-hidden="true">·</span> {% endif %}<a href="{{ source.url | escape }}">{{ source.label | tightTokens }}</a>{% endfor %}</p>
+        <p class="src src-face{% if item.sources | length > 1 %} src--line{% endif %}"><span class="src-k">Sources:</span> {% for source in item.sources %}{% if not loop.first %}<span class="sep" aria-hidden="true">·</span> {% endif %}<a href="{{ source.url | escape }}">{{ source | sourceLabel | tightTokens }}</a>{% endfor %}</p>
         {% endif %}
       </div>
       {% endfor %}
@@ -116,7 +113,7 @@
       <h2 id="notices-h">Notices</h2>
       <ul>
         {% for item in model.noticeItems %}
-        <li id="{{ item.id | escape }}">{% if item.when %}<span class="when">{{ item.when | tightTokens }}</span>{% elif item.glyphValue %}<span class="when">{% set whenIcon = item.icon | icon %}{% if whenIcon %}<span class="icon">{{ whenIcon | safe }}</span>{% endif %}{{ item.glyphValue | tightTokens }}{% if item.markQualifier %}<small>{{ item.markQualifier | tightTokens }}</small>{% endif %}</span>{% elif item.topic %}<span class="when">{% set topicIcon = item.icon | icon %}{% if topicIcon %}<span class="icon">{{ topicIcon | safe }}</span>{% endif %}{{ item.topic | tightTokens }}</span>{% endif %}<span class="list-main">{{ item.headline | tightTokens }}</span>{% if item.summary %}<div class="list-copy"><p>{{ item.summary | tightTokens }}</p></div>{% endif %}{% if item.sources | length %}<p class="src{% if item.sources | length > 1 %} src--line{% endif %}"><span class="src-k">{% if item.sources | length == 1 %}Source{% else %}Sources{% endif %}:</span> {% for source in item.sources %}{% if not loop.first %}<span class="sep" aria-hidden="true">·</span> {% endif %}<a href="{{ source.url | escape }}">{{ source.label | tightTokens }}</a>{% endfor %}</p>{% endif %}</li>
+        <li id="{{ item.id | escape }}">{% if item.when %}<span class="when">{{ item.when | tightTokens }}</span>{% elif item.glyphValue %}<span class="when">{% set whenIcon = item.icon | icon %}{% if whenIcon %}<span class="icon">{{ whenIcon | safe }}</span>{% endif %}{{ item.glyphValue | tightTokens }}{% if item.markQualifier %}<small>{{ item.markQualifier | tightTokens }}</small>{% endif %}</span>{% elif item.topic %}<span class="when">{% set topicIcon = item.icon | icon %}{% if topicIcon %}<span class="icon">{{ topicIcon | safe }}</span>{% endif %}{{ item.topic | tightTokens }}</span>{% endif %}<span class="list-main">{{ item.headline | tightTokens }}</span>{% if item.summary %}<div class="list-copy"><p>{{ item.summary | tightTokens }}</p></div>{% endif %}{% if item.sources | length %}<p class="src{% if item.sources | length > 1 %} src--line{% endif %}"><span class="src-k">Sources:</span> {% for source in item.sources %}{% if not loop.first %}<span class="sep" aria-hidden="true">·</span> {% endif %}<a href="{{ source.url | escape }}">{{ source | sourceLabel | tightTokens }}</a>{% endfor %}</p>{% endif %}</li>
         {% endfor %}
       </ul>
     </section>

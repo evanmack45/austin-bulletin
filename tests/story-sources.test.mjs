@@ -54,12 +54,11 @@ test("a calculation note stays with the source line", () => {
   assert.deepEqual(storySourceSets(out), storySourceSets(html));
 });
 
-test("one source keeps a single Source label", () => {
+test("one source still uses the Sources label", () => {
   const html = "<div class=\"river\"><h5>Item</h5><p>Text.</p>" +
     `<span class="src">Source: <a href="${CITY}">KUT</a></span></div>`;
   const out = consolidateStorySources(html);
-  assert.match(out, /source-label">Source:<\/span> <a href="[^"]+">KUT<\/a>/);
-  assert.equal(out.includes("Sources:"), false);
+  assert.match(out, /source-label">Sources:<\/span> <a href="[^"]+">KUT<\/a>/);
   assert.equal(out.includes("Source: Source"), false);
   assert.equal(consolidateStorySources(out), out);
 });
@@ -76,11 +75,10 @@ test("several sources are a group with the label on the first", () => {
   assert.equal(consolidateStorySources(out), out);
 });
 
-test("homepage source html uses the same single label", () => {
+test("homepage source html uses the Sources label", () => {
   const html = `<span class="src">Source: <a href="${CITY}">NWS forecast for Austin</a></span>`;
   const out = presentSourceHtml(html);
-  assert.match(out, /source-label">Source:<\/span>/);
-  assert.equal(out.includes("Sources:"), false);
+  assert.match(out, /source-label">Sources:<\/span>/);
   assert.equal(out.includes(" · "), false);
   assert.equal(presentSourceHtml(out), out);
 });

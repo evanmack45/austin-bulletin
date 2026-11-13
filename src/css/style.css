@@ -1512,6 +1512,9 @@ body:has(article.bulletin) main { max-width: 48rem; }
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.source-line.is-wrap,
+.srcline.is-wrap,
+.src.is-wrap,
 .source-line.is-expanded,
 .srcline.is-expanded,
 .src.is-expanded,
@@ -1522,6 +1525,12 @@ body:has(article.bulletin) main { max-width: 48rem; }
   white-space: normal;
   max-width: 100%;
 }
+.source-line.is-wrap a,
+.srcline.is-wrap a,
+.src.is-wrap a,
+.source-line.is-wrap .src-more,
+.srcline.is-wrap .src-more,
+.src.is-wrap .src-more,
 .source-line.is-expanded a,
 .srcline.is-expanded a,
 .src.is-expanded a,

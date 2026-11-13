@@ -533,7 +533,7 @@ body.edition-cards.edition-scoreboard main {
   white-space: normal;
 }
 @media (max-width: 767px) {
-  .bulletin--2026-11-13 .board { grid-template-columns: 1fr; }
+  .edition-scoreboard .board { grid-template-columns: 1fr; }
 }
 .edition-scoreboard .src-more {
   font-family: inherit;

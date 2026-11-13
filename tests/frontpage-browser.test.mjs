@@ -133,7 +133,7 @@ async function readDateLines(page) {
 }
 
 function assertSourceLine(sourceLine, width) {
-	assert.match(sourceLine.text, /^Source: City dataset 3syk-w9eu$/);
+	assert.match(sourceLine.text, /^Sources: City dataset 3syk-w9eu$/);
 	assert.ok(sourceLine.heights.every((height) => height >= 44), JSON.stringify(sourceLine));
 	const oneLine = sourceLine.tops.length < 2
 		|| Math.max(...sourceLine.tops) - Math.min(...sourceLine.tops) < 3;
@@ -159,7 +159,7 @@ function assertFirstFold(result, width, height) {
  assert.equal(result.barColor, "rgb(255, 194, 51)");
  assert.ok(result.action.height >= 44);
  assert.ok(result.nav.every(link => link.height >= 44));
- assert.match(result.sourceName, /Source: City dataset 3syk-w9eu/);
+ assert.match(result.sourceName, /Sources: City dataset 3syk-w9eu/);
  assert.match(result.title, /New-house permits rise a third straight year/);
  assert.equal(result.title.includes("$67.8M"), false);
  assertPlacement(result, width, height);

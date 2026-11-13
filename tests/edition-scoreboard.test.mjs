@@ -115,10 +115,10 @@ test("the scoreboard signup follows the whole board", () => {
   assert.ok(signup < next && next < notices);
   assert.equal(wednesday.split('class="signup signup--edition"').length - 1, 1);
   assert.equal(wednesday.split('<div class="board">').length - 1, 1);
-  assert.match(wednesday, /item\u00a025/);
-  assert.match(wednesday, /item\u00a011/);
-  assert.match(wednesday, /item\u00a038/);
-  assert.match(wednesday, /item\u00a033/);
+  assert.match(wednesday, /Item 25/);
+  assert.match(wednesday, /Item 11/);
+  assert.match(wednesday, /Item 38/);
+  assert.match(wednesday, /Item 33/);
 });
 
 test("Nov. 19 follows the Nov. 12 Next items", () => {

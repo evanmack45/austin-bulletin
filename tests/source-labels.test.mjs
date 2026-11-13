@@ -2,17 +2,28 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
-const PAGES = ["_site/index.html", "_site/2026/11/12/index.html", "_site/2026/11/13/index.html"];
+const PAGES = [
+  "_site/index.html",
+  "_site/2026/11/10/index.html",
+  "_site/2026/11/11/index.html",
+  "_site/2026/11/12/index.html",
+  "_site/2026/11/13/index.html"
+];
+
+const ROW = /<p class="[^"]*\b(?:source-line|srcline|src)\b[^"]*"[^>]*>[\s\S]*?<\/p>/g;
+
+function sourceRows(html) {
+  return html.match(ROW) || [];
+}
 
 function sourceLabels(html) {
-  const pattern = /<p class="[^"]*\b(?:source-line|src)\b[^"]*"[^>]*>[\s\S]*?<\/p>/g;
-  const blocks = html.match(pattern) || [];
-  return blocks.flatMap((block) => [...block.matchAll(/<a\b[^>]*>([^<]*)<\/a>/g)]
+  return sourceRows(html).flatMap((block) => [...block.matchAll(/<a\b[^>]*>([^<]*)<\/a>/g)]
     .map((match) => match[1].replaceAll("\u00a0", " ").trim()));
 }
 
 const PROPER = new Set([
-  "City", "STR", "Austin", "NWS", "PDF", "Water", "Parks", "Police", "County", "Nov."
+  "City", "STR", "Austin", "NWS", "PDF", "Water", "Parks", "Police", "County",
+  "Nov.", "Health", "Clerk"
 ]);
 
 function bareWord(word) {
@@ -45,6 +56,21 @@ test("source display labels are sentence case", () => {
     for (const label of labels) {
       const issue = sentenceCaseIssue(label);
       assert.equal(issue, "", `${page}: "${label}" (${issue})`);
+    }
+  }
+});
+
+test("every source row is labeled Sources: and names a link before +N more", () => {
+  for (const page of PAGES) {
+    const rows = sourceRows(readFileSync(page, "utf8"));
+    assert.ok(rows.length > 0, page);
+    for (const row of rows) {
+      const text = row.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+      assert.match(row, /(?:source-label|src-k)"[^>]*>Sources:</, `${page}: ${text}`);
+      assert.equal(/\bSource:</.test(row), false, `${page} singular Source: ${text}`);
+      if (/\+\d+ more/.test(row)) {
+        assert.match(row, /<a\b/i, `${page} +N more without a named link: ${text}`);
+      }
     }
   }
 });

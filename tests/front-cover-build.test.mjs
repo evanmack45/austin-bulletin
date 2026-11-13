@@ -243,8 +243,8 @@ test("the sunday edition stacks each source and names the headline actions", () 
   const line = lead.match(/<p class="source-line">[\s\S]*?<\/p>/)?.[0] ?? "";
   assert.equal(line.split('class="source-group"').length - 1, 1);
   assert.equal(line.includes("·"), false);
-  assert.match(line, /source-label">Source:<\/span>/);
-  assert.match(page, /source-label">Source:<\/span> <a [^>]*forecast\.weather\.gov\/MapClick/);
+  assert.match(line, /source-label">Sources:<\/span>/);
+  assert.match(page, /source-label">Sources:<\/span> <a [^>]*forecast\.weather\.gov\/MapClick/);
   assert.equal(page.includes("Sources: Source"), false);
   assert.equal(page.includes("mainly before midnight"), false);
   assert.equal(page.includes("3:12 p.m."), false);

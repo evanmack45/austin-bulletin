@@ -50,10 +50,10 @@ function homeSources(card) {
   const sources = Array.isArray(card.sources) ? card.sources : [];
   const labels = HOME_LABELS[card.id];
   if (!labels) return sources;
-  return sources.map((source, index) => ({
-    ...source,
-    label: labels[index] || source.label
-  }));
+  return sources.map((source, index) => {
+    const label = labels[index] || source.shortLabel || source.label;
+    return { ...source, label, shortLabel: label };
+  });
 }
 
 const outcomes = (editionCards["2026-11-10"]?.cards || [])

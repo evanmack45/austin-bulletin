@@ -480,6 +480,19 @@
   align-items: baseline;
 }
 .week-outcomes .source-line--stack .sep { display: inline; }
+.week-outcomes .source-line.is-wrap,
+.week-outcomes .source-line.is-wrap .source-group {
+  flex-flow: row wrap;
+  overflow: visible;
+  white-space: normal;
+  max-width: 100%;
+}
+.home-front .week-outcomes .source-line.is-wrap a,
+.home-front .week-outcomes .source-line.is-wrap .src-more {
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
 .week-outcomes + .week-kicker { margin-top: var(--s4); }
 .week-lines {
   list-style: none;

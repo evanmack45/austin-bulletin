@@ -266,8 +266,7 @@ test("November 8 lists the runoff lead, then news, then the forecast", () => {
   assert.equal(stories[0].summary.includes("3:12"), false);
   assert.equal(stories[0].sourcesHtml.includes(" · "), false);
   assert.equal(stories[0].sourcesHtml.split('class="source-group"').length - 1, 2);
-  assert.match(weather.sourcesHtml, /source-label">Source:<\/span>/);
-  assert.equal(weather.sourcesHtml.includes("Sources:"), false);
+  assert.match(weather.sourcesHtml, /source-label">Sources:<\/span>/);
   assert.equal(bulletin.includes("$55,326,729"), false);
   assert.equal(bulletin.includes("four calendar days"), false);
   assert.equal(bulletin.includes("December 3, 2027"), false);

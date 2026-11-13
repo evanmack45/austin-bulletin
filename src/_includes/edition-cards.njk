@@ -3,7 +3,7 @@
 <a class="share" href="{{ url | escape }}" data-share-title="{{ headline | escape }}" aria-label="Share: {{ headline | escape }}"><span class="icon">{{ "share-network-bold" | icon | safe }}</span><span class="share-word">Share</span></a>
 {% endmacro %}
 {% macro sourceLine(sources, more) %}
-<p class="src{% if more %} more-src{% endif %}"><span>{% if more %}More sources{% elif sources | length == 1 %}Source{% else %}Sources{% endif %}:</span> {% for source in sources %}{% if not loop.first %}<span class="sep" aria-hidden="true">·</span> {% endif %}<a href="{{ source.url | escape }}">{{ source.label | tightTokens }}</a>{% endfor %}</p>
+<p class="src{% if more %} more-src{% endif %}"><span>Sources:</span> {% for source in sources %}{% if not loop.first %}<span class="sep" aria-hidden="true">·</span> {% endif %}<a href="{{ source.url | escape }}">{{ source | sourceLabel | tightTokens }}</a>{% endfor %}</p>
 {% endmacro %}
 {% macro itemBody(item) %}
 {% if item.summary %}
