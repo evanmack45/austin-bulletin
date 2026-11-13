@@ -452,7 +452,7 @@ test("Nov. 10 meetings are outcomes and only Nov. 19 is upcoming", () => {
   const certificates = thisWeek.outcomes.find((item) => item.text.includes("$197.1 million"));
   assert.deepEqual(certificates.sources.map((source) => source.label), [
     "Vote record",
-    "Meeting video"
+    "Video"
   ]);
   assert.deepEqual(certificates.sources.map((source) => source.url), [
     "https://traviscotx.portal.civicclerk.com/event/3727/overview",
