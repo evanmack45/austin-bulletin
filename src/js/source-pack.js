@@ -32,10 +32,16 @@ function sepBefore(link) {
   return group.querySelector(".sep");
 }
 
+function chunkIsEmpty(chunk) {
+  return ![...chunk.querySelectorAll("a")].some((item) => !item.hidden);
+}
+
 function hideLink(link) {
   markHidden(link);
   const sep = sepBefore(link);
   if (sep) markHidden(sep);
+  const chunk = link.parentElement;
+  if (chunk?.classList.contains("source-chunk") && chunkIsEmpty(chunk)) markHidden(chunk);
 }
 
 function fits(row) {

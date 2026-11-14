@@ -806,5 +806,138 @@
         ]
       }
     ]
+  },
+  "2026-11-14": {
+    "cards": [
+      {
+        "id": "catalytic-converter-thefts-surge-back",
+        "lead": true,
+        "section": "news",
+        "label": "Bulletin original",
+        "bignum": "297",
+        "qualifier": "theft reports, Jan.–Oct.",
+        "headline": "Catalytic converter theft reports surge back",
+        "deck": "Up from 32 in the same months of 2025, but far below 2022's 1,763.",
+        "summary": "More than nine times last year's count, but far below the 2022 peak.",
+        "showSummary": true,
+        "sourceLine": true,
+        "chartKicker": "Catalytic converter theft reports, January–October",
+        "chartTitle": "Catalytic converter theft reports, January–October",
+        "chartAlt": "Chart: Austin police reports of catalytic converter theft, January through October: 220 in 2020, 1,522 in 2021, 1,763 in 2022, 438 in 2023, 29 in 2024, 32 in 2025 and 297 in 2026.",
+        "chartSource": "Source: City of Austin, Crime Reports (fdj4-gpfu), as of Nov. 9, 2026.",
+        "bars": [
+          { "label": "2020", "value": "220", "p": 12.5 },
+          { "label": "2021", "value": "1,522", "p": 86.3 },
+          { "label": "2022", "value": "1,763", "p": 100 },
+          { "label": "2023", "value": "438", "p": 24.8 },
+          { "label": "2024", "value": "29", "p": 1.6 },
+          { "label": "2025", "value": "32", "p": 1.8 },
+          { "label": "2026", "value": "297", "p": 16.8, "hi": true }
+        ],
+        "method": [
+          "These are police reports of catalytic converter theft by the date the theft happened, not arrests. Reports are preliminary and can be reclassified, and some thefts go unreported. The data does not say why reports rose."
+        ],
+        "sources": [
+          {
+            "label": "City dataset fdj4-gpfu",
+            "url": "https://data.austintexas.gov/d/fdj4-gpfu"
+          },
+          {
+            "label": "Austin Police, Nov. 13",
+            "url": "https://www.austintexas.gov/police/news/austin-police-arrest-man-found-six-catalytic-converters"
+          }
+        ]
+      },
+      {
+        "id": "emergency-demolition-hearing-nov-19",
+        "section": "news",
+        "icon": "warning",
+        "topic": "Nov. 19 council",
+        "headline": "Council hears emergency demolition plan Nov. 19",
+        "summary": "The City could quickly tear down imminently dangerous structures without a commission order. Hearing only, no vote.",
+        "sources": [
+          {
+            "label": "Agenda item 85 backup",
+            "url": "https://services.austintexas.gov/edims/document.cfm?id=485440"
+          }
+        ]
+      },
+      {
+        "id": "hornsby-bend-plant-contracts",
+        "section": "news",
+        "glyph": {
+          "value": "$58.5M",
+          "qualifier": "plant work"
+        },
+        "headline": "Council weighs Hornsby Bend biosolids plant upgrades",
+        "summary": "Two Austin Water construction contracts and an engineering amendment are on the Nov. 19 agenda.",
+        "sources": [
+          {
+            "label": "Nov. 19 final agenda",
+            "url": "https://services.austintexas.gov/edims/document.cfm?id=485293"
+          }
+        ]
+      },
+      {
+        "id": "mopac-80th-fatal-crash",
+        "section": "news",
+        "icon": "car",
+        "topic": "North Austin",
+        "signupBreak": true,
+        "headline": "MoPac crash is Austin's 80th deadly crash",
+        "summary": "A driver died Wednesday on northbound MoPac. Traffic deaths this year: 82, versus 86 last year.",
+        "sources": [
+          {
+            "label": "Austin Police, Nov. 13",
+            "url": "https://www.austintexas.gov/police/news/traffic-fatality-8100-block-north-mopac-expressway-nb"
+          }
+        ]
+      },
+      {
+        "id": "downtown-garage-assault-suspect",
+        "section": "news",
+        "icon": "shield",
+        "topic": "Downtown",
+        "headline": "Police seek man in downtown garage assault",
+        "summary": "Nov. 1, about 1:11 a.m., at 405 Colorado St. Call detectives at 512-974-8512.",
+        "sources": [
+          {
+            "label": "Austin Police, Nov. 13",
+            "url": "https://www.austintexas.gov/police/news/apd-detectives-seek-publics-assistance-identifying-sexual-assault-suspect"
+          }
+        ]
+      },
+      {
+        "id": "county-housing-grant-report-comments",
+        "section": "notices",
+        "icon": "file-text",
+        "topic": "Travis County",
+        "headline": "Comment on county housing-grant report by Nov. 19",
+        "summary": "Annual report on federal CDBG and HOME spending. Public hearing Tuesday at 9 a.m.",
+        "sources": [
+          {
+            "label": "Travis County",
+            "url": "https://www.traviscountytx.gov/news/2026/2953-travis-county-cdbg-py25-annual-report"
+          }
+        ]
+      },
+      {
+        "id": "rain-tonight-storms-sunday",
+        "section": "good",
+        "icon": "cloud-rain",
+        "glyph": {
+          "value": "90%",
+          "qualifier": "rain chance Sunday"
+        },
+        "headline": "Rain moves in tonight, storms Sunday",
+        "summary": "Today high near 69. Sunday high near 64, with up to three-quarters of an inch possible.",
+        "sources": [
+          {
+            "label": "NWS forecast",
+            "url": "https://forecast.weather.gov/MapClick.php?lat=30.2672&lon=-97.7431"
+          }
+        ]
+      }
+    ]
   }
 }

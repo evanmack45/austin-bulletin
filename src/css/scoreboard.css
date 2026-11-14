@@ -281,6 +281,11 @@ body.edition-cards.edition-scoreboard main {
 }
 .edition-scoreboard .lead .source-line a,
 .edition-scoreboard .lead .source-line .src-more { color: var(--on-night-meta); background: transparent; }
+.edition-scoreboard .lead .source-line:not(.is-wrap):not(.is-expanded) {
+  width: calc(100% + 12px);
+  max-width: none;
+  margin-right: -12px;
+}
 .edition-scoreboard .srcline {
   display: flex;
   flex-flow: row nowrap;
@@ -824,4 +829,14 @@ body.edition-cards.edition-scoreboard main {
 /* Five-bar rent chart still fits the same columns. */
 .edition-scoreboard .bars:has(.col:nth-child(5)) {
   grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+.edition-scoreboard .bars:has(.col:nth-child(7)) {
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+@media (max-width: 640px) {
+  .edition-scoreboard .bars:has(.col:nth-child(7)) .val,
+  .edition-scoreboard .bars:has(.col:nth-child(7)) .lab {
+    font-stretch: 75%;
+    white-space: nowrap;
+  }
 }

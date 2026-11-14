@@ -6,7 +6,9 @@ import path from "node:path";
 import puppeteer from "puppeteer-core";
 
 const chrome = ["/usr/bin/google-chrome", "/usr/bin/chromium"].find(existsSync);
-const routes = ["/", "/2026/11/10/", "/2026/11/11/", "/2026/11/12/", "/2026/11/13/"];
+const routes = [
+  "/", "/2026/11/10/", "/2026/11/11/", "/2026/11/12/", "/2026/11/13/", "/2026/11/14/"
+];
 
 function serveBuiltSite() {
   const root = path.resolve("_site");

@@ -133,7 +133,7 @@ async function readDateLines(page) {
 }
 
 function assertSourceLine(sourceLine, width) {
-	assert.match(sourceLine.text, /^Sources: City dataset 3syk-w9eu$/);
+	assert.match(sourceLine.text, /^Sources: City dataset fdj4-gpfu · Austin Police, Nov\. 13$/);
 	assert.ok(sourceLine.heights.every((height) => height >= 44), JSON.stringify(sourceLine));
 	const oneLine = sourceLine.tops.length < 2
 		|| Math.max(...sourceLine.tops) - Math.min(...sourceLine.tops) < 3;
@@ -159,8 +159,8 @@ function assertFirstFold(result, width, height) {
  assert.equal(result.barColor, "rgb(255, 194, 51)");
  assert.ok(result.action.height >= 44);
  assert.ok(result.nav.every(link => link.height >= 44));
- assert.match(result.sourceName, /Sources: City dataset 3syk-w9eu/);
- assert.match(result.title, /New-house permits rise a third straight year/);
+ assert.match(result.sourceName, /Sources: City dataset fdj4-gpfu/);
+ assert.match(result.title, /Catalytic converter theft reports surge back/);
  assert.equal(result.title.includes("$67.8M"), false);
  assertPlacement(result, width, height);
  assert.equal(result.actionColor, "rgb(175, 187, 201)");
@@ -281,7 +281,7 @@ test("guide action fragments reach the answer by keyboard without JavaScript", {
 		assert.ok(accessTitle.ok());
 		assert.equal(
 			await page.$eval(".front-lead .source-line a", (link) => link.getAttribute("href")),
-			"https://data.austintexas.gov/d/3syk-w9eu",
+			"https://data.austintexas.gov/d/fdj4-gpfu",
 		);
 	} finally {
 		await browser.close();

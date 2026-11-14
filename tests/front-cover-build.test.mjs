@@ -2,8 +2,8 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
-const SHARE = "https://theaustinbulletin.com/images/2026-11-13/house-permits-desktop-1600.webp";
-const DATASET = "https://data.austintexas.gov/d/3syk-w9eu";
+const SHARE = "https://theaustinbulletin.com/images/2026-11-14/catalytic-thefts-desktop-1600.webp";
+const DATASET = "https://data.austintexas.gov/d/fdj4-gpfu";
 
 function assertChartLead(html) {
   const lead = (html.match(
@@ -13,19 +13,22 @@ function assertChartLead(html) {
   const chart = lead.indexOf('class="chart"');
   const source = lead.indexOf('class="source-line"');
   assert.ok(h1 !== -1 && chart > h1 && source > chart, lead.slice(0, 400));
-  assert.match(lead, /New-house permits rise a third straight year/);
-  assert.match(lead, />1,845</);
-  assert.match(lead, /new-house permits, Jan\.\u2013Oct\./);
-  assert.match(lead, /Up 5\.9% from the same months of 2025 and 36\.9% from 2023/);
-  assert.match(lead, /1,348/);
-  assert.match(lead, /1,498/);
-  assert.match(lead, /1,743/);
+  assert.match(lead, /Catalytic converter theft reports surge back/);
+  assert.match(lead, />297</);
+  assert.match(lead, /theft reports, Jan\.\u2013Oct\./);
+  assert.match(lead, /Up from 32 in the same months of 2025, but far below 2022(?:'|&#39;)s 1,763/);
+  assert.match(lead, />220</);
+  assert.match(lead, /1,522/);
+  assert.match(lead, /1,763/);
+  assert.match(lead, />438</);
+  assert.match(lead, />29</);
+  assert.match(lead, />32</);
   assert.match(lead, /class="bar bar-hi"/);
   assert.doesNotMatch(lead, /\$67\.8M|>927</);
-  assert.doesNotMatch(lead, />3,663</);
-  assert.match(lead, /href="\/2026\/11\/13\/#new-house-permits-rise-third-straight-year"/);
+  assert.doesNotMatch(lead, />1,845</);
+  assert.match(lead, /href="\/2026\/11\/14\/#catalytic-converter-thefts-surge-back"/);
   assert.ok(lead.includes(DATASET), "city dataset source");
-  assert.match(lead, /City dataset 3syk-w9eu/);
+  assert.match(lead, /City dataset fdj4-gpfu/);
   assert.equal((lead.match(/class="source-line"/g) || []).length, 1);
   assert.doesNotMatch(lead, /register-lead|runoff-lead|AI illustration/);
   assert.doesNotMatch(html, /\b(peak|biggest)\b|the most/i);
@@ -35,7 +38,7 @@ function assertChartLead(html) {
   assert.match(css, /\.home-front \.results-link \{[\s\S]*?background:\s*transparent;/);
 }
 
-test("the homepage lead is Friday's 1,845 permit chart", () => {
+test("the homepage lead is Saturday's 297 theft-report chart", () => {
   assertChartLead(readFileSync("_site/index.html", "utf8"));
 });
 
@@ -54,9 +57,9 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.doesNotMatch(html, /5 minutes|One email each morning/);
   assert.doesNotMatch(html, /class="results-button"/);
   assert.equal((html.match(/<h1\b/g) || []).length, 1);
-  assert.match(html, /New-house permits rise a third straight year/);
-  assert.match(html, /href="\/2026\/11\/13\/#new-house-permits-rise-third-straight-year"/);
-  assert.match(html, />1,845</);
+  assert.match(html, /Catalytic converter theft reports surge back/);
+  assert.match(html, /href="\/2026\/11\/14\/#catalytic-converter-thefts-surge-back"/);
+  assert.match(html, />297</);
   assert.doesNotMatch(html.match(/story-card--lead[\s\S]*?<\/section>/)?.[0] ?? "", />927</);
   assert.doesNotMatch(html, /Register by Thursday if a runoff is ordered\./);
   assert.match(html, /class="wordmark"/);
@@ -72,20 +75,22 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.ok(html.includes(`name="twitter:image" content="${SHARE}"`));
   assert.match(
     html,
-    /property="og:title" content="New-house permits rise a third straight year"/
+    /property="og:title" content="Catalytic converter theft reports surge back"/
   );
   assert.match(html, new RegExp(
-    "og:description\" content=\"Up 5\\.9% from the same months of 2025 and 36\\.9% from 2023\\."
+    "og:description\" content=\"Up from 32 in the same months of 2025, " +
+    "but far below 2022(?:'|&#39;)s 1,763\\."
   ));
   assert.match(
     html,
-    /name="twitter:title" content="New-house permits rise a third straight year"/
+    /name="twitter:title" content="Catalytic converter theft reports surge back"/
   );
   assert.match(html, new RegExp(
-    "twitter:description\" content=\"Up 5\\.9% from the same months of 2025 and 36\\.9% from 2023"
+    "twitter:description\" content=\"Up from 32 in the same months of 2025, " +
+    "but far below 2022(?:'|&#39;)s 1,763"
   ));
-  assert.match(html, /Friday, Nov\. 13, 2026/);
-  assert.match(html, /href="\/2026\/11\/12\/"/);
+  assert.match(html, /Saturday, Nov\. 14, 2026/);
+  assert.match(html, /href="\/2026\/11\/13\/"/);
   assert.match(html, /Nov\. 10 · 6 outcomes/);
   assert.match(html, /id="week-count">1<\/span>/);
   assert.match(html, /id="week-word">item<\/span>/);
@@ -186,38 +191,43 @@ test("an older edition dates itself and links to the latest", () => {
   const wednesday = readFileSync("_site/2026/11/11/index.html", "utf8").replaceAll("\u00a0", " ");
   const thursday = readFileSync("_site/2026/11/12/index.html", "utf8").replaceAll("\u00a0", " ");
   const friday = readFileSync("_site/2026/11/13/index.html", "utf8").replaceAll("\u00a0", " ");
+  const saturday = readFileSync("_site/2026/11/14/index.html", "utf8").replaceAll("\u00a0", " ");
   const home = readFileSync("_site/index.html", "utf8").replaceAll("\u00a0", " ");
   const line = (html) => html.match(/class="masthead-dateline">([\s\S]*?)<\/p>/)[1];
   const nov9 = line(older);
   assert.match(nov9, /Monday, Nov\. 9/);
   assert.match(nov9, /Latest:/);
-  assert.match(nov9, /href="\/2026\/11\/13\/"/);
-  assert.match(nov9, />Nov\. 13</);
+  assert.match(nov9, /href="\/2026\/11\/14\/"/);
+  assert.match(nov9, />Nov\. 14</);
   assert.doesNotMatch(nov9, /Previous:/);
   assert.doesNotMatch(nov9, /Wednesday, Nov\. 11/);
   const nov8 = line(sunday);
   assert.match(nov8, /Sunday, Nov\. 8/);
-  assert.match(nov8, /href="\/2026\/11\/13\/"/);
+  assert.match(nov8, /href="\/2026\/11\/14\/"/);
   assert.doesNotMatch(nov8, /Previous:/);
   const nov10 = line(tuesday);
   assert.match(nov10, /Tuesday, Nov\. 10/);
   assert.match(nov10, /Latest:/);
-  assert.match(nov10, /href="\/2026\/11\/13\/"/);
+  assert.match(nov10, /href="\/2026\/11\/14\/"/);
   assert.doesNotMatch(nov10, /Previous:/);
   const nov11 = line(wednesday);
   assert.match(nov11, /Wednesday, Nov\. 11/);
   assert.match(nov11, /Latest:/);
-  assert.match(nov11, /href="\/2026\/11\/13\/"/);
+  assert.match(nov11, /href="\/2026\/11\/14\/"/);
   assert.doesNotMatch(nov11, /Previous:/);
   const thursdayLine = line(thursday);
   assert.match(thursdayLine, /Thursday, Nov\. 12/);
   assert.match(thursdayLine, /Latest:/);
-  assert.match(thursdayLine, /href="\/2026\/11\/13\/"/);
-  for (const html of [friday, home]) {
+  assert.match(thursdayLine, /href="\/2026\/11\/14\/"/);
+  const fridayLine = line(friday);
+  assert.match(fridayLine, /Friday, Nov\. 13/);
+  assert.match(fridayLine, /Latest:/);
+  assert.match(fridayLine, /href="\/2026\/11\/14\/"/);
+  for (const html of [saturday, home]) {
     const current = line(html);
-    assert.match(current, /Friday, Nov\. 13, 2026/);
+    assert.match(current, /Saturday, Nov\. 14, 2026/);
     assert.match(current, /Previous:/);
-    assert.match(current, /href="\/2026\/11\/12\/"/);
+    assert.match(current, /href="\/2026\/11\/13\/"/);
     assert.doesNotMatch(current, /Latest:/);
   }
 });
