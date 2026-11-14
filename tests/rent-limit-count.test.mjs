@@ -26,10 +26,11 @@ test("the hero, 2027 bar, and summary line are the same unit count", () => {
   )?.[0] ?? "";
   const hero = lead.match(/<p class="bignum">([^<]+)/);
   assert.ok(hero);
-  assert.match(hero[1], /1,845/);
+  assert.match(hero[1], /297/);
   assert.doesNotMatch(lead, />927</);
   assert.doesNotMatch(lead, /\$67\.8M/);
-  assert.match(lead, /1,348/);
+  assert.match(lead, /1,522/);
+  assert.match(lead, /1,763/);
   assert.match(lead, /class="bar bar-hi"/);
 
   const edition = readFileSync("_site/2026/11/10/index.html", "utf8");

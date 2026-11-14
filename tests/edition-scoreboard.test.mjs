@@ -63,7 +63,8 @@ test("the Wednesday lead is 71.68 and keeps the exact figure in Method", () => {
   assert.match(wednesday, /City canvass of Nov/);
   assert.equal(wednesday.includes("79°"), false);
   const home = readFileSync("_site/index.html", "utf8");
-  assert.match(home, />1,845</);
+  assert.match(home, />297</);
+  assert.doesNotMatch(home, />1,845</);
   assert.doesNotMatch(home, />3,663</);
   assert.doesNotMatch(home, />71\.68</);
   assert.doesNotMatch(home, />927</);
@@ -214,4 +215,52 @@ test("Friday lead is the 1,845 permit chart and signup follows the burglary", ()
   ));
   assert.match(friday, /house-permits-desktop-1600\.webp/);
   assert.match(friday, /Bulletin original/);
+});
+
+test("Saturday lead is the 297 theft chart and signup follows Hornsby Bend", () => {
+  const saturday = readFileSync("_site/2026/11/14/index.html", "utf8").replaceAll("\u00a0", " ");
+  const lead = leadOf(saturday);
+  assert.match(lead, />297</);
+  assert.match(lead, />220</);
+  assert.match(lead, /1,522/);
+  assert.match(lead, /1,763/);
+  assert.match(lead, />438</);
+  assert.match(lead, />29</);
+  assert.match(lead, />32</);
+  assert.match(lead, /theft reports, Jan\.–Oct\./);
+  assert.match(lead, /Catalytic converter theft reports surge back/);
+  assert.match(lead, /Up from 32 in the same months of 2025/);
+  assert.match(lead, /More than nine times last year(?:'|&#39;)s count/);
+  assert.match(lead, /<details class="method"/);
+  assert.equal(lead.includes('open=""') || lead.includes(" open"), false);
+  const method = lead.match(/<details class="method"[\s\S]*?<\/details>/)?.[0] ?? "";
+  assert.match(method, /not arrests/);
+  assert.match(method, /does not say why reports rose/);
+  assert.match(lead, /Crime Reports \(fdj4-gpfu\), as of Nov\. 9, 2026/);
+  assert.match(lead, new RegExp(
+    "220 in 2020, 1,522 in 2021, 1,763 in 2022, 438 in 2023, " +
+    "29 in 2024, 32 in 2025 and 297 in 2026"
+  ));
+  assert.doesNotMatch(saturday, /Hispanic|Latino|ethnicity/i);
+  const visible = saturday.replace(/href="[^"]*"/g, "");
+  assert.doesNotMatch(visible, /\barrest\b/i);
+  assert.match(saturday, /Hearing only, no vote/);
+  assert.doesNotMatch(saturday, /demolition vote|vote on the demolition/i);
+  assert.match(saturday, /City dataset fdj4-gpfu/);
+  assert.match(saturday, /https:\/\/data\.austintexas\.gov\/d\/fdj4-gpfu/);
+  assert.match(saturday, /Saturday, Nov\. 14, 2026/);
+  const signup = saturday.indexOf('class="signup signup--edition"');
+  const hornsby = saturday.indexOf("Council weighs Hornsby Bend biosolids plant upgrades");
+  const mopac = saturday.indexOf("MoPac crash is Austin");
+  const garage = saturday.indexOf("Police seek man in downtown garage assault");
+  const notices = saturday.indexOf('id="notices-h"');
+  assert.ok(hornsby < signup && signup < mopac && mopac < garage && garage < notices);
+  assert.equal(saturday.split('class="signup signup--edition"').length - 1, 1);
+  assert.equal(saturday.split('class="source-line"').length - 1, 1);
+  assert.match(saturday, new RegExp(
+    "property=\"og:title\" content=\"Catalytic converter theft reports surge back\""
+  ));
+  assert.match(saturday, /catalytic-thefts-desktop-1600\.webp/);
+  assert.match(saturday, />297</);
+  assert.match(saturday, /Bulletin original/);
 });

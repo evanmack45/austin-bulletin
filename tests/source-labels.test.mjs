@@ -7,7 +7,8 @@ const PAGES = [
   "_site/2026/11/10/index.html",
   "_site/2026/11/11/index.html",
   "_site/2026/11/12/index.html",
-  "_site/2026/11/13/index.html"
+  "_site/2026/11/13/index.html",
+  "_site/2026/11/14/index.html"
 ];
 
 const ROW = /<p class="[^"]*\b(?:source-line|srcline|src)\b[^"]*"[^>]*>[\s\S]*?<\/p>/g;

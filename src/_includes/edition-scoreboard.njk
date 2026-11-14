@@ -51,6 +51,9 @@
       {% set sources = story.sources %}
       {% include "source-line.njk" %}
       {% else %}
+      {% if story.chartSource %}
+      <p class="chart-source" data-budget-exempt>{{ story.chartSource | tightTokens }}</p>
+      {% endif %}
       {% set sources = story.sources %}
       {% include "source-line.njk" %}
       <details class="method">

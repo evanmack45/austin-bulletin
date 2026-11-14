@@ -123,6 +123,9 @@
   color: var(--on-night);
 }
 .home-front .chart-bars--bids { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.home-front .chart-bars--bids:has(.chart-col:nth-child(7)) {
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
 .story-card h1, .story-card h2 {
   margin: var(--s2) 0;
   font-family: var(--font-display);
@@ -277,6 +280,27 @@
   overflow: hidden;
   color: var(--on-night-meta);
   white-space: nowrap;
+}
+/* Packed "Sources:" plus the dataset name plus "+1 more" is a few pixels
+   wider than the card's content box at 360. Use the right padding so the
+   row stays one line. A doubled root still wraps inside the card. */
+.home-front .story-card--lead .source-line:not(.is-wrap):not(.is-expanded) {
+  width: calc(100% + 12px);
+  max-width: none;
+  margin-right: -12px;
+}
+.home-front .story-card--lead .source-line.is-wrap {
+  flex-flow: row wrap;
+  overflow: visible;
+  white-space: normal;
+  max-width: 100%;
+  width: auto;
+  margin-right: 0;
+}
+.home-front .story-card--lead .source-line.is-wrap a,
+.home-front .story-card--lead .source-line.is-wrap .src-more {
+  max-width: 100%;
+  white-space: normal;
 }
 .home-front .source-line a,
 .home-front .source-line .src-more {
@@ -634,6 +658,12 @@
 .map-frame svg { width: 100%; max-width: 100%; height: auto; max-height: none; }
 @media (max-width: 640px) {
   .home-front .chart-bars--bids .bar-year { font-size: .75rem; }
+  .home-front .chart-bars--bids:has(.chart-col:nth-child(7)) .bar-value,
+  .home-front .chart-bars--bids:has(.chart-col:nth-child(7)) .bar-year {
+    font-size: .75rem;
+    font-stretch: 75%;
+    white-space: nowrap;
+  }
   .home-front .chart-bars--bids .bid-name {
     font-stretch: 75%;
     white-space: nowrap;
