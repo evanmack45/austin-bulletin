@@ -14,7 +14,6 @@ Each file is under 120KB.
 
 The y-axis reads "Parking enforcement requests to 311".
 Every month label names that month in plain words and gives its count.
-The image text includes "CHART · NOT A PHOTOGRAPH".
 
 The chart image is dedicated to the public domain under CC0 1.0.
 https://creativecommons.org/publicdomain/zero/1.0/

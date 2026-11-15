@@ -6,6 +6,8 @@
   --ink: #14171F;        /* text, outlines, icons (16.4:1 on paper) */
   --muted: #5B5650;      /* dates, source lines (6.6:1 on paper) */
   --night: #0F2A47;      /* bold bands: masthead strip, lead-visual stage, footer */
+  --night-rule: #2C4A6B; /* 1px tile rules on the outcomes board */
+  --night-hover: #143557;/* outcomes tile hover; text still clears AA on this fill */
   --red: #C8102E;        /* civic accent: count, active district, live mark, link hover (5.4:1 on paper) */
   --sun: #FFC233;        /* highlight on night; big-number underline; NEVER text on paper */
   --rule: #D8CCB6;       /* hairlines, card border, district stroke */

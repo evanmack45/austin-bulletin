@@ -86,23 +86,26 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   ));
   assert.match(html, /Friday, Nov\. 13, 2026/);
   assert.match(html, /href="\/2026\/11\/12\/"/);
-  assert.match(html, /Nov\. 10 · 6 outcomes/);
+  assert.match(html, /Nov\. 10 · <b>6 outcomes<\/b>/);
   assert.match(html, /id="week-count">1<\/span>/);
   assert.match(html, /id="week-word">item<\/span>/);
-  assert.match(html, /<u>4\u20110<\/u>[\s\S]*Kaskade permit approved</);
-  assert.match(html, /\$197M[\s\S]*County certificates approved/);
+  assert.match(html, /story-card--outcomes/);
+  assert.doesNotMatch(html, /class="week-outcomes"|class="outcome-mark"|class="outcome-dek"/);
+  assert.match(html, /4\u20110[\s\S]*Kaskade permit</);
+  assert.match(html, /\$197\.1M[\s\S]*2027 borrowing approved/);
   assert.match(html, /\$67\.8M[\s\S]*STAR Flight contract approved/);
-  assert.match(html, /No action on bond committee/);
-  assert.match(html, /Balcones Canyonlands/);
-  assert.match(html, /Kaskade Origin/);
-  assert.match(html, /\$67,757,745\.12/);
+  assert.match(html, /No action[\s\S]*Bond committee/);
+  assert.match(html, /Barton Springs aquifer/);
+  assert.match(html, /Pease Park restoration/);
+  assert.match(html, /--w:0\.3438/);
   assert.doesNotMatch(html, /Committee hears downtown transportation plan/);
   assert.doesNotMatch(html, /Court takes up November 3 canvass/);
-  assert.match(html, /Council votes: see what/);
   assert.doesNotMatch(html, /Court weighs \$197 million in certificates/);
   assert.doesNotMatch(html, /Hearing set on Burleson Road event/);
   assert.doesNotMatch(html, /Committee hears Barton Springs briefing/);
-  const outcomes = html.match(/<ul class="week-outcomes">[\s\S]*?<\/ul>/)?.[0] ?? "";
+  const outcomes = html.match(
+    /<section class="story-card story-card--outcomes"[\s\S]*?<\/section>/
+  )?.[0] ?? "";
   const outcomeText = outcomes
     .replace(/<script[\s\S]*?<\/script>/g, " ")
     .replace(/<[^>]+>/g, " ");
@@ -113,7 +116,10 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.equal(outcomeText.includes("Briefed Nov."), false);
   assert.equal(outcomeText.includes("Approved Nov."), false);
   assert.match(outcomes, /Vote record/);
-  assert.match(outcomes, /Meeting video/);
+  assert.match(outcomes, /Sources:/);
+  assert.doesNotMatch(outcomes, /source-label">Source:</);
+  assert.doesNotMatch(outcomes, /Meeting video/);
+  assert.match(outcomes, />Video</);
   assert.doesNotMatch(outcomes, /source-line--stack/);
   assert.match(outcomes, /<span class="source-group">\s*<span class="sep"/);
   assert.doesNotMatch(html, /If you (haven't|want|live|are)\b/);
@@ -266,7 +272,9 @@ test("the sunday edition stacks each source and names the headline actions", () 
   assert.match(page, /Nov\. 19 draft agenda on Y'all City Hall/);
   assert.equal(page.includes("Nov. 19 meeting on Y'all City Hall"), false);
   assert.match(page, /Nov\. 5 meeting on Y'all City Hall/);
-  assert.match(page, /Chart · Not a photograph/);
+  assert.match(page, /runoff-calendar-label">Chart</);
+  assert.doesNotMatch(page, /Not a photograph/);
+  assert.doesNotMatch(page, /CHART · NOT A PHOTOGRAPH/);
   assert.match(page, /Runoff calendar/);
   assert.match(page, /not-to-exceed cap of \$22,420,200/);
   assert.match(page, /not-to-exceed cap of \$32,906,529/);

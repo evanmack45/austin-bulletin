@@ -188,6 +188,21 @@ test("October 24 rights files name Commons licenses and no city photograph", () 
   assert.match(skyline, /Not a photograph/);
 });
 
+test("chart files do not call themselves not a photograph", () => {
+  const files = [
+    "src/images/2026-11-04/election-results.svg",
+    "src/images/2026-11-05/parking-311.svg",
+    "src/bulletins/2026-11-04.md",
+    "src/bulletins/2026-11-05.md",
+    "src/_includes/runoff-calendar.njk"
+  ];
+  for (const file of files) {
+    const text = readFileSync(file, "utf8");
+    assert.equal(/NOT A PHOTOGRAPH/i.test(text), false, file);
+    assert.equal(text.includes("Not a photograph"), false, file);
+  }
+});
+
 test("October 24 derivatives match the front matter dimensions", async () => {
   const fm = readFileSync("src/bulletins/2026-10-24.md", "utf8").split("---")[1];
   const images = yaml.load(fm).images;
