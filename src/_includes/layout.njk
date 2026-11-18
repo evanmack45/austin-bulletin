@@ -6,10 +6,20 @@
   <meta http-equiv="Content-Security-Policy" content="{{ newsletter.csp | escape }}">
   {%- set latestEditionMeta = collections.bulletins | first %}{% if latestEditionMeta %}
   <meta name="edition-date" content="{{ latestEditionMeta.date | isoDate }}">{% endif %}
-  {% set meta = page.url | pageMetadata(title, content, description) %}
+  {% set meta = page.url | pageMetadata(title, content, description, {
+    image: image,
+    imageAlt: imageAlt,
+    imageWidth: imageWidth,
+    imageHeight: imageHeight,
+    author: byline,
+    updated: updated
+  }) %}
   <title>{{ meta.title | escape }}</title>
   <meta name="description" content="{{ meta.description | escape }}">
-  {% if meta.indexable %}
+  {% if meta.noindex %}
+  <meta name="robots" content="noindex">
+  {% endif %}
+  {% if meta.indexable or meta.noindex %}
   <link rel="canonical" href="{{ meta.canonical | escape }}">
   <meta property="og:url" content="{{ meta.canonical | escape }}">
   {% endif %}
@@ -19,6 +29,10 @@
   <meta property="og:site_name" content="The Austin Bulletin">
   <meta property="og:image" content="{{ meta.image | escape }}">
   <meta property="og:image:alt" content="{{ meta.imageAlt | escape }}">
+  {% if meta.imageWidth and meta.imageHeight %}
+  <meta property="og:image:width" content="{{ meta.imageWidth | escape }}">
+  <meta property="og:image:height" content="{{ meta.imageHeight | escape }}">
+  {% endif %}
   <meta name="twitter:card" content="{{ meta.card | escape }}">
   <meta name="twitter:title" content="{{ meta.ogTitle | escape }}">
   <meta name="twitter:description" content="{{ meta.description | escape }}">
@@ -36,6 +50,9 @@
   <link rel="stylesheet" href="/css/edition-cards.css">
   {% if edition_cards %}<link rel="stylesheet" href="/css/scoreboard.css">{% endif %}
   {% endif %}
+  {% if investigationPage %}
+  <link rel="stylesheet" href="/css/investigations.css">
+  {% endif %}
   <link rel="icon" href="/favicon.ico" sizes="32x32">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -51,7 +68,7 @@
   {% endif %}
   <link rel="alternate" type="application/atom+xml" title="The Austin Bulletin" href="/feed.xml">
 </head>
-<body class="cover-chrome{% if homeFront %} home-front variant-{{ variant or "a" }}{% endif %}{% if editionPage %} edition-page{% endif %}{% if edition_cards or cardChrome %} edition-cards{% endif %}{% if edition_cards %} edition-scoreboard{% endif %}" id="top">
+<body class="cover-chrome{% if homeFront %} home-front variant-{{ variant or "a" }}{% endif %}{% if editionPage %} edition-page{% endif %}{% if investigationPage %} investigation-page{% endif %}{% if edition_cards or cardChrome %} edition-cards{% endif %}{% if edition_cards %} edition-scoreboard{% endif %}" id="top"{% if investigationPage and not investigations.public %} data-pagefind-ignore="all"{% endif %}>
   {% include "masthead.njk" %}
   <main>
     {{ content | withPreviewMeeting(page.url, councilMeeting) | safe }}

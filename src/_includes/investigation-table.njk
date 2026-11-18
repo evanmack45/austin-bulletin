@@ -1,0 +1,24 @@
+<div class="table-card">
+  <h2>{{ (report.table.title or "The rows") | escape }}</h2>
+  <div class="table-scroll">
+    <table>
+      {% if report.table.caption %}<caption>{{ report.table.caption | escape }}</caption>{% endif %}
+      <thead>
+        <tr>
+          {% for column in report.table.columns %}
+          <th scope="col"{% if column.format == "dollars" or column.format == "number" %} class="cell-num"{% endif %}>{{ column.label | escape }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in report.table.rows %}
+        <tr{% if row.group %} data-group="{{ row.group }}" data-investigation-row{% endif %}>
+          {% for column in report.table.columns %}
+          <td data-label="{{ column.label | escape }}"{% if column.format == "dollars" or column.format == "number" %} class="cell-num"{% endif %}>{{ row[column.key] | investigationCell(column.format) }}</td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>

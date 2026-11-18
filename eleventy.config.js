@@ -29,6 +29,9 @@ import { centralTime, countdownGlyph } from "./src/_includes/chicago-date.js";
 import { stripDate, tightTokens } from "./scripts/edition-dates.mjs";
 import { editionCardModel } from "./scripts/edition-cards.mjs";
 import { legacyEditionCards } from "./scripts/legacy-edition-cards.mjs";
+import {
+  assertStoryFields, formatCell, loadInvestigationDataset
+} from "./scripts/investigation.mjs";
 
 const illustrationAssets = await loadIllustrationAssets(readdirSync("src/_data/frontpages")
   .filter(name => name.endsWith(".json"))
@@ -194,6 +197,18 @@ export default function (eleventyConfig) {
   eleventyConfig.addCollection("bulletinsFeed", (api) =>
     api.getFilteredByGlob("src/bulletins/**/*.md").sort((a, b) => a.date - b.date)
   );
+
+  // Long stories. A markdown file with investigation: true joins the index.
+  // Its chart and table are read from the dataset JSON copied beside it.
+  eleventyConfig.addCollection("investigations", (api) =>
+    api.getFilteredByGlob("src/investigations/**/*.md")
+      .filter((item) => item.data.investigation === true)
+      .sort((a, b) => new Date(b.date) - new Date(a.date))
+  );
+  eleventyConfig.addFilter("investigationFields", assertStoryFields);
+  eleventyConfig.addFilter("investigationDataset", (url) => loadInvestigationDataset(url));
+  eleventyConfig.addFilter("investigationCell", formatCell);
+  eleventyConfig.addPassthroughCopy("src/investigations/**/*.json");
 
   // Atom feed of the ten newest bulletins at /feed.xml.
   eleventyConfig.addPlugin(feedPlugin, {
