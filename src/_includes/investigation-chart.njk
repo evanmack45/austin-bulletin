@@ -1,0 +1,15 @@
+<figure class="chart-card" id="chart-{{ chart.id }}">
+  <h2>{{ chart.title | escape }}</h2>
+  {% if chart.caption %}<p class="chart-caption">{{ chart.caption | escape }}</p>{% endif %}
+  <ul class="bars">
+    {% for item in chart.series %}
+    <li class="bar-col" {% if item.group %}data-group="{{ item.group }}" data-investigation-bar{% endif %}>
+      <span class="bar-value">{{ item.value | investigationCell("number") }}</span>
+      <span class="bar-plot" aria-hidden="true">
+        <span class="bar-fill{% if item.peak %} is-peak{% endif %}" style="--p: {{ item.percent }}"></span>
+      </span>
+      <span class="bar-label">{{ item.label | escape }}</span>
+    </li>
+    {% endfor %}
+  </ul>
+</figure>

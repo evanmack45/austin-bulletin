@@ -1,0 +1,142 @@
+---
+layout: layout.njk
+investigationPage: true
+---
+{{ {
+  title: title,
+  dek: dek,
+  byline: byline,
+  dataset: dataset,
+  description: description,
+  image: image,
+  imageAlt: imageAlt,
+  findings: findings
+} | investigationFields }}
+{% set report = dataset | investigationDataset %}
+<article class="investigation" data-pagefind-body>
+  {% if sample %}
+  <p class="sample-banner"><strong>Sample.</strong> Placeholder story. Every name, number, and document here is made up.</p>
+  {% endif %}
+  <header class="investigation-header">
+    <p class="kicker-row"><span class="kicker">Investigation</span>{% if sample %} <span class="sample-chip">Sample</span>{% endif %}</p>
+    <h1 class="investigation-title">{{ title | escape }}</h1>
+    <p class="dek">{{ dek | escape }}</p>
+    <p class="investigation-byline">
+      <span class="byline-name">{{ byline | escape }}</span>
+      <span aria-hidden="true"> · </span>
+      <time datetime="{{ page.date | isoDate }}">Published {{ page.date | longDate }}</time>
+      {% if updated %}
+      <span aria-hidden="true"> · </span>
+      <time datetime="{{ updated | isoDate }}">Updated {{ updated | longDate }}</time>
+      {% endif %}
+    </p>
+  </header>
+
+  <section class="findings" id="findings" aria-labelledby="findings-title">
+    <h2 id="findings-title">Key findings</h2>
+    <div class="finding-grid">
+      {% for item in findings %}
+      <div class="finding">
+        <p class="finding-value">{{ item.value | escape }}</p>
+        <p class="finding-label">{{ item.label | escape }}</p>
+        <p class="finding-detail">{{ item.detail | escape }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="data-board" id="data" aria-label="Chart and table">
+    {% if report.filters.length %}
+    <fieldset class="filters">
+      <legend>{{ (report.filterLegend or "Filter") | escape }}</legend>
+      <input class="filter-input" type="radio" name="investigation-filter" id="filter-all" value="all" checked>
+      <label class="filter-chip" for="filter-all">All</label>
+      {% for filter in report.filters %}
+      <input class="filter-input" type="radio" name="investigation-filter" id="filter-{{ filter.id }}" value="{{ filter.id }}">
+      <label class="filter-chip" for="filter-{{ filter.id }}">{{ filter.label | escape }}</label>
+      {% endfor %}
+    </fieldset>
+    <style>
+      {% for filter in report.filters %}
+      .investigation:has(#filter-{{ filter.id }}:checked) [data-investigation-row]:not([data-group="{{ filter.id }}"]) { display: none; }
+      .investigation:has(#filter-{{ filter.id }}:checked) [data-investigation-bar]:not([data-group="{{ filter.id }}"]) .bar-fill { opacity: 0.28; }
+      {% endfor %}
+    </style>
+    {% endif %}
+
+    {% for chart in report.charts %}
+    {% include "investigation-chart.njk" %}
+    {% endfor %}
+
+    {% if report.table %}
+    {% include "investigation-table.njk" %}
+    {% endif %}
+
+    <p class="dataset-link">
+      <a href="{{ dataset | escape }}" download>{% if sample %}Download the sample dataset (JSON){% else %}Download the dataset (JSON){% endif %}</a>
+    </p>
+    {% if report.note %}<p class="dataset-note">{{ report.note | escape }}</p>{% endif %}
+  </section>
+
+  <div class="investigation-copy">
+    {{ content | safe }}
+  </div>
+
+  <section class="methods" id="methods" aria-labelledby="methods-title">
+    <h2 id="methods-title">How we did this</h2>
+    {% if methods is string %}
+    <p>{{ methods | escape }}</p>
+    {% elif methods and methods.length %}
+    {% for paragraph in methods %}
+    <p>{{ paragraph | escape }}</p>
+    {% endfor %}
+    {% else %}
+    <p>No methods note yet.</p>
+    {% endif %}
+  </section>
+
+  <section class="responses" id="responses" aria-labelledby="responses-title">
+    <h2 id="responses-title">Responses</h2>
+    {% if responses and responses.length %}
+    {% for item in responses %}
+    <article class="response">
+      <h3>{{ item.who | escape }}</h3>
+      <p class="response-meta">Asked <time datetime="{{ item.asked | isoDate }}">{{ item.asked | longDate }}</time>. Deadline <time datetime="{{ item.deadline | isoDate }}">{{ item.deadline | longDate }}</time>.</p>
+      <p>{{ item.statement | escape }}</p>
+    </article>
+    {% endfor %}
+    {% else %}
+    <p>No response requests recorded.</p>
+    {% endif %}
+  </section>
+
+  <section class="documents" id="documents" aria-labelledby="documents-title">
+    <h2 id="documents-title">Documents</h2>
+    {% if documents and documents.length %}
+    <ol class="document-list">
+      {% for doc in documents %}
+      <li id="doc-{{ doc.id }}" class="document">
+        <a href="{{ doc.url | escape }}">{{ doc.label | escape }}</a>
+        {% if doc.detail %}<p>{{ doc.detail | escape }}</p>{% endif %}
+      </li>
+      {% endfor %}
+    </ol>
+    {% else %}
+    <p>No documents listed.</p>
+    {% endif %}
+  </section>
+
+  <section class="corrections" id="corrections" aria-labelledby="corrections-title">
+    <h2 id="corrections-title">Corrections and updates</h2>
+    {% if updates and updates.length %}
+    {% for item in updates %}
+    <article class="correction-note">
+      <h3><time datetime="{{ item.date | isoDate }}">{{ item.date | longDate }}</time></h3>
+      <p>{{ item.text | escape }}</p>
+    </article>
+    {% endfor %}
+    {% else %}
+    <p>No corrections on this story.</p>
+    {% endif %}
+  </section>
+</article>

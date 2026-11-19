@@ -1,0 +1,45 @@
+{
+  "sample": true,
+  "note": "Dummy data for the investigations template. Not a City of Austin record.",
+  "filterLegend": "Filter the sample rows",
+  "filters": [
+    { "id": "parks", "label": "Parks" },
+    { "id": "water", "label": "Water" },
+    { "id": "fleet", "label": "Fleet" },
+    { "id": "library", "label": "Library" }
+  ],
+  "charts": [
+    {
+      "id": "by-department",
+      "title": "Sample agreements by department",
+      "caption": "Bar height is the number of fake agreements. Red marks the highest count in this sample.",
+      "series": [
+        { "group": "parks", "label": "Parks", "value": 1 },
+        { "group": "water", "label": "Water", "value": 2 },
+        { "group": "fleet", "label": "Fleet", "value": 3 },
+        { "group": "library", "label": "Library", "value": 2 }
+      ]
+    }
+  ],
+  "table": {
+    "title": "Sample agreements",
+    "caption": "Eight placeholder rows. Pick a department to hide the rest.",
+    "columns": [
+      { "key": "department", "label": "Department" },
+      { "key": "vendor", "label": "Vendor" },
+      { "key": "amount", "label": "Amount", "format": "dollars" },
+      { "key": "ratified", "label": "Ratified" },
+      { "key": "daysAfter", "label": "Days after", "format": "number" }
+    ],
+    "rows": [
+      { "group": "parks", "department": "Parks", "vendor": "Example Vendor A", "amount": 10000, "ratified": "March 2, 2025", "daysAfter": 12 },
+      { "group": "water", "department": "Water", "vendor": "Example Vendor B", "amount": 20000, "ratified": "April 4, 2025", "daysAfter": 18 },
+      { "group": "water", "department": "Water", "vendor": "Example Vendor C", "amount": 20000, "ratified": "May 6, 2025", "daysAfter": 21 },
+      { "group": "fleet", "department": "Fleet", "vendor": "Example Vendor D", "amount": 30000, "ratified": "June 8, 2025", "daysAfter": 30 },
+      { "group": "fleet", "department": "Fleet", "vendor": "Example Vendor E", "amount": 30000, "ratified": "July 9, 2025", "daysAfter": 33 },
+      { "group": "fleet", "department": "Fleet", "vendor": "Example Vendor F", "amount": 30000, "ratified": "Aug. 11, 2025", "daysAfter": 40 },
+      { "group": "library", "department": "Library", "vendor": "Example Vendor G", "amount": 40000, "ratified": "Sept. 13, 2025", "daysAfter": 45 },
+      { "group": "library", "department": "Library", "vendor": "Example Vendor H", "amount": 40000, "ratified": "Oct. 15, 2025", "daysAfter": 48 }
+    ]
+  }
+}

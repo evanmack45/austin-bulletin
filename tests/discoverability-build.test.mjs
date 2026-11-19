@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { readdir, readFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import path from "node:path";
+import investigations from "../src/_data/investigations.js";
 
 const built = existsSync("_site/index.html");
 async function htmlFiles(dir) {
@@ -34,11 +35,19 @@ test("built content pages have their own escaped canonical and social metadata",
     assert.ok(source.includes(`rel="canonical" href="https://theaustinbulletin.com${url}"`), file);
     assert.match(source, /property="og:description" content="[^"]+"/);
     const edition = url === "/" || /^\/\d{4}\/\d{2}\/\d{2}\/$/.test(url);
-    const card = edition ? "summary_large_image" : "summary";
-    assert.match(source, new RegExp(`name="twitter:card" content="${card}"`));
-    if (edition) {
-      assert.match(source, /property="og:type" content="article"/);
-      assert.match(source, /property="og:image" content="https:\/\/theaustinbulletin\.com\/[^"]+"/);
+    const investigationStory = /^\/investigations\/.+\/$/.test(url);
+    if (investigationStory) {
+      assert.match(source, /name="twitter:card" content="summary_large_image"/, file);
+      assert.match(source, /property="og:type" content="article"/, file);
+      assert.match(source, /property="og:image"[^>]+\/images\//, file);
+    } else {
+      const card = edition ? "summary_large_image" : "summary";
+      assert.match(source, new RegExp(`name="twitter:card" content="${card}"`));
+      if (edition) {
+        assert.match(source, /property="og:type" content="article"/);
+        assert.match(source,
+          /property="og:image" content="https:\/\/theaustinbulletin\.com\/[^"]+"/);
+      }
     }
   }
 });
@@ -46,9 +55,14 @@ test("built content pages have their own escaped canonical and social metadata",
 test("sitemap matches all generated eligible HTML pages as the site grows", {
   skip: !built && "run npm run build before integration checks"
 }, async () => {
-  const expected = (await htmlFiles("_site")).filter(file => !file.endsWith("/404.html"))
-    .map(file => `https://theaustinbulletin.com/${path.relative("_site", file)
-      .replace(/index\.html$/, "")}`).sort();
+  const expected = (await htmlFiles("_site")).filter(file => {
+    if (file.endsWith("/404.html")) return false;
+    const route = `/${path.relative("_site", file).replace(/index\.html$/, "")}`;
+    const hidden = !investigations.public && (route === "/investigations/"
+      || route.startsWith("/investigations/"));
+    return !hidden;
+  }).map(file => `https://theaustinbulletin.com/${path.relative("_site", file)
+    .replace(/index\.html$/, "")}`).sort();
   const xml = await readFile("_site/sitemap.xml", "utf8");
   assert.match(xml, /<urlset xmlns="http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9">/);
   const actual = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => match[1]).sort();

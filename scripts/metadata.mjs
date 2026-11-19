@@ -1,5 +1,7 @@
 // Presentation metadata only: excerpts of already-rendered source text, never new prose.
+import investigationsConfig from "../src/_data/investigations.js";
 import { isoDate } from "./edition-dates.mjs";
+import { isInvestigationRoute, isInvestigationStory } from "./investigation.mjs";
 export const SITE_URL = "https://theaustinbulletin.com/";
 const GENERIC = "A daily, neutral news bulletin for Austin and Texas.";
 const ENTITIES = {
@@ -197,7 +199,67 @@ function descriptionFor(normalized, lead, description) {
     || (lead.heading ? lead.paragraph : "") || GENERIC;
 }
 
-export function pageMetadata(route, originalTitle, content, description) {
+function isoOrEmpty(value) {
+  if (!value) return "";
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? "" : date.toISOString().slice(0, 10);
+}
+
+function investigationImage(extras) {
+  const src = sameOriginImage(extras.image || "");
+  if (!src) return { image: BRAND_IMAGE, imageAlt: BRAND_ALT, card: "summary" };
+  return {
+    image: src,
+    imageAlt: reliableText(extras.imageAlt) || BRAND_ALT,
+    card: "summary_large_image",
+    imageWidth: extras.imageWidth || "",
+    imageHeight: extras.imageHeight || ""
+  };
+}
+
+function listedInvestigation(extras) {
+  return extras.public ?? investigationsConfig.public;
+}
+
+function brandedTitle(originalTitle) {
+  const plain = reliableText(originalTitle) || "Investigations";
+  const title = plain.includes("The Austin Bulletin") ? plain : `${plain} | The Austin Bulletin`;
+  return { plain, title };
+}
+
+function storyCard(story, plain, extras) {
+  if (!story) {
+    return {
+      type: "website", ogType: "website",
+      image: BRAND_IMAGE, imageAlt: BRAND_ALT, card: "summary",
+      headline: "", author: "", updated: ""
+    };
+  }
+  return {
+    type: "article", ogType: "article",
+    ...investigationImage(extras),
+    headline: plain,
+    author: reliableText(extras.author),
+    updated: isoOrEmpty(extras.updated)
+  };
+}
+
+// Share cards for a long story. Unlisted stories keep the tags and add noindex.
+function investigationMeta(meta, normalized, originalTitle, description, extras) {
+  const listed = listedInvestigation(extras);
+  const names = brandedTitle(originalTitle);
+  return {
+    ...meta,
+    title: names.title,
+    ogTitle: names.plain,
+    description: excerpt(reliableText(description) || meta.description),
+    indexable: listed,
+    noindex: !listed,
+    ...storyCard(isInvestigationStory(normalized), names.plain, extras)
+  };
+}
+
+function editionMeta(route, originalTitle, content, description) {
   const canonical = canonicalUrl(route);
   const normalized = new URL(canonical).pathname;
   const dated = /^\/\d{4}\/\d{2}\/\d{2}\/$/.test(normalized);
@@ -215,6 +277,13 @@ export function pageMetadata(route, originalTitle, content, description) {
   };
 }
 
+export function pageMetadata(route, originalTitle, content, description, extras = {}) {
+  const meta = editionMeta(route, originalTitle, content, description);
+  const normalized = new URL(meta.canonical).pathname;
+  if (!isInvestigationRoute(normalized)) return meta;
+  return investigationMeta(meta, normalized, originalTitle, description, extras);
+}
+
 // NewsArticle structured data for a dated edition, built only from its metadata.
 export function articleJsonLd(meta, date) {
   if (meta?.type !== "article") return "";
@@ -229,16 +298,31 @@ export function articleJsonLd(meta, date) {
     mainEntityOfPage: meta.canonical, image: [meta.image],
     datePublished: isoDate(date),
     isAccessibleForFree: true, inLanguage: "en-US",
-    author: publisher, publisher
+    author: meta.author ? { "@type": "Organization", name: meta.author } : publisher,
+    publisher
   };
+  if (meta.updated) data.dateModified = meta.updated;
   return JSON.stringify(data).replace(/</g, "\\u003c");
 }
 
-export function sitemapPages(items) {
-  const pages = items.filter(item => {
-    const output = item.outputPath ?? item.data?.page?.outputPath ?? "";
-    return output.endsWith(".html") && item.url && item.url !== "/404.html";
-  }).map(item => new URL(canonicalUrl(item.url)).pathname);
+function outputPath(item) {
+  if (item.outputPath) return item.outputPath;
+  return item.data?.page?.outputPath || "";
+}
+
+function isHtmlPage(item) {
+  return outputPath(item).endsWith(".html") && Boolean(item.url) && item.url !== "/404.html";
+}
+
+function sitemapItem(item, listed) {
+  if (!isHtmlPage(item)) return "";
+  if (!listed && isInvestigationRoute(item.url)) return "";
+  return new URL(canonicalUrl(item.url)).pathname;
+}
+
+export function sitemapPages(items, options = {}) {
+  const listed = options.public ?? investigationsConfig.public;
+  const pages = items.map(item => sitemapItem(item, listed)).filter(Boolean);
   return [...new Set(pages)].sort();
 }
 

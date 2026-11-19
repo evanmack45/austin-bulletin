@@ -1,0 +1,44 @@
+---
+layout: layout.njk
+title: "Investigations"
+description: "Long stories from the Austin Investigative Journalism Team. The current story is a sample with made-up text."
+permalink: "/investigations/"
+investigationPage: true
+---
+{% set sampleStories = collections.investigations | selectattr("data.sample") %}
+<article class="investigation-index" data-pagefind-body>
+  <header class="investigation-hero">
+    <p class="kicker">The Austin Bulletin</p>
+    <h1>Investigations</h1>
+    <p class="dek">Long stories from the Austin Investigative Journalism Team.</p>
+  </header>
+  {% if sampleStories | length %}
+  <p class="sample-banner"><strong>Sample.</strong> Cards marked Sample use made-up text and made-up numbers.</p>
+  {% endif %}
+  {% if collections.investigations.length == 0 %}
+  <p class="investigation-empty">No stories filed.</p>
+  {% else %}
+  <div class="investigation-list">
+    {% for story in collections.investigations %}
+    <a class="investigation-card" href="{{ story.url | escape }}">
+      <div class="card-copy">
+        <p class="kicker-row">
+          {% if story.data.sample %}<span class="sample-chip">Sample</span>{% endif %}
+          <time datetime="{{ (story.data.updated or story.date) | isoDate }}">{% if story.data.updated %}Updated {% endif %}{{ (story.data.updated or story.date) | longDate }}</time>
+        </p>
+        <h2>{{ story.data.title | escape }}</h2>
+        <p class="dek">{{ story.data.dek | escape }}</p>
+        <p class="byline-name">{{ story.data.byline | escape }}</p>
+      </div>
+      {% if story.data.findings %}
+      <div class="card-findings">
+        {% for item in story.data.findings %}
+        <p><strong>{{ item.value | escape }}</strong> <span>{{ item.label | escape }}</span></p>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </a>
+    {% endfor %}
+  </div>
+  {% endif %}
+</article>
