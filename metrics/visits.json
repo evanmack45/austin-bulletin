@@ -1,10 +1,10 @@
 {
-  "fetched_at": "2026-11-20T12:08:15.657Z",
+  "fetched_at": "2026-11-21T12:07:58.112Z",
   "timezone": "America/Chicago",
   "day_basis": "America/Chicago calendar day, summed from Cloudflare UTC hour buckets",
   "window": {
-    "start": "2026-11-14",
-    "end": "2026-11-20",
+    "start": "2026-11-15",
+    "end": "2026-11-21",
     "days": 7
   },
   "sample_interval_note": "Pageviews are the GraphQL count and visits are sum.visits for human pageloads (bot 0). Cloudflare returns UTC hour buckets; each date here is an America/Chicago calendar day, the sum of the hours that fall in it. sampleInterval is the largest of Cloudflare's hourly sampling intervals that day: 1 means no hour was sampled down, and a higher number means the figure is an estimate at that granularity. \"no rows\" means Cloudflare returned nothing for that day. Visits and pageviews are stored as the API returned them.",
@@ -15,12 +15,6 @@
       "host": "theaustinbulletin.com",
       "siteTag": "f715e3efc034482ea16a102bcb2c2d36",
       "days": [
-        {
-          "date": "2026-11-14",
-          "visits": 9,
-          "pageviews": 9,
-          "sampleInterval": 1
-        },
         {
           "date": "2026-11-15",
           "visits": 8,
@@ -53,14 +47,20 @@
         },
         {
           "date": "2026-11-20",
-          "visits": 6,
-          "pageviews": 6,
+          "visits": 39,
+          "pageviews": 39,
+          "sampleInterval": 1
+        },
+        {
+          "date": "2026-11-21",
+          "visits": 12,
+          "pageviews": 12,
           "sampleInterval": 1
         }
       ],
       "totals": {
-        "visits": 83,
-        "pageviews": 92
+        "visits": 119,
+        "pageviews": 128
       }
     },
     {
@@ -69,12 +69,6 @@
       "host": "yallcityhall.org",
       "siteTag": "7344ab7bea3140de8c29211155de95fc",
       "days": [
-        {
-          "date": "2026-11-14",
-          "visits": 0,
-          "pageviews": 0,
-          "sampleInterval": null
-        },
         {
           "date": "2026-11-15",
           "visits": 0,
@@ -107,6 +101,12 @@
         },
         {
           "date": "2026-11-20",
+          "visits": 0,
+          "pageviews": 0,
+          "sampleInterval": null
+        },
+        {
+          "date": "2026-11-21",
           "visits": 0,
           "pageviews": 0,
           "sampleInterval": null
