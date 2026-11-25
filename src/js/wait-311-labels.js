@@ -21,7 +21,9 @@ function districtLabels(add, DATA, prep) {
 function axisLabels(add, DATA) {
   for (const [label, minutes] of TICKS) {
     const code = minutesCode(minutes);
-    const el = add("axis", label, "is-tick", (g) => [xOf(g, code), g.bottom - 0.035, 0]);
+    const near = label === "1 day";  // the median (25 hours) sits on this tick
+    const el = add("axis", label, "is-tick" + (near ? " is-by-median" : ""),
+      (g) => [xOf(g, code), g.bottom - 0.035, 0]);
     el._wideOnly = label === "1 wk";  // too close to "1 mo." on a phone
   }
   const med = minutesCode(DATA.overall.medianDays * 1440);

@@ -39,6 +39,10 @@ body:has(.w3) { overflow-x: clip; }
 .w3-lbl.is-district.is-focus span { color: var(--yel); font-size: 1.2rem; }
 .w3-lbl.is-tick { translate: -50% 0; padding-top: 4px; border-left: 0; }
 .w3-lbl.is-tick::before { content: ""; position: absolute; left: 50%; top: -5px; height: 6px; border-left: 1px solid var(--soft); }
+/* The 25-hour median line lands on "1 day"; keep the tick on the axis and sit the words to the left. */
+.w3-lbl.is-tick.is-by-median { translate: calc(-100% - 6px) 0; }
+.w3-lbl.is-tick.is-by-median::before { left: auto; right: -6px; }
+
 .w3-lbl.is-median { translate: -50% -100%; text-align: center; color: #fff; font-size: .78rem; padding-bottom: 6px; }
 .w3-lbl.is-median::after { content: ""; position: absolute; left: 50%; top: 100%; height: 44vh; max-height: 22rem; border-left: 1px dashed rgba(255, 255, 255, .55); }
 .w3-lbl.is-open { translate: -50% 0; text-align: center; }
