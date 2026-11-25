@@ -1,6 +1,27 @@
 // GLSL for /austin-311-wait/. Each point's position in every scene is computed in
 // VERT from its attributes, so moving between scenes only changes uniforms.
 
+// The wait color ramp, shared by the points and the columns.
+const RAMP = `
+vec3 ramp(float c) {
+  // 1 min, 1 hour, 1 day, 1 week, 1 month, 3 months+ on the log code scale
+  // One sequential scale: quick closes in the background's blue, long waits in the
+  // headline yellow, so the slow tail stands out of the crowd.
+  vec3 c0 = vec3(0.16, 0.27, 0.52);
+  vec3 c1 = vec3(0.22, 0.36, 0.64);
+  vec3 c2 = vec3(0.36, 0.45, 0.64);
+  vec3 c3 = vec3(0.95, 0.78, 0.35);
+  vec3 c4 = vec3(1.0, 0.90, 0.43);
+  vec3 c5 = vec3(1.0, 0.97, 0.78);
+  float h = 40.0, d = 70.97, w = 89.06, m = 101.68, q = 112.0;
+  if (c < h) return mix(c0, c1, c / h);
+  if (c < d) return mix(c1, c2, (c - h) / (d - h));
+  if (c < w) return mix(c2, c3, (c - d) / (w - d));
+  if (c < m) return mix(c3, c4, (c - w) / (m - w));
+  return mix(c4, c5, clamp((c - m) / (q - m), 0.0, 1.0));
+}
+`;
+
 export const VERT = `
 precision highp float;
 attribute vec2 aMap;      // world x, y of the map position
@@ -18,22 +39,7 @@ uniform float uRingOffset, uLift;
 uniform vec2 uRowFit[10]; // per row: dots across each bin, dot spacing
 varying vec4 vColor;
 
-vec3 ramp(float c) {
-  // 1 min, 1 hour, 1 day, 1 week, 1 month, 3 months+ on the log code scale
-  vec3 c0 = vec3(0.17, 0.85, 1.0);
-  vec3 c1 = vec3(0.35, 0.94, 0.66);
-  vec3 c2 = vec3(1.0, 0.90, 0.43);
-  vec3 c3 = vec3(1.0, 0.55, 0.26);
-  vec3 c4 = vec3(1.0, 0.24, 0.43);
-  vec3 c5 = vec3(0.76, 0.17, 1.0);
-  float h = 40.0, d = 70.97, w = 89.06, m = 101.68, q = 112.0;
-  if (c < h) return mix(c0, c1, c / h);
-  if (c < d) return mix(c1, c2, (c - h) / (d - h));
-  if (c < w) return mix(c2, c3, (c - d) / (w - d));
-  if (c < m) return mix(c3, c4, (c - w) / (m - w));
-  return mix(c4, c5, clamp((c - m) / (q - m), 0.0, 1.0));
-}
-
+${RAMP}
 // Returns xyz and, in w, a visibility 0..1.
 vec4 place(float id) {
   float code = aMeta.x, grp = aMeta.y, rnd = aMeta.w / 255.0;
@@ -43,12 +49,15 @@ vec4 place(float id) {
   if (id < 0.5) { // map, flat
     return vec4(aMap, 0.0, located ? 1.0 : 0.0);
   }
+  if (id > 6.5) { // the ending: only duplicates (gray) and still-open requests (white)
+    return vec4(aMap, 0.0, located ? (closed ? 0.03 : 1.0) : 0.0);
+  }
   if (id < 1.5 || id > 5.5) { // terrain (1), your wait (6)
-    // Only waits past about a week rise, so the slow places stand up as spikes.
-    // In the terrain, requests closed within a week stay on the ground, dimmed.
+    // Terrain: the points lie dim on the ground under the hex columns.
+    // Your wait: waits past about a week rise, so the slow places stand up.
+    if (id < 1.5) return vec4(aMap, 0.0, located ? 0.22 : 0.0);
     float z = uRise * pow(clamp((wn - 0.7) / 0.3, 0.0, 1.0), 1.5);
-    float ground = (id < 1.5 && z <= 0.0) ? 0.12 : 1.0;
-    return vec4(aMap, z, located ? ground : 0.0);
+    return vec4(aMap, z, located ? 1.0 : 0.0);
   }
   if (id < 2.5) { // the pile of every request by wait
     float bins = uHistCols.y;
@@ -56,7 +65,7 @@ vec4 place(float id) {
     float cols = uHistCols.x, r = aTR.y;
     float x = uHist.x + (bin + 0.5) * uHist.z + (mod(r, cols) - (cols - 1.0) * 0.5) * uHist.w;
     float y = uHist.y + (floor(r / cols) + 0.5) * uHist.w;
-    return vec4(x, y, 0.0, (closed || open) ? 1.0 : 0.0);
+    return vec4(x, y, 0.0, closed ? 1.0 : 0.0);  // still open has no wait to pile
   }
   if (id < 3.5) { // one pile per problem
     if (aRG.y > 200.0 || !closed) return vec4(aMap * 0.2, 0.0, 0.0);
@@ -68,10 +77,9 @@ vec4 place(float id) {
     float y = uRows.y - (aRG.y + 1.0) * uRows.z + (floor(r / cols) + 0.5) * sp;
     return vec4(x, y, 0.0, 1.0);
   }
-  if (id < 4.5) { // abandoned vehicles rise, the rest lie flat and dim
+  if (id < 4.5) { // abandoned vehicles: flat and dim under their hex columns
     bool v = grp == 7.0;
-    float z = v ? uRise * 1.1 * pow(wn, 3.0) : 0.0;
-    return vec4(aMap, z, located ? (v ? uLift : 0.22) : 0.0);
+    return vec4(aMap, 0.0, located ? (v ? 0.5 : 0.1) : 0.0);
   }
   // 5: a year as rings. Each ring is a week (Monday at the top, clockwise);
   // radius = week from the center out, angle = time of the week.
@@ -99,14 +107,15 @@ void main() {
   if (age < 0.0) vis = 0.0;
   float flash = uClock < 1.05 ? smoothstep(0.012, 0.0, age) : 0.0;
   float code = aMeta.x;
-  vec3 col = code <= 124.0 ? ramp(code) : (code == 126.0 ? vec3(1.0) : vec3(0.42, 0.47, 0.58));
+  // Still open: white. Duplicates: gray. Neither is on the wait scale.
+  vec3 col = code <= 124.0 ? ramp(code) : (code == 126.0 ? vec3(1.0) : vec3(0.5, 0.54, 0.64));
   vec3 base = vec3(0.62, 0.76, 1.0);
   col = mix(base, col, uColor);
   float focus = 1.0;
   if (uFocus.x > 0.5) {
     bool g = uFocus.y < 0.0 || aMeta.y == uFocus.y;
     bool d = uFocus.z < 0.5 || aMeta.z == uFocus.z;
-    focus = (g && d) ? uLift : 0.1;
+    focus = (g && d) ? uLift : 0.025;
   }
   vec4 clip = uProj * uView * vec4(pos, 1.0);
   gl_Position = clip;
@@ -181,3 +190,50 @@ export const LINE_FRAG = `
 precision mediump float;
 uniform vec4 uCol;
 void main() { gl_FragColor = uCol; }`;
+
+// Hex columns: one prism per hexagon about 1 km across. Mode 1 grows with the
+// running count of requests as the year plays; mode 2 is the count that took
+// more than a week, colored by their median wait. Mode 0 is flat and hidden.
+export const HEX_VERT = `
+precision highp float;
+attribute vec3 aPos;      // x, y, and 1 on the top face
+attribute float aShade;   // light on this face
+attribute vec4 aCumA, aCumB, aCumC; // running count at the end of each month, 0..1
+attribute vec4 aHex;      // slow count, its median code / 124, vehicle count, its median
+uniform mat4 uView, uProj;
+uniform float uA, uB, uMix, uClock, uH;
+varying vec4 vColor;
+${RAMP}
+float month(float i) {
+  if (i < 0.5) return 0.0;
+  if (i < 4.5) return i < 1.5 ? aCumA.x : i < 2.5 ? aCumA.y : i < 3.5 ? aCumA.z : aCumA.w;
+  if (i < 8.5) return i < 5.5 ? aCumB.x : i < 6.5 ? aCumB.y : i < 7.5 ? aCumB.z : aCumB.w;
+  return i < 9.5 ? aCumC.x : i < 10.5 ? aCumC.y : i < 11.5 ? aCumC.z : aCumC.w;
+}
+float heightOf(float mode) {
+  if (mode < 0.5) return 0.0;
+  if (mode < 1.5) {
+    float f = clamp(uClock, 0.0, 1.0) * 12.0, m = floor(f);
+    return mix(month(m), month(min(12.0, m + 1.0)), f - m);
+  }
+  return 0.55 * (mode < 2.5 ? aHex.x : aHex.z);  // shorter than the hero skyline
+}
+vec3 colorOf(float mode, float h) {
+  // One material per scene: height carries the number, color carries none.
+  return mode < 1.5 ? vec3(0.45, 0.68, 1.0) : vec3(0.95, 0.78, 0.35);
+}
+void main() {
+  float ha = heightOf(uA), hb = heightOf(uB);
+  float h = mix(ha, hb, uMix);
+  float vis = mix(step(0.5, uA), step(0.5, uB), uMix) * smoothstep(0.0, 0.01, h);
+  vec3 col = mix(colorOf(uA, ha), colorOf(uB, hb), uMix);
+  gl_Position = uProj * uView * vec4(aPos.xy, aPos.z * h * uH, 1.0);
+  // Sides darken toward the ground, so each column glows from the top down.
+  float lift = mix(0.3, 1.0, aPos.z);
+  vColor = vec4(col * aShade * lift * vis, vis);
+}`;
+
+export const HEX_FRAG = `
+precision mediump float;
+varying vec4 vColor;
+void main() { gl_FragColor = vColor; }`;

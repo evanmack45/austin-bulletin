@@ -1,31 +1,38 @@
 // The scroll-driven scenes of /austin-311-wait/: state, transitions, the hero
 // time-lapse clock and the per-frame point uniforms.
 import { createRenderer } from "./wait-311-gl.js";
+import { binHexes, hexMesh, hexPass, slowestVehicle, tallest, topShare } from "./wait-311-hex.js";
 import { BINS } from "./wait-311-prep.js";
 import { createView, lerpCam } from "./wait-311-view.js";
 import { createLabels } from "./wait-311-labels.js";
 
 const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 const LAYOUT = { hero: 0, map: 0, color: 0, terrain: 1, hist: 2, rows: 3, vehicles: 4, rings: 5,
-  you: 6, end: 0 };
+  you: 6, end: 7 };
 const BASE_A = { hero: 0.7, map: 1, color: 0.75, terrain: 0.6, hist: 0, rows: 0, vehicles: 0.6,
-  rings: 0, you: 0.6, end: 0.8 };
-const MAP_LIKE = [0, 1, 4, 6];
+  rings: 0, you: 0.6, end: 1 };
+// Hex columns: 1 = running count (hero), 2 = took more than a week (terrain),
+// 3 = abandoned vehicles, colored by their median wait.
+const HEX_MODE = { hero: 1, terrain: 2, vehicles: 3 };
+const HEX_H = 0.42;             // the tallest column, in map heights
+const COL_SCALE = 0.55;         // share and vehicle columns vs the hero (as in the shader)
+const MAP_LIKE = [0, 1, 4, 6, 7];
 const ORBIT_MS = 12000;         // terrain and vehicles turn slowly for this long, then hold
 const PLAY_MS = 11000;          // the hero time-lapse of the year
-const colorFor = (scene) => (scene === "hero" || scene === "map" ? 0 : 1);
+const colorFor = (scene) => (["hero", "map", "rings"].includes(scene) ? 0 : 1);
 const blend = (f, a, b, k) => f(a) * (1 - k) + f(b) * k;
 
 /** Dot size (px at the reference distance), brightness and highlight lift. */
 function pointLook(st, k, cam, v, prep, hdrOn) {
   const pxPerUnit = v.safe.h / (cam.h || 1);
   const sizeOf = (l) => ({ 2: v.geo.hist.s * pxPerUnit * 1.15, 3: v.geo.rows.s * pxPerUnit * 1.15,
-    5: 1.3 }[l] ?? (v.wide.matches ? 1.5 : 1.2));
+    5: 1.3, 7: 1.8 }[l] ?? (v.wide.matches ? 1.5 : 1.2));
   // About one point's worth of light per pixel where points spread evenly; denser
   // places add up and glow in the tone map.
   const area = (l) => v.safe.w * v.safe.h * v.dpr * v.dpr * l;
   const gainOf = (l) => {
     if (l === 2 || l === 3) return 1;
+    if (l === 7) return 0.35;  // the few left at the end, without blooming downtown
     const px = sizeOf(l) * v.dpr;
     return Math.min(1, (area(l === 5 ? 0.22 : 0.35) * 2.2) / (prep.n * px * px));
   };
@@ -74,7 +81,7 @@ function step(st, now, ctx) {
   if (st.playing) {
     const p = (now - st.playStart) / PLAY_MS;
     st.clock = Math.min(1.2, p);
-    if (p >= 1.2) { st.playing = false; ctx.root.classList.add("is-played"); }
+    if (p >= 1.2) { st.playing = false; ctx.root.classList.add("is-played", "has-played"); }
     ctx.updateHud(st.clock);
     busy = true;
   }
@@ -111,6 +118,16 @@ export function run(ctx) {
   const view = createView(canvas, ctx.wide, DATA, prep);
   const renderer = createRenderer(gl, prep, DATA, request);
   const labels = createLabels(ctx.labels, DATA, prep);
+  binHexes(prep, DATA.hexR, prep.groupIndex.vehicle).then((bins) => {
+    renderer.setHex(hexPass(gl, hexMesh(bins, DATA.hexR)));
+    const top = tallest(bins, DATA.hexR);
+    labels.setTower(top.bin, [...top.center, HEX_H]);
+    const veh = slowestVehicle(bins, DATA.hexR);
+    if (veh) labels.setVehicleTop(veh, [...veh.center, HEX_H * COL_SCALE]);
+    const share = topShare(bins, DATA.hexR);
+    labels.setShareTop(share, [...share.center, HEX_H * COL_SCALE]);
+    request();
+  });
   ctx.updateHud = createHud(ctx.hud, DATA, prep, ctx.data.slot);
   const currentCam = () => lerpCam(st.camA || st.camB, st.camB, ease(st.mix));
 
@@ -120,9 +137,12 @@ export function run(ctx) {
     const lines = (st.scene === "hero" ? 0 : 1)
       * blend((l) => (MAP_LIKE.includes(l) ? 1 : 0), st.from, st.to, k);
     renderer.draw({ m, points: pointValues(st, k, cam, m, view, prep, hdrOn),
-      base: (BASE_A[st.prevScene] ?? 0) * (1 - k) + (BASE_A[st.scene] ?? 0) * k, lines });
+      base: (BASE_A[st.prevScene] ?? 0) * (1 - k) + (BASE_A[st.scene] ?? 0) * k, lines,
+      hex: { a: HEX_MODE[st.prevScene] ?? 0, b: HEX_MODE[st.scene] ?? 0, mix: k, clock: st.clock,
+        h: HEX_H } });
     labels.place(view.toScreen(m), view.geo,
-      { scene: st.scene, focus: st.focus, pin, settled: k > 0.85 });
+      { scene: st.scene, focus: st.focus, pin, settled: k > 0.85, narrow: view.W < 600,
+        clock: st.clock });
   }
   function frame(now) {
     raf = 0;
@@ -157,7 +177,8 @@ export function run(ctx) {
   }
   function play() {
     if (reduce.matches) {
-      st.clock = 1.2; ctx.updateHud(st.clock); root.classList.add("is-played"); request(); return;
+      st.clock = 1.2; ctx.updateHud(st.clock); root.classList.add("is-played", "has-played");
+      request(); return;
     }
     root.classList.remove("is-played");
     st.playing = true; st.playStart = performance.now(); st.clock = 0; request();
@@ -181,7 +202,7 @@ function wire({ ctx, st, goTo, play, resize, applyFocus, request }) {
   root.classList.add("is-ready");
   ctx.updateHud(st.clock);
   if (getScene() === "hero" || getScene() === "map") play();
-  else { st.clock = 1.2; root.classList.add("is-played"); }
+  else { st.clock = 1.2; root.classList.add("is-played", "has-played"); }
   const setClock = (c) => { st.playing = false; st.clock = c; ctx.updateHud(c); request(); };
   // Exposed for the still-image renderer and tests.
   window.__w3 = { goTo, play, setClock, state: st };

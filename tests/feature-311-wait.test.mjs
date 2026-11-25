@@ -21,7 +21,8 @@ test("wait codes round-trip within one log step (about 11%)", () => {
 test("waits print the way the page words them", () => {
   assert.equal(fmtDays(0.025), "36 minutes");
   assert.equal(fmtDays(0.641), "15 hours");
-  assert.equal(fmtDays(1.02), "1 day");
+  assert.equal(fmtDays(1.02), "24 hours");
+  assert.equal(fmtDays(1.045), "25 hours");
   assert.equal(fmtDays(21.204), "21.2 days");
 });
 
@@ -81,4 +82,61 @@ test("a guess reads in whole units and is judged against the median", async () =
   assert.equal(guessVerdict(1.2, 1), "close");
   assert.equal(guessVerdict(10, 1), "about 10 times too long");
   assert.equal(guessVerdict(0.25, 1), "about 4 times too short");
+});
+
+test("the verdict uses the guess as shown, not its unrounded slider value", async () => {
+  const { guessDays, guessText, minutesCode } = await import("../src/js/wait-311-core.js");
+  const code = minutesCode(29.3 * 1440);
+  assert.equal(guessText(code), "29 days");
+  assert.equal(guessDays(code), 29);
+  assert.equal(guessDays(minutesCode(180)), 3 / 24);
+});
+
+test("hex bins: every point lands in the hexagon whose center is nearest", async () => {
+  const { hexOf, tallest } = await import("../src/js/wait-311-hex.js");
+  const r = 0.011, center = ([q, s]) => [r * Math.sqrt(3) * (q + s / 2), r * 1.5 * s];
+  for (let i = 0; i < 500; i++) {
+    const p = [Math.sin(i * 12.9898) * 0.5, Math.cos(i * 78.233) * 0.5];
+    const [cx, cy] = center(hexOf(p[0], p[1], r));
+    assert.ok(Math.hypot(p[0] - cx, p[1] - cy) <= r * 1.0001, `point ${i}`);
+  }
+  const top = tallest([{ q: 0, s: 0, total: 2 }, { q: 1, s: -1, total: 9 }], r);
+  assert.equal(top.bin.total, 9);
+});
+
+test("district labels: vehicles show extremes; your wait only your district", async () => {
+  const { districtPlan, worldOf } = await import("../src/js/wait-311-labels.js");
+  const vehicle = wait.groups.findIndex((g) => g.key === "vehicle");
+  const DATA = { groups: wait.groups, overWeek: wait.overWeekByDistrict, frame: wait.frame,
+    kmPerUnit: wait.kmPerUnit, mapW: wait.mapW, mapH: wait.mapH };
+  const prep = { groupIndex: { vehicle } };
+  const rows = wait.groups[vehicle].byDistrict.toSorted((a, b) => a.medianDays - b.medianDays);
+  const veh = districtPlan(DATA, prep, { scene: "vehicles", focus: [0, 0, 0] });
+  assert.deepEqual(veh.only, [rows.at(-1).district, rows[0].district]);
+  assert.equal(veh.text(rows.at(-1).district), `${rows.at(-1).medianDays.toFixed(1)} days`);
+  assert.deepEqual(districtPlan(DATA, prep, { scene: "you", focus: [1, 0, 0] }).only, [0]);
+  assert.deepEqual(districtPlan(DATA, prep, { scene: "you", focus: [1, 0, 4] }).only, [4]);
+  const ow = wait.overWeekByDistrict.toSorted((a, b) => a.share - b.share);
+  assert.deepEqual(districtPlan(DATA, prep, { scene: "terrain" }).only,
+    [ow.at(-1).district, ow[0].district]);
+  const [x, y] = worldOf(DATA, wait.frame.maxLat, wait.frame.minLon);
+  assert.ok(Math.abs(x + wait.mapW / 2) < 1e-9 && Math.abs(y - wait.mapH / 2) < 1e-9);
+});
+
+test("vehicle columns rise with the median wait; slow columns show a share", async () => {
+  const { vehHeight, slowShare, RATE_MIN } = await import("../src/js/wait-311-hex.js");
+  const { minutesCode } = await import("../src/js/wait-311-core.js");
+  const hi = minutesCode(190 * 1440);
+  assert.ok(vehHeight(minutesCode(2 * 1440), hi) <= 0.03);
+  assert.equal(vehHeight(hi, hi), 1);
+  assert.ok(vehHeight(minutesCode(29 * 1440), hi) > vehHeight(minutesCode(14 * 1440), hi));
+  assert.equal(slowShare({ closed: RATE_MIN - 1, slow: 10 }), 0);
+  assert.equal(slowShare({ closed: 100, slow: 21 }), 0.21);
+});
+
+test("your-wait card names the fastest and slowest districts", async () => {
+  const { districtRange } = await import("../src/js/wait-311.js");
+  const g = wait.groups.find((x) => x.key === "pothole");
+  assert.equal(districtRange(g),
+    " By district: 12 hours (District 10) to 17 hours (District 5).");
 });

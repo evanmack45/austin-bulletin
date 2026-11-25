@@ -17,14 +17,14 @@ export function program(gl, vs, fs) {
   return p;
 }
 
-function locate(gl, prog, uniforms, attribs = []) {
+export function locate(gl, prog, uniforms, attribs = []) {
   const loc = {};
   for (const name of uniforms) loc[name] = gl.getUniformLocation(prog, name);
   for (const name of attribs) loc[name] = gl.getAttribLocation(prog, name);
   return loc;
 }
 
-function staticBuffer(gl, array) {
+export function staticBuffer(gl, array) {
   const b = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, b);
   gl.bufferData(gl.ARRAY_BUFFER, array, gl.STATIC_DRAW);
@@ -42,14 +42,14 @@ function texture(gl, filter) {
 }
 
 /** Bind one vertex attribute from a buffer. */
-function attrib(gl, loc, buffer, size, type = gl.FLOAT) {
+export function attrib(gl, loc, buffer, size, type = gl.FLOAT) {
   gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
   gl.enableVertexAttribArray(loc);
   gl.vertexAttribPointer(loc, size, type, false, 0, 0);
 }
 
 /** Uniform values by length: a number, vec2/3/4, a mat4, or a vec2[10] array. */
-function setUniforms(gl, loc, values) {
+export function setUniforms(gl, loc, values) {
   const set = {
     1: (l, v) => gl.uniform1f(l, v), 2: (l, v) => gl.uniform2fv(l, v),
     3: (l, v) => gl.uniform3fv(l, v), 4: (l, v) => gl.uniform4fv(l, v),
@@ -195,6 +195,7 @@ function tonePass(gl) {
 export function createRenderer(gl, prep, DATA, onAsset) {
   const points = pointPass(gl, prep), base = basemapPass(gl, DATA, onAsset);
   const lines = linePass(gl, DATA), tone = tonePass(gl), hdr = hdrTarget(gl);
+  let hex = null;   // the hex-column pass, added once its mesh is built
   const draw = (f) => {
     gl.clearColor(0, 0, 0, 0);
     gl.enable(gl.BLEND);
@@ -204,13 +205,15 @@ export function createRenderer(gl, prep, DATA, onAsset) {
       points(f.points);
       gl.bindFramebuffer(gl.FRAMEBUFFER, null);
     }
-    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     base(f.m, f.base);
     if (hdr.fb) tone(hdr.tex); else points(f.points);
+    if (hex && f.hex) hex({ m: f.m, ...f.hex });
     lines(f.m, f.lines);
   };
   const resize = (w, h) => { gl.viewport(0, 0, w, h); return hdr.resize(w, h); };
-  return { draw, resize };
+  const setHex = (pass) => { hex = pass; };
+  return { draw, resize, setHex };
 }
 
 /* ---------- a small matrix kit ---------- */

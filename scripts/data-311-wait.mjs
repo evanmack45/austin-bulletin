@@ -48,12 +48,15 @@ const stats = (list) => {
   return { closed: s.length, medianDays: round(percentile(s, 0.5)), p90Days: round(percentile(s, 0.9)) };
 };
 
+// Hexagon radius (map units) for the 3D columns; the page reads it from the JSON.
+export const HEX_R = 0.011;
+
 function project(frame) {
   const k = Math.cos(((frame.minLat + frame.maxLat) / 2) * Math.PI / 180);
   const w = (frame.maxLon - frame.minLon) * k, h = frame.maxLat - frame.minLat;
   const s = Math.max(w, h);
   // Normalized: x, y in [0, 1] on the long side; aspect kept.
-  return { aspect: w / h, fn: (lon, lat) => [((lon - frame.minLon) * k) / s, (frame.maxLat - lat) / s], w: w / s, h: h / s };
+  return { aspect: w / h, fn: (lon, lat) => [((lon - frame.minLon) * k) / s, (frame.maxLat - lat) / s], w: w / s, h: h / s, s };
 }
 
 function simplify(points, tol) {
@@ -213,7 +216,8 @@ export async function build311Wait({ csv } = {}) {
     overQuarter: closedAll.length - within(91), overYear: closedAll.length - within(365),
     overWeekByDistrict, longestDays: round(longest, 1),
     hours, days: days7, busiestHour: hours.indexOf(Math.max(...hours)), quietestHour: hours.indexOf(Math.min(...hours)),
-    groups, byKey: Object.fromEntries(groups.map((x) => [x.key, x])), frame, mapW: round(proj.w, 4), mapH: round(proj.h, 4), outlines,
+    groups, byKey: Object.fromEntries(groups.map((x) => [x.key, x])), frame, kmPerUnit: round(proj.s * 111.32, 3), hexR: HEX_R,
+    hexAcrossKm: round(Math.sqrt(3) * HEX_R * proj.s * 111.32, 2), mapW: round(proj.w, 4), mapH: round(proj.h, 4), outlines,
     bytes: { raw: buf.length, gzip: gz.length }, slotMinutes: SLOT, grid: GRID, levels: LEVELS,
     dataset: base.dataset, boundaries: "https://data.austintexas.gov/d/w3v2-cj58",
     query: queryUrl({ where, limit: 400000, select:

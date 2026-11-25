@@ -39,12 +39,16 @@ body:has(.w3) { overflow-x: clip; }
 .w3-lbl.is-district.is-focus span { color: var(--yel); font-size: 1.2rem; }
 .w3-lbl.is-tick { translate: -50% 0; padding-top: 4px; border-left: 0; }
 .w3-lbl.is-tick::before { content: ""; position: absolute; left: 50%; top: -5px; height: 6px; border-left: 1px solid var(--soft); }
+/* The 25-hour median line lands on "1 day"; keep the tick on the axis and sit the words to the left. */
+.w3-lbl.is-tick.is-by-median { translate: calc(-100% - 6px) 0; }
+.w3-lbl.is-tick.is-by-median::before { left: auto; right: -6px; }
+
 .w3-lbl.is-median { translate: -50% -100%; text-align: center; color: #fff; font-size: .78rem; padding-bottom: 6px; }
 .w3-lbl.is-median::after { content: ""; position: absolute; left: 50%; top: 100%; height: 44vh; max-height: 22rem; border-left: 1px dashed rgba(255, 255, 255, .55); }
 .w3-lbl.is-open { translate: -50% 0; text-align: center; }
 .w3-lbl.is-row { translate: 0 0; font-size: .75rem; color: var(--ink); }
 .w3-lbl.is-row b { color: var(--yel); font-weight: 800; }
-.w3-lbl.is-rowtick { width: 2px; height: 10px; background: #fff; translate: -1px -100%; border-radius: 1px; box-shadow: 0 0 0 1px rgba(5, 8, 15, .8); }
+.w3-lbl.is-rowtick { width: 3px; height: 12px; background: #0b1020; outline: 1.5px solid #fff; translate: -1px -100%; border-radius: 1px; box-shadow: 0 0 0 1px rgba(5, 8, 15, .8); }
 .w3-lbl.is-hour { translate: -50% -50%; }
 .w3-lbl.is-ringdate { translate: -50% -100%; font-size: .75rem; }
 .w3-lbl.is-mark { translate: 6px 3px; padding: 1px 5px; border-radius: 3px; background: rgba(6, 10, 22, .82); color: #fff; font-size: .75rem; }
@@ -57,7 +61,7 @@ body:has(.w3) { overflow-x: clip; }
 
 /* Hero clock */
 .w3-hud { position: absolute; left: 1rem; top: 1rem; opacity: 0; transition: opacity .4s ease; pointer-events: none; }
-.w3-stage[data-scene="hero"] .w3-hud, .w3-stage[data-scene="map"] .w3-hud { opacity: 1; }
+.w3-stage[data-scene="hero"] .w3-hud { opacity: 1; }
 .w3:not(.is-ready) .w3-hud, .w3.is-hud-off .w3-hud { opacity: 0; }
 .w3-hud p { margin: 0; }
 .w3-hud-row { display: flex; gap: .7rem; align-items: baseline; font-variant-numeric: tabular-nums; }
@@ -67,9 +71,9 @@ body:has(.w3) { overflow-x: clip; }
 
 /* Legend */
 .w3-legend { position: absolute; left: 50%; top: .8rem; translate: -50% 0; width: min(92vw, 22rem); opacity: 0; transition: opacity .4s ease; pointer-events: none; text-align: center; }
-.w3.is-ready .w3-stage:not([data-scene="hero"]):not([data-scene="map"]) .w3-legend { opacity: 1; }
+.w3.is-ready .w3-stage:is([data-scene="color"], [data-scene="hist"], [data-scene="rows"], [data-scene="you"]) .w3-legend { opacity: 1; }
 .w3-legend-bar { display: block; height: 6px; border-radius: 3px;
-  background: linear-gradient(90deg, #2bd9fe 0%, #59f0a8 32%, #ffe66d 57%, #ff8c42 72%, #ff3d6e 82%, #c22bff 92%); }
+  background: linear-gradient(90deg, #29458a 0%, #385ca3 32%, #5c73a3 57%, #f2c759 72%, #ffe66d 82%, #fff7c7 92%); }
 .w3-legend-lbls { display: flex; justify-content: space-between; font-size: .75rem; color: var(--soft); margin-top: 3px; }
 .w3-legend-cap { display: block; font-size: .75rem; color: var(--soft); margin-top: 1px; letter-spacing: .02em; }
 
@@ -170,3 +174,41 @@ body:has(.w3) { overflow-x: clip; }
 .w3-guess-out b, .w3-guess-result b { color: var(--yel); }
 .w3-lbl.is-guess { translate: -50% -100%; text-align: center; color: var(--yel); font-size: .75rem; font-weight: 700; padding-bottom: 6px; }
 .w3-lbl.is-guess::after { content: ""; position: absolute; left: 50%; top: 100%; height: 30vh; max-height: 14rem; border-left: 2px solid var(--yel); }
+
+/* Opening: before the graphic starts, the poster's towers rise from the ground up. */
+@keyframes w3-rise {
+  from { -webkit-mask-position: 0 0; mask-position: 0 0; }
+  to { -webkit-mask-position: 0 100%; mask-position: 0 100%; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .w3-poster img {
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, .15) 0 45%, #000 62% 100%);
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, .15) 0 45%, #000 62% 100%);
+    -webkit-mask-size: 100% 300%; mask-size: 100% 300%;
+    -webkit-mask-position: 0 100%; mask-position: 0 100%;
+    animation: w3-rise 2s cubic-bezier(.3, .6, .2, 1) .2s both;
+  }
+}
+.w3-lbl.is-place { translate: -50% -50%; font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: #c9d4ee; text-shadow: 0 0 4px #060a16, 0 0 8px #060a16; }
+.w3-lbl.is-tower { translate: -50% calc(-100% - 10px); padding: 2px 7px; border-radius: 3px; background: rgba(6, 10, 22, .82); color: #fff; font-size: .8rem; white-space: nowrap; }
+.w3-lbl.is-tower b { font-family: Bricolage, Hanken, sans-serif; }
+.w3-lbl.is-row i { font-style: normal; color: var(--soft); font-size: .7rem; margin-left: 4px; }
+.w3-stage[data-scene="terrain"] .w3-legend-bar { -webkit-mask: linear-gradient(90deg, rgba(0, 0, 0, .18) 59%, #000 59%); mask: linear-gradient(90deg, rgba(0, 0, 0, .18) 59%, #000 59%); }
+.w3-stage[data-scene="terrain"] .w3-legend-lbls > :nth-child(-n+3) { opacity: .35; }
+/* The hero copy leaves with the hero, so it never sits over the next scene. */
+.w3-hero { transition: opacity .35s ease; }
+.w3:has(.w3-stage:not([data-scene="hero"])) .w3-hero { opacity: 0; pointer-events: none; }
+.w3-lbl.is-sector { translate: -50% -50%; font-size: .75rem; letter-spacing: .06em; text-transform: uppercase; color: var(--soft); }
+.w3-lbl.is-sector.is-weekend { color: #ffe66d; }
+.w3-lbl.is-markdot { width: 6px; height: 6px; translate: -50% -50%; border: 1.5px solid #fff; border-radius: 50%; box-sizing: border-box; }
+.w3-lbl.is-mark-out { translate: 0 -50%; padding: 1px 5px; border-radius: 3px; background: rgba(6, 10, 22, .82); color: #fff; font-size: .75rem; white-space: nowrap; }
+.w3-lbl.is-mark-out.is-left { translate: -100% -50%; }
+.w3-lbl.is-mark-out span { color: var(--soft); }
+@media (max-width: 599px) { .w3.is-ready .w3-stage[data-scene="you"] .w3-credit { opacity: 0; } }
+.w3-replay .w3-re, .w3-replay .w3-p { display: none; }
+.w3.has-played .w3-replay .w3-re, .w3.has-played .w3-replay .w3-p { display: inline; }
+.w3.has-played .w3-replay .w3-P { display: none; }
+.w3-sw { display: inline-block; width: .7em; height: .7em; border-radius: 50%; margin-right: .3em; vertical-align: .05em; }
+.w3-sw.is-open { background: #fff; }
+.w3-sw.is-dup { background: #7f8aa3; }
+.w3-lbl.is-axis2 { translate: -50% 0; font-size: .7rem; color: var(--soft); }

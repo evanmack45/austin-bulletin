@@ -4,7 +4,7 @@ import { perspective, lookAt, apply } from "./wait-311-gl.js";
 import { BINS } from "./wait-311-prep.js";
 
 const FOV = (32 * Math.PI) / 180;
-const CAM_OF = { hero: "map", map: "map", color: "map", terrain: "terrain", hist: "pile",
+const CAM_OF = { hero: "hero", map: "map", color: "map", terrain: "terrain", hist: "pile",
   rows: "pile", vehicles: "vehicles", rings: "ring", you: "you", end: "map" };
 
 // Dots fill a bin's width in as many columns as keep the pile under its height.
@@ -22,7 +22,7 @@ function geometry(aspect, prep, rows) {
   // Each row's pile is scaled to its own tallest bin, leaving room for its label.
   const rowFit = new Float32Array(20);
   prep.rowMax.forEach((max, i) => {
-    const f = fill(Math.max(1, max), rowsH * 0.6);
+    const f = fill(Math.max(1, max), rowsH * 0.5);
     rowFit[i * 2] = f.cols; rowFit[i * 2 + 1] = f.s;
   });
   const rowS = Math.max(...prep.rowMax.map((_, i) => rowFit[i * 2 + 1]));
@@ -34,7 +34,10 @@ function geometry(aspect, prep, rows) {
 function cameras(DATA, geo) {
   const map = { t: [0, 0, 0], tilt: 0, rot: 0, w: DATA.mapW * 1.02, h: DATA.mapH * 1.02 };
   const terrain = { t: [0, -0.04, 0.04], tilt: 0.92, rot: -0.3, w: DATA.mapW, h: DATA.mapH * 0.9 };
-  return { map, terrain,
+  // The hero looks across the city from the south, so the columns read as a skyline.
+  const hero = { t: [0, 0.02, 0.06], tilt: 0.95, rot: -0.32,
+    w: DATA.mapW * 0.98, h: DATA.mapH * 1.0 };
+  return { map, terrain, hero,
     pile: { t: [0, 0, 0], tilt: 0, rot: 0, w: geo.boxW, h: geo.boxH },
     ring: { t: [0, 0, 0], tilt: 0, rot: 0, w: 2.5, h: 2.5 },
     vehicles: { ...terrain, tilt: 0.85, rot: 0.25 }, you: { ...terrain, tilt: 0.6, rot: -0.15 } };
@@ -55,6 +58,9 @@ export function createView(canvas, wide, DATA, prep) {
       : { x: W * 0.05, y: H * 0.085, w: W * 0.9, h: H * 0.46 };
     v.geo = geometry(v.safe.w / v.safe.h, prep, DATA.rowKeys.length);
     v.cams = cameras(DATA, v.geo);
+    // On a phone the hero sits a little farther back, so the headline stays below it.
+    const h = v.cams.hero;
+    if (!wide.matches) v.cams.hero = { ...h, w: h.w * 1.15, h: h.h * 1.15 };
   };
   v.sceneCam = (scene) => v.cams[CAM_OF[scene] || "map"];
   /** View and projection for camera c, centered on the safe area by a lens shift. */
