@@ -4,6 +4,8 @@ title: "November 3, 2026 election record — Austin & Travis County"
 description: "Voting for the November 3, 2026 election is over. Results, the Austin ballot, and the record of dates and polling sites."
 permalink: "/vote-2026/"
 ---
+{% set artName = "vote" %}{% set artAlt = "Illustration: a cardboard ballot box with an envelope in its slot in front of empty polling booths in a school gym." %}{% include "art-lead.njk" %}
+
 
 ## November 2026 voting in Austin
 

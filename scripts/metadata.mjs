@@ -175,12 +175,30 @@ function storySection(content) {
 }
 
 // Share art for feature pages that are not editions: route -> illustration.
+const artEntry = (file, scene) => ({
+  image: `${SITE_URL}images/art/${file}`,
+  imageAlt: `Illustration: ${scene}.`
+});
 const PAGE_ART = {
-  "/austin-311-wait/": {
-    image: `${SITE_URL}images/art/wait/og-the-wait.jpg`,
-    imageAlt: "Illustration: a silhouetted figure on a cracked curb checks a glowing phone "
-      + "beside a traffic cone and a pothole, a giant clock glowing behind the Austin skyline."
-  }
+  "/austin-311-wait/": artEntry("wait/og-the-wait.jpg",
+    "a silhouetted figure on a cracked curb checks a glowing phone beside a traffic cone "
+    + "and a pothole, a giant clock glowing behind the Austin skyline"),
+  "/austin-311-response-times/": artEntry("wait/og-the-wait.jpg",
+    "a silhouetted figure on a cracked curb checks a glowing phone beside a traffic cone"),
+  "/austin-bonds-2026/": artEntry("topics/og-bonds.jpg",
+    "a library reading nook opening onto a park at dusk"),
+  "/austin-charter-2026/": artEntry("topics/og-charter.jpg",
+    "an antique scroll unrolling like a road toward a domed capitol"),
+  "/austin-city-budget-2027/": artEntry("topics/og-budget.jpg",
+    "a miniature skyline of stacked coins and ledgers on a kitchen table"),
+  "/muny-2026/": artEntry("topics/og-muny.jpg",
+    "a quiet golf green at golden hour with survey stakes and a distant skyline"),
+  "/zilker-park-access/": artEntry("topics/og-zilker.jpg",
+    "a park lawn at dusk with orange festival fencing and string lights"),
+  "/vote-2026/": artEntry("topics/og-vote.jpg",
+    "a cardboard ballot box in front of empty polling booths"),
+  "/austin-restaurant-inspection-scores/": artEntry("topics/og-inspections.jpg",
+    "a restaurant counter with a clean plate, a magnifying glass and an inspector's clipboard")
 };
 
 function imageFor(content, edition, route) {

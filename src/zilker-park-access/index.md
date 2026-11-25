@@ -4,6 +4,8 @@ title: "Zilker Park access during ACL"
 description: "City-posted open amenities, parking and entrance restrictions, and what remains unconfirmed about Zilker’s Great Lawn reopening during ACL."
 permalink: "/zilker-park-access/"
 ---
+{% set artName = "zilker" %}{% set artAlt = "Illustration: a park lawn at dusk with orange festival fencing across the grass, string lights, an empty picnic blanket and folding chair, and the downtown skyline behind." %}{% include "art-lead.njk" %}
+
 
 ## Zilker Park access during ACL
 

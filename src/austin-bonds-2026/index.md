@@ -4,6 +4,8 @@ title: "Austin's 2026 parks and library bonds: Propositions A and B"
 description: "What Austin's $295 million parks and library bonds on the November 3, 2026 ballot would build, what they would cost a homeowner, how the City Council voted, and what supporters and opponents say, with sources."
 permalink: "/austin-bonds-2026/"
 ---
+{% set artName = "bonds" %}{% set artAlt = "Illustration: a cozy library reading nook opening onto a park, with a stack of books, a bench, a live oak and a swing set at dusk." %}{% include "art-lead.njk" %}
+
 
 ## Austin's 2026 parks and library bonds: Propositions A and B
 

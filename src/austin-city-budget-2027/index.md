@@ -4,6 +4,8 @@ title: "Austin's 2026-27 city budget: what passed and what it costs you"
 description: "Austin's $6.6 billion budget for fiscal 2026-27: the new property tax rate, what a typical household pays, what was added and cut, the 9-2 Council vote, the 911 office, and what has happened since, with sources."
 permalink: "/austin-city-budget-2027/"
 ---
+{% set artName = "budget" %}{% set artAlt = "Illustration: a miniature skyline of stacked coins and ledgers on a kitchen table beside a coffee mug, a small house-shaped bank, a calculator and scissors over a paper strip." %}{% include "art-lead.njk" %}
+
 
 ## Austin's 2026-27 city budget: what passed and what it costs you
 
