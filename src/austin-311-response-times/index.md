@@ -16,7 +16,7 @@ permalink: "/austin-311-response-times/"
 
 **An original Austin Bulletin data analysis. Data: [City of Austin 311 public data]({{ d.dataset }}), every service request created from {{ d.fromLabel }} through {{ d.toLabel }}, pulled {{ d.generatedLabel }}.** This page measures how long requests stayed open in the City's system. It does not measure whether the work was done well. The City updates the dataset every day, so a live query can differ slightly from the figures here.
 
-**[See this analysis as a visual story →](/austin-311-visual/)**
+**[See every request as light: the visual story →](/austin-311-wait/)** Or try [the simpler visual version](/austin-311-visual/).
 
 <figure class="data-feature-chart">
 <picture>

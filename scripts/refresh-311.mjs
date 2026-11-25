@@ -6,13 +6,16 @@
 //   1. pulls the new 12-month window from the City's 311 data (scripts/data-311.mjs),
 //   2. rewrites data/311-chart.json from the new medians,
 //   3. renders the two chart images with scripts/lead-chart.mjs,
-//   4. rebuilds the district medians for /austin-311-visual/ (scripts/data-311-visual.mjs).
-// Then run `npm run build && npm test`, and open a PR. Exit codes: 0 done or skipped, 1 failed.
+//   4. rebuilds the district medians for /austin-311-visual/ (scripts/data-311-visual.mjs),
+//   5. rebuilds the particle data for /austin-311-wait/ (scripts/data-311-wait.mjs).
+// Then run `npm run build && npm test`, re-render that page's still images with
+// scripts/render-311-wait-stills.mjs against a local build, and open a PR. Exit codes: 0 done or skipped, 1 failed.
 import { execFileSync } from "node:child_process";
 import { readFile, writeFile } from "node:fs/promises";
 import { chicagoDate } from "./chicago-time.mjs";
 import { build311, defaultWindow, monthLabels } from "./data-311.mjs";
 import { build311Visual } from "./data-311-visual.mjs";
+import { build311Wait } from "./data-311-wait.mjs";
 
 const BARS = [
   ["pothole", "Pothole"], ["garbage", "Trash"], ["recycling", "Recycling"], ["compost", "Compost"],
@@ -56,10 +59,11 @@ async function main() {
   }
   const data = await build311(from, to);
   await build311Visual();
+  await build311Wait();
   const spec = chartSpec(data);
   await writeFile("data/311-chart.json", `${JSON.stringify(spec, null, 2)}\n`);
   execFileSync("node", ["scripts/lead-chart.mjs", "data/311-chart.json"], { stdio: "inherit" });
-  console.log(`311 refresh: wrote ${from}..${to}. Next: npm run build && npm test, then open a PR.`);
+  console.log(`311 refresh: wrote ${from}..${to}. Next: npm run build && npm test, re-render the /austin-311-wait/ stills, then open a PR.`);
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
