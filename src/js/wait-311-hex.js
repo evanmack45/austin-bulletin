@@ -6,6 +6,11 @@ import { HEX_VERT, HEX_FRAG } from "./wait-311-shaders.js";
 
 const SLOW = minutesCode(7 * 1440);  // a closed request that took more than a week
 const MIN_COUNT = 3;                 // smaller hexagons are left out of the mesh
+// Slow-request columns show a share, so they need enough closed requests to mean something.
+export const RATE_MIN = 30, RATE_TOP = 0.5;   // 50% or more took over a week = full height
+// Vehicle columns show a median wait, from 3 days (flat) to 60 days (full height).
+export const VEH_MIN = 5;
+const VEH_LO = minutesCode(3 * 1440), VEH_HI = minutesCode(60 * 1440);
 const SQ3 = Math.sqrt(3);
 
 /** Axial coordinates of the pointy-top hexagon holding (x, y). */
@@ -27,7 +32,7 @@ function median(hist, n) {
 }
 
 function newBin(q, s) {
-  return { q, s, total: 0, slow: 0, veh: 0, months: new Uint32Array(12),
+  return { q, s, total: 0, closed: 0, slow: 0, veh: 0, months: new Uint32Array(12),
     slowHist: new Uint32Array(LEVELS + 1), vehHist: new Uint32Array(LEVELS + 1) };
 }
 
@@ -36,6 +41,7 @@ function count(b, prep, i, vehicle) {
   b.total++;
   b.months[Math.min(11, Math.floor((prep.aTR[i * 2] / prep.slots) * 12))]++;
   if (code > LEVELS) return;
+  b.closed++;
   if (code > SLOW) { b.slow++; b.slowHist[code]++; }
   if (prep.aMeta[i * 4 + 1] === vehicle) { b.veh++; b.vehHist[code]++; }
 }
@@ -82,23 +88,26 @@ export function tallest(bins, r) {
   return { bin, center: centerOf(bin.q, bin.s, r) };
 }
 
+/** Share of a hexagon's closed requests that took more than a week (0 if too few). */
+export const slowShare = (b) => (b.closed >= RATE_MIN ? b.slow / b.closed : 0);
+/** Column height for a median vehicle wait code: 3 days flat, 60 days full. */
+export const vehHeight = (c) => Math.max(0.03, (c - VEH_LO) / (VEH_HI - VEH_LO));
+
 export function hexMesh(bins, r) {
   const maxTotal = Math.max(...bins.map((b) => b.total));
-  const maxSlow = Math.max(...bins.map((b) => b.slow));
-  const maxVeh = Math.max(...bins.map((b) => b.veh));
-  const code = (hist, n) => Math.round((median(hist, n) / LEVELS) * 255);
+  const byte = (x) => Math.round(Math.max(0, Math.min(1, x)) * 255);
+  const code = (hist, n) => byte(median(hist, n) / LEVELS);
   const m = { pos: [], shade: [], cum: [], hex: [] };
   for (const b of bins) {
     let c = 0;
     const cum = [...b.months].map((v) => Math.round(((c += v) / maxTotal) * 65535));
-    // Vehicle columns need at least 3 closed reports to have a median worth coloring.
-    const veh = b.veh >= MIN_COUNT ? Math.round((b.veh / maxVeh) * 255) : 0;
-    const h = { cum, slow: Math.round((b.slow / maxSlow) * 255), code: code(b.slowHist, b.slow),
-      veh, vehCode: code(b.vehHist, b.veh) };
+    const h = { cum, slow: byte(slowShare(b) / RATE_TOP), code: code(b.slowHist, b.slow),
+      veh: b.veh >= VEH_MIN ? byte(vehHeight(median(b.vehHist, b.veh))) : 0,
+      vehCode: code(b.vehHist, b.veh) };
     const [cx, cy] = centerOf(b.q, b.s, r);
     pushPrism(m, h, cx, cy, r * 0.88);
   }
-  return { count: m.shade.length, maxTotal, maxSlow, maxVeh, pos: new Float32Array(m.pos),
+  return { count: m.shade.length, maxTotal, pos: new Float32Array(m.pos),
     shade: new Float32Array(m.shade), cum: new Uint16Array(m.cum), hex: new Uint8Array(m.hex) };
 }
 

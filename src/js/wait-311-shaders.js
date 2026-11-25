@@ -5,12 +5,14 @@
 const RAMP = `
 vec3 ramp(float c) {
   // 1 min, 1 hour, 1 day, 1 week, 1 month, 3 months+ on the log code scale
-  vec3 c0 = vec3(0.17, 0.85, 1.0);
-  vec3 c1 = vec3(0.35, 0.94, 0.66);
-  vec3 c2 = vec3(1.0, 0.90, 0.43);
-  vec3 c3 = vec3(1.0, 0.55, 0.26);
-  vec3 c4 = vec3(1.0, 0.24, 0.43);
-  vec3 c5 = vec3(0.76, 0.17, 1.0);
+  // One sequential scale: quick closes in the background's blue, long waits in the
+  // headline yellow, so the slow tail stands out of the crowd.
+  vec3 c0 = vec3(0.16, 0.27, 0.52);
+  vec3 c1 = vec3(0.25, 0.42, 0.70);
+  vec3 c2 = vec3(0.47, 0.57, 0.72);
+  vec3 c3 = vec3(0.95, 0.78, 0.35);
+  vec3 c4 = vec3(1.0, 0.90, 0.43);
+  vec3 c5 = vec3(1.0, 0.97, 0.78);
   float h = 40.0, d = 70.97, w = 89.06, m = 101.68, q = 112.0;
   if (c < h) return mix(c0, c1, c / h);
   if (c < d) return mix(c1, c2, (c - h) / (d - h));
@@ -46,6 +48,9 @@ vec4 place(float id) {
   float wn = closed ? code / 124.0 : (open ? 1.0 : 0.0);
   if (id < 0.5) { // map, flat
     return vec4(aMap, 0.0, located ? 1.0 : 0.0);
+  }
+  if (id > 6.5) { // the ending: only duplicates (gray) and still-open requests (white)
+    return vec4(aMap, 0.0, located ? (closed ? 0.06 : 1.0) : 0.0);
   }
   if (id < 1.5 || id > 5.5) { // terrain (1), your wait (6)
     // Terrain: the points lie dim on the ground under the hex columns.
@@ -105,6 +110,10 @@ void main() {
   vec3 col = code <= 124.0 ? ramp(code) : (code == 126.0 ? vec3(1.0) : vec3(0.42, 0.47, 0.58));
   vec3 base = vec3(0.62, 0.76, 1.0);
   col = mix(base, col, uColor);
+  // Rings: weekend requests (Saturday and Sunday) are tinted yellow.
+  float ringK = (abs(uFrom - 5.0) < 0.5 ? 1.0 - k : 0.0) + (abs(uTo - 5.0) < 0.5 ? k : 0.0);
+  float weekMin = mod(aTR.x * 15.0 + uRingOffset, 10080.0);
+  col = mix(col, vec3(1.0, 0.90, 0.43), ringK * step(7200.0, weekMin) * 0.85);
   float focus = 1.0;
   if (uFocus.x > 0.5) {
     bool g = uFocus.y < 0.0 || aMeta.y == uFocus.y;
@@ -210,7 +219,7 @@ float heightOf(float mode) {
     float f = clamp(uClock, 0.0, 1.0) * 12.0, m = floor(f);
     return mix(month(m), month(min(12.0, m + 1.0)), f - m);
   }
-  return mode < 2.5 ? aHex.x : aHex.z * 0.6;
+  return mode < 2.5 ? aHex.x : aHex.z;
 }
 vec3 colorOf(float mode, float h) {
   if (mode < 1.5) {

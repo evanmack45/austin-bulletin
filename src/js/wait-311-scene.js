@@ -8,29 +8,29 @@ import { createLabels } from "./wait-311-labels.js";
 
 const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 const LAYOUT = { hero: 0, map: 0, color: 0, terrain: 1, hist: 2, rows: 3, vehicles: 4, rings: 5,
-  you: 6, end: 0 };
+  you: 6, end: 7 };
 const BASE_A = { hero: 0.7, map: 1, color: 0.75, terrain: 0.6, hist: 0, rows: 0, vehicles: 0.6,
-  rings: 0, you: 0.6, end: 0.7 };
+  rings: 0, you: 0.6, end: 1 };
 // Hex columns: 1 = running count (hero), 2 = took more than a week (terrain),
 // 3 = abandoned vehicles, colored by their median wait.
-const HEX_MODE = { hero: 1, terrain: 2, vehicles: 3, end: 1 };
+const HEX_MODE = { hero: 1, terrain: 2, vehicles: 3 };
 const HEX_H = 0.42;             // the tallest column, in map heights
-const MAP_LIKE = [0, 1, 4, 6];
+const MAP_LIKE = [0, 1, 4, 6, 7];
 const ORBIT_MS = 12000;         // terrain and vehicles turn slowly for this long, then hold
 const PLAY_MS = 11000;          // the hero time-lapse of the year
-const colorFor = (scene) => (["hero", "map", "end", "rings"].includes(scene) ? 0 : 1);
+const colorFor = (scene) => (["hero", "map", "rings"].includes(scene) ? 0 : 1);
 const blend = (f, a, b, k) => f(a) * (1 - k) + f(b) * k;
 
 /** Dot size (px at the reference distance), brightness and highlight lift. */
 function pointLook(st, k, cam, v, prep, hdrOn) {
   const pxPerUnit = v.safe.h / (cam.h || 1);
   const sizeOf = (l) => ({ 2: v.geo.hist.s * pxPerUnit * 1.15, 3: v.geo.rows.s * pxPerUnit * 1.15,
-    5: 1.3 }[l] ?? (v.wide.matches ? 1.5 : 1.2));
+    5: 1.3, 7: 2.2 }[l] ?? (v.wide.matches ? 1.5 : 1.2));
   // About one point's worth of light per pixel where points spread evenly; denser
   // places add up and glow in the tone map.
   const area = (l) => v.safe.w * v.safe.h * v.dpr * v.dpr * l;
   const gainOf = (l) => {
-    if (l === 2 || l === 3) return 1;
+    if (l === 2 || l === 3 || l === 7) return 1;  // piles, and the few left at the end
     const px = sizeOf(l) * v.dpr;
     return Math.min(1, (area(l === 5 ? 0.22 : 0.35) * 2.2) / (prep.n * px * px));
   };

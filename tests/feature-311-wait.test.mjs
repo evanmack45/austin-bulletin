@@ -104,19 +104,38 @@ test("hex bins: every point lands in the hexagon whose center is nearest", async
   assert.equal(top.bin.total, 9);
 });
 
-test("district labels: phones show only the extremes; 3D names slowest, fastest", async () => {
+test("district labels: vehicles show the extremes; your wait only your district", async () => {
   const { districtPlan, worldOf } = await import("../src/js/wait-311-labels.js");
   const vehicle = wait.groups.findIndex((g) => g.key === "vehicle");
   const DATA = { groups: wait.groups, overWeek: wait.overWeekByDistrict, frame: wait.frame,
     kmPerUnit: wait.kmPerUnit, mapW: wait.mapW, mapH: wait.mapH };
   const prep = { groupIndex: { vehicle } };
   const rows = wait.groups[vehicle].byDistrict.toSorted((a, b) => a.medianDays - b.medianDays);
-  const phone = districtPlan(DATA, prep, { scene: "vehicles", focus: [0, 0, 0], narrow: true });
-  assert.deepEqual(phone.only, [rows.at(-1).district, rows[0].district]);
-  assert.equal(districtPlan(DATA, prep, { scene: "vehicles", narrow: false }).only, null);
+  const veh = districtPlan(DATA, prep, { scene: "vehicles", focus: [0, 0, 0] });
+  assert.deepEqual(veh.only, [rows.at(-1).district, rows[0].district]);
+  assert.equal(veh.text(rows.at(-1).district), `${rows.at(-1).medianDays.toFixed(1)} days`);
+  assert.deepEqual(districtPlan(DATA, prep, { scene: "you", focus: [1, 0, 0] }).only, [0]);
+  assert.deepEqual(districtPlan(DATA, prep, { scene: "you", focus: [1, 0, 4] }).only, [4]);
   const ow = wait.overWeekByDistrict.toSorted((a, b) => a.share - b.share);
   assert.deepEqual(districtPlan(DATA, prep, { scene: "terrain" }).only,
     [ow.at(-1).district, ow[0].district]);
   const [x, y] = worldOf(DATA, wait.frame.maxLat, wait.frame.minLon);
   assert.ok(Math.abs(x + wait.mapW / 2) < 1e-9 && Math.abs(y - wait.mapH / 2) < 1e-9);
+});
+
+test("vehicle columns rise with the median wait; slow columns show a share", async () => {
+  const { vehHeight, slowShare, RATE_MIN } = await import("../src/js/wait-311-hex.js");
+  const { minutesCode } = await import("../src/js/wait-311-core.js");
+  assert.ok(vehHeight(minutesCode(2 * 1440)) <= 0.03);
+  assert.ok(Math.abs(vehHeight(minutesCode(60 * 1440)) - 1) < 0.02);
+  assert.ok(vehHeight(minutesCode(29 * 1440)) > vehHeight(minutesCode(14 * 1440)));
+  assert.equal(slowShare({ closed: RATE_MIN - 1, slow: 10 }), 0);
+  assert.equal(slowShare({ closed: 100, slow: 21 }), 0.21);
+});
+
+test("your-wait card names the fastest and slowest districts", async () => {
+  const { districtRange } = await import("../src/js/wait-311.js");
+  const g = wait.groups.find((x) => x.key === "pothole");
+  assert.equal(districtRange(g),
+    " By district: 12 hours (District 10) to 17 hours (District 5).");
 });

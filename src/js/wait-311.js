@@ -85,6 +85,16 @@ function onIntent(root, begin) {
   if (scrollY > 0) go();
 }
 
+/** " By district: 12 hours (District 10) to 17 hours (District 5)." */
+export function districtRange(group) {
+  const rows = group.byDistrict.filter((x) => x.closed >= 20)
+    .sort((a, b) => a.medianDays - b.medianDays);
+  if (rows.length < 2) return "";
+  const [lo, hi] = [rows[0], rows.at(-1)];
+  return ` By district: ${fmtDays(lo.medianDays)} (District ${lo.district}) to `
+    + `${fmtDays(hi.medianDays)} (District ${hi.district}).`;
+}
+
 function youHtml(group, district) {
   const s = district ? group.byDistrict[district - 1] : group;
   const where = district ? `District ${district}` : "Austin";
@@ -92,7 +102,7 @@ function youHtml(group, district) {
   if (!s.closed) return `<p>No closed ${what} requests in ${where} in this data.</p>`;
   return `<p class="w3-you-big">${fmtDays(s.medianDays)}</p>
     <p>Half of ${what} requests in ${where} were closed within ${fmtDays(s.medianDays)}.
-    9 in 10 within <b>${fmtDays(s.p90Days)}</b>.</p>
+    9 in 10 within <b>${fmtDays(s.p90Days)}</b>.${district ? "" : districtRange(group)}</p>
     <p class="w3-you-n">Based on ${s.closed.toLocaleString("en-US")} closed requests.</p>`;
 }
 
@@ -121,7 +131,7 @@ function setupGuess(root, DATA) {
     out.innerHTML = `Locked: <b>${text}</b>. Keep scrolling for the answer.`;
     result.innerHTML = verdict === "close"
       ? `You guessed <b>${text}</b>. That's close.`
-      : `You guessed <b>${text}</b>, ${verdict}. Half were closed within ${fmtDays(median)}.`;
+      : `You guessed <b>${text}</b>: ${verdict}.`;
     result.hidden = false;
     root._guess = code;
     root.dispatchEvent(new CustomEvent("w3:guess"));

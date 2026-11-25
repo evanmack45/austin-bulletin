@@ -5,7 +5,7 @@ import { BINS } from "./wait-311-prep.js";
 
 const FOV = (32 * Math.PI) / 180;
 const CAM_OF = { hero: "hero", map: "map", color: "map", terrain: "terrain", hist: "pile",
-  rows: "pile", vehicles: "vehicles", rings: "ring", you: "you", end: "hero" };
+  rows: "pile", vehicles: "vehicles", rings: "ring", you: "you", end: "map" };
 
 // Dots fill a bin's width in as many columns as keep the pile under its height.
 const fillFor = (binW) => (count, height) => {
@@ -22,7 +22,7 @@ function geometry(aspect, prep, rows) {
   // Each row's pile is scaled to its own tallest bin, leaving room for its label.
   const rowFit = new Float32Array(20);
   prep.rowMax.forEach((max, i) => {
-    const f = fill(Math.max(1, max), rowsH * 0.6);
+    const f = fill(Math.max(1, max), rowsH * 0.5);
     rowFit[i * 2] = f.cols; rowFit[i * 2 + 1] = f.s;
   });
   const rowS = Math.max(...prep.rowMax.map((_, i) => rowFit[i * 2 + 1]));
@@ -58,6 +58,9 @@ export function createView(canvas, wide, DATA, prep) {
       : { x: W * 0.05, y: H * 0.085, w: W * 0.9, h: H * 0.46 };
     v.geo = geometry(v.safe.w / v.safe.h, prep, DATA.rowKeys.length);
     v.cams = cameras(DATA, v.geo);
+    // On a phone the hero sits a little farther back, so the headline stays below it.
+    const h = v.cams.hero;
+    if (!wide.matches) v.cams.hero = { ...h, w: h.w * 1.15, h: h.h * 1.15 };
   };
   v.sceneCam = (scene) => v.cams[CAM_OF[scene] || "map"];
   /** View and projection for camera c, centered on the safe area by a lens shift. */

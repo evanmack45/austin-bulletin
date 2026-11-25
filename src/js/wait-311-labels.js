@@ -4,7 +4,6 @@ import { fmtDays, fmtMonth, minutesCode, shortWait } from "./wait-311-core.js";
 import { BINS } from "./wait-311-prep.js";
 
 const TICKS = [["1 min", 1], ["1 hr", 60], ["1 day", 1440], ["1 wk", 10080], ["1 mo.", 43200]];
-const DAYS = ["Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat.", "Sun."];
 const xOf = (geo, code) => geo.left + (code / 125) * BINS * geo.binW;
 const fixed = (p) => () => p;
 
@@ -47,18 +46,20 @@ function rowLabels(add, DATA, prep) {
 }
 
 function ringLabels(add, DATA, prep) {
-  DAYS.forEach((label, d) => {
-    const a = ((d + 0.5) / 7) * Math.PI * 2;
-    add("rings", label, "is-hour", fixed([Math.sin(a) * 1.1, Math.cos(a) * 1.1, 0]));
-  });
+  const out = (a, r) => fixed([Math.sin(a) * r, Math.cos(a) * r, 0]);
+  // Saturday and Sunday are the last two sevenths of each ring, tinted yellow.
+  add("rings", "Weekends", "is-sector is-weekend", out((6 / 7) * Math.PI * 2, 1.13));
+  add("rings", "Weekdays", "is-sector", out((2.5 / 7) * Math.PI * 2, 1.13));
   const from = Date.parse(`${DATA.from}T00:00:00Z`);
   for (const [i, mk] of (DATA.marks || []).entries()) {
-    // Noon on that day, placed the way the shader places a request.
+    // Noon on that day, placed the way the shader places a request; the name sits
+    // outside the disc at the same angle, nudged apart when two share a weekday.
     const minutes = (Date.parse(`${mk.date}T12:00:00Z`) - from) / 60000 + prep.ringOffset;
     const week = Math.floor(minutes / 10080), a = ((minutes % 10080) / 10080) * Math.PI * 2;
     const r = 0.3 + ((week + 0.5) / prep.ringWeeks) * 0.7;
-    add("rings", mk.label, i % 2 ? "is-mark" : "is-mark is-left",
-      fixed([Math.sin(a) * r, Math.cos(a) * r, 0]));
+    add("rings", "", "is-markdot", out(a, r));
+    const side = i % 2 ? 1 : -1;
+    add("rings", mk.label, `is-mark-out ${side < 0 ? "is-left" : ""}`, out(a - side * 0.3, 1.14));
   }
   add("rings", fmtMonth(DATA.from), "is-ringdate", fixed([0, 0, 0]));
   add("rings", fmtMonth(DATA.to), "is-ringdate is-outer", fixed([0, 1.02, 0]));
@@ -105,7 +106,6 @@ const ends = (list) => { const s = byValue(list); return [s.at(-1).d, s[0].d]; }
 
 /** Which district labels to show and what they say: { key, text(d), only }. */
 export function districtPlan(DATA, prep, v) {
-  const narrow = v.narrow;
   if (v.scene === "terrain") {
     const share = (d) => DATA.overWeek[d - 1].share;
     const list = DATA.overWeek.map((x) => ({ d: x.district, value: x.share }));
@@ -113,10 +113,11 @@ export function districtPlan(DATA, prep, v) {
   }
   const group = v.scene === "you" ? v.focus[1] : prep.groupIndex.vehicle;
   const rows = DATA.groups[group].byDistrict;
-  const text = (d) => (rows[d - 1].closed ? shortWait(rows[d - 1].medianDays) : "–");
+  const text = (d) => (rows[d - 1].closed ? fmtDays(rows[d - 1].medianDays) : "–");
   const list = rows.map((x) => ({ d: x.district, value: x.closed ? x.medianDays : null }));
-  const mine = v.scene === "you" && v.focus[2] ? [v.focus[2]] : null;
-  return { key: `${v.scene}:${group}`, text, only: narrow ? (mine || ends(list)) : null };
+  if (v.scene === "vehicles") return { key: "vehicles", text, only: ends(list) };
+  // Your wait: only the chosen district is labeled; "All of Austin" leaves the map bare.
+  return { key: `you:${group}`, text, only: [v.focus[2]] };
 }
 
 export function createLabels(container, DATA, prep) {
