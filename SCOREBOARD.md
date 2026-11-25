@@ -83,6 +83,7 @@ No data at the judge date is a kill.
 One line per reader-visible change, newest first. The daily edition does
 not count. Three calendar days with no line is an alert.
 
+- 2026-11-24 · tracker · `/votes/`: search all 6,463 official Council roll-call items (Jan. 2023–Aug. 2026), default view the 305 split votes, filters by words, year and member who voted no, shareable URLs; linked from the masthead, scorecards and every member scorecard
 - 2026-11-24 · bulletin · `/austin-311-response-times/`: original data feature from 273,134 City 311 requests (Nov. 2025–Oct. 2026): median and 9-in-10 time to close for the 25 most common requests, top requests by Council district, monthly volume, what it means for you; linked from the homepage, Topics and archive guides
 - 2026-11-04 · bulletin · `/election/2026-11-03/` shows the Travis County Clerk unofficial count updated 3:37 a.m. Nov. 4 (Clarity 385566). Full-purpose For and Against replace the 9:46 p.m. figures. Props C–J still list the limited-purpose area on its own line. No outcome changed. Williamson and Hays stay excluded. The link is the stable election page.
 - 2026-11-03 · bulletin · `/election/2026-11-03/` shows the Travis County Clerk unofficial count as of 9:46 p.m. Central, Nov. 3. Each measure lists For and Against. Props C–J add the limited-purpose area on a second line, not added to the full-purpose count. The page says who leads, that counting may continue, and that Williamson and Hays votes are not included.
