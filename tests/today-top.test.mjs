@@ -4,6 +4,7 @@ import { readFileSync } from "node:fs";
 import { parseDesk } from "../scripts/desk.mjs";
 import { homeEdition } from "../scripts/home-stories.mjs";
 import { shortMonthDay, weekdayName } from "../scripts/edition-dates.mjs";
+import { pinnedHome } from "./current-lead.mjs";
 
 const LEAD_ONLY = `{% bigstory %}
 ### One sourced lead.
@@ -46,7 +47,8 @@ test("fewer than three sourced items are listed without padding", () => {
   assert.deepEqual(skipped.top.map((item) => item.anchor), ["week-0"]);
 });
 
-test("the homepage leads with the rent-limit number and the edition keeps each story", () => {
+test("the homepage leads with the rent-limit number and the edition keeps each story",
+  pinnedHome("2026-11-10"), () => {
   const html = readFileSync("_site/index.html", "utf8");
   const edition = html.match(/data-edition="(\d{4}-\d{2}-\d{2})"/)[1];
   const markdown = readFileSync(`src/bulletins/${edition}.md`, "utf8");

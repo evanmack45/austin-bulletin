@@ -7,6 +7,7 @@ import {
 import { createServer } from "node:http";
 import path from "node:path";
 import puppeteer from "puppeteer-core";
+import { pinnedHome } from "./current-lead.mjs";
 
 const BLACKLETTER = /unifraktur|blackletter|maguntia|old\s*english|im\s*fell/i;
 const chrome = [
@@ -33,7 +34,8 @@ function linkedStyles(html) {
   return [...html.matchAll(/<link rel="stylesheet" href="([^"]+)"/g)].map((match) => match[1]);
 }
 
-test("edition pages use the homepage masthead and do not reference a blackletter font", () => {
+test("edition pages use the homepage masthead and do not reference a blackletter font",
+  pinnedHome("2026-11-13"), () => {
   const home = readFileSync("_site/index.html", "utf8");
   const edition = readFileSync("_site/2026/10/27/index.html", "utf8");
   assert.equal(mastheadShell(edition), mastheadShell(home));

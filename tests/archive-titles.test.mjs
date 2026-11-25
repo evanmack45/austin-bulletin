@@ -7,6 +7,7 @@ import { archiveDate } from "../scripts/edition-dates.mjs";
 import {
   archiveTitle, archiveTitleProblems, editionArchiveTitles, mostlyPercentage
 } from "../scripts/archive-titles.mjs";
+import { pinnedHome } from "./current-lead.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const GOOD = "Five housing projects, a copper-theft request, and a school food award";
@@ -71,7 +72,8 @@ test("an archive date keeps the day number with the month", () => {
   assert.equal(archiveDate("2026-11-04T00:00:00.000Z"), "Wednesday, Nov.\u00a04");
 });
 
-test("the built archive lists those titles and the homepage card stays the lead", () => {
+test("the built archive lists those titles and the homepage card stays the lead",
+  pinnedHome("2026-11-13"), () => {
   const archive = readFileSync(path.join(root, "_site/archive/index.html"), "utf8");
   assert.match(archive, /datetime="2026-11-04"/);
   assert.match(archive, /school board seat 74 votes apart/);

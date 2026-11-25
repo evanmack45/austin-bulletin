@@ -16,7 +16,6 @@ const MONTHS = ["Jan.", "Feb.", "Mar.", "Apr.", "May", "Jun.",
   "Jul.", "Aug.", "Sep.", "Oct.", "Nov.", "Dec."];
 
 const raw = JSON.parse(readFileSync(new URL("./weekItems.json", import.meta.url), "utf8"));
-const editionCards = JSON.parse(readFileSync(new URL("./editionCardData.json", import.meta.url), "utf8"));
 
 function dateLabel(iso) {
   const [, month, day] = iso.split("-").map(Number);
@@ -42,47 +41,29 @@ for (const item of items) {
 
 const placed = pins.map((pin) => ({ ...pin, count: pin.items.length }));
 
-const HOME_LABELS = {
-  "county-court-weighs-197-million-in-borrowing-for-2027-projects": ["Vote record", "Meeting video"]
-};
-
-function homeSources(card) {
-  const sources = Array.isArray(card.sources) ? card.sources : [];
-  const labels = HOME_LABELS[card.id];
-  if (!labels) return sources;
-  return sources.map((source, index) => {
-    const label = labels[index] || source.shortLabel || source.label;
-    return { ...source, label, shortLabel: label };
-  });
-}
-
-const outcomes = (editionCards["2026-11-10"]?.cards || [])
-  .filter((card) => Number.isInteger(card.outcome))
-  .sort((a, b) => a.outcome - b.outcome)
-  .map((card) => {
-    const sources = homeSources(card);
-    // Homepage only. The edition headline still carries "4-0". A non-breaking
-    // hyphen keeps the tally in the mark from splitting the way a headline wrap did.
-    const kaskade = card.id === "kaskade-origin-permit";
-    const glyph = kaskade ? "4\u20110" : (card.glyph?.value || "");
-    return {
-      id: card.id,
-      headline: kaskade ? "Kaskade permit approved" : (card.headline || ""),
-      topic: glyph ? "" : (card.topic || ""),
-      glyph,
-      glyphLabel: glyph ? (card.glyph?.qualifier || "") : "",
-      text: card.homeDek || "",
-      // A long label cannot share a phone line with the next source. Stack
-      // that row so the separator is not left at the end of a line.
-      stackSources: sources.some((source) => String(source.label || "").length > 24),
-      sources
-    };
-  });
+// Homepage outcome marks come from homeOutcomes.json, refreshed with each edition.
+const homeOutcomes = JSON.parse(readFileSync(new URL("./homeOutcomes.json", import.meta.url), "utf8"));
+const outcomes = (homeOutcomes.items || []).map((item) => {
+  const sources = Array.isArray(item.sources) ? item.sources : [];
+  return {
+    id: item.id,
+    headline: item.headline || "",
+    topic: item.glyph ? "" : (item.topic || ""),
+    glyph: item.glyph || "",
+    glyphLabel: item.glyph ? (item.glyphLabel || "") : "",
+    text: item.text || "",
+    // A long label cannot share a phone line with the next source. Stack
+    // that row so the separator is not left at the end of a line.
+    stackSources: sources.some((source) => String(source.label || "").length > 24),
+    sources
+  };
+});
 
 export default {
   heading: "This week",
   items,
   outcomes,
+  outcomesLabel: homeOutcomes.label || "",
   pins: placed,
   pinsJson: JSON.stringify(placed),
   chicagoToday,

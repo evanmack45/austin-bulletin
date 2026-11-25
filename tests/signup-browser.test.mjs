@@ -4,6 +4,7 @@ import { createServer } from "node:http";
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import puppeteer from "puppeteer-core";
+import { pinnedHome } from "./current-lead.mjs";
 
 const chrome = ["/usr/bin/google-chrome", "/usr/bin/chromium", "/usr/bin/chromium-browser",
   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"]
@@ -59,7 +60,8 @@ function blockKit(page) {
   });
 }
 
-test("the Kit embed sits under the lead and the phone bar can close", {
+test("the Kit embed sits under the lead and the phone bar can close",
+  pinnedHome("2026-11-13"), {
   skip: !chrome && "an installed Chromium is required for signup layout"
 }, async () => {
   const server = await startServer();

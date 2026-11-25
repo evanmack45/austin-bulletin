@@ -302,6 +302,9 @@ export default function (eleventyConfig) {
   });
 
   eleventyConfig.addFilter("isoDate", isoDate);
+  // Newest edition that has card data, so the homepage follows each new edition.
+  eleventyConfig.addFilter("latestCardEdition", (bulletins, cardData) =>
+    (bulletins || []).find((b) => cardData?.[isoDate(b.date)]?.cards?.some((c) => c.lead)) || null);
   eleventyConfig.addFilter("shortMonthDay", shortMonthDay);
   eleventyConfig.addFilter("editionYear", (value) => new Date(value).getUTCFullYear());
   eleventyConfig.addFilter("archiveDate", archiveDate);

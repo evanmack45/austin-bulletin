@@ -1,0 +1,37 @@
+{
+  "label": "Nov. 19 council",
+  "items": [
+    {
+      "id": "nov19-boardwalk",
+      "glyph": "$25M",
+      "glyphLabel": "from TxDOT",
+      "headline": "Butler Trail boardwalk funding accepted",
+      "text": "No city match. South bank of Lady Bird Lake, next to the Hyatt Regency (items 11, 52).",
+      "sources": [{ "label": "Action notes", "url": "https://services.austintexas.gov/council_meetings/action_notes.cfm?mid=1528" }]
+    },
+    {
+      "id": "nov19-long-center",
+      "glyph": "+$23M",
+      "glyphLabel": "arts grants",
+      "headline": "Long Center grant contract raised to $123M",
+      "text": "It runs the City's hotel-tax-funded cultural grants (item 35, consent).",
+      "sources": [{ "label": "Action notes", "url": "https://services.austintexas.gov/council_meetings/action_notes.cfm?mid=1528" }]
+    },
+    {
+      "id": "nov19-hornsby-bend",
+      "glyph": "$55.3M",
+      "glyphLabel": "two contracts",
+      "headline": "Hornsby Bend plant upgrades approved",
+      "text": "Matous Construction: up to $22.4M for headworks and $32.9M for ammonia removal (items 14, 15).",
+      "sources": [{ "label": "Action notes", "url": "https://services.austintexas.gov/council_meetings/action_notes.cfm?mid=1528" }]
+    },
+    {
+      "id": "nov19-postponed",
+      "glyph": "2",
+      "glyphLabel": "postponed",
+      "headline": "Two zoning cases move to Dec. 3",
+      "text": "North Prosper Center covenant and Howard Plaza rezoning (items 90, 91).",
+      "sources": [{ "label": "Action notes", "url": "https://services.austintexas.gov/council_meetings/action_notes.cfm?mid=1528" }]
+    }
+  ]
+}
