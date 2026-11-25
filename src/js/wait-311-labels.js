@@ -42,6 +42,13 @@ function rowLabels(add, DATA, prep) {
     const code = minutesCode(g.medianDays * 1440);
     add("rows", "", "is-rowtick", (geo) => [xOf(geo, code), top(geo) - geo.rowsH + 0.004, 0]);
   });
+  // One shared time axis under the block.
+  const n = DATA.rowKeys.length;
+  for (const [label, minutes] of TICKS) {
+    const el = add("rows", label, "is-tick",
+      (geo) => [xOf(geo, minutesCode(minutes)), geo.top - n * geo.rowsH - 0.03, 0]);
+    el._wideOnly = label === "1 wk";
+  }
 }
 
 function ringLabels(add, DATA, prep) {
@@ -115,17 +122,17 @@ export function districtPlan(DATA, prep, v) {
   const rows = DATA.groups[group].byDistrict;
   const text = (d) => (rows[d - 1].closed ? fmtDays(rows[d - 1].medianDays) : "–");
   const list = rows.map((x) => ({ d: x.district, value: x.closed ? x.medianDays : null }));
-  // Vehicles: the slowest and fastest districts; on a phone only the slowest, beside the
-  // slowest-patch label.
+  // Vehicles: the slowest and fastest districts.
   if (v.scene === "vehicles") {
-    return { key: "vehicles", text, only: ends(list).slice(0, v.narrow ? 1 : 2) };
+    return { key: "vehicles", text, only: ends(list) };
   }
   // Your wait: only the chosen district is labeled; "All of Austin" leaves the map bare.
   return { key: `you:${group}`, text, only: [v.focus[2]] };
 }
 
 export function createLabels(container, DATA, prep) {
-  const sets = { districts: [], axis: [], rows: [], rings: [], places: [], tower: [], vtop: [] };
+  const sets = { districts: [], axis: [], rows: [], rings: [], places: [], tower: [], vtop: [],
+    stop: [] };
   const add = (set, html, cls, pos) => {
     const el = document.createElement("div");
     el.className = `w3-lbl ${cls}`; el.innerHTML = html; el._pos = pos;
@@ -192,7 +199,8 @@ export function createLabels(container, DATA, prep) {
     const show = { districts: ["vehicles", "you", "terrain"].includes(v.scene),
       axis: v.scene === "hist", rows: v.scene === "rows", rings: v.scene === "rings",
       places: v.scene === "color",
-      tower: v.scene === "hero" && v.clock >= 1, vtop: v.scene === "vehicles" };
+      tower: v.scene === "hero" && v.clock >= 1, vtop: v.scene === "vehicles",
+      stop: v.scene === "terrain" };
     for (const [set, els] of Object.entries(sets)) {
       placeSet(els, show[set] && v.settled, toScreen, geo, v);
     }
@@ -206,9 +214,13 @@ export function createLabels(container, DATA, prep) {
   // The slowest abandoned-vehicle patch, so its height isn't read as a district's.
   const setVehicleTop = (top, pos) => {
     const wait = top.days > 60 ? `about ${Math.round(top.days / 30)} months` : fmtDays(top.days);
-    add("vtop", `One patch: <b>${wait}</b> typical wait`, "is-tower", fixed(pos));
+    add("vtop", `Slowest patch: <b>${wait}</b> typical wait`, "is-tower", fixed(pos));
+  };
+  const setShareTop = (top, pos) => {
+    const pct = Math.round(top.share * 100);
+    add("stop", `Tallest: <b>${pct}%</b> took more than a week`, "is-tower", fixed(pos));
   };
   const guessEl = sets.axis.find((el) => el.classList.contains("is-guess"));
   const setGuess = (code) => { guessEl._code = code ?? null; };
-  return { place, setGuess, setTower, setVehicleTop };
+  return { place, setGuess, setTower, setVehicleTop, setShareTop };
 }

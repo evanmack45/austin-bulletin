@@ -7,11 +7,11 @@ import { HEX_VERT, HEX_FRAG } from "./wait-311-shaders.js";
 const SLOW = minutesCode(7 * 1440);  // a closed request that took more than a week
 const MIN_COUNT = 3;                 // smaller hexagons are left out of the mesh
 // Slow-request columns show a share, so they need enough closed requests to mean something.
-// Flat at 10% or less of them taking over a week, full height at 40% or more.
-export const RATE_MIN = 30, RATE_LO = 0.1, RATE_HI = 0.4;
-// Vehicle columns show a median wait, from 3 days (flat) to 60 days (full height).
+// Height runs from 0 to the largest share, with no cap.
+export const RATE_MIN = 30;
+// Vehicle columns show a median wait on a log scale, from 3 days (flat) to the slowest patch.
 export const VEH_MIN = 5;
-const VEH_LO = minutesCode(3 * 1440), VEH_HI = minutesCode(60 * 1440);
+const VEH_LO = minutesCode(3 * 1440);
 const SQ3 = Math.sqrt(3);
 
 /** Axial coordinates of the pointy-top hexagon holding (x, y). */
@@ -91,31 +91,37 @@ export function tallest(bins, r) {
 
 /** Share of a hexagon's closed requests that took more than a week (0 if too few). */
 export const slowShare = (b) => (b.closed >= RATE_MIN ? b.slow / b.closed : 0);
-/** Column height for a median vehicle wait code: 3 days flat, 60 days full. */
-export const vehHeight = (c) => Math.max(0.03, (c - VEH_LO) / (VEH_HI - VEH_LO));
+/** Column height for a median vehicle wait code: 3 days flat, the slowest patch (hi) full. */
+export const vehHeight = (c, hi) => Math.max(0.03, (c - VEH_LO) / (hi - VEH_LO));
+const vehMedian = (b) => median(b.vehHist, b.veh);
+
+/** The patch with the largest slow share, for a label. */
+export function topShare(bins, r) {
+  const bin = bins.reduce((a, b) => (slowShare(b) > slowShare(a) ? b : a));
+  return { share: slowShare(bin), center: centerOf(bin.q, bin.s, r) };
+}
 
 /** The patch whose abandoned-vehicle reports waited longest (median), for a label. */
 export function slowestVehicle(bins, r) {
   const ok = bins.filter((b) => b.veh >= VEH_MIN);
   if (!ok.length) return null;
-  const med = (b) => median(b.vehHist, b.veh);
-  const bin = ok.reduce((a, b) => (med(b) > med(a) ? b : a));
-  const c = med(bin);
-  return { days: codeMinutes(c) / 1440, n: bin.veh, h: Math.min(1, vehHeight(c)),
+  const bin = ok.reduce((a, b) => (vehMedian(b) > vehMedian(a) ? b : a));
+  return { code: vehMedian(bin), days: codeMinutes(vehMedian(bin)) / 1440, n: bin.veh,
     center: centerOf(bin.q, bin.s, r) };
 }
 
 export function hexMesh(bins, r) {
   const maxTotal = Math.max(...bins.map((b) => b.total));
+  const maxShare = topShare(bins, r).share || 1;
+  const vehTop = slowestVehicle(bins, r)?.code ?? LEVELS;
   const byte = (x) => Math.round(Math.max(0, Math.min(1, x)) * 255);
   const code = (hist, n) => byte(median(hist, n) / LEVELS);
   const m = { pos: [], shade: [], cum: [], hex: [] };
   for (const b of bins) {
     let c = 0;
     const cum = [...b.months].map((v) => Math.round(((c += v) / maxTotal) * 65535));
-    const share = (slowShare(b) - RATE_LO) / (RATE_HI - RATE_LO);
-    const h = { cum, slow: byte(share), code: code(b.slowHist, b.slow),
-      veh: b.veh >= VEH_MIN ? byte(vehHeight(median(b.vehHist, b.veh))) : 0,
+    const h = { cum, slow: byte(slowShare(b) / maxShare), code: code(b.slowHist, b.slow),
+      veh: b.veh >= VEH_MIN ? byte(vehHeight(vehMedian(b), vehTop)) : 0,
       vehCode: code(b.vehHist, b.veh) };
     const [cx, cy] = centerOf(b.q, b.s, r);
     pushPrism(m, h, cx, cy, r * 0.88);

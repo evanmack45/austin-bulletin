@@ -113,8 +113,6 @@ test("district labels: vehicles show extremes; your wait only your district", as
   const rows = wait.groups[vehicle].byDistrict.toSorted((a, b) => a.medianDays - b.medianDays);
   const veh = districtPlan(DATA, prep, { scene: "vehicles", focus: [0, 0, 0] });
   assert.deepEqual(veh.only, [rows.at(-1).district, rows[0].district]);
-  const phone = districtPlan(DATA, prep, { scene: "vehicles", narrow: true });
-  assert.deepEqual(phone.only, [rows.at(-1).district]);
   assert.equal(veh.text(rows.at(-1).district), `${rows.at(-1).medianDays.toFixed(1)} days`);
   assert.deepEqual(districtPlan(DATA, prep, { scene: "you", focus: [1, 0, 0] }).only, [0]);
   assert.deepEqual(districtPlan(DATA, prep, { scene: "you", focus: [1, 0, 4] }).only, [4]);
@@ -128,9 +126,10 @@ test("district labels: vehicles show extremes; your wait only your district", as
 test("vehicle columns rise with the median wait; slow columns show a share", async () => {
   const { vehHeight, slowShare, RATE_MIN } = await import("../src/js/wait-311-hex.js");
   const { minutesCode } = await import("../src/js/wait-311-core.js");
-  assert.ok(vehHeight(minutesCode(2 * 1440)) <= 0.03);
-  assert.ok(Math.abs(vehHeight(minutesCode(60 * 1440)) - 1) < 0.02);
-  assert.ok(vehHeight(minutesCode(29 * 1440)) > vehHeight(minutesCode(14 * 1440)));
+  const hi = minutesCode(190 * 1440);
+  assert.ok(vehHeight(minutesCode(2 * 1440), hi) <= 0.03);
+  assert.equal(vehHeight(hi, hi), 1);
+  assert.ok(vehHeight(minutesCode(29 * 1440), hi) > vehHeight(minutesCode(14 * 1440), hi));
   assert.equal(slowShare({ closed: RATE_MIN - 1, slow: 10 }), 0);
   assert.equal(slowShare({ closed: 100, slow: 21 }), 0.21);
 });

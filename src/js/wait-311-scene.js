@@ -1,7 +1,7 @@
 // The scroll-driven scenes of /austin-311-wait/: state, transitions, the hero
 // time-lapse clock and the per-frame point uniforms.
 import { createRenderer } from "./wait-311-gl.js";
-import { binHexes, hexMesh, hexPass, slowestVehicle, tallest } from "./wait-311-hex.js";
+import { binHexes, hexMesh, hexPass, slowestVehicle, tallest, topShare } from "./wait-311-hex.js";
 import { BINS } from "./wait-311-prep.js";
 import { createView, lerpCam } from "./wait-311-view.js";
 import { createLabels } from "./wait-311-labels.js";
@@ -81,7 +81,7 @@ function step(st, now, ctx) {
   if (st.playing) {
     const p = (now - st.playStart) / PLAY_MS;
     st.clock = Math.min(1.2, p);
-    if (p >= 1.2) { st.playing = false; ctx.root.classList.add("is-played"); }
+    if (p >= 1.2) { st.playing = false; ctx.root.classList.add("is-played", "has-played"); }
     ctx.updateHud(st.clock);
     busy = true;
   }
@@ -123,7 +123,9 @@ export function run(ctx) {
     const top = tallest(bins, DATA.hexR);
     labels.setTower(top.bin, [...top.center, HEX_H]);
     const veh = slowestVehicle(bins, DATA.hexR);
-    if (veh) labels.setVehicleTop(veh, [...veh.center, HEX_H * COL_SCALE * veh.h]);
+    if (veh) labels.setVehicleTop(veh, [...veh.center, HEX_H * COL_SCALE]);
+    const share = topShare(bins, DATA.hexR);
+    labels.setShareTop(share, [...share.center, HEX_H * COL_SCALE]);
     request();
   });
   ctx.updateHud = createHud(ctx.hud, DATA, prep, ctx.data.slot);
@@ -175,7 +177,8 @@ export function run(ctx) {
   }
   function play() {
     if (reduce.matches) {
-      st.clock = 1.2; ctx.updateHud(st.clock); root.classList.add("is-played"); request(); return;
+      st.clock = 1.2; ctx.updateHud(st.clock); root.classList.add("is-played", "has-played");
+      request(); return;
     }
     root.classList.remove("is-played");
     st.playing = true; st.playStart = performance.now(); st.clock = 0; request();
@@ -199,7 +202,7 @@ function wire({ ctx, st, goTo, play, resize, applyFocus, request }) {
   root.classList.add("is-ready");
   ctx.updateHud(st.clock);
   if (getScene() === "hero" || getScene() === "map") play();
-  else { st.clock = 1.2; root.classList.add("is-played"); }
+  else { st.clock = 1.2; root.classList.add("is-played", "has-played"); }
   const setClock = (c) => { st.playing = false; st.clock = c; ctx.updateHud(c); request(); };
   // Exposed for the still-image renderer and tests.
   window.__w3 = { goTo, play, setClock, state: st };

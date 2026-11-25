@@ -107,9 +107,8 @@ void main() {
   if (age < 0.0) vis = 0.0;
   float flash = uClock < 1.05 ? smoothstep(0.012, 0.0, age) : 0.0;
   float code = aMeta.x;
-  // Still open: the long-wait yellow. Duplicates: a gray-blue.
-  vec3 col = code <= 124.0 ? ramp(code)
-    : (code == 126.0 ? vec3(1.0, 0.90, 0.43) : vec3(0.45, 0.58, 0.95));
+  // Still open: white. Duplicates: gray. Neither is on the wait scale.
+  vec3 col = code <= 124.0 ? ramp(code) : (code == 126.0 ? vec3(1.0) : vec3(0.5, 0.54, 0.64));
   vec3 base = vec3(0.62, 0.76, 1.0);
   col = mix(base, col, uColor);
   float focus = 1.0;
@@ -220,12 +219,8 @@ float heightOf(float mode) {
   return 0.55 * (mode < 2.5 ? aHex.x : aHex.z);  // shorter than the hero skyline
 }
 vec3 colorOf(float mode, float h) {
-  if (mode < 1.5) {
-    float t = clamp(sqrt(h) * 1.8, 0.0, 1.0);
-    vec3 lo = vec3(0.12, 0.3, 1.0), mid = vec3(0.3, 0.85, 1.0), hi = vec3(0.95, 0.98, 1.0);
-    return t < 0.5 ? mix(lo, mid, t * 2.0) : mix(mid, hi, t * 2.0 - 1.0);
-  }
-  return vec3(0.95, 0.78, 0.35);  // one material: height carries the number
+  // One material per scene: height carries the number, color carries none.
+  return mode < 1.5 ? vec3(0.45, 0.68, 1.0) : vec3(0.95, 0.78, 0.35);
 }
 void main() {
   float ha = heightOf(uA), hb = heightOf(uB);
