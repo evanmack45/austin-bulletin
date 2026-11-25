@@ -83,3 +83,40 @@ test("a guess reads in whole units and is judged against the median", async () =
   assert.equal(guessVerdict(10, 1), "about 10 times too long");
   assert.equal(guessVerdict(0.25, 1), "about 4 times too short");
 });
+
+test("the verdict uses the guess as shown, not its unrounded slider value", async () => {
+  const { guessDays, guessText, minutesCode } = await import("../src/js/wait-311-core.js");
+  const code = minutesCode(29.3 * 1440);
+  assert.equal(guessText(code), "29 days");
+  assert.equal(guessDays(code), 29);
+  assert.equal(guessDays(minutesCode(180)), 3 / 24);
+});
+
+test("hex bins: every point lands in the hexagon whose center is nearest", async () => {
+  const { hexOf, tallest } = await import("../src/js/wait-311-hex.js");
+  const r = 0.011, center = ([q, s]) => [r * Math.sqrt(3) * (q + s / 2), r * 1.5 * s];
+  for (let i = 0; i < 500; i++) {
+    const p = [Math.sin(i * 12.9898) * 0.5, Math.cos(i * 78.233) * 0.5];
+    const [cx, cy] = center(hexOf(p[0], p[1], r));
+    assert.ok(Math.hypot(p[0] - cx, p[1] - cy) <= r * 1.0001, `point ${i}`);
+  }
+  const top = tallest([{ q: 0, s: 0, total: 2 }, { q: 1, s: -1, total: 9 }], r);
+  assert.equal(top.bin.total, 9);
+});
+
+test("district labels: phones show only the extremes; 3D names slowest, fastest", async () => {
+  const { districtPlan, worldOf } = await import("../src/js/wait-311-labels.js");
+  const vehicle = wait.groups.findIndex((g) => g.key === "vehicle");
+  const DATA = { groups: wait.groups, overWeek: wait.overWeekByDistrict, frame: wait.frame,
+    kmPerUnit: wait.kmPerUnit, mapW: wait.mapW, mapH: wait.mapH };
+  const prep = { groupIndex: { vehicle } };
+  const rows = wait.groups[vehicle].byDistrict.toSorted((a, b) => a.medianDays - b.medianDays);
+  const phone = districtPlan(DATA, prep, { scene: "vehicles", focus: [0, 0, 0], narrow: true });
+  assert.deepEqual(phone.only, [rows.at(-1).district, rows[0].district]);
+  assert.equal(districtPlan(DATA, prep, { scene: "vehicles", narrow: false }).only, null);
+  const ow = wait.overWeekByDistrict.toSorted((a, b) => a.share - b.share);
+  assert.deepEqual(districtPlan(DATA, prep, { scene: "terrain" }).only,
+    [ow.at(-1).district, ow[0].district]);
+  const [x, y] = worldOf(DATA, wait.frame.maxLat, wait.frame.minLon);
+  assert.ok(Math.abs(x + wait.mapW / 2) < 1e-9 && Math.abs(y - wait.mapH / 2) < 1e-9);
+});
