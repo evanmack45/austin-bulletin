@@ -1,0 +1,1036 @@
+{
+  "generated": "2026-11-24",
+  "from": "2025-11-01",
+  "to": "2026-10-31",
+  "dataset": "https://data.austintexas.gov/Utilities-and-City-Services/Austin-311-Public-Data/xwdj-i9he",
+  "total": 273134,
+  "duplicates": 8649,
+  "open": 2538,
+  "noDistrict": 7555,
+  "totalQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27",
+  "statusQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=sr_status_desc%2Ccount%28*%29+as+n&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27&%24group=sr_status_desc&%24order=n+DESC",
+  "methodQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=sr_method_received_desc%2Ccount%28*%29+as+n&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27&%24group=sr_method_received_desc&%24order=n+DESC",
+  "monthQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=date_trunc_ym%28sr_created_date%29+as+month%2Ccount%28*%29+as+n&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27&%24group=month&%24order=month",
+  "methods": [
+    {
+      "method": "Phone",
+      "n": 172310
+    },
+    {
+      "method": "Spot311 Interface",
+      "n": 76500
+    },
+    {
+      "method": "Citizen Web Intake",
+      "n": 17515
+    },
+    {
+      "method": "E-Mail",
+      "n": 3746
+    },
+    {
+      "method": "Mobile Device",
+      "n": 2964
+    },
+    {
+      "method": "Chat",
+      "n": 42
+    },
+    {
+      "method": "Fax",
+      "n": 25
+    },
+    {
+      "method": "Mobile Created",
+      "n": 15
+    },
+    {
+      "method": "Mail",
+      "n": 4
+    },
+    {
+      "method": "Open311",
+      "n": 3
+    },
+    {
+      "method": "Other",
+      "n": 3
+    },
+    {
+      "method": "Web",
+      "n": 2
+    },
+    {
+      "method": "CSR - Follow On SR",
+      "n": 1
+    },
+    {
+      "method": "Field Request",
+      "n": 1
+    },
+    {
+      "method": "Generated in House",
+      "n": 1
+    },
+    {
+      "method": "Voice Mail",
+      "n": 1
+    },
+    {
+      "method": "External Interface",
+      "n": 1
+    }
+  ],
+  "months": [
+    {
+      "month": "2025-11",
+      "n": 19940,
+      "label": "November 2025",
+      "short": "Nov 25"
+    },
+    {
+      "month": "2025-12",
+      "n": 19769,
+      "label": "December 2025",
+      "short": "Dec 25"
+    },
+    {
+      "month": "2026-01",
+      "n": 20375,
+      "label": "January 2026",
+      "short": "Jan 26"
+    },
+    {
+      "month": "2026-02",
+      "n": 20021,
+      "label": "February 2026",
+      "short": "Feb 26"
+    },
+    {
+      "month": "2026-03",
+      "n": 23614,
+      "label": "March 2026",
+      "short": "Mar 26"
+    },
+    {
+      "month": "2026-04",
+      "n": 24465,
+      "label": "April 2026",
+      "short": "Apr 26"
+    },
+    {
+      "month": "2026-05",
+      "n": 26897,
+      "label": "May 2026",
+      "short": "May 26"
+    },
+    {
+      "month": "2026-06",
+      "n": 26313,
+      "label": "June 2026",
+      "short": "Jun 26"
+    },
+    {
+      "month": "2026-07",
+      "n": 24500,
+      "label": "July 2026",
+      "short": "Jul 26"
+    },
+    {
+      "month": "2026-08",
+      "n": 23282,
+      "label": "August 2026",
+      "short": "Aug 26"
+    },
+    {
+      "month": "2026-09",
+      "n": 21945,
+      "label": "September 2026",
+      "short": "Sep 26"
+    },
+    {
+      "month": "2026-10",
+      "n": 22013,
+      "label": "October 2026",
+      "short": "Oct 26"
+    }
+  ],
+  "fromLabel": "November 1, 2025",
+  "toLabel": "October 31, 2026",
+  "types": [
+    {
+      "key": "garbage",
+      "label": "Trash",
+      "type": "ARR - Garbage",
+      "total": 25049,
+      "closed": 24916,
+      "duplicates": 69,
+      "open": 64,
+      "medianDays": 1.045,
+      "p90Days": 4.097,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27ARR+-+Garbage%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27ARR+-+Garbage%27"
+    },
+    {
+      "key": "code",
+      "label": "Code officer visit",
+      "type": "DSD - Request Code Officer",
+      "total": 24216,
+      "closed": 23008,
+      "duplicates": 0,
+      "open": 1208,
+      "medianDays": 4.144,
+      "p90Days": 40.026,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27DSD+-+Request+Code+Officer%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27DSD+-+Request+Code+Officer%27"
+    },
+    {
+      "key": "parking",
+      "label": "Parking violation",
+      "type": "TPW - Parking Violation Enforcement",
+      "total": 23930,
+      "closed": 23929,
+      "duplicates": 0,
+      "open": 1,
+      "medianDays": 0.078,
+      "p90Days": 0.314,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27TPW+-+Parking+Violation+Enforcement%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27TPW+-+Parking+Violation+Enforcement%27"
+    },
+    {
+      "key": "compost",
+      "label": "Compost",
+      "type": "ARR - Compost",
+      "total": 14796,
+      "closed": 14644,
+      "duplicates": 152,
+      "open": 0,
+      "medianDays": 2.642,
+      "p90Days": 6.773,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27ARR+-+Compost%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27ARR+-+Compost%27"
+    },
+    {
+      "key": "signal",
+      "label": "Traffic signal problem",
+      "type": "TPW - Traffic Signal - Maintenance",
+      "total": 13249,
+      "closed": 9320,
+      "duplicates": 3917,
+      "open": 12,
+      "medianDays": 0.033,
+      "p90Days": 0.83,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27TPW+-+Traffic+Signal+-+Maintenance%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27TPW+-+Traffic+Signal+-+Maintenance%27"
+    },
+    {
+      "key": "bulk",
+      "label": "Bulk items",
+      "type": "ARR - Bulk",
+      "total": 12093,
+      "closed": 12026,
+      "duplicates": 42,
+      "open": 25,
+      "medianDays": 8.844,
+      "p90Days": 23.17,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27ARR+-+Bulk%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27ARR+-+Bulk%27"
+    },
+    {
+      "key": "recycling",
+      "label": "Recycling",
+      "type": "ARR - Recycling",
+      "total": 11720,
+      "closed": 11606,
+      "duplicates": 98,
+      "open": 16,
+      "medianDays": 1.938,
+      "p90Days": 4.742,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27ARR+-+Recycling%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27ARR+-+Recycling%27"
+    },
+    {
+      "key": "vehicle",
+      "label": "Abandoned vehicle",
+      "type": "APD - Vehicle Abatement Report",
+      "total": 9185,
+      "closed": 7319,
+      "duplicates": 1713,
+      "open": 153,
+      "medianDays": 21.204,
+      "p90Days": 69.709,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27APD+-+Vehicle+Abatement+Report%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27APD+-+Vehicle+Abatement+Report%27"
+    },
+    {
+      "key": "dog",
+      "label": "Loose dog",
+      "type": "Animal Protection - Loose Dog",
+      "total": 8857,
+      "closed": 8840,
+      "duplicates": 0,
+      "open": 17,
+      "medianDays": 1.551,
+      "p90Days": 13.604,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27Animal+Protection+-+Loose+Dog%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27Animal+Protection+-+Loose+Dog%27"
+    },
+    {
+      "key": "other",
+      "label": "Other (311 call center)",
+      "type": "311 CC - Other",
+      "total": 6572,
+      "closed": 6569,
+      "duplicates": 0,
+      "open": 3,
+      "medianDays": 0.025,
+      "p90Days": 0.443,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27311+CC+-+Other%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27311+CC+-+Other%27"
+    },
+    {
+      "key": "deadAnimal",
+      "label": "Dead animal pickup",
+      "type": "ARR - Dead Animal Collection",
+      "total": 6396,
+      "closed": 5861,
+      "duplicates": 520,
+      "open": 15,
+      "medianDays": 0.495,
+      "p90Days": 0.897,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27ARR+-+Dead+Animal+Collection%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27ARR+-+Dead+Animal+Collection%27"
+    },
+    {
+      "key": "sickAnimal",
+      "label": "Injured or sick animal",
+      "type": "Animal Protection - Injured/Sick Animal",
+      "total": 6075,
+      "closed": 6075,
+      "duplicates": 0,
+      "open": 0,
+      "medianDays": 0.025,
+      "p90Days": 1.011,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27Animal+Protection+-+Injured%2FSick+Animal%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27Animal+Protection+-+Injured%2FSick+Animal%27"
+    },
+    {
+      "key": "arrGeneral",
+      "label": "Trash and recycling, general",
+      "type": "ARR - General",
+      "total": 5342,
+      "closed": 5342,
+      "duplicates": 0,
+      "open": 0,
+      "medianDays": 0.059,
+      "p90Days": 1.072,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27ARR+-+General%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27ARR+-+General%27"
+    },
+    {
+      "key": "park",
+      "label": "Park grounds",
+      "type": "Park Maintenance - Grounds",
+      "total": 4935,
+      "closed": 4889,
+      "duplicates": 0,
+      "open": 46,
+      "medianDays": 3.047,
+      "p90Days": 25.788,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27Park+Maintenance+-+Grounds%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27Park+Maintenance+-+Grounds%27"
+    },
+    {
+      "key": "brush",
+      "label": "Brush",
+      "type": "ARR - Brush",
+      "total": 4654,
+      "closed": 4568,
+      "duplicates": 23,
+      "open": 63,
+      "medianDays": 7.015,
+      "p90Days": 14.214,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27ARR+-+Brush%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27ARR+-+Brush%27"
+    },
+    {
+      "key": "streetlight",
+      "label": "Streetlight out",
+      "type": "AE Street Light Issue - Address",
+      "total": 4341,
+      "closed": 4234,
+      "duplicates": 73,
+      "open": 34,
+      "medianDays": 0.931,
+      "p90Days": 4.563,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27AE+Street+Light+Issue+-+Address%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27AE+Street+Light+Issue+-+Address%27"
+    },
+    {
+      "key": "tree",
+      "label": "Tree in the right of way",
+      "type": "TPW - Tree Issue Right of Way",
+      "total": 3785,
+      "closed": 3636,
+      "duplicates": 145,
+      "open": 4,
+      "medianDays": 1.867,
+      "p90Days": 17.87,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27TPW+-+Tree+Issue+Right+of+Way%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27TPW+-+Tree+Issue+Right+of+Way%27"
+    },
+    {
+      "key": "obstruction",
+      "label": "Obstruction in the right of way",
+      "type": "TPW - Obstruction in Right of Way",
+      "total": 3411,
+      "closed": 3385,
+      "duplicates": 0,
+      "open": 26,
+      "medianDays": 0.818,
+      "p90Days": 9.251,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27TPW+-+Obstruction+in+Right+of+Way%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27TPW+-+Obstruction+in+Right+of+Way%27"
+    },
+    {
+      "key": "animalHelp",
+      "label": "Animal Protection help",
+      "type": "Animal Protection - Assistance Request",
+      "total": 3333,
+      "closed": 3330,
+      "duplicates": 0,
+      "open": 3,
+      "medianDays": 1.144,
+      "p90Days": 7.997,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27Animal+Protection+-+Assistance+Request%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27Animal+Protection+-+Assistance+Request%27"
+    },
+    {
+      "key": "debris",
+      "label": "Debris in the street",
+      "type": "TPW - Debris in Street",
+      "total": 3255,
+      "closed": 3108,
+      "duplicates": 146,
+      "open": 1,
+      "medianDays": 0.593,
+      "p90Days": 2.009,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27TPW+-+Debris+in+Street%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27TPW+-+Debris+in+Street%27"
+    },
+    {
+      "key": "pothole",
+      "label": "Pothole",
+      "type": "TPW - Pothole Repair",
+      "total": 3129,
+      "closed": 2994,
+      "duplicates": 132,
+      "open": 3,
+      "medianDays": 0.641,
+      "p90Days": 1.67,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27TPW+-+Pothole+Repair%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27TPW+-+Pothole+Repair%27"
+    },
+    {
+      "key": "construction",
+      "label": "Construction in the right of way",
+      "type": "TPW - Construction Concerns in Right of Way",
+      "total": 2635,
+      "closed": 2635,
+      "duplicates": 0,
+      "open": 0,
+      "medianDays": 0.533,
+      "p90Days": 2.489,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27TPW+-+Construction+Concerns+in+Right+of+Way%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27TPW+-+Construction+Concerns+in+Right+of+Way%27"
+    },
+    {
+      "key": "dsdFollowUp",
+      "label": "Code case follow-up",
+      "type": "DSD - Follow-Up",
+      "total": 2540,
+      "closed": 2540,
+      "duplicates": 0,
+      "open": 0,
+      "medianDays": 0.102,
+      "p90Days": 1.689,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27DSD+-+Follow-Up%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27DSD+-+Follow-Up%27"
+    },
+    {
+      "key": "bite",
+      "label": "Animal bite",
+      "type": "Animal Protection - Animal Bite",
+      "total": 2481,
+      "closed": 2480,
+      "duplicates": 0,
+      "open": 1,
+      "medianDays": 1.597,
+      "p90Days": 8.806,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27Animal+Protection+-+Animal+Bite%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27Animal+Protection+-+Animal+Bite%27"
+    },
+    {
+      "key": "music",
+      "label": "Outdoor venue music",
+      "type": "DSD - Outdoor Commercial Venue Music Complaint",
+      "total": 2383,
+      "closed": 2105,
+      "duplicates": 277,
+      "open": 1,
+      "medianDays": 0.754,
+      "p90Days": 0.985,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27DSD+-+Outdoor+Commercial+Venue+Music+Complaint%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27DSD+-+Outdoor+Commercial+Venue+Music+Complaint%27"
+    }
+  ],
+  "districts": [
+    {
+      "district": "1",
+      "total": 34256,
+      "top": [
+        {
+          "type": "TPW - Parking Violation Enforcement",
+          "label": "Parking violation",
+          "n": 3489
+        },
+        {
+          "type": "ARR - Garbage",
+          "label": "Trash",
+          "n": 3201
+        },
+        {
+          "type": "DSD - Request Code Officer",
+          "label": "Code officer visit",
+          "n": 3132
+        }
+      ],
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=sr_type_desc%2Ccount%28*%29+as+n&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_location_council_district%3D%271%27&%24group=sr_type_desc&%24order=n+DESC&%24limit=5"
+    },
+    {
+      "district": "2",
+      "total": 29100,
+      "top": [
+        {
+          "type": "ARR - Garbage",
+          "label": "Trash",
+          "n": 2887
+        },
+        {
+          "type": "DSD - Request Code Officer",
+          "label": "Code officer visit",
+          "n": 2757
+        },
+        {
+          "type": "ARR - Compost",
+          "label": "Compost",
+          "n": 1931
+        }
+      ],
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=sr_type_desc%2Ccount%28*%29+as+n&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_location_council_district%3D%272%27&%24group=sr_type_desc&%24order=n+DESC&%24limit=5"
+    },
+    {
+      "district": "3",
+      "total": 32058,
+      "top": [
+        {
+          "type": "DSD - Request Code Officer",
+          "label": "Code officer visit",
+          "n": 3365
+        },
+        {
+          "type": "TPW - Parking Violation Enforcement",
+          "label": "Parking violation",
+          "n": 3269
+        },
+        {
+          "type": "ARR - Garbage",
+          "label": "Trash",
+          "n": 2045
+        }
+      ],
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=sr_type_desc%2Ccount%28*%29+as+n&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_location_council_district%3D%273%27&%24group=sr_type_desc&%24order=n+DESC&%24limit=5"
+    },
+    {
+      "district": "4",
+      "total": 24161,
+      "top": [
+        {
+          "type": "DSD - Request Code Officer",
+          "label": "Code officer visit",
+          "n": 3770
+        },
+        {
+          "type": "TPW - Parking Violation Enforcement",
+          "label": "Parking violation",
+          "n": 1940
+        },
+        {
+          "type": "ARR - Garbage",
+          "label": "Trash",
+          "n": 1418
+        }
+      ],
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=sr_type_desc%2Ccount%28*%29+as+n&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_location_council_district%3D%274%27&%24group=sr_type_desc&%24order=n+DESC&%24limit=5"
+    },
+    {
+      "district": "5",
+      "total": 26551,
+      "top": [
+        {
+          "type": "ARR - Garbage",
+          "label": "Trash",
+          "n": 3471
+        },
+        {
+          "type": "DSD - Request Code Officer",
+          "label": "Code officer visit",
+          "n": 2275
+        },
+        {
+          "type": "ARR - Compost",
+          "label": "Compost",
+          "n": 1941
+        }
+      ],
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=sr_type_desc%2Ccount%28*%29+as+n&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_location_council_district%3D%275%27&%24group=sr_type_desc&%24order=n+DESC&%24limit=5"
+    },
+    {
+      "district": "6",
+      "total": 12239,
+      "top": [
+        {
+          "type": "ARR - Garbage",
+          "label": "Trash",
+          "n": 1449
+        },
+        {
+          "type": "DSD - Request Code Officer",
+          "label": "Code officer visit",
+          "n": 1235
+        },
+        {
+          "type": "TPW - Traffic Signal - Maintenance",
+          "label": "Traffic signal problem",
+          "n": 952
+        }
+      ],
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=sr_type_desc%2Ccount%28*%29+as+n&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_location_council_district%3D%276%27&%24group=sr_type_desc&%24order=n+DESC&%24limit=5"
+    },
+    {
+      "district": "7",
+      "total": 22828,
+      "top": [
+        {
+          "type": "ARR - Garbage",
+          "label": "Trash",
+          "n": 2206
+        },
+        {
+          "type": "DSD - Request Code Officer",
+          "label": "Code officer visit",
+          "n": 2055
+        },
+        {
+          "type": "TPW - Parking Violation Enforcement",
+          "label": "Parking violation",
+          "n": 1444
+        }
+      ],
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=sr_type_desc%2Ccount%28*%29+as+n&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_location_council_district%3D%277%27&%24group=sr_type_desc&%24order=n+DESC&%24limit=5"
+    },
+    {
+      "district": "8",
+      "total": 19242,
+      "top": [
+        {
+          "type": "ARR - Garbage",
+          "label": "Trash",
+          "n": 2914
+        },
+        {
+          "type": "ARR - Recycling",
+          "label": "Recycling",
+          "n": 1648
+        },
+        {
+          "type": "ARR - Compost",
+          "label": "Compost",
+          "n": 1244
+        }
+      ],
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=sr_type_desc%2Ccount%28*%29+as+n&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_location_council_district%3D%278%27&%24group=sr_type_desc&%24order=n+DESC&%24limit=5"
+    },
+    {
+      "district": "9",
+      "total": 42542,
+      "top": [
+        {
+          "type": "TPW - Parking Violation Enforcement",
+          "label": "Parking violation",
+          "n": 7321
+        },
+        {
+          "type": "DSD - Request Code Officer",
+          "label": "Code officer visit",
+          "n": 3160
+        },
+        {
+          "type": "TPW - Traffic Signal - Maintenance",
+          "label": "Traffic signal problem",
+          "n": 2259
+        }
+      ],
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=sr_type_desc%2Ccount%28*%29+as+n&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_location_council_district%3D%279%27&%24group=sr_type_desc&%24order=n+DESC&%24limit=5"
+    },
+    {
+      "district": "10",
+      "total": 22602,
+      "top": [
+        {
+          "type": "ARR - Garbage",
+          "label": "Trash",
+          "n": 3691
+        },
+        {
+          "type": "ARR - Recycling",
+          "label": "Recycling",
+          "n": 1803
+        },
+        {
+          "type": "ARR - Compost",
+          "label": "Compost",
+          "n": 1637
+        }
+      ],
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=sr_type_desc%2Ccount%28*%29+as+n&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_location_council_district%3D%2710%27&%24group=sr_type_desc&%24order=n+DESC&%24limit=5"
+    }
+  ],
+  "byKey": {
+    "garbage": {
+      "key": "garbage",
+      "label": "Trash",
+      "type": "ARR - Garbage",
+      "total": 25049,
+      "closed": 24916,
+      "duplicates": 69,
+      "open": 64,
+      "medianDays": 1.045,
+      "p90Days": 4.097,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27ARR+-+Garbage%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27ARR+-+Garbage%27"
+    },
+    "code": {
+      "key": "code",
+      "label": "Code officer visit",
+      "type": "DSD - Request Code Officer",
+      "total": 24216,
+      "closed": 23008,
+      "duplicates": 0,
+      "open": 1208,
+      "medianDays": 4.144,
+      "p90Days": 40.026,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27DSD+-+Request+Code+Officer%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27DSD+-+Request+Code+Officer%27"
+    },
+    "parking": {
+      "key": "parking",
+      "label": "Parking violation",
+      "type": "TPW - Parking Violation Enforcement",
+      "total": 23930,
+      "closed": 23929,
+      "duplicates": 0,
+      "open": 1,
+      "medianDays": 0.078,
+      "p90Days": 0.314,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27TPW+-+Parking+Violation+Enforcement%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27TPW+-+Parking+Violation+Enforcement%27"
+    },
+    "compost": {
+      "key": "compost",
+      "label": "Compost",
+      "type": "ARR - Compost",
+      "total": 14796,
+      "closed": 14644,
+      "duplicates": 152,
+      "open": 0,
+      "medianDays": 2.642,
+      "p90Days": 6.773,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27ARR+-+Compost%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27ARR+-+Compost%27"
+    },
+    "signal": {
+      "key": "signal",
+      "label": "Traffic signal problem",
+      "type": "TPW - Traffic Signal - Maintenance",
+      "total": 13249,
+      "closed": 9320,
+      "duplicates": 3917,
+      "open": 12,
+      "medianDays": 0.033,
+      "p90Days": 0.83,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27TPW+-+Traffic+Signal+-+Maintenance%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27TPW+-+Traffic+Signal+-+Maintenance%27"
+    },
+    "bulk": {
+      "key": "bulk",
+      "label": "Bulk items",
+      "type": "ARR - Bulk",
+      "total": 12093,
+      "closed": 12026,
+      "duplicates": 42,
+      "open": 25,
+      "medianDays": 8.844,
+      "p90Days": 23.17,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27ARR+-+Bulk%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27ARR+-+Bulk%27"
+    },
+    "recycling": {
+      "key": "recycling",
+      "label": "Recycling",
+      "type": "ARR - Recycling",
+      "total": 11720,
+      "closed": 11606,
+      "duplicates": 98,
+      "open": 16,
+      "medianDays": 1.938,
+      "p90Days": 4.742,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27ARR+-+Recycling%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27ARR+-+Recycling%27"
+    },
+    "vehicle": {
+      "key": "vehicle",
+      "label": "Abandoned vehicle",
+      "type": "APD - Vehicle Abatement Report",
+      "total": 9185,
+      "closed": 7319,
+      "duplicates": 1713,
+      "open": 153,
+      "medianDays": 21.204,
+      "p90Days": 69.709,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27APD+-+Vehicle+Abatement+Report%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27APD+-+Vehicle+Abatement+Report%27"
+    },
+    "dog": {
+      "key": "dog",
+      "label": "Loose dog",
+      "type": "Animal Protection - Loose Dog",
+      "total": 8857,
+      "closed": 8840,
+      "duplicates": 0,
+      "open": 17,
+      "medianDays": 1.551,
+      "p90Days": 13.604,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27Animal+Protection+-+Loose+Dog%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27Animal+Protection+-+Loose+Dog%27"
+    },
+    "other": {
+      "key": "other",
+      "label": "Other (311 call center)",
+      "type": "311 CC - Other",
+      "total": 6572,
+      "closed": 6569,
+      "duplicates": 0,
+      "open": 3,
+      "medianDays": 0.025,
+      "p90Days": 0.443,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27311+CC+-+Other%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27311+CC+-+Other%27"
+    },
+    "deadAnimal": {
+      "key": "deadAnimal",
+      "label": "Dead animal pickup",
+      "type": "ARR - Dead Animal Collection",
+      "total": 6396,
+      "closed": 5861,
+      "duplicates": 520,
+      "open": 15,
+      "medianDays": 0.495,
+      "p90Days": 0.897,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27ARR+-+Dead+Animal+Collection%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27ARR+-+Dead+Animal+Collection%27"
+    },
+    "sickAnimal": {
+      "key": "sickAnimal",
+      "label": "Injured or sick animal",
+      "type": "Animal Protection - Injured/Sick Animal",
+      "total": 6075,
+      "closed": 6075,
+      "duplicates": 0,
+      "open": 0,
+      "medianDays": 0.025,
+      "p90Days": 1.011,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27Animal+Protection+-+Injured%2FSick+Animal%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27Animal+Protection+-+Injured%2FSick+Animal%27"
+    },
+    "arrGeneral": {
+      "key": "arrGeneral",
+      "label": "Trash and recycling, general",
+      "type": "ARR - General",
+      "total": 5342,
+      "closed": 5342,
+      "duplicates": 0,
+      "open": 0,
+      "medianDays": 0.059,
+      "p90Days": 1.072,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27ARR+-+General%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27ARR+-+General%27"
+    },
+    "park": {
+      "key": "park",
+      "label": "Park grounds",
+      "type": "Park Maintenance - Grounds",
+      "total": 4935,
+      "closed": 4889,
+      "duplicates": 0,
+      "open": 46,
+      "medianDays": 3.047,
+      "p90Days": 25.788,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27Park+Maintenance+-+Grounds%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27Park+Maintenance+-+Grounds%27"
+    },
+    "brush": {
+      "key": "brush",
+      "label": "Brush",
+      "type": "ARR - Brush",
+      "total": 4654,
+      "closed": 4568,
+      "duplicates": 23,
+      "open": 63,
+      "medianDays": 7.015,
+      "p90Days": 14.214,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27ARR+-+Brush%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27ARR+-+Brush%27"
+    },
+    "streetlight": {
+      "key": "streetlight",
+      "label": "Streetlight out",
+      "type": "AE Street Light Issue - Address",
+      "total": 4341,
+      "closed": 4234,
+      "duplicates": 73,
+      "open": 34,
+      "medianDays": 0.931,
+      "p90Days": 4.563,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27AE+Street+Light+Issue+-+Address%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27AE+Street+Light+Issue+-+Address%27"
+    },
+    "tree": {
+      "key": "tree",
+      "label": "Tree in the right of way",
+      "type": "TPW - Tree Issue Right of Way",
+      "total": 3785,
+      "closed": 3636,
+      "duplicates": 145,
+      "open": 4,
+      "medianDays": 1.867,
+      "p90Days": 17.87,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27TPW+-+Tree+Issue+Right+of+Way%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27TPW+-+Tree+Issue+Right+of+Way%27"
+    },
+    "obstruction": {
+      "key": "obstruction",
+      "label": "Obstruction in the right of way",
+      "type": "TPW - Obstruction in Right of Way",
+      "total": 3411,
+      "closed": 3385,
+      "duplicates": 0,
+      "open": 26,
+      "medianDays": 0.818,
+      "p90Days": 9.251,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27TPW+-+Obstruction+in+Right+of+Way%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27TPW+-+Obstruction+in+Right+of+Way%27"
+    },
+    "animalHelp": {
+      "key": "animalHelp",
+      "label": "Animal Protection help",
+      "type": "Animal Protection - Assistance Request",
+      "total": 3333,
+      "closed": 3330,
+      "duplicates": 0,
+      "open": 3,
+      "medianDays": 1.144,
+      "p90Days": 7.997,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27Animal+Protection+-+Assistance+Request%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27Animal+Protection+-+Assistance+Request%27"
+    },
+    "debris": {
+      "key": "debris",
+      "label": "Debris in the street",
+      "type": "TPW - Debris in Street",
+      "total": 3255,
+      "closed": 3108,
+      "duplicates": 146,
+      "open": 1,
+      "medianDays": 0.593,
+      "p90Days": 2.009,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27TPW+-+Debris+in+Street%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27TPW+-+Debris+in+Street%27"
+    },
+    "pothole": {
+      "key": "pothole",
+      "label": "Pothole",
+      "type": "TPW - Pothole Repair",
+      "total": 3129,
+      "closed": 2994,
+      "duplicates": 132,
+      "open": 3,
+      "medianDays": 0.641,
+      "p90Days": 1.67,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27TPW+-+Pothole+Repair%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27TPW+-+Pothole+Repair%27"
+    },
+    "construction": {
+      "key": "construction",
+      "label": "Construction in the right of way",
+      "type": "TPW - Construction Concerns in Right of Way",
+      "total": 2635,
+      "closed": 2635,
+      "duplicates": 0,
+      "open": 0,
+      "medianDays": 0.533,
+      "p90Days": 2.489,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27TPW+-+Construction+Concerns+in+Right+of+Way%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27TPW+-+Construction+Concerns+in+Right+of+Way%27"
+    },
+    "dsdFollowUp": {
+      "key": "dsdFollowUp",
+      "label": "Code case follow-up",
+      "type": "DSD - Follow-Up",
+      "total": 2540,
+      "closed": 2540,
+      "duplicates": 0,
+      "open": 0,
+      "medianDays": 0.102,
+      "p90Days": 1.689,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27DSD+-+Follow-Up%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27DSD+-+Follow-Up%27"
+    },
+    "bite": {
+      "key": "bite",
+      "label": "Animal bite",
+      "type": "Animal Protection - Animal Bite",
+      "total": 2481,
+      "closed": 2480,
+      "duplicates": 0,
+      "open": 1,
+      "medianDays": 1.597,
+      "p90Days": 8.806,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27Animal+Protection+-+Animal+Bite%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27Animal+Protection+-+Animal+Bite%27"
+    },
+    "music": {
+      "key": "music",
+      "label": "Outdoor venue music",
+      "type": "DSD - Outdoor Commercial Venue Music Complaint",
+      "total": 2383,
+      "closed": 2105,
+      "duplicates": 277,
+      "open": 1,
+      "medianDays": 0.754,
+      "p90Days": 0.985,
+      "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27DSD+-+Outdoor+Commercial+Venue+Music+Complaint%27&%24limit=100000",
+      "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27DSD+-+Outdoor+Commercial+Venue+Music+Complaint%27"
+    }
+  }
+}

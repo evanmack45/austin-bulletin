@@ -1540,3 +1540,27 @@ body:has(article.bulletin) main { max-width: 48rem; }
   white-space: normal;
   max-width: 100%;
 }
+
+/* Data features (/austin-311-response-times/). Tables scroll inside their own box on phones. */
+.data-feature-chart { margin: .75rem 0 1.25rem; }
+.data-feature-chart img { display: block; width: 100%; height: auto; border-radius: 4px; }
+.data-feature-chart figcaption { font-size: .8rem; line-height: 1.45; margin-top: .45rem; color: var(--muted); }
+.data-table-wrap { max-width: 100%; overflow-x: auto; margin: .5rem 0 1.1rem; border: 1px solid var(--rule); border-radius: 4px; }
+.data-table-wrap:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.data-table { width: 100%; border-collapse: collapse; font-size: .9rem; line-height: 1.35; }
+.data-table th, .data-table td { padding: .45rem .6rem; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+.data-table thead th { font-size: .78rem; border-bottom: 2px solid var(--ink); white-space: nowrap; }
+.data-table td { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.data-table td:last-child { white-space: normal; }
+.data-table tbody tr:last-child > * { border-bottom: 0; }
+.data-table tbody th { font-weight: 700; min-width: 9.5rem; }
+.data-table-code { display: block; font-weight: 400; font-size: .74rem; color: var(--muted); margin-top: .1rem; }
+.data-months { display: grid; gap: .3rem; margin: .6rem 0 1.2rem; }
+.data-month { display: grid; grid-template-columns: 3.6rem 1fr 4rem; align-items: center; gap: .5rem; font-size: .85rem; font-variant-numeric: tabular-nums; }
+.data-month-bar { display: block; height: .8rem; width: var(--w); background: var(--ink); border-radius: 2px; }
+.data-month-n { text-align: right; }
+@media (max-width: 600px) {
+  .data-table { font-size: .84rem; }
+  .data-table th, .data-table td { padding: .4rem .45rem; }
+  .data-table tbody th { min-width: 8rem; }
+}

@@ -769,3 +769,12 @@
 #week-list li[hidden] {
   display: none;
 }
+
+/* Evergreen data feature link under the week block. */
+.story-card--feature { border-top: 2px solid var(--ink); }
+.story-card--feature .feature-kicker { margin: 0 0 .25rem; font-size: .8rem; font-weight: 700; color: var(--muted); }
+.story-card--feature .feature-title { margin: 0; font-size: 1.2rem; line-height: 1.3; }
+.story-card--feature .feature-title a { color: inherit; text-underline-offset: .15em; }
+@media (min-width: 1024px) {
+  .home-front .story-card--feature { grid-column: 1 / -1; }
+}

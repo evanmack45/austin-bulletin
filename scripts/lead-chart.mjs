@@ -1,7 +1,8 @@
 // Render a lead bar-chart image pair (1600x1067 desktop, 780x520 phone) as WebP.
 // Usage: node scripts/lead-chart.mjs <spec.json>
 // spec: { out: "src/images/YYYY-MM-DD/name", kicker, bignum, qualifier, headline,
-//         subtitle, bars: [{label, value, n, hi}] }
+//         subtitle, bars: [{label, value, n, hi}], even? }
+// even: true gives every column the same width (for long labels or many bars).
 // Needs a local Chrome (CHROME_PATH, default /usr/bin/google-chrome).
 import { readFile, writeFile, unlink } from "node:fs/promises";
 import puppeteer from "puppeteer-core";
@@ -31,7 +32,10 @@ function html(w, h, scale) {
   .bar.hi{background:#ffc233}
   .v{font-weight:700;font-size:${px(28)};color:#dfe6ee;margin-bottom:${px(10)}}
   .l{font-weight:700;font-size:${px(26)};color:#dfe6ee;margin-top:${px(14)}}
-  .hi.v,.hi.l{color:#ffc233}
+  .hi.v,.hi.l{color:#ffc233}${spec.even ? `
+  .chart{padding:${px(30)} ${px(20)} 0;gap:${px(18)}}
+  .col{flex:1 1 0;min-width:0;width:auto}
+  .l{font-size:${px(24)};text-align:center}` : ""}
   </style></head><body>
   <p class="k">${esc(spec.kicker)}</p><p class="n">${esc(spec.bignum)}</p><p class="q">${esc(spec.qualifier)}</p>
   <p class="h">${esc(spec.headline)}</p><p class="s">${esc(spec.subtitle)}</p>
