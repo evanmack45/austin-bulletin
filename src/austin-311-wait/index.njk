@@ -85,6 +85,15 @@ permalink: "/austin-311-wait/"
       <p class="w3-small">The inset zooms downtown, where the points pile up.</p>
       <p class="w3-sr">Graphic: the same map, colored from dark blue (minutes) through slate (a day) to gold and pale yellow (weeks and months). A square inset at the corner zooms in on downtown.</p>
     </div></li>
+    <li class="w3-plate" aria-label="Illustration">
+      <figure class="w3-plate-fig w3-plate-tickets">
+        <picture>
+          <source media="(max-width: 899px)" srcset="/images/art/wait/tickets-phone-640.webp" width="640" height="576">
+          <img src="/images/art/wait/tickets-1376.webp" srcset="/images/art/wait/tickets-780.webp 780w, /images/art/wait/tickets-1376.webp 1376w" sizes="(min-width: 900px) 64rem, 100vw" width="1376" height="768" loading="lazy" decoding="async" alt="Illustration: a service desk under a lamp, buried in towering stacks of paper request slips and overflowing wire in-trays, with a wall clock and a rubber stamp.">
+        </picture>
+        <figcaption><b>{{ w.total | commas }}</b> requests in a year. Each one is a slip on somebody's desk until it is marked closed.<span class="w3-plate-credit">Illustration: AI-generated for The Austin Bulletin</span></figcaption>
+      </figure>
+    </li>
     <li class="w3-step" data-scene="terrain"><div class="w3-card">
       <p>Now look only at requests that took more than a week to close. The taller the column, the larger the share of a patch's requests that waited that long, from 0 to the tallest, labeled.</p>
       <p class="w3-small">In District {{ owMax.district }}, {{ pct(owMax.overWeek, owMax.closed) }} of closed requests took more than a week; in District {{ owMin.district }}, {{ pct(owMin.overWeek, owMin.closed) }}. Citywide, <b>{{ w.overMonth | commas }}</b> took more than a month to close. Patches with fewer than 30 closed requests stay flat.</p>
@@ -106,6 +115,12 @@ permalink: "/austin-311-wait/"
       <p class="w3-small">Columns run on a log scale from 3 days (flat) to the slowest patch, labeled. By district, the typical wait runs from {{ dur(vMin.medianDays) }} in District {{ vMin.district }} to {{ dur(vMax.medianDays) }} in District {{ vMax.district }}.</p>
       <p class="w3-sr">Graphic: a tilted 3D map of hexagonal columns; each column's height is the median wait of the abandoned-vehicle reports there (patches with 5 or more), with each district's median in days: {% for x in g.vehicle.byDistrict %}District {{ x.district }} {{ x.medianDays | round(1) }}{% if not loop.last %}; {% endif %}{% endfor %}.</p>
     </div></li>
+    <li class="w3-plate" aria-label="Illustration">
+      <figure class="w3-plate-fig">
+        <img src="/images/art/wait/car-1376.webp" srcset="/images/art/wait/car-780.webp 780w, /images/art/wait/car-1376.webp 1376w" sizes="(min-width: 900px) 64rem, 100vw" width="1376" height="768" loading="lazy" decoding="async" alt="Illustration: a dusty cream sedan with flat tires under a live oak on a quiet street, wildflowers growing through its wheels, a bird nesting on its roof and a spiderweb running to a blank street sign.">
+        <figcaption>A typical abandoned-vehicle report took <b>{{ dur(g.vehicle.medianDays) }}</b> to close, the longest of the types shown here.<span class="w3-plate-credit">Illustration: AI-generated for The Austin Bulletin</span></figcaption>
+      </figure>
+    </li>
     <li class="w3-step" data-scene="rings"><div class="w3-card">
       <p>A year as rings, one week per ring from the center out. The thin wedges are weekends.</p>
       <p class="w3-small">An average weekday brought <b>{{ w.days.weekdayAvg | commas }}</b> requests; a weekend day, <b>{{ w.days.weekendAvg | commas }}</b>. The quietest days: {{ shortDate(w.days.quietest[0].date) }} ({{ w.days.quietest[0].count | commas }}) and {{ shortDate(w.days.quietest[1].date) }} ({{ w.days.quietest[1].count | commas }}).</p>
@@ -145,6 +160,10 @@ permalink: "/austin-311-wait/"
 </div>
 
 <section class="w3-after" aria-labelledby="w3-after-title">
+  <figure class="w3-hold">
+    <img src="/images/art/wait/hold-1376.webp" srcset="/images/art/wait/hold-780.webp 780w, /images/art/wait/hold-1376.webp 1376w" sizes="(min-width: 900px) 40rem, 100vw" width="1376" height="768" loading="lazy" decoding="async" alt="Illustration: an old cream desk telephone with its receiver off the hook and a long coiled cord looping across the frame, hourglasses and music notes drifting up from the receiver, a cold mug and a blank calendar beside it.">
+    <figcaption>Illustration: AI-generated for The Austin Bulletin</figcaption>
+  </figure>
   <h2 id="w3-after-title">If your request is taking too long</h2>
   <p>Follow up once it has been open longer than 9 in 10 of its kind: pothole {{ dur(g.pothole.p90Days) }}, trash {{ dur(g.trash.p90Days) }}, bulk items {{ dur(g.bulk.p90Days) }}, abandoned vehicle {{ dur(g.vehicle.p90Days) }}. Call 3-1-1 or 512-974-2000 with your request number, or use the <a href="https://austin-cwiprod.motorolasolutions.com/cwi/select">City’s 311 portal</a>. Call 911 in an emergency.</p>
   <p><a href="/austin-311-response-times/"><b>Read the full analysis: all 25 request types and every district</b></a></p>
