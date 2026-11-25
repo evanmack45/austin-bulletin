@@ -89,7 +89,7 @@ body:has(.w3) { overflow-x: clip; }
 .w3-card .w3-small b { color: #fff; }
 
 /* Hero */
-.w3-hero-step { min-height: 100svh; display: flex; align-items: flex-end; margin-bottom: 30svh; }
+.w3-hero-step { display: block; padding-top: 100svh; margin-bottom: 30svh; }
 .w3-hero { width: 100%; max-width: 40rem; padding: 0 .25rem 2.2rem; }
 .w3-dateline { margin: .7rem 0 0; font-size: .85rem; color: var(--soft); }
 .w3-kicker { margin: 0 0 .2rem; font-size: .75rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--yel); }
@@ -141,7 +141,7 @@ body:has(.w3) { overflow-x: clip; }
     width: min(36rem, calc(36vw - clamp(1.75rem, 2.5vw, 3rem) - 1.25rem));
     margin-bottom: 70vh;
   }
-  .w3-hero-step { align-items: center; margin-bottom: 25vh; }
+  .w3-hero-step { display: flex; align-items: center; min-height: 100svh; padding-top: 0; margin-bottom: 25vh; }
   .w3-hero { max-width: none; width: 100%; padding: 0; }
   .w3-title { font-size: clamp(5rem, 9vw, 8rem); }
   .w3-card {
@@ -229,6 +229,7 @@ body:has(.w3) { overflow-x: clip; }
 .w3-lbl.is-mark-out.is-left { translate: -100% -50%; }
 .w3-lbl.is-mark-out span { color: var(--soft); }
 @media (max-width: 599px) { .w3.is-ready .w3-stage[data-scene="you"] .w3-credit { opacity: 0; } }
+@media (max-width: 899px) { .w3.is-ready .w3-stage[data-scene="hero"] .w3-credit { opacity: 0; } }
 .w3-replay .w3-re, .w3-replay .w3-p { display: none; }
 .w3.has-played .w3-replay .w3-re, .w3.has-played .w3-replay .w3-p { display: inline; }
 .w3.has-played .w3-replay .w3-P { display: none; }

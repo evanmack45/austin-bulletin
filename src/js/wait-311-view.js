@@ -47,9 +47,14 @@ function cameras(DATA, geo) {
     vehicles: { ...terrain, tilt: 0.85, rot: 0.25 }, you: { ...terrain, tilt: 0.6, rot: -0.15 } };
 }
 
+const lerpBox = (a, b, k) => a && b ? {
+  x: a.x + (b.x - a.x) * k, y: a.y + (b.y - a.y) * k,
+  w: a.w + (b.w - a.w) * k, h: a.h + (b.h - a.h) * k,
+} : (a || b);
+
 export const lerpCam = (a, b, k) => ({ t: a.t.map((v, i) => v + (b.t[i] - v) * k),
   tilt: a.tilt + (b.tilt - a.tilt) * k, rot: a.rot + (b.rot - a.rot) * k,
-  w: a.w + (b.w - a.w) * k, h: a.h + (b.h - a.h) * k });
+  w: a.w + (b.w - a.w) * k, h: a.h + (b.h - a.h) * k, safe: lerpBox(a.safe, b.safe, k) });
 
 export function createView(canvas, wide, DATA, prep) {
   const v = { wide, W: 1, H: 1, dpr: 1, safe: { x: 0, y: 0, w: 1, h: 1 }, geo: {}, cams: {} };
@@ -62,9 +67,16 @@ export function createView(canvas, wide, DATA, prep) {
       : { x: W * 0.05, y: H * 0.085, w: W * 0.9, h: H * 0.46 };
     v.geo = geometry(v.safe.w / v.safe.h, prep, DATA.rowKeys.length);
     v.cams = cameras(DATA, v.geo);
-    // On a phone the hero sits a little farther back, so the headline stays below it.
-    const h = v.cams.hero;
-    if (!wide.matches) v.cams.hero = { ...h, w: h.w * 1.15, h: h.h * 1.15 };
+    for (const cam of Object.values(v.cams)) cam.safe = { ...v.safe };
+    // Phone hero fills the first visible screen (below the masthead, above the dek).
+    if (!wide.matches) {
+      const root = canvas.closest(".w3");
+      const fold = root.getBoundingClientRect().top + scrollY;
+      const vis = Math.max(H * 0.55, H - fold), y = H * 0.10;
+      const h = Math.max(H * 0.45, vis - y - H * 0.03);
+      v.cams.hero.w *= 0.7; v.cams.hero.h *= 0.7;
+      v.cams.hero.safe = { x: W * 0.04, y, w: W * 0.92, h };
+    }
   };
   v.insetBox = () => {
     const s = v.safe, side = Math.min(s.w, s.h) * (v.wide.matches ? 0.36 : 0.42);
@@ -74,7 +86,7 @@ export function createView(canvas, wide, DATA, prep) {
   v.sceneCam = (scene) => v.cams[CAM_OF[scene] || "map"];
   /** View and projection for camera c, centered on the safe area by a lens shift. */
   v.matrices = (c, orbit) => {
-    const { W, H, safe } = v, aspect = W / H, tan = Math.tan(FOV / 2);
+    const { W, H } = v, safe = c.safe || v.safe, aspect = W / H, tan = Math.tan(FOV / 2);
     const fitH = c.h / ((safe.h / H) * 2 * tan), fitW = c.w / ((safe.w / W) * aspect * 2 * tan);
     const dist = Math.max(fitH, fitW) * 1.04;
     const ncx = ((safe.x + safe.w / 2) / W) * 2 - 1, ncy = 1 - ((safe.y + safe.h / 2) / H) * 2;

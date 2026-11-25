@@ -17,6 +17,15 @@ const INTENT = ["scroll", "wheel", "pointerdown", "pointermove", "touchstart", "
 const root = typeof document === "undefined" ? null : document.getElementById("w3");
 if (root) start(root);
 
+/** On a phone, the hero copy starts just below the first screen. */
+function padHero(root, wide) {
+  const step = root.querySelector(".w3-hero-step");
+  if (!step) return;
+  if (wide.matches) { step.style.paddingTop = ""; return; }
+  const top = step.getBoundingClientRect().top + scrollY;
+  step.style.paddingTop = `${Math.max(0, innerHeight - top)}px`;
+}
+
 /** Track which caption is active and tell the graphic. */
 function watchSteps(root, stage, wide) {
   const steps = [...root.querySelectorAll(".w3-step")];
@@ -44,7 +53,8 @@ function watchSteps(root, stage, wide) {
   const watch = { rootMargin: "0px 0px -18% 0px", threshold: [0, 1] };
   for (const el of [root, ...steps]) new IntersectionObserver(queue, watch).observe(el);
   addEventListener("scroll", queue, { passive: true });
-  addEventListener("resize", queue);
+  addEventListener("resize", () => { padHero(root, wide); queue(); });
+  padHero(root, wide);
   pickStep();
 }
 
