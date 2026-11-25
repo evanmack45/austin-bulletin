@@ -263,3 +263,24 @@ body:has(.w3) { overflow-x: clip; }
 .w3-inset p { position: absolute; left: 0; top: 0; margin: 0; padding: 2px 7px;
   font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: #fff;
   background: rgba(6, 10, 22, .86); }
+
+/* Illustration plates: opaque paper inserts that scroll over the stage between scenes. */
+.w3-plate { margin: 0 -1rem 88svh; background: #f9efcf; color: #1c2b30; padding: 1.1rem 1rem 1.25rem; }
+.w3-plate-fig { margin: 0 auto; max-width: 64rem; }
+.w3-plate-fig img { display: block; width: 100%; height: auto; }
+.w3-plate-fig figcaption { margin: .7rem auto 0; max-width: 40rem; font: 500 1.02rem/1.4 Hanken, "Helvetica Neue", Arial, sans-serif; text-wrap: pretty; }
+.w3-plate-fig figcaption b { color: #b4430c; }
+.w3-plate-credit { display: block; margin-top: .3rem; font-size: .72rem; letter-spacing: .04em; text-transform: uppercase; color: #5b6b70; }
+.w3-hold { margin: 0 0 1.25rem; max-width: 40rem; }
+.w3-hold img { display: block; width: 100%; height: auto; }
+.w3-hold figcaption { margin-top: .3rem; font-size: .72rem; letter-spacing: .04em; text-transform: uppercase; color: var(--muted, #5b6b70); }
+@media (min-width: 900px) {
+  .w3-plate { width: 100vw; margin: 0 0 70vh calc(-1 * clamp(1.75rem, 2.5vw, 3rem)); padding: 2rem clamp(1.75rem, 4vw, 4rem) 2.25rem; }
+}
+@media (min-width: 900px) {
+  /* The tickets art has a calm empty left half: the caption sits in it. */
+  .w3-plate-tickets { position: relative; }
+  .w3-plate-tickets figcaption { position: absolute; left: 5%; top: 50%; transform: translateY(-50%); width: 34%; max-width: none; margin: 0; color: #f9efcf; font-size: clamp(1.3rem, 2.1vw, 1.9rem); line-height: 1.25; font-weight: 600; }
+  .w3-plate-tickets figcaption b { color: #ffb067; }
+  .w3-plate-tickets .w3-plate-credit { color: #a9c4c6; }
+}

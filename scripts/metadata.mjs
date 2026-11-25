@@ -174,7 +174,18 @@ function storySection(content) {
   return html.match(/<article\b[^>]*class="lead"[^>]*>[\s\S]*?<\/article>/i)?.[0] ?? "";
 }
 
-function imageFor(content, edition) {
+// Share art for feature pages that are not editions: route -> illustration.
+const PAGE_ART = {
+  "/austin-311-wait/": {
+    image: `${SITE_URL}images/art/wait/og-the-wait.jpg`,
+    imageAlt: "Illustration: a silhouetted figure on a cracked curb checks a glowing phone "
+      + "beside a traffic cone and a pothole, a giant clock glowing behind the Austin skyline."
+  }
+};
+
+function imageFor(content, edition, route) {
+  const art = PAGE_ART[route];
+  if (art) return { ...art, card: "summary_large_image" };
   const brand = { image: BRAND_IMAGE, imageAlt: BRAND_ALT };
   if (!edition) return { ...brand, card: "summary" };
   const found = firstImage(leadFigure(content)) || firstImage(storySection(content));
@@ -210,7 +221,7 @@ export function pageMetadata(route, originalTitle, content, description) {
     indexable: normalized !== "/404.html",
     type: dated ? "article" : "website",
     ogType: edition ? "article" : "website",
-    ...imageFor(content, edition),
+    ...imageFor(content, edition, normalized),
     headline: dated ? lead.heading : ""
   };
 }
