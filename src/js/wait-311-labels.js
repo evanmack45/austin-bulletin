@@ -65,8 +65,7 @@ function ringLabels(add, DATA, prep) {
 }
 
 // Landmarks for reading the map; coordinates checked against a street map.
-const PLACES = [["Downtown", 30.2700, -97.7431], ["Lady Bird Lake", 30.2600, -97.7600],
-  ["Airport", 30.1975, -97.6664]];
+const PLACES = [["Downtown", 30.2700, -97.7431], ["Airport", 30.1975, -97.6664]];
 
 /** World position of a latitude/longitude, the inverse of the data script's projection. */
 export function worldOf(DATA, lat, lon) {
@@ -186,7 +185,7 @@ export function createLabels(container, DATA, prep) {
     setDistricts(v);
     const show = { districts: ["vehicles", "you", "terrain"].includes(v.scene),
       axis: v.scene === "hist", rows: v.scene === "rows", rings: v.scene === "rings",
-      places: ["color", "vehicles", "terrain"].includes(v.scene),
+      places: v.scene === "color",
       tower: v.scene === "hero" && v.clock >= 1 };
     for (const [set, els] of Object.entries(sets)) {
       placeSet(els, show[set] && v.settled, toScreen, geo, v);

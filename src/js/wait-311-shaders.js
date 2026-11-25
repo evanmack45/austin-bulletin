@@ -210,7 +210,7 @@ float heightOf(float mode) {
     float f = clamp(uClock, 0.0, 1.0) * 12.0, m = floor(f);
     return mix(month(m), month(min(12.0, m + 1.0)), f - m);
   }
-  return mode < 2.5 ? aHex.x : aHex.z;
+  return mode < 2.5 ? aHex.x : aHex.z * 0.6;
 }
 vec3 colorOf(float mode, float h) {
   if (mode < 1.5) {

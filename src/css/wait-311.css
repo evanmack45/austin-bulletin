@@ -67,7 +67,7 @@ body:has(.w3) { overflow-x: clip; }
 
 /* Legend */
 .w3-legend { position: absolute; left: 50%; top: .8rem; translate: -50% 0; width: min(92vw, 22rem); opacity: 0; transition: opacity .4s ease; pointer-events: none; text-align: center; }
-.w3.is-ready .w3-stage:not([data-scene="hero"]):not([data-scene="map"]) .w3-legend { opacity: 1; }
+.w3.is-ready .w3-stage:not([data-scene="hero"]):not([data-scene="map"]):not([data-scene="rings"]):not([data-scene="end"]) .w3-legend { opacity: 1; }
 .w3-legend-bar { display: block; height: 6px; border-radius: 3px;
   background: linear-gradient(90deg, #2bd9fe 0%, #59f0a8 32%, #ffe66d 57%, #ff8c42 72%, #ff3d6e 82%, #c22bff 92%); }
 .w3-legend-lbls { display: flex; justify-content: space-between; font-size: .75rem; color: var(--soft); margin-top: 3px; }
@@ -189,6 +189,5 @@ body:has(.w3) { overflow-x: clip; }
 .w3-lbl.is-tower { translate: -50% calc(-100% - 10px); padding: 2px 7px; border-radius: 3px; background: rgba(6, 10, 22, .82); color: #fff; font-size: .8rem; white-space: nowrap; }
 .w3-lbl.is-tower b { font-family: Bricolage, Hanken, sans-serif; }
 .w3-lbl.is-row i { font-style: normal; color: var(--soft); font-size: .7rem; margin-left: 4px; }
-.w3.is-ready .w3-stage[data-scene="rings"] .w3-legend, .w3.is-ready .w3-stage[data-scene="end"] .w3-legend { opacity: 0; }
 .w3-stage[data-scene="terrain"] .w3-legend-bar { -webkit-mask: linear-gradient(90deg, rgba(0, 0, 0, .18) 59%, #000 59%); mask: linear-gradient(90deg, rgba(0, 0, 0, .18) 59%, #000 59%); }
 .w3-stage[data-scene="terrain"] .w3-legend-lbls > :nth-child(-n+3) { opacity: .35; }
