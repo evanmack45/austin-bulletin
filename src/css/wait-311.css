@@ -135,19 +135,43 @@ body:has(.w3) { overflow-x: clip; }
 .w3-method a, .w3-hero-meta a { display: inline-block; line-height: 1.5rem; }
 
 @media (min-width: 900px) {
-  .w3-steps { padding: 0 0 0 max(2rem, calc(50vw - 36rem)); }
-  .w3-card { margin: 0; max-width: 23rem; }
-  .w3-step { margin-bottom: 75vh; }
+  /* Left rail: captions and stats fill the column beside the graphic (safe area starts at 36%). */
+  .w3-steps { padding: 0 0 0 clamp(1.75rem, 2.5vw, 3rem); }
+  .w3-step, .w3-hero-step {
+    width: min(36rem, calc(36vw - clamp(1.75rem, 2.5vw, 3rem) - 1.25rem));
+    margin-bottom: 70vh;
+  }
   .w3-hero-step { align-items: center; margin-bottom: 25vh; }
-  .w3-hero { max-width: 30rem; padding: 0; }
+  .w3-hero { max-width: none; width: 100%; padding: 0; }
   .w3-title { font-size: clamp(5rem, 9vw, 8rem); }
+  .w3-card {
+    margin: 0; max-width: none; width: 100%;
+    background: none; border: 0; border-radius: 0; box-shadow: none;
+    -webkit-backdrop-filter: none; backdrop-filter: none; padding: 0;
+    position: sticky; top: max(2rem, 22svh);
+  }
+  .w3-card p {
+    font-size: 1.32rem; line-height: 1.35;
+    text-shadow: 0 1px 16px rgba(5, 8, 15, .92), 0 0 28px rgba(5, 8, 15, .75);
+  }
+  .w3-card .w3-small { font-size: 1.02rem; }
+  .w3-card p b, .w3-card .w3-small b {
+    font-family: Bricolage, Hanken, sans-serif; font-stretch: 85%;
+    font-size: 1.2em; font-weight: 800; color: #fff;
+  }
+  /* Forms keep a panel so controls stay readable. */
+  .w3-guess, .w3-you .w3-card {
+    background: var(--glass); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, .12); border-radius: 12px;
+    padding: 1.1rem 1.2rem; box-shadow: 0 10px 40px rgba(0, 0, 0, .45);
+  }
+  .w3-guess p, .w3-you .w3-card p { text-shadow: none; }
   .w3-hud { left: auto; right: 2rem; top: 1.5rem; text-align: right; }
   .w3-hud-row { justify-content: flex-end; }
   .w3-hud-count { font-size: 2.2rem; }
   .w3-legend { left: auto; right: 2rem; top: auto; bottom: 1.5rem; translate: none; width: 22rem; }
   .w3-lbl { font-size: .8rem; }
   .w3-lbl.is-row { font-size: .82rem; }
-  .w3-card p { font-size: 1.2rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   .w3 *, .w3 *::before, .w3 *::after { transition-duration: 0s !important; animation: none !important; }
