@@ -69,7 +69,7 @@ export function queryUrl({ where = windowWhere, select, group, order, format = "
 
 const quote = (s) => `'${String(s).replace(/'/g, "''")}'`;
 
-function parseCsv(text) {
+export function parseCsv(text) {
   const rows = [];
   let row = [], field = "", inQuotes = false;
   for (let i = 0; i < text.length; i++) {
@@ -107,7 +107,7 @@ export function longDate(iso) {
 }
 
 const round = (n, d = 2) => (n === null ? null : Math.round(n * 10 ** d) / 10 ** d);
-const days = (a, b) => (Date.parse(`${b}Z`) - Date.parse(`${a}Z`)) / 86400000;
+export const days = (a, b) => (Date.parse(`${b}Z`) - Date.parse(`${a}Z`)) / 86400000;
 
 async function main() {
   const fields = "sr_number,sr_type_desc,sr_status_desc,sr_method_received_desc,sr_created_date,sr_closed_date,sr_location_council_district";

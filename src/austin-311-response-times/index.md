@@ -15,6 +15,8 @@ permalink: "/austin-311-response-times/"
 
 **An original Austin Bulletin data analysis. Data: [City of Austin 311 public data]({{ d.dataset }}), every service request created from November 1, 2025 through October 31, 2026, pulled November 24, 2026.** This page measures how long requests stayed open in the City's system. It does not measure whether the work was done well. The City updates the dataset every day, so a live query can differ slightly from the figures here.
 
+**[See this analysis as a visual story →](/austin-311-visual/)**
+
 <figure class="data-feature-chart">
 <picture>
 <source media="(max-width: 700px)" srcset="/images/features/austin-311-response-times-phone-780.webp">

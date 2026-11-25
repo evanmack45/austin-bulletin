@@ -1,0 +1,177 @@
+/* Scroll story: /austin-311-visual/. Sticky stage plus steps; JS sets
+   data-step and data-scene on .sv-stage. Without JS the steps read as text. */
+.sv-sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+.sv-intro { padding: .75rem 0 .5rem; }
+.sv-kicker { margin: 0 0 .25rem; font: 700 .8rem/1.3 Hanken, "Helvetica Neue", Arial, sans-serif; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
+.sv-intro h1 { font-size: clamp(2.4rem, 9vw, 3.6rem); line-height: 1.02; margin: 0 0 .5rem; }
+.sv-dek { font-size: 1.2rem; margin: 0 0 .6rem; }
+.sv-alt { margin: 0; font: 600 .95rem/1.4 Hanken, "Helvetica Neue", Arial, sans-serif; }
+
+.sv {
+  --navy: #0f2a47; --navy-2: #1c3a5c; --slate: #5f7898; --yel: #ffc233; --coral: #ff7a59;
+  --txt: #eef2f7; --soft: #b9c6d6;
+  position: relative;
+  margin: 1.25rem -1.25rem 0;
+  background: var(--navy);
+  color: var(--txt);
+  font-family: Hanken, "Helvetica Neue", Arial, sans-serif;
+}
+.sv b { color: var(--yel); font-weight: 800; }
+.sv-icon { width: 1.15em; height: 1.15em; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; vertical-align: -.2em; }
+
+/* Stage */
+.sv-stage { display: none; }
+.sv.is-live .sv-stage { display: block; position: sticky; top: 0; height: 100vh; height: 100svh; }
+.sv-frame { display: grid; height: 100%; padding: 1rem 1rem 31svh; }
+.sv-scene {
+  grid-area: 1 / 1; margin: 0; min-height: 0; position: relative;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .6rem;
+  opacity: 0; visibility: hidden; transition: opacity .45s ease, visibility 0s linear .45s;
+}
+.sv-stage[data-scene="dots"] .sv-dots,
+.sv-stage[data-scene="clock"] .sv-clock,
+.sv-stage[data-scene="cal"] .sv-cal,
+.sv-stage[data-scene="race"] .sv-race,
+.sv-stage[data-scene="map"] .sv-map { opacity: 1; visibility: visible; transition: opacity .45s ease; }
+
+/* Steps */
+.sv-steps { list-style: none; margin: 0; padding: 1rem 1rem 2rem; }
+.sv-step { margin: 0 0 1rem; }
+.sv-card { background: rgba(9, 26, 46, .95); border: 1px solid rgba(255, 255, 255, .16); border-radius: 8px; padding: .85rem 1rem; box-shadow: 0 6px 24px rgba(0, 0, 0, .35); }
+.sv-lead { margin: 0; font-size: 1.15rem; line-height: 1.38; font-weight: 500; }
+.sv-sub { margin: .35rem 0 0; font-size: .9rem; line-height: 1.4; color: var(--soft); }
+.sv.is-live .sv-steps { position: relative; z-index: 2; margin-top: -100vh; margin-top: -100svh; padding: 0 1rem; }
+.sv.is-live .sv-step { margin: 0 0 88svh; }
+.sv.is-live .sv-step:first-child { padding-top: 76svh; }
+.sv.is-live .sv-step:last-child { margin-bottom: 0; padding-bottom: 24svh; }
+
+/* Dots */
+.sv-big { margin: 0; text-align: center; line-height: 1; }
+.sv-num { display: block; font: 800 clamp(2.8rem, 13vw, 4.6rem)/1 Bricolage, "Helvetica Neue", Arial, sans-serif; color: var(--yel); font-variant-numeric: tabular-nums; }
+.sv-unit { display: block; margin-top: .3rem; font-size: .95rem; color: var(--soft); }
+.sv-dotgrid { display: grid; grid-template-columns: repeat(21, 1fr); gap: 4px; width: min(100%, 22rem); }
+.sv-dot { display: block; aspect-ratio: 1; border-radius: 50%; background: var(--slate); opacity: 0; transform: scale(.3);
+  transition: opacity .3s ease, transform .3s ease, background-color .4s ease; transition-delay: calc(var(--i) * 3ms); }
+.sv-stage[data-scene="dots"] .sv-dot { opacity: 1; transform: none; }
+.sv-stage[data-step="13"] .sv-dotgrid .sv-dot { opacity: .3; transition-delay: 0s; }
+.sv-stage[data-step="13"] .sv-dot.is-dup { opacity: 1; background: var(--yel); transform: scale(1.25); }
+.sv-stage[data-step="13"] .sv-dot.is-open { opacity: 1; background: var(--coral); transform: scale(1.25); }
+.sv-key { margin: 0; font-size: .82rem; color: var(--soft); display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: .3rem .45rem; }
+.sv-key .sv-dot { width: .7rem; opacity: 1; transform: none; transition: none; }
+.sv-key .sv-dot.is-dup { background: var(--yel); }
+.sv-key .sv-dot.is-open { background: var(--coral); margin-left: .35rem; }
+.sv-key-end { display: none; align-items: center; gap: .35rem; margin-left: .35rem; }
+.sv-stage[data-step="13"] .sv-key-end { display: inline-flex; }
+
+/* Clock */
+.sv-dial { width: min(100%, 19rem, 52svh); height: auto; overflow: visible; }
+.sv-dial-track { fill: none; stroke: rgba(255, 255, 255, .1); stroke-width: 18; }
+.sv-tick { stroke: var(--soft); stroke-width: 1.2; opacity: .6; }
+.sv-tick.is-major { stroke-width: 2.2; opacity: 1; }
+.sv-dial-lbl { fill: var(--soft); font-family: Hanken, Arial, sans-serif; font-weight: 600; text-anchor: middle; opacity: .8; }
+.sv-dial-arc { fill: none; stroke: var(--yel); stroke-width: 18; stroke-dasharray: 100; stroke-dashoffset: 100; transition: stroke-dashoffset 1.4s cubic-bezier(.4, 0, .2, 1), stroke .4s; }
+.sv-stage[data-step="2"] .sv-dial-arc { stroke-dashoffset: var(--pothole); }
+.sv-stage[data-step="3"] .sv-dial-arc { stroke-dashoffset: var(--trash); stroke: var(--coral); }
+.sv-dial-center { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; pointer-events: none; }
+.sv-dial-who, .sv-dial-val { grid-area: auto; display: none; }
+.sv-dial-who { font-size: .95rem; color: var(--soft); align-items: center; justify-content: center; gap: .3rem; }
+.sv-dial-val { font-size: 1.05rem; }
+.sv-dial-val b { display: block; font: 800 3.4rem/1 Bricolage, "Helvetica Neue", Arial, sans-serif; }
+.sv-stage[data-step="3"] .sv-dial-val b { color: var(--coral); }
+.sv-stage:not([data-step="3"]) .is-pothole.sv-dial-who, .sv-stage:not([data-step="3"]) .is-pothole.sv-dial-val,
+.sv-stage[data-step="3"] .is-trash.sv-dial-who, .sv-stage[data-step="3"] .is-trash.sv-dial-val { display: flex; flex-direction: column; align-items: center; }
+.sv-dial-who.is-pothole, .sv-dial-who.is-trash { flex-direction: row !important; }
+
+/* Calendar */
+.sv-cal-head { margin: 0; display: grid; text-align: center; font-size: 1rem; min-height: 1.6em; }
+.sv-cal-head > span { grid-area: 1 / 1; display: inline-flex; align-items: center; justify-content: center; gap: .35rem; opacity: 0; transition: opacity .3s; }
+.sv-stage[data-step="4"] .sv-cal-head .is-bulk,
+.sv-stage[data-step="5"] .sv-cal-head .is-vehicle,
+.sv-stage[data-step="6"] .sv-cal-head .is-p90 { opacity: 1; }
+.sv-cal-head .is-p90 b { color: var(--coral); }
+.sv-cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; width: min(100%, 19rem, calc(47svh - 4rem)); }
+.sv-day { position: relative; aspect-ratio: 1; border-radius: 3px; background: rgba(255, 255, 255, .09); overflow: hidden; }
+.sv-day::before, .sv-day::after { content: ""; position: absolute; inset: 0; transform: scaleX(0); transform-origin: left;
+  transition: transform .3s ease; transition-delay: calc(var(--i) * 14ms); }
+.sv-day::before { background: var(--coral); }
+.sv-day::after { background: var(--yel); }
+.sv-day i { position: absolute; right: 3px; bottom: 2px; z-index: 1; font: 700 .62rem/1 Hanken, Arial, sans-serif; font-style: normal; color: #fff; text-shadow: 0 0 2px var(--navy), 0 0 3px var(--navy); }
+.sv-stage[data-step="4"] .sv-day::after { transform: scaleX(var(--b)); }
+.sv-stage[data-step="5"] .sv-day::after, .sv-stage[data-step="6"] .sv-day::after { transform: scaleX(var(--v)); }
+.sv-stage[data-step="6"] .sv-day::before { transform: scaleX(var(--p)); }
+.sv-cal-foot { margin: 0; font-size: .8rem; color: var(--soft); }
+
+/* Race */
+.sv-race-head { margin: 0; font-size: .95rem; color: var(--soft); }
+.sv-lanes { list-style: none; margin: 0; padding: 0; width: min(100%, 26rem); display: grid; gap: .3rem; }
+.sv-lane { display: grid; grid-template-columns: 1fr auto; gap: .15rem .5rem; align-items: baseline; font-size: .85rem; line-height: 1.2; transition: opacity .35s; }
+.sv-lane-name { min-width: 0; }
+.sv-lane-val { font-weight: 700; font-variant-numeric: tabular-nums; opacity: 0; }
+.sv-lane-track { --r: 1.35rem; grid-column: 1 / -1; position: relative; height: var(--r); }
+.sv-lane-track::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 4px; margin-top: -2px; border-radius: 2px; background: rgba(255, 255, 255, .09); }
+.sv-lane-bar { position: absolute; left: 0; top: 50%; height: 6px; margin-top: -3px; width: calc(100% - var(--r) / 2); background: var(--slate); border-radius: 3px; transform: scaleX(0); transform-origin: left; }
+.sv-runner { position: absolute; top: 0; left: 0; width: var(--r); height: var(--r); border-radius: 50%; display: grid; place-items: center; background: var(--txt); color: var(--navy); }
+.sv-runner .sv-icon { width: 72%; height: 72%; stroke-width: 2.1; vertical-align: 0; }
+.sv-stage[data-scene="race"] .sv-lane-bar { transform: scaleX(var(--w)); transition: transform calc(.2s + var(--w) * 3s) linear, background-color .35s; }
+.sv-stage[data-scene="race"] .sv-runner { left: calc((100% - var(--r)) * var(--w)); transition: left calc(.2s + var(--w) * 3s) linear, background-color .35s; }
+.sv-stage[data-scene="race"] .sv-lane-val { opacity: 1; transition: opacity .25s ease calc(.2s + var(--w) * 3s); }
+.sv-stage[data-step="8"] .sv-lane:not(.is-fast), .sv-stage[data-step="9"] .sv-lane:not(.is-slow) { opacity: .32; }
+.sv-stage[data-step="8"] .is-fast .sv-lane-bar, .sv-stage[data-step="8"] .is-fast .sv-runner { background: var(--yel); }
+.sv-stage[data-step="9"] .is-slow .sv-lane-bar, .sv-stage[data-step="9"] .is-slow .sv-runner { background: var(--coral); }
+.sv-stage[data-step="8"] .is-fast .sv-lane-val { color: var(--yel); }
+.sv-stage[data-step="9"] .is-slow .sv-lane-val { color: var(--coral); }
+.sv-race-scale { margin: 0; width: min(100%, 26rem); display: flex; justify-content: space-between; font-size: .72rem; color: var(--soft); }
+
+/* Map */
+.sv-map-head { margin: 0; display: grid; font-size: .95rem; color: var(--soft); text-align: center; }
+.sv-map-head > span { grid-area: 1 / 1; display: inline-flex; align-items: center; justify-content: center; gap: .35rem; transition: opacity .3s; }
+.sv-map-head .is-pothole, .sv-stage[data-step="12"] .sv-map-head .is-vehicle { opacity: 0; }
+.sv-stage[data-step="12"] .sv-map-head .is-pothole { opacity: 1; }
+.sv-mapsvg { width: min(100%, 23rem, calc((69svh - 6.5rem) / 1.25)); height: auto; overflow: visible; }
+.sv-district { fill: color-mix(in oklab, var(--yel) calc(var(--tv) * 100%), var(--navy-2)); stroke: var(--navy); stroke-width: 2; stroke-linejoin: round; transition: fill .7s ease, opacity .4s; }
+.sv-stage[data-step="12"] .sv-district { fill: color-mix(in oklab, var(--yel) calc(var(--tp) * 100%), var(--navy-2)); }
+.sv-stage[data-step="10"] .sv-district:not(.is-max), .sv-stage[data-step="11"] .sv-district:not(.is-min) { opacity: .35; }
+.sv-stage[data-step="10"] .sv-dlabel:not(.is-max), .sv-stage[data-step="11"] .sv-dlabel:not(.is-min) { opacity: .5; }
+.sv-dlabel { transition: opacity .4s; }
+.sv-stage[data-step="10"] .sv-district.is-max, .sv-stage[data-step="11"] .sv-district.is-min { stroke: #fff; stroke-width: 2; }
+.sv-dlabel text { text-anchor: middle; paint-order: stroke; stroke: var(--navy); stroke-linejoin: round; font-family: Hanken, "Helvetica Neue", Arial, sans-serif; }
+.sv-dnum { font-weight: 700; fill: var(--soft); stroke-width: 4px; }
+.sv-dval { font-weight: 800; fill: #fff; stroke-width: 5px; transition: opacity .3s; }
+.sv-dval.is-pothole, .sv-stage[data-step="12"] .sv-dval.is-vehicle { opacity: 0; }
+.sv-stage[data-step="12"] .sv-dval.is-pothole { opacity: 1; }
+.sv-legend { margin: 0; display: flex; align-items: center; gap: .5rem; font-size: .75rem; color: var(--soft); }
+.sv-legend-bar { width: 8rem; height: .6rem; border-radius: 3px; background: linear-gradient(90deg in oklab, var(--navy-2), var(--yel)); }
+
+/* After the story */
+.sv-end { margin: 2.5rem 0 0; }
+.sv-end h2 { font-size: var(--section-head-size); margin: 0 0 .5rem; }
+.sv-cta a { font-weight: 700; }
+.sv-method { margin: 2rem 0 0; padding-top: 1rem; border-top: 2px solid var(--ink); font-size: .85rem; line-height: 1.5; color: var(--muted); }
+.sv-method h2 { font-size: 1.1rem; margin: 0 0 .4rem; color: var(--ink); }
+.sv-method p { margin: 0 0 .6rem; }
+
+@media (min-width: 900px) {
+  .sv { width: min(72rem, calc(100vw - 3rem)); margin: 1.5rem 0 0 calc(50% - min(36rem, 50vw - 1.5rem)); border-radius: 6px;
+    display: grid; grid-template-columns: minmax(16rem, 21rem) 1fr; }
+  .sv.is-live .sv-stage { grid-column: 2; grid-row: 1; height: 100vh; }
+  .sv-frame { padding: 2rem 2rem 2rem 1rem; }
+  .sv.is-live .sv-steps { grid-column: 1; grid-row: 1; margin-top: 0; padding: 0 1rem 0 2rem; }
+  .sv.is-live .sv-step { margin-bottom: 70vh; }
+  .sv.is-live .sv-step:first-child { padding-top: 45vh; }
+  .sv.is-live .sv-step:last-child { padding-bottom: 35vh; }
+  .sv.is-live .sv-card { background: transparent; box-shadow: none; border: 0; border-left: 3px solid rgba(255, 255, 255, .18); border-radius: 0; padding: .3rem 0 .3rem 1rem; opacity: .4; transition: opacity .3s, border-color .3s; }
+  .sv.is-live .sv-step.is-active .sv-card { opacity: 1; border-left-color: var(--yel); }
+  .sv-lead { font-size: 1.3rem; }
+  .sv-dotgrid { width: min(100%, 30rem); gap: 6px; }
+  .sv-dial { width: min(100%, 26rem, 70vh); }
+  .sv-cal-grid { width: min(100%, 22rem, calc(64vh - 5rem)); }
+  .sv-lanes, .sv-race-scale { width: min(100%, 34rem); }
+  .sv-lane { font-size: .95rem; }
+  .sv-lane-track { --r: 1.6rem; }
+  .sv-mapsvg { width: min(100%, 30rem, calc((100vh - 9rem) / 1.25)); }
+  .sv-cal-head, .sv-map-head, .sv-race-head { font-size: 1.1rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sv *, .sv *::before, .sv *::after { transition-duration: 0s !important; transition-delay: 0s !important; animation: none !important; }
+}
