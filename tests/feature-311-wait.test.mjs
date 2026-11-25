@@ -72,3 +72,13 @@ test("the built page has its numbers, a source section and links both ways", () 
     assert.ok(existsSync(`src${m[1]}`), `missing ${m[1]}`);
   }
 });
+
+test("a guess reads in whole units and is judged against the median", async () => {
+  const { guessText, guessVerdict, minutesCode } = await import("../src/js/wait-311.js");
+  assert.equal(guessText(0), "1 minute");
+  assert.equal(guessText(minutesCode(60)), "1 hour");
+  assert.equal(guessText(minutesCode(3 * 1440)), "3 days");
+  assert.equal(guessVerdict(1.2, 1), "close");
+  assert.equal(guessVerdict(10, 1), "about 10 times too long");
+  assert.equal(guessVerdict(0.25, 1), "about 4 times too short");
+});

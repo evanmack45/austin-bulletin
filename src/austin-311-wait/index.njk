@@ -72,6 +72,16 @@ permalink: "/austin-311-wait/"
       <p class="w3-small">{{ pct(w.withinHour, w.closed) }} closed within an hour. {{ pct(w.withinDay, w.closed) }} within a day.</p>
       <p class="w3-sr">Graphic: the same map, colored from cyan (minutes) through yellow (a day) to red and violet (months).</p>
     </div></li>
+    <li class="w3-step" data-scene="color"><div class="w3-card w3-guess">
+      <p>Before the answer: how long do you think a typical request waited to be marked closed?</p>
+      <form class="w3-guess-form" onsubmit="return false">
+        <label for="w3-guess-range">Your guess: <output class="w3-guess-val" for="w3-guess-range">12 hours</output></label>
+        <input id="w3-guess-range" type="range" name="guess" min="0" max="112" step="1" value="0">
+        <span class="w3-guess-scale" aria-hidden="true"><span data-min="1">1 min</span><span data-min="60">1 hr</span><span data-min="1440">1 day</span><span data-min="10080">1 wk</span><span data-min="129600">3 mo.</span></span>
+        <button type="button" class="w3-guess-lock">Lock in my guess</button>
+      </form>
+      <p class="w3-guess-out" aria-live="polite"></p>
+    </div></li>
     <li class="w3-step" data-scene="terrain"><div class="w3-card">
       <p>Now lift every request that waited more than a week. The longer the wait, the higher it floats.</p>
       <p class="w3-small">In District {{ owMax.district }}, {{ pct(owMax.overWeek, owMax.closed) }} of closed requests took more than a week; in District {{ owMin.district }}, {{ pct(owMin.overWeek, owMin.closed) }}. Citywide, <b>{{ w.overMonth | commas }}</b> stayed open more than a month.</p>
@@ -80,6 +90,7 @@ permalink: "/austin-311-wait/"
     <li class="w3-step" data-scene="hist"><div class="w3-card">
       <p>Pour all {{ w.closed | commas }} closed requests into one pile, sorted by wait.</p>
       <p class="w3-small">Half closed within <b>{{ dur(w.overall.medianDays) }}</b>. 1 in 10 took more than <b>{{ dur(w.overall.p90Days) }}</b>.</p>
+      <p class="w3-small w3-guess-result" aria-live="polite" hidden></p>
       <p class="w3-sr">Graphic: a dot distribution on a log time scale from 1 minute to 1 year. It peaks just under a day, with a long tail into months.</p>
     </div></li>
     <li class="w3-step" data-scene="rows"><div class="w3-card">

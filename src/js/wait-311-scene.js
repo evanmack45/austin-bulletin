@@ -162,6 +162,8 @@ export function run(ctx) {
     root.classList.remove("is-played");
     st.playing = true; st.playStart = performance.now(); st.clock = 0; request();
   }
+  labels.setGuess(root._guess);
+  root.addEventListener("w3:guess", () => { labels.setGuess(root._guess); request(); });
   wire({ ctx, st, goTo, play, resize, applyFocus, request });
 }
 

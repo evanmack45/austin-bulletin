@@ -65,3 +65,20 @@ export const shortWait = (days) => (days < 1
   ? `${Math.max(1, Math.round(days * 24))} hr`
   : `${(Math.round(days * 10) / 10).toFixed(1)} d`);
 export const fmtMonth = (iso) => `${MONTHS[Number(iso.slice(5, 7)) - 1]} ${iso.slice(0, 4)}`;
+
+/** A reader's guess (a wait code) in words, rounded the way people guess. */
+export function guessText(code) {
+  const m = codeMinutes(code);
+  const unit = (n, one) => `${n} ${one}${n === 1 ? "" : "s"}`;
+  if (m < 59.5) return unit(Math.max(1, Math.round(m)), "minute");
+  if (m < 1410) return unit(Math.round(m / 60), "hour");
+  return unit(Math.round(m / 1440), "day");
+}
+
+/** How a guess compares with the real median (both in days). */
+export function guessVerdict(guessDays, medianDays) {
+  const r = guessDays / medianDays;
+  if (r <= 1.5 && r >= 1 / 1.5) return "close";
+  const times = Math.round(r >= 1 ? r : 1 / r);
+  return `about ${times} times too ${r >= 1 ? "long" : "short"}`;
+}

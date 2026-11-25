@@ -152,3 +152,21 @@ body:has(.w3) { overflow-x: clip; }
 .w3-credit a { color: inherit; }
 .w3.is-ready .w3-stage:is([data-scene="hero"], [data-scene="map"], [data-scene="color"], [data-scene="terrain"], [data-scene="vehicles"], [data-scene="you"], [data-scene="end"]) .w3-credit { opacity: 1; }
 .w3-labels.is-bare .w3-lbl { display: none; }
+
+/* Guess first */
+.w3-guess-form { display: grid; gap: .45rem; margin-top: .6rem; }
+.w3-guess-form label { font-size: .92rem; color: var(--soft); }
+.w3-guess-val { font: 800 1.15rem/1 Bricolage, Hanken, sans-serif; color: var(--yel); }
+.w3-guess-form input[type="range"] { width: 100%; height: 2rem; accent-color: var(--yel); margin: 0; }
+.w3-guess-scale { position: relative; height: 1.1rem; margin: 0 .55rem; font-size: .75rem; color: var(--soft); }
+.w3-guess-scale span { position: absolute; top: 0; translate: -50% 0; white-space: nowrap; }
+.w3-guess-scale span:first-child { translate: -.55rem 0; }
+.w3-guess-scale span:last-child { translate: calc(-100% + .55rem) 0; }
+.w3-guess-lock { justify-self: start; font: 700 .9rem Hanken, sans-serif; color: #05080f; background: var(--yel); border: 0; border-radius: 999px; padding: .5rem 1rem; cursor: pointer; }
+.w3-guess-lock:disabled { background: transparent; color: var(--soft); border: 1px solid rgba(255, 255, 255, .3); cursor: default; }
+.w3-guess-lock:focus-visible, .w3-guess-form input:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.w3-guess-out:empty, .w3-guess-result[hidden] { display: none; }
+.w3-guess-out { margin-top: .5rem; font-size: .92rem; color: var(--soft); }
+.w3-guess-out b, .w3-guess-result b { color: var(--yel); }
+.w3-lbl.is-guess { translate: -50% -100%; text-align: center; color: var(--yel); font-size: .75rem; font-weight: 700; padding-bottom: 6px; }
+.w3-lbl.is-guess::after { content: ""; position: absolute; left: 50%; top: 100%; height: 30vh; max-height: 14rem; border-left: 2px solid var(--yel); }

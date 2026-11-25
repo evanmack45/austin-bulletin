@@ -2,7 +2,8 @@
 // This file wires the page (scroll steps, the "your wait" form, fallbacks); the
 // graphic lives in wait-311-scene.js and the modules it imports.
 // No WebGL, no DecompressionStream, or a failed load: the page keeps its still images.
-import { decode, districtAt, fmtDays } from "./wait-311-core.js";
+import { codeMinutes, decode, districtAt, fmtDays, guessText, guessVerdict, minutesCode }
+  from "./wait-311-core.js";
 import { prepare } from "./wait-311-prep.js";
 import { run } from "./wait-311-scene.js";
 
@@ -55,6 +56,7 @@ function start(root) {
   root.classList.add("is-live");
   watchSteps(root, stage, wide);
   setupYou(root, DATA);
+  setupGuess(root, DATA);
 
   // An explicit check: no WebGL (or no gzip streams) means the still images stay.
   const gl = canvas.getContext("webgl", { antialias: false, alpha: true,
@@ -91,6 +93,39 @@ function youHtml(group, district) {
     <p>Half of ${what} requests in ${where} were closed within ${fmtDays(s.medianDays)}.
     9 in 10 within <b>${fmtDays(s.p90Days)}</b>.</p>
     <p class="w3-you-n">Based on ${s.closed.toLocaleString("en-US")} closed requests.</p>`;
+}
+
+/** Guess first: the reader commits to a typical wait before the pile reveals it. */
+function setupGuess(root, DATA) {
+  const form = root.querySelector(".w3-guess-form");
+  if (!form) return;
+  const range = form.elements.guess, val = form.querySelector(".w3-guess-val");
+  const lock = form.querySelector(".w3-guess-lock");
+  const out = root.querySelector(".w3-guess-out"), result = root.querySelector(".w3-guess-result");
+  range.value = "60";
+  // Tick labels sit where their times fall on the log scale.
+  for (const tick of form.querySelectorAll("[data-min]")) {
+    tick.style.left = `${(minutesCode(Number(tick.dataset.min)) / Number(range.max)) * 100}%`;
+  }
+  const show = () => { val.textContent = guessText(Number(range.value)); };
+  range.addEventListener("input", () => {
+    show();
+    lock.disabled = false; lock.textContent = "Lock in my guess";
+  });
+  lock.addEventListener("click", () => {
+    const code = Number(range.value), text = guessText(code);
+    const median = DATA.overall.medianDays;
+    const verdict = guessVerdict(codeMinutes(code) / 1440, median);
+    lock.disabled = true; lock.textContent = "Locked";
+    out.innerHTML = `Locked: <b>${text}</b>. Keep scrolling for the answer.`;
+    result.innerHTML = verdict === "close"
+      ? `You guessed <b>${text}</b>. That's close.`
+      : `You guessed <b>${text}</b>, ${verdict}. Half were closed within ${fmtDays(median)}.`;
+    result.hidden = false;
+    root._guess = code;
+    root.dispatchEvent(new CustomEvent("w3:guess"));
+  });
+  show();
 }
 
 /** The "your wait" form. Works without WebGL; tells the graphic what to highlight. */

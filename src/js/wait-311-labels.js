@@ -29,6 +29,9 @@ function axisLabels(add, DATA) {
   const med = minutesCode(DATA.overall.medianDays * 1440);
   add("axis", `Half closed within <b>${fmtDays(DATA.overall.medianDays)}</b>`, "is-median",
     (g) => [xOf(g, med), g.bottom + 0.86, 0]);
+  const guess = add("axis", "Your guess", "is-guess",
+    (g) => [xOf(g, guess._code), g.bottom + 0.6, 0]);
+  guess._code = null;
   add("axis", `Still open<br><b>${DATA.open.toLocaleString("en-US")}</b>`, "is-open",
     (g) => [g.left + (BINS + 2) * g.binW, g.bottom - 0.04, 0]);
 }
@@ -101,7 +104,7 @@ export function createLabels(container, DATA, prep) {
   let districtText = "vehicles";
   const sizes = new Map();
   const sizeOf = (el) => {
-    if (!sizes.has(el)) sizes.set(el, [el.offsetWidth + 4, el.offsetHeight + 2]);
+    if (!sizes.has(el)) sizes.set(el, [el.offsetWidth + 10, el.offsetHeight + 4]);
     return sizes.get(el);
   };
 
@@ -125,8 +128,9 @@ export function createLabels(container, DATA, prep) {
     const at = on ? els.map((el) => toScreen(el._pos(geo))) : [];
     if (on && els[0]?._d) spread(at, els.map(sizeOf));
     els.forEach((el, i) => {
-      el.classList.toggle("is-on", on);
-      if (on) moveTo(el, at[i]);
+      const shown = on && el._code !== null;
+      el.classList.toggle("is-on", shown);
+      if (shown) moveTo(el, at[i]);
       if (el._d) el.classList.toggle("is-focus", v.scene === "you" && v.focus[2] === el._d);
     });
   };
@@ -145,5 +149,7 @@ export function createLabels(container, DATA, prep) {
     }
     placePin(toScreen, v);
   };
-  return { place };
+  const guessEl = sets.axis.find((el) => el.classList.contains("is-guess"));
+  const setGuess = (code) => { guessEl._code = code ?? null; };
+  return { place, setGuess };
 }
