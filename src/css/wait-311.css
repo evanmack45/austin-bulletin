@@ -230,6 +230,25 @@ body:has(.w3) { overflow-x: clip; }
 .w3-lbl.is-mark-out span { color: var(--soft); }
 @media (max-width: 599px) { .w3.is-ready .w3-stage[data-scene="you"] .w3-credit { opacity: 0; } }
 @media (max-width: 899px) { .w3.is-ready .w3-stage[data-scene="hero"] .w3-credit { opacity: 0; } }
+/* Phone fold: a quiet name and scroll cue, so the first screen still says what this is. */
+.w3-foldtitle { display: none; }
+@media (max-width: 899px) {
+  .w3-foldtitle {
+    display: block; position: absolute; left: 0; right: 0; bottom: .65rem;
+    margin: 0; text-align: center; pointer-events: none; z-index: 2;
+    font: 800 1.1rem/1 Bricolage, Hanken, sans-serif; font-stretch: 80%;
+    color: #fff; text-shadow: 0 1px 14px rgba(5, 8, 15, .95), 0 0 22px rgba(5, 8, 15, .7);
+    opacity: 0; transition: opacity .35s ease;
+  }
+  .w3.is-foldtitle-ready .w3-stage[data-scene="hero"] .w3-foldtitle { opacity: 1; }
+  .w3.is-foldtitle-off .w3-foldtitle { opacity: 0; }
+  .w3-foldtitle .w3-cue {
+    display: block; margin: .4rem 0 0; font: 700 .75rem/1 Hanken, sans-serif;
+    letter-spacing: .2em; text-transform: uppercase; color: var(--soft);
+    text-shadow: 0 1px 10px rgba(5, 8, 15, .9);
+  }
+  .w3-foldtitle .w3-cue::after { margin: .3rem auto 0; }
+}
 .w3-replay .w3-re, .w3-replay .w3-p { display: none; }
 .w3.has-played .w3-replay .w3-re, .w3.has-played .w3-replay .w3-p { display: inline; }
 .w3.has-played .w3-replay .w3-P { display: none; }
