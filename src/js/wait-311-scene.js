@@ -10,15 +10,15 @@ const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 const LAYOUT = { hero: 0, map: 0, color: 0, terrain: 1, hist: 2, rows: 3, vehicles: 4, rings: 5,
   you: 6, end: 0 };
 const BASE_A = { hero: 0.7, map: 1, color: 0.75, terrain: 0.6, hist: 0, rows: 0, vehicles: 0.6,
-  rings: 0, you: 0.6, end: 0.8 };
+  rings: 0, you: 0.6, end: 0.7 };
 // Hex columns: 1 = running count (hero), 2 = took more than a week (terrain),
 // 3 = abandoned vehicles, colored by their median wait.
-const HEX_MODE = { hero: 1, terrain: 2, vehicles: 3 };
+const HEX_MODE = { hero: 1, terrain: 2, vehicles: 3, end: 1 };
 const HEX_H = 0.42;             // the tallest column, in map heights
 const MAP_LIKE = [0, 1, 4, 6];
 const ORBIT_MS = 12000;         // terrain and vehicles turn slowly for this long, then hold
 const PLAY_MS = 11000;          // the hero time-lapse of the year
-const colorFor = (scene) => (scene === "hero" || scene === "map" ? 0 : 1);
+const colorFor = (scene) => (["hero", "map", "end", "rings"].includes(scene) ? 0 : 1);
 const blend = (f, a, b, k) => f(a) * (1 - k) + f(b) * k;
 
 /** Dot size (px at the reference distance), brightness and highlight lift. */

@@ -38,7 +38,8 @@ function rowLabels(add, DATA, prep) {
   DATA.rowKeys.forEach((key, i) => {
     const g = DATA.groups[prep.groupIndex[key]];
     const top = (geo) => geo.top - i * geo.rowsH;
-    add("rows", `${g.label} <b>${fmtDays(g.medianDays)}</b>`, "is-row",
+    const n = `<i>${g.closed.toLocaleString("en-US")} closed</i>`;
+    add("rows", `${g.label} <b>${fmtDays(g.medianDays)}</b> ${n}`, "is-row",
       (geo) => [geo.left, top(geo) - 0.004, 0]);
     const code = minutesCode(g.medianDays * 1440);
     add("rows", "", "is-rowtick", (geo) => [xOf(geo, code), top(geo) - geo.rowsH + 0.004, 0]);

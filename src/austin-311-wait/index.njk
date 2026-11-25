@@ -101,8 +101,8 @@ permalink: "/austin-311-wait/"
     </div></li>
     <li class="w3-step" data-scene="vehicles"><div class="w3-card">
       <p>Abandoned vehicles wait longest, and longest in <b>District {{ vMax.district }}</b>: {{ dur(vMax.medianDays) }}.</p>
-      <p class="w3-small">In District {{ vMin.district }}: {{ dur(vMin.medianDays) }}.</p>
-      <p class="w3-sr">Graphic: only abandoned-vehicle reports, raised by their wait, with each district's median in days: {% for x in g.vehicle.byDistrict %}District {{ x.district }} {{ x.medianDays | round(1) }}{% if not loop.last %}; {% endif %}{% endfor %}.</p>
+      <p class="w3-small">In District {{ vMin.district }}: {{ dur(vMin.medianDays) }}. Each column counts abandoned-vehicle reports; its color is their typical wait.</p>
+      <p class="w3-sr">Graphic: a tilted 3D map of hexagonal columns of abandoned-vehicle reports, colored by their median wait, with each district's median in days: {% for x in g.vehicle.byDistrict %}District {{ x.district }} {{ x.medianDays | round(1) }}{% if not loop.last %}; {% endif %}{% endfor %}.</p>
     </div></li>
     <li class="w3-step" data-scene="rings"><div class="w3-card">
       <p>A year as rings. Each ring is one week, from the center out; each week starts at the top and runs clockwise, Monday to Sunday.</p>
@@ -135,7 +135,7 @@ permalink: "/austin-311-wait/"
       </div>
     </div></li>
     <li class="w3-step" data-scene="end"><div class="w3-card">
-      <p>“Closed” is the City’s word for done. It doesn’t always mean fixed.</p>
+      <p>The whole year again, stacked into towers. “Closed” is the City’s word for done. It doesn’t always mean fixed.</p>
       <p class="w3-small">{{ w.duplicates | commas }} requests were duplicates. {{ w.open | commas }} were still open when we pulled the data.</p>
     </div></li>
   </ol>

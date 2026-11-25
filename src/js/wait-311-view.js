@@ -5,7 +5,7 @@ import { BINS } from "./wait-311-prep.js";
 
 const FOV = (32 * Math.PI) / 180;
 const CAM_OF = { hero: "hero", map: "map", color: "map", terrain: "terrain", hist: "pile",
-  rows: "pile", vehicles: "vehicles", rings: "ring", you: "you", end: "map" };
+  rows: "pile", vehicles: "vehicles", rings: "ring", you: "you", end: "hero" };
 
 // Dots fill a bin's width in as many columns as keep the pile under its height.
 const fillFor = (binW) => (count, height) => {
