@@ -15,6 +15,8 @@ permalink: "/austin-311-wait/"
 {%- set rowKeys = ["signal", "parking", "pothole", "trash", "recycling", "compost", "code", "brush", "bulk", "vehicle"] -%}
 {%- set vd = g.vehicle.byDistrict | sort(false, false, "medianDays") -%}
 {%- set vMin = vd | first -%}{%- set vMax = vd | last -%}
+{%- set ow = w.overWeekByDistrict | sort(false, false, "share") -%}
+{%- set owMin = ow | first -%}{%- set owMax = ow | last -%}
 <link rel="stylesheet" href="/css/wait-311.css">
 <script type="application/json" id="w3-data">{{ {
   src: "/data/311-wait.bin.gz", marks: [{ date: w.days.quietest[0].date, label: "Thanksgiving" }, { date: w.days.quietest[1].date, label: "Christmas" }], basemap: "/images/features/311-wait/basemap.webp", from: w.from, to: w.to, mapW: w.mapW, mapH: w.mapH, frame: w.frame,
@@ -55,7 +57,7 @@ permalink: "/austin-311-wait/"
       <header class="w3-hero">
         <h1 class="w3-title">The Wait</h1>
         <p class="w3-hero-num">{{ w.total | commas }}</p>
-        <p class="w3-hero-dek">times in one year, someone asked Austin to fix something. Each light is one of them, arriving in the order it came in.</p>
+        <p class="w3-hero-dek">times in one year, someone asked Austin to fix something. Half were marked closed within {{ dur(w.overall.medianDays) }}{% if w.overYear %}; {{ w.overYear | commas }} waited more than a year{% endif %}. Each light is one request, arriving when it came in.</p>
         <p class="w3-dateline">Austin 311 requests, {{ shortDate(w.from) }}, to {{ shortDate(w.to) }}</p>
         <p class="w3-hero-meta"><button type="button" class="w3-replay">Replay the year</button> <a href="/austin-311-response-times/">Read it as text</a></p>
         <p class="w3-cue" aria-hidden="true">Scroll</p>
@@ -72,7 +74,7 @@ permalink: "/austin-311-wait/"
     </div></li>
     <li class="w3-step" data-scene="terrain"><div class="w3-card">
       <p>Now lift every request that waited more than a week. The longer the wait, the higher it floats.</p>
-      <p class="w3-small"><b>{{ w.overMonth | commas }}</b> stayed open more than a month. <b>{{ w.overQuarter | commas }}</b>, more than three.</p>
+      <p class="w3-small">In District {{ owMax.district }}, {{ pct(owMax.overWeek, owMax.closed) }} of closed requests took more than a week; in District {{ owMin.district }}, {{ pct(owMin.overWeek, owMin.closed) }}. Citywide, <b>{{ w.overMonth | commas }}</b> stayed open more than a month.</p>
       <p class="w3-sr">Graphic: a tilted 3D map. Requests closed within a week stay on the ground; slower ones float above it in red and violet.</p>
     </div></li>
     <li class="w3-step" data-scene="hist"><div class="w3-card">
@@ -82,7 +84,7 @@ permalink: "/austin-311-wait/"
     </div></li>
     <li class="w3-step" data-scene="rows"><div class="w3-card">
       <p>Every problem runs on its own clock.</p>
-      <p class="w3-small">A pothole: <b>{{ dur(g.pothole.medianDays) }}</b>. Bulk items: <b>{{ dur(g.bulk.medianDays) }}</b>. An abandoned vehicle: <b>{{ dur(g.vehicle.medianDays) }}</b>.</p>
+      <p class="w3-small">A pothole: <b>{{ dur(g.pothole.medianDays) }}</b>. Bulk items: <b>{{ dur(g.bulk.medianDays) }}</b>. An abandoned vehicle: <b>{{ dur(g.vehicle.medianDays) }}</b>. Each row is scaled to fit; the white tick is its median.</p>
       <p class="w3-sr">Graphic: one dot pile per problem, fastest first. Medians: {% for k in rowKeys %}{{ g[k].label }} {{ dur(g[k].medianDays) }}{% if not loop.last %}; {% endif %}{% endfor %}.</p>
     </div></li>
     <li class="w3-step" data-scene="vehicles"><div class="w3-card">

@@ -8,6 +8,10 @@ import { run } from "./wait-311-scene.js";
 
 export * from "./wait-311-core.js";
 
+// The 1 MB of data and the GPU work wait for the reader's first scroll, touch, key or
+// mouse move, so the page paints and answers input first. The poster shows meanwhile.
+const INTENT = ["scroll", "wheel", "pointerdown", "pointermove", "touchstart", "keydown"];
+
 const root = typeof document === "undefined" ? null : document.getElementById("w3");
 if (root) start(root);
 
@@ -60,9 +64,22 @@ function start(root) {
   const ctx = { root, stage, canvas, gl, DATA, reduce, wide,
     labels: root.querySelector(".w3-labels"), hud: root.querySelector(".w3-hud"),
     getScene: () => stage.dataset.scene };
-  load(DATA.src)
+  onIntent(root, () => load(DATA.src)
     .then(async (data) => run({ ...ctx, data, prep: await prepare(data, DATA) }))
-    .catch((err) => { console.warn("wait-311:", err); fallback(root, "load-failed"); });
+    .catch((err) => { console.warn("wait-311:", err); fallback(root, "load-failed"); }));
+}
+
+function onIntent(root, begin) {
+  let started = false;
+  const go = () => {
+    if (started) return;
+    started = true;
+    for (const type of INTENT) removeEventListener(type, go);
+    begin();
+  };
+  for (const type of INTENT) addEventListener(type, go, { passive: true });
+  root.querySelector(".w3-replay")?.addEventListener("click", go);
+  if (scrollY > 0) go();
 }
 
 function youHtml(group, district) {

@@ -189,6 +189,12 @@ export async function build311Wait({ csv } = {}) {
     quietest: [...dayList].sort((a, b) => a.count - b.count).slice(0, 3).map(({ date, count }) => ({ date, count })),
     busiest: [...dayList].sort((a, b) => b.count - a.count).slice(0, 3).map(({ date, count }) => ({ date, count }))
   };
+  // Share of each district's closed requests that took more than a week.
+  const overWeekByDistrict = Array.from({ length: 10 }, (_, j) => {
+    const list = recs.filter((r) => r.district === j + 1 && r.waitDays !== null);
+    const overWeek = list.filter((r) => r.waitDays > 7).length;
+    return { district: j + 1, closed: list.length, overWeek, share: round(overWeek / list.length, 4) };
+  });
   const outlines = geo.features.map((f) => ({
     district: Number(f.properties.district_number),
     rings: f.geometry.coordinates.map((poly) => simplify(poly[0].map(([lon, lat]) => proj.fn(lon, lat)), 0.0012)
@@ -204,7 +210,8 @@ export async function build311Wait({ csv } = {}) {
     closed: closedAll.length, duplicates: recs.filter((r) => r.code === DUP).length, open: recs.filter((r) => r.code === OPEN).length,
     overall: stats([...closedAll]),
     withinHour: within(1 / 24), withinDay: within(1), withinWeek: within(7), overMonth: closedAll.length - within(30),
-    overQuarter: closedAll.length - within(91), longestDays: round(longest, 1),
+    overQuarter: closedAll.length - within(91), overYear: closedAll.length - within(365),
+    overWeekByDistrict, longestDays: round(longest, 1),
     hours, days: days7, busiestHour: hours.indexOf(Math.max(...hours)), quietestHour: hours.indexOf(Math.min(...hours)),
     groups, byKey: Object.fromEntries(groups.map((x) => [x.key, x])), frame, mapW: round(proj.w, 4), mapH: round(proj.h, 4), outlines,
     bytes: { raw: buf.length, gzip: gz.length }, slotMinutes: SLOT, grid: GRID, levels: LEVELS,

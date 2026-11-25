@@ -47,10 +47,10 @@ body:has(.w3) { overflow-x: clip; }
 .w3-lbl.is-rowtick { width: 2px; height: 10px; background: #fff; translate: -1px -100%; border-radius: 1px; box-shadow: 0 0 0 1px rgba(5, 8, 15, .8); }
 .w3-lbl.is-hour { translate: -50% -50%; }
 .w3-lbl.is-ringdate { translate: -50% -100%; font-size: .75rem; }
-.w3-lbl.is-mark { padding-left: 10px; translate: -4px -50%; color: #fff; font-size: .75rem; }
-.w3-lbl.is-mark::before { content: ""; position: absolute; left: 0; top: 50%; width: 7px; height: 7px; margin-top: -4px; border: 1.5px solid #fff; border-radius: 50%; }
-.w3-lbl.is-mark.is-left { padding: 0 10px 0 0; translate: calc(-100% + 4px) -50%; }
-.w3-lbl.is-mark.is-left::before { left: auto; right: 0; }
+.w3-lbl.is-mark { translate: 6px 3px; padding: 1px 5px; border-radius: 3px; background: rgba(6, 10, 22, .82); color: #fff; font-size: .75rem; }
+.w3-lbl.is-mark::before { content: ""; position: absolute; left: -9.5px; top: -6.5px; width: 7px; height: 7px; border: 1.5px solid #fff; border-radius: 50%; box-sizing: border-box; }
+.w3-lbl.is-mark.is-left { translate: calc(-100% - 6px) calc(-100% - 3px); }
+.w3-lbl.is-mark.is-left::before { left: auto; top: auto; right: -9.5px; bottom: -6.5px; }
 .w3-lbl.is-ringdate:not(.is-outer) { translate: -50% -50%; text-align: center; white-space: normal; width: 3.5rem; }
 .w3-lbl { z-index: 1; }
 .w3-lbl.is-pin { z-index: 0;  width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; border: 2px solid #fff; background: var(--yel); box-shadow: 0 0 0 4px rgba(255, 230, 109, .3); opacity: 1; }

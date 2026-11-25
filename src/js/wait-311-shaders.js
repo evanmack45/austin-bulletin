@@ -47,7 +47,7 @@ vec4 place(float id) {
     // Only waits past about a week rise, so the slow places stand up as spikes.
     // In the terrain, requests closed within a week stay on the ground, dimmed.
     float z = uRise * pow(clamp((wn - 0.7) / 0.3, 0.0, 1.0), 1.5);
-    float ground = (id < 1.5 && z <= 0.0) ? 0.3 : 1.0;
+    float ground = (id < 1.5 && z <= 0.0) ? 0.12 : 1.0;
     return vec4(aMap, z, located ? ground : 0.0);
   }
   if (id < 2.5) { // the pile of every request by wait
