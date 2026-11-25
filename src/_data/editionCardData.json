@@ -1001,5 +1001,171 @@
         ]
       }
     ]
+  },
+  "2026-11-25": {
+    "cards": [
+      {
+        "id": "thanksgiving-weekend-crashes",
+        "lead": true,
+        "section": "news",
+        "label": "Bulletin original",
+        "bignum": "126",
+        "qualifier": "crashes, Thanksgiving weekend 2025",
+        "headline": "Holiday weekend crashes are down from 2021",
+        "deck": "Austin had 126 crashes over Thanksgiving weekend 2025, down from 175 in 2021.",
+        "summary": "Over the last five holiday weekends, 6 people died and 22 were seriously hurt in Austin crashes.",
+        "showSummary": true,
+        "sourceLine": true,
+        "chartKicker": "Crashes, Wednesday–Sunday of Thanksgiving week",
+        "chartTitle": "Crashes, Wednesday–Sunday of Thanksgiving week",
+        "chartAlt": "Bar chart: Crashes in Austin from the Wednesday through the Sunday of Thanksgiving week: 175 in 2021, 156 in 2022, 115 in 2023, 130 in 2024 and 126 in 2025.",
+        "bars": [
+          {
+            "label": "2021",
+            "value": "175",
+            "p": 100.0
+          },
+          {
+            "label": "2022",
+            "value": "156",
+            "p": 89.1
+          },
+          {
+            "label": "2023",
+            "value": "115",
+            "p": 65.7
+          },
+          {
+            "label": "2024",
+            "value": "130",
+            "p": 74.3
+          },
+          {
+            "label": "2025",
+            "value": "126",
+            "p": 72.0,
+            "hi": true
+          }
+        ],
+        "method": [
+          "These are crashes inside Austin's full-purpose city limits from 12 a.m. on the Wednesday before Thanksgiving through the end of that Sunday, counted from the City's crash-level records. Deaths and suspected serious injuries are summed from the same records: 1, 3, 1, 1 and 0 deaths, and 3, 3, 5, 6 and 5 serious injuries, 2021 to 2025. Records can still change.",
+          "Source: City of Austin, Austin Crash Report Data (y2wy-tgr5), as of Nov. 25, 2026."
+        ],
+        "sources": [
+          {
+            "label": "City dataset y2wy-tgr5",
+            "url": "https://data.austintexas.gov/d/y2wy-tgr5"
+          }
+        ]
+      },
+      {
+        "id": "vela-resigns-district-4",
+        "section": "news",
+        "icon": "bank",
+        "topic": "District 4",
+        "headline": "Vela announces District 4 resignation",
+        "summary": "Austin politicians are eyeing Sarah Eckhardt's state Senate seat. The City must call a special election for District 4.",
+        "sources": [
+          {
+            "label": "Austin Chronicle",
+            "url": "https://www.austinchronicle.com/news/the-weeks-biggest-news-in-brief-nov-19-24/"
+          }
+        ]
+      },
+      {
+        "id": "prop-g-delays-dogs-head-vote",
+        "section": "news",
+        "glyph": {
+          "value": "2028",
+          "qualifier": "earliest vote"
+        },
+        "headline": "Prop G delays a Dog's Head vote",
+        "summary": "More than 63% of voters approved Prop G, which moves petition elections to even-year Novembers.",
+        "sources": [
+          {
+            "label": "Austin Current",
+            "url": "https://austincurrent.org/2026/11/24/dogshead-development-austin-citycouncil-amazon/"
+          }
+        ]
+      },
+      {
+        "id": "travis-county-287g",
+        "section": "news",
+        "icon": "shield",
+        "topic": "Travis County",
+        "signupBreak": true,
+        "headline": "Travis County signs a limited ICE agreement",
+        "summary": "The sheriff chose the warrant service model: one jail officer serves civil immigration warrants. The deadline was Dec. 1.",
+        "sources": [
+          {
+            "label": "Austin Chronicle",
+            "url": "https://www.austinchronicle.com/news/the-weeks-biggest-news-in-brief-nov-19-24/"
+          }
+        ]
+      },
+      {
+        "id": "city-closed-thanksgiving",
+        "section": "notices",
+        "icon": "calendar-blank",
+        "topic": "City services",
+        "headline": "City offices close Thursday and Friday",
+        "summary": "Thursday trash, recycling and compost pickups move to Friday, and Friday's to Saturday. Parks stay open.",
+        "sources": [
+          {
+            "label": "City of Austin",
+            "url": "https://www.austintexas.gov/communications/news/city-austin-closures-thanksgiving-2026"
+          }
+        ]
+      },
+      {
+        "id": "capmetro-thanksgiving-service",
+        "section": "notices",
+        "icon": "bus",
+        "topic": "CapMetro",
+        "headline": "Buses run a reduced Sunday schedule Thursday",
+        "summary": "No rail, UT, Night Owl, Express or Pickup service on Thanksgiving. Friday runs Sunday service, with Pickup.",
+        "sources": [
+          {
+            "label": "CapMetro",
+            "url": "https://www.capmetro.org/alerts/Active-Service-Alerts/2026-holiday-service-schedule"
+          }
+        ]
+      },
+      {
+        "id": "shelter-pie-challenge",
+        "section": "good",
+        "icon": "people",
+        "topic": "Animal Services",
+        "headline": "Shelter chief takes pies for adoptions",
+        "summary": "The challenge counts adoptions, fosters and reunions through Tuesday. The shelter is closed Thursday and Friday.",
+        "sources": [
+          {
+            "label": "Axios Austin",
+            "url": "https://www.axios.com/local/austin/2026/11/25/4-pies-in-face-for-pet-adoptions"
+          },
+          {
+            "label": "City closures",
+            "url": "https://www.austintexas.gov/communications/news/city-austin-closures-thanksgiving-2026"
+          }
+        ]
+      },
+      {
+        "id": "sunny-cool-thanksgiving",
+        "section": "good",
+        "icon": "sun",
+        "glyph": {
+          "value": "58°",
+          "qualifier": "Thanksgiving high"
+        },
+        "headline": "A sunny, cool Thanksgiving",
+        "summary": "Low near 33 tonight. Friday warms to near 66 and Saturday to near 72.",
+        "sources": [
+          {
+            "label": "NWS forecast",
+            "url": "https://forecast.weather.gov/MapClick.php?lat=30.2672&lon=-97.7431"
+          }
+        ]
+      }
+    ]
   }
 }
