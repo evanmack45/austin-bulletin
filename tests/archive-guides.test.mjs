@@ -10,6 +10,7 @@ const LINKS = [
   ["/vote-2026/", "Vote 2026: dates & official instructions"],
   ["https://yallcityhall.org/meetings/2026-11-05/", "City Council on November 5"],
   ["/election/2026-11-03/", "November 3, 2026 election results"],
+  ["/austin-restaurant-inspection-scores/", "What Austin restaurant inspection scores mean"],
   ["/zilker-park-access/", "Zilker entrances, closures & parking"],
   ["/austin-council-races-2026/", "The five Council races on the 2026 ballot"],
   ["/austin-bonds-2026/", "Propositions A and B: the parks and library bonds"],
@@ -204,7 +205,7 @@ test("a phone shows four archive guides until More, and desktop shows all", {
       if (row.gap != null) assert.ok(row.gap >= -0.5, `overlap ${row.gap}`);
     }
     assert.ok(rows[0].height < 50, `single line ${rows[0].height}`);
-    assert.ok(rows[6].height >= rows[0].height + 16, `wrapped row ${rows[6].height}`);
+    assert.ok(rows[7].height >= rows[0].height + 16, `wrapped row ${rows[7].height}`);
     await phone.close();
     const desktop = await openArchive(browser, origin, 1280);
     const wide = await readGuide(desktop);

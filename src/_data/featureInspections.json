@@ -1,0 +1,313 @@
+{
+  "generated": "2026-11-24",
+  "generatedLabel": "November 24, 2026",
+  "from": "2025-11-01",
+  "to": "2026-10-31",
+  "fromLabel": "November 1, 2025",
+  "toLabel": "October 31, 2026",
+  "latest": "2026-10-23",
+  "latestLabel": "October 23, 2026",
+  "dataset": "https://data.austintexas.gov/Health-and-Community-Services/Food-Establishment-Inspection-Scores/ecmv-9xxi",
+  "routine": 6798,
+  "followUps": 29,
+  "facilities": 4817,
+  "median": 93,
+  "greenN": 4516,
+  "yellowN": 2245,
+  "redN": 37,
+  "zeros": 3,
+  "greenPct": 66,
+  "yellowPct": 33,
+  "redOneIn": 184,
+  "routineQuery": "https://data.austintexas.gov/resource/ecmv-9xxi.json?%24select=count%28*%29&%24where=inspection_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+process_description%3D%27Routine+Inspection%27",
+  "categoryQuery": "https://data.austintexas.gov/resource/ecmv-9xxi.json?%24select=inspectionscorecategory%2Ccount%28*%29+as+n&%24where=inspection_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+process_description%3D%27Routine+Inspection%27&%24group=inspectionscorecategory&%24order=n+DESC",
+  "zeroQuery": "https://data.austintexas.gov/resource/ecmv-9xxi.json?%24select=count%28*%29&%24where=inspection_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+process_description%3D%27Routine+Inspection%27+AND+score%3D0",
+  "failingQuery": "https://data.austintexas.gov/resource/ecmv-9xxi.csv?%24select=inspectionid%2Cinspection_date%2Cscore%2Cprocess_description&%24where=inspection_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+process_description%3D%27Routine+Inspection%27+AND+score+between+1+and+69&%24order=inspection_date&%24limit=1000",
+  "minZip": 100,
+  "followDays": 60,
+  "bands": [
+    {
+      "key": "u70",
+      "label": "Under 70",
+      "lo": 0,
+      "hi": 69,
+      "n": 37,
+      "share": 1,
+      "query": "https://data.austintexas.gov/resource/ecmv-9xxi.json?%24select=count%28*%29&%24where=inspection_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+process_description%3D%27Routine+Inspection%27+AND+score+%3C+70"
+    },
+    {
+      "key": "70",
+      "label": "70–74",
+      "lo": 70,
+      "hi": 74,
+      "n": 210,
+      "share": 3,
+      "query": "https://data.austintexas.gov/resource/ecmv-9xxi.json?%24select=count%28*%29&%24where=inspection_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+process_description%3D%27Routine+Inspection%27+AND+score+between+70+and+74"
+    },
+    {
+      "key": "75",
+      "label": "75–79",
+      "lo": 75,
+      "hi": 79,
+      "n": 299,
+      "share": 4,
+      "query": "https://data.austintexas.gov/resource/ecmv-9xxi.json?%24select=count%28*%29&%24where=inspection_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+process_description%3D%27Routine+Inspection%27+AND+score+between+75+and+79"
+    },
+    {
+      "key": "80",
+      "label": "80–84",
+      "lo": 80,
+      "hi": 84,
+      "n": 652,
+      "share": 10,
+      "query": "https://data.austintexas.gov/resource/ecmv-9xxi.json?%24select=count%28*%29&%24where=inspection_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+process_description%3D%27Routine+Inspection%27+AND+score+between+80+and+84"
+    },
+    {
+      "key": "85",
+      "label": "85–89",
+      "lo": 85,
+      "hi": 89,
+      "n": 1084,
+      "share": 16,
+      "query": "https://data.austintexas.gov/resource/ecmv-9xxi.json?%24select=count%28*%29&%24where=inspection_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+process_description%3D%27Routine+Inspection%27+AND+score+between+85+and+89"
+    },
+    {
+      "key": "90",
+      "label": "90–94",
+      "lo": 90,
+      "hi": 94,
+      "n": 1747,
+      "share": 26,
+      "query": "https://data.austintexas.gov/resource/ecmv-9xxi.json?%24select=count%28*%29&%24where=inspection_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+process_description%3D%27Routine+Inspection%27+AND+score+between+90+and+94"
+    },
+    {
+      "key": "95",
+      "label": "95–100",
+      "lo": 95,
+      "hi": 100,
+      "n": 2769,
+      "share": 41,
+      "query": "https://data.austintexas.gov/resource/ecmv-9xxi.json?%24select=count%28*%29&%24where=inspection_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+process_description%3D%27Routine+Inspection%27+AND+score+between+95+and+100"
+    }
+  ],
+  "zips": [
+    {
+      "zip": "78653",
+      "n": 129,
+      "median": 94,
+      "greenPct": 67,
+      "redN": 0,
+      "query": "https://data.austintexas.gov/resource/ecmv-9xxi.json?%24select=count%28*%29&%24where=inspection_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+process_description%3D%27Routine+Inspection%27+AND+zip_code+like+%2778653%25%27"
+    },
+    {
+      "zip": "78660",
+      "n": 553,
+      "median": 94,
+      "greenPct": 73,
+      "redN": 0,
+      "query": "https://data.austintexas.gov/resource/ecmv-9xxi.json?%24select=count%28*%29&%24where=inspection_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+process_description%3D%27Routine+Inspection%27+AND+zip_code+like+%2778660%25%27"
+    },
+    {
+      "zip": "78701",
+      "n": 416,
+      "median": 91,
+      "greenPct": 58,
+      "redN": 3,
+      "query": "https://data.austintexas.gov/resource/ecmv-9xxi.json?%24select=count%28*%29&%24where=inspection_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+process_description%3D%27Routine+Inspection%27+AND+zip_code+like+%2778701%25%27"
+    },
+    {
+      "zip": "78702",
+      "n": 180,
+      "median": 91,
+      "greenPct": 61,
+      "redN": 0,
+      "query": "https://data.austintexas.gov/resource/ecmv-9xxi.json?%24select=count%28*%29&%24where=inspection_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+process_description%3D%27Routine+Inspection%27+AND+zip_code+like+%2778702%25%27"
+    },
+    {
+      "zip": "78703",
+      "n": 128,
+      "median": 93,
+      "greenPct": 70,
+      "redN": 2,
+      "query": "https://data.austintexas.gov/resource/ecmv-9xxi.json?%24select=count%28*%29&%24where=inspection_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+process_description%3D%27Routine+Inspection%27+AND+zip_code+like+%2778703%25%27"
+    },
+    {
+      "zip": "78704",
+      "n": 286,
+      "median": 90,
+      "greenPct": 53,
+      "redN": 1,
+      "query": "https://data.austintexas.gov/resource/ecmv-9xxi.json?%24select=count%28*%29&%24where=inspection_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+process_description%3D%27Routine+Inspection%27+AND+zip_code+like+%2778704%25%27"
+    },
+    {
+      "zip": "78705",
+      "n": 206,
+      "median": 91,
+      "greenPct": 61,
+      "redN": 2,
+      "query": "https://data.austintexas.gov/resource/ecmv-9xxi.json?%24select=count%28*%29&%24where=inspection_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+process_description%3D%27Routine+Inspection%27+AND+zip_code+like+%2778705%25%27"
+    },
+    {
+      "zip": "78717",
+      "n": 119,
+      "median": 91,
+      "greenPct": 59,
+      "redN": 0,
+      "query": "https://data.austintexas.gov/resource/ecmv-9xxi.json?%24select=count%28*%29&%24where=inspection_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+process_description%3D%27Routine+Inspection%27+AND+zip_code+like+%2778717%25%27"
+    },
+    {
+      "zip": "78723",
+      "n": 291,
+      "median": 93,
+      "greenPct": 69,
+      "redN": 1,
+      "query": "https://data.austintexas.gov/resource/ecmv-9xxi.json?%24select=count%28*%29&%24where=inspection_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+process_description%3D%27Routine+Inspection%27+AND+zip_code+like+%2778723%25%27"
+    },
+    {
+      "zip": "78727",
+      "n": 171,
+      "median": 92,
+      "greenPct": 63,
+      "redN": 2,
+      "query": "https://data.austintexas.gov/resource/ecmv-9xxi.json?%24select=count%28*%29&%24where=inspection_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+process_description%3D%27Routine+Inspection%27+AND+zip_code+like+%2778727%25%27"
+    },
+    {
+      "zip": "78729",
+      "n": 158,
+      "median": 94,
+      "greenPct": 72,
+      "redN": 0,
+      "query": "https://data.austintexas.gov/resource/ecmv-9xxi.json?%24select=count%28*%29&%24where=inspection_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+process_description%3D%27Routine+Inspection%27+AND+zip_code+like+%2778729%25%27"
+    },
+    {
+      "zip": "78738",
+      "n": 201,
+      "median": 97,
+      "greenPct": 78,
+      "redN": 1,
+      "query": "https://data.austintexas.gov/resource/ecmv-9xxi.json?%24select=count%28*%29&%24where=inspection_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+process_description%3D%27Routine+Inspection%27+AND+zip_code+like+%2778738%25%27"
+    },
+    {
+      "zip": "78741",
+      "n": 159,
+      "median": 91,
+      "greenPct": 57,
+      "redN": 1,
+      "query": "https://data.austintexas.gov/resource/ecmv-9xxi.json?%24select=count%28*%29&%24where=inspection_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+process_description%3D%27Routine+Inspection%27+AND+zip_code+like+%2778741%25%27"
+    },
+    {
+      "zip": "78744",
+      "n": 131,
+      "median": 96,
+      "greenPct": 76,
+      "redN": 1,
+      "query": "https://data.austintexas.gov/resource/ecmv-9xxi.json?%24select=count%28*%29&%24where=inspection_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+process_description%3D%27Routine+Inspection%27+AND+zip_code+like+%2778744%25%27"
+    },
+    {
+      "zip": "78745",
+      "n": 193,
+      "median": 91,
+      "greenPct": 55,
+      "redN": 1,
+      "query": "https://data.austintexas.gov/resource/ecmv-9xxi.json?%24select=count%28*%29&%24where=inspection_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+process_description%3D%27Routine+Inspection%27+AND+zip_code+like+%2778745%25%27"
+    },
+    {
+      "zip": "78746",
+      "n": 191,
+      "median": 96,
+      "greenPct": 81,
+      "redN": 1,
+      "query": "https://data.austintexas.gov/resource/ecmv-9xxi.json?%24select=count%28*%29&%24where=inspection_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+process_description%3D%27Routine+Inspection%27+AND+zip_code+like+%2778746%25%27"
+    },
+    {
+      "zip": "78749",
+      "n": 112,
+      "median": 93,
+      "greenPct": 72,
+      "redN": 0,
+      "query": "https://data.austintexas.gov/resource/ecmv-9xxi.json?%24select=count%28*%29&%24where=inspection_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+process_description%3D%27Routine+Inspection%27+AND+zip_code+like+%2778749%25%27"
+    },
+    {
+      "zip": "78750",
+      "n": 105,
+      "median": 92,
+      "greenPct": 60,
+      "redN": 0,
+      "query": "https://data.austintexas.gov/resource/ecmv-9xxi.json?%24select=count%28*%29&%24where=inspection_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+process_description%3D%27Routine+Inspection%27+AND+zip_code+like+%2778750%25%27"
+    },
+    {
+      "zip": "78751",
+      "n": 175,
+      "median": 92,
+      "greenPct": 69,
+      "redN": 1,
+      "query": "https://data.austintexas.gov/resource/ecmv-9xxi.json?%24select=count%28*%29&%24where=inspection_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+process_description%3D%27Routine+Inspection%27+AND+zip_code+like+%2778751%25%27"
+    },
+    {
+      "zip": "78752",
+      "n": 300,
+      "median": 92,
+      "greenPct": 60,
+      "redN": 3,
+      "query": "https://data.austintexas.gov/resource/ecmv-9xxi.json?%24select=count%28*%29&%24where=inspection_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+process_description%3D%27Routine+Inspection%27+AND+zip_code+like+%2778752%25%27"
+    },
+    {
+      "zip": "78753",
+      "n": 398,
+      "median": 92,
+      "greenPct": 63,
+      "redN": 6,
+      "query": "https://data.austintexas.gov/resource/ecmv-9xxi.json?%24select=count%28*%29&%24where=inspection_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+process_description%3D%27Routine+Inspection%27+AND+zip_code+like+%2778753%25%27"
+    },
+    {
+      "zip": "78754",
+      "n": 111,
+      "median": 93,
+      "greenPct": 69,
+      "redN": 1,
+      "query": "https://data.austintexas.gov/resource/ecmv-9xxi.json?%24select=count%28*%29&%24where=inspection_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+process_description%3D%27Routine+Inspection%27+AND+zip_code+like+%2778754%25%27"
+    },
+    {
+      "zip": "78757",
+      "n": 286,
+      "median": 93,
+      "greenPct": 65,
+      "redN": 0,
+      "query": "https://data.austintexas.gov/resource/ecmv-9xxi.json?%24select=count%28*%29&%24where=inspection_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+process_description%3D%27Routine+Inspection%27+AND+zip_code+like+%2778757%25%27"
+    },
+    {
+      "zip": "78758",
+      "n": 364,
+      "median": 93,
+      "greenPct": 69,
+      "redN": 2,
+      "query": "https://data.austintexas.gov/resource/ecmv-9xxi.json?%24select=count%28*%29&%24where=inspection_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+process_description%3D%27Routine+Inspection%27+AND+zip_code+like+%2778758%25%27"
+    },
+    {
+      "zip": "78759",
+      "n": 260,
+      "median": 92,
+      "greenPct": 68,
+      "redN": 1,
+      "query": "https://data.austintexas.gov/resource/ecmv-9xxi.json?%24select=count%28*%29&%24where=inspection_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+process_description%3D%27Routine+Inspection%27+AND+zip_code+like+%2778759%25%27"
+    }
+  ],
+  "next": {
+    "failing": 28,
+    "cutoff": "2026-09-01",
+    "withNext": 26,
+    "medianDays": 21,
+    "minScore": 73,
+    "maxScore": 90,
+    "passed": 26,
+    "within30": 21
+  },
+  "zipCount": 59,
+  "spread": {
+    "lo": 90,
+    "hi": 97
+  },
+  "period": "November 2025 through October 2026",
+  "description": "An original Austin Bulletin analysis of 6,798 routine food-establishment inspections from November 2025 through October 2026: how scores are spread, how they differ by ZIP code, what happens after a failing score, and what a score means when you pick a place to eat.",
+  "chartAlt": "Bar chart of routine food inspections by score, November 2025 through October 2026: Under 70 37, 70–74 210, 75–79 299, 80–84 652, 85–89 1,084, 90–94 1,747, 95–100 2,769."
+}
