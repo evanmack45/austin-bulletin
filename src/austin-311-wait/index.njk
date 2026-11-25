@@ -19,7 +19,7 @@ permalink: "/austin-311-wait/"
 {%- set owMin = ow | first -%}{%- set owMax = ow | last -%}
 <link rel="stylesheet" href="/css/wait-311.css">
 <script type="application/json" id="w3-data">{{ {
-  src: "/data/311-wait.bin.gz", marks: [{ date: w.days.quietest[0].date, label: "Thanksgiving" }, { date: w.days.quietest[1].date, label: "Christmas" }], basemap: "/images/features/311-wait/basemap.webp", from: w.from, to: w.to, mapW: w.mapW, mapH: w.mapH, frame: w.frame,
+  src: "/data/311-wait.bin.gz", marks: [{ date: w.days.quietest[0].date, label: "Thanksgiving" }, { date: w.days.quietest[1].date, label: "Christmas" }], basemap: "/images/features/311-wait/basemap.webp", from: w.from, to: w.to, mapW: w.mapW, mapH: w.mapH, hexR: w.hexR, frame: w.frame,
   outlines: w.outlines, overall: w.overall, open: w.open, rowKeys: rowKeys,
   groups: w.groups
 } | dump | safe }}</script>
@@ -57,10 +57,11 @@ permalink: "/austin-311-wait/"
       <header class="w3-hero">
         <h1 class="w3-title">The Wait</h1>
         <p class="w3-hero-num">{{ w.total | commas }}</p>
-        <p class="w3-hero-dek">times in one year, someone asked Austin to fix something. Half were marked closed within {{ dur(w.overall.medianDays) }}{% if w.overYear %}; {{ w.overYear | commas }} waited more than a year{% endif %}. Each light is one request, arriving when it came in.</p>
+        <p class="w3-hero-dek">times in one year, someone asked Austin to fix something. Half were marked closed within {{ dur(w.overall.medianDays) }}{% if w.overYear %}; {{ w.overYear | commas }} waited more than a year{% endif %}. Each light is one request, arriving when it came in; the towers count them.</p>
         <p class="w3-dateline">Austin 311 requests, {{ shortDate(w.from) }}, to {{ shortDate(w.to) }}</p>
         <p class="w3-hero-meta"><button type="button" class="w3-replay">Replay the year</button> <a href="/austin-311-response-times/">Read it as text</a></p>
         <p class="w3-cue" aria-hidden="true">Scroll</p>
+        <p class="w3-sr">Graphic: a 3D view of Austin from the south. As the year plays, a light appears for each request where it was made, and hexagonal towers about {{ w.hexAcrossKm }} km across rise with the count.</p>
       </header>
     </li>
     <li class="w3-step" data-scene="map"><div class="w3-card">
@@ -83,9 +84,9 @@ permalink: "/austin-311-wait/"
       <p class="w3-guess-out" aria-live="polite"></p>
     </div></li>
     <li class="w3-step" data-scene="terrain"><div class="w3-card">
-      <p>Now lift every request that waited more than a week. The longer the wait, the higher it floats.</p>
+      <p>Now count only the requests that took more than a week to close. The taller the column, the more of them; its color is their typical wait.</p>
       <p class="w3-small">In District {{ owMax.district }}, {{ pct(owMax.overWeek, owMax.closed) }} of closed requests took more than a week; in District {{ owMin.district }}, {{ pct(owMin.overWeek, owMin.closed) }}. Citywide, <b>{{ w.overMonth | commas }}</b> stayed open more than a month.</p>
-      <p class="w3-sr">Graphic: a tilted 3D map. Requests closed within a week stay on the ground; slower ones float above it in red and violet.</p>
+      <p class="w3-sr">Graphic: a tilted 3D map of hexagonal columns about {{ w.hexAcrossKm }} km across. Each column's height is the number of requests there that took more than a week; colors run from orange (about a week) to violet (months).</p>
     </div></li>
     <li class="w3-step" data-scene="hist"><div class="w3-card">
       <p>Pour all {{ w.closed | commas }} closed requests into one pile, sorted by wait.</p>
@@ -151,6 +152,7 @@ permalink: "/austin-311-wait/"
   <p><b>Data:</b> <a href="{{ w.dataset }}">City of Austin 311 public data</a>, every service request created {{ shortDate(w.from) }}, through {{ shortDate(w.to) }}: <a href="{{ w.query }}">{{ w.total | commas }} requests</a>, pulled {{ shortDate(w.generated) }}. One point per request, with nothing sampled or simulated.</p>
   <p><b>Wait:</b> the time from when the request was created to when the City marked it closed, for the {{ w.closed | commas }} requests with a closed status. {{ w.duplicates | commas }} duplicates and {{ w.open | commas }} still-open requests have no wait. They are gray (duplicates) or white (open). Medians and 9-in-10 times are computed from exact timestamps. Colors and piles use the wait rounded to about 11% steps on a log scale.</p>
   <p><b>Map:</b> {{ w.located | commas }} requests have a usable location, which is snapped to a grid of about 25 meters. {{ (w.total - w.located) | commas }} have no location or one outside the map and appear only in the piles and rings. District outlines: <a href="{{ w.boundaries }}">City of Austin Council District Boundaries</a>. Streets and water: © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, via a <a href="https://protomaps.com/">Protomaps</a> extract hosted on this site. The rings use the creation time, rounded to 15 minutes.</p>
+  <p><b>Columns:</b> located requests counted in hexagons about {{ w.hexAcrossKm }} km across. Height is proportional to the count; hexagons with fewer than 3 requests are left out. In the opening view, height is the running count as the year plays; in the 3D view, it is the closed requests that took more than a week, colored by their median wait.</p>
   <p><b>Your location:</b> “Use my location” finds your district on your device. Nothing is sent to us or anyone else.</p>
   <p><b>Data file:</b> {{ (w.bytes.gzip / 1048576) | round(2) }} MB, loaded after the page appears. Built by <code>scripts/data-311-wait.mjs</code> in the Bulletin’s code. Analysis and graphics: The Austin Bulletin.</p>
   <p>Also: <a href="/austin-311-visual/">the simpler visual version</a>.</p>

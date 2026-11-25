@@ -59,7 +59,7 @@ function start(root) {
   setupGuess(root, DATA);
 
   // An explicit check: no WebGL (or no gzip streams) means the still images stay.
-  const gl = canvas.getContext("webgl", { antialias: false, alpha: true,
+  const gl = canvas.getContext("webgl", { antialias: false, alpha: true, depth: true,
     premultipliedAlpha: true, powerPreference: "high-performance" });
   if (!gl || typeof DecompressionStream === "undefined") return fallback(root, "no-webgl");
   root.classList.add("is-webgl");

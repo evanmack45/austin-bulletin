@@ -170,3 +170,18 @@ body:has(.w3) { overflow-x: clip; }
 .w3-guess-out b, .w3-guess-result b { color: var(--yel); }
 .w3-lbl.is-guess { translate: -50% -100%; text-align: center; color: var(--yel); font-size: .75rem; font-weight: 700; padding-bottom: 6px; }
 .w3-lbl.is-guess::after { content: ""; position: absolute; left: 50%; top: 100%; height: 30vh; max-height: 14rem; border-left: 2px solid var(--yel); }
+
+/* Opening: before the graphic starts, the poster's towers rise from the ground up. */
+@keyframes w3-rise {
+  from { -webkit-mask-position: 0 0; mask-position: 0 0; }
+  to { -webkit-mask-position: 0 100%; mask-position: 0 100%; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .w3-poster img {
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, .3) 0 40%, #000 55% 100%);
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, .3) 0 40%, #000 55% 100%);
+    -webkit-mask-size: 100% 250%; mask-size: 100% 250%;
+    -webkit-mask-position: 0 100%; mask-position: 0 100%;
+    animation: w3-rise 2.2s cubic-bezier(.2, .7, .2, 1) .15s both;
+  }
+}

@@ -4,7 +4,7 @@ import { perspective, lookAt, apply } from "./wait-311-gl.js";
 import { BINS } from "./wait-311-prep.js";
 
 const FOV = (32 * Math.PI) / 180;
-const CAM_OF = { hero: "map", map: "map", color: "map", terrain: "terrain", hist: "pile",
+const CAM_OF = { hero: "hero", map: "map", color: "map", terrain: "terrain", hist: "pile",
   rows: "pile", vehicles: "vehicles", rings: "ring", you: "you", end: "map" };
 
 // Dots fill a bin's width in as many columns as keep the pile under its height.
@@ -34,7 +34,10 @@ function geometry(aspect, prep, rows) {
 function cameras(DATA, geo) {
   const map = { t: [0, 0, 0], tilt: 0, rot: 0, w: DATA.mapW * 1.02, h: DATA.mapH * 1.02 };
   const terrain = { t: [0, -0.04, 0.04], tilt: 0.92, rot: -0.3, w: DATA.mapW, h: DATA.mapH * 0.9 };
-  return { map, terrain,
+  // The hero looks across the city from the south, so the columns read as a skyline.
+  const hero = { t: [0, 0.02, 0.06], tilt: 0.95, rot: -0.32,
+    w: DATA.mapW * 0.98, h: DATA.mapH * 1.0 };
+  return { map, terrain, hero,
     pile: { t: [0, 0, 0], tilt: 0, rot: 0, w: geo.boxW, h: geo.boxH },
     ring: { t: [0, 0, 0], tilt: 0, rot: 0, w: 2.5, h: 2.5 },
     vehicles: { ...terrain, tilt: 0.85, rot: 0.25 }, you: { ...terrain, tilt: 0.6, rot: -0.15 } };
