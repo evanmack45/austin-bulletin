@@ -32,7 +32,7 @@ function pointLook(st, k, cam, v, prep, hdrOn) {
   const area = (l) => v.safe.w * v.safe.h * v.dpr * v.dpr * l;
   const gainOf = (l) => {
     if (l === 2 || l === 3) return 1;
-    if (l === 7) return 0.6;  // the few left at the end, without blooming downtown
+    if (l === 7) return 0.35;  // the few left at the end, without blooming downtown
     const px = sizeOf(l) * v.dpr;
     return Math.min(1, (area(l === 5 ? 0.22 : 0.35) * 2.2) / (prep.n * px * px));
   };

@@ -100,7 +100,7 @@ permalink: "/austin-311-wait/"
     </div></li>
     <li class="w3-step" data-scene="vehicles"><div class="w3-card">
       <p>Abandoned vehicles wait longest. The taller the column, the longer a typical report waited there.</p>
-      <p class="w3-small">Columns run from 3 days (flat) to 60 days. By district, the typical wait runs from {{ dur(vMin.medianDays) }} in District {{ vMin.district }} to {{ dur(vMax.medianDays) }} in District {{ vMax.district }}.</p>
+      <p class="w3-small">Columns run from 3 days (flat) to 60 days or more. By district, the typical wait runs from {{ dur(vMin.medianDays) }} in District {{ vMin.district }} to {{ dur(vMax.medianDays) }} in District {{ vMax.district }}.</p>
       <p class="w3-sr">Graphic: a tilted 3D map of hexagonal columns; each column's height is the median wait of the abandoned-vehicle reports there (patches with 5 or more), with each district's median in days: {% for x in g.vehicle.byDistrict %}District {{ x.district }} {{ x.medianDays | round(1) }}{% if not loop.last %}; {% endif %}{% endfor %}.</p>
     </div></li>
     <li class="w3-step" data-scene="rings"><div class="w3-card">

@@ -115,7 +115,11 @@ export function districtPlan(DATA, prep, v) {
   const rows = DATA.groups[group].byDistrict;
   const text = (d) => (rows[d - 1].closed ? fmtDays(rows[d - 1].medianDays) : "–");
   const list = rows.map((x) => ({ d: x.district, value: x.closed ? x.medianDays : null }));
-  if (v.scene === "vehicles") return { key: "vehicles", text, only: ends(list) };
+  // Vehicles: the slowest and fastest districts; on a phone only the slowest, beside the
+  // slowest-patch label.
+  if (v.scene === "vehicles") {
+    return { key: "vehicles", text, only: ends(list).slice(0, v.narrow ? 1 : 2) };
+  }
   // Your wait: only the chosen district is labeled; "All of Austin" leaves the map bare.
   return { key: `you:${group}`, text, only: [v.focus[2]] };
 }
