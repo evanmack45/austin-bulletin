@@ -2,6 +2,7 @@
 // the part of the screen the captions leave free, and the camera for each scene.
 import { perspective, lookAt, apply } from "./wait-311-gl.js";
 import { BINS } from "./wait-311-prep.js";
+import { worldOf } from "./wait-311-labels.js";
 
 const FOV = (32 * Math.PI) / 180;
 const CAM_OF = { hero: "hero", map: "map", color: "map", terrain: "terrain", hist: "pile",
@@ -37,7 +38,10 @@ function cameras(DATA, geo) {
   // The hero looks across the city from the south, so the columns read as a skyline.
   const hero = { t: [0, 0.02, 0.06], tilt: 0.95, rot: -0.32,
     w: DATA.mapW * 0.98, h: DATA.mapH * 1.0 };
-  return { map, terrain, hero,
+  // ~5 km square over downtown, for the wait-color inset.
+  const d = worldOf(DATA, 30.2700, -97.7431), span = DATA.hexR * 5;
+  const downtown = { t: [d[0], d[1], 0], tilt: 0, rot: 0, w: span, h: span };
+  return { map, terrain, hero, downtown,
     pile: { t: [0, 0, 0], tilt: 0, rot: 0, w: geo.boxW, h: geo.boxH },
     ring: { t: [0, 0, 0], tilt: 0, rot: 0, w: 2.5, h: 2.5 },
     vehicles: { ...terrain, tilt: 0.85, rot: 0.25 }, you: { ...terrain, tilt: 0.6, rot: -0.15 } };
@@ -61,6 +65,11 @@ export function createView(canvas, wide, DATA, prep) {
     // On a phone the hero sits a little farther back, so the headline stays below it.
     const h = v.cams.hero;
     if (!wide.matches) v.cams.hero = { ...h, w: h.w * 1.15, h: h.h * 1.15 };
+  };
+  v.insetBox = () => {
+    const s = v.safe, side = Math.min(s.w, s.h) * (v.wide.matches ? 0.36 : 0.42);
+    const pad = v.wide.matches ? 14 : 8;
+    return { x: s.x + s.w - side - pad, y: s.y + pad, w: side, h: side };
   };
   v.sceneCam = (scene) => v.cams[CAM_OF[scene] || "map"];
   /** View and projection for camera c, centered on the safe area by a lens shift. */
