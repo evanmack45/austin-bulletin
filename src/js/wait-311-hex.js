@@ -27,12 +27,21 @@ function median(hist, n) {
 }
 
 function newBin(q, s) {
-  return { q, s, total: 0, slow: 0, months: new Uint32Array(12),
-    slowHist: new Uint32Array(LEVELS + 1) };
+  return { q, s, total: 0, slow: 0, veh: 0, months: new Uint32Array(12),
+    slowHist: new Uint32Array(LEVELS + 1), vehHist: new Uint32Array(LEVELS + 1) };
+}
+
+function count(b, prep, i, vehicle) {
+  const code = prep.aMeta[i * 4];
+  b.total++;
+  b.months[Math.min(11, Math.floor((prep.aTR[i * 2] / prep.slots) * 12))]++;
+  if (code > LEVELS) return;
+  if (code > SLOW) { b.slow++; b.slowHist[code]++; }
+  if (prep.aMeta[i * 4 + 1] === vehicle) { b.veh++; b.vehHist[code]++; }
 }
 
 /** Count every located request into its hexagon. */
-export async function binHexes(prep, r) {
+export async function binHexes(prep, r, vehicle) {
   const bins = new Map();
   for (let i = 0; i < prep.n; i++) {
     if (i && !(i & 0xffff)) await new Promise((done) => setTimeout(done));
@@ -40,10 +49,7 @@ export async function binHexes(prep, r) {
     if (x < -50) continue;
     const [q, s] = hexOf(x, y, r), key = q * 65536 + s;
     if (!bins.has(key)) bins.set(key, newBin(q, s));
-    const b = bins.get(key), code = prep.aMeta[i * 4];
-    b.total++;
-    b.months[Math.min(11, Math.floor((prep.aTR[i * 2] / prep.slots) * 12))]++;
-    if (code <= LEVELS && code > SLOW) { b.slow++; b.slowHist[code]++; }
+    count(bins.get(key), prep, i, vehicle);
   }
   return [...bins.values()].filter((b) => b.total >= MIN_COUNT);
 }
@@ -52,7 +58,7 @@ const FACE_SHADE = [0.62, 0.42, 0.3, 0.38, 0.55, 0.72];  // light from the upper
 
 function pushVertex(m, x, y, top, shade, h) {
   m.pos.push(x, y, top); m.shade.push(shade);
-  m.cum.push(...h.cum); m.hex.push(h.slow, h.code, 0, 0);
+  m.cum.push(...h.cum); m.hex.push(h.slow, h.code, h.veh, h.vehCode);
 }
 
 function pushPrism(m, h, cx, cy, r) {
@@ -70,19 +76,29 @@ function pushPrism(m, h, cx, cy, r) {
 }
 
 /** Prism mesh: 54 vertices per hexagon, heights normalized to the tallest. */
+/** The busiest hex and its center, for the hero label. */
+export function tallest(bins, r) {
+  const bin = bins.reduce((a, b) => (b.total > a.total ? b : a));
+  return { bin, center: centerOf(bin.q, bin.s, r) };
+}
+
 export function hexMesh(bins, r) {
   const maxTotal = Math.max(...bins.map((b) => b.total));
   const maxSlow = Math.max(...bins.map((b) => b.slow));
+  const maxVeh = Math.max(...bins.map((b) => b.veh));
+  const code = (hist, n) => Math.round((median(hist, n) / LEVELS) * 255);
   const m = { pos: [], shade: [], cum: [], hex: [] };
   for (const b of bins) {
     let c = 0;
     const cum = [...b.months].map((v) => Math.round(((c += v) / maxTotal) * 65535));
-    const h = { cum, slow: Math.round((b.slow / maxSlow) * 255),
-      code: Math.round((median(b.slowHist, b.slow) / LEVELS) * 255) };
+    // Vehicle columns need at least 3 closed reports to have a median worth coloring.
+    const veh = b.veh >= MIN_COUNT ? Math.round((b.veh / maxVeh) * 255) : 0;
+    const h = { cum, slow: Math.round((b.slow / maxSlow) * 255), code: code(b.slowHist, b.slow),
+      veh, vehCode: code(b.vehHist, b.veh) };
     const [cx, cy] = centerOf(b.q, b.s, r);
     pushPrism(m, h, cx, cy, r * 0.88);
   }
-  return { count: m.shade.length, maxTotal, maxSlow, pos: new Float32Array(m.pos),
+  return { count: m.shade.length, maxTotal, maxSlow, maxVeh, pos: new Float32Array(m.pos),
     shade: new Float32Array(m.shade), cum: new Uint16Array(m.cum), hex: new Uint8Array(m.hex) };
 }
 

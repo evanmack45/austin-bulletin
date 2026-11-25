@@ -185,3 +185,6 @@ body:has(.w3) { overflow-x: clip; }
     animation: w3-rise 2.2s cubic-bezier(.2, .7, .2, 1) .15s both;
   }
 }
+.w3-lbl.is-place { translate: -50% -50%; font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: #c9d4ee; text-shadow: 0 0 4px #060a16, 0 0 8px #060a16; }
+.w3-lbl.is-tower { translate: -50% calc(-100% - 10px); padding: 2px 7px; border-radius: 3px; background: rgba(6, 10, 22, .82); color: #fff; font-size: .8rem; white-space: nowrap; }
+.w3-lbl.is-tower b { font-family: Bricolage, Hanken, sans-serif; }

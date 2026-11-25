@@ -1,7 +1,7 @@
 // The scroll-driven scenes of /austin-311-wait/: state, transitions, the hero
 // time-lapse clock and the per-frame point uniforms.
 import { createRenderer } from "./wait-311-gl.js";
-import { binHexes, hexMesh, hexPass } from "./wait-311-hex.js";
+import { binHexes, hexMesh, hexPass, tallest } from "./wait-311-hex.js";
 import { BINS } from "./wait-311-prep.js";
 import { createView, lerpCam } from "./wait-311-view.js";
 import { createLabels } from "./wait-311-labels.js";
@@ -11,8 +11,9 @@ const LAYOUT = { hero: 0, map: 0, color: 0, terrain: 1, hist: 2, rows: 3, vehicl
   you: 6, end: 0 };
 const BASE_A = { hero: 0.7, map: 1, color: 0.75, terrain: 0.6, hist: 0, rows: 0, vehicles: 0.6,
   rings: 0, you: 0.6, end: 0.8 };
-// Hex columns: 1 = running count (hero), 2 = took more than a week (terrain).
-const HEX_MODE = { hero: 1, terrain: 2 };
+// Hex columns: 1 = running count (hero), 2 = took more than a week (terrain),
+// 3 = abandoned vehicles, colored by their median wait.
+const HEX_MODE = { hero: 1, terrain: 2, vehicles: 3 };
 const HEX_H = 0.42;             // the tallest column, in map heights
 const MAP_LIKE = [0, 1, 4, 6];
 const ORBIT_MS = 12000;         // terrain and vehicles turn slowly for this long, then hold
@@ -115,8 +116,10 @@ export function run(ctx) {
   const view = createView(canvas, ctx.wide, DATA, prep);
   const renderer = createRenderer(gl, prep, DATA, request);
   const labels = createLabels(ctx.labels, DATA, prep);
-  binHexes(prep, DATA.hexR).then((bins) => {
+  binHexes(prep, DATA.hexR, prep.groupIndex.vehicle).then((bins) => {
     renderer.setHex(hexPass(gl, hexMesh(bins, DATA.hexR)));
+    const top = tallest(bins, DATA.hexR);
+    labels.setTower(top.bin, [...top.center, HEX_H]);
     request();
   });
   ctx.updateHud = createHud(ctx.hud, DATA, prep, ctx.data.slot);
@@ -132,7 +135,8 @@ export function run(ctx) {
       hex: { a: HEX_MODE[st.prevScene] ?? 0, b: HEX_MODE[st.scene] ?? 0, mix: k, clock: st.clock,
         h: HEX_H } });
     labels.place(view.toScreen(m), view.geo,
-      { scene: st.scene, focus: st.focus, pin, settled: k > 0.85 });
+      { scene: st.scene, focus: st.focus, pin, settled: k > 0.85, narrow: view.W < 600,
+        clock: st.clock });
   }
   function frame(now) {
     raf = 0;

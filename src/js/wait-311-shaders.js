@@ -72,10 +72,9 @@ vec4 place(float id) {
     float y = uRows.y - (aRG.y + 1.0) * uRows.z + (floor(r / cols) + 0.5) * sp;
     return vec4(x, y, 0.0, 1.0);
   }
-  if (id < 4.5) { // abandoned vehicles rise, the rest lie flat and dim
+  if (id < 4.5) { // abandoned vehicles: flat and dim under their hex columns
     bool v = grp == 7.0;
-    float z = v ? uRise * 1.1 * pow(wn, 3.0) : 0.0;
-    return vec4(aMap, z, located ? (v ? uLift : 0.22) : 0.0);
+    return vec4(aMap, 0.0, located ? (v ? 0.5 : 0.1) : 0.0);
   }
   // 5: a year as rings. Each ring is a week (Monday at the top, clockwise);
   // radius = week from the center out, angle = time of the week.
@@ -110,7 +109,7 @@ void main() {
   if (uFocus.x > 0.5) {
     bool g = uFocus.y < 0.0 || aMeta.y == uFocus.y;
     bool d = uFocus.z < 0.5 || aMeta.z == uFocus.z;
-    focus = (g && d) ? uLift : 0.1;
+    focus = (g && d) ? uLift : 0.025;
   }
   vec4 clip = uProj * uView * vec4(pos, 1.0);
   gl_Position = clip;
@@ -194,7 +193,7 @@ precision highp float;
 attribute vec3 aPos;      // x, y, and 1 on the top face
 attribute float aShade;   // light on this face
 attribute vec4 aCumA, aCumB, aCumC; // running count at the end of each month, 0..1
-attribute vec4 aHex;      // slow count 0..1, median code of slow ones / 124
+attribute vec4 aHex;      // slow count, its median code / 124, vehicle count, its median
 uniform mat4 uView, uProj;
 uniform float uA, uB, uMix, uClock, uH;
 varying vec4 vColor;
@@ -211,7 +210,7 @@ float heightOf(float mode) {
     float f = clamp(uClock, 0.0, 1.0) * 12.0, m = floor(f);
     return mix(month(m), month(min(12.0, m + 1.0)), f - m);
   }
-  return aHex.x;
+  return mode < 2.5 ? aHex.x : aHex.z;
 }
 vec3 colorOf(float mode, float h) {
   if (mode < 1.5) {
@@ -219,7 +218,7 @@ vec3 colorOf(float mode, float h) {
     vec3 lo = vec3(0.12, 0.3, 1.0), mid = vec3(0.3, 0.85, 1.0), hi = vec3(0.95, 0.98, 1.0);
     return t < 0.5 ? mix(lo, mid, t * 2.0) : mix(mid, hi, t * 2.0 - 1.0);
   }
-  return ramp(aHex.y * 124.0);
+  return ramp((mode < 2.5 ? aHex.y : aHex.w) * 124.0);
 }
 void main() {
   float ha = heightOf(uA), hb = heightOf(uB);

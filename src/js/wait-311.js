@@ -2,7 +2,8 @@
 // This file wires the page (scroll steps, the "your wait" form, fallbacks); the
 // graphic lives in wait-311-scene.js and the modules it imports.
 // No WebGL, no DecompressionStream, or a failed load: the page keeps its still images.
-import { codeMinutes, decode, districtAt, fmtDays, guessText, guessVerdict, minutesCode }
+import { decode, districtAt, fmtDays, guessDays, guessText, guessVerdict,
+  minutesCode }
   from "./wait-311-core.js";
 import { prepare } from "./wait-311-prep.js";
 import { run } from "./wait-311-scene.js";
@@ -115,7 +116,7 @@ function setupGuess(root, DATA) {
   lock.addEventListener("click", () => {
     const code = Number(range.value), text = guessText(code);
     const median = DATA.overall.medianDays;
-    const verdict = guessVerdict(codeMinutes(code) / 1440, median);
+    const verdict = guessVerdict(guessDays(code), median);
     lock.disabled = true; lock.textContent = "Locked";
     out.innerHTML = `Locked: <b>${text}</b>. Keep scrolling for the answer.`;
     result.innerHTML = verdict === "close"

@@ -17,7 +17,8 @@ export function fmtDays(days) {
   if (h < 1) return `${Math.round(days * 1440)} minutes`;
   if (h < 1.5) return "1 hour";
   if (days < 1) return `${Math.round(h)} hours`;
-  if (days < 1.05) return "1 day";
+  // Just over a day reads as hours, so "half within 25 hours" never rounds to "1 day".
+  if (days < 1.05) return `${Math.round(h)} hours`;
   return `${(Math.round(days * 10) / 10).toLocaleString("en-US")} days`;
 }
 
@@ -68,11 +69,21 @@ export const fmtMonth = (iso) => `${MONTHS[Number(iso.slice(5, 7)) - 1]} ${iso.s
 
 /** A reader's guess (a wait code) in words, rounded the way people guess. */
 export function guessText(code) {
+  const [n, unit] = guessParts(code);
+  return `${n} ${unit}${n === 1 ? "" : "s"}`;
+}
+
+/** The guess as shown, in days, so the verdict matches the words. */
+export function guessDays(code) {
+  const [n, unit] = guessParts(code);
+  return n / { minute: 1440, hour: 24, day: 1 }[unit];
+}
+
+function guessParts(code) {
   const m = codeMinutes(code);
-  const unit = (n, one) => `${n} ${one}${n === 1 ? "" : "s"}`;
-  if (m < 59.5) return unit(Math.max(1, Math.round(m)), "minute");
-  if (m < 1410) return unit(Math.round(m / 60), "hour");
-  return unit(Math.round(m / 1440), "day");
+  if (m < 59.5) return [Math.max(1, Math.round(m)), "minute"];
+  if (m < 1410) return [Math.round(m / 60), "hour"];
+  return [Math.round(m / 1440), "day"];
 }
 
 /** How a guess compares with the real median (both in days). */

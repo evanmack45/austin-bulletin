@@ -21,7 +21,8 @@ test("wait codes round-trip within one log step (about 11%)", () => {
 test("waits print the way the page words them", () => {
   assert.equal(fmtDays(0.025), "36 minutes");
   assert.equal(fmtDays(0.641), "15 hours");
-  assert.equal(fmtDays(1.02), "1 day");
+  assert.equal(fmtDays(1.02), "24 hours");
+  assert.equal(fmtDays(1.045), "25 hours");
   assert.equal(fmtDays(21.204), "21.2 days");
 });
 
