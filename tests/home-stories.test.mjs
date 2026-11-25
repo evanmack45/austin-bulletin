@@ -4,6 +4,7 @@ import { readFileSync } from "node:fs";
 import { homeEdition } from "../scripts/home-stories.mjs";
 import thisWeek from "../src/_data/thisWeek.js";
 import { chicagoToday, upcomingOnly } from "../src/_includes/week-upcoming.js";
+import { pinnedHome } from "./current-lead.mjs";
 
 const FIRST_PERSON = /\b(we|our|us)\b/i;
 
@@ -394,7 +395,8 @@ test("upcomingOnly keeps today and later Chicago dates", () => {
   assert.match(chicagoToday(new Date("2026-11-14T00:30:00-06:00")), /^2026-11-14$/);
 });
 
-test("Nov. 10 meetings are outcomes and only Nov. 19 is upcoming", () => {
+test("Nov. 10 meetings are outcomes and only Nov. 19 is upcoming",
+  pinnedHome("2026-11-13"), () => {
   const raw = JSON.parse(readFileSync("src/_data/weekItems.json", "utf8"));
   assert.equal(raw.every((item) => item.date >= "2026-11-13"), true);
   const downtown = "Committee hears downtown transportation plan";

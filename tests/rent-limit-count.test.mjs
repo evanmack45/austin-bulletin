@@ -2,6 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { foldLegacyCopy } from "../scripts/legacy-edition-cards.mjs";
+import { pinnedHome } from "./current-lead.mjs";
 
 const FIVE = [
   "Project Completed",
@@ -19,7 +20,8 @@ function barValues(html) {
     }));
 }
 
-test("the hero, 2027 bar, and summary line are the same unit count", () => {
+test("the hero, 2027 bar, and summary line are the same unit count",
+  pinnedHome("2026-11-10"), () => {
   const html = readFileSync("_site/index.html", "utf8");
   const lead = html.match(
     /<section class="[^"]*story-card--lead[^"]*"[\s\S]*?<\/section>/

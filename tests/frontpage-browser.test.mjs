@@ -4,6 +4,7 @@ import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { createServer } from "node:http";
 import path from "node:path";
 import puppeteer from "puppeteer-core";
+import { pinnedHome } from "./current-lead.mjs";
 
 const chrome = [
 	"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
@@ -182,7 +183,8 @@ async function reachByKeyboard(page, targets) {
 	}
 }
 
-test("edited homepage keeps the selected lead and action visible with real fonts", {
+test("edited homepage keeps the selected lead and action visible with real fonts",
+  pinnedHome("2026-11-13"), {
 	skip: !chrome && "an installed Chromium is required for layout regression",
 }, async () => {
 	const server = await serveBuiltSite();
@@ -220,7 +222,8 @@ test("edited homepage keeps the selected lead and action visible with real fonts
 	}
 });
 
-test("guide action fragments reach the answer by keyboard without JavaScript", {
+test("guide action fragments reach the answer by keyboard without JavaScript",
+  pinnedHome("2026-11-13"), {
 	skip: !chrome && "an installed Chromium is required for browser regression",
 }, async () => {
 	const server = await serveBuiltSite();

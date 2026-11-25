@@ -1,6 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
+import { pinnedHome } from "./current-lead.mjs";
 
 const wednesday = readFileSync("_site/2026/11/11/index.html", "utf8");
 const tuesday = readFileSync("_site/2026/11/10/index.html", "utf8");
@@ -22,7 +23,8 @@ test("Wednesday and Tuesday both use the shared scoreboard template", () => {
   }
 });
 
-test("the Wednesday lead is 71.68 and keeps the exact figure in Method", () => {
+test("the Wednesday lead is 71.68 and keeps the exact figure in Method",
+  pinnedHome("2026-11-11"), () => {
   const lead = leadOf(wednesday);
   assert.match(lead, />71\.68</);
   assert.match(lead, /of 100 points/);

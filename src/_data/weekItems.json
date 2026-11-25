@@ -4,14 +4,44 @@
     "location": "Austin City Hall, 301 W. Second Street, Austin, TX 78701",
     "lat": 30.2648103,
     "lng": -97.7472145,
-    "headline": "Council votes: see what's on for your district",
-    "date": "2026-11-19",
-    "link": "https://yallcityhall.org/",
+    "headline": "Public Safety Committee: forensic lab briefing",
+    "date": "2026-11-30",
+    "link": "https://austintexas.legistar.com/MeetingDetail.aspx?LEGID=4237&GID=684&G=4BED8896-C64D-4912-8005-D624C5197AA5",
     "source": {
-      "label": "Nov. 19 agenda",
-      "url": "https://services.austintexas.gov/edims/document.cfm?id=484837"
+      "label": "Legistar",
+      "url": "https://austintexas.legistar.com/MeetingDetail.aspx?LEGID=4237&GID=684&G=4BED8896-C64D-4912-8005-D624C5197AA5"
+    },
+    "icon": "safety",
+    "source_checked_at_ct": "2026-11-24T19:20:00-06:00"
+  },
+  {
+    "district": "citywide",
+    "location": "Austin City Hall, 301 W. Second Street, Austin, TX 78701",
+    "lat": 30.2648103,
+    "lng": -97.7472145,
+    "headline": "Housing committee: land code and displacement briefings",
+    "date": "2026-12-01",
+    "link": "https://austintexas.legistar.com/MeetingDetail.aspx?LEGID=4232&GID=684&G=4BED8896-C64D-4912-8005-D624C5197AA5",
+    "source": {
+      "label": "Legistar",
+      "url": "https://austintexas.legistar.com/MeetingDetail.aspx?LEGID=4232&GID=684&G=4BED8896-C64D-4912-8005-D624C5197AA5"
     },
     "icon": "meeting",
-    "source_checked_at_ct": "2026-11-11T09:38:26-06:00"
+    "source_checked_at_ct": "2026-11-24T19:20:00-06:00"
+  },
+  {
+    "district": "citywide",
+    "location": "Austin City Hall, 301 W. Second Street, Austin, TX 78701",
+    "lat": 30.2648103,
+    "lng": -97.7472145,
+    "headline": "Council: Muny deal, data center licenses",
+    "date": "2026-12-03",
+    "link": "https://yallcityhall.org/",
+    "source": {
+      "label": "Dec. 3 agenda",
+      "url": "https://austintexas.legistar.com/MeetingDetail.aspx?LEGID=4082&GID=684&G=4BED8896-C64D-4912-8005-D624C5197AA5"
+    },
+    "icon": "vote",
+    "source_checked_at_ct": "2026-11-24T19:20:00-06:00"
   }
 ]

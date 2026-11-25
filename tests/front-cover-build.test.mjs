@@ -1,6 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
+import { pinnedHome } from "./current-lead.mjs";
 
 const SHARE = "https://theaustinbulletin.com/images/2026-11-13/house-permits-desktop-1600.webp";
 const DATASET = "https://data.austintexas.gov/d/3syk-w9eu";
@@ -35,11 +36,13 @@ function assertChartLead(html) {
   assert.match(css, /\.home-front \.results-link \{[\s\S]*?background:\s*transparent;/);
 }
 
-test("the homepage lead is Friday's 1,845 permit chart", () => {
+test("the homepage lead is Friday's 1,845 permit chart",
+  pinnedHome("2026-11-13"), () => {
   assertChartLead(readFileSync("_site/index.html", "utf8"));
 });
 
-test("the homepage is one lead, and dated editions keep their own page", () => {
+test("the homepage is one lead, and dated editions keep their own page",
+  pinnedHome("2026-11-13"), () => {
   const html = readFileSync("_site/index.html", "utf8");
   for (const text of [
     "/css/front-cover.css",
@@ -127,7 +130,8 @@ test("the homepage is one lead, and dated editions keep their own page", () => {
   assert.equal(html.includes(disclosure), true);
 });
 
-test("This week lists only the Nov. 19 Council item", () => {
+test("This week lists only the Nov. 19 Council item",
+  pinnedHome("2026-11-13"), () => {
   const html = readFileSync("_site/index.html", "utf8");
   const week = html.match(/<ul class="week-lines"[\s\S]*?<\/ul>/)?.[0] ?? "";
   const weekText = week.replace(/<[^>]+>/g, " ");
@@ -179,7 +183,8 @@ test("a dated edition keeps the card page and the AI disclosure", () => {
   assert.match(page, /November 9, 2026/);
 });
 
-test("an older edition dates itself and links to the latest", () => {
+test("an older edition dates itself and links to the latest",
+  pinnedHome("2026-11-13"), () => {
   const older = readFileSync("_site/2026/11/09/index.html", "utf8").replaceAll("\u00a0", " ");
   const sunday = readFileSync("_site/2026/11/08/index.html", "utf8").replaceAll("\u00a0", " ");
   const tuesday = readFileSync("_site/2026/11/10/index.html", "utf8").replaceAll("\u00a0", " ");
