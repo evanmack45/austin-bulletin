@@ -1,5 +1,6 @@
 {
   "generated": "2026-11-24",
+  "generatedLabel": "November 24, 2026",
   "from": "2025-11-01",
   "to": "2026-10-31",
   "dataset": "https://data.austintexas.gov/Utilities-and-City-Services/Austin-311-Public-Data/xwdj-i9he",
@@ -1032,5 +1033,9 @@
       "query": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_number%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27DSD+-+Outdoor+Commercial+Venue+Music+Complaint%27&%24limit=100000",
       "countQuery": "https://data.austintexas.gov/resource/xwdj-i9he.json?%24select=count%28*%29&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27DSD+-+Outdoor+Commercial+Venue+Music+Complaint%27"
     }
-  }
+  },
+  "districtSentence": "The most-reported request is trash in Districts 2, 5, 6, 7, 8 and 10, parking violation in Districts 1 and 9 and code officer visit in Districts 3 and 4.",
+  "description": "An original Austin Bulletin analysis of 273,134 City of Austin 311 service requests from November 2025 through October 2026: how long each common request takes to be marked closed, what each Council district reports most, and what that means when you file one.",
+  "chartAlt": "Bar chart of median days from a 311 report to the City marking it closed, November 2025 through October 2026: pothole 0.6, trash 1, recycling 1.9, compost 2.6, code officer visit 4.1, brush 7, bulk items 8.8, abandoned vehicle 21.2.",
+  "period": "November 2025 through October 2026"
 }
