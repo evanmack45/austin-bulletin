@@ -1,7 +1,8 @@
 // Monthly refresh of /austin-311-response-times/.
 // Usage: node scripts/refresh-311.mjs [--force]
-// Runs only on the 1st of the month (Chicago date), or with --force. It does nothing
-// when the page already covers the newest complete month. Otherwise it:
+// Safe to run every day. It does nothing when the page already covers the newest complete
+// month, which makes the 1st of the month the day it works (or the next day it runs after a
+// missed 1st). --force rebuilds anyway. Otherwise it:
 //   1. pulls the new 12-month window from the City's 311 data (scripts/data-311.mjs),
 //   2. rewrites data/311-chart.json from the new medians,
 //   3. renders the two chart images with scripts/lead-chart.mjs.
@@ -44,15 +45,11 @@ export function chartSpec(data) {
 async function main() {
   const force = process.argv.includes("--force");
   const today = chicagoDate();
-  if (!force && today.slice(8) !== "01") {
-    console.log(`311 refresh: ${today} is not the 1st of the month; skipping.`);
-    return;
-  }
   const [from, to] = defaultWindow(today);
   let current = null;
   try { current = JSON.parse(await readFile("src/_data/feature311.json", "utf8")); } catch { /* first run */ }
   if (!force && current?.to === to) {
-    console.log(`311 refresh: page already covers through ${to}; skipping.`);
+    console.log(`311 refresh: page already covers through ${to}; nothing to do.`);
     return;
   }
   const data = await build311(from, to);
