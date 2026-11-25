@@ -1,0 +1,228 @@
+{
+  "generated": "2026-11-24",
+  "from": "2025-11-01",
+  "to": "2026-10-31",
+  "total": 273134,
+  "types": {
+    "all": null,
+    "vehicle": "APD - Vehicle Abatement Report",
+    "code": "DSD - Request Code Officer",
+    "pothole": "TPW - Pothole Repair"
+  },
+  "byDistrict": {
+    "all": [
+      {
+        "district": "1",
+        "closed": 32930,
+        "medianDays": 1.083
+      },
+      {
+        "district": "2",
+        "closed": 28028,
+        "medianDays": 1.169
+      },
+      {
+        "district": "3",
+        "closed": 30501,
+        "medianDays": 1.022
+      },
+      {
+        "district": "4",
+        "closed": 23199,
+        "medianDays": 1.221
+      },
+      {
+        "district": "5",
+        "closed": 25706,
+        "medianDays": 1.124
+      },
+      {
+        "district": "6",
+        "closed": 11627,
+        "medianDays": 1.176
+      },
+      {
+        "district": "7",
+        "closed": 21838,
+        "medianDays": 1.093
+      },
+      {
+        "district": "8",
+        "closed": 18604,
+        "medianDays": 1.076
+      },
+      {
+        "district": "9",
+        "closed": 40400,
+        "medianDays": 0.784
+      },
+      {
+        "district": "10",
+        "closed": 21741,
+        "medianDays": 1.09
+      }
+    ],
+    "vehicle": [
+      {
+        "district": "1",
+        "closed": 1211,
+        "medianDays": 23.804
+      },
+      {
+        "district": "2",
+        "closed": 1171,
+        "medianDays": 26.679
+      },
+      {
+        "district": "3",
+        "closed": 1054,
+        "medianDays": 29.074
+      },
+      {
+        "district": "4",
+        "closed": 1031,
+        "medianDays": 17.517
+      },
+      {
+        "district": "5",
+        "closed": 684,
+        "medianDays": 22.685
+      },
+      {
+        "district": "6",
+        "closed": 345,
+        "medianDays": 13.943
+      },
+      {
+        "district": "7",
+        "closed": 617,
+        "medianDays": 13.808
+      },
+      {
+        "district": "8",
+        "closed": 342,
+        "medianDays": 19.276
+      },
+      {
+        "district": "9",
+        "closed": 526,
+        "medianDays": 20.859
+      },
+      {
+        "district": "10",
+        "closed": 334,
+        "medianDays": 12.822
+      }
+    ],
+    "code": [
+      {
+        "district": "1",
+        "closed": 2993,
+        "medianDays": 3.968
+      },
+      {
+        "district": "2",
+        "closed": 2657,
+        "medianDays": 3.03
+      },
+      {
+        "district": "3",
+        "closed": 3135,
+        "medianDays": 4.996
+      },
+      {
+        "district": "4",
+        "closed": 3589,
+        "medianDays": 4.744
+      },
+      {
+        "district": "5",
+        "closed": 2192,
+        "medianDays": 4.405
+      },
+      {
+        "district": "6",
+        "closed": 1194,
+        "medianDays": 4.084
+      },
+      {
+        "district": "7",
+        "closed": 1967,
+        "medianDays": 4.888
+      },
+      {
+        "district": "8",
+        "closed": 1094,
+        "medianDays": 3.272
+      },
+      {
+        "district": "9",
+        "closed": 2919,
+        "medianDays": 4.958
+      },
+      {
+        "district": "10",
+        "closed": 1236,
+        "medianDays": 3.987
+      }
+    ],
+    "pothole": [
+      {
+        "district": "1",
+        "closed": 262,
+        "medianDays": 0.573
+      },
+      {
+        "district": "2",
+        "closed": 245,
+        "medianDays": 0.562
+      },
+      {
+        "district": "3",
+        "closed": 417,
+        "medianDays": 0.599
+      },
+      {
+        "district": "4",
+        "closed": 177,
+        "medianDays": 0.677
+      },
+      {
+        "district": "5",
+        "closed": 452,
+        "medianDays": 0.713
+      },
+      {
+        "district": "6",
+        "closed": 108,
+        "medianDays": 0.674
+      },
+      {
+        "district": "7",
+        "closed": 245,
+        "medianDays": 0.685
+      },
+      {
+        "district": "8",
+        "closed": 269,
+        "medianDays": 0.671
+      },
+      {
+        "district": "9",
+        "closed": 549,
+        "medianDays": 0.626
+      },
+      {
+        "district": "10",
+        "closed": 245,
+        "medianDays": 0.499
+      }
+    ]
+  },
+  "queries": {
+    "all": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_location_council_district%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27&%24limit=400000",
+    "vehicle": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_location_council_district%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27APD+-+Vehicle+Abatement+Report%27&%24limit=400000",
+    "code": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_location_council_district%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27DSD+-+Request+Code+Officer%27&%24limit=400000",
+    "pothole": "https://data.austintexas.gov/resource/xwdj-i9he.csv?%24select=sr_location_council_district%2Csr_status_desc%2Csr_created_date%2Csr_closed_date&%24where=sr_created_date+between+%272025-11-01T00%3A00%3A00%27+and+%272026-10-31T23%3A59%3A59%27+AND+sr_type_desc%3D%27TPW+-+Pothole+Repair%27&%24limit=400000"
+  }
+}

@@ -1,0 +1,214 @@
+---
+layout: layout.njk
+title: "Waiting on 311: how long Austin takes to close a request, in pictures"
+description: "A visual story from an original Austin Bulletin analysis of 273,134 City of Austin 311 requests: a pothole closes in hours, an abandoned vehicle in weeks, and where you live changes the wait."
+permalink: "/austin-311-visual/"
+---
+{%- set d = feature311 -%}
+{%- set k = d.byKey -%}
+{%- set v = feature311visual -%}
+{%- set map = councilDistrictShapes -%}
+{%- macro dur(days) -%}{%- if days * 24 < 1 -%}{{ (days * 1440) | round }} minutes{%- elif days * 24 < 1.5 -%}1 hour{%- elif days < 1 -%}{{ (days * 24) | round }} hours{%- elif days < 1.05 -%}1 day{%- else -%}{{ days | round(1) }} days{%- endif -%}{%- endmacro -%}
+{%- macro hours(days) -%}{{ (days * 24) | round }}{%- endmacro -%}
+{%- macro icon(name) -%}<svg class="sv-icon" aria-hidden="true" focusable="false"><use href="#i-{{ name }}"/></svg>{%- endmacro -%}
+{%- set months = ["Jan.", "Feb.", "March", "April", "May", "June", "July", "Aug.", "Sept.", "Oct.", "Nov.", "Dec."] -%}
+{%- macro shortDate(iso) -%}{%- set p = iso.split("-") -%}{{ months[(p[1] | int) - 1] }} {{ p[2] | int }}, {{ p[0] }}{%- endmacro -%}
+{#- Lanes for the race, fastest to slowest. Every value comes from feature311.json. -#}
+{%- set lanes = [
+  ["sickAnimal", "Injured or sick animal", "paw"],
+  ["signal", "Traffic signal problem", "signal"],
+  ["parking", "Parking violation", "parking"],
+  ["pothole", "Pothole", "pothole"],
+  ["garbage", "Trash", "trash"],
+  ["recycling", "Recycling", "recycle"],
+  ["compost", "Compost", "leaf"],
+  ["code", "Code officer visit", "clipboard"],
+  ["brush", "Brush", "branch"],
+  ["bulk", "Bulk items", "couch"],
+  ["vehicle", "Abandoned vehicle", "car"]
+] -%}
+{%- set raceMax = k.vehicle.medianDays -%}
+{%- set calWeeks = (k.vehicle.p90Days / 7) | round(0, "ceil") -%}
+{%- set calDays = calWeeks * 7 -%}
+{%- set vd = v.byDistrict.vehicle -%}
+{%- set pd = v.byDistrict.pothole -%}
+{%- set vSorted = vd | sort(false, false, "medianDays") -%}
+{%- set pSorted = pd | sort(false, false, "medianDays") -%}
+{%- set vMin = vSorted | first -%}{%- set vMax = vSorted | last -%}
+{%- set pMin = pSorted | first -%}{%- set pMax = pSorted | last -%}
+{%- set dots = (d.total / 1000) | round -%}
+{%- set dupDots = (d.duplicates / 1000) | round -%}
+{%- set openDots = (d.open / 1000) | round -%}
+
+<link rel="stylesheet" href="/css/story-311.css">
+<svg class="sv-sprite" aria-hidden="true" focusable="false" width="0" height="0">
+  <symbol id="i-pothole" viewBox="0 0 24 24"><path d="M2 16h20M2 20h20"/><ellipse cx="12" cy="11" rx="7" ry="3.2"/><path d="M8 10.5l2 1.2 2-1.5 2 1.4 2-1"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4.5h6V7M6 7l1.2 13h9.6L18 7M10 11v6M14 11v6"/></symbol>
+  <symbol id="i-recycle" viewBox="0 0 24 24"><path d="M7.5 10.5L10 6.2a2.3 2.3 0 0 1 4 0l1.2 2M16.6 6.8l-1.4 1.4-1.9-.6M17.3 13l2.2 3.8a2.3 2.3 0 0 1-2 3.4h-2.8M16 18.4l-1.3 1.8 1.3 1.6M9 20.2H6.5a2.3 2.3 0 0 1-2-3.4l1.4-2.4M4.8 14.8l1.1-.4.6 2"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19c0-8 5-13 15-14-1 10-6 15-14 15M5 19l7-7"/></symbol>
+  <symbol id="i-clipboard" viewBox="0 0 24 24"><path d="M8 4h8v3H8zM8 5.5H5.5V21h13V5.5H16M8.5 13l2.5 2.5 4.5-5"/></symbol>
+  <symbol id="i-branch" viewBox="0 0 24 24"><path d="M3 20L20 4M9 14l-4-1M12 11l1-5M15 8l4 1M7.5 15.5l1 4"/></symbol>
+  <symbol id="i-couch" viewBox="0 0 24 24"><path d="M5 11V8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v3M3 12a2 2 0 0 1 4 0v2h10v-2a2 2 0 0 1 4 0v5H3zM5 17v2M19 17v2"/></symbol>
+  <symbol id="i-car" viewBox="0 0 24 24"><path d="M3 16v-4l2-5h14l2 5v4zM3 12h18M5 16v2.5h3V16M16 16v2.5h3V16"/><circle cx="7" cy="14" r=".6"/><circle cx="17" cy="14" r=".6"/></symbol>
+  <symbol id="i-signal" viewBox="0 0 24 24"><rect x="8" y="2.5" width="8" height="16" rx="2"/><circle cx="12" cy="6.5" r="1.4"/><circle cx="12" cy="10.5" r="1.4"/><circle cx="12" cy="14.5" r="1.4"/><path d="M12 18.5V22"/></symbol>
+  <symbol id="i-parking" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2.5"/><path d="M10 17V8h3a2.5 2.5 0 0 1 0 5h-3"/></symbol>
+  <symbol id="i-paw" viewBox="0 0 24 24"><path d="M12 13c-3 0-5.5 3.2-5.5 5.2 0 1.7 1.6 2.1 2.8 1.7 1.2-.4 1.8-.6 2.7-.6s1.5.2 2.7.6c1.2.4 2.8 0 2.8-1.7 0-2-2.5-5.2-5.5-5.2z"/><circle cx="6" cy="11" r="1.8"/><circle cx="9.5" cy="6.5" r="1.8"/><circle cx="14.5" cy="6.5" r="1.8"/><circle cx="18" cy="11" r="1.8"/></symbol>
+</svg>
+
+<header class="sv-intro">
+  <p class="sv-kicker">Bulletin data · Austin 311</p>
+  <h1>Waiting on 311</h1>
+  <p class="sv-dek">How long Austin takes to close your request, in pictures. Keep scrolling.</p>
+  <p class="sv-alt"><a href="/austin-311-response-times/">Prefer words and tables? Read the full analysis</a></p>
+</header>
+
+<section class="sv" id="story" aria-label="Visual story: how long Austin takes to close a 311 request">
+  <div class="sv-stage" data-step="1" data-scene="dots">
+    <div class="sv-frame">
+
+      <figure class="sv-scene sv-dots" data-scene="dots" role="img" aria-label="{{ dots }} dots, each about 1,000 of the {{ d.total | commas }} requests to Austin 311 from {{ shortDate(d.from) }} to {{ shortDate(d.to) }}. {{ d.duplicates | commas }} were duplicates and {{ d.open | commas }} were still open.">
+        <p class="sv-big"><span class="sv-num">{{ d.total | commas }}</span><span class="sv-unit">requests in 12 months</span></p>
+        <div class="sv-dotgrid">
+          {%- for i in range(0, dots) -%}
+          {%- set left = dots - i -%}
+          <span class="sv-dot{% if left <= dupDots %} is-dup{% elif left <= dupDots + openDots %} is-open{% endif %}" style="--i:{{ i }}"></span>
+          {%- endfor -%}
+        </div>
+        <p class="sv-key"><span class="sv-dot"></span> about 1,000 requests <span class="sv-key-end"><span class="sv-dot is-dup"></span> duplicates <span class="sv-dot is-open"></span> still open</span></p>
+      </figure>
+
+      <figure class="sv-scene sv-clock" data-scene="clock" role="img" aria-label="A 24-hour dial. Half of pothole reports were closed within {{ dur(k.pothole.medianDays) }}, about {{ (k.pothole.medianDays * 100) | round }}% of a day. Half of trash requests took {{ dur(k.garbage.medianDays) }}, a full turn of the dial.">
+        <svg viewBox="0 0 240 240" class="sv-dial">
+          <circle class="sv-dial-track" cx="120" cy="120" r="88"/>
+          {%- for h in range(0, 24) %}
+          <line class="sv-tick{% if h % 6 == 0 %} is-major{% endif %}" x1="120" y1="{% if h % 6 == 0 %}6{% else %}10{% endif %}" x2="120" y2="17" transform="rotate({{ h * 15 }} 120 120)"/>
+          {%- endfor %}
+          <circle class="sv-dial-arc" cx="120" cy="120" r="88" pathLength="100" transform="rotate(-90 120 120)" style="--pothole:{{ (100 - k.pothole.medianDays * 100) | round(2) }};--trash:0"/>
+          <text class="sv-dial-lbl" font-size="10" x="120" y="53">0h</text>
+          <text class="sv-dial-lbl" font-size="10" x="182" y="124">6h</text>
+          <text class="sv-dial-lbl" font-size="10" x="120" y="195">12h</text>
+          <text class="sv-dial-lbl" font-size="10" x="58" y="124">18h</text>
+        </svg>
+        <div class="sv-dial-center">
+          <span class="sv-dial-who is-pothole">{{ icon("pothole") }} Pothole</span>
+          <span class="sv-dial-who is-trash">{{ icon("trash") }} Trash</span>
+          <span class="sv-dial-val is-pothole"><b>{{ hours(k.pothole.medianDays) }}</b> hours</span>
+          <span class="sv-dial-val is-trash"><b>1</b> day</span>
+        </div>
+      </figure>
+
+      <figure class="sv-scene sv-cal" data-scene="cal" role="img" aria-label="A {{ calWeeks }}-week calendar. Half of bulk-item requests closed within {{ dur(k.bulk.medianDays) }}. Half of abandoned-vehicle reports took {{ dur(k.vehicle.medianDays) }} or longer, and 1 in 10 took more than {{ dur(k.vehicle.p90Days) }}.">
+        <p class="sv-cal-head">
+          <span class="is-bulk">{{ icon("couch") }} Bulk items <b>{{ dur(k.bulk.medianDays) }}</b></span>
+          <span class="is-vehicle">{{ icon("car") }} Abandoned vehicle <b>{{ dur(k.vehicle.medianDays) }}</b></span>
+          <span class="is-p90">{{ icon("car") }} Slowest 1 in 10 <b>{{ dur(k.vehicle.p90Days) }}+</b></span>
+        </p>
+        <div class="sv-cal-grid">
+          {%- for i in range(0, calDays) -%}
+          {%- set b = k.bulk.medianDays - i -%}{%- if b < 0 %}{% set b = 0 %}{% elif b > 1 %}{% set b = 1 %}{% endif -%}
+          {%- set m = k.vehicle.medianDays - i -%}{%- if m < 0 %}{% set m = 0 %}{% elif m > 1 %}{% set m = 1 %}{% endif -%}
+          {%- set p = k.vehicle.p90Days - i -%}{%- if p < 0 %}{% set p = 0 %}{% elif p > 1 %}{% set p = 1 %}{% endif -%}
+          <span class="sv-day" style="--i:{{ i }};--b:{{ b | round(2) }};--v:{{ m | round(2) }};--p:{{ p | round(2) }}">{% if (i + 1) % 7 == 0 %}<i>{{ i + 1 }}</i>{% endif %}</span>
+          {%- endfor -%}
+        </div>
+        <p class="sv-cal-foot">Each square is one day. {{ calWeeks }} weeks shown.</p>
+      </figure>
+
+      <figure class="sv-scene sv-race" data-scene="race" role="img" aria-label="Median time to close, fastest to slowest: {% for l in lanes %}{{ l[1] }} {{ dur(k[l[0]].medianDays) }}{% if not loop.last %}; {% endif %}{% endfor %}.">
+        <p class="sv-race-head">Median time to “closed”</p>
+        <ol class="sv-lanes">
+          {%- for l in lanes %}
+          {%- set t = k[l[0]] %}
+          <li class="sv-lane{% if loop.index <= 2 %} is-fast{% endif %}{% if loop.revindex <= 3 %} is-slow{% endif %}" style="--w:{{ (t.medianDays / raceMax) | round(4) }}">
+            <span class="sv-lane-name">{{ l[1] }}</span>
+            <span class="sv-lane-val">{{ dur(t.medianDays) }}</span>
+            <span class="sv-lane-track"><span class="sv-lane-bar"></span><span class="sv-runner">{{ icon(l[2]) }}</span></span>
+          </li>
+          {%- endfor %}
+        </ol>
+        <p class="sv-race-scale"><span>0</span><span>{{ dur(raceMax) }}</span></p>
+      </figure>
+
+      <figure class="sv-scene sv-map" data-scene="map" role="img" aria-label="Map of Austin's 10 Council districts. Median days to close an abandoned-vehicle report: {% for x in vd %}District {{ x.district }} {{ x.medianDays | round(1) }}{% if not loop.last %}; {% endif %}{% endfor %}. Median hours for a pothole: {% for x in pd %}District {{ x.district }} {{ hours(x.medianDays) }}{% if not loop.last %}; {% endif %}{% endfor %}.">
+        <p class="sv-map-head"><span class="is-vehicle">{{ icon("car") }} Abandoned vehicle, median days</span><span class="is-pothole">{{ icon("pothole") }} Pothole, median hours</span></p>
+        <svg viewBox="0 0 {{ map.width }} {{ map.height }}" class="sv-mapsvg">
+          {%- for s in map.districts %}
+          {%- set xv = vd[loop.index0] %}{%- set xp = pd[loop.index0] %}
+          <path class="sv-district d{{ s.district }}{% if s.district == vMax.district %} is-max{% endif %}{% if s.district == vMin.district %} is-min{% endif %}" d="{{ s.path }}" style="--tv:{{ (xv.medianDays / 30) | round(3) }};--tp:{{ (xp.medianDays / 30) | round(3) }}"/>
+          {%- endfor %}
+          {%- for s in map.districts %}
+          {%- set xv = vd[loop.index0] %}{%- set xp = pd[loop.index0] %}
+          <g class="sv-dlabel d{{ s.district }}{% if s.district == vMax.district %} is-max{% endif %}{% if s.district == vMin.district %} is-min{% endif %}" transform="translate({{ s.label[0] }} {{ s.label[1] }})">
+            <text class="sv-dnum" font-size="17" y="-14">D{{ s.district }}</text>
+            <text font-size="27" class="sv-dval is-vehicle" y="14">{{ xv.medianDays | round(1) }}</text>
+            <text font-size="27" class="sv-dval is-pothole" y="14">{{ hours(xp.medianDays) }}</text>
+          </g>
+          {%- endfor %}
+        </svg>
+        <p class="sv-legend"><span>0 days</span><span class="sv-legend-bar"></span><span>30 days</span></p>
+      </figure>
+
+    </div>
+  </div>
+
+  <ol class="sv-steps">
+    <li class="sv-step" data-step="1" data-scene="dots"><div class="sv-card">
+      <p class="sv-lead">Austin logged <b>{{ d.total | commas }}</b> requests with 311 in a year.</p>
+      <p class="sv-sub">{{ shortDate(d.from) }}–{{ shortDate(d.to) }}. Each dot is about 1,000.</p>
+    </div></li>
+    <li class="sv-step" data-step="2" data-scene="clock"><div class="sv-card">
+      <p class="sv-lead">Report a <b>pothole</b>, and half are closed within <b>{{ dur(k.pothole.medianDays) }}</b>.</p>
+    </div></li>
+    <li class="sv-step" data-step="3" data-scene="clock"><div class="sv-card">
+      <p class="sv-lead"><b>Trash</b>: about <b>{{ dur(k.garbage.medianDays) }}</b>.</p>
+    </div></li>
+    <li class="sv-step" data-step="4" data-scene="cal"><div class="sv-card">
+      <p class="sv-lead">Then the days pile up. <b>Bulk items</b>: <b>{{ dur(k.bulk.medianDays) }}</b>.</p>
+    </div></li>
+    <li class="sv-step" data-step="5" data-scene="cal"><div class="sv-card">
+      <p class="sv-lead">An <b>abandoned vehicle</b>: <b>{{ dur(k.vehicle.medianDays) }}</b>. That is the typical wait.</p>
+    </div></li>
+    <li class="sv-step" data-step="6" data-scene="cal"><div class="sv-card">
+      <p class="sv-lead">1 in 10 abandoned-vehicle reports stayed open more than <b>{{ dur(k.vehicle.p90Days) }}</b>.</p>
+    </div></li>
+    <li class="sv-step" data-step="7" data-scene="race"><div class="sv-card">
+      <p class="sv-lead">Now race {{ lanes | length }} common requests. Every bar grows at the same speed.</p>
+    </div></li>
+    <li class="sv-step" data-step="8" data-scene="race"><div class="sv-card">
+      <p class="sv-lead">Quickest: an <b>injured or sick animal</b> ({{ dur(k.sickAnimal.medianDays) }}) and a <b>broken traffic signal</b> ({{ dur(k.signal.medianDays) }}).</p>
+    </div></li>
+    <li class="sv-step" data-step="9" data-scene="race"><div class="sv-card">
+      <p class="sv-lead">Slowest: <b>abandoned vehicles</b>, <b>bulk items</b> and <b>brush</b>.</p>
+    </div></li>
+    <li class="sv-step" data-step="10" data-scene="map"><div class="sv-card">
+      <p class="sv-lead">Where you live matters. Abandoned-vehicle reports took longest in <b>District {{ vMax.district }}</b>: <b>{{ vMax.medianDays | round(1) }} days</b>.</p>
+    </div></li>
+    <li class="sv-step" data-step="11" data-scene="map"><div class="sv-card">
+      <p class="sv-lead">Shortest in <b>District {{ vMin.district }}</b>: <b>{{ vMin.medianDays | round(1) }} days</b>.</p>
+    </div></li>
+    <li class="sv-step" data-step="12" data-scene="map"><div class="sv-card">
+      <p class="sv-lead">Potholes? Every district: <b>{{ hours(pMin.medianDays) }} to {{ hours(pMax.medianDays) }} hours</b>.</p>
+    </div></li>
+    <li class="sv-step" data-step="13" data-scene="dots"><div class="sv-card">
+      <p class="sv-lead">“Closed” is the City’s status, not proof the problem is gone.</p>
+      <p class="sv-sub">{{ d.duplicates | commas }} requests were duplicates. {{ d.open | commas }} were still open.</p>
+    </div></li>
+  </ol>
+</section>
+
+<section class="sv-end" aria-labelledby="sv-end-title">
+  <h2 id="sv-end-title">Your request is open too long if…</h2>
+  <p>It has been open longer than 9 in 10 of its kind. Pothole: {{ dur(k.pothole.p90Days) }}. Trash: {{ dur(k.garbage.p90Days) }}. Bulk items: {{ dur(k.bulk.p90Days) }}. Abandoned vehicle: {{ dur(k.vehicle.p90Days) }}.</p>
+  <p class="sv-cta"><a href="/austin-311-response-times/">Read the full analysis: all 25 request types and every district</a></p>
+  <p>Call 3-1-1 or 512-974-2000, or use the <a href="https://austin-cwiprod.motorolasolutions.com/cwi/select">City’s 311 web portal</a>. Call 911 in an emergency.</p>
+</section>
+
+<section class="sv-method" aria-labelledby="sv-method-title">
+  <h2 id="sv-method-title">Source and method</h2>
+  <p><b>Data:</b> <a href="{{ d.dataset }}">City of Austin 311 public data</a>, every service request created {{ shortDate(d.from) }}, through {{ shortDate(d.to) }}: <a href="{{ d.totalQuery }}">{{ d.total | commas }} requests</a>, pulled {{ shortDate(d.generated) }}. District figures come from the same {{ v.total | commas }} records, pulled {{ shortDate(v.generated) }}.</p>
+  <p><b>Method:</b> Each time is a median: half of the closed requests of that kind were closed sooner, half later. “1 in 10” is the 90th percentile. Time runs from when the request was created to when the City marked it closed. Requests marked duplicate and requests still open are left out of the times. Districts are where the request was located; {{ d.noDistrict | commas }} requests had none. Map shapes: <a href="{{ map.source }}">City of Austin Council District Boundaries</a>. Each dot stands for about 1,000 requests, rounded.</p>
+  <p><b>Check the numbers:</b> City queries for <a href="{{ k.pothole.query }}">potholes</a>, <a href="{{ k.garbage.query }}">trash</a>, <a href="{{ k.bulk.query }}">bulk items</a>, <a href="{{ k.vehicle.query }}">abandoned vehicles</a>, <a href="{{ v.queries.vehicle }}">abandoned vehicles by district</a> and <a href="{{ v.queries.pothole }}">potholes by district</a>. The City updates the data daily, so a live query can differ slightly.</p>
+  <p>Analysis and graphics: The Austin Bulletin. This page measures how long requests stayed open, not whether the work was done well.</p>
+</section>
+
+<script type="module" src="/js/story-311.js"></script>

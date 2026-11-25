@@ -5,12 +5,14 @@
 // missed 1st). --force rebuilds anyway. Otherwise it:
 //   1. pulls the new 12-month window from the City's 311 data (scripts/data-311.mjs),
 //   2. rewrites data/311-chart.json from the new medians,
-//   3. renders the two chart images with scripts/lead-chart.mjs.
+//   3. renders the two chart images with scripts/lead-chart.mjs,
+//   4. rebuilds the district medians for /austin-311-visual/ (scripts/data-311-visual.mjs).
 // Then run `npm run build && npm test`, and open a PR. Exit codes: 0 done or skipped, 1 failed.
 import { execFileSync } from "node:child_process";
 import { readFile, writeFile } from "node:fs/promises";
 import { chicagoDate } from "./chicago-time.mjs";
 import { build311, defaultWindow, monthLabels } from "./data-311.mjs";
+import { build311Visual } from "./data-311-visual.mjs";
 
 const BARS = [
   ["pothole", "Pothole"], ["garbage", "Trash"], ["recycling", "Recycling"], ["compost", "Compost"],
@@ -53,6 +55,7 @@ async function main() {
     return;
   }
   const data = await build311(from, to);
+  await build311Visual();
   const spec = chartSpec(data);
   await writeFile("data/311-chart.json", `${JSON.stringify(spec, null, 2)}\n`);
   execFileSync("node", ["scripts/lead-chart.mjs", "data/311-chart.json"], { stdio: "inherit" });
