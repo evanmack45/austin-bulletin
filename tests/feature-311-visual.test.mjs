@@ -37,6 +37,17 @@ test("the visual's district data covers the same records as the text feature", (
   assert.deepEqual(shapes.districts.map((d) => d.district), ten);
 });
 
+test("race lanes run fastest to slowest, so the step 8 and 9 captions stay true", () => {
+  const page = readFileSync("src/austin-311-visual/index.njk", "utf8");
+  const keys = [...page.matchAll(/^\s*\["(\w+)", "[^"]+", "[\w-]+"\]/gm)].map((m) => m[1]);
+  assert.equal(keys.length, 11);
+  const medians = keys.map((key) => base.byKey[key].medianDays);
+  assert.deepEqual(medians, [...medians].sort((a, b) => a - b), "lane order follows the data");
+  // If this fails after a refresh, rewrite the "Quickest" and "Slowest" captions.
+  assert.deepEqual(keys.slice(0, 2), ["sickAnimal", "signal"]);
+  assert.deepEqual(keys.slice(-3), ["brush", "bulk", "vehicle"]);
+});
+
 test("the active step is the last one above the trigger line", () => {
   assert.equal(activeStep([500, 1500, 2500], 600), 0);
   assert.equal(activeStep([-900, 100, 900], 600), 1);

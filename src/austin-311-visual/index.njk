@@ -28,7 +28,8 @@ permalink: "/austin-311-visual/"
   ["vehicle", "Abandoned vehicle", "car"]
 ] -%}
 {%- set raceMax = k.vehicle.medianDays -%}
-{%- set calDays = 70 -%}
+{%- set calWeeks = (k.vehicle.p90Days / 7) | round(0, "ceil") -%}
+{%- set calDays = calWeeks * 7 -%}
 {%- set vd = v.byDistrict.vehicle -%}
 {%- set pd = v.byDistrict.pothole -%}
 {%- set vSorted = vd | sort(false, false, "medianDays") -%}
@@ -96,7 +97,7 @@ permalink: "/austin-311-visual/"
         </div>
       </figure>
 
-      <figure class="sv-scene sv-cal" data-scene="cal" role="img" aria-label="A 10-week calendar. Half of bulk-item requests closed within {{ dur(k.bulk.medianDays) }}. Half of abandoned-vehicle reports took {{ dur(k.vehicle.medianDays) }} or longer, and 1 in 10 took more than {{ dur(k.vehicle.p90Days) }}.">
+      <figure class="sv-scene sv-cal" data-scene="cal" role="img" aria-label="A {{ calWeeks }}-week calendar. Half of bulk-item requests closed within {{ dur(k.bulk.medianDays) }}. Half of abandoned-vehicle reports took {{ dur(k.vehicle.medianDays) }} or longer, and 1 in 10 took more than {{ dur(k.vehicle.p90Days) }}.">
         <p class="sv-cal-head">
           <span class="is-bulk">{{ icon("couch") }} Bulk items <b>{{ dur(k.bulk.medianDays) }}</b></span>
           <span class="is-vehicle">{{ icon("car") }} Abandoned vehicle <b>{{ dur(k.vehicle.medianDays) }}</b></span>
@@ -110,7 +111,7 @@ permalink: "/austin-311-visual/"
           <span class="sv-day" style="--i:{{ i }};--b:{{ b | round(2) }};--v:{{ m | round(2) }};--p:{{ p | round(2) }}">{% if (i + 1) % 7 == 0 %}<i>{{ i + 1 }}</i>{% endif %}</span>
           {%- endfor -%}
         </div>
-        <p class="sv-cal-foot">Each square is one day. Ten weeks shown.</p>
+        <p class="sv-cal-foot">Each square is one day. {{ calWeeks }} weeks shown.</p>
       </figure>
 
       <figure class="sv-scene sv-race" data-scene="race" role="img" aria-label="Median time to close, fastest to slowest: {% for l in lanes %}{{ l[1] }} {{ dur(k[l[0]].medianDays) }}{% if not loop.last %}; {% endif %}{% endfor %}.">

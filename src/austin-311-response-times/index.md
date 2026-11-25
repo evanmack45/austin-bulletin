@@ -1,7 +1,8 @@
 ---
 layout: layout.njk
 title: "How long Austin takes to close your 311 request"
-description: "An original Austin Bulletin analysis of 273,134 City of Austin 311 service requests from November 2025 through October 2026: how long each common request takes to be marked closed, what each Council district reports most, and what that means when you file one."
+eleventyComputed:
+  description: "{{ feature311.description }}"
 permalink: "/austin-311-response-times/"
 ---
 {%- set d = feature311 -%}
@@ -13,14 +14,14 @@ permalink: "/austin-311-response-times/"
 
 ## How long Austin takes to close your 311 request
 
-**An original Austin Bulletin data analysis. Data: [City of Austin 311 public data]({{ d.dataset }}), every service request created from November 1, 2025 through October 31, 2026, pulled November 24, 2026.** This page measures how long requests stayed open in the City's system. It does not measure whether the work was done well. The City updates the dataset every day, so a live query can differ slightly from the figures here.
+**An original Austin Bulletin data analysis. Data: [City of Austin 311 public data]({{ d.dataset }}), every service request created from {{ d.fromLabel }} through {{ d.toLabel }}, pulled {{ d.generatedLabel }}.** This page measures how long requests stayed open in the City's system. It does not measure whether the work was done well. The City updates the dataset every day, so a live query can differ slightly from the figures here.
 
 **[See this analysis as a visual story →](/austin-311-visual/)**
 
 <figure class="data-feature-chart">
 <picture>
-<source media="(max-width: 700px)" srcset="/images/features/austin-311-response-times-phone-780.webp">
-<img src="/images/features/austin-311-response-times-desktop-1600.webp" width="1600" height="1067" alt="Bar chart of median days from a 311 report to the City marking it closed, November 2025 to October 2026: pothole 0.6, trash 1.0, recycling 1.9, compost 2.6, code officer visit 4.1, brush 7.0, bulk items 8.8, abandoned vehicle 21.2." loading="eager" decoding="async">
+<source media="(max-width: 700px)" srcset="/images/features/austin-311-response-times-phone-780.webp?v={{ d.generated }}">
+<img src="/images/features/austin-311-response-times-desktop-1600.webp?v={{ d.generated }}" width="1600" height="1067" alt="{{ d.chartAlt }}" loading="eager" decoding="async">
 </picture>
 <figcaption>Median time from report to "closed." Requests marked duplicate and requests still open are left out. Chart: The Austin Bulletin, from <a href="{{ d.dataset }}">City of Austin 311 data</a>.</figcaption>
 </figure>
@@ -75,7 +76,7 @@ Districts are where the request was located. {{ d.noDistrict | commas }} request
 </table>
 </div>
 
-Parking-violation reports lead in Districts 1 and 9. Code-officer requests lead in Districts 3 and 4. Trash leads in Districts 2, 5, 6, 7, 8 and 10. To find your district, use the City's [district lookup](https://www.austintexas.gov/council/district-map). For what the City Council decided about your district, see [Y'all, City Hall](https://yallcityhall.org/).
+{{ d.districtSentence }} To find your district, use the City's [district lookup](https://www.austintexas.gov/council/district-map). For what the City Council decided about your district, see [Y'all, City Hall](https://yallcityhall.org/).
 
 ### How people reach 311, and when
 
@@ -85,9 +86,9 @@ Parking-violation reports lead in Districts 1 and 9. Code-officer requests lead 
 - **{{ m.method }}** (the City's label): [{{ m.n | commas }}]({{ d.methodQuery }})
 {%- endfor %}
 
-Requests rise in spring and early summer. The busiest month was **[{{ (d.months | sort(true, false, "n") | first).label }}]({{ d.monthQuery }})** with {{ (d.months | sort(true, false, "n") | first).n | commas }} requests. The quietest was **[{{ (d.months | sort(false, false, "n") | first).label }}]({{ d.monthQuery }})** with {{ (d.months | sort(false, false, "n") | first).n | commas }}.
+The busiest month was **[{{ (d.months | sort(true, false, "n") | first).label }}]({{ d.monthQuery }})** with {{ (d.months | sort(true, false, "n") | first).n | commas }} requests. The quietest was **[{{ (d.months | sort(false, false, "n") | first).label }}]({{ d.monthQuery }})** with {{ (d.months | sort(false, false, "n") | first).n | commas }}.
 
-<div class="data-months" role="img" aria-label="311 requests by month, November 2025 to October 2026">
+<div class="data-months" role="img" aria-label="311 requests by month, {{ d.period }}">
 {%- set maxMonth = (d.months | sort(true, false, "n") | first).n %}
 {%- for m in d.months %}
 <div class="data-month"><span class="data-month-label">{{ m.short }}</span><span class="data-month-bar" style="--w: {{ ((m.n / maxMonth) * 100) | round(1) }}%"></span><span class="data-month-n">{{ m.n | commas }}</span></div>
@@ -98,7 +99,7 @@ Requests rise in spring and early summer. The busiest month was **[{{ (d.months 
 
 - **Data:** the City of Austin's [311 public data]({{ d.dataset }}), public domain. The City says the data comes from its 311 production system and refreshes every day.
 - **Window:** every request created from {{ d.fromLabel }} through {{ d.toLabel }}, by the date the City recorded.
-- **Time to close:** the City's closed time minus its created time. Only requests with a "Closed" status count. Duplicates and open requests are left out, so a type with many open requests may look faster than it really is. The "Still open" column shows how many were open on November 24.
+- **Time to close:** the City's closed time minus its created time. Only requests with a "Closed" status count. Duplicates and open requests are left out, so a type with many open requests may look faster than it really is. The "Still open" column shows how many were open on {{ d.generatedLabel }}.
 - **Code:** the [script that builds every number on this page](https://github.com/evanmack45/austin-bulletin/blob/main/scripts/data-311.mjs) is public. Anyone can rerun it.
 - The Austin Bulletin is produced with AI and reviewed against the source data. It takes no position on City services or budgets. [Corrections](/corrections/)
 

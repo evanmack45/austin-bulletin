@@ -1,5 +1,5 @@
 // Per-district wait times for the visual 311 story (/austin-311-visual/).
-// Usage: node scripts/data-311-visual.mjs
+// Usage: node scripts/data-311-visual.mjs (also run by scripts/refresh-311.mjs)
 // Uses the same window as src/_data/feature311.json (built by data-311.mjs)
 // and the same rules: duplicates and still-open requests are left out of the
 // medians. Writes src/_data/feature311visual.json.
@@ -44,7 +44,9 @@ export function districtMedians(rows) {
   return out;
 }
 
-async function main() {
+// Reads the window from feature311.json, so run it after data-311.mjs.
+// scripts/refresh-311.mjs calls this in the monthly refresh.
+export async function build311Visual() {
   const base = JSON.parse(await readFile("src/_data/feature311.json", "utf8"));
   const where = `sr_created_date between '${base.from}T00:00:00' and '${base.to}T23:59:59'`;
   const fields = "sr_number,sr_type_desc,sr_status_desc,sr_created_date,sr_closed_date,sr_location_council_district";
@@ -61,6 +63,7 @@ async function main() {
   };
   await writeFile("src/_data/feature311visual.json", `${JSON.stringify(out, null, 2)}\n`);
   console.log(`311 visual: ${rows.length} rows (feature311 had ${base.total})`);
+  return out;
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) await main();
+if (import.meta.url === `file://${process.argv[1]}`) await build311Visual();

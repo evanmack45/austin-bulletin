@@ -54,8 +54,7 @@ export function defaultWindow(today = chicagoDate()) {
   return [`${startYear}-${pad(startMonth)}-01`, `${endYear}-${pad(endMonth)}-${pad(lastDay)}`];
 }
 
-const [from, to] = process.argv[2] ? [process.argv[2], process.argv[3]] : defaultWindow();
-const windowWhere = `sr_created_date between '${from}T00:00:00' and '${to}T23:59:59'`;
+let windowWhere = "";
 
 export function queryUrl({ where = windowWhere, select, group, order, format = "csv", limit } = {}) {
   const params = new URLSearchParams();
@@ -109,7 +108,32 @@ export function longDate(iso) {
 const round = (n, d = 2) => (n === null ? null : Math.round(n * 10 ** d) / 10 ** d);
 export const days = (a, b) => (Date.parse(`${b}Z`) - Date.parse(`${a}Z`)) / 86400000;
 
-async function main() {
+const join = (items) => (items.length < 3 ? items.join(" and ") : `${items.slice(0, -1).join(", ")} and ${items.at(-1)}`);
+
+/** Sentences that depend on the numbers. They are built here so a refresh cannot leave them stale. */
+export function proseFor(d) {
+  const leaders = new Map();
+  for (const x of d.districts) {
+    const label = x.top[0].label.toLowerCase();
+    leaders.set(label, [...(leaders.get(label) ?? []), x.district]);
+  }
+  const districtSentence = `The most-reported request is ${join([...leaders.entries()]
+    .sort((a, b) => b[1].length - a[1].length)
+    .map(([label, ds]) => `${label} in District${ds.length > 1 ? "s" : ""} ${join(ds)}`))}.`;
+  const k = d.byKey;
+  const period = `${monthLabels(d.from.slice(0, 7)).label} through ${monthLabels(d.to.slice(0, 7)).label}`;
+  const description = `An original Austin Bulletin analysis of ${d.total.toLocaleString("en-US")} City of Austin 311 ` +
+    `service requests from ${period}: how long each common request takes to be marked closed, ` +
+    `what each Council district reports most, and what that means when you file one.`;
+  const bars = ["pothole", "garbage", "recycling", "compost", "code", "brush", "bulk", "vehicle"].map((key) => k[key]);
+  const chartAlt = `Bar chart of median days from a 311 report to the City marking it closed, ${period}: ` +
+    `${[...bars].sort((a, b) => a.medianDays - b.medianDays).map((t) => `${t.label.toLowerCase()} ${round(t.medianDays, 1)}`).join(", ")}.`;
+  return { districtSentence, description, chartAlt, period };
+}
+
+/** Pull the window, write src/_data/feature311.json, and return the data. */
+export async function build311(from, to) {
+  windowWhere = `sr_created_date between '${from}T00:00:00' and '${to}T23:59:59'`;
   const fields = "sr_number,sr_type_desc,sr_status_desc,sr_method_received_desc,sr_created_date,sr_closed_date,sr_location_council_district";
   const url = queryUrl({ select: fields, order: "sr_number", limit: 2000000 });
   const res = await fetch(url, { headers: { "User-Agent": UA } });
@@ -165,7 +189,7 @@ async function main() {
     }));
 
   const out = {
-    generated: chicagoDate(), from, to,
+    generated: chicagoDate(), generatedLabel: longDate(chicagoDate()), from, to,
     dataset: `${HOST}/Utilities-and-City-Services/Austin-311-Public-Data/${DATASET}`,
     total: rows.length, duplicates, open,
     noDistrict: byDistrict.get("")?.total ?? 0,
@@ -179,8 +203,13 @@ async function main() {
     types: typeRows, districts: districtRows,
     byKey: Object.fromEntries(typeRows.map((t) => [t.key, t]))
   };
+  Object.assign(out, proseFor(out));
   await writeFile("src/_data/feature311.json", `${JSON.stringify(out, null, 2)}\n`);
   console.log(`311: ${out.total} requests ${from}..${to}; ${typeRows.length} types; ${districtRows.length} districts`);
+  return out;
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) await main();
+if (import.meta.url === `file://${process.argv[1]}`) {
+  const [from, to] = process.argv[2] ? [process.argv[2], process.argv[3]] : defaultWindow();
+  await build311(from, to);
+}
