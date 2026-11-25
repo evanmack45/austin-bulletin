@@ -133,7 +133,9 @@
 .sv-stage[data-step="10"] .sv-district:not(.is-max), .sv-stage[data-step="11"] .sv-district:not(.is-min) { opacity: .35; }
 .sv-stage[data-step="10"] .sv-dlabel:not(.is-max), .sv-stage[data-step="11"] .sv-dlabel:not(.is-min) { opacity: .5; }
 .sv-dlabel { transition: opacity .4s; }
-.sv-stage[data-step="10"] .sv-district.is-max, .sv-stage[data-step="11"] .sv-district.is-min { stroke: #fff; stroke-width: 2; }
+.sv-stage[data-step="10"] .sv-district.is-max { stroke: #fff; stroke-width: 2; }
+.sv-stage[data-step="11"] .sv-district:not(.is-min) { opacity: .25; }
+.sv-stage[data-step="11"] .sv-dlabel.is-min .sv-dval { fill: var(--yel); }
 .sv-dlabel text { text-anchor: middle; paint-order: stroke; stroke: var(--navy); stroke-linejoin: round; font-family: Hanken, "Helvetica Neue", Arial, sans-serif; }
 .sv-dnum { font-weight: 700; fill: var(--soft); stroke-width: 4px; }
 .sv-dval { font-weight: 800; fill: #fff; stroke-width: 5px; transition: opacity .3s; }
