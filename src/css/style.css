@@ -1564,3 +1564,8 @@ body:has(article.bulletin) main { max-width: 48rem; }
   .data-table th, .data-table td { padding: .4rem .45rem; }
   .data-table tbody th { min-width: 8rem; }
 }
+
+/* Generated lead art at the top of topic and section pages. */
+.art-lead { margin: 0 0 1.25rem; max-width: 46rem; }
+.art-lead img { display: block; width: 100%; height: auto; border-radius: 4px; }
+.art-lead figcaption { margin-top: .3rem; font-size: .78rem; color: var(--muted); }

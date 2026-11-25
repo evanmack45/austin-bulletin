@@ -270,10 +270,10 @@ body:has(.w3) { overflow-x: clip; }
 .w3-plate-fig img { display: block; width: 100%; height: auto; }
 .w3-plate-fig figcaption { margin: .7rem auto 0; max-width: 40rem; font: 500 1.02rem/1.4 Hanken, "Helvetica Neue", Arial, sans-serif; text-wrap: pretty; }
 .w3-plate-fig figcaption b { color: #b4430c; }
-.w3-plate-credit { display: block; margin-top: .3rem; font-size: .72rem; letter-spacing: .04em; text-transform: uppercase; color: #5b6b70; }
+.w3-plate-credit { display: block; margin-top: .3rem; font-size: .78rem; color: #5b6b70; }
 .w3-hold { margin: 0 0 1.25rem; max-width: 40rem; }
 .w3-hold img { display: block; width: 100%; height: auto; }
-.w3-hold figcaption { margin-top: .3rem; font-size: .72rem; letter-spacing: .04em; text-transform: uppercase; color: var(--muted, #5b6b70); }
+.w3-hold figcaption { margin-top: .3rem; font-size: .78rem; color: var(--muted, #5b6b70); }
 @media (min-width: 900px) {
   .w3-plate { width: 100vw; margin: 0 0 70vh calc(-1 * clamp(1.75rem, 2.5vw, 3rem)); padding: 2rem clamp(1.75rem, 4vw, 4rem) 2.25rem; }
 }

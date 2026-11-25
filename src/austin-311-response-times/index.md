@@ -11,6 +11,7 @@ permalink: "/austin-311-response-times/"
 {%- macro q(t, text) -%}<a href="{{ t.query }}">{{ text }}</a>{%- endmacro -%}
 
 <div class="data-feature">
+{% set artName = "wait-hero" %}{% set artAlt = "Illustration: a silhouetted figure on a cracked curb checks a glowing phone beside a traffic cone and a pothole, a giant clock glowing behind the Austin skyline." %}{% include "art-lead.njk" %}
 
 ## How long Austin takes to close your 311 request
 

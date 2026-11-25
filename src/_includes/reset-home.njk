@@ -8,6 +8,10 @@
   <div class="story-grid">
     <section class="story-card story-card--lead front-lead" id="lead" data-fold data-animate>
       <img class="share-image" src="{{ leadImage.src }}" alt="{{ lead.chartAlt | escape }}" width="{{ leadImage.width }}" height="{{ leadImage.height }}">
+      {%- set homeArtItem = homeArt[editionDate] %}
+      {%- if homeArtItem %}
+      <figure class="lead-art"><img src="{{ homeArtItem.src }}" srcset="{{ homeArtItem.smallSrc }} {{ homeArtItem.smallWidth }}w, {{ homeArtItem.src }} {{ homeArtItem.width }}w" sizes="(min-width: 1024px) 66rem, 100vw" width="{{ homeArtItem.width }}" height="{{ homeArtItem.height }}" fetchpriority="high" decoding="async" alt="{{ homeArtItem.alt | escape }}"><figcaption data-budget-exempt>Illustration: AI-generated for The Austin Bulletin</figcaption></figure>
+      {%- endif %}
       <p class="original-kicker">{{ lead.label | escape }}</p>
       <p class="bignum">{{ lead.bignum | escape }} <span class="qual">{{ lead.qualifier | escape }}</span></p>
       <h1><a href="{{ latestEdition.url }}#{{ lead.id | escape }}">{{ lead.headline | tightTokens }}</a></h1>
@@ -50,8 +54,17 @@
     </section>
     <section class="story-card story-card--feature" aria-labelledby="data-feature-title">
       <p class="feature-kicker" id="data-feature-title">Data features</p>
-      <h2 class="feature-title"><a href="/austin-311-wait/">The Wait: how fast Austin closes 311 requests</a></h2>
-      <h2 class="feature-title"><a href="/austin-restaurant-inspection-scores/">Restaurant inspection scores explained</a></h2>
+      <div class="feature-cards">
+        <article class="feature-card">
+          <a class="feature-art" href="/austin-311-wait/" tabindex="-1" aria-hidden="true"><img src="/images/art/topics/wait-hero-780.webp" width="780" height="435" loading="lazy" decoding="async" alt=""></a>
+          <h2 class="feature-title"><a href="/austin-311-wait/">The Wait: how fast Austin closes 311 requests</a></h2>
+        </article>
+        <article class="feature-card">
+          <a class="feature-art" href="/austin-restaurant-inspection-scores/" tabindex="-1" aria-hidden="true"><img src="/images/art/topics/inspections-780.webp" width="780" height="435" loading="lazy" decoding="async" alt=""></a>
+          <h2 class="feature-title"><a href="/austin-restaurant-inspection-scores/">Restaurant inspection scores explained</a></h2>
+        </article>
+      </div>
+      <p class="feature-credit" data-budget-exempt>Illustrations: AI-generated for The Austin Bulletin</p>
     </section>
   </div>
   

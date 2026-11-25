@@ -4,6 +4,8 @@ title: "Austin's 2026 charter amendments: Propositions C through J"
 description: "What each of Austin's eight City Charter amendments on the November 3, 2026 ballot would change, in plain language, with the official ballot wording, the Council vote that called the election, and what each side says about the Proposition I audit."
 permalink: "/austin-charter-2026/"
 ---
+{% set artName = "charter" %}{% set artAlt = "Illustration: an antique scroll unrolling like a road toward a domed capitol and a small skyline, with a quill, an inkwell and a wax seal." %}{% include "art-lead.njk" %}
+
 
 ## Austin's 2026 charter amendments: Propositions C through J
 

@@ -4,6 +4,8 @@ title: "The Muny deal: Austin, UT and Lions Municipal Golf Course (2026)"
 description: "What the proposed 2026 deal between the City of Austin and UT Austin would do for Lions Municipal Golf Course (Muny): who owns what, what the surrounding land could become, who has spoken, and the October 21, October 27 and November 19 meetings, with sources."
 permalink: "/muny-2026/"
 ---
+{% set artName = "muny" %}{% set artAlt = "Illustration: a quiet golf green at golden hour with a flag, a rolled blueprint, orange-ribboned survey stakes, a golf cart and a distant skyline with a stone tower." %}{% include "art-lead.njk" %}
+
 
 ## The Muny deal: Austin, UT and Lions Municipal Golf Course
 

@@ -9,6 +9,7 @@ and checked every Monday.
 | X post search (`X_BEARER_TOKEN`) | Bulletin | $0.005 per post, about 46 posts per run | $6.35 for October ($3.59 to date over 13 billed days, plus 12 days at $0.23); about $7 a full month | 2026-10-19 from `logs/x-spend.jsonl` |
 | OpenRouter (DeepSeek extraction, Opus summaries) | Tracker | unknown | unknown, read the OpenRouter dashboard | asked Evan 2026-10-12 and 2026-10-19 |
 | Gemini images, Google Pollen, Maps Static | Bulletin | free tier | $0 | 2026-10-09 |
+| fal.ai Nano Banana Pro images (`fal-ai/nano-banana-pro`, via Evan's fal account) | Both | $0.15 per 1K image | about $2.25 so far (15 images, 2026-11-25); budget under $10 a month | 2026-11-25 |
 | Cloudflare Pages, Web Analytics, DNS | Both | free plan | $0 | 2026-10-09 |
 | GitHub Pages, Actions | Both | free plan | $0 | 2026-10-09 |
 

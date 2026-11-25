@@ -779,3 +779,23 @@
 @media (min-width: 1024px) {
   .home-front .story-card--feature { grid-column: 1 / -1; }
 }
+
+/* Illustrated data-feature cards on the front page. */
+.story-card--feature .feature-cards { display: grid; gap: 1rem; margin-top: .6rem; }
+.story-card--feature .feature-card { display: block; }
+.story-card--feature .feature-art { display: block; }
+.story-card--feature .feature-art img { display: block; width: 100%; height: auto; border-radius: 4px; }
+.story-card--feature .feature-card .feature-title { margin-top: .45rem; }
+.story-card--feature .feature-credit { margin: .6rem 0 0; font-size: .78rem; color: var(--muted); }
+@media (min-width: 640px) {
+  .story-card--feature .feature-cards { grid-template-columns: 1fr 1fr; }
+}
+
+/* Generated lead art above the lead story's kicker. */
+.story-card--lead .lead-art { margin: 0 0 1rem; grid-column: 1 / -1; }
+.story-card--lead .lead-art img { display: block; width: 100%; height: auto; border-radius: 6px; }
+.story-card--lead .lead-art figcaption { margin-top: .3rem; font-size: .78rem; color: var(--on-night-meta, #b9c4d6); }
+@media (min-width: 1024px) {
+  /* The lead card is a two-column grid with fixed rows: the art sits under the text column. */
+  .story-card--lead .lead-art { grid-column: 1; grid-row: 6; align-self: end; margin: .9rem 0 0; }
+}
