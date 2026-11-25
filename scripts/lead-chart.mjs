@@ -10,13 +10,15 @@ import sharp from "sharp";
 
 const spec = JSON.parse(await readFile(process.argv[2], "utf8"));
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+// Bars sit in a track that fills the space left after the value and label,
+// so each bar's height is truly proportional to its value.
 const max = Math.max(...spec.bars.map((b) => b.n));
 
 function html(w, h, scale) {
   const px = (v) => `${Math.round(v * scale)}px`;
   const bars = spec.bars.map((b) => `
     <div class="col"><span class="v${b.hi ? " hi" : ""}">${esc(b.value)}</span>
-    <span class="bar${b.hi ? " hi" : ""}" style="height:${(b.n / max) * 100}%"></span>
+    <span class="track"><span class="bar${b.hi ? " hi" : ""}" style="height:${(b.n / max) * 100}%"></span></span>
     <span class="l${b.hi ? " hi" : ""}">${esc(b.label)}</span></div>`).join("");
   return `<!doctype html><html><head><style>
   *{box-sizing:border-box;margin:0}
@@ -28,7 +30,8 @@ function html(w, h, scale) {
   .s{color:#b9c6d6;font-weight:600;font-size:${px(26)};margin-top:${px(20)}}
   .chart{flex:1;display:flex;align-items:flex-end;justify-content:space-around;padding:${px(30)} ${px(160)} 0}
   .col{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;width:${px(120)}}
-  .bar{width:100%;background:#5f7898;border-radius:${px(4)}}
+  .track{flex:1 1 0;min-height:0;width:100%;display:flex;align-items:flex-end}
+  .bar{display:block;width:100%;background:#5f7898;border-radius:${px(4)}}
   .bar.hi{background:#ffc233}
   .v{font-weight:700;font-size:${px(28)};color:#dfe6ee;margin-bottom:${px(10)}}
   .l{font-weight:700;font-size:${px(26)};color:#dfe6ee;margin-top:${px(14)}}
