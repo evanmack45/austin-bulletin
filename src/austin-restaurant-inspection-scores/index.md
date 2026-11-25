@@ -8,6 +8,7 @@ permalink: "/austin-restaurant-inspection-scores/"
 {%- set d = featureInspections -%}
 
 <div class="data-feature">
+{% set artName = "inspections" %}{% set artAlt = "Illustration: a restaurant counter still life with a clean plate, fork and knife, a large magnifying glass, an inspector's clipboard with blank checkboxes, a thermometer, a chef's hat, a gold badge and a bowl of lemons." %}{% include "art-lead.njk" %}
 
 ## What an Austin restaurant inspection score tells you
 

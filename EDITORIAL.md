@@ -549,6 +549,17 @@ a question for the publisher, not something a run engineers around.
    none of the above exists. Caption exactly "AI-generated image". Never
    real or recognizable people; never posed as a photo of the event.
 
+5. Illustration, by Evan's standing rule from 2026-11-25: the site uses
+   generated art heavily. Make it with Nano Banana Pro on fal.ai
+   (`fal-ai/nano-banana-pro`, about $0.15 per 1K image), in the house
+   style: risograph grain, deep teal, warm orange and cream, witty, no text
+   baked in, no real people or likenesses, never posed as a photograph.
+   Label it "Illustration: AI-generated for The Austin Bulletin" on the
+   page. The homepage lead art is one entry in `src/_data/homeArt.json`
+   keyed by edition date; feature and topic pages carry their own art under
+   `src/images/art/`. Rule 3 still wins for a verified real photo of the
+   story's subject. Ship webp with width and height set.
+
 Never: photos copied out of another outlet's article (copyright);
 screenshots of other outlets' pages or feeds; AI images captioned as
 photographs; photos you could not verify.
