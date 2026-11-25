@@ -52,3 +52,5 @@ Any session may add a line. Evan may add or strike lines.
   alt text reads as missing alt.
 - `npm run voices` ran twice on 2026-10-12 and billed X twice. Guard
   against a second same-day run.
+
+- Refresh `/austin-311-response-times/` on the first weekday of each month: `node scripts/data-311.mjs`, rerender the chart from `data/311-chart.json` with the new medians, recheck the district sentence (its test fails if the leaders change). Measured by visits to the page.

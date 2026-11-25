@@ -1,0 +1,52 @@
+{
+  "out": "src/images/features/austin-311-response-times",
+  "kicker": "AUSTIN 311 \u00b7 NOV. 2025 TO OCT. 2026",
+  "bignum": "21 days",
+  "qualifier": "median for an abandoned-vehicle report to be marked closed",
+  "headline": "A pothole report closes in about 15 hours. An abandoned-vehicle report takes three weeks.",
+  "subtitle": "Median days from report to 'closed' in the City's public 311 data",
+  "bars": [
+    {
+      "label": "Pothole",
+      "value": "0.6",
+      "n": 0.64
+    },
+    {
+      "label": "Trash",
+      "value": "1.0",
+      "n": 1.05
+    },
+    {
+      "label": "Recycling",
+      "value": "1.9",
+      "n": 1.94
+    },
+    {
+      "label": "Compost",
+      "value": "2.6",
+      "n": 2.64
+    },
+    {
+      "label": "Code",
+      "value": "4.1",
+      "n": 4.14
+    },
+    {
+      "label": "Brush",
+      "value": "7.0",
+      "n": 7.02
+    },
+    {
+      "label": "Bulk",
+      "value": "8.8",
+      "n": 8.84
+    },
+    {
+      "label": "Vehicle",
+      "value": "21.2",
+      "n": 21.2,
+      "hi": true
+    }
+  ],
+  "even": true
+}
