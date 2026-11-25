@@ -69,12 +69,7 @@ permalink: "/austin-311-wait/"
       <p>Each point is one request, placed where the problem was. <b>{{ w.located | commas }}</b> have a usable location.</p>
       <p class="w3-sr">Graphic: a map of Austin drawn entirely by 311 requests. The densest light runs along I-35 and downtown.</p>
     </div></li>
-    <li class="w3-step" data-scene="color"><div class="w3-card">
-      <p>Now each takes the color of its <b>wait</b>: the time until the City marked it closed.</p>
-      <p class="w3-small">The inset zooms downtown, where the points pile up.</p>
-      <p class="w3-sr">Graphic: the same map, colored from dark blue (minutes) through slate (a day) to gold and pale yellow (weeks and months). A square inset at the corner zooms in on downtown.</p>
-    </div></li>
-    <li class="w3-step" data-scene="color"><div class="w3-card w3-guess">
+    <li class="w3-step" data-scene="map"><div class="w3-card w3-guess">
       <p>Before the answer: how long do you think a typical request waited to be marked closed?</p>
       <form class="w3-guess-form" onsubmit="return false">
         <label for="w3-guess-range">Your guess: <output class="w3-guess-val" for="w3-guess-range">12 hours</output></label>
@@ -83,6 +78,11 @@ permalink: "/austin-311-wait/"
         <button type="button" class="w3-guess-lock">Lock in my guess</button>
       </form>
       <p class="w3-guess-out" aria-live="polite"></p>
+    </div></li>
+    <li class="w3-step" data-scene="color"><div class="w3-card">
+      <p>Now each takes the color of its <b>wait</b>: the time until the City marked it closed.</p>
+      <p class="w3-small">The inset zooms downtown, where the points pile up.</p>
+      <p class="w3-sr">Graphic: the same map, colored from dark blue (minutes) through slate (a day) to gold and pale yellow (weeks and months). A square inset at the corner zooms in on downtown.</p>
     </div></li>
     <li class="w3-step" data-scene="terrain"><div class="w3-card">
       <p>Now look only at requests that took more than a week to close. The taller the column, the larger the share of a patch's requests that waited that long, from 0 to the tallest, labeled.</p>
