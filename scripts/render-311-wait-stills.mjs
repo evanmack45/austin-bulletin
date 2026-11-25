@@ -24,6 +24,8 @@ for (const s of SIZES) {
   await page.emulateMediaFeatures([{ name: "prefers-reduced-motion", value: "reduce" }]);
   await page.setViewport({ width: s.width, height: s.height, deviceScaleFactor: s.scale, isMobile: s.mobile, hasTouch: s.mobile });
   await page.goto(`${base}/austin-311-wait/`, { waitUntil: "networkidle0" });
+  // The graphic starts on the reader's first input; a key press stands in for one.
+  await page.keyboard.press("Shift");
   await page.waitForFunction("window.__w3", { timeout: 60000 });
   // Only the graphic: no cards, no clock, no hidden poster.
   await page.addStyleTag({ content: ".w3-steps{visibility:hidden}.w3-hud,.w3-poster,.w3-credit{display:none!important}" });
