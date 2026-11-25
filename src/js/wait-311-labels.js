@@ -49,7 +49,7 @@ function ringLabels(add, DATA, prep) {
   const out = (a, r) => fixed([Math.sin(a) * r, Math.cos(a) * r, 0]);
   // Saturday and Sunday are the last two sevenths of each ring, tinted yellow.
   add("rings", "Weekends", "is-sector is-weekend", out((6 / 7) * Math.PI * 2, 1.13));
-  add("rings", "Weekdays", "is-sector", out((2.5 / 7) * Math.PI * 2, 1.13));
+  add("rings", "Weekdays", "is-sector", out((2.5 / 7) * Math.PI * 2, 1.22));
   const from = Date.parse(`${DATA.from}T00:00:00Z`);
   for (const [i, mk] of (DATA.marks || []).entries()) {
     // Noon on that day, placed the way the shader places a request; the name sits

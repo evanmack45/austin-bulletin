@@ -86,7 +86,7 @@ permalink: "/austin-311-wait/"
     <li class="w3-step" data-scene="terrain"><div class="w3-card">
       <p>Now look only at requests that took more than a week to close. The taller the column, the larger the share of a patch's requests that waited that long.</p>
       <p class="w3-small">In District {{ owMax.district }}, {{ pct(owMax.overWeek, owMax.closed) }} of closed requests took more than a week; in District {{ owMin.district }}, {{ pct(owMin.overWeek, owMin.closed) }}. Citywide, <b>{{ w.overMonth | commas }}</b> took more than a month to close. Patches with fewer than 30 closed requests stay flat.</p>
-      <p class="w3-sr">Graphic: a tilted 3D map of hexagonal columns about {{ w.hexAcrossKm }} km across. Each column's height is the share of its closed requests that took more than a week (full height at 50% or more); colors run from gold (about a week) to pale yellow (months).</p>
+      <p class="w3-sr">Graphic: a tilted 3D map of hexagonal columns about {{ w.hexAcrossKm }} km across. Each column's height is the share of its closed requests that took more than a week (flat at 10% or less, full height at 40% or more); colors run from gold (about a week) to pale yellow (months).</p>
     </div></li>
     <li class="w3-step" data-scene="hist"><div class="w3-card">
       <p>Pour all {{ w.closed | commas }} closed requests into one pile, sorted by wait.</p>

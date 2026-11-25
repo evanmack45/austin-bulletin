@@ -7,7 +7,8 @@ import { HEX_VERT, HEX_FRAG } from "./wait-311-shaders.js";
 const SLOW = minutesCode(7 * 1440);  // a closed request that took more than a week
 const MIN_COUNT = 3;                 // smaller hexagons are left out of the mesh
 // Slow-request columns show a share, so they need enough closed requests to mean something.
-export const RATE_MIN = 30, RATE_TOP = 0.5;   // 50% or more took over a week = full height
+// Flat at 10% or less of them taking over a week, full height at 40% or more.
+export const RATE_MIN = 30, RATE_LO = 0.1, RATE_HI = 0.4;
 // Vehicle columns show a median wait, from 3 days (flat) to 60 days (full height).
 export const VEH_MIN = 5;
 const VEH_LO = minutesCode(3 * 1440), VEH_HI = minutesCode(60 * 1440);
@@ -101,7 +102,8 @@ export function hexMesh(bins, r) {
   for (const b of bins) {
     let c = 0;
     const cum = [...b.months].map((v) => Math.round(((c += v) / maxTotal) * 65535));
-    const h = { cum, slow: byte(slowShare(b) / RATE_TOP), code: code(b.slowHist, b.slow),
+    const share = (slowShare(b) - RATE_LO) / (RATE_HI - RATE_LO);
+    const h = { cum, slow: byte(share), code: code(b.slowHist, b.slow),
       veh: b.veh >= VEH_MIN ? byte(vehHeight(median(b.vehHist, b.veh))) : 0,
       vehCode: code(b.vehHist, b.veh) };
     const [cx, cy] = centerOf(b.q, b.s, r);

@@ -69,7 +69,7 @@ body:has(.w3) { overflow-x: clip; }
 .w3-legend { position: absolute; left: 50%; top: .8rem; translate: -50% 0; width: min(92vw, 22rem); opacity: 0; transition: opacity .4s ease; pointer-events: none; text-align: center; }
 .w3.is-ready .w3-stage:not([data-scene="hero"]):not([data-scene="map"]):not([data-scene="rings"]):not([data-scene="end"]) .w3-legend { opacity: 1; }
 .w3-legend-bar { display: block; height: 6px; border-radius: 3px;
-  background: linear-gradient(90deg, #29458a 0%, #406bb3 32%, #7891b8 57%, #f2c759 72%, #ffe66d 82%, #fff7c7 92%); }
+  background: linear-gradient(90deg, #29458a 0%, #385ca3 32%, #5c73a3 57%, #f2c759 72%, #ffe66d 82%, #fff7c7 92%); }
 .w3-legend-lbls { display: flex; justify-content: space-between; font-size: .75rem; color: var(--soft); margin-top: 3px; }
 .w3-legend-cap { display: block; font-size: .75rem; color: var(--soft); margin-top: 1px; letter-spacing: .02em; }
 

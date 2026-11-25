@@ -8,8 +8,8 @@ vec3 ramp(float c) {
   // One sequential scale: quick closes in the background's blue, long waits in the
   // headline yellow, so the slow tail stands out of the crowd.
   vec3 c0 = vec3(0.16, 0.27, 0.52);
-  vec3 c1 = vec3(0.25, 0.42, 0.70);
-  vec3 c2 = vec3(0.47, 0.57, 0.72);
+  vec3 c1 = vec3(0.22, 0.36, 0.64);
+  vec3 c2 = vec3(0.36, 0.45, 0.64);
   vec3 c3 = vec3(0.95, 0.78, 0.35);
   vec3 c4 = vec3(1.0, 0.90, 0.43);
   vec3 c5 = vec3(1.0, 0.97, 0.78);
