@@ -2,6 +2,7 @@
 // the part of the screen the captions leave free, and the camera for each scene.
 import { perspective, lookAt, apply } from "./wait-311-gl.js";
 import { BINS } from "./wait-311-prep.js";
+import { worldOf } from "./wait-311-labels.js";
 
 const FOV = (32 * Math.PI) / 180;
 const CAM_OF = { hero: "hero", map: "map", color: "map", terrain: "terrain", hist: "pile",
@@ -37,15 +38,23 @@ function cameras(DATA, geo) {
   // The hero looks across the city from the south, so the columns read as a skyline.
   const hero = { t: [0, 0.02, 0.06], tilt: 0.95, rot: -0.32,
     w: DATA.mapW * 0.98, h: DATA.mapH * 1.0 };
-  return { map, terrain, hero,
+  // ~5 km square over downtown, for the wait-color inset.
+  const d = worldOf(DATA, 30.2700, -97.7431), span = DATA.hexR * 5;
+  const downtown = { t: [d[0], d[1], 0], tilt: 0, rot: 0, w: span, h: span };
+  return { map, terrain, hero, downtown,
     pile: { t: [0, 0, 0], tilt: 0, rot: 0, w: geo.boxW, h: geo.boxH },
     ring: { t: [0, 0, 0], tilt: 0, rot: 0, w: 2.5, h: 2.5 },
     vehicles: { ...terrain, tilt: 0.85, rot: 0.25 }, you: { ...terrain, tilt: 0.6, rot: -0.15 } };
 }
 
+const lerpBox = (a, b, k) => a && b ? {
+  x: a.x + (b.x - a.x) * k, y: a.y + (b.y - a.y) * k,
+  w: a.w + (b.w - a.w) * k, h: a.h + (b.h - a.h) * k,
+} : (a || b);
+
 export const lerpCam = (a, b, k) => ({ t: a.t.map((v, i) => v + (b.t[i] - v) * k),
   tilt: a.tilt + (b.tilt - a.tilt) * k, rot: a.rot + (b.rot - a.rot) * k,
-  w: a.w + (b.w - a.w) * k, h: a.h + (b.h - a.h) * k });
+  w: a.w + (b.w - a.w) * k, h: a.h + (b.h - a.h) * k, safe: lerpBox(a.safe, b.safe, k) });
 
 export function createView(canvas, wide, DATA, prep) {
   const v = { wide, W: 1, H: 1, dpr: 1, safe: { x: 0, y: 0, w: 1, h: 1 }, geo: {}, cams: {} };
@@ -58,14 +67,26 @@ export function createView(canvas, wide, DATA, prep) {
       : { x: W * 0.05, y: H * 0.085, w: W * 0.9, h: H * 0.46 };
     v.geo = geometry(v.safe.w / v.safe.h, prep, DATA.rowKeys.length);
     v.cams = cameras(DATA, v.geo);
-    // On a phone the hero sits a little farther back, so the headline stays below it.
-    const h = v.cams.hero;
-    if (!wide.matches) v.cams.hero = { ...h, w: h.w * 1.15, h: h.h * 1.15 };
+    for (const cam of Object.values(v.cams)) cam.safe = { ...v.safe };
+    // Phone hero fills the first visible screen (below the masthead, above the dek).
+    if (!wide.matches) {
+      const root = canvas.closest(".w3");
+      const fold = root.getBoundingClientRect().top + scrollY;
+      const vis = Math.max(H * 0.55, H - fold), y = H * 0.10;
+      const h = Math.max(H * 0.45, vis - y - H * 0.03);
+      v.cams.hero.w *= 0.7; v.cams.hero.h *= 0.7;
+      v.cams.hero.safe = { x: W * 0.04, y, w: W * 0.92, h };
+    }
+  };
+  v.insetBox = () => {
+    const s = v.safe, side = Math.min(s.w, s.h) * (v.wide.matches ? 0.36 : 0.42);
+    const pad = v.wide.matches ? 14 : 8;
+    return { x: s.x + s.w - side - pad, y: s.y + pad, w: side, h: side };
   };
   v.sceneCam = (scene) => v.cams[CAM_OF[scene] || "map"];
   /** View and projection for camera c, centered on the safe area by a lens shift. */
   v.matrices = (c, orbit) => {
-    const { W, H, safe } = v, aspect = W / H, tan = Math.tan(FOV / 2);
+    const { W, H } = v, safe = c.safe || v.safe, aspect = W / H, tan = Math.tan(FOV / 2);
     const fitH = c.h / ((safe.h / H) * 2 * tan), fitW = c.w / ((safe.w / W) * aspect * 2 * tan);
     const dist = Math.max(fitH, fitW) * 1.04;
     const ncx = ((safe.x + safe.w / 2) / W) * 2 - 1, ncy = 1 - ((safe.y + safe.h / 2) / H) * 2;

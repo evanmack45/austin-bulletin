@@ -17,6 +17,26 @@ const INTENT = ["scroll", "wheel", "pointerdown", "pointermove", "touchstart", "
 const root = typeof document === "undefined" ? null : document.getElementById("w3");
 if (root) start(root);
 
+/** On a phone, the hero copy starts just below the first screen. */
+function padHero(root, wide) {
+  const step = root.querySelector(".w3-hero-step");
+  if (!step) return;
+  if (wide.matches) { step.style.paddingTop = ""; return; }
+  const top = step.getBoundingClientRect().top + scrollY;
+  step.style.paddingTop = `${Math.max(0, innerHeight - top)}px`;
+}
+
+/** Sit the quiet phone fold title on the first-screen edge, not the stage bottom. */
+function placeFoldtitle(root, wide) {
+  const el = root.querySelector(".w3-foldtitle");
+  const stage = root.querySelector(".w3-stage");
+  if (!el || !stage) return;
+  if (wide.matches) { el.style.bottom = ""; root.classList.remove("is-foldtitle-ready"); return; }
+  const below = Math.max(0, stage.getBoundingClientRect().bottom - innerHeight);
+  el.style.bottom = `${below + 10}px`;
+  root.classList.add("is-foldtitle-ready");
+}
+
 /** Track which caption is active and tell the graphic. */
 function watchSteps(root, stage, wide) {
   const steps = [...root.querySelectorAll(".w3-step")];
@@ -27,6 +47,8 @@ function watchSteps(root, stage, wide) {
     steps.forEach((s, i) => { if (s.getBoundingClientRect().top < line) index = i; });
     const heroTop = steps[0].firstElementChild.getBoundingClientRect().top;
     root.classList.toggle("is-hud-off", !wide.matches && heroTop < innerHeight * 0.3);
+    root.classList.toggle("is-foldtitle-off", !wide.matches && heroTop < innerHeight - 12);
+    placeFoldtitle(root, wide);
     if (index === current) return;
     steps[current]?.classList.remove("is-active");
     current = index;
@@ -44,7 +66,9 @@ function watchSteps(root, stage, wide) {
   const watch = { rootMargin: "0px 0px -18% 0px", threshold: [0, 1] };
   for (const el of [root, ...steps]) new IntersectionObserver(queue, watch).observe(el);
   addEventListener("scroll", queue, { passive: true });
-  addEventListener("resize", queue);
+  addEventListener("resize", () => { padHero(root, wide); placeFoldtitle(root, wide); queue(); });
+  padHero(root, wide);
+  placeFoldtitle(root, wide);
   pickStep();
 }
 

@@ -118,6 +118,7 @@ export function run(ctx) {
   const view = createView(canvas, ctx.wide, DATA, prep);
   const renderer = createRenderer(gl, prep, DATA, request);
   const labels = createLabels(ctx.labels, DATA, prep);
+  const inset = ctx.stage.querySelector(".w3-inset");
   binHexes(prep, DATA.hexR, prep.groupIndex.vehicle).then((bins) => {
     renderer.setHex(hexPass(gl, hexMesh(bins, DATA.hexR)));
     const top = tallest(bins, DATA.hexR);
@@ -136,13 +137,36 @@ export function run(ctx) {
     const m = view.matrices(cam, st.orbit);
     const lines = (st.scene === "hero" ? 0 : 1)
       * blend((l) => (MAP_LIKE.includes(l) ? 1 : 0), st.from, st.to, k);
+    const base = (BASE_A[st.prevScene] ?? 0) * (1 - k) + (BASE_A[st.scene] ?? 0) * k;
     renderer.draw({ m, points: pointValues(st, k, cam, m, view, prep, hdrOn),
-      base: (BASE_A[st.prevScene] ?? 0) * (1 - k) + (BASE_A[st.scene] ?? 0) * k, lines,
+      base, lines,
       hex: { a: HEX_MODE[st.prevScene] ?? 0, b: HEX_MODE[st.scene] ?? 0, mix: k, clock: st.clock,
         h: HEX_H } });
     labels.place(view.toScreen(m), view.geo,
       { scene: st.scene, focus: st.focus, pin, settled: k > 0.85, narrow: view.W < 600,
         clock: st.clock });
+    drawInset(k, base);
+  }
+  const placeInset = (box, show) => {
+    if (!inset) return;
+    inset.hidden = !show;
+    if (!show) return;
+    inset.style.left = `${box.x}px`; inset.style.top = `${box.y}px`;
+    inset.style.width = `${box.w}px`; inset.style.height = `${box.h}px`;
+  };
+  /** Downtown zoom on the wait-color map, so the core is not one overplotted mass. */
+  function drawInset(k, base) {
+    const color = st.scene === "color";
+    const box = view.insetBox();
+    placeInset(box, color && k > 0.55);
+    if ((!color && st.prevScene !== "color") || k <= 0.2) return;
+    const dpr = view.dpr, saved = view.safe, cam = view.cams.downtown;
+    view.safe = box;
+    const m = view.matrices(cam, 0);
+    view.safe = saved;
+    renderer.drawInset({ m, points: pointValues(st, k, cam, m, view, prep, false),
+      base, lines: 1 }, { x: Math.round(box.x * dpr), w: Math.round(box.w * dpr),
+      y: Math.round(canvas.height - (box.y + box.h) * dpr), h: Math.round(box.h * dpr) });
   }
   function frame(now) {
     raf = 0;

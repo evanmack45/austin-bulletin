@@ -211,9 +211,22 @@ export function createRenderer(gl, prep, DATA, onAsset) {
     if (hex && f.hex) hex({ m: f.m, ...f.hex });
     lines(f.m, f.lines);
   };
+  /** Second pass: a boxed zoom, in device pixels, y up from the bottom of the canvas. */
+  const drawInset = (f, r) => {
+    gl.enable(gl.SCISSOR_TEST);
+    gl.viewport(r.x, r.y, r.w, r.h);
+    gl.scissor(r.x, r.y, r.w, r.h);
+    gl.clearColor(0.02, 0.03, 0.06, 1);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    base(f.m, f.base);
+    points(f.points);
+    lines(f.m, f.lines);
+    gl.disable(gl.SCISSOR_TEST);
+    gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+  };
   const resize = (w, h) => { gl.viewport(0, 0, w, h); return hdr.resize(w, h); };
   const setHex = (pass) => { hex = pass; };
-  return { draw, resize, setHex };
+  return { draw, resize, setHex, drawInset };
 }
 
 /* ---------- a small matrix kit ---------- */
