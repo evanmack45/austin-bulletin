@@ -1,0 +1,47 @@
+{
+  "out": "src/images/features/austin-restaurant-inspection-scores",
+  "even": true,
+  "kicker": "AUSTIN FOOD INSPECTIONS · NOV. 2025 TO OCT. 2026",
+  "bignum": "66%",
+  "qualifier": "of routine inspections scored 90 or higher",
+  "headline": "37 of 6,798 routine inspections scored under 70, the City's red band.",
+  "subtitle": "Routine inspections by score in the City's public data",
+  "bars": [
+    {
+      "label": "Under 70",
+      "value": "37",
+      "n": 37
+    },
+    {
+      "label": "70–74",
+      "value": "210",
+      "n": 210
+    },
+    {
+      "label": "75–79",
+      "value": "299",
+      "n": 299
+    },
+    {
+      "label": "80–84",
+      "value": "652",
+      "n": 652
+    },
+    {
+      "label": "85–89",
+      "value": "1,084",
+      "n": 1084
+    },
+    {
+      "label": "90–94",
+      "value": "1,747",
+      "n": 1747
+    },
+    {
+      "label": "95–100",
+      "value": "2,769",
+      "n": 2769,
+      "hi": true
+    }
+  ]
+}
