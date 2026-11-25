@@ -1,7 +1,7 @@
 // The scroll-driven scenes of /austin-311-wait/: state, transitions, the hero
 // time-lapse clock and the per-frame point uniforms.
 import { createRenderer } from "./wait-311-gl.js";
-import { binHexes, hexMesh, hexPass, tallest } from "./wait-311-hex.js";
+import { binHexes, hexMesh, hexPass, slowestVehicle, tallest } from "./wait-311-hex.js";
 import { BINS } from "./wait-311-prep.js";
 import { createView, lerpCam } from "./wait-311-view.js";
 import { createLabels } from "./wait-311-labels.js";
@@ -15,6 +15,7 @@ const BASE_A = { hero: 0.7, map: 1, color: 0.75, terrain: 0.6, hist: 0, rows: 0,
 // 3 = abandoned vehicles, colored by their median wait.
 const HEX_MODE = { hero: 1, terrain: 2, vehicles: 3 };
 const HEX_H = 0.42;             // the tallest column, in map heights
+const COL_SCALE = 0.55;         // share and vehicle columns vs the hero (as in the shader)
 const MAP_LIKE = [0, 1, 4, 6, 7];
 const ORBIT_MS = 12000;         // terrain and vehicles turn slowly for this long, then hold
 const PLAY_MS = 11000;          // the hero time-lapse of the year
@@ -25,12 +26,13 @@ const blend = (f, a, b, k) => f(a) * (1 - k) + f(b) * k;
 function pointLook(st, k, cam, v, prep, hdrOn) {
   const pxPerUnit = v.safe.h / (cam.h || 1);
   const sizeOf = (l) => ({ 2: v.geo.hist.s * pxPerUnit * 1.15, 3: v.geo.rows.s * pxPerUnit * 1.15,
-    5: 1.3, 7: 2.2 }[l] ?? (v.wide.matches ? 1.5 : 1.2));
+    5: 1.3, 7: 1.8 }[l] ?? (v.wide.matches ? 1.5 : 1.2));
   // About one point's worth of light per pixel where points spread evenly; denser
   // places add up and glow in the tone map.
   const area = (l) => v.safe.w * v.safe.h * v.dpr * v.dpr * l;
   const gainOf = (l) => {
-    if (l === 2 || l === 3 || l === 7) return 1;  // piles, and the few left at the end
+    if (l === 2 || l === 3) return 1;
+    if (l === 7) return 0.6;  // the few left at the end, without blooming downtown
     const px = sizeOf(l) * v.dpr;
     return Math.min(1, (area(l === 5 ? 0.22 : 0.35) * 2.2) / (prep.n * px * px));
   };
@@ -120,6 +122,8 @@ export function run(ctx) {
     renderer.setHex(hexPass(gl, hexMesh(bins, DATA.hexR)));
     const top = tallest(bins, DATA.hexR);
     labels.setTower(top.bin, [...top.center, HEX_H]);
+    const veh = slowestVehicle(bins, DATA.hexR);
+    if (veh) labels.setVehicleTop(veh, [...veh.center, HEX_H * COL_SCALE * veh.h]);
     request();
   });
   ctx.updateHud = createHud(ctx.hud, DATA, prep, ctx.data.slot);

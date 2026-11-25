@@ -65,6 +65,9 @@ const MONTHS = ["Jan.", "Feb.", "March", "April", "May", "June", "July", "Aug.",
 export const shortWait = (days) => (days < 1
   ? `${Math.max(1, Math.round(days * 24))} hr`
   : `${(Math.round(days * 10) / 10).toFixed(1)} d`);
+/** "Nov. 27" from an ISO date. */
+export const fmtShort = (iso) =>
+  `${MONTHS[Number(iso.slice(5, 7)) - 1]} ${Number(iso.slice(8, 10))}`;
 export const fmtMonth = (iso) => `${MONTHS[Number(iso.slice(5, 7)) - 1]} ${iso.slice(0, 4)}`;
 
 /** A reader's guess (a wait code) in words, rounded the way people guess. */

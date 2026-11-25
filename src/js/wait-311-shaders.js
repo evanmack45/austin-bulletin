@@ -50,7 +50,7 @@ vec4 place(float id) {
     return vec4(aMap, 0.0, located ? 1.0 : 0.0);
   }
   if (id > 6.5) { // the ending: only duplicates (gray) and still-open requests (white)
-    return vec4(aMap, 0.0, located ? (closed ? 0.06 : 1.0) : 0.0);
+    return vec4(aMap, 0.0, located ? (closed ? 0.03 : 1.0) : 0.0);
   }
   if (id < 1.5 || id > 5.5) { // terrain (1), your wait (6)
     // Terrain: the points lie dim on the ground under the hex columns.
@@ -65,7 +65,7 @@ vec4 place(float id) {
     float cols = uHistCols.x, r = aTR.y;
     float x = uHist.x + (bin + 0.5) * uHist.z + (mod(r, cols) - (cols - 1.0) * 0.5) * uHist.w;
     float y = uHist.y + (floor(r / cols) + 0.5) * uHist.w;
-    return vec4(x, y, 0.0, (closed || open) ? 1.0 : 0.0);
+    return vec4(x, y, 0.0, closed ? 1.0 : 0.0);  // still open has no wait to pile
   }
   if (id < 3.5) { // one pile per problem
     if (aRG.y > 200.0 || !closed) return vec4(aMap * 0.2, 0.0, 0.0);
@@ -107,13 +107,11 @@ void main() {
   if (age < 0.0) vis = 0.0;
   float flash = uClock < 1.05 ? smoothstep(0.012, 0.0, age) : 0.0;
   float code = aMeta.x;
-  vec3 col = code <= 124.0 ? ramp(code) : (code == 126.0 ? vec3(1.0) : vec3(0.42, 0.47, 0.58));
+  // Still open: the long-wait yellow. Duplicates: a gray-blue.
+  vec3 col = code <= 124.0 ? ramp(code)
+    : (code == 126.0 ? vec3(1.0, 0.90, 0.43) : vec3(0.45, 0.58, 0.95));
   vec3 base = vec3(0.62, 0.76, 1.0);
   col = mix(base, col, uColor);
-  // Rings: weekend requests (Saturday and Sunday) are tinted yellow.
-  float ringK = (abs(uFrom - 5.0) < 0.5 ? 1.0 - k : 0.0) + (abs(uTo - 5.0) < 0.5 ? k : 0.0);
-  float weekMin = mod(aTR.x * 15.0 + uRingOffset, 10080.0);
-  col = mix(col, vec3(1.0, 0.90, 0.43), ringK * step(7200.0, weekMin) * 0.85);
   float focus = 1.0;
   if (uFocus.x > 0.5) {
     bool g = uFocus.y < 0.0 || aMeta.y == uFocus.y;
@@ -227,7 +225,7 @@ vec3 colorOf(float mode, float h) {
     vec3 lo = vec3(0.12, 0.3, 1.0), mid = vec3(0.3, 0.85, 1.0), hi = vec3(0.95, 0.98, 1.0);
     return t < 0.5 ? mix(lo, mid, t * 2.0) : mix(mid, hi, t * 2.0 - 1.0);
   }
-  return ramp((mode < 2.5 ? aHex.y : aHex.w) * 124.0);
+  return vec3(0.95, 0.78, 0.35);  // one material: height carries the number
 }
 void main() {
   float ha = heightOf(uA), hb = heightOf(uB);

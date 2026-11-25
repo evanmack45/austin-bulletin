@@ -1,6 +1,6 @@
 // HTML labels pinned to world positions in /austin-311-wait/. Each label keeps a
 // pos(geo) function, so placing them is one loop for every scene.
-import { fmtDays, fmtMonth, minutesCode, shortWait } from "./wait-311-core.js";
+import { fmtDays, fmtMonth, fmtShort, minutesCode, shortWait } from "./wait-311-core.js";
 import { BINS } from "./wait-311-prep.js";
 
 const TICKS = [["1 min", 1], ["1 hr", 60], ["1 day", 1440], ["1 wk", 10080], ["1 mo.", 43200]];
@@ -21,7 +21,8 @@ function districtLabels(add, DATA, prep) {
 function axisLabels(add, DATA) {
   for (const [label, minutes] of TICKS) {
     const code = minutesCode(minutes);
-    add("axis", label, "is-tick", (g) => [xOf(g, code), g.bottom - 0.035, 0]);
+    const el = add("axis", label, "is-tick", (g) => [xOf(g, code), g.bottom - 0.035, 0]);
+    el._wideOnly = label === "1 wk";  // too close to "1 mo." on a phone
   }
   const med = minutesCode(DATA.overall.medianDays * 1440);
   add("axis", `Half closed within <b>${fmtDays(DATA.overall.medianDays)}</b>`, "is-median",
@@ -29,8 +30,6 @@ function axisLabels(add, DATA) {
   const guess = add("axis", "Your guess", "is-guess",
     (g) => [xOf(g, guess._code), g.bottom + 0.6, 0]);
   guess._code = null;
-  add("axis", `Still open<br><b>${DATA.open.toLocaleString("en-US")}</b>`, "is-open",
-    (g) => [g.left + (BINS + 2) * g.binW, g.bottom - 0.04, 0]);
 }
 
 function rowLabels(add, DATA, prep) {
@@ -48,7 +47,7 @@ function rowLabels(add, DATA, prep) {
 function ringLabels(add, DATA, prep) {
   const out = (a, r) => fixed([Math.sin(a) * r, Math.cos(a) * r, 0]);
   // Saturday and Sunday are the last two sevenths of each ring, tinted yellow.
-  add("rings", "Weekends", "is-sector is-weekend", out((6 / 7) * Math.PI * 2, 1.13));
+  add("rings", "Weekends", "is-sector", out((6 / 7) * Math.PI * 2, 1.13));
   add("rings", "Weekdays", "is-sector", out((2.5 / 7) * Math.PI * 2, 1.22));
   const from = Date.parse(`${DATA.from}T00:00:00Z`);
   for (const [i, mk] of (DATA.marks || []).entries()) {
@@ -57,9 +56,10 @@ function ringLabels(add, DATA, prep) {
     const minutes = (Date.parse(`${mk.date}T12:00:00Z`) - from) / 60000 + prep.ringOffset;
     const week = Math.floor(minutes / 10080), a = ((minutes % 10080) / 10080) * Math.PI * 2;
     const r = 0.3 + ((week + 0.5) / prep.ringWeeks) * 0.7;
-    add("rings", "", "is-markdot", out(a, r));
-    const side = i % 2 ? 1 : -1;
-    add("rings", mk.label, `is-mark-out ${side < 0 ? "is-left" : ""}`, out(a - side * 0.3, 1.14));
+    const side = i % 2 ? 1 : -1, date = fmtShort(mk.date);
+    add("rings", `${mk.label} <span>${date}</span>`, `is-mark-out ${side < 0 ? "is-left" : ""}`,
+      out(a - side * 0.3, 1.14));
+    add("rings", "", "is-markdot", out(a + side * 0.04, r));
   }
   add("rings", fmtMonth(DATA.from), "is-ringdate", fixed([0, 0, 0]));
   add("rings", fmtMonth(DATA.to), "is-ringdate is-outer", fixed([0, 1.02, 0]));
@@ -121,7 +121,7 @@ export function districtPlan(DATA, prep, v) {
 }
 
 export function createLabels(container, DATA, prep) {
-  const sets = { districts: [], axis: [], rows: [], rings: [], places: [], tower: [] };
+  const sets = { districts: [], axis: [], rows: [], rings: [], places: [], tower: [], vtop: [] };
   const add = (set, html, cls, pos) => {
     const el = document.createElement("div");
     el.className = `w3-lbl ${cls}`; el.innerHTML = html; el._pos = pos;
@@ -163,7 +163,8 @@ export function createLabels(container, DATA, prep) {
   };
   const placeSet = (els, on, toScreen, geo, v) => {
     const at = on ? els.map((el) => toScreen(el._pos(geo))) : [];
-    const keep = (el) => el._code !== null && !(el._d && only && !only.includes(el._d));
+    const keep = (el) => el._code !== null && !(el._d && only && !only.includes(el._d))
+      && !(el._wideOnly && v.narrow);
     if (on && els[0]?._d) {
       const kept = els.map(keep);
       const moved = spread(at.filter((_, i) => kept[i]), els.filter(keep).map(sizeOf));
@@ -187,7 +188,7 @@ export function createLabels(container, DATA, prep) {
     const show = { districts: ["vehicles", "you", "terrain"].includes(v.scene),
       axis: v.scene === "hist", rows: v.scene === "rows", rings: v.scene === "rings",
       places: v.scene === "color",
-      tower: v.scene === "hero" && v.clock >= 1 };
+      tower: v.scene === "hero" && v.clock >= 1, vtop: v.scene === "vehicles" };
     for (const [set, els] of Object.entries(sets)) {
       placeSet(els, show[set] && v.settled, toScreen, geo, v);
     }
@@ -198,7 +199,12 @@ export function createLabels(container, DATA, prep) {
     const html = `Downtown: <b>${bin.total.toLocaleString("en-US")}</b> requests`;
     add("tower", html, "is-tower", fixed(pos));
   };
+  // The slowest abandoned-vehicle patch, so its height isn't read as a district's.
+  const setVehicleTop = (top, pos) => {
+    const wait = top.days > 60 ? `about ${Math.round(top.days / 30)} months` : fmtDays(top.days);
+    add("vtop", `One patch: <b>${wait}</b> typical wait`, "is-tower", fixed(pos));
+  };
   const guessEl = sets.axis.find((el) => el.classList.contains("is-guess"));
   const setGuess = (code) => { guessEl._code = code ?? null; };
-  return { place, setGuess, setTower };
+  return { place, setGuess, setTower, setVehicleTop };
 }

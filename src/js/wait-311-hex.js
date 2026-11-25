@@ -1,6 +1,6 @@
 // Hex columns for /austin-311-wait/: the located requests binned into hexagons
 // (radius DATA.hexR, about 1 km across), built once into a prism mesh.
-import { LEVELS, minutesCode } from "./wait-311-core.js";
+import { LEVELS, codeMinutes, minutesCode } from "./wait-311-core.js";
 import { program, locate, staticBuffer, attrib, setUniforms } from "./wait-311-gl.js";
 import { HEX_VERT, HEX_FRAG } from "./wait-311-shaders.js";
 
@@ -93,6 +93,17 @@ export function tallest(bins, r) {
 export const slowShare = (b) => (b.closed >= RATE_MIN ? b.slow / b.closed : 0);
 /** Column height for a median vehicle wait code: 3 days flat, 60 days full. */
 export const vehHeight = (c) => Math.max(0.03, (c - VEH_LO) / (VEH_HI - VEH_LO));
+
+/** The patch whose abandoned-vehicle reports waited longest (median), for a label. */
+export function slowestVehicle(bins, r) {
+  const ok = bins.filter((b) => b.veh >= VEH_MIN);
+  if (!ok.length) return null;
+  const med = (b) => median(b.vehHist, b.veh);
+  const bin = ok.reduce((a, b) => (med(b) > med(a) ? b : a));
+  const c = med(bin);
+  return { days: codeMinutes(c) / 1440, n: bin.veh, h: Math.min(1, vehHeight(c)),
+    center: centerOf(bin.q, bin.s, r) };
+}
 
 export function hexMesh(bins, r) {
   const maxTotal = Math.max(...bins.map((b) => b.total));
