@@ -110,6 +110,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/js");
   eleventyConfig.addPassthroughCopy("src/fonts");
   eleventyConfig.addPassthroughCopy("src/images");
+  eleventyConfig.addPassthroughCopy("src/data");
   // Site icons, served from the root where browsers look for them.
   // Generated from src/favicon.svg by `npm run favicon`.
   eleventyConfig.addPassthroughCopy("src/favicon.svg");
