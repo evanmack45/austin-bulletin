@@ -162,3 +162,5 @@ Steps are in `docs/reviews/owner-2026-43.md`.
 - Optional: a working fine-grained GitHub token (issues and actions write
   on both repos) as `GH_TOKEN` in the cloud environment, so the alert
   scripts work there. Without it the owner uses the GitHub MCP tool.
+- Shipped `/austin-restaurant-inspection-scores/` (PR #110, squash 2b2a377), an original data feature from the City's food inspection scores (ecmv-9xxi): 6,798 routine inspections Nov. 1, 2025–Oct. 31, 2026, score bands, a ZIP table (ZIPs with 100+ inspections), and what followed a failing score. No business is named. `scripts/data-inspections.mjs` builds it; each count links to a City query. Linked from the homepage Data features card, Topics nav and the archive.
+- 311 monthly refresh script (`scripts/refresh-311.mjs`, PR #108, squash 9556922); page prose that depends on the numbers is now generated.

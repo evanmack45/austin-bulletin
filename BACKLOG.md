@@ -53,4 +53,5 @@ Any session may add a line. Evan may add or strike lines.
 - `npm run voices` ran twice on 2026-10-12 and billed X twice. Guard
   against a second same-day run.
 
-- Refresh `/austin-311-response-times/` on the first weekday of each month: `node scripts/data-311.mjs`, rerender the chart from `data/311-chart.json` with the new medians, recheck the district sentence (its test fails if the leaders change). Measured by visits to the page.
+- 311 refresh (shipped 2026-11-24, PR #108): `npm run refresh:311` rebuilds the 311 data, chart and `/austin-311-visual/` medians when the page is behind the newest complete month. It is step 2b of the Sites daily routine notes (`/workspace/dash/manage/sites-lean-plan.md`). Measure: the page's "pulled" date is within 5 days of the 1st each month.
+- Inspection scores refresh: `npm run refresh:inspections` rebuilds `/austin-restaurant-inspection-scores/` (data, chart). Run it on the 1st with the 311 refresh; the test fails if a hand-written claim stops holding. Next candidates for a third dataset piece: building permits (`3syk-w9eu`), crashes (`y2wy-tgr5`, lags about 2 weeks).
