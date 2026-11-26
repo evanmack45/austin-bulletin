@@ -18,7 +18,7 @@
       <p class="card-blurb front-deck">{{ lead.deck | tightTokens }}</p>
       <div class="chart">
         <p class="chart-kicker chart-kicker--sentence">{{ lead.chartKicker | tightTokens }}</p>
-        <div class="chart-bars chart-bars--bids" style="--bar-count: {{ lead.bars | length }}" role="img" aria-label="{{ lead.chartAlt | escape }}">
+        <div class="chart-bars chart-bars--bids{% if lead.bars | length > 8 %} chart-bars--many{% endif %}" style="--bar-count: {{ lead.bars | length }}" role="img" aria-label="{{ lead.chartAlt | escape }}">
           {% for bar in lead.bars %}
           <div class="chart-col" style="--delay: {{ loop.index0 * 50 }}ms">
             <span class="bar-value{% if bar.hi %} is-hi{% endif %}" data-budget-exempt>{{ bar.value | escape }}</span>
