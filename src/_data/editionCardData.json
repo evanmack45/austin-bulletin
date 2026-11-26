@@ -299,7 +299,7 @@
         "deck": "Bell led on aviation and cabin scores but ranked last of four on initial cost. First delivery: December 2027.",
         "chartTitle": "How the county scored the helicopter bids (out of 100)",
         "chartAlt": "Chart: Bell Textron scored 71.68 of 100, ahead of Agustawestland 53.17, Airbus 51.89 and Davenport 46.16.",
-        "sourcePrefix": "Source: Travis County Final RFP Evaluation Matrix, RFP 196-JJ (Nov. 10 agenda packet, p.\u00a0822).",
+        "sourcePrefix": "Source: Travis County Final RFP Evaluation Matrix, RFP 196-JJ (Nov. 10 agenda packet, p. 822).",
         "bars": [
           {
             "label": "Bell Textron",
@@ -699,10 +699,27 @@
         "chartTitle": "New single-family house permits, January–October",
         "chartAlt": "Bar chart: Austin permits for new single-family houses, January through October: 1,348 in 2023, 1,498 in 2024, 1,743 in 2025 and 1,845 in 2026.",
         "bars": [
-          { "label": "2023", "value": "1,348", "p": 73.1 },
-          { "label": "2024", "value": "1,498", "p": 81.2 },
-          { "label": "2025", "value": "1,743", "p": 94.5 },
-          { "label": "2026", "value": "1,845", "p": 100, "hi": true }
+          {
+            "label": "2023",
+            "value": "1,348",
+            "p": 73.1
+          },
+          {
+            "label": "2024",
+            "value": "1,498",
+            "p": 81.2
+          },
+          {
+            "label": "2025",
+            "value": "1,743",
+            "p": 94.5
+          },
+          {
+            "label": "2026",
+            "value": "1,845",
+            "p": 100,
+            "hi": true
+          }
         ],
         "method": [
           "These are City of Austin building permits for new single-family houses, not homes finished or sold. Duplexes, apartments and accessory units are not included. A few addresses carry more than one permit. Recent months can be revised. The data does not say why permits rose.",
@@ -807,7 +824,6 @@
       }
     ]
   },
-
   "2026-11-24": {
     "cards": [
       {
@@ -1159,6 +1175,199 @@
         },
         "headline": "A sunny, cool Thanksgiving",
         "summary": "Low near 33 tonight. Friday warms to near 66 and Saturday to near 72.",
+        "sources": [
+          {
+            "label": "NWS forecast",
+            "url": "https://forecast.weather.gov/MapClick.php?lat=30.2672&lon=-97.7431"
+          }
+        ]
+      }
+    ]
+  },
+  "2026-11-26": {
+    "cards": [
+      {
+        "id": "shelter-adoptions-november",
+        "lead": true,
+        "section": "news",
+        "label": "Bulletin original",
+        "bignum": "443",
+        "qualifier": "shelter adoptions, Nov. 1–25",
+        "headline": "Shelter adoptions near last year's pace",
+        "deck": "Austin Animal Center recorded 443 adoptions from Nov. 1 to 25, compared with 455 on the same days of 2025.",
+        "summary": "Cats and kittens were 243 of this month's adoptions. The shelter is closed Thursday and Friday.",
+        "showSummary": true,
+        "sourceLine": true,
+        "chartKicker": "Shelter adoptions, by month",
+        "chartTitle": "Shelter adoptions, by month",
+        "chartAlt": "Bar chart: Austin Animal Center adoptions by month: 478 in Dec. 2025, 383 in Jan., 384 in Feb., 408 in March, 407 in April, 506 in May, 603 in June, 601 in July, 704 in Aug., 535 in Sept., 565 in Oct., and 443 from Nov. 1 to 25, 2026.",
+        "bars": [
+          {
+            "label": "Dec",
+            "value": "478",
+            "p": 67.9
+          },
+          {
+            "label": "Jan",
+            "value": "383",
+            "p": 54.4
+          },
+          {
+            "label": "Feb",
+            "value": "384",
+            "p": 54.5
+          },
+          {
+            "label": "Mar",
+            "value": "408",
+            "p": 58.0
+          },
+          {
+            "label": "Apr",
+            "value": "407",
+            "p": 57.8
+          },
+          {
+            "label": "May",
+            "value": "506",
+            "p": 71.9
+          },
+          {
+            "label": "Jun",
+            "value": "603",
+            "p": 85.7
+          },
+          {
+            "label": "Jul",
+            "value": "601",
+            "p": 85.4
+          },
+          {
+            "label": "Aug",
+            "value": "704",
+            "p": 100.0
+          },
+          {
+            "label": "Sep",
+            "value": "535",
+            "p": 76.0
+          },
+          {
+            "label": "Oct",
+            "value": "565",
+            "p": 80.3
+          },
+          {
+            "label": "Nov*",
+            "value": "443",
+            "p": 62.9,
+            "hi": true
+          }
+        ],
+        "method": [
+          "These are Austin Animal Center outcome records whose status begins with \"Adopted\", including offsite adoptions, counted by outcome date. November 2026 runs from Nov. 1 through Nov. 25. Records can still change.",
+          "Source: City of Austin, Austin Animal Center Outcomes (gsvs-ypi7), as of Nov. 26, 2026."
+        ],
+        "sources": [
+          {
+            "label": "City data",
+            "url": "https://data.austintexas.gov/resource/gsvs-ypi7.json?$query=SELECT%20date_extract_y%28outcome_date%29%20AS%20year%2C%20count%28%2A%29%20AS%20adoptions%20WHERE%20starts_with%28outcome_status%2C%27Adopted%27%29%20AND%20date_extract_m%28outcome_date%29%3D11%20AND%20date_extract_d%28outcome_date%29%3C%3D25%20GROUP%20BY%20year%20ORDER%20BY%20year"
+          }
+        ]
+      },
+      {
+        "id": "aus-october-record",
+        "section": "news",
+        "glyph": {
+          "value": "2.11M",
+          "qualifier": "October passengers"
+        },
+        "headline": "AUS sets its busiest month ever",
+        "summary": "The airport served 2,109,755 passengers in October. Its busiest day ever was Oct. 26, with 46,963.",
+        "sources": [
+          {
+            "label": "Austin-Bergstrom",
+            "url": "https://www.flyaustin.com/news/october-2026-passenger-cargo-traffic-austin-bergstrom-international-airport"
+          }
+        ]
+      },
+      {
+        "id": "travis-county-ranch-park",
+        "section": "news",
+        "icon": "tree",
+        "topic": "Travis County",
+        "headline": "Travis County buys a ranch for a park",
+        "summary": "The county paid $62 million for 952 acres of Southwest Stallion Station near Elgin. Opening could take four years.",
+        "sources": [
+          {
+            "label": "Austin Chronicle",
+            "url": "https://www.austinchronicle.com/news/travis-countys-purchase-protects-nearly-1000-acres-from-developers/"
+          },
+          {
+            "label": "Travis County",
+            "url": "https://www.traviscountytx.gov/images/commissioners_court/Doc/FINAL_Stallion_Station_Announcement-20261116.pdf"
+          }
+        ]
+      },
+      {
+        "id": "city-credit-card-audit",
+        "section": "news",
+        "glyph": {
+          "value": "$44.6M",
+          "qualifier": "on City cards"
+        },
+        "signupBreak": true,
+        "headline": "Audit flags City credit card spending",
+        "summary": "Austin's 1,571 staff cards carried $44.6 million in fiscal 2025, versus $10.1 million in Fort Worth. Auditors found no fraud.",
+        "sources": [
+          {
+            "label": "Austin Current",
+            "url": "https://austincurrent.org/2026/11/19/austin-audit-city-expenses-oversight/"
+          }
+        ]
+      },
+      {
+        "id": "council-dec-3-agenda",
+        "section": "notices",
+        "icon": "bank",
+        "topic": "City Council",
+        "headline": "Council posts a 76-item Dec. 3 agenda",
+        "summary": "It includes the Muny and UT agreement, data center licenses and up to $211 million in debt for City buildings.",
+        "sources": [
+          {
+            "label": "Legistar",
+            "url": "https://austintexas.legistar.com/MeetingDetail.aspx?LEGID=4082&GID=684&G=4BED8896-C64D-4912-8005-D624C5197AA5"
+          },
+          {
+            "label": "Draft agenda",
+            "url": "https://services.austintexas.gov/edims/document.cfm?id=485964"
+          }
+        ]
+      },
+      {
+        "id": "cold-weather-shelters",
+        "section": "notices",
+        "icon": "house",
+        "topic": "Cold weather",
+        "headline": "Cold weather shelters opened Wednesday night",
+        "summary": "The City opens them when Camp Mabry is forecast at 35 degrees or below. Call 512-972-5055 for details.",
+        "sources": [
+          {
+            "label": "KXAN",
+            "url": "https://www.kxan.com/news/local/austin/austin-cold-weather-shelters-opening-wednesday-evening/"
+          }
+        ]
+      },
+      {
+        "id": "sunny-thanksgiving-freeze",
+        "section": "good",
+        "icon": "sun",
+        "glyph": {
+          "value": "59°",
+          "qualifier": "Thanksgiving high"
+        },
+        "headline": "A frosty start, then sun",
+        "summary": "A freeze warning runs until 9 a.m. Friday warms to near 67 and Saturday to near 73.",
         "sources": [
           {
             "label": "NWS forecast",
