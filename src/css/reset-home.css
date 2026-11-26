@@ -799,3 +799,12 @@
   /* The lead card is a two-column grid with fixed rows: the art sits under the text column. */
   .story-card--lead .lead-art { grid-column: 1; grid-row: 6; align-self: end; margin: .9rem 0 0; }
 }
+
+/* Nine or more bars: on phones, two rows of columns so three-digit
+   values stay apart instead of running together. */
+@media (max-width: 767px) {
+  .home-front .chart-bars--bids.chart-bars--many {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    row-gap: var(--s3);
+  }
+}
