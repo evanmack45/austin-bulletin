@@ -1376,5 +1376,182 @@
         ]
       }
     ]
+  },
+  "2026-11-27": {
+    "cards": [
+      {
+        "id": "thanksgiving-traffic-incidents",
+        "lead": true,
+        "section": "news",
+        "label": "Bulletin original",
+        "bignum": "77",
+        "qualifier": "traffic incidents, Thanksgiving Day",
+        "headline": "Fewer traffic incidents on the holiday",
+        "deck": "Austin-Travis County logged 77 traffic incidents on Thanksgiving, down from 128 the Thursday before.",
+        "summary": "The busiest Thanksgiving since 2018 was 2022, with 101. The quietest was 2018, with 58.",
+        "showSummary": true,
+        "sourceLine": true,
+        "chartKicker": "Thanksgiving Day traffic incidents, by year",
+        "chartTitle": "Thanksgiving Day traffic incidents, by year",
+        "chartAlt": "Bar chart: traffic incidents logged in Austin-Travis County on Thanksgiving Day: 58 in 2018, 86 in 2019, 63 in 2020, 82 in 2021, 101 in 2022, 72 in 2023, 81 in 2024, 71 in 2025 and 77 in 2026.",
+        "bars": [
+          {
+            "label": "2018",
+            "value": "58",
+            "p": 57.4
+          },
+          {
+            "label": "2019",
+            "value": "86",
+            "p": 85.1
+          },
+          {
+            "label": "2020",
+            "value": "63",
+            "p": 62.4
+          },
+          {
+            "label": "2021",
+            "value": "82",
+            "p": 81.2
+          },
+          {
+            "label": "2022",
+            "value": "101",
+            "p": 100.0
+          },
+          {
+            "label": "2023",
+            "value": "72",
+            "p": 71.3
+          },
+          {
+            "label": "2024",
+            "value": "81",
+            "p": 80.2
+          },
+          {
+            "label": "2025",
+            "value": "71",
+            "p": 70.3
+          },
+          {
+            "label": "2026",
+            "value": "77",
+            "p": 76.2,
+            "hi": true
+          }
+        ],
+        "method": [
+          "These are incidents in the City's real-time traffic incident feed from the Combined Transportation, Emergency and Communications Center, counted from midnight to midnight Central on each Thanksgiving Day and on Thursday, Nov. 19, 2026. The feed lists reported incidents, including crashes, hazards and stalled vehicles, and records can change.",
+          "Source: City of Austin, Real-Time Traffic Incident Reports (dx9v-zd7x), as of Nov. 27, 2026."
+        ],
+        "sources": [
+          {
+            "label": "City data",
+            "url": "https://data.austintexas.gov/resource/dx9v-zd7x.json?$query=SELECT%20date_trunc_ymd%28to_floating_timestamp%28published_date%2C%27America/Chicago%27%29%29%20AS%20day%2C%20count%28%2A%29%20AS%20incidents%20WHERE%20date_trunc_ymd%28to_floating_timestamp%28published_date%2C%27America/Chicago%27%29%29%20IN%20%28%272018-11-22%27%2C%272019-11-28%27%2C%272020-11-26%27%2C%272021-11-25%27%2C%272022-11-24%27%2C%272023-11-23%27%2C%272024-11-28%27%2C%272025-11-27%27%2C%272026-11-19%27%2C%272026-11-26%27%29%20GROUP%20BY%20day%20ORDER%20BY%20day"
+          }
+        ]
+      },
+      {
+        "id": "aisd-meal-debt",
+        "section": "news",
+        "glyph": {
+          "value": "$600K",
+          "qualifier": "a year in courtesy meals"
+        },
+        "headline": "AISD asks for help with school meal debt",
+        "summary": "The district serves about 800 courtesy meals a day, nearly $600,000 a year. Donations pay down negative student meal accounts.",
+        "sources": [
+          {
+            "label": "KXAN",
+            "url": "https://www.kxan.com/news/local/austin/austin-isd-asks-for-donations-to-help-support-student-meal-accounts-in-need/"
+          },
+          {
+            "label": "Austin ISD",
+            "url": "https://www.austinisd.org/nutrition-food-services/faqs"
+          }
+        ]
+      },
+      {
+        "id": "robotaxi-incident-reports",
+        "section": "news",
+        "glyph": {
+          "value": "249",
+          "qualifier": "robotaxi incident reports"
+        },
+        "signupBreak": true,
+        "headline": "Robotaxi incident reports in Austin reach 249",
+        "summary": "Operators have reported 249 Austin incidents to federal regulators since October 2023. At least 14 people reported minor injuries.",
+        "sources": [
+          {
+            "label": "KXAN",
+            "url": "https://www.kxan.com/traffic/transportation/does-texas-law-keep-pace-with-austins-self-driving-taxi-boom-experts-weigh-in/"
+          }
+        ]
+      },
+      {
+        "id": "runoff-early-voting",
+        "section": "notices",
+        "icon": "ballot",
+        "topic": "Dec. 12 runoff",
+        "headline": "Runoff early voting starts Monday",
+        "summary": "Any Travis County site, Nov. 30 to Dec. 8, 7 a.m. to 7 p.m. Sunday hours: noon to 6 p.m.",
+        "sources": [
+          {
+            "label": "Travis County Clerk",
+            "url": "https://votetravis.gov/current-election-information/current-election/"
+          }
+        ]
+      },
+      {
+        "id": "public-safety-committee-nov-30",
+        "section": "notices",
+        "icon": "shield",
+        "topic": "City Council",
+        "headline": "Forensic lab briefing at Monday's safety committee",
+        "summary": "The committee meets at 2 p.m. Nov. 30 at City Hall to hear how Austin Forensic Science checks its quality.",
+        "sources": [
+          {
+            "label": "Legistar",
+            "url": "https://austintexas.legistar.com/MeetingDetail.aspx?LEGID=4237&GID=684&G=4BED8896-C64D-4912-8005-D624C5197AA5"
+          }
+        ]
+      },
+      {
+        "id": "friendsgiving-food-bank",
+        "section": "good",
+        "icon": "people",
+        "glyph": {
+          "value": "$236K",
+          "qualifier": "for the food bank"
+        },
+        "headline": "Friendsgiving drive beats last year",
+        "summary": "KXAN's Friendsgiving Challenge raised more than $236,000 for the Central Texas Food Bank, up from almost $203,000 in 2025.",
+        "sources": [
+          {
+            "label": "KXAN",
+            "url": "https://www.kxan.com/weather/forecast/chilly-thanksgiving-morning-warm-afternoon/"
+          }
+        ]
+      },
+      {
+        "id": "sunny-weekend-front",
+        "section": "good",
+        "icon": "sun",
+        "glyph": {
+          "value": "74°",
+          "qualifier": "Saturday high"
+        },
+        "headline": "Sunny all weekend, cooler Sunday",
+        "summary": "Highs near 69 Friday and 74 Saturday. A north wind gusting to 35 mph drops Sunday to near 64.",
+        "sources": [
+          {
+            "label": "NWS forecast",
+            "url": "https://forecast.weather.gov/MapClick.php?lat=30.2672&lon=-97.7431"
+          }
+        ]
+      }
+    ]
   }
 }
