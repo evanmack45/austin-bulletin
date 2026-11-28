@@ -1553,5 +1553,176 @@
         ]
       }
     ]
+  },
+  "2026-11-28": {
+    "cards": [
+      {
+        "id": "shoplifting-reports",
+        "lead": true,
+        "section": "news",
+        "label": "Bulletin original",
+        "bignum": "2,145",
+        "qualifier": "shoplifting reports, Jan. to Oct.",
+        "headline": "Shoplifting reports dip after three years of increases",
+        "deck": "Police logged 2,145 shoplifting reports from January through October, down 7.4% from 2,317 a year earlier.",
+        "summary": "Reports bottomed out at 1,332 in 2022, then rose three years running. 2019 had the most since then, with 2,594.",
+        "showSummary": true,
+        "sourceLine": true,
+        "chartKicker": "Shoplifting reports, January through October",
+        "chartTitle": "Shoplifting reports, January through October",
+        "chartAlt": "Bar chart: shoplifting reports to Austin police from January through October: 2,594 in 2019, 2,191 in 2020, 1,680 in 2021, 1,332 in 2022, 1,452 in 2023, 1,916 in 2024, 2,317 in 2025 and 2,145 in 2026.",
+        "bars": [
+          {
+            "label": "2019",
+            "value": "2,594",
+            "p": 100.0
+          },
+          {
+            "label": "2020",
+            "value": "2,191",
+            "p": 84.5
+          },
+          {
+            "label": "2021",
+            "value": "1,680",
+            "p": 64.8
+          },
+          {
+            "label": "2022",
+            "value": "1,332",
+            "p": 51.3
+          },
+          {
+            "label": "2023",
+            "value": "1,452",
+            "p": 56.0
+          },
+          {
+            "label": "2024",
+            "value": "1,916",
+            "p": 73.9
+          },
+          {
+            "label": "2025",
+            "value": "2,317",
+            "p": 89.3
+          },
+          {
+            "label": "2026",
+            "value": "2,145",
+            "p": 82.7,
+            "hi": true
+          }
+        ],
+        "method": [
+          "These are Austin Police Department reports with the offense type \"theft by shoplifting,\" counted by the date the theft happened, Jan. 1 through Oct. 31 of each year. Police can add late reports, so recent counts may still rise a little.",
+          "Source: City of Austin, APD Crime Reports (fdj4-gpfu), as of Nov. 28, 2026."
+        ],
+        "sources": [
+          {
+            "label": "City data",
+            "url": "https://data.austintexas.gov/resource/fdj4-gpfu.json?$query=SELECT%20date_extract_y%28occ_date%29%20AS%20year%2C%20count%28%2A%29%20AS%20reports%20WHERE%20crime_type%3D%27THEFT%20BY%20SHOPLIFTING%27%20AND%20occ_date%20%3E%3D%20%272019-01-01T00%3A00%3A00%27%20AND%20date_extract_m%28occ_date%29%20%3C%3D%2010%20GROUP%20BY%20year%20ORDER%20BY%20year"
+          }
+        ]
+      },
+      {
+        "id": "homeless-diversion-pilot",
+        "section": "news",
+        "glyph": {
+          "value": "$1,101",
+          "qualifier": "average help per household"
+        },
+        "headline": "Homeless diversion pilot kept most families housed",
+        "summary": "Of 336 households in the City-funded pilot, 83.6% found permanent homes. UT researchers found 90% still housed six months later.",
+        "sources": [
+          {
+            "label": "City memo",
+            "url": "https://services.austintexas.gov/edims/document.cfm?id=486008"
+          },
+          {
+            "label": "KXAN",
+            "url": "https://www.kxan.com/news/local/austin/over-80-of-participants-in-city-homelessness-diversion-pilot-exited-to-stable-housing-ut-study-finds/"
+          }
+        ]
+      },
+      {
+        "id": "north-lamar-bicyclist-killed",
+        "section": "news",
+        "icon": "bike",
+        "headline": "Bicyclist killed on North Lamar",
+        "summary": "A driver struck and killed a bicyclist near North Lamar Boulevard and Cooper Drive around midnight. Police arrested the driver.",
+        "signupBreak": true,
+        "sources": [
+          {
+            "label": "KXAN",
+            "url": "https://www.kxan.com/news/local/austin/driver-arrested-after-deadly-crash-involving-bicyclist-in-north-austin/"
+          }
+        ]
+      },
+      {
+        "id": "lago-vista-stage-5",
+        "section": "news",
+        "glyph": {
+          "value": "400K",
+          "qualifier": "gallons a day to cut"
+        },
+        "headline": "Lago Vista still short of its water target",
+        "summary": "Use is stuck near 1.4 million gallons a day under Stage 5. Plant repairs need about 400,000 gallons less.",
+        "sources": [
+          {
+            "label": "KVUE",
+            "url": "https://www.kvue.com/article/news/local/lago-vista-residents-stage-5-water-restriction/269-3577d458-c0b2-45c6-8922-32271b9f107f"
+          }
+        ]
+      },
+      {
+        "id": "runoff-early-voting-monday",
+        "section": "notices",
+        "icon": "ballot",
+        "topic": "Dec. 12 runoff",
+        "headline": "Early voting in the runoff starts Monday",
+        "summary": "Any Travis County site, Nov. 30 to Dec. 8, 7 a.m. to 7 p.m. Mail ballot applications due Dec. 1.",
+        "sources": [
+          {
+            "label": "Travis County Clerk",
+            "url": "https://votetravis.gov/current-election-information/current-election/"
+          }
+        ]
+      },
+      {
+        "id": "longhorns-beat-aggies",
+        "section": "good",
+        "icon": "people",
+        "glyph": {
+          "value": "16-6",
+          "qualifier": "at Kyle Field"
+        },
+        "headline": "Longhorns beat A&M, head to Atlanta",
+        "summary": "Texas won 16-6 in College Station and plays Georgia for the SEC title Dec. 5 at 3 p.m.",
+        "sources": [
+          {
+            "label": "Texas Athletics",
+            "url": "https://texaslonghorns.com/news/2026/11/27/football-no-5-6-3-clinches-sec-championship-berth-with-16-6-win-at-texas-am"
+          }
+        ]
+      },
+      {
+        "id": "windy-cooler-sunday",
+        "section": "good",
+        "icon": "sun",
+        "glyph": {
+          "value": "63°",
+          "qualifier": "Sunday high"
+        },
+        "headline": "Sunny today, windy and cooler Sunday",
+        "summary": "Near 74 today. A north wind gusting to 35 mph holds Sunday near 63, then a low around 39.",
+        "sources": [
+          {
+            "label": "NWS forecast",
+            "url": "https://forecast.weather.gov/MapClick.php?lat=30.2672&lon=-97.7431"
+          }
+        ]
+      }
+    ]
   }
 }
